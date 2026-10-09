@@ -51,7 +51,7 @@ a.link{display:inline-block;border:1px solid var(--line);border-radius:8px;paddi
 a.link:hover{border-color:var(--lime)}
 footer{color:var(--soft);padding:26px 0;margin-top:42px;border-top:1px solid var(--line);font-size:12px}
 @media(max-width:620px){.hero{grid-template-columns:1fr;padding:25px 0}.stamp{text-align:left}.ribbon{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi:nth-child(2){border-right:0}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}.kpi:nth-child(3){padding-left:0}.twocol{grid-template-columns:1fr}}
-</style></head><body><main>
+</style><link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a><a href="./engine-v2.html" aria-current="page">SCANNER</a><a href="./multisports.html">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main>
 <header><div class="logo">REVUE<span style="color:var(--lime)"> / </span>ENGINE</div>
 <div class="live"><span class="dot"></span><span id="runtime">État du moteur…</span></div></header>
 <div class="hero"><div><div class="mini">LABORATOIRE INDÉPENDANT · VERSION 2</div>
@@ -150,6 +150,11 @@ async function load(){
    fetch("engine-v2-ledger.json?v="+Date.now(),{cache:"no-store"})]);
   if(!a.ok||!b.ok)throw Error("Rapport non publié");
   data=await a.json();ledger=await b.json();
+  // Hide any pre-removal CFB snapshots until all JSON files refresh.
+  data.candidates=(data.candidates||[]).filter(x=>x.league!=="CFB");
+  data.candidate_count=data.candidates.length;
+  data.coverage.eligible_leagues=(data.coverage?.eligible_leagues||[]).filter(x=>x!=="CFB");
+  ledger.bets=(ledger?.bets||[]).filter(x=>x.league!=="CFB");
   $("runtime").textContent=String(data.odds_status).startsWith("active")?"Radar connecté · simulations uniquement":"Collecte des cotes inactive";
   $("updated").textContent=formatTime(data.generated_at_utc);
   $("mode").textContent=data.mode;
