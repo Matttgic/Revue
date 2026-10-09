@@ -35,7 +35,8 @@ function vmFn(source, names, env) {
 let checks = 0;
 const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
                  frontend_soccer_market_blend: 0, frontend_soccer_mc: 0,
-                 frontend_nba_mc: 0 };
+                 frontend_nba_mc: 0, frontend_nfl_mc: 0,
+                 frontend_nfl_ensemble: 0 };
 function compare(label, name, target, actual) {
   const left = JSON.stringify(target), right = JSON.stringify(actual);
   assert.equal(right, left, "Parity difference on " + label + ": " + right + " vs " + left);
@@ -202,6 +203,86 @@ function verify(source) {
         teams:c.teams,random:r2
       }));
   }
+  const fullNFL={
+    standings:{
+      KC:{wins:10,losses:5,ties:0,differential:80},
+      SF:{wins:7,losses:8,ties:0,differential:-21}
+    },
+    stats:{
+      KC:{
+        offense:{netPassingYardsPerGame:253,rushingYardsPerGame:124,totalPointsPerGame:27.5},
+        defenseAllowed:{yardsPerGame:334,totalTakeaways:19,totalPointsPerGame:20.6}
+      },
+      SF:{
+        offense:{netPassingYardsPerGame:227,rushingYardsPerGame:139,totalPointsPerGame:24.2},
+        defenseAllowed:{yardsPerGame:352,totalTakeaways:15,totalPointsPerGame:25.8}
+      }
+    }
+  };
+  const injured={
+    KC:{pts:2.5,players:[{name:"Starting QB",pos:"QB",status:"Out",pts:2.5}],any:true},
+    SF:{pts:.4,players:[{name:"RB1",pos:"RB",status:"Questionable",pts:.4}],any:true}
+  };
+  const wxCache={ "G9":{wind:23,precip:45,snow:0,temp:30},
+                  "G10":{wind:5,precip:0,snow:.5,temp:20} };
+  const nflCases=[
+    {label:"missing NFL source",data:null,game:{id:"G1"},n:130},
+    {label:"no points history no spread",data:{standings:{},stats:{}},game:{id:"G1"},n:130},
+    {label:"fallback to market spread",data:{standings:{},stats:{}},game:{id:"G1",spread:-6.5},n:270},
+    {label:"full regular season",data:fullNFL,game:{id:"G1"},n:340,ou:45.5},
+    {label:"neutral ground",data:fullNFL,game:{id:"G2",neutralSite:true},n:300,ou:43.5},
+    {label:"missing team passing stats",data:{standings:fullNFL.standings,stats:{}},game:{id:"G3"},n:340},
+    {label:"injury both teams",data:fullNFL,game:{id:"G4",spread:-3},n:350,injuries:injured},
+    {label:"unverified weather custom wind",data:fullNFL,game:{id:"G9"},n:300,weather:wxCache},
+    {label:"hard snow and frozen ground",data:fullNFL,game:{id:"G10"},n:350,weather:wxCache},
+    {label:"all default 15000 iterations",data:fullNFL,game:{id:"G12"},n:15000,ou:44.5},
+  ];
+  function simulateNFL(c,mode,i){
+    const seed=5541+i*997;
+    const r1=seeded(seed),r2=seeded(seed);
+    const math=Object.create(Math);math.random=r1;
+    const dummy=(team)=>c.injuries?.[team]||{pts:0,players:[],any:false};
+    const env={
+      _NFL_DATA:c.data, Math:math, _NFL_LG_TOTAL:44,
+      _NFL_SIGMA_MARGIN:13.5,_NFL_SIGMA_TOTAL:10.0,
+      NFL_INJ_TOTAL_SHARE:.5,
+      _CFB_WX_CACHE:c.weather||{},
+      window:{NFL_HFA_PTS:1.8,NFL_ENS:c.weights||{mc:.75,bay:.25}},
+      _nflInjAdj:dummy,
+    };
+    if(c.calibrator)env.sportCalibrate=c.calibrator;
+    const functions=["_nflHFA","_boxMullerZ","_forceHalfLine",
+                     "cfbWeatherImpact","nflMC"];
+    if(mode==="ensemble")functions.push("_nflBayes","nflEns");
+    const context=vmFn(source,functions,env);
+    const game=c.game||null;
+    if(mode==="mc"){
+      compare(c.label,"frontend_nfl_mc",
+        context.nflMC("KC","SF",c.n,c.ou,game),
+        own.nflMonteCarlo("KC","SF",c.n,c.ou,game,{
+          data:c.data,weather:c.weather||{},random:r2,injury:dummy
+        }));
+    }else{
+      compare(c.label,"frontend_nfl_ensemble",
+        context.nflEns("KC","SF",c.ou,game),
+        own.nflEnsemble("KC","SF",c.ou,game,{
+          data:c.data,weather:c.weather||{},random:r2,injury:dummy,
+          weights:c.weights||{mc:.75,bay:.25},calibrator:c.calibrator
+        }));
+    }
+  }
+  nflCases.forEach((c,i)=>simulateNFL(c,"mc",i));
+  const ensembleCases=[
+    {label:"NFL ensemble missing source",data:null,game:{id:"G1"}},
+    {label:"NFL ensemble full season",data:fullNFL,game:{id:"G1"},ou:46.5},
+    {label:"NFL ensemble injury override",data:fullNFL,game:{id:"G4"},injuries:injured,ou:43.5},
+    {label:"NFL ensemble rainy neutral game",data:fullNFL,game:{id:"G9",neutralSite:true},
+     weather:wxCache,ou:40.5,weights:{mc:.82,bay:.18},
+     calibrator:(p)=>Math.max(.07,Math.min(.93,p*.96+.022))},
+    {label:"NFL ensemble market fallback",data:{standings:{},stats:{}},
+     game:{id:"G13",spread:-5.5},ou:42.5,weights:{mc:.6,bay:.4}},
+  ];
+  ensembleCases.forEach((c,i)=>simulateNFL(c,"ensemble",50+i));
   return checks;
 }
 
