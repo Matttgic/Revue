@@ -75,6 +75,47 @@ TECH={
                 "walk_forward","settle","lock","roi","clv"],
 }
 
+def inspect_frontend_model_symbols(root: Path) -> dict:
+    """Inspect large inline frontend model without embedding any source code.
+
+    We keep only declared JS function names and line positions. The public
+    model actually runs in docs/app.html; Python-only audits miss it.
+    """
+    page=root/"docs/app.html"
+    if not page.is_file():
+        return {"status":"missing","named_function_count":0,"model_symbols":[]}
+    source=page.read_text(encoding="utf-8",errors="replace")
+    if not source:
+        return {"status":"empty","named_function_count":0,"model_symbols":[]}
+    names={}
+    patterns=(
+        r"\bfunction\s+([A-Za-z_$][\w$]*)\s*\(",
+        r"\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?function\s*\(",
+        r"\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?\([^\n]{0,160}?\)\s*=>",
+    )
+    flags=("nhl","nba","mlb","nfl","cfb","soccer","foot","hockey","goalie",
+           "elo","poisson","bayes","ensemble","xg","predict","simulat",
+           "backtest","calibr","injur","spread","market","margin",
+           "model","prob","odds","prior","rate","line")
+    for pattern in patterns:
+        for hit in re.finditer(pattern,source):
+            name=hit.group(1)
+            names.setdefault(name,source.count("\n",0,hit.start())+1)
+    found=[{"name":name,"line":line} for name,line in sorted(names.items(),
+             key=lambda x:x[1])
+             if any(k in name.lower() for k in flags)]
+    return {
+        "status":"read_only_symbol_index",
+        "source":"docs/app.html",
+        "source_bytes":len(source.encode("utf-8")),
+        "named_function_count":len(names),
+        "model_related_count":len(found),
+        "model_symbols":found[:300],
+        "symbols_truncated":len(found)>300,
+        "note":"Function names only, no original JS source or model weights exported.",
+    }
+
+
 def root_relative(directory:Path,filepath:Path)->str:
     return filepath.relative_to(directory).as_posix()
 
@@ -141,6 +182,7 @@ def inventory(root:Path,project:Path|None=None,now:datetime|None=None)->dict:
             "python_functions":sum(x["function_count"] for x in functions),
             "python_parse_errors":len(parse_errors),
         },
+        "frontend_model_symbols":inspect_frontend_model_symbols(root),
         "extensions":dict(extensions.most_common()),
         "source_areas":areas,
         "parsed_python_functions":functions,
@@ -172,6 +214,9 @@ def main():
           "py",report["counts"]["python_files"],
           "functions",report["counts"]["python_functions"],
           "license",report["copyright"]["license_file_present"])
+    print("Frontend model functions:",
+          report["frontend_model_symbols"]["named_function_count"],
+          "model-related:",report["frontend_model_symbols"].get("model_related_count",0))
     for k,v in report["source_areas"].items():
         print(f"  {k}: {v['original_file_count']} files; status={v['current_status']}")
 
