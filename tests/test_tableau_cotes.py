@@ -3,7 +3,7 @@ import unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
 from outils.tableau_cotes import build_board,selections
-from tests.test_revue_engine_v2 import quotes,models,NOW,START
+from test_revue_engine_v2 import quotes,models,NOW,START
 
 class OddsBoardTests(unittest.TestCase):
     def test_all_books_not_only_EV_candidates(self):
