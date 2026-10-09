@@ -455,7 +455,8 @@ def ledger_statistics(ledger:dict)->dict:
 
 
 def execute(models:dict,history:dict,ledger:dict,now:datetime,
-            api_key:str="",max_sports:int=14,nhl_loader=None) -> tuple[dict,dict]:
+            api_key:str="",max_sports:int=14,nhl_loader=None,
+            pulsescore_key:str="") -> tuple[dict,dict]:
     # Each run may settle old paper picks even if no API key is configured.
     settle_ledger(ledger,history,now,nhl_loader)
     eligible=[
@@ -469,12 +470,24 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
     model_stamp=timestamp(models.get("generated_at_utc"))
     usable_model=(model_stamp is not None and model_stamp<=now and
                   now-model_stamp<=PREDICTION_MAX_AGE)
-    if api_key and not usable_model:
+    if (api_key or pulsescore_key) and not usable_model:
         meta={"status":"disabled_stale_model","requests":[],"errors":{
             "models":"Aucune cote demandée : prédictions anciennes ou non horodatées."}}
+    elif pulsescore_key:
+        # PulseScore Pro: one standardized REST schema per French bookmaker.
+        # No code or data is copied from the unrelated Clairvoyance project.
+        from outils.pulsescore_v2 import scan as pulse_scan
+        odds,diag=pulse_scan(pulsescore_key,models,now,max_calls=32,
+                             days_horizon=36)
+        meta={
+            "status":"active_pulsescore",
+            "requests":[{"provider":"PulseScore","calls":diag["requests"],
+                         "matched_events":diag["matched_events"]}],
+            "errors":diag.get("errors",{}),"details":diag,
+        }
     elif api_key:
         odds,meta=download_odds(api_key,eligible,max_sports)
-        meta["status"]="active" if meta["requests"] else "no_odds_returned"
+        meta["status"]="active_the_odds_api" if meta["requests"] else "no_odds_returned"
     picks,notes=market_recommendations(models,odds,now)
     paper_locks(picks,ledger,now)
     report={
@@ -515,6 +528,7 @@ def main():
         ledger={"version":1,"started_at":now.isoformat(),"bets":[]}
     report,ledger=execute(models,history,ledger,now,
                           api_key=os.environ.get("ODDS_API_KEY",""),
+                          pulsescore_key=os.environ.get("PULSESCORE_API_KEY",""),
                           max_sports=args.max_sports)
     for target,obj in ((Path(args.output),report),(path,ledger)):
         target.parent.mkdir(parents=True,exist_ok=True)
