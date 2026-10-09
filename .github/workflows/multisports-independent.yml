@@ -20,6 +20,8 @@ on:
       - 'tests/test_football_espn_statistiques.py'
       - 'outils/suivi_football_avance.py'
       - 'tests/test_suivi_football_avance.py'
+      - 'modeles/simulations/equipes_avance_multisports.py'
+      - 'tests/test_equipes_avance_multisports.py'
       - '.github/workflows/multisports-independent.yml'
 
 permissions:
@@ -65,6 +67,10 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_suivi_football_avance.py' -v
       - name: Enregistrer prévisions football avant le coup d'envoi et régler les anciennes
         run: python -m outils.suivi_football_avance
+      - name: Tester modèles équipes avancés NBA NFL NCAA MLB
+        run: python -m unittest discover -s tests -p 'test_equipes_avance_multisports.py' -v
+      - name: Comparer les modèles avancés des équipes (shadow uniquement)
+        run: python -m modeles.simulations.equipes_avance_multisports --history docs/multisports-history.json --output docs/equipes-avance-shadow.json
       - name: Tests du backtest chronologique
         run: python -m unittest discover -s tests -p 'test_backtest_multisports.py' -v
       - name: Brier et log loss historiques par compétition
@@ -73,7 +79,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json docs/football-espn-stat-cache.json docs/football-espn-team-features.json docs/football-shadow-ledger.json docs/football-shadow-performance.json
+          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json docs/football-espn-stat-cache.json docs/football-espn-team-features.json docs/football-shadow-ledger.json docs/football-shadow-performance.json docs/equipes-avance-shadow.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else
