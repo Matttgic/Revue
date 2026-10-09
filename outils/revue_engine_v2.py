@@ -512,7 +512,7 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
         # No code or data is copied from the unrelated Clairvoyance project.
         from outils.pulsescore_v2 import scan as pulse_scan
         odds,diag=pulse_scan(pulsescore_key,models,now,max_calls=32,
-                             days_horizon=36)
+                             days_horizon=6)
         meta={
             "status":"active_pulsescore",
             "requests":[{"provider":"PulseScore","calls":diag["requests"],
@@ -537,7 +537,13 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
         "mode":"PAPER_ONLY",
         "odds_status":meta["status"],
         "coverage":{"eligible_leagues":eligible,
-                    "requested":meta["requests"],"api_errors":meta["errors"]},
+                    "requested":meta["requests"],"api_errors":meta["errors"],
+                    "provider_scan_details":{
+                        "horizon_hours":(meta.get("details") or {}).get("horizon_hours"),
+                        "truncated":(meta.get("details") or {}).get("truncated"),
+                        "matched_leagues":(meta.get("details") or {}).get("matched_leagues",{}),
+                    },
+                    "model_generated_at_utc":models.get("generated_at_utc")},
         "bookmakers_fr":sorted(FR_BOOKS),
         "candidate_count":len(picks),
         "candidates":picks[:100],
