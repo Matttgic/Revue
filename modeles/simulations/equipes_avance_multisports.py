@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Independent, uncalibrated team model. No copied Clairvoyance code or data.
 
-NBA/WNBA/NCAAB/NFL/CFB/MLB: Elo + Bayesian score-margin and last-5 form,
+NBA/WNBA/NCAAB/NFL/MLB: Elo + Bayesian score-margin and last-5 form,
 then a chronological scores-only benchmark. SHADOW ONLY, not betting.
 """
 from __future__ import annotations
@@ -14,7 +14,7 @@ from modeles.simulations.multisports_independant import (
 LAG=timedelta(hours=8)
 # required games/team; expected one-game margin standard deviation; Elo home bonus
 SPORTS={"NBA":(7,12.,52.),"WNBA":(7,11.,50.),"NCAAB":(5,11.,45.),
-        "NFL":(3,13.,35.),"CFB":(4,18.,35.),"MLB":(7,3.1,24.)}
+        "NFL":(3,13.,35.),"MLB":(7,3.1,24.)}
 BASE={l.key:l for l in LEAGUES if l.key in SPORTS}
 
 def history_before(events:list[Event],league:str,when:datetime)->list[Event]:
