@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="dark">
+<title>Revue — Multisports</title>
+<style>
+:root{--bg:#0a1018;--card:#151d28;--line:#263547;--fg:#f3f4f1;--muted:#9badc0;--green:#d0fb86;--blue:#99c7fa;--dim:#8b98a5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.48 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1120px;margin:0 auto;padding:27px 16px 85px}header{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;border-bottom:1px solid var(--line);padding-bottom:26px}
+.kicker{font-weight:900;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+h1{letter-spacing:-.06em;font-size:clamp(2.25rem,6vw,4rem);margin:8px 0 6px;line-height:1.05}h1 span{color:var(--green)}header p,p{margin:0;color:var(--muted)}
+button{border:1px solid var(--line);cursor:pointer;border-radius:8px;background:var(--card);color:var(--fg);padding:10px 14px;font:inherit;font-weight:700}
+button.primary,button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:#132019}
+.notice{background:#1a2221;border-left:3px solid var(--green);padding:14px 16px;margin:21px 0;font-size:.9rem}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0 23px}
+.stat{border-top:1px solid var(--line);padding:12px 0}.stat b{font-size:clamp(1.35rem,4vw,2.5rem);letter-spacing:-.04em;display:block;font-variant-numeric:tabular-nums}.stat small{display:block;color:var(--muted);font-size:.73rem}
+#updated{color:var(--muted);font-size:.79rem;margin-bottom:18px}
+.filters{display:flex;gap:7px;overflow-x:auto;padding-bottom:10px;white-space:nowrap;scrollbar-width:thin;margin-bottom:18px}
+.filters button{font-size:.81rem;padding:9px 12px;flex-shrink:0}
+.summary{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:12px}h2{letter-spacing:-.02em;font-size:1.2rem;margin:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{padding:17px;border:1px solid var(--line);background:var(--card);border-radius:12px;min-width:0}
+.meta{font-size:.77rem;color:var(--green);font-weight:700}
+.teams{font-weight:850;font-size:1.22rem;letter-spacing:-.025em;margin:10px 0 13px}
+.competition{color:var(--muted);font-size:.77rem;font-weight:600}
+.metric{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:.8rem;margin-top:9px}
+.metric b{color:var(--fg);font-variant-numeric:tabular-nums}
+.track{height:5px;margin:4px 0 11px;background:#303e4d;border-radius:5px;overflow:hidden}
+.track span{height:100%;display:block;border-radius:5px;background:var(--green)}
+.track.secondary span{background:var(--blue)}
+.detail{padding-top:11px;border-top:1px solid var(--line);font-size:.79rem;color:var(--muted)}
+.flag{color:#ffce81;font-size:.79rem}.empty{color:var(--muted);padding:24px;border:1px dashed var(--line);border-radius:10px}
+#source-note{margin-top:28px;border-top:1px solid var(--line);padding-top:24px}
+.unsupported{margin:14px 0;display:flex;flex-wrap:wrap;gap:7px}
+.unsupported span{font-size:.78rem;border:1px solid var(--line);color:var(--dim);border-radius:7px;padding:7px 9px}
+footer{color:var(--muted);font-size:.8rem;margin-top:24px}a{color:var(--blue);text-underline-offset:3px}
+</style></head><body><main>
+<header><div><div class="kicker">REVUE / LABORATOIRE MULTISPORTS</div><h1>Le terrain est <span>ouvert.</span></h1><p>Prédictions expérimentales, classées par compétition.</p></div><button class="primary" id="refresh">Actualiser</button></header>
+<div class="notice"><strong>Aucune recommandation de pari.</strong> Probabilités non calibrées, sans cotes de bookmakers français et sans EV validée. Certains sports ou championnats n'ont pas encore d'alimentation exploitable.</div>
+<div class="stats"><div class="stat"><b id="fixtures">—</b><small>Matchs à venir détectés</small></div><div class="stat"><b id="predictions">—</b><small>Probabilités calculées</small></div><div class="stat"><b id="feeds">—</b><small>Sources actives</small></div></div>
+<div id="updated" role="status" aria-live="polite">Chargement du dernier calcul…</div>
+<nav class="filters" id="filters" aria-label="Filtrer les sports"></nav>
+<div class="summary"><h2 id="heading">Rencontres</h2><span id="count" style="color:var(--muted)"></span></div>
+<section id="cards" class="cards" aria-label="Matchs et probabilités"></section>
+<div id="empty" class="empty" hidden>Pas de rencontre détectée sur la période. Vérifie les statuts des flux ou relance la génération via GitHub Actions.</div>
+<section id="source-note"><h2>Couverture et limites</h2><p>Les ligues qui n'ont pas de données vérifiables sont signalées, jamais complétées par des probabilités inventées.</p>
+<div class="unsupported" id="unsupported"></div><p id="diagnostics" style="font-size:.78rem"></p></section>
+<footer><a href="https://github.com/Matttgic/Revue/blob/main/modeles/simulations/multisports_independant.py">Modèle indépendant</a> · <a href="https://github.com/Matttgic/Revue/actions/workflows/multisports-independent.yml">Automatisation GitHub</a> · <a href="https://github.com/Matttgic/Revue/blob/main/docs/multisports-latest.json">Source JSON</a></footer>
+</main>
+<script>
+"use strict";
+const $=x=>document.getElementById(x);
+const el=(tag,cls,text)=>{let e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e;};
+const percent=x=>(100*x).toLocaleString("fr-FR",{minimumFractionDigits:1,maximumFractionDigits:1})+" %";
+let payload=null, selected="Tous";
+const dateLabel=value=>new Date(value).toLocaleString("fr-FR",{timeZone:"Europe/Paris",weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+function gauge(card,text,val,secondary=false){
+ const row=el("div","metric");row.append(el("span","",text),el("b","",percent(val)));card.append(row);
+ const track=el("div","track"+(secondary?" secondary":""));const bar=el("span");bar.style.width=Math.min(100,Math.max(0,100*val))+"%";track.append(bar);card.append(track);
+}
+function draw(){
+ if(!payload)return;
+ const data=Object.entries(payload.competitions).flatMap(([key,league])=>league.games.map(g=>({key,league,g})))
+   .filter(x=>selected==="Tous"||selected===x.league.sport||selected===x.key)
+   .sort((a,b)=>new Date(a.g.start_utc)-new Date(b.g.start_utc));
+ const target=$("cards");target.replaceChildren();
+ $("heading").textContent=selected==="Tous"?"Toutes les rencontres":selected;
+ $("count").textContent=data.length+" matches · fenêtre de "+payload.days+" jours";
+ $("empty").hidden=data.length>0;
+ for(const {key,league,g} of data){
+  const card=el("article","card");
+  card.append(el("div","meta",dateLabel(g.start_utc)),el("div","competition",key+" · "+league.name));
+  card.append(el("div","teams",g.away+" @ "+g.home));
+  if(!g.probabilities){
+   card.append(el("p","flag","Historique insuffisant : aucune probabilité publiée"));
+  }else if(g.probabilities.home_win_90!==undefined){
+   gauge(card,"Victoire "+g.home,g.probabilities.home_win_90);
+   gauge(card,"Match nul",g.probabilities.draw_90);
+   gauge(card,"Victoire "+g.away,g.probabilities.away_win_90,true);
+   gauge(card,"Plus de 2,5 buts",g.probabilities.over_2_5,true);
+  }else{
+   gauge(card,"Victoire "+g.home,g.probabilities.home_win);
+   gauge(card,"Victoire "+g.away,g.probabilities.away_win,true);
+   if(g.probabilities.over_5_5!==undefined)gauge(card,"Plus de 5,5 buts",g.probabilities.over_5_5,true);
+  }
+  const info=el("div","detail");
+  let t="Sans cote bookmaker · pas de value calculée";
+  if(g.expected_score)t="Score moyen indicatif "+g.expected_score.home+" – "+g.expected_score.away+" · "+t;
+  info.textContent=t;card.append(info);target.append(card);
+ }
+}
+function filters(){
+ const opts=["Tous",...new Set(Object.values(payload.competitions).map(l=>l.sport))];
+ const nav=$("filters");nav.replaceChildren();
+ for(const opt of opts){
+  const btn=el("button","",opt);
+  btn.type="button";btn.setAttribute("aria-pressed",String(opt===selected));
+  btn.addEventListener("click",()=>{selected=opt;filters();draw();});
+  nav.append(btn);
+ }
+}
+async function load(){
+ $("updated").textContent="Récupération du dernier état…";
+ try{
+  const r=await fetch("./multisports-latest.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("JSON non encore publié (HTTP "+r.status+")");
+  const d=await r.json();if(!d.competitions||!d.overview)throw Error("Données incomplètes");
+  payload=d;
+  $("fixtures").textContent=d.overview.fixtures;
+  $("predictions").textContent=d.overview.predicted;
+  $("feeds").textContent=d.overview.feeds_ok+d.overview.feeds_partial;
+  $("updated").textContent="Calcul du "+new Date(d.generated_at_utc).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Paris"})+" (Paris)";
+  $("unsupported").replaceChildren();
+  for(const sport of d.sources_non_connectees||[])$("unsupported").append(el("span","",sport.label+" · non connecté"));
+  const failures=Object.entries(d.overview.league_feed_diagnostics||{}).filter(([key,diag])=>diag.status!=="ok");
+  $("diagnostics").textContent=failures.length? "Flux incomplets ou indisponibles : "+failures.map(([key,diag])=>key+" ("+diag.status+")").join(", "):"Tous les flux interrogés ont répondu.";
+  filters();draw();
+ }catch(err){$("updated").textContent="Données indisponibles : "+err.message;$("empty").hidden=false;}
+}
+$("refresh").addEventListener("click",load);load();
+</script></body></html>
