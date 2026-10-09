@@ -225,7 +225,7 @@ function verify(source) {
   };
   const wxCache={ "G9":{wind:23,precip:45,snow:0,temp:30},
                   "G10":{wind:5,precip:0,snow:.5,temp:20} };
-  const nflCases=[
+  const nflMCCases=[
     {label:"missing NFL source",data:null,game:{id:"G1"},n:130},
     {label:"no points history no spread",data:{standings:{},stats:{}},game:{id:"G1"},n:130},
     {label:"fallback to market spread",data:{standings:{},stats:{}},game:{id:"G1",spread:-6.5},n:270},
@@ -271,7 +271,7 @@ function verify(source) {
         }));
     }
   }
-  nflCases.forEach((c,i)=>simulateNFL(c,"mc",i));
+  nflMCCases.forEach((c,i)=>simulateNFL(c,"mc",i));
   const ensembleCases=[
     {label:"NFL ensemble missing source",data:null,game:{id:"G1"}},
     {label:"NFL ensemble full season",data:fullNFL,game:{id:"G1"},ou:46.5},
