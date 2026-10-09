@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Named Clairvoyance model-parity scoreboard, NOT overall project completion.
 
-13 explicit primary prediction functions, CFB excluded at user request.
+13 original core functions + 8 follow-up source functions, CFB excluded.
 A function is 'verified' ONLY when a GitHub CI parity report compares actual
 output to source from a pinned Clairvoyance commit. Other Revue innovations
 and numeric backtests cannot boost this percentage.
@@ -25,6 +25,14 @@ MODELS=(
     ("frontend_soccer_xg","Football · xG","docs/app.html","_socXG"),
     ("frontend_soccer_mc","Football · Monte-Carlo","docs/app.html","_soccerMC"),
     ("frontend_soccer_market_blend","Football · Pondération du marché","docs/app.html","_socMarketBlend"),
+    ("frontend_soccer_poisson_over","Football · Proba over analytique","docs/app.html","_poissonOverProb"),
+    ("frontend_soccer_poisson_pmf","Football · Masse de Poisson","docs/app.html","_socPoissonPmf"),
+    ("frontend_soccer_margin_dist","Football · Distribution de marge","docs/app.html","_socMarginDist"),
+    ("frontend_soccer_spread_prob","Football · Handicap asiatique","docs/app.html","_socSpreadProb"),
+    ("frontend_liiga_rates","Liiga · Pondération inter-saisons","docs/app.html","_liigaBlendedRates"),
+    ("frontend_nla_rates","Hockey suisse · Pondération des taux","docs/app.html","_nlaBlendedRates"),
+    ("frontend_extraliga_rates","Hockey tchèque · Pondération des taux","docs/app.html","_extraligaBlendedRates"),
+    ("frontend_shl_rates","SHL · Pondération des taux","docs/app.html","_shlBlendedRates"),
 )
 
 def generate(reference_parity:dict,audit:dict,as_of:datetime,
@@ -59,10 +67,20 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
     n_verified=sum(item["status"]=="exact_formula_parity_verified"
                    for item in entries)
     n_total=len(entries)
+    first=entries[:13]
+    first_count=sum(e["status"]=="exact_formula_parity_verified" for e in first)
+    follow=entries[13:]
+    second_count=sum(e["status"]=="exact_formula_parity_verified" for e in follow)
     return {
         "generated_at_utc":as_of.astimezone(timezone.utc).isoformat(),
-        "name":"Clairvoyance Model Reproduction — FIRST 13 model functions",
-        "status":"initial_defined_scope_not_entire_repository",
+        "name":"Clairvoyance Model Reproduction — 21 original functions (13 primary + 8 followup)",
+        "status":"expanded_defined_scope_not_entire_repository",
+        "phases":{
+            "primary_13":{"verified":first_count,"target":13,
+                          "percent":round(100*first_count/13)},
+            "extended_8":{"verified":second_count,"target":len(follow),
+                          "percent":round(100*second_count/max(1,len(follow)))}
+        },
         "excluded":["CFB"],
         "total_target_models":n_total,
         "verified_formula_parity_models":n_verified,
@@ -75,7 +93,7 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
                                       + (js.get("exact_equality_tests_passed",0) if verified_js else 0)),
         "models":entries,
         "notes":[
-            "Percentage covers ONLY the 13 explicitly listed core functions, not all of Clairvoyance.",
+            "Percentage covers ONLY 21 explicitly listed original source functions: 13 primary and 8 new analytical/hockey functions. NOT full Clairvoyance.",
             "Source-side mathematical parity is verified on test inputs; real data parity and profit are NOT verified.",
             "Revue's original models, Monte-Carlo/Bayes experiments, pages and API integrations are EXCLUDED.",
             "Progress can increase only after direct source-vs-reproduction parity tests on pinned source versions.",
@@ -101,7 +119,7 @@ def main():
     dest.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("STRICT PARITY",result["verified_formula_parity_models"],"/",
           result["total_target_models"],"=",result["formula_parity_percent"],
-          "% (13 selected functions, NOT whole repo)")
+          "% (21 named functions, NOT whole repo)")
 
 if __name__=="__main__":
     main()
