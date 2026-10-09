@@ -98,7 +98,11 @@ def observe(ledger:dict,odds:dict,now:datetime)->dict:
 
 def closing_sample(bet:dict)->dict|None:
     """True closing PROXY: same bookmaker, newest observed within 90min before match."""
-    if bet.get("market_rule_verified") is not True:
+    # Legacy soccer/basketball matches were independently checked as
+    # standard full-game h2h; do not mislabel all old picks as ambiguous.
+    # Hockey overtime rules remain strictly explicit regardless of age.
+    if bet.get("market_rule_verified") is False or (
+        bet.get("league")=="NHL" and bet.get("market_rule_verified") is not True):
         return None
     start=timestamp(bet.get("start_utc"))
     locked=timestamp(bet.get("locked_at"))
@@ -131,7 +135,8 @@ def closing_sample(bet:dict)->dict|None:
 
 def report(ledger:dict,now:datetime)->dict:
     bets=[b for b in ledger.get("bets",[])
-          if b.get("market_rule_verified") is True]
+          if b.get("market_rule_verified") is not False
+          and (b.get("league")!="NHL" or b.get("market_rule_verified") is True)]
     results=[(b,closing_sample(b)) for b in bets]
     valid=[(b,x) for b,x in results if x is not None]
     return {
