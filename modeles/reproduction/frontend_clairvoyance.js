@@ -79,5 +79,40 @@ function soccerMarketBlend(hP, dP, aP, hML, dML, aML,
            blended: true, marketH: mh, marketD: md, marketA: ma };
 }
 
-module.exports = { nbaGetBayes, nflBayes, soccerMarketBlend,
+/**
+ * Exact behavioural reconstruction of original _soccerMC (independent
+ * Knuth-Poisson draws, no truncated analytic approximation). A deterministic
+ * RNG can be injected ONLY for source-vs-replica parity tests; ordinary
+ * evaluation uses Math.random like the original.
+ */
+function soccerMonteCarlo(hxg, axg, n, random = Math.random) {
+  if (!n) n = 25000;
+  hxg = (hxg != null && !isNaN(hxg) && hxg > 0) ? hxg : .9;
+  axg = (axg != null && !isNaN(axg) && axg > 0) ? axg : .9;
+  let hW = 0, draw = 0, aW = 0, hG = 0, aG = 0;
+  let over25 = 0, over35 = 0, btts = 0;
+  function poisson(lam) {
+    const limit = Math.exp(-lam);
+    let product = 1, k = 0;
+    do { k++; product *= random(); } while (product > limit);
+    return k - 1;
+  }
+  for (let i = 0; i < n; i++) {
+    const h = poisson(hxg), a = poisson(axg);
+    hG += h;
+    aG += a;
+    const goals = h + a;
+    if (h > a) hW++;
+    else if (h === a) draw++;
+    else aW++;
+    if (goals > 2.5) over25++;
+    if (goals > 3.5) over35++;
+    if (h > 0 && a > 0) btts++;
+  }
+  return { hWin:hW/n, draw:draw/n, aWin:aW/n, avgH:hG/n, avgA:aG/n,
+           avgT:(hG+aG)/n, over25:over25/n, over35:over35/n,
+           btts:btts/n, hxg, axg, n };
+}
+
+module.exports = { nbaGetBayes, nflBayes, soccerMarketBlend, soccerMonteCarlo,
                    ml2decimal, footballCal };
