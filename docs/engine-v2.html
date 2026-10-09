@@ -61,6 +61,7 @@ footer{color:var(--soft);padding:26px 0;margin-top:42px;border-top:1px solid var
 .price-item{min-width:61px;padding:8px;text-align:center;background:rgba(18,38,59,.76);border:1px solid rgba(104,146,189,.22);border-radius:7px;flex:1}
 .price-item span{display:block;color:var(--muted);font-size:10px}
 .price-item strong{font:800 17px 'Chakra Petch',sans-serif;color:var(--cyan)}
+.price-alternatives{margin-top:8px}.price-alternatives summary{cursor:pointer;font-size:11px;color:var(--cyan);padding:6px 0}.price-alternatives .price-row{padding-bottom:9px}
 .price-when{font-size:11px;color:var(--muted);margin-top:7px}
 .price-when.stale{color:var(--orange)}
 </style><link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a><a href="./engine-v2.html" aria-current="page">SCANNER</a><a href="./multisports.html">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main>
@@ -164,21 +165,36 @@ function displayPrices(){
   const times=[];
   for(const b of e.bookmakers||[]){
    const wrap=make("div","pr-book");wrap.append(make("strong","",bookLabel[b.bookmaker]||b.bookmaker));
-   const grid=make("div","price-row");
-   for(const market of b.markets||[]){
-    times.push(Date.parse(market.quote_at));
-    for(const row of market.outcomes||[]){
-     const tag=make("div","price-item");
-     const label=market.market==="totals"?"O/U "+String(row.line)+" · ":"";
-     const side=row.selection==="home"?"1":row.selection==="away"?"2":row.selection==="draw"?"N":row.selection==="over"?"Plus":"Moins";
-     tag.append(make("span","",label+side),
+   const markets=b.markets||[];
+   times.push(...markets.map(m=>Date.parse(m.quote_at)));
+   const h2h=markets.filter(m=>m.market==="h2h");
+   const totals=markets.filter(m=>m.market==="totals"&&m.outcomes?.length===2);
+   totals.sort((x,y)=>Math.abs(x.outcomes[0].price-x.outcomes[1].price)-Math.abs(y.outcomes[0].price-y.outcomes[1].price));
+   const featured=[...h2h,...totals.slice(0,1)];
+   const extra=markets.filter(m=>!featured.includes(m));
+   const display=(ms,parent)=>{
+    const grid=make("div","price-row");
+    for(const market of ms){
+     for(const row of market.outcomes||[]){
+      const tag=make("div","price-item");
+      const label=market.market==="totals"?"O/U "+String(row.line)+" · ":"";
+      const side=row.selection==="home"?"1":row.selection==="away"?"2":row.selection==="draw"?"N":row.selection==="over"?"Plus":"Moins";
+      tag.append(make("span","",label+side),
        make("strong","",Number(row.price).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:3})));
-     grid.append(tag);
+      grid.append(tag);
+     }
     }
-    if(market.period_rule==="overtime_rule_unverified")
-     wrap.append(make("div","hint","Attention : prolongation non vérifiée"));
+    parent.append(grid);
+   };
+   display(featured,wrap);
+   if(extra.length){
+    const details=document.createElement("details");details.className="price-alternatives";
+    details.append(make("summary","",extra.length+" autres lignes de cotes"));
+    display(extra,details);wrap.append(details);
    }
-   wrap.append(grid);card.append(wrap);
+   if(markets.some(m=>m.period_rule==="overtime_rule_unverified"))
+    wrap.append(make("div","hint","Attention : prolongation non vérifiée"));
+   card.append(wrap);
   }
   const latest=Math.max(...times.filter(Number.isFinite));
   const stale=!Number.isFinite(latest)||now-latest>50*60000;
