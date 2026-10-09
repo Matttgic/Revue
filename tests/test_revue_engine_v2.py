@@ -5,7 +5,7 @@ from copy import deepcopy
 from outils.revue_engine_v2 import (
     match_fixture,normalize,same_team,price_probabilities,same_market_book,
     quote_book_valid,market_recommendations,paper_locks,ledger_statistics,
-    settle_ledger,execute,timestamp,_outcome_from_score,FR_BOOKS,ODDS_SPORTS,
+    settle_ledger,execute,timestamp,_outcome_from_score,FR_BOOKS,ODDS_SPORTS,download_odds,
 )
 
 
@@ -55,6 +55,20 @@ class MatchingTests(unittest.TestCase):
     def test_french_books_are_explicit(self):
         self.assertEqual(FR_BOOKS,{"betclic_fr","netbet_fr","pmu_fr","unibet_fr","winamax_fr"})
         self.assertIn("icehockey_nhl",ODDS_SPORTS.values())
+
+    def test_market_credit_savings_and_ucl_regulation_guard(self):
+        from unittest.mock import patch
+        self.assertNotIn("UCL",ODDS_SPORTS)
+        quota={"last":"1","remaining":"999","used":"1"}
+        urls=[]
+        def fake_api(url):
+            urls.append(url)
+            return [],quota
+        with patch("outils.revue_engine_v2._api",side_effect=fake_api):
+            download_odds("not_a_real_key",["NBA","NHL"],2)
+        self.assertEqual(len(urls),2)
+        self.assertIn("markets=h2h&",urls[0])
+        self.assertIn("markets=h2h%2Ctotals",urls[1])
 
     def test_normalization(self):
         self.assertTrue(same_team("Arsenal","Arsenal FC"))
