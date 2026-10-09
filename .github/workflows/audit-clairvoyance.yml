@@ -1,0 +1,45 @@
+name: Revue - Audit Clairvoyance complet
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 6 * * 1'
+  push:
+    paths:
+      - 'outils/audit_clairvoyance_complet.py'
+      - 'tests/test_audit_clairvoyance_complet.py'
+      - '.github/workflows/audit-clairvoyance.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-audit-clairvoyance
+  cancel-in-progress: false
+jobs:
+  static-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout own Revue repository
+        uses: actions/checkout@v4
+      - name: Checkout public reference repository read-only
+        uses: actions/checkout@v4
+        with:
+          repository: Purple-Wraith/clairvoyance-backend
+          path: .audit_source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline tests for safe static audit
+        run: python -m unittest discover -s tests -p 'test_audit_clairvoyance_complet.py' -v
+      - name: Parse every source Python file and classify gaps (never execute)
+        run: python outils/audit_clairvoyance_complet.py --source .audit_source --project . --output docs/clairvoyance-code-audit.json
+      - name: Commit only derived noncopyright code metadata
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clairvoyance-code-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "audit: actualiser inventaire du code Clairvoyance sans le recopier"
+            git pull --rebase -X theirs origin main
+            git push origin HEAD:main
+          fi
