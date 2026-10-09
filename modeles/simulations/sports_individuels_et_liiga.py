@@ -44,6 +44,8 @@ class Match:
     player2: str
     finished: bool
     winner_id: str | None
+    record1: str | None = None
+    record2: str | None = None
 
 
 def dt_utc(raw) -> datetime | None:
@@ -102,7 +104,9 @@ def parse_espn_scoreboard(data: dict, league: str) -> list[Match]:
                 # Some tennis tournaments publish doubles as pair names; exclude.
                 if " / " in str(name) or " & " in str(name):
                     break
-                players.append((str(aid), str(name), member.get("winner") is True))
+                recs = member.get("records") or []
+                record = next((r.get("summary") for r in recs if isinstance(r, dict) and r.get("summary")), None)
+                players.append((str(aid), str(name), member.get("winner") is True, record))
             if len(players) != 2 or players[0][0] == players[1][0]:
                 continue
             start = dt_utc(comp.get("date")) or dt_utc(event.get("date"))
@@ -121,6 +125,7 @@ def parse_espn_scoreboard(data: dict, league: str) -> list[Match]:
                 player1_id=players[0][0], player2_id=players[1][0],
                 player1=players[0][1], player2=players[1][1],
                 finished=finished, winner_id=winner,
+                record1=players[0][3], record2=players[1][3],
             )
     return list(seen.values())
 
@@ -137,6 +142,23 @@ def _get_json(url: str, timeout=14):
             if attempt == 0:
                 time.sleep(.35)
     raise RuntimeError(f"{type(err).__name__}: {str(err)[:130]}")
+
+
+def _ufc_career_prob(record1: str | None, record2: str | None) -> float | None:
+    """Very weak career W/L baseline, not validated on MMA outcomes."""
+    try:
+        a = [int(n) for n in str(record1).split("-")[:2]]
+        b = [int(n) for n in str(record2).split("-")[:2]]
+        if len(a)!=2 or len(b)!=2 or any(v<0 for v in a+b):
+            return None
+        if sum(a)<6 or sum(b)<6:
+            return None
+        rate_a=(a[0]+3)/(sum(a)+6)
+        rate_b=(b[0]+3)/(sum(b)+6)
+        x=math.log(rate_a/(1-rate_a))-math.log(rate_b/(1-rate_b))
+        return 1/(1+math.exp(-x))
+    except (ValueError,ZeroDivisionError,OverflowError):
+        return None
 
 
 def individual_elo(matches: list[Match], now: datetime, days=3) -> list[dict]:
@@ -169,13 +191,17 @@ def individual_elo(matches: list[Match], now: datetime, days=3) -> list[dict]:
         n1, n2 = appearances[m.player1_id], appearances[m.player2_id]
         threshold = MIN_MATCHES[m.league]
         probability = None
+        model = "elo_individuel"
         if n1 >= threshold and n2 >= threshold:
-            # Need enough observed results to estimate a two-way Elo.
             probability = 1 / (1 + 10**((ratings[m.player2_id]-ratings[m.player1_id])/400))
+        elif m.league == "UFC":
+            probability = _ufc_career_prob(m.record1,m.record2)
+            model = "baseline_carriere_fiable_seulement_si_verifiee"
         output.append({
             "event_id": m.id, "home": m.player1, "away": m.player2,
             "start_utc": m.starts.isoformat(),
             "status": "prototype_non_calibre" if probability is not None else "historique_insuffisant",
+            "model": model,
             "probabilities": ({"home_win": round(probability, 4),
                               "away_win": round(1-probability, 4)}
                               if probability is not None else None),
@@ -353,12 +379,15 @@ def run(days: int, now: datetime, cache: dict | None=None) -> tuple[dict,dict]:
     # Tennis all is for coverage audit, not merge into ATP/WTA without a reliable
     # gender/tournament classification. Fallback cannot silently relabel.
     matches,diag,state=_fetch_individual("TENNIS",now,days,cache.get("TENNIS"))
+    known_ids={m.id.split(":",1)[-1] for lg in ("ATP","WTA") for m in
+               (load_match(x) for x in updated.get(lg,{}).get("events",[]))}
     competitions["TENNIS"]={"name":"Tennis (circuit non confirmé)","sport":"Tennis",
         "model":"Aucune attribution de circuit","status":diag["status"],
         "games":[{"event_id":m.id,"home":m.player1,"away":m.player2,
             "start_utc":m.starts.isoformat(),"status":"circuit_non_identifie",
             "probabilities":None,"odds":None} for m in matches
-            if not m.finished and m.starts>now and now.astimezone(PARIS).date()<=m.starts.astimezone(PARIS).date()<now.astimezone(PARIS).date()+timedelta(days=days)],
+            if not m.finished and m.id.split(":",1)[-1] not in known_ids and
+            m.starts>now and now.astimezone(PARIS).date()<=m.starts.astimezone(PARIS).date()<now.astimezone(PARIS).date()+timedelta(days=days)],
         "diagnostics":diag}
     updated["TENNIS"]=state
     # Liiga one bulk request for this season, supported by previous source verification.
