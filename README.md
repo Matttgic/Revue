@@ -1,4 +1,14 @@
-# Revue — Bibliothèque de stratégies de paris sportifs
+# Revue — Reproduction des modèles Clairvoyance
+
+> **Mission prioritaire : reproduire fidèlement les modèles du dépôt [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend), et non inventer des modèles de remplacement.**
+
+- **Parité vérifiée :** [2 sur 13 fonctions de référence ciblées, soit 15 % sur ce périmètre initial](docs/parite-modeles-clairvoyance.json) ; il ne s'agit **pas** de 15 % de tout le dépôt.
+- **Résultat contrôlé :** [43 comparaisons directes de sorties identiques pour les formules MLB et NHL](docs/parite-clairvoyance-predictor.json) ; la correspondance des données réelles et du reste de l'application n'est pas encore vérifiée.
+- **Méthode et statut exact des modèles :** [documentation reproduction](modeles/reproduction/README.md) · [tableau de bord gaming parité](docs/parite-clairvoyance.html) · [tests automatisés à la source](.github/workflows/parite-clairvoyance-predictor.yml).
+- **CFB exclu** à la demande de l'utilisateur.
+- Les modèles exploratoires Elo, Poisson, MC et Bayes écrits précédemment dans `modeles/simulations/` sont **des expériences distinctes** et ne sont **jamais comptabilisés comme des reproductions**. Les anciennes estimations de 30–35 % mélangeaient fonctionnalités du site et innovations et ne mesuraient pas la fidélité.
+
+## Bibliothèque expérimentale préexistante (hors périmètre de reproduction)
 
 **Revue** est une bibliothèque de recherche **traçable, structurée et testable** : modèles statistiques, algorithmes, méthodologies, sources de données et outils inspirés de dépôts GitHub tiers.
 
