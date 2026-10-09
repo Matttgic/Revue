@@ -12,7 +12,7 @@ import argparse
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 import json
 import math
 from pathlib import Path
@@ -220,7 +220,7 @@ def _team_rates(games: list[Game], fallback: float) -> dict[str, tuple[float, fl
 
 
 def predict(games_prior: list[Game], games_current: list[Game],
-            as_of: datetime, for_date: date) -> list[dict]:
+            as_of: datetime, for_date: date, days: int = 2) -> list[dict]:
     """Only CURRENT scheduled games after now; no historical replay advertised."""
     if as_of.tzinfo is None:
         raise ValueError("as_of must be timezone aware")
@@ -269,7 +269,7 @@ def predict(games_prior: list[Game], games_current: list[Game],
         if game.id in seen or game.final or game.start_utc <= as_of:
             continue
         seen.add(game.id)
-        if game.start_utc.astimezone(PARIS).date() != for_date:
+        if not (for_date <= game.start_utc.astimezone(PARIS).date() < for_date + timedelta(days=days)):
             continue
         ah, dh = rates(game.home)
         aa, da = rates(game.away)
@@ -305,10 +305,13 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--date", help="Date civile Europe/Paris, YYYY-MM-DD (défaut : aujourd'hui)")
     parser.add_argument("--output", default="docs/nhl-model-latest.json")
+    parser.add_argument("--days", type=int, default=2, help="Nombre de jours parisiens à couvrir (1-7)")
     parser.add_argument("--fixture", help="JSON local {prior:[games], current:[games]} pour test hors réseau")
     args = parser.parse_args(argv)
     today = datetime.now(PARIS).date()
     target = date.fromisoformat(args.date) if args.date else today
+    if not 1 <= args.days <= 7:
+        parser.error("--days doit être entre 1 et 7")
     as_of = datetime.now(timezone.utc)
     if args.fixture:
         dataset = json.loads(Path(args.fixture).read_text(encoding="utf-8"))
@@ -318,10 +321,11 @@ def main(argv: list[str] | None = None) -> int:
         season = season_code(target)
         previous = download_season(prev_season(season))
         current = download_season(season)
-    predictions = predict(previous, current, as_of, target)
+    predictions = predict(previous, current, as_of, target, days=args.days)
     report = {
         "generated_at_utc": as_of.isoformat(),
         "date_paris": target.isoformat(),
+        "days": args.days,
         "season": season_code(target),
         "model": "Revue NHL Independent v0.1 (Elo 50% + Poisson 50%)",
         "source": "NHL club-schedule-season API (recherche)",
@@ -333,7 +337,7 @@ def main(argv: list[str] | None = None) -> int:
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"{len(predictions)} matchs futurs trouvés pour {target} (Europe/Paris) → {output}")
+    print(f"{len(predictions)} matchs futurs pour les {args.days} jours à partir de {target} (Paris) → {output}")
     for p in predictions:
         print(f"{p['start_paris']} | {p['away']} @ {p['home']} | "
               f"P(domicile)={p['probabilities']['home_win']:.1%} | "
