@@ -10,6 +10,10 @@ from pathlib import Path
 import re
 
 TARGETS={
+    "liigaEns":12001,
+    "nlaEns":12155,
+    "extraligaEns":12275,
+    "shlEns":13115,
     "_liigaBlendedRates":11931,
     "_nlaBlendedRates":12116,
     "_extraligaBlendedRates":12232,
