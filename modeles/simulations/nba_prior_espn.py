@@ -42,7 +42,7 @@ def parse_standings(payload:dict,end_year:int,observed_at:datetime)->dict:
             l=_valid(vals.get("losses"),0,100)
             home=_valid(vals.get("avgPointsFor"),40,155)
             away=_valid(vals.get("avgPointsAgainst"),40,155)
-            if (not tid or not w or l is None or w+l<50 or
+            if (not tid or w is None or l is None or w+l<50 or
                 home is None or away is None):continue
             teams[tid]={
                 "team_id":tid,
@@ -166,9 +166,15 @@ def main():
     correct_season=prior.get("season_end_year")==previous_season_end_year(now)
     fresh=bool(observed and timedelta(0)<=now-observed<=MAX_STANDINGS_AGE)
     if (not args.offline) and (not correct_season or not fresh):
-        prior=fetch_prior(previous_season_end_year(now),now)
-        file.parent.mkdir(parents=True,exist_ok=True)
-        file.write_text(json.dumps(prior,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        try:
+            prior=fetch_prior(previous_season_end_year(now),now)
+            file.parent.mkdir(parents=True,exist_ok=True)
+            file.write_text(json.dumps(prior,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        except (OSError, ValueError, TimeoutError) as err:
+            print("NBA previous-season source unavailable:",type(err).__name__)
+            # Explicit unavailable status; never present obsolete or guessed
+            # previous-season stats as a fresh model prediction.
+            prior={}
     history=json.loads(Path(args.cache).read_text(encoding="utf-8"))
     output=predict_nba(prior,history,datetime.now(timezone.utc))
     dest=Path(args.output);dest.parent.mkdir(parents=True,exist_ok=True)
