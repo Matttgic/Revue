@@ -257,7 +257,12 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                         if not 0.28<=prob<=0.84:continue
                         ev=prob*price-1
                         if ev<MIN_EV:continue
-                        fair_p=same_market_book(pinnacle,mk,outcome) if pinnacle else None
+                        fair_p=None
+                        if pinnacle:
+                            sharp_market=next((z for z in pinnacle.get("markets",[])
+                                               if z.get("key")==mk),None)
+                            if sharp_market and quote_book_valid(pinnacle,sharp_market,now):
+                                fair_p=same_market_book(pinnacle,mk,outcome)
                         gate=classifier(Decision(
                             evenement_id=str(game["event_id"]),
                             verrouille_le=now,debut_evenement=start,
