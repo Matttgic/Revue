@@ -402,11 +402,32 @@ def paper_locks(candidates:list[dict],ledger:dict,now:datetime,
     return ledger
 
 
+def verified_pre_match(b:dict) -> bool:
+    """Recompute temporal provenance from raw fields, never trust a status tag."""
+    if b.get("chronology")!=PRE_VALIDE:
+        return False
+    lock=timestamp(b.get("locked_at"))
+    start=timestamp(b.get("start_utc"))
+    odds_time=timestamp(b.get("quote_at"))
+    model_time=timestamp(b.get("model_at"))
+    if not all((lock,start,odds_time,model_time)):
+        return False
+    gate=classifier(Decision(
+        evenement_id=str(b.get("event_id") or ""),
+        verrouille_le=lock, debut_evenement=start,
+        cote_observee_le=odds_time,derniere_feature_publiee_le=model_time))
+    return (
+        gate==PRE_VALIDE and start-lock>=KICKOFF_BUFFER
+        and lock-odds_time<=QUOTE_MAX_AGE
+        and lock-model_time<=PREDICTION_MAX_AGE
+    )
+
+
 def ledger_statistics(ledger:dict)->dict:
     bets=ledger.get("bets",[])
     graded=[b for b in bets if b.get("status") in ("won","lost","push")
-            and b.get("chronology")==PRE_VALIDE]
-    unknown=[b for b in bets if b.get("chronology")!=PRE_VALIDE]
+            and verified_pre_match(b)]
+    unknown=[b for b in bets if not verified_pre_match(b)]
     pnl=sum(float(b.get("paper_units_returned",0))-float(b.get("paper_stake_units",1))
             for b in graded)
     invested=sum(float(b.get("paper_stake_units",1)) for b in graded)
