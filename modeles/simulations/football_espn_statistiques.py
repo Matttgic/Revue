@@ -92,16 +92,56 @@ def update_cache(history:dict,existing:dict,now:datetime,
             cache_key=f"{league}:{eid}"
             if cache_key not in saved:
                 candidates.append((start,league,eid,g))
-    # Cover every league with a round-robin queue. Within a league, newest
-    # first to support today's teams and mitigate late provider updates.
-    league_lists=defaultdict(list)
-    for item in sorted(candidates,key=lambda e:e[0],reverse=True):
-        league_lists[item[1]].append(item)
+    # Prioritize historical stats for teams with the earliest FUTURE
+    # matches. Avoid 1 sample for 24 unrelated clubs (not enough for any
+    # reliable feature); obtain at least 3 prior games for both sides of
+    # an upcoming match before spreading out to new teams/leagues.
+    all_candidates=sorted(candidates,key=lambda e:e[0],reverse=True)
+    by_team=defaultdict(list)
+    for item in all_candidates:
+        _,league,_,g=item
+        for tid in (str(g.get("home_id") or ""),str(g.get("away_id") or "")):
+            if tid:by_team[(league,tid)].append(item)
+    observed_games=defaultdict(int)
+    for item in saved.values():
+        lg=item.get("league")
+        for tid in (item.get("home_id"),item.get("away_id")):
+            if lg in LEAGUES_ESPN and tid:
+                observed_games[(lg,str(tid))]+=1
+    upcoming=[]
+    for league,d in (history.get("leagues") or {}).items():
+        if league not in LEAGUES_ESPN:continue
+        for g in d.get("events") or []:
+            kickoff=utc(g.get("start"))
+            if (not g.get("complete") and kickoff and
+                now<kickoff<now+timedelta(days=3)):
+                upcoming.append((kickoff,league,g))
+    upcoming.sort(key=lambda x:(x[0],x[1]))
     selected=[]
+    selected_ids=set()
+    def select(item):
+        _,lg,eid,g=item
+        key=f"{lg}:{eid}"
+        if key in selected_ids or key in saved or len(selected)>=max_calls:
+            return False
+        selected.append(item);selected_ids.add(key)
+        for tid in (g.get("home_id"),g.get("away_id")):
+            if tid:observed_games[(lg,str(tid))]+=1
+        return True
+    for _,league,g in upcoming:
+        for tid in (str(g.get("home_id") or ""),str(g.get("away_id") or "")):
+            for item in by_team.get((league,tid),[]):
+                if len(selected)>=max_calls or observed_games[(league,tid)]>=3:break
+                select(item)
+    # Fill unused budget from newest completed matches, balanced by league.
+    league_lists=defaultdict(list)
+    for item in all_candidates:
+        if f"{item[1]}:{item[2]}" not in selected_ids:
+            league_lists[item[1]].append(item)
     while len(selected)<max_calls and any(league_lists.values()):
         for league in LEAGUES_ESPN:
             if league_lists[league] and len(selected)<max_calls:
-                selected.append(league_lists[league].pop(0))
+                select(league_lists[league].pop(0))
     errors=defaultdict(int)
     successes=0
     for start,league,eid,g in selected:
