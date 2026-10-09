@@ -80,7 +80,7 @@ class ArenaTests(unittest.TestCase):
     def test_progress_is_exact_source_model_parity(self):
         import json
         d=json.loads((DOCS/"parite-modeles-clairvoyance.json").read_text(encoding="utf-8"))
-        self.assertEqual(d["total_target_models"],13)
+        self.assertEqual(d["total_target_models"],21)
         self.assertGreaterEqual(d["verified_formula_parity_models"],2)
         self.assertEqual(d["formula_parity_percent"],round(100*d["verified_formula_parity_models"]/d["total_target_models"]))
         self.assertEqual(sum(m["status"]=="exact_formula_parity_verified" for m in d["models"]),
