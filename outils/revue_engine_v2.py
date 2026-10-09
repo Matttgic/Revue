@@ -283,6 +283,11 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                                                if z.get("key")==mk),None)
                             if sharp_market and quote_book_valid(pinnacle,sharp_market,now):
                                 fair_p=same_market_book(pinnacle,mk,outcome)
+                        # Pure price consensus: other FR books only, same
+                        # verified event/market/line and fresh timestamps.
+                        from outils.consensus_quotations import peer_consensus
+                        peer=peer_consensus(event,game,mk,outcome,bk,now)
+                        consensus=peer.get("p_no_vig")
                         gate=classifier(Decision(
                             evenement_id=str(game["event_id"]),
                             verrouille_le=now,debut_evenement=start,
@@ -305,6 +310,10 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                             "bookmaker":bk,"bookmaker_price":price,
                             "p_model":round(prob,5),
                             "p_sharp_no_vig":round(fair_p,5) if fair_p is not None else None,
+                            "p_peer_books_no_vig":consensus,
+                            "peer_books_count":peer.get("peer_count",0),
+                            "peer_price_delta":round(price*consensus-1,5) if consensus is not None else None,
+                            "peer_confirmation":"observed_prices_only_not_true_edge",
                             "ev_model":round(ev,5),
                             "quote_at":observed.isoformat(),
                             "quote_time_source":market.get("observed_origin") or "provider_last_update",
