@@ -255,7 +255,14 @@ function verify(source) {
                      "cfbWeatherImpact","nflMC"];
     if(mode==="ensemble")functions.push("_nflBayes","nflEns");
     const context=vmFn(source,functions,env);
+    // Explicitly pin the external injury dependency after loading the source
+    // function; CI validates the same injected input on both implementations.
+    context._nflInjAdj=dummy;
     const game=c.game||null;
+    if(c.injuries){
+      assert.equal(context._nflInjAdj("KC",game).pts,c.injuries.KC.pts,
+                   "Reference VM missing injected injury input");
+    }
     if(mode==="mc"){
       compare(c.label,"frontend_nfl_mc",
         context.nflMC("KC","SF",c.n,c.ou,game),
