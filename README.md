@@ -6,6 +6,14 @@
 
 **Audit Opta :** Clairvoyance intègre les xG, xGA, PPDA, statistiques d'équipes et Opta Power Rankings via The Analyst, mais **Revue n'a pas encore d'accès autorisé à ces données**, et notre modèle n'est pas la copie exacte de son moteur. [Voir l'audit et les écarts](analyses/2026-10-09_Clairvoyance_Opta_modele_ecarts.md).
 
+## Football avancé — nouveau candidat testé, sans reprise de code tiers
+
+- [Interface de comparaison football](docs/football-avance.html) et [JSON des probabilités / backtests](docs/football-advanced-shadow.json)
+- [Modèle indépendant](modeles/simulations/football_avance_independant.py) et [méthodologie + performances](modeles/simulations/FOOTBALL-AVANCE-README.md)
+- 13 tests passés sur GitHub ; calculs de forme, Elo, Poisson corrigé Dixon-Coles, xG/power rating **uniquement** si données autorisées et antérieures au match disponibles.
+- Au premier backtest du 9/10/2026, 18 matchs en Liga (Brier un peu meilleur), 60 en MLS (Brier un peu moins bon), trop peu ailleurs. **N'est pas utilisé dans les picks papier**.
+- Le fichier de snapshots statistiques licenciés est ignoré par Git, pour ne pas publier des données protégées par inadvertance.
+
 ## Engine V2 — reconstruction indépendante du fonctionnement Clairvoyance
 
 - [Portail web Revue](docs/index.html) et [tableau « Engine V2 »](docs/engine-v2.html) : radar de cotes réelles, simulations et suivi en unités fictives.
