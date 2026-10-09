@@ -10,6 +10,10 @@ from pathlib import Path
 import re
 
 TARGETS={
+    "_blendLeagueOpta":26784,
+    "_socXGRaw":26784,
+    "_socXGBlendCLDomestic":26784,
+    "_socXGFromFBref":26784,
     "_poisSampler":7600,
     "_hkMarginCal":7600,
     "_nhlLiveCf":7600,
@@ -58,7 +62,7 @@ def main():
         found=[]
         # Inspect a small local vicinity; helpers may sit far from MC code.
         near=range(max(0,line-10),min(len(lines),line+10))
-        if name in ("_poisSampler","_hkMarginCal","_nhlLiveCf","_nhlFormFactor","_hkBlendNhl","_hkPlLegsAt","_hkMktNoVig","_hkBlendCore","_NHL_LG_PP","_NHL_LG_PK","_NHL_LG_GA60","_socCal","ml2d","_boxMullerZ","_nflHFA","_nflInjAdj","_forceHalfLine","cfbWeatherImpact","_NFL_LG_TOTAL","_NFL_SIGMA_MARGIN","_NFL_SIGMA_TOTAL","NFL_INJ_TOTAL_SHARE"):
+        if name in ("_blendLeagueOpta","_socXGRaw","_socXGBlendCLDomestic","_socXGFromFBref","_poisSampler","_hkMarginCal","_nhlLiveCf","_nhlFormFactor","_hkBlendNhl","_hkPlLegsAt","_hkMktNoVig","_hkBlendCore","_NHL_LG_PP","_NHL_LG_PK","_NHL_LG_GA60","_socCal","ml2d","_boxMullerZ","_nflHFA","_nflInjAdj","_forceHalfLine","cfbWeatherImpact","_NFL_LG_TOTAL","_NFL_SIGMA_MARGIN","_NFL_SIGMA_TOTAL","NFL_INJ_TOTAL_SHARE"):
             near=range(len(lines))
         for i in near:
             line_text=lines[i].strip()
