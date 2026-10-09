@@ -39,7 +39,7 @@ class League:
     style: str
     min_history: int
     history_days: int
-    window_days: int = 7
+    window_days: int = 1
 
 
 LEAGUES = (
@@ -49,13 +49,13 @@ LEAGUES = (
     League("NFL", "NFL", "Football américain", "football/nfl", "points", 3, 60),
     League("CFB", "NCAA Football", "Football américain", "football/college-football", "points", 3, 35),
     League("MLB", "MLB", "Baseball", "baseball/mlb", "runs", 6, 32),
-    League("PL", "Premier League", "Football", "soccer/eng.1", "soccer", 5, 75),
-    League("LALIGA", "La Liga", "Football", "soccer/esp.1", "soccer", 5, 75),
-    League("SERIEA", "Serie A", "Football", "soccer/ita.1", "soccer", 5, 75),
-    League("BUNDESLIGA", "Bundesliga", "Football", "soccer/ger.1", "soccer", 5, 75),
-    League("LIGUE1", "Ligue 1", "Football", "soccer/fra.1", "soccer", 5, 75),
-    League("MLS", "MLS", "Football", "soccer/usa.1", "soccer", 5, 75),
-    League("UCL", "Ligue des champions", "Football", "soccer/uefa.champions", "soccer", 5, 75),
+    League("PL", "Premier League", "Football", "soccer/eng.1", "soccer", 3, 55),
+    League("LALIGA", "La Liga", "Football", "soccer/esp.1", "soccer", 3, 55),
+    League("SERIEA", "Serie A", "Football", "soccer/ita.1", "soccer", 3, 55),
+    League("BUNDESLIGA", "Bundesliga", "Football", "soccer/ger.1", "soccer", 3, 55),
+    League("LIGUE1", "Ligue 1", "Football", "soccer/fra.1", "soccer", 3, 55),
+    League("MLS", "MLS", "Football", "soccer/usa.1", "soccer", 3, 55),
+    League("UCL", "Ligue des champions", "Football", "soccer/uefa.champions", "soccer", 2, 75),
 )
 # Honest unsupported list: this is not a working scraper for these competitions.
 UNSUPPORTED = (
@@ -160,8 +160,11 @@ def _windows(start: date, end: date, max_days: int) -> list[tuple[date, date]]:
 
 
 def query_url(league: League, start: date, end: date) -> str:
-    # ESPN uses YYYYMMDD-YYYYMMDD for ranges.
-    params = {"dates": start.strftime("%Y%m%d") + "-" + end.strftime("%Y%m%d"),
+    # ESPN site scoreboard accepts a single ESPN date (YYYYMMDD).
+    # Date ranges sent as YYYYMMDD-YYYYMMDD returned HTTP 400 in live CI.
+    if start != end:
+        raise ValueError("ESPN scoreboard requires one date per request")
+    params = {"dates": start.strftime("%Y%m%d"),
               "limit": 600}
     return BASE + "/" + league.provider + "/scoreboard?" + urlencode(params)
 
