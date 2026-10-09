@@ -51,7 +51,7 @@ function render(){
     }
     c.append(grid,node("div","muted","Plus de 2,5 buts : "+percent(g.probabilities.over_2_5)));
    }else c.append(node("p","muted","Historique insuffisant, pas de probabilité."));
-   c.append(node("p","note",(g.xg_used?"Données xG autorisées appliquées":"Score-only : pas de données Opta")+
+   c.append(node("p","note",(g.xg_used?"Données xG autorisées appliquées":g.espn_stats_used?"Tirs / tirs cadrés ESPN réels intégrés (pas de xG)":"Score-only : sans xG ni stats avancées")+
              " · "+g.training_games.home+" / "+g.training_games.away+" matchs historiques"));
    cards.append(c);
   }
@@ -70,7 +70,7 @@ async function init(){
  league.addEventListener("change",render);
  const seen=Object.values(data.competitions||{}).reduce((n,v)=>n+v.games.filter(g=>g.probabilities).length,0);
  by("status").textContent="Dernier calcul : "+new Date(data.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"medium",timeStyle:"short"})+
- " · "+seen+" prévisions · source xG : "+data.licensed_advanced_features.status;
+ " · "+seen+" prévisions · stats ESPN disponibles pour "+(data.espn_observed_features?.teams||0)+" équipes · Opta : "+data.licensed_advanced_features.status;
  render();
  const audit=by("audits");
  for(const [code,v] of Object.entries(data.competitions||{})){
