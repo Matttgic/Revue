@@ -12,6 +12,7 @@ const vm = require("node:vm");
 const { execFileSync } = require("node:child_process");
 const own = require("../modeles/reproduction/frontend_clairvoyance.js");
 const {verifyNHL} = require("./verify_clairvoyance_nhl.js");
+const {verifySoccerXG} = require("./verify_clairvoyance_soccer_xg.js");
 
 function original(source, name) {
   const match = new RegExp("^function\\s+" + name + "\\s*\\(", "m").exec(source);
@@ -38,7 +39,8 @@ const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
                  frontend_soccer_market_blend: 0, frontend_soccer_mc: 0,
                  frontend_nba_mc: 0, frontend_nba_ensemble: 0,
                  frontend_nfl_mc: 0, frontend_nfl_ensemble: 0,
-                 frontend_nhl_mc: 0, frontend_nhl_ensemble: 0 };
+                 frontend_nhl_mc: 0, frontend_nhl_ensemble: 0,
+                 frontend_soccer_xg: 0 };
 function compare(label, name, target, actual) {
   const left = JSON.stringify(target), right = JSON.stringify(actual);
   assert.equal(right, left, "Parity difference on " + label + ": " + right + " vs " + left);
@@ -346,6 +348,7 @@ function verify(source) {
       }));
   }
   verifyNHL(source,compare);
+  verifySoccerXG(source,compare);
   return checks;
 }
 
