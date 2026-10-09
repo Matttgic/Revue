@@ -27,15 +27,22 @@ MODELS=(
     ("frontend_soccer_market_blend","Football · Pondération du marché","docs/app.html","_socMarketBlend"),
 )
 
-def generate(reference_parity:dict,audit:dict,as_of:datetime)->dict:
+def generate(reference_parity:dict,audit:dict,as_of:datetime,
+             frontend_parity:dict|None=None)->dict:
     verified=set(reference_parity.get("verified_modules") or [])
     same=(reference_parity.get("status")=="predictor_formula_parity_verified"
           and (reference_parity.get("exact_equality_tests_passed") or 0)>0)
+    js=frontend_parity or {}
+    source_unchanged=bool(same and js.get("reference_commit")
+                    and js.get("reference_commit")==reference_parity.get("reference_commit"))
+    verified_js=set(js.get("verified_modules") or []) if (
+        source_unchanged and js.get("status")=="frontend_function_output_parity_verified"
+        and (js.get("exact_equality_tests_passed") or 0)>0) else set()
     listed={x["name"] for x in audit.get("frontend_model_symbols",{}).get("model_symbols",[])}
     entries=[]
     for model_id,label,source,fn in MODELS:
-        is_verified=(same and model_id in verified and
-                     (source!="docs/app.html" or fn in listed))
+        is_verified=(same and source!="docs/app.html" and model_id in verified or
+                     source=="docs/app.html" and model_id in verified_js and fn in listed)
         is_indexed=source!="docs/app.html" or fn in listed
         entries.append({
             "id":model_id,"label":label,"original_function":fn,
@@ -43,7 +50,8 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime)->dict:
             "source_indexed":is_indexed,
             "status":"exact_formula_parity_verified" if is_verified else
                      "pending_implementation_or_parity",
-            "verified_source_commit":reference_parity.get("reference_commit")
+            "verified_source_commit":(js.get("reference_commit") if source=="docs/app.html"
+                                   else reference_parity.get("reference_commit"))
                         if is_verified else None,
             "reproduced_with_same_data":False,
             "verified_with_original_datasets":False,
@@ -63,7 +71,8 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime)->dict:
         "overall_repository_reproduction_percent":None,
         "prediction_parity_on_live_data_percent":None,
         "original_source_commit":reference_parity.get("reference_commit"),
-        "exact_equality_tests_passed":reference_parity.get("exact_equality_tests_passed",0),
+        "exact_equality_tests_passed":(reference_parity.get("exact_equality_tests_passed",0)
+                                      + (js.get("exact_equality_tests_passed",0) if verified_js else 0)),
         "models":entries,
         "notes":[
             "Percentage covers ONLY the 13 explicitly listed core functions, not all of Clairvoyance.",
@@ -78,11 +87,15 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--parity",default="docs/parite-clairvoyance-predictor.json")
     parser.add_argument("--audit",default="docs/clairvoyance-code-audit.json")
+    parser.add_argument("--frontend-parity",default="docs/parite-clairvoyance-frontend.json")
     parser.add_argument("--output",default="docs/parite-modeles-clairvoyance.json")
     args=parser.parse_args()
+    frontend_path=Path(args.frontend_parity)
+    frontend=(json.loads(frontend_path.read_text(encoding="utf-8"))
+              if frontend_path.is_file() else None)
     result=generate(json.loads(Path(args.parity).read_text(encoding="utf-8")),
                     json.loads(Path(args.audit).read_text(encoding="utf-8")),
-                    datetime.now(timezone.utc))
+                    datetime.now(timezone.utc),frontend)
     dest=Path(args.output)
     dest.parent.mkdir(parents=True,exist_ok=True)
     dest.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
