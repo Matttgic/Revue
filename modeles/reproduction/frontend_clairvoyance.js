@@ -287,6 +287,51 @@ function nflEnsemble(homeAbbr,awayAbbr,ouLine,game,
   return{p,mc:mc.hwP,bay:bayP,mcD:mc};
 }
 
+/**
+ * Source-equivalent NBA ensemble formula: corrected adaptive weights,
+ * 2.8-point home-court probability shift, 25% market blend, injury penalties,
+ * and the strict 6.5-percentage-point no-vig market guardrail.
+ * Dependency inputs are injected for direct original-vs-replica parity.
+ */
+function nbaEnsemble(homeAbbr,awayAbbr,espnGame,
+                     {teamAdv={},priorRatings={},staticBBref={},teams={},
+                      standings={},ledger=[],elo={},weights={mc:.50,bay:.20,elo:.30},
+                      injuries={},calibrator=p=>p,random=Math.random}={}){
+  const nbaOUL=parseFloat(espnGame?.ou||espnGame?.overUnder||220.5);
+  const mc=nbaMonteCarlo(homeAbbr,awayAbbr,25000,nbaOUL,{
+    teamAdv,priorRatings,staticBBref,teams,random
+  });
+  if(!mc)return{p:.5,mc:.5,bay:.5,elo:.5,mcD:null};
+  const hfa=.028;
+  const hBay=nbaGetBayes(homeAbbr,{teams,standings,ratings:priorRatings,ledger}).m;
+  const aBay=nbaGetBayes(awayAbbr,{teams,standings,ratings:priorRatings,ledger}).m;
+  const bay=Math.min(.90,Math.max(.10,hBay/(hBay+aBay)+hfa));
+  const eloHome=elo[homeAbbr]||1550,eloAway=elo[awayAbbr]||1550;
+  const eloP=Math.min(.90,Math.max(.10,
+    1/(1+Math.pow(10,(eloAway-eloHome)/400))+hfa));
+  const w=weights||{mc:.50,bay:.20,elo:.30};
+  let p=Math.min(.90,Math.max(.10,
+    (mc.hwP*(.45/.50)*w.mc+bay*(.30/.20)*w.bay+eloP*(.25/.30)*w.elo)));
+  if(espnGame?.hL){
+    const line=ml2decimal(espnGame.hL);
+    const implied=Math.min(.88,Math.max(.12,1/line));
+    p=p*.75+implied*.25;
+  }
+  p=calibrator(p,"NBA");
+  const injH=injuries[homeAbbr]||{penalty:0},injA=injuries[awayAbbr]||{penalty:0};
+  p=Math.min(.90,Math.max(.10,p-injH.penalty+injA.penalty));
+  let mkt=null,capped=false;
+  if(espnGame?.hL){
+    const ih=1/ml2decimal(espnGame.hL);
+    const ia=espnGame?.aL?1/ml2decimal(espnGame.aL):null;
+    mkt=ia!=null?ih/(ih+ia):ih/1.045;
+    const lo=Math.max(.10,mkt-.065),hi=Math.min(.90,mkt+.065);
+    const pc=Math.min(hi,Math.max(lo,p));
+    if(pc!==p){capped=true;p=pc;}
+  }
+  return{p,mc:mc.hwP,bay,elo:eloP,mcD:mc,injH,injA,mkt,capped};
+}
+
 module.exports = { nbaGetBayes, nflBayes, soccerMarketBlend, soccerMonteCarlo,
-                   nbaMonteCarlo, nflWeatherImpact, nflMonteCarlo, nflEnsemble,
-                   ml2decimal, footballCal };
+                   nbaMonteCarlo, nbaEnsemble, nflWeatherImpact, nflMonteCarlo,
+                   nflEnsemble, ml2decimal, footballCal };
