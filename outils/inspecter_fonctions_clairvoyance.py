@@ -39,7 +39,10 @@ def main():
         if name in ("_socCal","ml2d"):
             near=range(len(lines))
         for i in near:
-            if re.search(r"^\\s*(?:function\\s+|(?:const|let|var)\\s+)"+re.escape(name)+r"(?=\\s*\\(|\\s*=)",lines[i]):
+            line_text=lines[i].strip()
+            if any(line_text.startswith(pre+name+separator)
+                   for pre in ("function ","const ","let ","var ")
+                   for separator in ("(", "=")):
                 found.append(i)
                 break
         if not found:
