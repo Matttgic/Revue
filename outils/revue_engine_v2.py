@@ -312,7 +312,7 @@ def _outcome_from_score(bet:dict,home:float,away:float)->str|None:
 
 def _nhl_final(event_id:str,start_utc:str,cache:dict) -> tuple[float,float]|None:
     """One date request per day; missing/blocked NHL endpoints remain pending."""
-    day=(timestamp(start_utc) or datetime.now(UTC)).date().isoformat()
+    day=(timestamp(start_utc) or datetime.now(UTC)).astimezone(ZoneInfo("America/New_York")).date().isoformat()
     if day not in cache:
         try:
             with urlopen(Request(f"https://api-web.nhle.com/v1/score/{day}",
@@ -327,11 +327,8 @@ def _nhl_final(event_id:str,start_utc:str,cache:dict) -> tuple[float,float]|None
         if not isinstance(home.get("score"),int) or not isinstance(away.get("score"),int):
             return None
         a,b=home["score"],away["score"]
-        if (entry.get("gameOutcome") or {}).get("lastPeriodType")=="SO":
-            # Market totals generally exclude the winning SO goal; handled
-            # at the settlement point, not in the win/loss decision.
-            return float(a),float(b)
-        return float(a),float(b)
+        period=(entry.get("gameOutcome") or {}).get("lastPeriodType")
+        return float(a),float(b),str(period or "UNKNOWN").upper()
     return None
 
 
@@ -355,17 +352,19 @@ def settle_ledger(ledger:dict,cache:dict,now:datetime,
             recorded=indexes[league].get(str(bet.get("event_id")))
             if recorded:
                 score=(recorded.get("home_score"),recorded.get("away_score"))
-        if score is None or any(x is None for x in score):
+        if score is None or len(score)<2 or any(x is None for x in score[:2]):
             continue
-        outcome=_outcome_from_score(bet,float(score[0]),float(score[1]))
-        if outcome is None:continue
-        # For NHL totals exclude winning shootout goal if verified; otherwise
-        # leave totals pending rather than misgrading. See explicit marker.
+        h,a=float(score[0]),float(score[1])
         if league=="NHL" and bet["market"]=="totals":
-            if nhl_loader is None:
-                bet["status"]="needs_nhl_shootout_verification"
-                bet["score"]={"home":score[0],"away":score[1]}
+            # Missing shootout classification => do not misgrade.
+            period=score[2] if len(score)>=3 else None
+            if period is None or period=="UNKNOWN":
                 continue
+            if period=="SO" and abs(h-a)==1:
+                if h>a:h-=1
+                else:a-=1
+        outcome=_outcome_from_score(bet,h,a)
+        if outcome is None:continue
         bet["status"]=outcome
         bet["settled_at"]=now.isoformat()
         bet["score"]={"home":score[0],"away":score[1]}
