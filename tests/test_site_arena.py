@@ -77,17 +77,15 @@ class ArenaTests(unittest.TestCase):
         self.assertIn("parite-clairvoyance.html",front)
         self.assertNotIn('jsonFile("progression-revue.json")',front)
 
-    def test_progress_is_explained_and_weighted(self):
+    def test_progress_is_exact_source_model_parity(self):
         import json
-        d=json.loads((DOCS/"progression-revue.json").read_text(encoding="utf-8"))
-        weights=d["categories"]
-        self.assertEqual(sum(x["weight"] for x in weights),100)
-        self.assertEqual(round(sum(x["weight"]*x["coverage"] for x in weights)),
-                         d["estimated_functional_coverage_percent"])
-        self.assertIn("Editorial",d["estimate_method"])
-        self.assertIn("CFB",d["excluded_by_user"])
-        self.assertNotIn("profit",d["goal"].lower())
-        self.assertIn("progression-revue.json",
+        d=json.loads((DOCS/"parite-modeles-clairvoyance.json").read_text(encoding="utf-8"))
+        self.assertEqual(d["total_target_models"],13)
+        self.assertEqual(d["verified_formula_parity_models"],2)
+        self.assertEqual(d["formula_parity_percent"],15)
+        self.assertIn("CFB",d["excluded"])
+        self.assertIsNone(d["overall_repository_reproduction_percent"])
+        self.assertIn("parite-modeles-clairvoyance.json",
                       (DOCS/"index.html").read_text(encoding="utf-8"))
 
     def test_all_internal_links_exist(self):
