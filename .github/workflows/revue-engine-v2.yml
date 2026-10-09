@@ -11,6 +11,8 @@ on:
       - 'tests/test_revue_engine_v2.py'
       - 'outils/pulsescore_v2.py'
       - 'tests/test_pulsescore_v2.py'
+      - 'outils/consensus_quotations.py'
+      - 'tests/test_consensus_quotations.py'
       - '.github/workflows/revue-engine-v2.yml'
 
 permissions:
@@ -35,6 +37,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_revue_engine_v2.py' -v
       - name: Tests PulseScore Pro pré-match sans appels payants
         run: python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
+      - name: Tests consensus bookmaker et de-vig
+        run: python -m unittest discover -s tests -p 'test_consensus_quotations.py' -v
       - name: Mise à jour du registre PAPIER uniquement
         if: github.event_name != 'push'
         env:
