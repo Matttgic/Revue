@@ -30,6 +30,8 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 
 | REV-MOD-NHL-01 | Hockey NHL | Moneyline / Totaux 4,5 / 5,5 / 6,5 | Modèle original Elo + Poisson + actualisation NHL | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 13 tests GitHub réussis ; API live consultée ; 7 matchs publiés le 2026-10-09 ; aucune calibration OOS | [Modèle](../modeles/simulations/NHL-INDEPENDANT-README.md) |
 
+| REV-MOD-MULTI-01 | Football / NBA / NFL / NCAA / MLB / WNBA / NHL | Victoire / 1N2 / totaux foot et NHL | Moteur original multisports, 14 flux avec tests et suivi | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 133 rencontres et 99 prédictions lors d'un run API réel ; aucun rendement évalué | [Modèle](../modeles/simulations/MULTISPORTS-README.md) |
+
 ## Analyses par source
 
 - [2026-10-09 — Purple-Wraith/clairvoyance-backend](../analyses/2026-10-09_Purple-Wraith_clairvoyance-backend.md) : 8 pistes NHL/hockey/validation et un outil de contrôle original, métriques historiques contaminées par des locks tardifs/inconnus ; aucune copie de source sans licence.
