@@ -34,7 +34,8 @@ function vmFn(source, names, env) {
 
 let checks = 0;
 const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
-                 frontend_soccer_market_blend: 0, frontend_soccer_mc: 0 };
+                 frontend_soccer_market_blend: 0, frontend_soccer_mc: 0,
+                 frontend_nba_mc: 0 };
 function compare(label, name, target, actual) {
   const left = JSON.stringify(target), right = JSON.stringify(actual);
   assert.equal(right, left, "Parity difference on " + label + ": " + right + " vs " + left);
@@ -155,6 +156,51 @@ function verify(source) {
     compare("soccer-mc "+i,"frontend_soccer_mc",
       ctx._soccerMC(hg,ag,n),
       own.soccerMonteCarlo(hg,ag,n,randReplica));
+  }
+  const standard = {
+    BKN:{ortg:117.8,drtg:112.9,pace:99.7,ts_pct:.604},
+    NY:{ortg:113.6,drtg:110.1,pace:96.2,ts_pct:.568},
+  };
+  const nbaMCCases=[
+    {label:"truly missing both teams",live:{},ratings:{},bbref:{},teams:{},n:140,ou:220.5},
+    {label:"real advanced two teams",live:standard,ratings:{},bbref:{},teams:{},n:350,ou:222.5},
+    {label:"low totals and strong favorite",live:standard,ratings:{},bbref:{},teams:{},n:450,ou:200.5},
+    {label:"high totals",live:standard,ratings:{},bbref:{},teams:{},n:330,ou:250.5},
+    {label:"last-year teamRatings fallback",live:{},
+     ratings:{BKN:{prior:{ortg:119,drtg:111,pace:99}},NY:{prior:{ortg:113,drtg:116,pace:97}}},
+     bbref:{},teams:{},n:210,ou:222.5},
+    {label:"partial teamRatings neutral other",live:{},
+     ratings:{BKN:{prior:{ortg:119,drtg:111,pace:99}}},
+     bbref:{},teams:{},n:320,ou:215.5},
+    {label:"live outranks prior",live:standard,
+     ratings:{BKN:{prior:{ortg:90,drtg:140,pace:80}}},
+     bbref:{},teams:{},n:280,ou:235.5},
+    {label:"original static teams",live:{},ratings:{},
+     bbref:{BKN:{p100:{ortg:113,drtg:118,pace:97,ts_pct:.61}},
+            NY:{p100:{ortg:119,drtg:109,pace:96,ts_pct:.59}}},
+     teams:{BKN:{},NY:{}},n:260,ou:224.5},
+    {label:"sample size >= 10 changes league rating",live:{
+       ...standard,...Object.fromEntries(Array.from({length:10},(_,i)=>
+         ["T"+i,{ortg:111+i*.8,drtg:109+i*.7,pace:94+i*.6,ts_pct:.56+i*.005}]))},
+       ratings:{},bbref:{},teams:{},n:470,ou:219.5},
+    {label:"all 25000 draws for genuine default",live:standard,
+     ratings:{},bbref:{},teams:{},n:25000,ou:225.5},
+  ];
+  for (const [i,c] of nbaMCCases.entries()) {
+    const seed=81727+i*997;
+    const r1=seeded(seed),r2=seeded(seed);
+    const math=Object.create(Math);math.random=r1;
+    const env={
+      NBA_BBREF:c.bbref,NBA_TEAMS:c.teams,Math:math,
+      window:{__CV_DATA:{nba:{teamAdv:c.live,teamRatings:{teams:c.ratings}}}}
+    };
+    const ctx=vmFn(source,["nbaMC"],env);
+    compare(c.label,"frontend_nba_mc",
+      ctx.nbaMC("BKN","NY",c.n,c.ou),
+      own.nbaMonteCarlo("BKN","NY",c.n,c.ou,{
+        teamAdv:c.live,priorRatings:c.ratings,staticBBref:c.bbref,
+        teams:c.teams,random:r2
+      }));
   }
   return checks;
 }
