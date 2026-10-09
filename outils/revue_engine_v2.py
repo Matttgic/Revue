@@ -461,7 +461,13 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
                for g in models.get("competitions",{}).get(k,{}).get("games",[]))
     ]
     odds,meta=({},{"status":"disabled_no_key","requests":[],"errors":{}})
-    if api_key:
+    model_stamp=timestamp(models.get("generated_at_utc"))
+    usable_model=(model_stamp is not None and model_stamp<=now and
+                  now-model_stamp<=PREDICTION_MAX_AGE)
+    if api_key and not usable_model:
+        meta={"status":"disabled_stale_model","requests":[],"errors":{
+            "models":"Aucune cote demandée : prédictions anciennes ou non horodatées."}}
+    elif api_key:
         odds,meta=download_odds(api_key,eligible,max_sports)
         meta["status"]="active" if meta["requests"] else "no_odds_returned"
     picks,notes=market_recommendations(models,odds,now)
