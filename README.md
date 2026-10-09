@@ -6,6 +6,13 @@
 
 **Audit Opta :** Clairvoyance intègre les xG, xGA, PPDA, statistiques d'équipes et Opta Power Rankings via The Analyst, mais **Revue n'a pas encore d'accès autorisé à ces données**, et notre modèle n'est pas la copie exacte de son moteur. [Voir l'audit et les écarts](analyses/2026-10-09_Clairvoyance_Opta_modele_ecarts.md).
 
+## Football : mesures d'équipes et comparaison prospective
+
+- [Statistiques ESPN dérivées](docs/football-espn-team-features.json) : tirs, tirs cadrés, possession, passes, interceptions et tacles ; ni xG ni Opta.
+- [Collecteur indépendant](modeles/simulations/football_espn_statistiques.py) : historiques horodatés, identifiants d'équipe stables, plafond de requêtes et cache.
+- [Registre pré-match](docs/football-shadow-ledger.json) et [score de qualité Brier/log loss](docs/football-shadow-performance.json) : modèle historique contre modèle enrichi ; aucune rentabilité supposée.
+- Dernier contrôle du 9 octobre 2026 : 72 matchs avec statistiques, 23 profils d'équipes et 34 prévisions enregistrées en comparaison prospective. Les données de tirs sont actives sur 4 prévisions archivées, et les résultats ne sont pas encore disponibles.
+
 ## Football avancé — nouveau candidat testé, sans reprise de code tiers
 
 - [Interface de comparaison football](docs/football-avance.html) et [JSON des probabilités / backtests](docs/football-advanced-shadow.json)
