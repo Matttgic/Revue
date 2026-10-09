@@ -34,7 +34,7 @@ SHARP="pinnacle"
 SOURCED_BOOKS=sorted(FR_BOOKS | {SHARP})
 ODDS_SPORTS={
  "NBA":"basketball_nba","WNBA":"basketball_wnba","NCAAB":"basketball_ncaab",
- "NFL":"americanfootball_nfl","CFB":"americanfootball_ncaaf",
+ "NFL":"americanfootball_nfl",
  "MLB":"baseball_mlb","NHL":"icehockey_nhl",
  "PL":"soccer_epl","LALIGA":"soccer_spain_la_liga",
  "SERIEA":"soccer_italy_serie_a","BUNDESLIGA":"soccer_germany_bundesliga",
