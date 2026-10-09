@@ -58,6 +58,9 @@ footer{margin-top:32px;border-top:1px solid var(--edge);padding:25px 0;color:var
 <div class="controls" style="margin-top:38px"><h2>03 / VALIDATION PROSPECTIVE</h2><span class="small">Prévisions archivées avant les matchs</span></div>
 <p id="prospective-message" class="small">Chargement des prédictions horodatées…</p>
 <div id="prospective" class="grid"></div>
+<div class="controls" style="margin-top:38px"><h2>04 / PRÉ-SAISON NBA — FORCES HISTORIQUES</h2><span class="small">Source ESPN : saison terminée 2025–2026</span></div>
+<p id="nba-prior-meta" class="small">Chargement des équipes NBA…</p>
+<div id="nba-prior" class="grid"></div>
 <footer>REVUE ARENA · Les modèles Monte-Carlo, Bayes et Elo sont des algorithmes indépendants développés pour Revue. Les résultats historiques ne démontrent pas une rentabilité en conditions réelles.
 <a href="https://github.com/Matttgic/Revue/blob/main/modeles/simulations/ensemble_montecarlo_bayes.py">Voir le code ↗</a></footer>
 </main>
@@ -172,7 +175,36 @@ async function loadProspective(){
   $("prospective-message").textContent="Le suivi prospectif sera disponible au prochain calcul : "+err.message;
  }
 }
+async function loadNBAPrior(){
+ try{
+  const r=await fetch("./nba-prior-shadow.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error("rapport en cours de calcul");
+  const data=await r.json();
+  const host=$("nba-prior");host.replaceChildren();
+  $("nba-prior-meta").textContent="Équipes de la saison précédente : "+data.previous_season_team_count+
+     " · "+data.ready+" prévisions disponibles / "+data.matches.length+" matchs · Modèle non calibré.";
+  for(const g of (data.matches||[])){
+   if(Date.parse(g.start_utc)<Date.now())continue;
+   const box=el("article","panel");
+   box.append(el("div","kicker","NBA / "+dateString(g.start_utc)),
+              el("h3","",g.home+" — "+g.away));
+   if(g.probabilities){
+     const stats=el("div","stats");
+     stats.append(metric("DOMICILE",percent(g.probabilities.home_win)),
+                  metric("EXTÉRIEUR",percent(g.probabilities.away_win)));
+     box.append(stats);
+     box.append(el("p","small","Écarts de force : "+g.strength.home+" / "+g.strength.away+
+        " · Rencontres nouvelles : "+g.current_games.home+" / "+g.current_games.away));
+   }else box.append(el("p","small","Statistiques de saison antérieure manquantes ou trop anciennes."));
+   host.append(box);
+  }
+  if(!host.children.length)host.append(el("div","empty","Aucun match NBA futur cette semaine."));
+ }catch(err){
+  $("nba-prior-meta").textContent="Données NBA antérieures indisponibles : "+err.message;
+ }
+}
 load();
 loadProspective();
+loadNBAPrior();
 </script>
 </body></html>
