@@ -81,8 +81,10 @@ class ArenaTests(unittest.TestCase):
         import json
         d=json.loads((DOCS/"parite-modeles-clairvoyance.json").read_text(encoding="utf-8"))
         self.assertEqual(d["total_target_models"],13)
-        self.assertEqual(d["verified_formula_parity_models"],2)
-        self.assertEqual(d["formula_parity_percent"],15)
+        self.assertGreaterEqual(d["verified_formula_parity_models"],2)
+        self.assertEqual(d["formula_parity_percent"],round(100*d["verified_formula_parity_models"]/d["total_target_models"]))
+        self.assertEqual(sum(m["status"]=="exact_formula_parity_verified" for m in d["models"]),
+                         d["verified_formula_parity_models"])
         self.assertIn("CFB",d["excluded"])
         self.assertIsNone(d["overall_repository_reproduction_percent"])
         self.assertIn("parite-modeles-clairvoyance.json",
