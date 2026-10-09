@@ -116,7 +116,8 @@ def _dixon_coles(lh:float,la:float,rho:float=DC_RHO)->tuple[float,float,float,fl
 
 def predict(league:str,events:list[Event],candidate:Event,
             cutoff:datetime,features:dict|None=None,
-            min_team_games:int=MIN_TEAM_GAMES)->dict:
+            min_team_games:int=MIN_TEAM_GAMES,
+            espn_features:dict|None=None)->dict:
     """Only matches that started >=8h before forecast cutoff enter training."""
     if league not in SOCCER or cutoff.tzinfo is None:
         raise ValueError("League or timestamp not supported")
@@ -141,7 +142,8 @@ def predict(league:str,events:list[Event],candidate:Event,
         "league":league,"model":"advanced_shadow_v1",
         "training_games":{"home":len(home),"away":len(away)},
         "probabilities":None,"expected_score":None,
-        "xg_used":False,"status":"historique_insuffisant",
+        "xg_used":False,"espn_stats_used":False,
+        "status":"historique_insuffisant",
         "odds":None,
     }
     if len(home)<min_team_games or len(away)<min_team_games:
@@ -179,6 +181,39 @@ def predict(league:str,events:list[Event],candidate:Event,
     # small multiplier to expected goals, bounded for sports realism.
     lh=max(.3,min(3.8,hgf*aga/avg*1.07*(1+hform)*math.exp(power)))
     la=max(.3,min(3.8,agf*hga/avg*.93*(1+aform)*math.exp(-power)))
+    # ESPN football box scores have real shots/SOT, NOT real expected goals.
+    # Apply a small independent shooting-pressure modifier only if BOTH
+    # teams have recent pre-forecast observed features.
+    def _espn_team(tid):
+        record=(espn_features or {}).get(f"{league}:{tid}")
+        if not isinstance(record,dict):return None
+        published=utc(record.get("published_at"))
+        if (record.get("type")!="observed_shots_not_xg" or
+            published is None or published>=cutoff or
+            cutoff-published>MAX_FEATURE_AGE or
+            int(record.get("games") or 0)<3):
+            return None
+        needed=("shots_per_game","sot_per_game","sot_allowed_per_game")
+        if any(_finite(record.get(k),0,100) is None for k in needed):return None
+        return record
+    eh,ea=_espn_team(candidate.home_id),_espn_team(candidate.away_id)
+    if eh and ea:
+        # Bounded multiplicative effect; deliberately no proprietary
+        # power rating nor xG inference from shot counts.
+        def shot_term(attack,opp):
+            atk=.55*(attack["sot_per_game"]/4.4-1)
+            volume=.15*(attack["shots_per_game"]/13-1)
+            opp_concede=.30*(opp["sot_allowed_per_game"]/4.4-1)
+            return max(-.09,min(.09,.11*(atk+volume+opp_concede)))
+        hshot=shot_term(eh,ea)
+        ashot=shot_term(ea,eh)
+        lh=max(.3,min(3.8,lh*math.exp(hshot)))
+        la=max(.3,min(3.8,la*math.exp(ashot)))
+        base["espn_stats_used"]=True
+        base["espn_stats_source"]="ESPN observed boxscore stats; not xG/Opta"
+        base["espn_features_published_at"]={
+            "home":eh["published_at"],"away":ea["published_at"],
+        }
     ph,pd,pa,over=_dixon_coles(lh,la)
     elo=_logistic(ratings[candidate.home_id],ratings[candidate.away_id],35)
     # Blend 15% Elo into the decisive-outcome mass, preserving DC draw.
@@ -205,7 +240,8 @@ def _loss(probs:list[float],idx:int)->float:
     return -math.log(max(1e-7,probs[idx]))
 
 
-def evaluate(league:str,events:list[Event],features:dict|None=None)->dict:
+def evaluate(league:str,events:list[Event],features:dict|None=None,
+             espn_features:dict|None=None)->dict:
     """Walk-forward. Cannot evaluate later-published licensed data in prior games."""
     cfg=SOCCER[league]
     settled=sorted([e for e in events if e.scored],
@@ -216,7 +252,8 @@ def evaluate(league:str,events:list[Event],features:dict|None=None)->dict:
         cutoff=game.start-timedelta(minutes=1)
         older=[e for e in settled if e.start<=cutoff-LAG and e.id!=game.id]
         target=replace(game,complete=False,home_score=None,away_score=None)
-        pred=predict(league,older,target,cutoff,features)
+        pred=predict(league,older,target,cutoff,features,
+                     espn_features=espn_features)
         if not pred["probabilities"]:
             continue
         if pred["xg_used"]:late+=1
@@ -245,10 +282,13 @@ def evaluate(league:str,events:list[Event],features:dict|None=None)->dict:
     return result
 
 
-def build(cache:dict,features_raw:dict|None,now:datetime,days:int=3)->dict:
+def build(cache:dict,features_raw:dict|None,now:datetime,days:int=3,
+          espn_raw:dict|None=None)->dict:
     if not 1<=days<=7:raise ValueError("1-7 days")
     feat,diag=validate_licensed_snapshots(features_raw or {})
     leagues=cache.get("leagues") or {}
+    observed=(espn_raw or {}).get("teams") or {}
+    if not isinstance(observed,dict):observed={}
     output={}
     for league in SOCCER:
         entries=leagues.get(league,{}).get("events") or []
@@ -260,13 +300,18 @@ def build(cache:dict,features_raw:dict|None,now:datetime,days:int=3)->dict:
               key=lambda e:e.start)
         output[league]={
             "name":SOCCER[league].label,
-            "games":[predict(league,events,e,now,feat) for e in future],
-            "evaluation":evaluate(league,events,feat),
+            "games":[predict(league,events,e,now,feat,
+                             espn_features=observed) for e in future],
+            "evaluation":evaluate(league,events,feat,observed),
         }
     return {
         "generated_at_utc":now.astimezone(timezone.utc).isoformat(),
         "status":"shadow_experimental_never_auto_bet",
         "licensed_advanced_features":diag,
+        "espn_observed_features":{
+            "status":"available" if observed else "not_available",
+            "teams":len(observed),"genuine_xg":False,
+        },
         "competitions":output,
         "disclaimer":"Independent candidate model, no proprietary weights copied. No bookmaker edge confirmed; not sent to Engine V2 paper locks.",
     }
@@ -277,6 +322,7 @@ def main():
     p.add_argument("--cache",default="docs/multisports-history.json")
     p.add_argument("--features",default="data/football_features_authorized.json")
     p.add_argument("--output",default="docs/football-advanced-shadow.json")
+    p.add_argument("--espn-team-stats",default="docs/football-espn-team-features.json")
     p.add_argument("--days",type=int,default=3)
     args=p.parse_args()
     cache=json.loads(Path(args.cache).read_text(encoding="utf-8"))
@@ -284,7 +330,11 @@ def main():
     raw={}
     if feature_path.exists():
         raw=json.loads(feature_path.read_text(encoding="utf-8"))
-    report=build(cache,raw,datetime.now(timezone.utc),args.days)
+    espn_path=Path(args.espn_team_stats)
+    espn_data=(json.loads(espn_path.read_text(encoding="utf-8"))
+               if espn_path.exists() else {})
+    report=build(cache,raw,datetime.now(timezone.utc),args.days,
+                 espn_raw=espn_data)
     path=Path(args.output);path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     for lg,row in report["competitions"].items():
