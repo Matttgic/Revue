@@ -47,7 +47,6 @@ LEAGUES = (
     League("WNBA", "WNBA", "Basket", "basketball/wnba", "points", 6, 45),
     League("NCAAB", "NCAA Basketball", "Basket", "basketball/mens-college-basketball", "points", 4, 35),
     League("NFL", "NFL", "Football américain", "football/nfl", "points", 3, 60),
-    League("CFB", "NCAA Football", "Football américain", "football/college-football", "points", 3, 35),
     League("MLB", "MLB", "Baseball", "baseball/mlb", "runs", 6, 32),
     League("PL", "Premier League", "Football", "soccer/eng.1", "soccer", 3, 55),
     League("LALIGA", "La Liga", "Football", "soccer/esp.1", "soccer", 3, 55),
@@ -535,6 +534,8 @@ def main(argv: list[str] | None = None) -> int:
     except (OSError, ValueError):
         previous_cache = {}
     league_cache = previous_cache.get("leagues", {}) if isinstance(previous_cache.get("leagues"), dict) else {}
+    # User removed CFB: do not keep its old cached fixtures in new snapshots.
+    league_cache.pop("CFB", None)
     try:
         report = build_snapshot(
             datetime.now(timezone.utc), args.days, selected,
