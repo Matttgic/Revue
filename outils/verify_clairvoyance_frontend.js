@@ -35,8 +35,8 @@ function vmFn(source, names, env) {
 let checks = 0;
 const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
                  frontend_soccer_market_blend: 0, frontend_soccer_mc: 0,
-                 frontend_nba_mc: 0, frontend_nfl_mc: 0,
-                 frontend_nfl_ensemble: 0 };
+                 frontend_nba_mc: 0, frontend_nba_ensemble: 0,
+                 frontend_nfl_mc: 0, frontend_nfl_ensemble: 0 };
 function compare(label, name, target, actual) {
   const left = JSON.stringify(target), right = JSON.stringify(actual);
   assert.equal(right, left, "Parity difference on " + label + ": " + right + " vs " + left);
@@ -290,6 +290,59 @@ function verify(source) {
      game:{id:"G13",spread:-5.5},ou:42.5,weights:{mc:.6,bay:.4}},
   ];
   ensembleCases.forEach((c,i)=>simulateNFL(c,"ensemble",50+i));
+  const nbaEnsCases=[
+    {label:"missing all roster and ratings",game:{hL:-120,aL:110}},
+    {label:"two live NBA teams",live:standard,game:{ou:225.5}},
+    {label:"two live NBA teams market heavy home",live:standard,
+     game:{ou:232.5,hL:-480,aL:390},elo:{BKN:1650,NY:1420}},
+    {label:"two live NBA teams market away favorite",live:standard,
+     game:{overUnder:227.5,hL:240,aL:-285},elo:{BKN:1380,NY:1720}},
+    {label:"NBA only home bookmaker line",live:standard,
+     game:{hL:210,ou:210.5}},
+    {label:"NBA market odds absent",live:standard,game:{}},
+    {label:"NBA live overrides prior ratings",live:standard,
+     ratings:{BKN:{prior:{ortg:92,drtg:119,pace:84},priorWinPct:.40,current:{w:2,l:5}},
+              NY:{prior:{ortg:114,drtg:100,pace:110},priorWinPct:.60,current:{w:6,l:1}}},
+     game:{hL:-145,aL:124,ou:219.5}},
+    {label:"NBA both team prior",live:{},
+     ratings:{BKN:{prior:{ortg:118,drtg:109,pace:99},priorWinPct:.63,current:{w:0,l:0}},
+              NY:{prior:{ortg:114,drtg:116,pace:96},priorWinPct:.42,current:{w:1,l:2}}},
+     game:{hL:-109,aL:-103}},
+    {label:"NBA team injury penalties",live:standard,
+     game:{hL:-115,aL:105,ou:225.5},
+     injuries:{BKN:{penalty:.085,players:["starter out"]},NY:{penalty:.015,players:["small issue"]}}},
+    {label:"NBA calibration, adaptive weights",live:standard,
+     game:{hL:165,aL:-185,ou:241.5},weights:{mc:.59,bay:.17,elo:.24},
+     calibrator:p=>p*.93+.034},
+    {label:"NBA prior standings ledger",live:standard,
+     standings:{BKN:{w:"3",l:"9"},NY:{w:"11",l:"3"}},
+     ledger:[{sport:"NBA",outcome:"win",hA:"BKN",awA:"NY",hScore:119,aScore:114}],
+     game:{hL:-110,aL:100}},
+  ];
+  for(const [i,c] of nbaEnsCases.entries()){
+    const seed=456123+i*2227;
+    const r1=seeded(seed),r2=seeded(seed);
+    const math=Object.create(Math);math.random=r1;
+    const adv=c.live||{},ratings=c.ratings||{},bbref=c.bbref||{},
+          teams=c.teams||{},stand=c.standings||{},ledger=c.ledger||[],
+          elo=c.elo||{},weights=c.weights||{mc:.50,bay:.20,elo:.30},
+          injuries=c.injuries||{},cal=c.calibrator||((p)=>p);
+    const env={
+      NBA_BBREF:bbref,NBA_TEAMS:teams,NBA_ELO:elo,NBA_ENS:weights,
+      NBA_MKT_CAP:.065,Math:math,
+      window:{__CV_DATA:{nba:{teamAdv:adv,standings:stand,teamRatings:{teams:ratings}}}},
+      getP:()=>ledger,_normSport:p=>p.sport,
+      sportCalibrate:cal,
+      computeInjuryImpact:(team)=>injuries[team]||{penalty:0}
+    };
+    const ctx=vmFn(source,["ml2d","nbaMC","nbaGetBayes","nbaEloWP","nbaEns"],env);
+    compare(c.label,"frontend_nba_ensemble",
+      ctx.nbaEns("BKN","NY",c.game),
+      own.nbaEnsemble("BKN","NY",c.game,{
+        teamAdv:adv,priorRatings:ratings,staticBBref:bbref,teams,
+        standings:stand,ledger,elo,weights,injuries,calibrator:cal,random:r2
+      }));
+  }
   return checks;
 }
 
