@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Named Clairvoyance model-parity scoreboard, NOT overall project completion.
 
-13 original core functions + 8 follow-up source functions, CFB excluded.
+13 core source functions + 8 rate/analytics + 8 EU hockey models; CFB excluded.
 A function is 'verified' ONLY when a GitHub CI parity report compares actual
 output to source from a pinned Clairvoyance commit. Other Revue innovations
 and numeric backtests cannot boost this percentage.
@@ -33,6 +33,14 @@ MODELS=(
     ("frontend_nla_rates","Hockey suisse · Pondération des taux","docs/app.html","_nlaBlendedRates"),
     ("frontend_extraliga_rates","Hockey tchèque · Pondération des taux","docs/app.html","_extraligaBlendedRates"),
     ("frontend_shl_rates","SHL · Pondération des taux","docs/app.html","_shlBlendedRates"),
+    ("frontend_liiga_mc","Liiga · Simulation de score Poisson et handicap","docs/app.html","liigaMC"),
+    ("frontend_nla_mc","Suisse NL · Simulation de score Poisson et handicap","docs/app.html","nlaMC"),
+    ("frontend_extraliga_mc","Tchéquie Extraliga · Simulation de score Poisson","docs/app.html","extraligaMC"),
+    ("frontend_shl_mc","SHL · Simulation de score Poisson et handicap","docs/app.html","shlMC"),
+    ("frontend_liiga_ensemble","Liiga · Ensemble Bayes/Poisson/marché","docs/app.html","liigaEns"),
+    ("frontend_nla_ensemble","Suisse NL · Ensemble Bayes/Poisson/marché","docs/app.html","nlaEns"),
+    ("frontend_extraliga_ensemble","Extraliga · Ensemble Bayes/Poisson/marché","docs/app.html","extraligaEns"),
+    ("frontend_shl_ensemble","SHL · Ensemble Bayes/Poisson/marché","docs/app.html","shlEns"),
 )
 
 def generate(reference_parity:dict,audit:dict,as_of:datetime,
@@ -69,17 +77,21 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
     n_total=len(entries)
     first=entries[:13]
     first_count=sum(e["status"]=="exact_formula_parity_verified" for e in first)
-    follow=entries[13:]
+    follow=entries[13:21]
     second_count=sum(e["status"]=="exact_formula_parity_verified" for e in follow)
+    game_models=entries[21:]
+    third_count=sum(e["status"]=="exact_formula_parity_verified" for e in game_models)
     return {
         "generated_at_utc":as_of.astimezone(timezone.utc).isoformat(),
-        "name":"Clairvoyance Model Reproduction — 21 original functions (13 primary + 8 followup)",
+        "name":"Clairvoyance Model Reproduction — 29 original functions (13 core + 8 auxiliary + 8 Euro-hockey models)",
         "status":"expanded_defined_scope_not_entire_repository",
         "phases":{
             "primary_13":{"verified":first_count,"target":13,
                           "percent":round(100*first_count/13)},
             "extended_8":{"verified":second_count,"target":len(follow),
-                          "percent":round(100*second_count/max(1,len(follow)))}
+                          "percent":round(100*second_count/max(1,len(follow)))},
+            "eu_hockey_game_models_8":{"verified":third_count,"target":len(game_models),
+                           "percent":round(100*third_count/max(1,len(game_models)))}
         },
         "excluded":["CFB"],
         "total_target_models":n_total,
@@ -93,7 +105,7 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
                                       + (js.get("exact_equality_tests_passed",0) if verified_js else 0)),
         "models":entries,
         "notes":[
-            "Percentage covers ONLY 21 explicitly listed original source functions: 13 primary and 8 new analytical/hockey functions. NOT full Clairvoyance.",
+            "Percentage covers ONLY 29 explicitly listed original source functions: 13 primary, 8 analytical/rate functions and 8 EU hockey match models. NOT full Clairvoyance.",
             "Source-side mathematical parity is verified on test inputs; real data parity and profit are NOT verified.",
             "Revue's original models, Monte-Carlo/Bayes experiments, pages and API integrations are EXCLUDED.",
             "Progress can increase only after direct source-vs-reproduction parity tests on pinned source versions.",
@@ -119,7 +131,7 @@ def main():
     dest.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("STRICT PARITY",result["verified_formula_parity_models"],"/",
           result["total_target_models"],"=",result["formula_parity_percent"],
-          "% (21 named functions, NOT whole repo)")
+          "% (29 named functions, NOT whole repo)")
 
 if __name__=="__main__":
     main()
