@@ -100,6 +100,13 @@ class PaperTests(unittest.TestCase):
         self.assertTrue(all(s["bookmaker"]=="betclic_fr" for s in selections))
         self.assertTrue(any(s["p_sharp_no_vig"] is not None for s in selections))
 
+    def test_stale_pinnacle_not_used_as_consensus(self):
+        event=quotes()
+        event["bookmakers"][1]["last_update"]=iso(NOW-timedelta(hours=3))
+        out,_=market_recommendations(models(),{"PL":[event]},NOW)
+        self.assertTrue(out)
+        self.assertTrue(all(c["p_sharp_no_vig"] is None for c in out))
+
     def test_late_quote_refused(self):
         selections,notes=market_recommendations(models(),{"PL":[quotes(when=START+timedelta(hours=1))]},NOW)
         self.assertEqual(selections,[])
