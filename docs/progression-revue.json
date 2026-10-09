@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T21:52:00+00:00",
+  "updated_at_utc": "2026-10-09T21:57:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 33,
-  "previous_estimate_percent": 30,
+  "estimated_functional_coverage_percent": 35,
+  "previous_estimate_percent": 33,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
   "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
   "excluded_by_user": [
@@ -55,9 +55,9 @@
       "id": "basketball",
       "title": "Modèles basketball",
       "weight": 10,
-      "coverage": 0.13,
+      "coverage": 0.25,
       "status": "partiel",
-      "remaining": "Tempo, efficacités, joueurs absents et minutes"
+      "remaining": "Backtest NBA sur saisons complètes, tempo, efficacités, rotations, blessures"
     },
     {
       "id": "nfl_mlb",
@@ -79,9 +79,9 @@
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.3,
+      "coverage": 0.4,
       "status": "partiel",
-      "remaining": "Cotes chronologiques et saison de validation complète"
+      "remaining": "Cotes historiques, validation prospective sur ≥150 résultats et CLV"
     },
     {
       "id": "licensed_data",
@@ -99,12 +99,17 @@
     "12 offline tests for ensemble, chronologically compared against previous and baseline",
     "Prospective lock-before-kickoff ledger with strict 20-minute buffer and final-score grading",
     "12 additional prospective ledger tests, 17 genuine paired predictions registered",
-    "Mobile gaming research dashboard, with historical scores and prospective scorecards"
+    "Mobile gaming research dashboard, with historical scores and prospective scorecards",
+    "Official ESPN 2025-26 standings: all 30 NBA teams, previous-season strength and point differentials",
+    "12 of 13 upcoming NBA games now have prior-strength SHADOW predictions; unmatched preseason visitor excluded",
+    "17 ensemble paired predictions frozen before kickoff for prospective Brier comparison"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
     "prospective": "docs/ensemble-mc-bayes-performance.json",
-    "functions": "docs/clairvoyance-code-audit.json"
+    "functions": "docs/clairvoyance-code-audit.json",
+    "nba_prior": "docs/nba-prior-shadow.json",
+    "nba_previous_season": "docs/nba-prior-standings.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
