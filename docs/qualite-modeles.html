@@ -13,7 +13,7 @@ p{color:var(--dim)}.warning{border-left:3px solid var(--accent);padding:13px 15p
 .stat b{font-variant-numeric:tabular-nums}.good{color:var(--accent)}.bad{color:#ffb5a0}
 #status{margin:15px 0;color:var(--dim)}a{color:#aacbff}
 footer{border-top:1px solid var(--edge);margin-top:30px;padding-top:18px}
-</style></head><body><main><small>Revue · Audit des probabilités</small>
+</style><link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a><a href="./engine-v2.html">SCANNER</a><a href="./multisports.html">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html" aria-current="page">AUDIT</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main><small>Revue · Audit des probabilités</small>
 <h1>Qualité des modèles</h1>
 <p>Tests historiques chronologiques de Brier et log loss, par compétition.</p>
 <div class="warning"><strong>Pas un bilan de gains.</strong> Ces tests utilisent les scores archivés, pas les cotes réelles obtenables. Pas de calcul de ROI ni de comparaison aux bookmakers. Les échantillons sont incomplets et certaines compétitions affichent trop peu de matchs.</div>
@@ -35,6 +35,7 @@ fetch("./backtests-multisports.json?v="+Date.now(),{cache:"no-store"}).then(r=>{
 .then(data=>{
  status.textContent="Audit du "+new Date(data.generated_at_utc).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Paris"});
  grid.replaceChildren();for(const [key,v] of Object.entries(data.leagues||{})){
+ if(key==="CFB")continue;
  const card=add(grid,"article","card");add(card,"small","",key+" · "+v.sport);add(card,"h3","",v.label);
  if(v.status!=="backtest_prototype"){add(card,"p","","Pas assez de résultats pour un backtest raisonnable.");continue}
  add(card,"p","",v.n+" matchs évalués · "+v.first+" → "+v.last);
