@@ -15,6 +15,8 @@ on:
       - 'tests/test_consensus_quotations.py'
       - 'outils/historique_cotes_clv.py'
       - 'tests/test_historique_cotes_clv.py'
+      - 'outils/tableau_cotes.py'
+      - 'tests/test_tableau_cotes.py'
       - '.github/workflows/revue-engine-v2.yml'
 
 permissions:
@@ -43,6 +45,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_consensus_quotations.py' -v
       - name: Tests historique cotes réelles et proxy CLV
         run: python -m unittest discover -s tests -p 'test_historique_cotes_clv.py' -v
+      - name: Tests affichage de toutes les cotes bookmakers avec contrôles de marché
+        run: python -m unittest discover -s tests -p 'test_tableau_cotes.py' -v
       - name: Mise à jour du registre PAPIER uniquement
         if: github.event_name != 'push'
         env:
