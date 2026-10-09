@@ -114,5 +114,60 @@ function soccerMonteCarlo(hxg, axg, n, random = Math.random) {
            btts:btts/n, hxg, axg, n };
 }
 
+/**
+ * Faithful formula of original nbaMC, including fallback order, points per
+ * possession, HCA as a margin shift, separate normal score draws, and
+ * 50.3/49.7 split of simulated ties. No new predictive coefficients.
+ */
+function nbaMonteCarlo(homeAbbr, awayAbbr, n = 25000, ouLine = 220.5,
+                       {teamAdv = {}, priorRatings = {}, staticBBref = {},
+                        teams = {}, random = Math.random} = {}) {
+  const liveAdv = teamAdv || {};
+  const h = staticBBref[homeAbbr], aw = staticBBref[awayAbbr];
+  function priorAdv(abbr) {
+    const pr = priorRatings?.[abbr]?.prior;
+    return pr && pr.ortg != null && pr.drtg != null
+      ? {ortg: pr.ortg, drtg: pr.drtg, pace: pr.pace} : undefined;
+  }
+  const hLive = liveAdv[homeAbbr] || priorAdv(homeAbbr);
+  const aLive = liveAdv[awayAbbr] || priorAdv(awayAbbr);
+  const ht = teams[homeAbbr], awt = teams[awayAbbr];
+  if (!ht && !awt && !hLive && !aLive) return null;
+
+  const LG_ORTG = 114.5, LG_DRTG = 114.5, LG_PACE = 99.0, LG_TS = .570;
+  const hOrtg = hLive?.ortg ?? (h ? h.p100.ortg : LG_ORTG);
+  const hDrtg = hLive?.drtg ?? (h ? h.p100.drtg : LG_DRTG);
+  const aOrtg = aLive?.ortg ?? (aw ? aw.p100.ortg : LG_ORTG);
+  const aDrtg = aLive?.drtg ?? (aw ? aw.p100.drtg : LG_DRTG);
+  const pace = ((hLive?.pace ?? (h ? h.p100.pace : LG_PACE)) +
+                (aLive?.pace ?? (aw ? aw.p100.pace : LG_PACE))) / 2;
+  const advAll = Object.values(liveAdv).filter(t => t && t.ortg != null && t.drtg != null);
+  const lgDrtg = advAll.length >= 10
+    ? advAll.reduce((total,t) => total + t.drtg,0) / advAll.length
+    : 115.7;
+  const poss = pace / 100, HCA = 2.9;
+  const hProj = hOrtg * (aDrtg / lgDrtg) * poss + HCA / 2;
+  const aProj = aOrtg * (hDrtg / lgDrtg) * poss - HCA / 2;
+  const hTS = hLive?.ts_pct ?? (h ? h.p100.ts_pct : LG_TS);
+  const aTS = aLive?.ts_pct ?? (aw ? aw.p100.ts_pct : LG_TS);
+  const hSD = Math.max(8,18-(hTS-.56)*40);
+  const aSD = Math.max(8,18-(aTS-.56)*40);
+  let hw=0,aw2=0,hT=0,aT=0,ts=0,ov=0;
+  for (let i=0;i<n;i++) {
+    const u1=random()||1e-10,u2=random();
+    const z1=Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+    const z2=Math.sqrt(-2*Math.log(random()||1e-10))*Math.cos(2*Math.PI*random());
+    const hs=Math.max(70,Math.round(hProj+z1*hSD));
+    const as=Math.max(70,Math.round(aProj+z2*aSD));
+    hT+=hs;aT+=as;
+    if(hs>as)hw++;else if(as>hs)aw2++;else ts++;
+    if(hs+as>ouLine)ov++;
+  }
+  hw+=Math.round(ts*.503);aw2+=Math.round(ts*.497);
+  return { hwP:hw/n,avgH:+(hT/n).toFixed(1),avgA:+(aT/n).toFixed(1),
+           avgT:+((hT+aT)/n).toFixed(1),spread:+((hT-aT)/n).toFixed(1),
+           overP:ov/n,underP:1-ov/n };
+}
+
 module.exports = { nbaGetBayes, nflBayes, soccerMarketBlend, soccerMonteCarlo,
-                   ml2decimal, footballCal };
+                   nbaMonteCarlo, ml2decimal, footballCal };
