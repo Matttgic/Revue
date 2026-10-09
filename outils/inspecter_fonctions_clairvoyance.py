@@ -10,6 +10,8 @@ from pathlib import Path
 import re
 
 TARGETS={
+    "_socCal":27425,
+    "ml2d":1600,
     "nhlMC":7624,
     "nhlEns":7727,
     "nbaMC":13949,
@@ -32,9 +34,14 @@ def main():
     print("Reference frontend lines:",len(lines))
     for name,line in TARGETS.items():
         found=[]
-        for i in range(max(0,line-4),min(len(lines),line+4)):
-            if re.search(r"(?<![\w$])"+re.escape(name)+r"(?=\s*\(|\s*=)",lines[i]):
+        # Inspect a small local vicinity; helpers may sit far from MC code.
+        near=range(max(0,line-10),min(len(lines),line+10))
+        if name in ("_socCal","ml2d"):
+            near=range(len(lines))
+        for i in near:
+            if re.search(r"^\\s*(?:function\\s+|(?:const|let|var)\\s+)"+re.escape(name)+r"(?=\\s*\\(|\\s*=)",lines[i]):
                 found.append(i)
+                break
         if not found:
             print("NO DEFINITION",name,line)
             continue
