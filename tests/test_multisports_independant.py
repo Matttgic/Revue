@@ -75,10 +75,12 @@ class MultisportTests(unittest.TestCase):
             (date(2026, 10, 9), date(2026, 10, 9)),
         ])
 
-    def test_query_uses_sport_and_date_range(self):
-        url = query_url(self.soccer, date(2026, 10, 8), date(2026, 10, 9))
+    def test_query_uses_sport_and_single_date(self):
+        url = query_url(self.soccer, date(2026, 10, 8), date(2026, 10, 8))
         self.assertIn("soccer/eng.1/scoreboard", url)
-        self.assertIn("20261008-20261009", url)
+        self.assertIn("dates=20261008", url)
+        with self.assertRaises(ValueError):
+            query_url(self.soccer, date(2026, 10, 8), date(2026, 10, 9))
 
     def test_insufficient_history_not_fake_prediction(self):
         games = [make_event(1, self.now + timedelta(hours=20))]
