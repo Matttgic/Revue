@@ -2,7 +2,7 @@ import unittest
 import tempfile
 from pathlib import Path
 from datetime import datetime,timezone
-from outils.audit_clairvoyance_complet import inventory
+from outils.audit_clairvoyance_complet import inventory, inspect_frontend_model_symbols
 
 NOW=datetime(2026,10,9,20,tzinfo=timezone.utc)
 class StaticInventoryTests(unittest.TestCase):
@@ -24,6 +24,25 @@ class StaticInventoryTests(unittest.TestCase):
             self.assertFalse(out["copyright"]["permission_to_redistribute_source"])
             self.assertTrue(out["source_areas"]["nhl_game_goalie"]["corresponding_revue_modules"]["modeles/simulations/nhl_independant.py"])
             self.assertEqual(out["generated_at_utc"],NOW.isoformat())
+
+    def test_frontend_inline_js_models_indexed_without_copying_source(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            docs=root/"docs"
+            docs.mkdir()
+            docs.joinpath("app.html").write_text(
+                '<script>function predictNHL(a){return a;} '
+                'const nbAModel=(x)=>x; '
+                'function unrelatedLogger(){} '
+                'const eloRate = function(x){return x;};</script>',
+                encoding="utf-8"
+            )
+            report=inspect_frontend_model_symbols(root)
+            self.assertEqual(report["status"],"read_only_symbol_index")
+            self.assertEqual(report["model_related_count"],3)
+            self.assertEqual({x["name"] for x in report["model_symbols"]},
+                             {"predictNHL","nbAModel","eloRate"})
+            self.assertNotIn("function predictNHL",str(report))
 
     def test_license_and_syntax_diagnostics(self):
         with tempfile.TemporaryDirectory() as tmp:
