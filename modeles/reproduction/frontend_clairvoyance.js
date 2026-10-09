@@ -169,5 +169,124 @@ function nbaMonteCarlo(homeAbbr, awayAbbr, n = 25000, ouLine = 220.5,
            overP:ov/n,underP:1-ov/n };
 }
 
+/**
+ * Reproduction of nflMC's numerical core with injected injury and weather
+ * sources. Dependency injection is mandatory for source-conditional parity:
+ * accurate current injuries are NOT available from these test fixtures.
+ */
+function nflWeatherImpact(wx) {
+  if (!wx) return {totalAdj:0,label:""};
+  let totalAdj=0;
+  const notes=[];
+  const wind=wx.wind||0, precip=wx.precip||0, temp=wx.temp!=null?wx.temp:65, snow=wx.snow||0;
+  if(wind>=20){totalAdj-=2.5;notes.push(wind+"mph wind");}
+  else if(wind>=12){totalAdj-=1.0;notes.push(wind+"mph wind");}
+  if(snow>=.3){totalAdj-=6.5;notes.push('heavy snow ('+snow+'"/hr)');}
+  else if(snow>0){totalAdj-=1.2;notes.push('snow ('+snow+'"/hr)');}
+  if(precip>=70){totalAdj-=1.5;notes.push("high rain risk");}
+  else if(precip>=40){totalAdj-=.5;notes.push("rain possible");}
+  if(temp<25){totalAdj-=1.5;notes.push("hard freeze");}
+  else if(temp<40){totalAdj-=.7;notes.push("cold");}
+  totalAdj=Math.max(-6.5,Math.min(1,totalAdj));
+  return {totalAdj:+totalAdj.toFixed(2),label:notes.join(" · ")};
+}
+
+function nflHalfLine(value) {
+  const rounded=Math.round(parseFloat(value)*2)/2;
+  return (Number.isInteger(rounded)?rounded+.5:rounded).toFixed(1);
+}
+function nflBoxMuller(random) {
+  const u1=random()||1e-10,u2=random();
+  return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2);
+}
+const NO_NFL_INJURY = () => ({pts:0,players:[],any:false});
+function nflMonteCarlo(homeAbbr, awayAbbr, n, ouLine, game,
+                       { data = null, hfa = 1.8, injury = NO_NFL_INJURY,
+                         weather = {}, weatherImpact = nflWeatherImpact,
+                         random = Math.random, marginSigma = 13.5,
+                         totalSigma = 10.0, lgTotal = 44,
+                         injuryTotalShare = .5 } = {}) {
+  const D=data;
+  if (!D) return null;
+  const hs=D.standings[homeAbbr],as=D.standings[awayAbbr];
+  const num = v => {const x=parseFloat(v);return isNaN(x)?null:x;};
+  const hg=(num(hs?.wins)??0)+(num(hs?.losses)??0)+(num(hs?.ties)??0);
+  const ag=(num(as?.wins)??0)+(num(as?.losses)??0)+(num(as?.ties)??0);
+  const hdiff=(hs&&hg>0)?num(hs.differential)/hg:null;
+  const adiff=(as&&ag>0)?num(as.differential)/ag:null;
+  const hasDiff=hdiff!=null&&adiff!=null;
+  const marketMargin=(game&&game.spread!=null)?-parseFloat(game.spread):null;
+  if(!hasDiff&&marketMargin==null)return null;
+  const hOff=D.stats[homeAbbr]?.offense||{},aOff=D.stats[awayAbbr]?.offense||{};
+  const hDef=D.stats[homeAbbr]?.defenseAllowed||{},aDef=D.stats[awayAbbr]?.defenseAllowed||{};
+  let yards=0;
+  const hy=(num(hOff.netPassingYardsPerGame)??0)+(num(hOff.rushingYardsPerGame)??0);
+  const aDY=(num(aDef.yardsPerGame)??0);
+  const ay=(num(aOff.netPassingYardsPerGame)??0)+(num(aOff.rushingYardsPerGame)??0);
+  const hDY=(num(hDef.yardsPerGame)??0);
+  if(hy&&aDY&&ay&&hDY){
+    const he=hy-aDY,ae=ay-hDY;
+    yards=Math.max(-3,Math.min(3,(he-ae)/16));
+  }
+  let takeaways=0;
+  const ht=num(hDef.totalTakeaways),at=num(aDef.totalTakeaways);
+  if(ht!=null&&at!=null)takeaways=Math.max(-1.5,Math.min(1.5,(ht-at)*.15));
+  const homeBonus=game?.neutralSite?0:hfa;
+  const injH=injury(homeAbbr,game),injA=injury(awayAbbr,game);
+  const injMargin=hasDiff?(injA.pts-injH.pts):0;
+  const margin0=hasDiff?((hdiff-adiff)+homeBonus+yards+takeaways+injMargin):
+    (marketMargin+yards+takeaways);
+  const hPts=num(hOff.totalPointsPerGame),aPts=num(aOff.totalPointsPerGame);
+  const hAllowed=num(hDef.totalPointsPerGame),aAllowed=num(aDef.totalPointsPerGame);
+  let baseTotal;
+  if(hPts!=null&&aPts!=null&&hAllowed!=null&&aAllowed!=null){
+    const he=(hPts+aAllowed)/2,ae=(aPts+hAllowed)/2;
+    baseTotal=he+ae;
+  }else baseTotal=lgTotal;
+  const injTotal=-(injH.pts+injA.pts)*injuryTotalShare;
+  baseTotal+=injTotal;
+  const wxKey=game&&(game.id||(game.city+game.date));
+  const wx=wxKey?weather[wxKey]:null;
+  const impact=wx?weatherImpact(wx):{totalAdj:0,label:""};
+  baseTotal=Math.max(20,baseTotal+impact.totalAdj);
+  const finalOU=ouLine!=null?parseFloat(ouLine):parseFloat(nflHalfLine(baseTotal));
+  n=n||15000;
+  let hw=0,ov=0,marginSum=0,totalSum=0,hScoreSum=0,aScoreSum=0;
+  for(let i=0;i<n;i++){
+    const margin=margin0+nflBoxMuller(random)*marginSigma;
+    const total=Math.max(20,baseTotal+nflBoxMuller(random)*totalSigma);
+    marginSum+=margin;totalSum+=total;
+    if(margin>0)hw++;
+    if(total>finalOU)ov++;
+    hScoreSum+=Math.max(0,(total+margin)/2);
+    aScoreSum+=Math.max(0,(total-margin)/2);
+  }
+  const avgMargin=marginSum/n,avgTotal=totalSum/n;
+  return {
+    hwP:hw/n,avgMargin:+avgMargin.toFixed(1),avgTotal:+avgTotal.toFixed(1),
+    avgH:+(hScoreSum/n).toFixed(1),avgA:+(aScoreSum/n).toFixed(1),
+    overP:ov/n,underP:1-ov/n,ouLine:+finalOU.toFixed(1),n,
+    wx,wxImpact:impact,hasDiff,marketMargin,
+    margin0:+margin0.toFixed(2),baseTotal:+baseTotal.toFixed(2),
+    inj:{h:injH,a:injA,margin:injMargin,total:injTotal,marginApplied:hasDiff},
+  };
+}
+
+/** Exact nflEns weighting and calibration; uses the original MC formula. */
+function nflEnsemble(homeAbbr,awayAbbr,ouLine,game,
+                     {data=null,weights={mc:.75,bay:.25},calibrator,...opts}={}){
+  const mc=nflMonteCarlo(homeAbbr,awayAbbr,25000,ouLine,game,{data,...opts});
+  if(!mc)return{p:.5,mc:.5,bay:.5,mcD:null};
+  const standings=data?.standings||{};
+  const hp=nflBayes(homeAbbr,standings),ap=nflBayes(awayAbbr,standings);
+  const bayP=Math.min(.92,Math.max(.08,hp.m/(hp.m+ap.m)+.015));
+  const w=weights||{mc:.75,bay:.25};
+  let p=mc.hwP*w.mc+bayP*w.bay;
+  p=Math.min(.92,Math.max(.08,p));
+  p=typeof calibrator==="function"?calibrator(p,"NFL"):p;
+  return{p,mc:mc.hwP,bay:bayP,mcD:mc};
+}
+
 module.exports = { nbaGetBayes, nflBayes, soccerMarketBlend, soccerMonteCarlo,
-                   nbaMonteCarlo, ml2decimal, footballCal };
+                   nbaMonteCarlo, nflWeatherImpact, nflMonteCarlo, nflEnsemble,
+                   ml2decimal, footballCal };
