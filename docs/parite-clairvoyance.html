@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#060a14">
+<title>REVUE ARENA — Parité des modèles Clairvoyance</title>
+<meta name="description" content="Reproduction mathématique des modèles Clairvoyance : preuves de conformité, périmètre testé et sources originales.">
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1160px!important}
+.rv-title{padding:30px 0 22px;border-bottom:1px solid rgba(85,245,222,.25)}
+.rv-title h1{font:700 clamp(2.7rem,8vw,5.4rem)/.94 'Chakra Petch',system-ui,sans-serif;margin:14px 0 17px}
+.rv-title h1 span{color:var(--cyan)}
+.rv-title .kicker{font:700 12px 'Chakra Petch',sans-serif;letter-spacing:.17em;color:var(--cyan)}
+.rv-title p{max-width:800px;font-size:14px;color:var(--muted)}
+.rv-statline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0}
+.rv-stat{padding:19px;border:1px solid rgba(135,178,207,.23);background:rgba(12,26,46,.9)}
+.rv-stat label{display:block;font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.11em;color:var(--muted)}
+.rv-stat strong{font:700 clamp(22px,4vw,38px) 'Chakra Petch',sans-serif;color:var(--cyan)}
+.rv-progress{height:12px;border:1px solid rgba(99,150,187,.45);background:#0c1728;margin-bottom:8px}
+.rv-progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#2baba7,var(--cyan))}
+.rv-warning{padding:16px 17px;border-left:3px solid var(--orange);background:rgba(32,29,44,.86);font-size:12px;line-height:1.7;color:#c3cee0;margin:24px 0}
+.rv-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:26px 0 15px}
+.rv-toolbar h2{font:700 clamp(21px,4vw,28px) 'Chakra Petch',sans-serif;margin:0}
+.rv-toolbar select{padding:10px 12px;background:#111e34;border-radius:8px;border:1px solid rgba(105,166,209,.3);color:var(--fg)}
+.rv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.rv-model{padding:18px;border:1px solid rgba(105,156,191,.2);background:linear-gradient(135deg,rgba(17,32,53,.95),rgba(8,18,34,.93));position:relative;border-radius:12px}
+.rv-model:before{content:"";height:2px;width:45%;background:#66778b;position:absolute;left:0;top:0}
+.rv-model.ok:before{background:var(--cyan)}
+.rv-model header{display:flex;justify-content:space-between;gap:8px;align-items:center;border:0!important}
+.rv-model small{font:700 11px 'Chakra Petch',sans-serif;color:var(--muted);letter-spacing:.12em}
+.rv-badge{font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.07em;color:#a8bed7;padding:5px 7px;border:1px solid #3b5166}
+.rv-badge.ok{border-color:rgba(85,245,222,.5);color:var(--cyan)}
+.rv-model h3{font:700 22px 'Chakra Petch',sans-serif;letter-spacing:-.04em;margin:15px 0}
+.rv-model p{font-size:12px;color:var(--muted);line-height:1.55}
+.rv-model a{font:700 12px 'Chakra Petch',sans-serif;text-decoration:none;color:var(--cyan)}
+.rv-notes{color:#aec0d2;margin:30px 0;font-size:12px;line-height:1.9}
+.rv-notes a{color:var(--cyan)}
+@media(max-width:620px){.rv-statline{gap:6px}.rv-stat{padding:12px}.rv-toolbar{flex-wrap:wrap}.rv-toolbar select{width:100%}}
+</style>
+</head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation"><a href="./index.html">QG</a><a href="./engine-v2.html">SCANNER</a><a href="./multisports.html">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav>
+<span class="rv-top-tag"><i class="rv-led"></i>SOURCE PARITY</span>
+</div></div>
+<main>
+<section class="rv-title">
+<div class="kicker">// RECONSTRUCTION FIDÈLE · MODÈLES ORIGINAUX</div>
+<h1>NO INVENTION.<br><span>ONLY PARITY.</span></h1>
+<p>Reproduction des modèles identifiés dans Clairvoyance. Un modèle ne compte comme reproduit que si ses résultats égalent ceux du code source original, testés avec les mêmes entrées. Les modèles que Revue a inventés ne comptent pas.</p>
+</section>
+<div class="rv-statline">
+<div class="rv-stat"><label>FORMULES IDENTIQUES TESTÉES</label><strong id="count">—</strong></div>
+<div class="rv-stat"><label>MODÈLES CIBLÉS</label><strong id="total">—</strong></div>
+<div class="rv-stat"><label>AVANCEMENT DU PÉRIMÈTRE</label><strong id="percent">—</strong></div>
+</div>
+<div class="rv-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Modèles identiques vérifiés" id="bar"><span id="bar-fill"></span></div>
+<div id="metadata" style="font-size:11px;color:var(--muted)">Chargement du catalogue de parité vérifiée…</div>
+<div class="rv-warning"><strong>Lecture du pourcentage :</strong> il porte uniquement sur les 13 modèles nommés dans ce premier périmètre, et non sur les centaines de fonctions de Clairvoyance. La parité des sorties à entrées identiques ne prouve pas encore l'accès aux mêmes données ni des résultats réels identiques. CFB est exclu sur demande.</div>
+<div class="rv-toolbar"><h2>// MODÈLES À REPRODUIRE</h2><select id="state" aria-label="Filtrer l'état du modèle"><option value="all">Tous les modèles</option><option value="verified">Parité vérifiée</option><option value="pending">À reproduire</option></select></div>
+<div id="models" class="rv-grid"></div>
+<div class="rv-notes">
+<p><strong>Vérification :</strong> les fonctions MLB/NHL du backend sont confrontées à l'original récupéré en lecture seule pendant une exécution GitHub Actions, sans conserver son code dans notre dépôt.</p>
+<p><a href="https://github.com/Matttgic/Revue/blob/main/docs/parite-clairvoyance-predictor.json">Rapport de tests exacts ↗</a> · <a href="https://github.com/Matttgic/Revue/actions/workflows/parite-clairvoyance-predictor.yml">Workflow de parité ↗</a> · <a href="https://github.com/Purple-Wraith/clairvoyance-backend">Dépôt original ↗</a></p>
+</div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let data=null;
+function node(tag,text,cls){
+ const e=document.createElement(tag);if(text!==undefined)e.textContent=text;
+ if(cls)e.className=cls;return e;
+}
+function show(){
+ const target=$("models");target.replaceChildren();
+ const mode=$("state").value;
+ for(const m of data.models||[]){
+  const ok=m.status==="exact_formula_parity_verified";
+  if(mode==="verified"&&!ok||mode==="pending"&&ok)continue;
+  const card=node("article",undefined,"rv-model"+(ok?" ok":""));
+  const head=node("header");
+  head.append(node("small",m.original_function),
+    node("span",ok?"SOURCE IDENTIQUE":"EN ATTENTE","rv-badge"+(ok?" ok":"")));
+  card.append(head,node("h3",m.label));
+  card.append(node("p",ok?"Formule vérifiée par comparaison exacte des sorties pour les tests définis.":"Fonction identifiée mais reproduction mathématique non validée."));
+  const link=node("a","VOIR LA FONCTION D'ORIGINE ↗");
+  link.href="https://github.com/Purple-Wraith/clairvoyance-backend/blob/main/"+
+    encodeURI(m.source_file);
+  link.target="_blank";link.rel="noopener noreferrer";
+  card.append(link);target.append(card);
+ }
+ if(!target.childElementCount)target.append(node("p","Aucun module dans cette catégorie.","rv-notes"));
+}
+async function init(){
+ try{
+  const response=await fetch("./parite-modeles-clairvoyance.json?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw new Error("Le rapport n'est pas encore publié");
+  data=await response.json();
+  $("count").textContent=data.verified_formula_parity_models;
+  $("total").textContent=data.total_target_models;
+  $("percent").textContent=data.formula_parity_percent+" %";
+  $("bar").setAttribute("aria-valuenow",String(data.formula_parity_percent));
+  $("bar-fill").style.width=data.formula_parity_percent+"%";
+  $("metadata").textContent=data.exact_equality_tests_passed+" comparaisons exactes · Référence GitHub : "+
+    (data.original_source_commit||"inconnue").slice(0,12)+" · "+
+    new Date(data.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"});
+  show();$("state").addEventListener("change",show);
+ }catch(err){$("metadata").textContent="Rapport temporairement indisponible : "+err.message}
+}
+init();
+</script>
+</body></html>
