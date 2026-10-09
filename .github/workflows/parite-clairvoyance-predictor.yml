@@ -6,6 +6,8 @@ on:
       - 'modeles/reproduction/clairvoyance_predictor.py'
       - 'outils/verifier_parite_clairvoyance.py'
       - 'tests/test_clairvoyance_model_reproduction.py'
+      - 'outils/catalogue_parite_modeles.py'
+      - 'tests/test_catalogue_parite_modeles.py'
       - '.github/workflows/parite-clairvoyance-predictor.yml'
   schedule:
     - cron: '20 7 * * 1'
@@ -36,12 +38,18 @@ jobs:
       - name: Verify real parity against original reference (read only AST)
         working-directory: revue
         run: python -m outils.verifier_parite_clairvoyance --reference ../clairvoyance_reference --output docs/parite-clairvoyance-predictor.json
+      - name: Check the strict model parity progress measurement
+        working-directory: revue
+        run: python -m unittest discover -s tests -p 'test_catalogue_parite_modeles.py' -v
+      - name: Regenerate the 13-model strict reproduction scoreboard
+        working-directory: revue
+        run: python -m outils.catalogue_parite_modeles
       - name: Publish ONLY equality metadata, not third-party code
         working-directory: revue
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/parite-clairvoyance-predictor.json
+          git add docs/parite-clairvoyance-predictor.json docs/parite-modeles-clairvoyance.json
           if ! git diff --cached --quiet; then
             git commit -m "parity: verify original Clairvoyance backend MLB and NHL models"
             git pull --rebase -X theirs origin main
