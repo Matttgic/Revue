@@ -21,5 +21,8 @@ for q in queries:
         if athletes:
             print("ATHLETE_DATA",json.dumps(athletes[0],ensure_ascii=False)[-3200:])
             print("CATEGORY_NAMES",[(c.get("name"),(c.get("names") or [])[:20]) for c in data.get("categories",[])])
+            a=athletes[0]["athlete"]
+            print("ESPN_TEAM",{"team":a.get("team"),"teams":a.get("teams"),"id":a.get("id"),"keys":list(a)[:35]})
+            print("ESPN_PAGINATION",data.get("pagination"))
     except Exception as e:
         print("FAILED",q,type(e).__name__,str(e)[:150])
