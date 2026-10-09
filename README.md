@@ -12,6 +12,7 @@ Le moteur récupère les compétitions de football, basket, football américain,
 - [Tennis, UFC et Liiga](modeles/simulations/SPORTS_INDIVIDUELS_README.md) · [JSON des derniers événements](docs/individual-latest.json)
 - [Radar NHL buteurs / passeurs / points / tirs](docs/nhl-joueurs.html) · [224 profils NHL calculés le 09/10/2026](docs/nhl-players-latest.json)
 - [Architecture de l'actualisation sur GitHub Actions](.github/workflows/multisports-independent.yml)
+- [Brier / log loss par compétition](docs/qualite-modeles.html) · [résultats vérifiables](docs/backtests-multisports.json) · [méthodologie](outils/BACKTESTS_MULTISPORTS.md) (aucun ROI sans cotes).
 
 À vérifier : les compétitions encore sans flux autorisé (SHL, National League Suisse, Extraliga Tchéquie), les compositions/titularisations, les cotes françaises et les backtests hors échantillon. **Aucune méthode de paris profitable validée.**
 
