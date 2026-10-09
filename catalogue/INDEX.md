@@ -37,6 +37,8 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 | REV-MOD-IND-03 | Hockey Finlande Liiga | ML et totaux 4,5/5,5 | Elo régularisé + Poisson et historique API Liiga | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 544 matchs de saison / 6 sorties probas au run ; aucun ROI démontré | [Fiche](../modeles/simulations/SPORTS_INDIVIDUELS_README.md) |
 | REV-MOD-NHL-02 | NHL | Joueur buteur, passeur, point et tirs | Régression saisons précédentes, ESPN NHL skaters, Poisson de comptage | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 224 profils/32 équipes réellement publiés, effectifs non confirmés, ROI inconnu | [Fiche](../modeles/simulations/NHL-JOUEURS-README.md) |
 
+| REV-OUT-BT-01 | Multi-sports | Audit probabiliste, pas paris | Backtest chronologique ESPN, Brier/log loss par compétition | [Revue](https://github.com/Matttgic/Revue) | Testé techniquement | NC | Tests GitHub réussis ; MLB n=207, NFL n=65 ; ROI non calculable sans cotes | [Fiche](../outils/BACKTESTS_MULTISPORTS.md) |
+
 ## Analyses par source
 
 - [2026-10-09 — Purple-Wraith/clairvoyance-backend](../analyses/2026-10-09_Purple-Wraith_clairvoyance-backend.md) : 8 pistes NHL/hockey/validation et un outil de contrôle original, métriques historiques contaminées par des locks tardifs/inconnus ; aucune copie de source sans licence.
