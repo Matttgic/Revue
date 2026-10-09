@@ -39,7 +39,8 @@ ODDS_SPORTS={
  "PL":"soccer_epl","LALIGA":"soccer_spain_la_liga",
  "SERIEA":"soccer_italy_serie_a","BUNDESLIGA":"soccer_germany_bundesliga",
  "LIGUE1":"soccer_france_ligue_one","MLS":"soccer_usa_mls",
- "UCL":"soccer_uefa_champs_league",
+ # UCL knockout score may include extra time. Disable paper odds until
+ # first-90-minute scores are recorded separately from match finals.
 }
 NHL_FULL={
 "ANA":"Anaheim Ducks","BOS":"Boston Bruins","BUF":"Buffalo Sabres",
@@ -185,9 +186,13 @@ def download_odds(api_key:str, sports:list[str],max_sports:int=14) -> tuple[dict
     min_remaining=150
     for league in sports[:max_sports]:
         sport=ODDS_SPORTS[league]
+        has_total=league=="NHL" or league in {
+            "PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS"
+        }
         params=urlencode({
             "apiKey":api_key,"bookmakers":",".join(SOURCED_BOOKS),
-            "markets":"h2h,totals","oddsFormat":"decimal",
+            "markets":"h2h,totals" if has_total else "h2h",
+            "oddsFormat":"decimal",
             "dateFormat":"iso",
         })
         try:
