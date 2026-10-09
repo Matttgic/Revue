@@ -19,17 +19,52 @@ API="https://api.nhle.com/stats/rest/en/skater/summary"
 SHRINK=16.0
 
 
-def _fetch_stats(season:int) -> list[dict]:
-    params=urlencode({"isAggregate":"false","isGame":"false","limit":-1,
-                      "cayenneExp":f"seasonId={season} and gameTypeId=2"})
-    request=Request(API+"?"+params,headers={"Accept":"application/json"})
-    with urlopen(request,timeout=28) as response:
-        body=json.loads(response.read().decode("utf-8"))
-    rows=body.get("data")
-    if not isinstance(rows,list):
-        raise RuntimeError("NHLe skater/summary.data missing")
-    return rows
+def _display_name(row: dict) -> str:
+    def part(value):
+        if isinstance(value, dict):
+            return value.get("default") or value.get("fr") or ""
+        return value if isinstance(value, str) else ""
+    name = (part(row.get("firstName"))+" "+part(row.get("lastName"))).strip()
+    return name or str(row.get("skaterFullName") or row.get("playerId") or "")
 
+
+def _fetch_stats(season: int, teams: set[str]) -> tuple[list[dict],dict]:
+    """Get official NHL club stats from the same api-web host as the fixtures.
+
+    The aggregate stats.nhle.com endpoint returned HTTP 403 from GitHub
+    Actions on 2026-10-09. Fetch only teams that play soon; use a bounded pool.
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    host="https://api-web.nhle.com/v1/club-stats"
+    def one(team: str) -> tuple[str,list[dict]]:
+        url=f"{host}/{team}/{season}/2"
+        request=Request(url,headers={"Accept":"application/json"})
+        with urlopen(request,timeout=18) as response:
+            payload=json.loads(response.read().decode("utf-8"))
+        data=payload.get("skaters")
+        if not isinstance(data,list):
+            raise ValueError(f"{team}: skaters not present")
+        out=[]
+        for row in data:
+            if not isinstance(row,dict) or not row.get("playerId"):
+                continue
+            item=dict(row)
+            item["skaterFullName"]=_display_name(item)
+            item["teamAbbrevs"]=team
+            out.append(item)
+        return team,out
+    all_rows=[];failed={}
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        jobs={pool.submit(one,team):team for team in teams}
+        for fut in as_completed(jobs):
+            team=jobs[fut]
+            try:
+                _,rows=fut.result()
+                all_rows.extend(rows)
+            except Exception as err:
+                failed[team]=f"{type(err).__name__}: {str(err)[:80]}"
+    return all_rows,{"requested":len(teams),"failed":failed,
+                     "successful":len(teams)-len(failed)}
 
 def parse_rows(rows:list[dict]) -> dict[str,dict]:
     """Aggregate across traded-team rows. Never pretend unavailable stats exist."""
@@ -163,9 +198,23 @@ def main():
     as_of=datetime.now(timezone.utc)
     fixtures=json.loads(Path(args.nhl_file).read_text(encoding="utf-8"))
     season=season_id(as_of)
-    previous=_fetch_stats(season-10001)
-    current=_fetch_stats(season)
+    upcoming=fixtures.get("games") or []
+    clubs=set()
+    for game in upcoming:
+        try:
+            if datetime.fromisoformat(game["start_utc"].replace("Z","+00:00"))>as_of:
+                clubs.update((game["home"],game["away"]))
+        except (KeyError,TypeError,ValueError):
+            pass
+    previous, prevdiag=_fetch_stats(season-10001,clubs)
+    current, curdiag=_fetch_stats(season,clubs)
     report=run(fixtures,previous,current,as_of)
+    report["source"]="NHL Web API / club-stats/{team}/{season}/2"
+    report["diagnostics"]={"previous":prevdiag,"current":curdiag}
+    if not previous:
+        report["status"]="source_indisponible"
+        report["teams"]={}
+        report["note"]="Statistiques saison passée indisponibles ; pas de profils publiés"
     output=Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"NHL: {len(report['teams'])} équipes, "
