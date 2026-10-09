@@ -12,6 +12,8 @@ on:
       - 'modeles/simulations/nhl_joueurs_independant.py'
       - 'tests/test_nhl_joueurs_independant.py'
       - 'outils/probe_espn_hockey.py'
+      - 'outils/backtest_multisports.py'
+      - 'tests/test_backtest_multisports.py'
       - '.github/workflows/multisports-independent.yml'
 
 permissions:
@@ -45,11 +47,15 @@ jobs:
         run: python modeles/simulations/sports_individuels_et_liiga.py --days 3 --output docs/individual-latest.json
       - name: Calculer toutes les compétitions disponibles
         run: python modeles/simulations/multisports_independant.py --days 3 --output docs/multisports-latest.json
+      - name: Tests du backtest chronologique
+        run: python -m unittest discover -s tests -p 'test_backtest_multisports.py' -v
+      - name: Brier et log loss historiques par compétition
+        run: python outils/backtest_multisports.py --history docs/multisports-history.json --output docs/backtests-multisports.json
       - name: Enregistrer uniquement les prédictions calculées
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json
+          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json docs/backtests-multisports.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else
