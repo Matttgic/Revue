@@ -16,6 +16,8 @@ on:
       - 'tests/test_backtest_multisports.py'
       - 'modeles/simulations/football_avance_independant.py'
       - 'tests/test_football_avance_independant.py'
+      - 'modeles/simulations/football_espn_statistiques.py'
+      - 'tests/test_football_espn_statistiques.py'
       - '.github/workflows/multisports-independent.yml'
 
 permissions:
@@ -49,6 +51,10 @@ jobs:
         run: python modeles/simulations/sports_individuels_et_liiga.py --days 3 --output docs/individual-latest.json
       - name: Calculer toutes les compétitions disponibles
         run: python modeles/simulations/multisports_independant.py --days 3 --output docs/multisports-latest.json
+      - name: Tests du collecteur stats football ESPN
+        run: python -m unittest discover -s tests -p 'test_football_espn_statistiques.py' -v
+      - name: Enrichir les statistiques de matchs ESPN
+        run: python -m modeles.simulations.football_espn_statistiques --history docs/multisports-history.json --cache docs/football-espn-stat-cache.json --output docs/football-espn-team-features.json --max-calls 24
       - name: Tests football avancé autonome et fuite temporelle
         run: python -m unittest discover -s tests -p 'test_football_avance_independant.py' -v
       - name: Prévisions football enrichies en parallèle (aucun lock)
@@ -61,7 +67,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json
+          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json docs/football-espn-stat-cache.json docs/football-espn-team-features.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else
