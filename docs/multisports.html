@@ -32,7 +32,22 @@ button.primary,button[aria-pressed=true]{background:var(--green);border-color:va
 .unsupported{margin:14px 0;display:flex;flex-wrap:wrap;gap:7px}
 .unsupported span{font-size:.78rem;border:1px solid var(--line);color:var(--dim);border-radius:7px;padding:7px 9px}
 footer{color:var(--muted);font-size:.8rem;margin-top:24px}a{color:var(--blue);text-underline-offset:3px}
-</style><link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a><a href="./engine-v2.html">SCANNER</a><a href="./multisports.html" aria-current="page">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main>
+</style><style>
+/* Real bookmaker snapshots: visually distinct from estimated probabilities. */
+.odds-block{margin-top:14px;padding:13px;border:1px solid rgba(85,245,222,.28);background:rgba(5,16,28,.67);border-radius:10px}
+.odds-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-bottom:9px}
+.odds-head strong{font:700 12px 'Chakra Petch',sans-serif;color:var(--cyan);letter-spacing:.045em}
+.odds-head span,.odds-foot{font-size:11px;color:var(--muted)}
+.odds-book{padding:8px 0;border-top:1px solid rgba(111,148,191,.19)}
+.odds-book-name{font:700 11px 'Chakra Petch',sans-serif;color:#b8cff1;text-transform:uppercase;letter-spacing:.08em}
+.odds-prices{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.odds-chip{min-width:65px;flex:1 1 28%;padding:7px 8px;border:1px solid rgba(100,149,197,.23);border-radius:7px;text-align:center;background:rgba(27,41,67,.64)}
+.odds-chip em{display:block;font-size:10px;font-style:normal;color:var(--muted)}
+.odds-chip b{display:block;font:800 16px 'Chakra Petch',sans-serif;color:var(--cyan)}
+.odds-empty{margin-top:12px;font-size:11px;color:var(--muted);border-top:1px dashed rgba(100,149,197,.26);padding-top:10px}
+.odds-stale{color:var(--orange)!important}
+</style>
+<link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a><a href="./engine-v2.html">SCANNER</a><a href="./multisports.html" aria-current="page">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main>
 <header><div><div class="kicker">REVUE / LABORATOIRE MULTISPORTS</div><h1>Le terrain est <span>ouvert.</span></h1><p>Prédictions expérimentales, classées par compétition.</p></div><button class="primary" id="refresh">Actualiser</button></header>
 <p style="margin:16px 0"><a href="./nhl-joueurs.html" style="border:1px solid var(--line);padding:10px 13px;display:inline-block;border-radius:8px;text-decoration:none">NHL — Buteurs, passeurs et tirs →</a>
 <a href="./qualite-modeles.html" style="border:1px solid var(--line);padding:10px 13px;display:inline-block;border-radius:8px;text-decoration:none;margin-left:6px">Qualité des modèles →</a></p>
@@ -52,7 +67,66 @@ footer{color:var(--muted);font-size:.8rem;margin-top:24px}a{color:var(--blue);te
 const $=x=>document.getElementById(x);
 const el=(tag,cls,text)=>{let e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e;};
 const percent=x=>(100*x).toLocaleString("fr-FR",{minimumFractionDigits:1,maximumFractionDigits:1})+" %";
-let payload=null, selected="Tous";
+let payload=null, selected="Tous", priceMap=new Map(), priceGenerated=null, priceFallback=false;
+const bookNames={betclic_fr:"Betclic",winamax_fr:"Winamax",unibet_fr:"Unibet",
+  netbet_fr:"NetBet",pmu_fr:"PMU"};
+function loadPriceCache(report){
+  priceMap=new Map();priceGenerated=report?.generated_at_utc||null;
+  priceFallback=!(report?.odds_board?.events?.length);
+  const events=report?.odds_board?.events||[];
+  for(const e of events)priceMap.set(e.league+":"+e.event_id,e);
+  if(!events.length){
+    // Compatibility for old reports produced before the odds-board fix.
+    for(const c of report?.candidates||[]){
+      const key=c.league+":"+c.event_id;
+      let row=priceMap.get(key);
+      if(!row){row={league:c.league,event_id:c.event_id,home:c.home,away:c.away,
+                   start_utc:c.start_utc,bookmakers:[]};priceMap.set(key,row)}
+      let book=row.bookmakers.find(x=>x.bookmaker===c.bookmaker);
+      if(!book){book={bookmaker:c.bookmaker,markets:[]};row.bookmakers.push(book)}
+      book.markets.push({market:c.market,quote_at:c.quote_at,
+        period_rule:c.market_rule_verified?"verified":"unverified",
+        outcomes:[{selection:c.side,line:c.line,price:c.bookmaker_price}],
+        candidate_only:true});
+    }
+  }
+}
+const oddsLabel=v=>v==="home"?"1":v==="away"?"2":v==="draw"?"N":v==="over"?"Plus":"Moins";
+function displayOdds(card,lg,game){
+  const price=priceMap.get(lg+":"+game.event_id);
+  if(!price){card.append(el("div","odds-empty","Cotes non collectées pour ce match (le radar couvre les prochains matchs ciblés)."));return}
+  if(new Date(price.start_utc).getTime()<=Date.now())return;
+  const box=el("div","odds-block");
+  const head=el("div","odds-head");head.append(el("strong","","COTES BOOKMAKERS"),
+     el("span","",priceFallback?"Sélections filtrées seulement":"Tous marchés reçus"));
+  box.append(head);
+  const now=Date.now();
+  const ages=[];
+  for(const book of price.bookmakers||[]){
+    const section=el("div","odds-book");
+    section.append(el("div","odds-book-name",bookNames[book.bookmaker]||book.bookmaker));
+    const line=el("div","odds-prices");
+    for(const market of book.markets||[]){
+      ages.push(Date.parse(market.quote_at));
+      for(const o of market.outcomes||[]){
+        const cell=el("div","odds-chip");
+        const label=(market.market==="totals"?"O/U "+String(o.line)+" · ":"")+oddsLabel(o.selection);
+        cell.append(el("em","",label),el("b","",Number(o.price).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:3})));
+        line.append(cell);
+      }
+    }
+    section.append(line);box.append(section);
+  }
+  const last=ages.filter(Number.isFinite).sort((a,b)=>b-a)[0];
+  const age=last?Math.round((now-last)/60000):null;
+  const footer=el("div","odds-foot"+(age===null||age>50?" odds-stale":""),
+    "Relevé : "+(last?new Date(last).toLocaleString("fr-FR",{timeZone:"Europe/Paris",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}):"date inconnue")+
+    (age===null||age>50?" · ANCIEN PRIX, À VÉRIFIER":" · "+age+" min auparavant")+
+    (price.bookmakers.some(b=>(b.markets||[]).some(m=>m.period_rule==="overtime_rule_unverified"))?" · NHL : prolongations non vérifiées":""));
+  box.append(footer);
+  card.append(box);
+}
+
 const dateLabel=value=>new Date(value).toLocaleString("fr-FR",{timeZone:"Europe/Paris",weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
 function gauge(card,text,val,secondary=false){
  const row=el("div","metric");row.append(el("span","",text),el("b","",percent(val)));card.append(row);
@@ -86,7 +160,7 @@ function draw(){
   const info=el("div","detail");
   let t="Sans cote bookmaker · pas de value calculée";
   if(g.expected_score)t="Score moyen indicatif "+g.expected_score.home+" – "+g.expected_score.away+" · "+t;
-  info.textContent=t;card.append(info);target.append(card);
+  info.textContent=t;card.append(info);displayOdds(card,key,g);target.append(card);
  }
 }
 function filters(){
@@ -105,6 +179,11 @@ async function load(){
   const r=await fetch("./multisports-latest.json?t="+Date.now(),{cache:"no-store"});
   if(!r.ok)throw Error("JSON non encore publié (HTTP "+r.status+")");
   const d=await r.json();if(!d.competitions||!d.overview)throw Error("Données incomplètes");
+  try{
+    const response=await fetch("./engine-v2-latest.json?t="+Date.now(),{cache:"no-store"});
+    if(response.ok)loadPriceCache(await response.json());else loadPriceCache(null);
+  }catch(_){loadPriceCache(null)}
+
   // CFB was removed from active Revue models; ignore old published JSON too.
   payload={...d,competitions:Object.fromEntries(Object.entries(d.competitions).filter(([key])=>key!=="CFB"))};
   const active=Object.values(payload.competitions).flatMap(league=>league.games||[]);
