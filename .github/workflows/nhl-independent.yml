@@ -32,10 +32,8 @@ jobs:
       - name: Tests NHL sans réseau
         run: python -m unittest discover -s tests -p 'test_nhl_independant.py' -v
       - name: Données et prédictions NHL
-        if: github.event_name != 'push'
         run: python modeles/simulations/nhl_independant.py --days 2 --output docs/nhl-model-latest.json
       - name: Publier les prédictions vérifiables
-        if: github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
