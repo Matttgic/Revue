@@ -41,6 +41,7 @@ jobs:
             echo "Aucun changement"
           else
             git commit -m "data: rafraîchir toutes les prédictions multisports"
-            git pull --rebase origin main
+            # Prefer the freshly generated JSON if another run published between checkout and push.
+            git pull --rebase -X theirs origin main
             git push origin HEAD:main
           fi
