@@ -1,6 +1,6 @@
 # Revue Engine V2 — reconstitution indépendante des fonctions de Clairvoyance
 
-**État du 9 octobre 2026 : moteur de simulation technique opérationnel ; aucune clé de cotes réelle configurée dans le premier run.** 21 tests unitaires validés sur GitHub.
+**État du 9 octobre 2026 : moteur de simulation technique opérationnel ; aucun secret de cotes configuré lors du dernier run.** 24 tests Engine V2 et 12 tests PulseScore passés sur GitHub (36 tests au total pour cette couche).
 
 Revue est une réécriture **originale** des concepts repérés dans [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend). Le dépôt source n'a pas de licence explicite : aucun code tiers n'a été recopié.
 
@@ -21,15 +21,35 @@ Revue est une réécriture **originale** des concepts repérés dans [Purple-Wra
 
 Dans GitHub : dépôt Matttgic/Revue → Settings → Secrets and variables → Actions → New repository secret.
 
+**Option recommandée si tu disposes déjà de PulseScore Pro :**
+
+Name : **PULSESCORE_API_KEY**.
+
+Value : votre clé PulseScore Pro personnelle. Le moteur interroge les cinq flux français documentés (Betclic, Winamax, Unibet FR, NetBet, PMU) avec le header X-Secret, uniquement via GitHub Actions. Autres noms reconnus : PULSESCORE_PRO_KEY ou PULSE_SCORE_API_KEY.
+
+**Alternative si vous utilisez The Odds API v4 :**
+
 Name : **THE_ODDS_API_KEY**.
 
-Value : votre clé **The Odds API v4**, connue uniquement du runner GitHub. Un autre nom accepté est ODDS_API_KEY.
+Value : votre clé The Odds API v4. Autre nom reconnu : ODDS_API_KEY.
 
-Ne coller aucune clé dans le dépôt, un fichier JSON public ou le chat. Si le secret n'est pas présent, le scanner n'invente aucune cote et publie un état disabled_no_key.
+Lorsque les deux clés existent, PulseScore Pro est prioritaire. Les clés restent entièrement côté runner GitHub ; elles ne sont jamais sauvegardées dans un rapport public.
+
+Ne coller aucune clé dans le dépôt, un fichier JSON public ou le chat. Si aucun de ces secrets n'est présent, le scanner n'invente aucune cote et publie un état disabled_no_key.
 
 Puis ouvrir [Actions — Revue Engine V2](../.github/workflows/revue-engine-v2.yml) et sélectionner Run workflow. Trois traitements automatiques par jour sont programmés vers 00:00 / 08:00 / 16:00 UTC, après rafraîchissement des données. Les déclenchements par push de code ne consomment pas de crédits de l'API de cotes.
 
 Pour consulter la page comme un site, GitHub Pages doit être activé sur main /docs. Cette mise en ligne n'est pas encore vérifiée.
+
+## Radar PulseScore Pro — 36 heures et cinq bookmakers français
+
+- API documentée : https://pulsescore.net/docs. Endpoints pré-match par bookmaker/sport, marchés normalisés MATCH_RESULT et OVER_UNDER, résultats paginés.
+- Noms de flux confirmés : betclic, winamax, unibet-fr, netbet, pmu.
+- Préfiltre sports : seuls les sports avec un match à venir sous 36 heures et une probabilité réellement calculée sont demandés.
+- Première page des cinq bookmakers pour chaque sport actif ; seconde page uniquement si elle pourrait contenir un match utile.
+- **32 appels maximum par exécution** (au plus environ 2 880 appels sur 30 jours à trois exécutions quotidiennes, hors déclenchements manuels).
+- Si PulseScore n'expose pas l'heure exacte de mise à jour de la cote, Revue date **sa propre observation lors de l'appel** (et le signale comme telle) ; elle ne prétend pas connaître l'heure d'actualisation chez le bookmaker.
+- La couverture dépend du plan et des événements disponibles ; le code et les tests fonctionnent, mais les appels avec clé PulseScore n'ont **pas encore été vérifiés en conditions réelles dans ce dépôt**.
 
 ## Quota maîtrisé
 
