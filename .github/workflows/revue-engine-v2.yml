@@ -36,6 +36,7 @@ jobs:
       - name: Tests PulseScore Pro pré-match sans appels payants
         run: python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
       - name: Mise à jour du registre PAPIER uniquement
+        if: github.event_name != 'push'
         env:
           # Push triggers never charge odds API credits.
           ODDS_API_KEY: ${{ github.event_name != 'push' && (secrets.THE_ODDS_API_KEY || secrets.ODDS_API_KEY) || '' }}
@@ -48,6 +49,7 @@ jobs:
             --output docs/engine-v2-latest.json \
             --max-sports 14
       - name: Publier uniquement la simulation et le suivi
+        if: github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
