@@ -41,6 +41,8 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 
 | REV-MOD-ENGINE-V2 | Multi-sports / France | 1N2, ML et totaux | Scanner de vrais prix français + Pinnacle, rapprochement temporel, ledger simulé et règlement | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 36 tests Engine V2/PulseScore réussis ; aucune clé configurée ; EV/ROI non validés | [Guide](../outils/ENGINE-V2-README.md) |
 
+| REV-MOD-SOCCER-ADV-01 | Football PL/Liga/Serie A/Bundesliga/L1/MLS/UCL | 1N2 et O/U 2,5 | Elo + forme 5 + Dixon-Coles + xG/Power en snapshots autorisés uniquement | [Revue](https://github.com/Matttgic/Revue) | SHADOW testé | NC | 13 tests passés ; Liga n=18 Brier -0,00264, MLS n=60 Brier +0,00184 ; Opta absent | [Fiche](../modeles/simulations/FOOTBALL-AVANCE-README.md) |
+
 ## Analyses par source
 
 - [2026-10-09 — Purple-Wraith/clairvoyance-backend](../analyses/2026-10-09_Purple-Wraith_clairvoyance-backend.md) : 8 pistes NHL/hockey/validation et un outil de contrôle original, métriques historiques contaminées par des locks tardifs/inconnus ; aucune copie de source sans licence.
