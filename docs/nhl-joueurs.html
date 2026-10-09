@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Revue | NHL Joueurs</title>
+<style>
+:root{color-scheme:dark;--bg:#0c1119;--panel:#19222c;--line:#2f3d4c;--fg:#f2f5f8;--dim:#a4b4c2;--accent:#c9f984}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif;margin:0}
+main{max-width:1000px;margin:auto;padding:26px 16px 70px}
+header{border-bottom:1px solid var(--line);padding-bottom:20px}
+small{color:var(--accent);font-weight:850;text-transform:uppercase;letter-spacing:.13em}
+h1{font-size:clamp(2.1rem,5vw,3.6rem);letter-spacing:-.04em;margin:7px 0}
+h1 span{color:var(--accent)}p{color:var(--dim)}
+.notice{padding:14px 16px;background:#1d2620;border-left:3px solid var(--accent);margin:22px 0}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+button,select{border:1px solid var(--line);background:var(--panel);color:var(--fg);padding:11px 14px;border-radius:9px;font:inherit}
+button{cursor:pointer}button[aria-pressed=true]{background:var(--accent);color:#152110;border-color:var(--accent)}
+#grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:11px}
+.card{background:var(--panel);border:1px solid var(--line);padding:16px;border-radius:12px}
+.card .rank{font-size:.74rem;font-weight:800;color:var(--accent)}
+.card h2{font-size:1.24rem;letter-spacing:-.025em;margin:10px 0}
+.badge{display:inline-block;border:1px solid var(--line);padding:3px 7px;border-radius:5px;font-size:.73rem;color:var(--dim)}
+.prob{font-size:2rem;font-weight:850;letter-spacing:-.04em;margin:10px 0}
+.track{height:6px;border-radius:6px;background:#36414c;overflow:hidden}
+.track span{display:block;height:100%;background:var(--accent)}
+.meta{border-top:1px solid var(--line);margin-top:14px;padding-top:12px;color:var(--dim);font-size:.8rem}
+a{color:#a9ccf2}
+</style></head><body><main>
+<header><small>Revue · Modélisation NHL joueurs</small><h1>Joueurs <span>Radar</span></h1><p>Buteur, passeur, point et tirs. Projections expérimentales issues de données NHL.</p></header>
+<div class="notice"><strong>Attention :</strong> ni alignement ni temps de glace ni ligne/PP ne sont confirmés ici. Probabilités non calibrées. Ce radar ne suffit pas à choisir un pari ; les cotes bookmaker ne sont pas disponibles.</div>
+<p id="status" role="status" aria-live="polite">Récupération du radar…</p>
+<div class="controls"><select id="team" aria-label="Équipe"><option value="">Toutes les équipes</option></select>
+<button data-key="but" aria-pressed="true">Buteur</button><button data-key="point" aria-pressed="false">Point</button><button data-key="passe" aria-pressed="false">Passe</button>
+<button data-key="tir_cadre_2_plus" aria-pressed="false">2+ tirs</button><button data-key="tir_cadre_3_plus" aria-pressed="false">3+ tirs</button></div>
+<div id="grid"></div>
+<p id="missing"></p>
+<footer><p><a href="multisports.html">← Retour multisports</a> · <a href="https://github.com/Matttgic/Revue/blob/main/modeles/simulations/nhl_joueurs_independant.py">Code source</a></p></footer>
+</main>
+<script>
+"use strict";
+const el=(name,cls,txt)=>{const x=document.createElement(name);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x};
+let payload=null,metric="but";const $=x=>document.getElementById(x);
+function render(){
+ if(!payload)return;
+ $("grid").replaceChildren();
+ let all=Object.values(payload.teams||{}).flat();
+ const selected=$("team").value;
+ if(selected)all=all.filter(p=>p.team===selected);
+ all=all.filter(p=>p.metrics&&Number.isFinite(p.metrics[metric]));
+ all.sort((a,b)=>b.metrics[metric]-a.metrics[metric]);
+ $("missing").textContent=all.length?"": "Aucun profil disponible pour cette sélection.";
+ const max=all.slice(0,45);
+ for(let i=0;i<max.length;i++){
+  const p=max[i],prob=p.metrics[metric];const card=el("article","card");
+  card.append(el("div","rank","#"+(i+1)+" · "+p.team),
+   el("h2","",p.name),el("div","badge","Alignement NON confirmé"),
+   el("div","prob",(100*prob).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %"));
+  const bar=el("div","track"),fill=el("span");
+  fill.style.width=Math.max(0,Math.min(100,prob*100))+"%";bar.append(fill);card.append(bar);
+  card.append(el("div","meta",(p.current_team_observed?"Club vu cette saison":"Club historique NON vérifié")+
+     " · Matchs cette saison : "+p.season_games_current+" · Aucune cote bookmaker"));
+  $("grid").append(card);
+ }
+}
+function read(){
+ fetch("./nhl-players-latest.json?t="+Date.now(),{cache:"no-store"})
+ .then(r=>{if(!r.ok)throw Error("Profils non publiés");return r.json()})
+ .then(data=>{
+  payload=data;const clubs=Object.keys(data.teams||{}).sort();
+  $("team").replaceChildren(el("option","","Toutes les équipes"));$("team").firstChild.value="";
+  for(const t of clubs){const o=el("option","",t);o.value=t;$("team").append(o);}
+  $("status").textContent="Calcul : "+new Date(data.generated_at_utc).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Paris"})+
+    " · "+clubs.length+" équipes · "+data.status;
+  if(data.status==="source_indisponible")$("missing").textContent="Source de stats indisponible lors du dernier passage.";
+  render();
+ }).catch(e=>{$("status").textContent="Données indisponibles : "+e.message;});
+}
+document.querySelectorAll("button[data-key]").forEach(b=>b.addEventListener("click",()=>{
+ metric=b.dataset.key;for(const btn of document.querySelectorAll("button[data-key]"))
+ btn.setAttribute("aria-pressed",String(btn===b));render();
+}));
+$("team").addEventListener("change",render);read();
+</script></body></html>
