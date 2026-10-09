@@ -522,6 +522,10 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
     elif api_key:
         odds,meta=download_odds(api_key,eligible,max_sports)
         meta["status"]="active_the_odds_api" if meta["requests"] else "no_odds_returned"
+    # Prices for ALL matched markets, not only positive-EV candidates.
+    # Strictly observed prices with market/time provenance, no extra API calls.
+    from outils.tableau_cotes import build_board
+    odds_board=build_board(models,odds,now)
     picks,notes=market_recommendations(models,odds,now)
     paper_locks(picks,ledger,now)
     # Observe subsequent real prices of the EXACT locked paper market only.
@@ -545,6 +549,7 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
                     },
                     "model_generated_at_utc":models.get("generated_at_utc")},
         "bookmakers_fr":sorted(FR_BOOKS),
+        "odds_board":odds_board,
         "candidate_count":len(picks),
         "candidates":picks[:100],
         "diagnostics":notes,
