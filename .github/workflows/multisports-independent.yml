@@ -1,0 +1,46 @@
+name: Revue - Multisports Independent
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 7,15,23 * * *"
+  push:
+    paths:
+      - 'modeles/simulations/multisports_independant.py'
+      - 'tests/test_multisports_independant.py'
+      - '.github/workflows/multisports-independent.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: revue-multisports
+  cancel-in-progress: false
+
+jobs:
+  multisports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tests hors réseau
+        run: python -m unittest discover -s tests -p 'test_multisports_independant.py' -v
+      - name: Mettre à jour NHL depuis API officielle
+        run: python modeles/simulations/nhl_independant.py --days 3 --output docs/nhl-model-latest.json
+        continue-on-error: true
+      - name: Calculer toutes les compétitions disponibles
+        run: python modeles/simulations/multisports_independant.py --days 3 --output docs/multisports-latest.json
+      - name: Enregistrer uniquement les prédictions calculées
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/nhl-model-latest.json docs/multisports-latest.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement"
+          else
+            git commit -m "data: rafraîchir toutes les prédictions multisports"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
