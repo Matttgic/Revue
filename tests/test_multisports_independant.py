@@ -28,12 +28,14 @@ class MultisportTests(unittest.TestCase):
         self.now = datetime(2026, 10, 9, 12, tzinfo=timezone.utc)
         self.soccer = next(g for g in LEAGUES if g.key == "PL")
 
-    def test_all_13_public_leagues_included(self):
-        self.assertGreaterEqual(len(LEAGUES), 13)
-        self.assertTrue({"NBA", "WNBA", "NFL", "CFB", "MLB", "NCAAB", "PL", "LALIGA",
+    def test_all_12_public_leagues_included(self):
+        self.assertGreaterEqual(len(LEAGUES), 12)
+        self.assertTrue({"NBA", "WNBA", "NFL", "MLB", "NCAAB", "PL", "LALIGA",
                          "SERIEA", "BUNDESLIGA", "LIGUE1", "MLS", "UCL"}
                         .issubset({x.key for x in LEAGUES}))
 
+    def test_cfb_is_disabled(self):
+        self.assertNotIn("CFB", {l.key for l in LEAGUES})
     def test_unsupplied_sources_are_explicit(self):
         keys = {x["key"] for x in UNSUPPORTED}
         self.assertTrue({"ATP", "WTA", "SHL", "LIIGA", "NL", "EXTRALIGA", "UFC"}.issubset(keys))
@@ -100,7 +102,7 @@ class MultisportTests(unittest.TestCase):
         self.assertGreater(p["over_2_5"], 0)
 
     def test_other_sports_are_two_way(self):
-        for key in ("NBA", "NFL", "CFB", "MLB"):
+        for key in ("NBA", "NFL", "MLB"):
             league = next(x for x in LEAGUES if x.key == key)
             training = [make_event(i, self.now - timedelta(days=20-i),
                         home="H",away="A",result=(100+i,90+i),league=key) for i in range(15)]
