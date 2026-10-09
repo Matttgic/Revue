@@ -4,10 +4,17 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 
 | ID | Sport | Marché | Stratégie / composant | Source | Statut | Score intérêt /100 | Preuves | Fiche |
 |---|---|---|---|---|---|---|---|---|
-| — | — | — | *Aucune source analysée pour l'instant* | — | — | — | — | — |
+| REV-NCSUN-01 | Basketball NCAA | Handicaps / totaux | Luck fade + rating drift + ensemble | [ncsun](https://github.com/mkboggs92-cloud/ncsun) | À étudier | NC | JSON backtest d'auteur ; non reproduit | [Fiche](../recherche/basketball/ncaab-luck-fade.md) |
+| REV-NCSUN-02 | NFL | Réceptions / yards / TD | Sous + composition active + blend marché | [ncsun](https://github.com/mkboggs92-cloud/ncsun) | À étudier | NC | JSON backtest d'auteur ; non reproduit | [Fiche](../recherche/football-americain/nfl-receiving-props.md) |
+| REV-NCSUN-03 | UFC | Moneyline / décision / distance | Cotes d'ouverture et KO fade | [ncsun](https://github.com/mkboggs92-cloud/ncsun) | À étudier | NC | JSON backtest d'auteur ; non reproduit | [Fiche](../recherche/mma/ufc-ko-fade.md) |
+| REV-NCSUN-04 | Multi-sports | Infrastructure | Registre commun de paris / CLV / ROI | [ncsun](https://github.com/mkboggs92-cloud/ncsun) | À étudier | NC | Architecture observée ; non implémentée | [Fiche](../recherche/transversales/registre-paris.md) |
+
+## Analyses par source
+
+- [2026-10-09 — mkboggs92-cloud/ncsun](../analyses/2026-10-09_mkboggs92-cloud_ncsun.md) : 3 historiques disponibles (NCAA, NFL, UFC), méthodes décrites, pipelines non publiés, **licence source non spécifiée : aucune copie de code tiers**.
 
 ## Statuts
-- **À étudier** : proposition ou dépôt reçu, non audité.
+- **À étudier** : proposition ou méthode documentée, non implémentée et non auditée indépendamment.
 - **Prototype** : idée et implémentation partielle, non vérifiées.
 - **Testé** : code/test(s) ou backtest exécuté(s), résultats et limites documentés.
 - **Validé hors échantillon** : résultats reproductibles sur données temporellement séparées, sans promesse de performances futures.
@@ -18,4 +25,4 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 Classement prioritaire par : sport → marché → stratégie → modèle / méthode → version source. Utiliser les tags `pré-match`, `live`, `cotes`, `EV`, `ML`, `simulation`, `scraping`, `gestion-mise`, `calibration`, `backtest`.
 
 ## Évidence attendue
-Préciser toujours : **non testé**, **test logiciel réussi**, **backtest historique**, **hors échantillon** ou **suivi en conditions réelles**. Ne pas confondre ces niveaux.
+Préciser toujours : **non testé**, **test logiciel réussi**, **backtest historique externe**, **backtest reproduit**, **hors échantillon** ou **suivi en conditions réelles**. Ne pas confondre ces niveaux.
