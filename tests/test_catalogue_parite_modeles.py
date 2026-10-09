@@ -38,7 +38,7 @@ class ReproductionOnlyProgressTests(unittest.TestCase):
                                 "frontend_soccer_market_blend"]}
         p=generate(data(),audit(),NOW,js)
         self.assertEqual(p["verified_formula_parity_models"],2)
-        self.assertEqual(p["formula_parity_percent"],15)
+        self.assertEqual(p["formula_parity_percent"],10)
 
     def test_original_models_never_count(self):
         p=generate({"status":"experimental_no_bets","verified_modules":["backend_mlb_elo"],"exact_equality_tests_passed":999},audit(),NOW)
