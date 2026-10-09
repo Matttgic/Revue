@@ -1,0 +1,2802 @@
+{
+  "generated_at_utc": "2026-10-09T19:17:41.867295+00:00",
+  "source": "Purple-Wraith/clairvoyance-backend",
+  "source_commit_sha": "075f78ae088d02c4296c5093ece387c255b4146a",
+  "policy": "Static inspection only. Source code not copied or executed.",
+  "copyright": {
+    "license_file_present": false,
+    "permission_to_redistribute_source": false
+  },
+  "counts": {
+    "files": 376,
+    "python_files": 153,
+    "html_js_files": 20,
+    "workflows": 28,
+    "python_functions": 2261,
+    "python_parse_errors": 0
+  },
+  "extensions": {
+    ".py": 153,
+    ".json": 103,
+    ".png": 31,
+    ".yml": 29,
+    ".txt": 16,
+    ".html": 16,
+    "[none]": 5,
+    ".js": 4,
+    ".toml": 3,
+    ".mjs": 3,
+    ".sh": 3,
+    ".csv": 2,
+    ".svg": 2,
+    ".example": 1,
+    ".mako": 1,
+    ".ini": 1,
+    ".zip": 1,
+    ".jpg": 1,
+    ".md": 1
+  },
+  "source_areas": {
+    "football_opta": {
+      "original_files": [
+        "scripts/scrape_opta_stats.py",
+        "scripts/scrape_soccer_schedule.py",
+        "scripts/scrape_soccer_standings.py"
+      ],
+      "original_file_count": 3,
+      "corresponding_revue_modules": {
+        "modeles/simulations/football_avance_independant.py": true,
+        "modeles/simulations/football_espn_statistiques.py": true
+      },
+      "current_status": "partial_alternative_not_opta",
+      "remaining": "Licensed xG/xGA/Power Rankings with validated temporal provenance"
+    },
+    "nhl_game_goalie": {
+      "original_files": [
+        "app/scrapers/moneypuck.py",
+        "scripts/_nhl_core.py",
+        "scripts/_nhl_goalies.py",
+        "scripts/_nhl_skaters.py",
+        "scripts/backtest_goalie_starter.py",
+        "scripts/backtest_hockey_models.py",
+        "scripts/fetch_nhl.py"
+      ],
+      "original_file_count": 7,
+      "corresponding_revue_modules": {
+        "modeles/simulations/nhl_independant.py": true,
+        "modeles/simulations/nhl_joueurs_independant.py": true
+      },
+      "current_status": "partial_no_confirmed_goalies",
+      "remaining": "Confirmed starters, verified data model and multi-season walk-forward"
+    },
+    "nba": {
+      "original_files": [
+        "scripts/_nba_espn.py",
+        "scripts/fetch_nba.py",
+        "scripts/test_nba_card.py",
+        "scripts/test_nba_espn.py",
+        "scripts/test_nba_model.py",
+        "scripts/test_nba_preseason_props.py",
+        "scripts/test_nba_rollover.py",
+        "scripts/test_nba_schedule.py",
+        "scripts/test_nba_schedule_tab.py"
+      ],
+      "original_file_count": 9,
+      "corresponding_revue_modules": {
+        "modeles/simulations/multisports_independant.py": true
+      },
+      "current_status": "elo_only",
+      "remaining": "Team pace, efficiencies and official player rotations"
+    },
+    "nfl_cfb": {
+      "original_files": [
+        "scripts/fetch_cfb.py",
+        "scripts/fetch_nfl.py",
+        "scripts/test_cfb_selection.py"
+      ],
+      "original_file_count": 3,
+      "corresponding_revue_modules": {
+        "modeles/simulations/multisports_independant.py": true
+      },
+      "current_status": "elo_only",
+      "remaining": "Team schedules, opponents, injuries, QB confirmation, spreads"
+    },
+    "mlb": {
+      "original_files": [
+        "app/models/mlb_game.py",
+        "scripts/clairvoyance_update.py"
+      ],
+      "original_file_count": 2,
+      "corresponding_revue_modules": {
+        "modeles/simulations/multisports_independant.py": true
+      },
+      "current_status": "elo_only",
+      "remaining": "Pitchers confirmed, bullpen, park adjusted runs"
+    },
+    "eu_hockey": {
+      "original_files": [
+        "scripts/fetch_extraliga.py",
+        "scripts/fetch_liiga.py",
+        "scripts/fetch_nla.py",
+        "scripts/fetch_quanthockey.py",
+        "scripts/fetch_shl.py"
+      ],
+      "original_file_count": 5,
+      "corresponding_revue_modules": {
+        "modeles/simulations/sports_individuels_et_liiga.py": true
+      },
+      "current_status": "liiga_only",
+      "remaining": "Verified SHL, NL and Czech Extraliga official feed"
+    },
+    "odds_and_markets": {
+      "original_files": [
+        "scripts/_flashscore_odds.py",
+        "scripts/alt_line_scorecard.py",
+        "scripts/backtest_alt_lines.py"
+      ],
+      "original_file_count": 3,
+      "corresponding_revue_modules": {
+        "outils/pulsescore_v2.py": true,
+        "outils/revue_engine_v2.py": true
+      },
+      "current_status": "partial_fr_live",
+      "remaining": "More supported market settlement semantics, consensus and price history"
+    },
+    "lock_settle": {
+      "original_files": [
+        "scripts/auto_lock_settle.py",
+        "scripts/live_tracker.py",
+        "scripts/lock_timing.py",
+        "scripts/settle_gate.py"
+      ],
+      "original_file_count": 4,
+      "corresponding_revue_modules": {
+        "outils/revue_engine_v2.py": true,
+        "outils/suivi_football_avance.py": true
+      },
+      "current_status": "paper_only_temporal",
+      "remaining": "Verify all scoreboards, chronology and corrections for each market"
+    },
+    "historical_validation": {
+      "original_files": [
+        "scripts/audit_bet_classification.py",
+        "scripts/audit_lock_timing.py",
+        "scripts/backtest_alt_lines.py",
+        "scripts/backtest_goalie_starter.py",
+        "scripts/backtest_hockey_models.py",
+        "scripts/backtest_quanthockey_signal.py",
+        "scripts/backtest_spread_margin_signal.py",
+        "scripts/test_alt_js_parity.py",
+        "scripts/test_alt_lines.py",
+        "scripts/test_alt_tracker.py",
+        "scripts/test_alt_tracker_filters.py",
+        "scripts/test_analytics_trends.py",
+        "scripts/test_analytics_visuals.py",
+        "scripts/test_build_kickoffs.py",
+        "scripts/test_cfb_selection.py",
+        "scripts/test_degraded_ledger.py",
+        "scripts/test_email_fixes.py",
+        "scripts/test_git_push_race.py",
+        "scripts/test_grade_uniform.py",
+        "scripts/test_header_trigger.py",
+        "scripts/test_health_freshness.py",
+        "scripts/test_hockey_ou_lane.py",
+        "scripts/test_home_momentum.py",
+        "scripts/test_injury_wiring.py",
+        "scripts/test_landing_scope.py",
+        "scripts/test_ledger_archive.py",
+        "scripts/test_ledger_sync.py",
+        "scripts/test_lock_passes.py",
+        "scripts/test_lock_prep_data.py",
+        "scripts/test_lock_timing.py",
+        "scripts/test_locks_live_open.py",
+        "scripts/test_mobile_sync.py",
+        "scripts/test_nba_card.py",
+        "scripts/test_nba_espn.py",
+        "scripts/test_nba_model.py",
+        "scripts/test_nba_preseason_props.py",
+        "scripts/test_nba_rollover.py",
+        "scripts/test_nba_schedule.py",
+        "scripts/test_nba_schedule_tab.py",
+        "scripts/test_nfl_odds.py",
+        "scripts/test_nhl_goalies.py",
+        "scripts/test_nhl_prior_fade.py",
+        "scripts/test_no_parlays.py",
+        "scripts/test_overall_month_bettype.py",
+        "scripts/test_profit_tracker.py",
+        "scripts/test_purged_ids.py",
+        "scripts/test_retired_cleanup.py",
+        "scripts/test_schedule_carry.py",
+        "scripts/test_scores_tab.py",
+        "scripts/test_season_rollover.py",
+        "scripts/test_settle_gate.py",
+        "scripts/test_settle_heartbeat.py",
+        "scripts/test_settle_pass_sim.py",
+        "scripts/test_team_logos.py",
+        "scripts/test_ticker_scroll.py",
+        "scripts/test_watchdog_autolock.py",
+        "scripts/test_why_reasoning.py",
+        "scripts/test_workflow_refs.py"
+      ],
+      "original_file_count": 58,
+      "corresponding_revue_modules": {
+        "outils/backtest_multisports.py": true,
+        "docs/backtests-multisports.json": true
+      },
+      "current_status": "partial_small_samples",
+      "remaining": "Prospective CLV, sport/market specific calibration, extended seasons"
+    },
+    "service_and_ops": {
+      "original_files": [
+        ".github/workflows/auto-lock-settle.yml",
+        ".github/workflows/cfb-lock-early.yml",
+        ".github/workflows/cfb-lock-evening.yml",
+        ".github/workflows/cfb-refresh.yml",
+        ".github/workflows/cfb-roster-monthly.yml",
+        ".github/workflows/daily-health-check.yml",
+        ".github/workflows/daily-player-stats-refresh.yml",
+        ".github/workflows/daily-schedules-refresh.yml",
+        ".github/workflows/european-lock-early.yml",
+        ".github/workflows/hockey-euro-refresh.yml",
+        ".github/workflows/hockey-lock-evening.yml",
+        ".github/workflows/landing-performance-refresh.yml",
+        ".github/workflows/live-tracker.yml",
+        ".github/workflows/lock-watchdog.yml",
+        ".github/workflows/manual-sync.yml",
+        ".github/workflows/mobile-sync.yml",
+        ".github/workflows/nfl-weekly-refresh.yml",
+        ".github/workflows/pages-deploy.yml",
+        ".github/workflows/pick-of-day-social-daily.yml",
+        ".github/workflows/scheduled-refresh.yml",
+        ".github/workflows/send-demo-emails.yml",
+        ".github/workflows/send-expiry-reminders.yml",
+        ".github/workflows/soccer-lock-evening.yml",
+        ".github/workflows/soccer-refresh.yml",
+        ".github/workflows/social-cards-daily.yml",
+        ".github/workflows/tests.yml",
+        ".github/workflows/verify-lock-workflows.yml",
+        ".github/workflows/weekly-health-digest.yml",
+        "scripts/_scraper_health.py",
+        "scripts/daily_health_check.py",
+        "scripts/weekly_health_digest.py"
+      ],
+      "original_file_count": 31,
+      "corresponding_revue_modules": {
+        ".github/workflows/multisports-independent.yml": true,
+        ".github/workflows/revue-engine-v2.yml": true
+      },
+      "current_status": "partial",
+      "remaining": "Data freshness alerts, retry policies and monitoring"
+    }
+  },
+  "parsed_python_functions": [
+    {
+      "path": "alembic/env.py",
+      "function_count": 3,
+      "public_functions": [
+        "do_run_migrations",
+        "run_async_migrations",
+        "run_migrations_online"
+      ]
+    },
+    {
+      "path": "alembic/versions/0a96b40d658f_initial_schema.py",
+      "function_count": 2,
+      "public_functions": [
+        "upgrade",
+        "downgrade"
+      ]
+    },
+    {
+      "path": "app/__init__.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/config.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/database.py",
+      "function_count": 2,
+      "public_functions": [
+        "get_db"
+      ]
+    },
+    {
+      "path": "app/main.py",
+      "function_count": 2,
+      "public_functions": [
+        "lifespan",
+        "health"
+      ]
+    },
+    {
+      "path": "app/models/__init__.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/models/daily_log.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/models/mlb_game.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/models/moneypuck.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/models/nhl_game.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/models/nhl_stat.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/models/pick.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/models/team_elo.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/routers/__init__.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/routers/admin.py",
+      "function_count": 8,
+      "public_functions": [
+        "trigger_mlb_scrape",
+        "trigger_nhl_schedule_scrape",
+        "trigger_nhl_scrape",
+        "trigger_moneypuck_scrape",
+        "trigger_settlement",
+        "trigger_full_pipeline",
+        "get_status",
+        "get_logs"
+      ]
+    },
+    {
+      "path": "app/routers/mlb.py",
+      "function_count": 3,
+      "public_functions": [
+        "get_schedule",
+        "get_game",
+        "get_mlb_elo"
+      ]
+    },
+    {
+      "path": "app/routers/nhl.py",
+      "function_count": 6,
+      "public_functions": [
+        "get_nhl_schedule",
+        "get_team_stats",
+        "get_goalie_stats",
+        "get_skater_stats",
+        "get_moneypuck_teams",
+        "get_moneypuck_live"
+      ]
+    },
+    {
+      "path": "app/routers/picks.py",
+      "function_count": 8,
+      "public_functions": [
+        "get_pick_stats",
+        "list_picks",
+        "create_pick",
+        "get_pick",
+        "void_pick"
+      ]
+    },
+    {
+      "path": "app/routers/predictions.py",
+      "function_count": 1,
+      "public_functions": [
+        "predictions"
+      ]
+    },
+    {
+      "path": "app/schemas/__init__.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/schemas/mlb.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/schemas/nhl.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/schemas/picks.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/scrapers/__init__.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/scrapers/espn.py",
+      "function_count": 9,
+      "public_functions": [
+        "fetch_mlb_schedule",
+        "fetch_mlb_final_scores",
+        "fetch_game_pitchers",
+        "fetch_nhl_schedule",
+        "fetch_nhl_final_scores"
+      ]
+    },
+    {
+      "path": "app/scrapers/moneypuck.py",
+      "function_count": 9,
+      "public_functions": [
+        "fetch_moneypuck_teams",
+        "fetch_live_nhl_snapshot"
+      ]
+    },
+    {
+      "path": "app/scrapers/nhl_edge.py",
+      "function_count": 11,
+      "public_functions": [
+        "fetch_team_id_map",
+        "fetch_team_summary",
+        "fetch_team_zone_time",
+        "fetch_goalie_save_pct_by_strength",
+        "fetch_skater_shot_type",
+        "fetch_skater_skating",
+        "parse_team_stats",
+        "parse_goalie_stats",
+        "parse_skater_stats"
+      ]
+    },
+    {
+      "path": "app/services/__init__.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "app/services/elo.py",
+      "function_count": 2,
+      "public_functions": [
+        "expected_score",
+        "update_ratings"
+      ]
+    },
+    {
+      "path": "app/services/pipeline.py",
+      "function_count": 7,
+      "public_functions": [
+        "run_espn_mlb",
+        "run_nhl_schedule",
+        "run_nhl_edge",
+        "run_moneypuck",
+        "run_settlement"
+      ]
+    },
+    {
+      "path": "app/services/predictor.py",
+      "function_count": 11,
+      "public_functions": [
+        "american_to_implied",
+        "implied_to_american",
+        "edge_pct",
+        "elo_win_prob",
+        "predict_mlb_game",
+        "predict_nhl_game",
+        "get_predictions"
+      ]
+    },
+    {
+      "path": "app/services/scheduler.py",
+      "function_count": 3,
+      "public_functions": [
+        "start_scheduler",
+        "stop_scheduler"
+      ]
+    },
+    {
+      "path": "app/services/settlement.py",
+      "function_count": 4,
+      "public_functions": [
+        "settle_pending_picks"
+      ]
+    },
+    {
+      "path": "scripts/_espn_injuries.py",
+      "function_count": 7,
+      "public_functions": [
+        "norm_name",
+        "athlete_id",
+        "team_abbr_for",
+        "parse_injuries",
+        "flatten_roster_athletes",
+        "parse_roster",
+        "parse_nfl_injuries"
+      ]
+    },
+    {
+      "path": "scripts/_flashscore_logos.py",
+      "function_count": 5,
+      "public_functions": [
+        "log",
+        "valid_logo_url",
+        "row_logo_url",
+        "attach_logos",
+        "carry_over_logos"
+      ]
+    },
+    {
+      "path": "scripts/_flashscore_odds.py",
+      "function_count": 17,
+      "public_functions": [
+        "log",
+        "parse_price",
+        "build_ml",
+        "build_ou",
+        "build_pl",
+        "fetch_match_ou_line",
+        "fetch_match_odds",
+        "carry_over_odds"
+      ]
+    },
+    {
+      "path": "scripts/_gmail_email.py",
+      "function_count": 3,
+      "public_functions": [
+        "send_email"
+      ]
+    },
+    {
+      "path": "scripts/_nba_espn.py",
+      "function_count": 24,
+      "public_functions": [
+        "parse_byteam",
+        "row_from_raw",
+        "rows_from_byteam",
+        "attach_records",
+        "compare_rows",
+        "fetch_team_rows",
+        "parse_byathlete",
+        "fetch_player_pool",
+        "parse_gamelog",
+        "form_from_games",
+        "normalize_status",
+        "injury_status_maps",
+        "build_player_props",
+        "fetch_player_props",
+        "log",
+        "get_json",
+        "totals",
+        "summary",
+        "four"
+      ]
+    },
+    {
+      "path": "scripts/_nhl_core.py",
+      "function_count": 2,
+      "public_functions": [
+        "merge_nhl_core",
+        "atomic_write_text"
+      ]
+    },
+    {
+      "path": "scripts/_nhl_goalies.py",
+      "function_count": 17,
+      "public_functions": [
+        "norm_name",
+        "app_abbr",
+        "espn_probables",
+        "build_goalies",
+        "merge_with_previous",
+        "upgrade_with_moneypuck",
+        "parse_tweet_csv",
+        "parse_prediction_csv",
+        "mp_schedule_index",
+        "mp_game_id",
+        "fetch_moneypuck",
+        "get",
+        "http_get"
+      ]
+    },
+    {
+      "path": "scripts/_nhl_skaters.py",
+      "function_count": 3,
+      "public_functions": [
+        "pos_group",
+        "build_skater_value"
+      ]
+    },
+    {
+      "path": "scripts/_schedule_carry.py",
+      "function_count": 6,
+      "public_functions": [
+        "parse_generated_at",
+        "load_previous",
+        "carry_over_missing",
+        "merge_results_only"
+      ]
+    },
+    {
+      "path": "scripts/_scraper_health.py",
+      "function_count": 8,
+      "public_functions": [
+        "trim_records",
+        "merge_health",
+        "log_scrape",
+        "park_health",
+        "commit_and_push",
+        "restore"
+      ]
+    },
+    {
+      "path": "scripts/_season.py",
+      "function_count": 6,
+      "public_functions": [
+        "football_season_year",
+        "hockey_season_label",
+        "soccer_season_start_year",
+        "roll_prior_snapshot"
+      ]
+    },
+    {
+      "path": "scripts/_subscribers.py",
+      "function_count": 30,
+      "public_functions": [
+        "fmt_mt_date",
+        "load_subscribers",
+        "save_subscribers",
+        "sync_subscribers_to_git",
+        "active_subscribers",
+        "recipients_for",
+        "add_subscriber",
+        "remove_subscriber",
+        "subscribers_needing_reminder",
+        "mark_reminder_sent",
+        "list_subscribers",
+        "revenue_timeline",
+        "per_product_revenue",
+        "multi_product_adoption",
+        "cohort_retention",
+        "avg_customer_lifetime",
+        "time_to_renewal",
+        "analytics_summary",
+        "products_for_email",
+        "send_receipt_email",
+        "run"
+      ]
+    },
+    {
+      "path": "scripts/alt_line_scorecard.py",
+      "function_count": 7,
+      "public_functions": [
+        "espn_finals",
+        "provisional",
+        "load",
+        "margin_total",
+        "grade",
+        "units",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/audit_bet_classification.py",
+      "function_count": 6,
+      "public_functions": [
+        "log",
+        "fetch_all_bets",
+        "season_implausible",
+        "classify_teams_sport",
+        "main",
+        "in_range"
+      ]
+    },
+    {
+      "path": "scripts/audit_lock_timing.py",
+      "function_count": 1,
+      "public_functions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/auto_lock_settle.py",
+      "function_count": 108,
+      "public_functions": [
+        "with_nologo",
+        "norm_sport_for_email",
+        "guard_note",
+        "parse_start_ms",
+        "start_guard",
+        "mt_date_of_ms",
+        "horizon_dates",
+        "analyze_games",
+        "log",
+        "read_marker_from_origin",
+        "write_automation_status",
+        "pass_entries",
+        "owner_alert_for",
+        "send_owner_alert",
+        "finish_live_pass",
+        "run_adaptive_recalibration",
+        "install_espn_relay",
+        "load_bet_ledger",
+        "reconcile_from_backup",
+        "merge_manual_locks",
+        "write_ledger_backup",
+        "persist_ledger_backup",
+        "ledger_fingerprint",
+        "write_landing_performance",
+        "flush_to_supabase",
+        "run_settle",
+        "build_settlement_email_html",
+        "send_settlement_email",
+        "send_daily_settlement_digest",
+        "gather_legs"
+      ]
+    },
+    {
+      "path": "scripts/backtest_alt_lines.py",
+      "function_count": 18,
+      "public_functions": [
+        "load_nba",
+        "over_under",
+        "table_from",
+        "cmd_euro",
+        "load_archive",
+        "survival",
+        "pmf_from_survival",
+        "table_at",
+        "cmd_euro_archive",
+        "cmd_nhl_check",
+        "ncdf",
+        "cmd_nhl",
+        "cmd_nba",
+        "day",
+        "odds"
+      ]
+    },
+    {
+      "path": "scripts/backtest_goalie_starter.py",
+      "function_count": 19,
+      "public_functions": [
+        "load_boxscores",
+        "load_mp_goalies",
+        "starter_of",
+        "build_rows",
+        "fit_b",
+        "per_game_ll",
+        "paired",
+        "report",
+        "main",
+        "one",
+        "roll",
+        "primary",
+        "r_prior_gsax",
+        "r_running_save",
+        "update"
+      ]
+    },
+    {
+      "path": "scripts/backtest_hockey_models.py",
+      "function_count": 32,
+      "public_functions": [
+        "load_results",
+        "pois_pmf",
+        "pointintime",
+        "cmd_form",
+        "load_odds",
+        "blend_rows",
+        "cmd_blend",
+        "cmd_dispersion",
+        "tier_legs",
+        "qualify_legs",
+        "cmd_tiers",
+        "base",
+        "day",
+        "odds",
+        "llb",
+        "nll",
+        "ll",
+        "rt"
+      ]
+    },
+    {
+      "path": "scripts/backtest_quanthockey_signal.py",
+      "function_count": 11,
+      "public_functions": [
+        "log",
+        "fetch_all_bets",
+        "qh_commit_history",
+        "qh_snapshot_at",
+        "hk_norm_name",
+        "hk_fuzzy_find_qh",
+        "extract_picked_team",
+        "correlate",
+        "main",
+        "strip_suffix",
+        "report"
+      ]
+    },
+    {
+      "path": "scripts/backtest_spread_margin_signal.py",
+      "function_count": 20,
+      "public_functions": [
+        "log",
+        "fetch_all_bets",
+        "commit_history",
+        "snapshot_at",
+        "extract_picked_team",
+        "resolve_team_id",
+        "blended_rates",
+        "played_games",
+        "form_factor",
+        "big_margin_rate",
+        "poisson_pmf",
+        "margin_dist",
+        "spread_prob",
+        "compute_probs",
+        "brier",
+        "mae",
+        "main",
+        "bay_p",
+        "big_p"
+      ]
+    },
+    {
+      "path": "scripts/build_game_start_history.py",
+      "function_count": 3,
+      "public_functions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/build_kickoffs.py",
+      "function_count": 6,
+      "public_functions": [
+        "collect",
+        "build",
+        "main",
+        "add"
+      ]
+    },
+    {
+      "path": "scripts/build_ledger_archive.py",
+      "function_count": 3,
+      "public_functions": [
+        "compute",
+        "main",
+        "log_message"
+      ]
+    },
+    {
+      "path": "scripts/build_team_logos.py",
+      "function_count": 7,
+      "public_functions": [
+        "log",
+        "get_json",
+        "teams_of",
+        "scoreboard_teams",
+        "logo_of",
+        "build",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/clairvoyance_update.py",
+      "function_count": 162,
+      "public_functions": [
+        "log",
+        "vlog",
+        "note",
+        "fetch_json",
+        "fetch_html",
+        "fetch_csv_rows",
+        "fetch_espn_injuries",
+        "fetch_espn_transactions",
+        "fetch_nba_roster",
+        "fetch_nhl_roster",
+        "fetch_wnba_roster",
+        "nba_season_end_year",
+        "nba_bbref_url",
+        "parse_nba_advanced_team",
+        "fetch_nba_bbref_season",
+        "select_nba_team_stats",
+        "get_nba_team_stats_selection",
+        "fetch_nba_team_advanced",
+        "fetch_nba_four_factors",
+        "build_nba_team_ratings",
+        "collect_nba_season_data",
+        "fetch_best_odds",
+        "fetch_nba_scoreboard",
+        "fetch_nba_standings",
+        "nba_playoffs_year",
+        "nba_in_playoff_window",
+        "fetch_nba_playoff_bracket",
+        "nba_player_stats_season",
+        "fetch_nba_player_stats",
+        "apply_nba_player_tiers"
+      ]
+    },
+    {
+      "path": "scripts/content_generator.py",
+      "function_count": 35,
+      "public_functions": [
+        "detect_slot",
+        "generate_content",
+        "write_desktop_output",
+        "write_social_json",
+        "print_content",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/daily_health_check.py",
+      "function_count": 23,
+      "public_functions": [
+        "check_lock_markers",
+        "check_workflow",
+        "parse_stamp",
+        "run_link",
+        "check_data_freshness",
+        "check_refresh_workflow",
+        "check_refresh_health",
+        "check_pages_deploy",
+        "check_mobile_sync",
+        "check_odds_sanity",
+        "check_ledger_archive",
+        "main",
+        "age_h",
+        "stamp_of",
+        "two_way"
+      ]
+    },
+    {
+      "path": "scripts/demo_share.py",
+      "function_count": 8,
+      "public_functions": [
+        "make_handler",
+        "main",
+        "log_message",
+        "do_POST",
+        "do_GET"
+      ]
+    },
+    {
+      "path": "scripts/design_system.py",
+      "function_count": 8,
+      "public_functions": [
+        "orb",
+        "mono",
+        "glow",
+        "make_background",
+        "make_background_covers",
+        "draw_footer",
+        "hline"
+      ]
+    },
+    {
+      "path": "scripts/fetch_cfb.py",
+      "function_count": 18,
+      "public_functions": [
+        "fetch_all_team_ids",
+        "fetch_team_conference",
+        "build_roster",
+        "run",
+        "fetch_team_stats",
+        "fetch_all_team_stats",
+        "fetch_week_games",
+        "fetch_full_schedule",
+        "fetch_rankings",
+        "fetch_power_ratings",
+        "write_power",
+        "write_schedule",
+        "write_stats",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/fetch_extraliga.py",
+      "function_count": 13,
+      "public_functions": [
+        "log",
+        "fetch_gm_rates",
+        "fetch_standings",
+        "fetch_fixtures",
+        "fetch_results",
+        "run",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/fetch_liiga.py",
+      "function_count": 13,
+      "public_functions": [
+        "log",
+        "fetch_gm_rates",
+        "fetch_standings",
+        "fetch_fixtures",
+        "fetch_results",
+        "run",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/fetch_nba.py",
+      "function_count": 26,
+      "public_functions": [
+        "parse_odds",
+        "empty_odds",
+        "et_day",
+        "iso_to_dt",
+        "parse_event",
+        "get_json",
+        "fetch_day",
+        "load_previous",
+        "carry_failed_days",
+        "carry_odds",
+        "core_odds_fallback",
+        "regular_season_days",
+        "build_schedule",
+        "write_schedule",
+        "git_push",
+        "run",
+        "main",
+        "score",
+        "record",
+        "prev_upcoming_in_window"
+      ]
+    },
+    {
+      "path": "scripts/fetch_nfl.py",
+      "function_count": 23,
+      "public_functions": [
+        "fetch_all_teams",
+        "fetch_team_detail",
+        "build_roster",
+        "fetch_week_games",
+        "fetch_full_schedule",
+        "fetch_standings",
+        "fetch_team_stats",
+        "fetch_all_team_stats",
+        "fetch_team_depth_chart",
+        "fetch_team_roster",
+        "fetch_player_season_stats",
+        "fetch_all_player_stats",
+        "fetch_all_player_stats_blended",
+        "fetch_injuries",
+        "fetch_transactions",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/fetch_nhl.py",
+      "function_count": 12,
+      "public_functions": [
+        "fetch_full_schedule",
+        "attach_flashscore_odds",
+        "attach_goalies",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/fetch_nla.py",
+      "function_count": 13,
+      "public_functions": [
+        "log",
+        "fetch_gm_rates",
+        "fetch_standings",
+        "fetch_fixtures",
+        "fetch_results",
+        "run",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/fetch_quanthockey.py",
+      "function_count": 5,
+      "public_functions": [
+        "log",
+        "fetch_league",
+        "run",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/fetch_shl.py",
+      "function_count": 13,
+      "public_functions": [
+        "log",
+        "fetch_gm_rates",
+        "fetch_standings",
+        "fetch_fixtures",
+        "fetch_results",
+        "run",
+        "git_push"
+      ]
+    },
+    {
+      "path": "scripts/gen_reddit_ad_v1.py",
+      "function_count": 4,
+      "public_functions": [
+        "cx_text",
+        "dotted_row",
+        "glow_tracked",
+        "build_card"
+      ]
+    },
+    {
+      "path": "scripts/generate_card.py",
+      "function_count": 21,
+      "public_functions": [
+        "render_header",
+        "render_record",
+        "generate_card",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/generate_pick_of_day_social.py",
+      "function_count": 13,
+      "public_functions": [
+        "select_top_picks",
+        "build_pick_caption",
+        "send_pick_posts",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/generate_social_cards.py",
+      "function_count": 37,
+      "public_functions": [
+        "get_rotation_item",
+        "log",
+        "public_filter",
+        "inject_public_exclusions",
+        "basis_for_engine",
+        "basis_for_subscriber",
+        "basis_for_sport",
+        "generate_cards",
+        "generate_event_card",
+        "get_event_stats",
+        "get_year_stats",
+        "get_engine_performance",
+        "get_engine_performance_subscriber",
+        "get_sport_performance",
+        "write_landing_json",
+        "run",
+        "build_daily_caption",
+        "build_weekly_caption",
+        "build_alltime_caption",
+        "build_monthly_caption",
+        "build_yearly_caption",
+        "build_event_caption",
+        "build_grading_caption",
+        "build_subscription_caption",
+        "build_educational_caption",
+        "build_covers_caption",
+        "send_email",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/generate_video_reveal.py",
+      "function_count": 17,
+      "public_functions": [
+        "record_image_glitch_reveal",
+        "record_stats_reveal",
+        "record_stats_still",
+        "record_breakdown_reveal",
+        "record_breakdown_still",
+        "record_big_recap_reveal",
+        "record_big_recap_still",
+        "record_milestone_reveal",
+        "record_educational_reveal",
+        "record_free_pick_reveal",
+        "record_free_pick_still",
+        "record_grading_tiers_reveal",
+        "record_subscription_tiers_reveal",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/live_tracker.py",
+      "function_count": 16,
+      "public_functions": [
+        "log",
+        "vlog",
+        "nba_win_prob",
+        "nhl_win_prob",
+        "fetch_nba_live",
+        "fetch_cfb_live",
+        "fetch_nfl_live",
+        "fetch_nhl_live",
+        "update_bet_probs",
+        "poll_once",
+        "is_game_window",
+        "signal_handler",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/lock_prep.py",
+      "function_count": 10,
+      "public_functions": [
+        "log",
+        "expand",
+        "sync_checkout",
+        "run_jobs",
+        "guard_empty_soccer",
+        "commit_and_push",
+        "freshness_report",
+        "kickoff_in_window",
+        "main",
+        "consider"
+      ]
+    },
+    {
+      "path": "scripts/lock_timing.py",
+      "function_count": 18,
+      "public_functions": [
+        "norm_sport",
+        "is_parlay",
+        "iso_ms",
+        "mt_date",
+        "game_key",
+        "add_game",
+        "load_schedule_index",
+        "load_history_index",
+        "load_index",
+        "pick_start_ms",
+        "classify",
+        "is_known_late",
+        "split_picks",
+        "late_ids",
+        "settled",
+        "summarize",
+        "basis_fields"
+      ]
+    },
+    {
+      "path": "scripts/manage_subscribers.py",
+      "function_count": 2,
+      "public_functions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/mobile_sync.py",
+      "function_count": 3,
+      "public_functions": [
+        "sync",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/mobile_transform.py",
+      "function_count": 0,
+      "public_functions": []
+    },
+    {
+      "path": "scripts/refresh_hockey_results.py",
+      "function_count": 5,
+      "public_functions": [
+        "log",
+        "team_names_from",
+        "season_start_year",
+        "apply_results",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/run_tests.py",
+      "function_count": 2,
+      "public_functions": [
+        "run",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/scrape_opta_stats.py",
+      "function_count": 10,
+      "public_functions": [
+        "fetch_tournament_stats",
+        "fetch_power_rankings",
+        "slim_power_rankings",
+        "fetch_dataviz_power_rankings",
+        "slim_dataviz_power_rankings",
+        "slim_categories",
+        "build_soc_xg_lines",
+        "replace_league_block",
+        "main",
+        "pick"
+      ]
+    },
+    {
+      "path": "scripts/scrape_player_stats.py",
+      "function_count": 6,
+      "public_functions": [
+        "log",
+        "fetch_basketball",
+        "fetch_nhl",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/scrape_soccer_schedule.py",
+      "function_count": 4,
+      "public_functions": [
+        "log",
+        "fetch_scoreboard",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/scrape_soccer_standings.py",
+      "function_count": 3,
+      "public_functions": [
+        "log",
+        "fetch_standings",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/send_adhoc_email.py",
+      "function_count": 2,
+      "public_functions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/send_demo_emails.py",
+      "function_count": 3,
+      "public_functions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/send_expiry_reminders.py",
+      "function_count": 2,
+      "public_functions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/settle_gate.py",
+      "function_count": 10,
+      "public_functions": [
+        "sport_tag",
+        "classify_bet_on",
+        "app_can_grade",
+        "game_mt_date",
+        "is_final",
+        "same_game",
+        "pending_picks",
+        "evaluate",
+        "load_inputs",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/settle_heartbeat.py",
+      "function_count": 1,
+      "public_functions": [
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/smoke_all_tabs.py",
+      "function_count": 5,
+      "public_functions": [
+        "run",
+        "log_message",
+        "rec",
+        "visible",
+        "click"
+      ]
+    },
+    {
+      "path": "scripts/snapshot_cfb_prior.py",
+      "function_count": 2,
+      "public_functions": [
+        "build_payload",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/subscribers_admin.py",
+      "function_count": 6,
+      "public_functions": [
+        "main",
+        "log_message",
+        "do_GET",
+        "do_POST"
+      ]
+    },
+    {
+      "path": "scripts/test_alt_js_parity.py",
+      "function_count": 5,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "test_every_case_matches",
+        "test_nba_spread_is_really_shifted_by_the_curve"
+      ]
+    },
+    {
+      "path": "scripts/test_alt_lines.py",
+      "function_count": 34,
+      "public_functions": [
+        "leg",
+        "test_cfb_under_moves_up_to_the_target_probability",
+        "test_cfb_over_moves_down",
+        "test_spread_favourite_lays_fewer_points_and_dog_gets_more",
+        "test_fav_label_keeps_sign_format",
+        "test_shift_stays_inside_the_band",
+        "test_nfl_cap_that_cannot_reach_the_floor_keeps_the_posted_line",
+        "test_moneyline_and_other_sports_are_untouched",
+        "test_whole_number_lines_move_onto_a_half_point",
+        "test_every_alt_line_keeps_a_half_point",
+        "test_nba_total_uses_the_empirical_table",
+        "test_nba_spread_favourite_dog_and_the_curve",
+        "test_nba_spread_without_a_line_number_is_left_alone",
+        "test_table_interpolates_between_points",
+        "test_hockey_keeps_its_side_unless_the_same_side_shift_would_overshoot",
+        "test_hockey_flip_examples",
+        "test_flips_are_off_by_default",
+        "test_a_total_at_the_lane_floor_keeps_its_posted_line_at_its_real_price",
+        "test_hockey_moves_the_line_toward_safety_on_the_same_side",
+        "test_a_strong_model_pick_keeps_its_posted_line",
+        "test_the_games_own_edge_changes_the_probability",
+        "test_edge_credit_is_clamped",
+        "test_nhl_uses_the_shootout_corrected_closing_line_hit_rates",
+        "test_european_leagues_use_their_own_tables_not_the_nhl_ones",
+        "test_hockey_never_picks_below_the_floor",
+        "test_hockey_whole_line_is_anchored_on_a_half_point",
+        "test_hockey_puck_line_and_moneyline_are_untouched",
+        "test_hockey_leg_is_priced_as_an_estimate",
+        "test_over_never_goes_to_a_non_positive_line",
+        "test_already_shifted_leg_is_not_shifted_twice"
+      ]
+    },
+    {
+      "path": "scripts/test_alt_tracker.py",
+      "function_count": 9,
+      "public_functions": [
+        "pick",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "test_grading_matches_python_and_expectations",
+        "test_totals",
+        "test_rendering_everywhere",
+        "test_empty_state_and_periods"
+      ]
+    },
+    {
+      "path": "scripts/test_alt_tracker_filters.py",
+      "function_count": 17,
+      "public_functions": [
+        "build",
+        "in_period",
+        "timing_class",
+        "in_timing",
+        "in_price",
+        "expect",
+        "read",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "set",
+        "test_every_combination",
+        "test_buttons_are_wired",
+        "test_league_filter_resets_when_empty_in_period",
+        "test_price_filter_only_touches_units",
+        "test_show_more",
+        "click"
+      ]
+    },
+    {
+      "path": "scripts/test_analytics_trends.py",
+      "function_count": 59,
+      "public_functions": [
+        "build_ledger",
+        "pnl",
+        "ordered",
+        "agg",
+        "rec",
+        "sgn",
+        "rnd0",
+        "age_h",
+        "in_days",
+        "near_misses",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "block_fonts",
+        "open",
+        "done",
+        "tip",
+        "op",
+        "expect_op",
+        "hover_in",
+        "stat",
+        "test_every_original_view_still_renders",
+        "test_headline_stats_match_fixture",
+        "test_chips_are_real_buttons_with_aria_pressed",
+        "test_sport_chip_replots_every_section",
+        "test_period_chips_recompute_numbers",
+        "test_period_and_sport_combine",
+        "test_rolling_hover_tooltip_has_the_right_window",
+        "test_rolling_window_chips_and_pin",
+        "test_rolling_keyboard_scrub_and_pin"
+      ]
+    },
+    {
+      "path": "scripts/test_analytics_visuals.py",
+      "function_count": 40,
+      "public_functions": [
+        "build_ledger",
+        "pnl",
+        "ordered",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "open",
+        "done",
+        "op",
+        "expect_op",
+        "tip",
+        "hover_in",
+        "test_every_original_card_still_renders",
+        "test_filter_chips_replot_every_card",
+        "stat",
+        "test_equity_hover_shows_the_right_running_units",
+        "test_equity_period_chips_and_final_marker",
+        "test_equity_drawdown_toggle_and_stats",
+        "test_equity_keyboard_scrub",
+        "test_calibration_hover_matches_the_fixture_bin",
+        "test_calibration_league_tabs_and_legend",
+        "test_calibration_keyboard_focus_shows_bin",
+        "test_tier_bar_drill_down",
+        "test_tier_heatmap_cell_drills_into_one_sport",
+        "test_grade_colours_are_the_uniform_ones",
+        "test_streak_dot_tooltip_and_pin",
+        "test_streak_roving_arrow_keys",
+        "test_player_rows_sort_and_pin",
+        "test_scatter_hover_pin_and_toggles",
+        "test_scatter_trend_node_has_bucket_stats"
+      ]
+    },
+    {
+      "path": "scripts/test_build_kickoffs.py",
+      "function_count": 8,
+      "public_functions": [
+        "put",
+        "docs",
+        "test_collects_only_what_the_engine_locks",
+        "test_missing_or_broken_files_never_raise",
+        "test_build_payload_shape",
+        "test_real_repo_files_build",
+        "test_pages_deploy_builds_the_list_into_each_artifact",
+        "test_worker_reads_the_same_url"
+      ]
+    },
+    {
+      "path": "scripts/test_cfb_selection.py",
+      "function_count": 11,
+      "public_functions": [
+        "leg",
+        "kinds",
+        "test_heavy_favourite_ml_alone_is_one_pick",
+        "test_very_strong_ml_pairs_with_an_in_band_ou",
+        "test_ml_never_pairs_with_a_spread",
+        "test_ml_below_the_pair_bar_stays_single",
+        "test_no_heavy_ml_takes_the_best_in_band_non_ml",
+        "test_overconfident_spread_and_ou_are_dropped",
+        "test_below_band_is_dropped",
+        "test_never_more_than_two_and_never_two_of_a_kind",
+        "test_empty"
+      ]
+    },
+    {
+      "path": "scripts/test_degraded_ledger.py",
+      "function_count": 23,
+      "public_functions": [
+        "pick",
+        "evaluate",
+        "setUp",
+        "tearDown",
+        "write_backup",
+        "test_no_meta_means_a_full_pull",
+        "test_fresh_meta_means_hybrid_with_tombstones",
+        "test_stale_meta_or_needs_reconcile_forces_full",
+        "test_failed_pull_falls_back_to_backup",
+        "test_second_load_keeps_this_runs_changes",
+        "test_missing_backup_still_raises",
+        "test_verify_count_uses_in_page_ledger_when_degraded",
+        "test_three_way_merge_origin_newer_keeps_others_changes",
+        "test_three_way_merge_origin_older_keeps_supabase_truth",
+        "test_full_pull_drops_picks_the_owner_removed",
+        "test_manual_lock_relay_merged_only_in_degraded_mode_and_reconcile",
+        "test_reconcile_also_pushes_relay_picks",
+        "test_validation_gate",
+        "test_write_backup_sorted_with_meta_and_reconcile_flag",
+        "test_healthy_full_run_records_last_full_sync",
+        "test_refuses_to_shrink_the_backup",
+        "test_reconcile_pushes_backup_only_and_settled_picks_then_clears_flag"
+      ]
+    },
+    {
+      "path": "scripts/test_email_fixes.py",
+      "function_count": 60,
+      "public_functions": [
+        "test_stale_hockey_stripper_is_gone",
+        "test_basis_wording_is_honest",
+        "test_no_retired_leagues_or_typos",
+        "test_failed_send_is_recorded_not_raised",
+        "log_message",
+        "test_year_total_matches_its_rows_and_excludes_parlays_and_retired",
+        "test_adjusted_line_pick_is_labelled_and_has_no_ev_or_posted_tier",
+        "test_legend_explains_adjusted_lines_and_hockey_claims_are_true",
+        "test_posted_line_context_is_labelled_when_a_leg_is_shifted",
+        "test_send_failure_is_recorded_and_returned",
+        "test_subject_date_is_mountain_time",
+        "test_preseason_legs_are_never_qualified",
+        "test_pairs_come_from_the_schedule_files",
+        "test_digest_is_gone",
+        "setUp",
+        "test_only_premium_optimal_in_scope_sports",
+        "test_alt_line_caption_has_no_edge_claim_or_lock_emoji",
+        "test_market_priced_caption_keeps_edge",
+        "test_workflow_marker_requires_a_real_send",
+        "test_sent_flag_written_only_when_called",
+        "setUp",
+        "test_reminder_copy_dates_and_footer",
+        "test_failed_reminder_exits_nonzero_and_is_not_marked",
+        "test_all_sent_exits_zero",
+        "test_reminder_workflow_serialised_and_commits_state_on_failure",
+        "test_retired_product_keys_are_ignored",
+        "test_receipt_is_an_access_confirmation_not_a_payment_receipt",
+        "test_refused_recipient_is_reported_not_swallowed",
+        "test_demo_goes_to_requested_recipient_labelled_as_sample",
+        "test_demo_failure_is_fatal"
+      ]
+    },
+    {
+      "path": "scripts/test_git_push_race.py",
+      "function_count": 7,
+      "public_functions": [
+        "git",
+        "setUp",
+        "tearDown",
+        "test_plain_pull_rebase_refuses_on_a_dirty_tree",
+        "test_parked_health_file_lets_the_push_through_and_is_restored",
+        "test_untracked_health_file_is_also_handled"
+      ]
+    },
+    {
+      "path": "scripts/test_grade_uniform.py",
+      "function_count": 9,
+      "public_functions": [
+        "test_no_abbreviated_grade_names_in_scan_lines",
+        "test_no_old_grade_colour_maps_remain",
+        "test_static_key_legends_use_the_scheme",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "test_text_colours_match_the_pill_backgrounds",
+        "test_names",
+        "test_box_tags_name_the_side_and_the_line"
+      ]
+    },
+    {
+      "path": "scripts/test_header_trigger.py",
+      "function_count": 11,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "test_buttons_sit_below_the_two_chips",
+        "test_lock_sends_the_key_once_then_remembers_it",
+        "test_declining_the_confirmation_sends_nothing",
+        "test_wrong_key_is_forgotten",
+        "test_phone_width_keeps_the_header_usable",
+        "handle",
+        "on_dialog"
+      ]
+    },
+    {
+      "path": "scripts/test_health_freshness.py",
+      "function_count": 86,
+      "public_functions": [
+        "ago",
+        "iso",
+        "utc_txt",
+        "run",
+        "api_returning",
+        "git",
+        "fake_root",
+        "api",
+        "run_check",
+        "test_healthy_mirror_has_no_alerts",
+        "test_missing_data_files_alert_and_cname_is_not_required",
+        "test_stale_mobile_app_alerts_but_a_fresh_commit_is_only_a_note",
+        "test_stuck_data_sync_alerts",
+        "test_unreadable_mobile_repo_is_only_a_note",
+        "run_with",
+        "test_normal_prices_pass",
+        "test_a_corrupt_price_alerts",
+        "test_no_odds_is_only_a_note",
+        "test_real_files_pass_today",
+        "test_formats",
+        "test_unusable",
+        "docs",
+        "run_one",
+        "test_thresholds_data_json",
+        "test_schedule_and_euro_hockey_use_their_own_thresholds",
+        "test_missing_file_and_missing_stamp_are_notes_not_alerts",
+        "test_truncated_json_falls_back_to_regex",
+        "test_live_feed_uses_tight_limits_only_when_games_are_live",
+        "test_live_feed_skipped_while_the_tracker_cron_is_idle",
+        "test_real_docs_do_not_crash"
+      ]
+    },
+    {
+      "path": "scripts/test_hockey_ou_lane.py",
+      "function_count": 21,
+      "public_functions": [
+        "market",
+        "result",
+        "test_constant_and_legend",
+        "test_a_lane_flagged_total_qualifies_through_the_lane_even_at_low_tier",
+        "test_a_total_without_the_lane_and_low_tier_does_not_qualify",
+        "test_lane_needs_a_real_price",
+        "test_the_adjusted_line_shift_still_runs_on_a_lane_total_and_keeps_the_lane_flag",
+        "flip_pick",
+        "test_scorecard_grades_the_posted_pick_on_its_original_side",
+        "test_email_says_the_side_switched",
+        "test_the_locked_leg_is_on_the_new_side",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "lane",
+        "test_totals_qualify_at_62_and_not_below",
+        "test_price_and_ev_guards_still_apply_to_totals",
+        "test_ml_and_puck_line_rules_are_unchanged",
+        "test_tracker_grades_the_posted_pick_of_a_flip_on_its_original_side",
+        "test_js_and_python_floors_agree"
+      ]
+    },
+    {
+      "path": "scripts/test_home_momentum.py",
+      "function_count": 12,
+      "public_functions": [
+        "ledger",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "agg",
+        "test_default_numbers_follow_the_original_rules",
+        "test_chips_change_window_metric_view_and_sport",
+        "test_hover_tooltip_and_click_to_pin_show_that_days_picks",
+        "test_keyboard_scrub_and_pin",
+        "test_touch_tap_pins_on_a_phone_and_nothing_overflows",
+        "test_hot_cold_badge_follows_the_five_point_rule"
+      ]
+    },
+    {
+      "path": "scripts/test_injury_wiring.py",
+      "function_count": 44,
+      "public_functions": [
+        "player",
+        "inj_row",
+        "run_node",
+        "old_roster_loop",
+        "test_old_loop_crashed_on_grouped_nhl_shape",
+        "test_grouped_nhl_roster_parses",
+        "test_nhl_abbreviation_mapped_to_app_keys",
+        "test_flat_and_nfl_group_shapes_still_parse",
+        "test_garbage_is_skipped_not_raised",
+        "test_team_comes_from_athlete_not_the_entry",
+        "test_nhl_abbr_fix",
+        "test_athlete_id_from_link_not_injury_record_id",
+        "test_schema_is_backward_compatible",
+        "test_team_fallbacks",
+        "test_nfl_file_shape",
+        "test_cases",
+        "row",
+        "test_shrinkage_math",
+        "test_injured_star_with_no_current_games_is_his_prior_rate",
+        "test_rookie_is_shrunk_to_replacement_level",
+        "test_short_prior_season_not_trusted",
+        "test_collision_keeps_both_groups_and_goalies_are_not_skaters",
+        "test_fringe_dropped",
+        "setUpClass",
+        "test_constants_match_what_the_python_side_assumes",
+        "test_name_normaliser_matches_python",
+        "test_severity",
+        "test_staleness",
+        "test_nhl_fail_open_cases_are_exactly_zero",
+        "test_nhl_star_is_capped_at_5pct"
+      ]
+    },
+    {
+      "path": "scripts/test_landing_scope.py",
+      "function_count": 7,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "test_headline_matches_league_table",
+        "test_retired_leagues_not_in_basis",
+        "test_landing_includes_post_start_picks",
+        "test_unscoped_file_still_counts_them"
+      ]
+    },
+    {
+      "path": "scripts/test_ledger_archive.py",
+      "function_count": 12,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "test_archive_is_current",
+        "test_summary_matches_file",
+        "test_nothing_lost",
+        "test_automation_is_not_slimmed",
+        "test_merge_does_not_readd_archived",
+        "test_stale_pending_retired_row_not_pulled_in",
+        "test_predicate_edges",
+        "test_header_accuracy_unchanged"
+      ]
+    },
+    {
+      "path": "scripts/test_ledger_sync.py",
+      "function_count": 14,
+      "public_functions": [
+        "pick",
+        "row",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "diff",
+        "test_identical_ledgers_are_in_sync",
+        "test_every_kind_of_drift_is_found_and_the_record_shows_it",
+        "test_local_only_old_pick_is_flagged_but_fresh_pending_lock_is_not",
+        "test_adopt_makes_this_device_match_the_server_and_parks_local_only_picks",
+        "test_archived_retired_picks_are_not_counted_as_drift_when_slimmed",
+        "test_debug_panel_has_fingerprint_code_id_and_compare_button",
+        "test_mobile_build_runs_the_same_code_as_desktop",
+        "biggest_script"
+      ]
+    },
+    {
+      "path": "scripts/test_lock_passes.py",
+      "function_count": 22,
+      "public_functions": [
+        "at",
+        "ms",
+        "game",
+        "test_after_midnight_run_covers_the_games_about_to_start",
+        "test_before_midnight_run",
+        "test_midnight_boundary",
+        "test_mt_date_of_start",
+        "test_each_leg_carries_its_own_lock_date_and_guard_applies",
+        "test_no_real_price_never_qualifies_for_hockey",
+        "test_counts_and_missing_price",
+        "test_non_hockey_games_never_count_as_missing_price",
+        "test_late_pass_does_not_email_subscribers_no_picks",
+        "test_incomplete_pass_does_not_email",
+        "test_complete_pass_with_nothing_qualifying_still_emails_as_before",
+        "rep",
+        "test_none_when_nothing_unlocked",
+        "test_alert_lists_legs_and_hash_is_stable",
+        "test_failed_locks_alone_raise_an_alert",
+        "test_alert_goes_to_owner_only",
+        "test_entry_flags_late_pass_and_computes_margin",
+        "test_group_expansion_and_unknown_jobs",
+        "test_every_job_names_an_existing_script"
+      ]
+    },
+    {
+      "path": "scripts/test_lock_prep_data.py",
+      "function_count": 26,
+      "public_functions": [
+        "standings",
+        "base_doc",
+        "test_job_registered",
+        "test_dry_run_lists_it_and_touches_nothing",
+        "test_commit_file_list_includes_data_json",
+        "test_freshness_report_reads_core_stamp",
+        "test_workflows_run_the_job",
+        "test_replaces_only_its_parts",
+        "test_short_or_empty_fetch_keeps_old_value",
+        "test_partial_success_stamps",
+        "test_refuses_doc_without_nhl",
+        "test_creates_injuries_dict_when_missing",
+        "test_atomic_write",
+        "test_real_data_json_round_trips_byte_for_byte",
+        "test_untouched_keys_serialize_identically",
+        "setUpClass",
+        "test_refresh_merges_and_stamps",
+        "test_one_fetch_raising_does_not_block_the_others",
+        "test_everything_failing_leaves_file_byte_identical",
+        "test_unreadable_or_missing_file_is_fail_open",
+        "test_dry_run_writes_nothing",
+        "test_cli_entry_exits_zero",
+        "fake_run",
+        "boom"
+      ]
+    },
+    {
+      "path": "scripts/test_lock_timing.py",
+      "function_count": 19,
+      "public_functions": [
+        "pick",
+        "js_parity",
+        "test_pre_boundary",
+        "test_during_after_cutoffs_per_league",
+        "test_unlisted_league_uses_default",
+        "test_unknown_when_no_start_or_no_lock_time",
+        "test_garbage_start_ignored",
+        "test_late_manual_stamp_without_start_is_known_late",
+        "test_stored_start_wins_over_index",
+        "test_index_match_either_orientation_and_mt_date",
+        "test_history_is_fallback_behind_live_schedule",
+        "test_missing_files_do_not_raise",
+        "test_broad_tag_defers_to_league",
+        "setUp",
+        "test_split_and_ids",
+        "test_summarize_counts_settled_only",
+        "test_basis_fields_machine_readable",
+        "test_backup_classifies_without_error",
+        "log_message"
+      ]
+    },
+    {
+      "path": "scripts/test_locks_live_open.py",
+      "function_count": 9,
+      "public_functions": [
+        "log_message",
+        "test_nhl_and_nba_cards_only_close_a_final_game",
+        "test_football_cards_only_close_a_final_game",
+        "setUpClass",
+        "tearDownClass",
+        "close",
+        "test_live_game_keeps_open_lock_rows_with_a_note",
+        "test_final_game_is_still_closed",
+        "test_game_not_started_is_untouched"
+      ]
+    },
+    {
+      "path": "scripts/test_mobile_sync.py",
+      "function_count": 9,
+      "public_functions": [
+        "docs_files",
+        "setUpClass",
+        "test_every_backend_file_is_mirrored_byte_for_byte",
+        "test_the_files_the_app_fetches_are_all_there",
+        "test_cname_never_reaches_the_mobile_repo",
+        "test_app_is_the_transformed_copy_and_index_matches",
+        "test_stale_files_are_removed_and_empty_dirs_dropped",
+        "test_second_run_changes_nothing",
+        "test_workflow_uses_the_full_mirror_and_triggers_on_every_docs_change"
+      ]
+    },
+    {
+      "path": "scripts/test_nba_card.py",
+      "function_count": 10,
+      "public_functions": [
+        "event",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "card",
+        "test_card_renders_for_a_market_spread_and_captures_legs",
+        "test_card_renders_with_no_odds_at_all",
+        "test_card_renders_for_a_pickem",
+        "test_moneyline_markets_carry_the_displayed_price",
+        "test_nba_tonight_is_empty_until_real_data_arrives"
+      ]
+    },
+    {
+      "path": "scripts/test_nba_espn.py",
+      "function_count": 83,
+      "public_functions": [
+        "scale_byteam",
+        "mk_ctx",
+        "raw_team",
+        "json",
+        "test_hand_computed_team",
+        "test_four_factors_hand_computed",
+        "test_calibration_constants_move_numbers_the_documented_way",
+        "test_zero_games_has_no_ratings",
+        "test_missing_stat_column_keeps_row_without_ratings",
+        "test_opp_drb_fallback_from_total_rebounds",
+        "setUp",
+        "test_all_30_teams_with_espn_abbreviations",
+        "test_row_schema_matches_bbref_parser_rows",
+        "test_known_teams_close_to_basketball_reference",
+        "test_league_is_zero_sum_on_margin",
+        "test_wrong_season_is_rejected",
+        "test_garbage_is_loud_not_empty_success",
+        "test_attach_records",
+        "test_validation_against_basketball_reference_2026",
+        "test_textbook_possession_formula_is_worse",
+        "test_two_failures_then_success",
+        "test_three_failures_is_loud_and_returns_none",
+        "test_espn_2404_is_not_found_not_retried",
+        "test_plain_404_and_403_are_permanent",
+        "test_html_with_200_is_retried_as_invalid_json",
+        "test_timing_is_recorded_per_source",
+        "test_ok",
+        "test_season_not_started_is_info_not_failure",
+        "test_outage_is_hard_failure_with_retries",
+        "test_wrong_season_payload_is_hard_failure"
+      ]
+    },
+    {
+      "path": "scripts/test_nba_model.py",
+      "function_count": 12,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "test_all_pairings_were_modelled",
+        "test_average_home_win_probability_is_realistic",
+        "test_average_projected_total_matches_the_league",
+        "test_home_court_moves_the_margin_not_the_total",
+        "test_the_stale_home_inflating_calibration_is_gone",
+        "test_model_is_held_within_the_market_cap",
+        "test_no_market_line_means_no_cap",
+        "test_home_only_line_uses_an_assumed_vig",
+        "test_totals_symmetric_in_home_and_away"
+      ]
+    },
+    {
+      "path": "scripts/test_nba_preseason_props.py",
+      "function_count": 6,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "teams",
+        "test_preseason_games_get_no_props",
+        "test_regular_season_still_gets_props_and_preseason_is_ignored_alongside"
+      ]
+    },
+    {
+      "path": "scripts/test_nba_rollover.py",
+      "function_count": 68,
+      "public_functions": [
+        "soup",
+        "games_row",
+        "table",
+        "mk_rows",
+        "get",
+        "test_boundaries",
+        "test_accepts_datetime",
+        "test_override_argument_and_env",
+        "test_bad_override_is_ignored_with_warning",
+        "test_playoffs_year",
+        "test_url",
+        "test_real_2026_table_gives_all_30_espn_abbrs",
+        "test_preseason_table_parses_with_empty_stats",
+        "test_table_inside_html_comment",
+        "test_name_fallback_when_no_href",
+        "test_net_rtg_derived_when_missing",
+        "test_league_average_row_and_unmapped_team_skipped",
+        "test_missing_table_has_specific_diagnostic",
+        "test_old_layout_regression",
+        "setUp",
+        "tearDown",
+        "run_fetch",
+        "warns",
+        "test_ok",
+        "test_cached_one_request",
+        "test_cloudflare_403_is_loud",
+        "test_challenge_page_with_200_is_loud",
+        "test_network_exception_is_loud",
+        "test_table_renamed_is_loud_not_silent",
+        "test_partial_table_warns"
+      ]
+    },
+    {
+      "path": "scripts/test_nba_schedule.py",
+      "function_count": 54,
+      "public_functions": [
+        "fx",
+        "test_preseason_event_from_real_response",
+        "test_series_note_kept",
+        "test_regular_season_games_and_flags",
+        "test_event_without_ids_or_teams_is_dropped",
+        "test_real_recorded_nested_shape",
+        "test_nba_home_favourite",
+        "test_away_favourite_sign_convention",
+        "test_old_flat_shape",
+        "test_core_api_item_flat_shape_recorded",
+        "test_helpers",
+        "test_et_day_index",
+        "test_window_is_yesterday_through_n_days",
+        "test_failed_day_keeps_previous_games",
+        "test_every_day_failing_writes_nothing",
+        "test_run_leaves_file_untouched_on_total_failure",
+        "test_blank_espn_response_is_an_outage_not_an_empty_schedule",
+        "test_offseason_empty_is_fine_without_upcoming_prev",
+        "test_vanished_line_carried_then_expires",
+        "test_core_odds_fallback_fills_near_games_only",
+        "test_http_retries",
+        "test_generated_at_first_key_and_format",
+        "test_atomic_write_never_leaves_partial_file",
+        "test_dry_run_writes_nothing",
+        "test_main_skips_health_log_for_a_non_default_out",
+        "test_health_logged_for_real_out_path_arguments",
+        "test_default_output_path_is_docs",
+        "test_lock_prep_job_registered",
+        "test_lock_prep_commits_the_file",
+        "test_lock_prep_dry_run_lists_it"
+      ]
+    },
+    {
+      "path": "scripts/test_nba_schedule_tab.py",
+      "function_count": 11,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "options",
+        "test_dropdown_lists_only_regular_season_game_days",
+        "test_days_that_have_passed_drop_off_and_today_is_the_default",
+        "test_a_day_renders_one_card_per_regular_season_game_and_drops_preseason",
+        "test_compare_button_sits_in_the_right_hand_block_like_the_other_leagues_and_opens_the_radar",
+        "test_old_placeholder_is_gone",
+        "espn"
+      ]
+    },
+    {
+      "path": "scripts/test_nfl_odds.py",
+      "function_count": 3,
+      "public_functions": [
+        "test_nested_shape",
+        "test_old_flat_shape_still_works",
+        "test_no_odds_is_none"
+      ]
+    },
+    {
+      "path": "scripts/test_nhl_goalies.py",
+      "function_count": 44,
+      "public_functions": [
+        "espn_games",
+        "json",
+        "raise_for_status",
+        "test_real_slate_statuses",
+        "test_started_games_keep_confirmed",
+        "test_unknown_status_skipped_and_reported",
+        "test_no_probables_no_sides",
+        "test_tweet_csv_real",
+        "test_tweet_csv_day_before",
+        "test_404_body_is_none",
+        "test_prediction_csv_real",
+        "test_schedule_index_and_match",
+        "test_team_table_covers_all_32_and_skips_unknown",
+        "test_norm_name",
+        "run_fetch",
+        "test_only_unconfirmed_sides_are_requested",
+        "test_espn_confirmed_but_moneypuck_silent_keeps_espn",
+        "test_moneypuck_confirmation_upgrades_an_espn_projection",
+        "test_moneypuck_confirmed_and_espn_projected_differ_moneypuck_wins",
+        "test_unmatched_game_is_skipped_not_guessed",
+        "test_http_failure_is_fail_open",
+        "test_schedule_fetch_http_error_is_fail_open",
+        "test_request_cap",
+        "test_lookahead_window",
+        "setUp",
+        "test_first_observation_stamps_at",
+        "test_unchanged_game_keeps_at_so_no_diff",
+        "test_change_restamps_at",
+        "test_missing_side_is_carried_from_previous",
+        "test_game_with_nothing_fresh_keeps_previous_entirely"
+      ]
+    },
+    {
+      "path": "scripts/test_nhl_prior_fade.py",
+      "function_count": 5,
+      "public_functions": [
+        "test_weight_curve_and_gone_at_20",
+        "test_blend_uses_the_weight",
+        "edge",
+        "test_early_season_leans_on_last_season_and_20_games_uses_only_this_one",
+        "test_a_team_with_no_current_games_uses_last_season_fully"
+      ]
+    },
+    {
+      "path": "scripts/test_no_parlays.py",
+      "function_count": 12,
+      "public_functions": [
+        "pick",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "test_parlay_code_is_gone",
+        "test_no_parlay_seed_picks",
+        "test_parlay_never_counts_and_is_archived",
+        "test_unslimmed_automation_still_ignores_parlays_in_figures",
+        "test_bet_type_lists_have_no_parlay",
+        "test_backend_scope_helpers",
+        "test_public_stats_history_drops_parlays"
+      ]
+    },
+    {
+      "path": "scripts/test_overall_month_bettype.py",
+      "function_count": 8,
+      "public_functions": [
+        "pk",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "cards",
+        "test_no_parlay_in_either_bet_type_list",
+        "test_all_time_section_has_its_own_header",
+        "test_selected_month_really_is_the_one_with_the_picks"
+      ]
+    },
+    {
+      "path": "scripts/test_profit_tracker.py",
+      "function_count": 59,
+      "public_functions": [
+        "dataset",
+        "q",
+        "py_eff",
+        "py_totals",
+        "wk",
+        "key_of",
+        "next_key",
+        "py_periods",
+        "py_stats",
+        "py_merge",
+        "wk_py",
+        "log_message",
+        "add",
+        "blob",
+        "handle",
+        "setUpClass",
+        "tearDownClass",
+        "open",
+        "seed",
+        "go",
+        "done",
+        "entries",
+        "tip",
+        "chart_pt",
+        "js_model",
+        "assertMoney",
+        "compare_model",
+        "open_entries",
+        "open_dash",
+        "test_numbers_match_independent_recomputation"
+      ]
+    },
+    {
+      "path": "scripts/test_purged_ids.py",
+      "function_count": 10,
+      "public_functions": [
+        "pg_ids",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "test_backup_is_the_95_football_props",
+        "test_app_carries_exactly_those_ids",
+        "test_a_device_holding_them_drops_them_and_keeps_everything_else",
+        "test_a_device_holding_old_nba_tagged_wnba_props_is_healed",
+        "test_backup_lists_15_wnba_props"
+      ]
+    },
+    {
+      "path": "scripts/test_retired_cleanup.py",
+      "function_count": 16,
+      "public_functions": [
+        "setUp",
+        "tearDown",
+        "test_news_does_not_call_retired_leagues_but_keeps_the_keys",
+        "test_injuries_and_transactions_skip_retired_leagues",
+        "test_active_leagues_are_still_fetched",
+        "test_window",
+        "test_no_request_outside_the_window",
+        "test_404_is_not_a_warning_and_is_not_retried",
+        "test_default_404_still_warns",
+        "raise_for_status",
+        "get",
+        "raise_for_status",
+        "get"
+      ]
+    },
+    {
+      "path": "scripts/test_schedule_carry.py",
+      "function_count": 30,
+      "public_functions": [
+        "snap",
+        "scrape_time",
+        "d10_02",
+        "test_the_drop_is_real_in_the_committed_files",
+        "test_carry_keeps_every_started_game_at_the_noon_scrape",
+        "test_next_scrape_replaces_carried_rows_with_the_final",
+        "test_still_missing_at_the_next_scrape_keeps_the_original_lastSeen",
+        "g",
+        "prev",
+        "test_not_started_fixture_is_never_carried",
+        "test_exactly_at_start_counts_as_started",
+        "test_dropped_after_three_days",
+        "test_present_game_is_untouched",
+        "test_carried_post_keeps_its_real_scores",
+        "test_carried_row_can_never_be_a_scoreless_post",
+        "test_never_mutates_the_previous_doc",
+        "test_odds_and_other_fields_survive",
+        "test_malformed_previous_rows_are_skipped_not_fatal",
+        "test_load_previous_is_fail_open",
+        "test_naive_now_is_treated_as_utc",
+        "test_carried_started_game_is_refused_by_the_lock_guard",
+        "test_settle_precondition_never_true_for_a_carried_pre_row",
+        "test_run_carries_started_games_and_reports_scraped_counts",
+        "test_zero_fixture_guard_still_fires_with_carried_rows_present",
+        "test_first_run_without_a_previous_file_still_works",
+        "test_all_four_scripts_use_the_shared_carry",
+        "fake_pw",
+        "now"
+      ]
+    },
+    {
+      "path": "scripts/test_scores_tab.py",
+      "function_count": 25,
+      "public_functions": [
+        "iso",
+        "team",
+        "ev",
+        "euro",
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "open_tab",
+        "fetched",
+        "cards",
+        "pressed",
+        "test_tab_sits_right_after_home_and_shows_live_upcoming_and_final_together_in_order",
+        "test_european_hockey_is_included_with_the_helpers_states",
+        "test_team_logos_use_the_shared_helper_when_logos_are_on",
+        "test_engine_picks_locked_on_a_game_are_marked",
+        "test_league_and_status_chips_filter_with_counts_and_aria_pressed",
+        "test_next_prev_today_and_date_input_fetch_that_days_scoreboards",
+        "test_a_league_filter_that_the_new_day_does_not_have_resets_to_all",
+        "test_live_layer_updates_repaint_the_open_tab_and_the_timer_only_runs_when_visible_and_today",
+        "test_refresh_button_refetches_every_league_for_that_day",
+        "test_phone_width_has_no_horizontal_overflow_and_desktop_uses_a_multi_column_grid",
+        "test_controls_are_real_buttons_with_focus_styles_and_the_pulse_respects_reduced_motion",
+        "test_no_page_errors_and_no_supabase_requests",
+        "handle"
+      ]
+    },
+    {
+      "path": "scripts/test_season_rollover.py",
+      "function_count": 44,
+      "public_functions": [
+        "teams",
+        "write",
+        "test_boundaries",
+        "test_env_overrides",
+        "test_hockey_label",
+        "test_soccer",
+        "setUp",
+        "prior_season",
+        "test_rolls_when_a_newer_season_replaces_it",
+        "test_creates_prior_when_missing",
+        "test_never_overwritten_mid_season",
+        "test_idempotent_if_called_twice_before_the_stats_file_is_replaced",
+        "test_skipped_season_is_not_relabelled",
+        "test_missing_or_broken_current_file",
+        "test_empty_teams_are_not_rolled",
+        "setUpClass",
+        "setUp",
+        "run_write_stats",
+        "test_full_year_cycle",
+        "test_git_push_only_adds_files_that_exist",
+        "test_defaults_are_derived_not_constants",
+        "read",
+        "test_football_scripts",
+        "test_quanthockey_season_is_derived",
+        "test_snapshot_tool_generalised",
+        "test_committed_prior_snapshot_is_a_byte_copy_with_the_schema_the_app_reads",
+        "setUpClass",
+        "test_nhl_season_end_year",
+        "test_playoff_window",
+        "test_bracket_skipped_outside_window_without_any_request"
+      ]
+    },
+    {
+      "path": "scripts/test_settle_gate.py",
+      "function_count": 34,
+      "public_functions": [
+        "snap",
+        "utc",
+        "schedules",
+        "pick",
+        "game",
+        "sched",
+        "test_sport_tag",
+        "test_classify_matches_the_app",
+        "test_app_can_grade",
+        "setUpClass",
+        "test_classify_bet_on_parity",
+        "run_gate",
+        "test_candidates_noop_with_nothing_pending",
+        "test_candidates_noop_while_the_game_cannot_be_over",
+        "test_candidates_go_once_the_game_could_be_over",
+        "test_candidates_go_when_already_final_or_game_missing",
+        "test_candidates_ignore_future_and_stale_pick_dates",
+        "test_final_go_when_game_final_and_gradable",
+        "test_final_noop_when_not_final",
+        "test_final_noop_when_the_app_could_not_grade_it",
+        "test_final_requires_the_pick_date_to_equal_the_games_mountain_date",
+        "test_final_matches_either_orientation_and_wrong_league_never",
+        "test_real_morning_and_noon_and_evening_snapshots",
+        "test_real_noon_with_carry_does_not_pretend_unfinished_games_are_final",
+        "docs",
+        "call",
+        "test_exit_codes_and_output",
+        "test_fails_open_on_unreadable_inputs",
+        "test_real_noon_then_results_scrape",
+        "test_idle_scrape_changes_nothing"
+      ]
+    },
+    {
+      "path": "scripts/test_settle_heartbeat.py",
+      "function_count": 3,
+      "public_functions": [
+        "test_stamps_only_last_settle",
+        "test_new_gated_slot_is_wired_everywhere_a_gated_slot_must_be",
+        "test_heartbeat_runs_only_for_live_gated_noops"
+      ]
+    },
+    {
+      "path": "scripts/test_settle_pass_sim.py",
+      "function_count": 13,
+      "public_functions": [
+        "fx",
+        "build_files",
+        "oracle",
+        "setUpClass",
+        "tearDownClass",
+        "run_pass",
+        "games_by_key",
+        "test_A_carried_rows_never_settle_anything",
+        "test_B_after_the_results_refresh_everything_settles_correctly",
+        "test_C_second_pass_is_idempotent",
+        "test_D_fresh_checkout_copy_is_what_the_pass_reads",
+        "test_E_post_pass_ledger_fingerprint_and_backup_refresh",
+        "gate"
+      ]
+    },
+    {
+      "path": "scripts/test_team_logos.py",
+      "function_count": 20,
+      "public_functions": [
+        "callers_of_helper",
+        "test_no_logo_binaries_or_data_uris_committed",
+        "test_team_logos_json_is_espn_url_strings_only",
+        "test_schedule_logo_urls_are_flashscore_static_cdn",
+        "test_helper_only_called_from_in_app_game_cards",
+        "test_exports_and_graphics_have_no_logo_path",
+        "test_no_script_or_email_builder_references_logos",
+        "setUpClass",
+        "tearDownClass",
+        "open",
+        "render",
+        "cards",
+        "test_webdriver_context_renders_no_logos_and_requests_nothing",
+        "test_pipeline_flag_wins_even_when_webdriver_is_hidden",
+        "test_pipeline_url_helper_adds_flag",
+        "test_logos_render_when_not_automated",
+        "test_unknown_team_gets_badge_and_failed_load_falls_back",
+        "test_mobile_375_no_horizontal_overflow",
+        "gate"
+      ]
+    },
+    {
+      "path": "scripts/test_ticker_scroll.py",
+      "function_count": 9,
+      "public_functions": [
+        "log_message",
+        "setUpClass",
+        "tearDownClass",
+        "page",
+        "test_animation_speed_hover_wrap",
+        "test_rebuild_and_width_change_keep_position",
+        "test_only_locked_and_live_games",
+        "test_yesterdays_locks_do_not_keep_finished_games",
+        "test_js_fallback_without_element_animate"
+      ]
+    },
+    {
+      "path": "scripts/test_watchdog_autolock.py",
+      "function_count": 13,
+      "public_functions": [
+        "q",
+        "restore",
+        "run_wd",
+        "test_each_sport_goes_to_its_own_runner_and_locked_legs_leave_the_alert",
+        "test_legs_outside_the_window_or_too_close_are_alerted_not_locked",
+        "test_partial_success_still_alerts_on_what_remained",
+        "test_off_by_default_and_dry_run_never_lock",
+        "test_runner_crash_fails_the_run_and_keeps_the_alert",
+        "test_workflow_passes_the_flag_only_for_live_runs_with_a_kill_switch",
+        "test_evening_slots_exist_and_a_gated_dispatch_behaves_like_a_scheduled_slot",
+        "run"
+      ]
+    },
+    {
+      "path": "scripts/test_why_reasoning.py",
+      "function_count": 18,
+      "public_functions": [
+        "nfl_leg",
+        "log_message",
+        "test_adjusted_pick_describes_the_shifted_line_not_the_posted_one",
+        "test_hockey_uses_goals_and_a_missing_model_line_is_fine",
+        "setUpClass",
+        "tearDownClass",
+        "test_alt_reasoning_is_identical_in_js_and_python",
+        "test_projected_margin_is_signed_for_the_favorite",
+        "test_assumed_price_is_labelled_but_moneylines_and_market_prices_are_not",
+        "test_high_prob_lane_pick_is_labelled_as_such",
+        "test_manual_lock_with_an_edited_line_stores_reasoning",
+        "test_manual_lock_with_the_cards_own_line_is_unchanged",
+        "test_generated_props_carry_reasoning_and_lock_with_it",
+        "test_nhl_player_props_are_gone",
+        "test_python_prop_lock_passes_the_reasoning_through",
+        "test_tracker_list_shows_the_why_row_and_no_stale_nba_spread_claim",
+        "evaluate"
+      ]
+    },
+    {
+      "path": "scripts/test_workflow_refs.py",
+      "function_count": 10,
+      "public_functions": [
+        "names",
+        "test_merged_workflows_exist_and_originals_are_gone",
+        "test_runners_are_pinned",
+        "run_trigger_names",
+        "test_workflow_run_lists_name_real_workflows_and_agree",
+        "test_every_docs_writing_workflow_triggers_a_redeploy",
+        "test_nfl_roster_runs_every_other_week_only",
+        "test_every_gh_workflow_run_names_a_real_workflow",
+        "test_soccer_watchdog_dispatch_asks_for_the_tomorrow_part",
+        "test_no_workflow_file_is_referenced_that_does_not_exist"
+      ]
+    },
+    {
+      "path": "scripts/validate.py",
+      "function_count": 10,
+      "public_functions": [
+        "ok",
+        "err",
+        "warn",
+        "skip_string",
+        "skip_regex",
+        "extract_template_expressions",
+        "strip_strings_and_comments",
+        "extract_function_bodies",
+        "walk_template",
+        "skip_expr_body"
+      ]
+    },
+    {
+      "path": "scripts/verify_hockey_rules.py",
+      "function_count": 3,
+      "public_functions": [
+        "js_num",
+        "js_obj",
+        "js_str"
+      ]
+    },
+    {
+      "path": "scripts/verify_lock_workflows.py",
+      "function_count": 10,
+      "public_functions": [
+        "check_cfb_early",
+        "check_euro_early",
+        "check_main_lock",
+        "main"
+      ]
+    },
+    {
+      "path": "scripts/weekly_health_digest.py",
+      "function_count": 10,
+      "public_functions": [
+        "probe_supabase",
+        "load_ledger",
+        "is_active_sport",
+        "workflow_success_rate",
+        "calibration_buckets",
+        "stuck_pending",
+        "build_email_html",
+        "main"
+      ]
+    }
+  ],
+  "python_parse_errors": {},
+  "main_python_dependencies": [
+    {
+      "name": "pathlib",
+      "import_sites": 110
+    },
+    {
+      "name": "__future__",
+      "import_sites": 107
+    },
+    {
+      "name": "sys",
+      "import_sites": 91
+    },
+    {
+      "name": "datetime",
+      "import_sites": 85
+    },
+    {
+      "name": "json",
+      "import_sites": 81
+    },
+    {
+      "name": "app",
+      "import_sites": 71
+    },
+    {
+      "name": "unittest",
+      "import_sites": 64
+    },
+    {
+      "name": "playwright",
+      "import_sites": 47
+    },
+    {
+      "name": "re",
+      "import_sites": 44
+    },
+    {
+      "name": "subprocess",
+      "import_sites": 38
+    },
+    {
+      "name": "argparse",
+      "import_sites": 38
+    },
+    {
+      "name": "os",
+      "import_sites": 34
+    },
+    {
+      "name": "tempfile",
+      "import_sites": 34
+    },
+    {
+      "name": "sqlalchemy",
+      "import_sites": 32
+    },
+    {
+      "name": "http",
+      "import_sites": 31
+    },
+    {
+      "name": "threading",
+      "import_sites": 30
+    },
+    {
+      "name": "functools",
+      "import_sites": 29
+    },
+    {
+      "name": "time",
+      "import_sites": 28
+    },
+    {
+      "name": "socketserver",
+      "import_sites": 27
+    },
+    {
+      "name": "typing",
+      "import_sites": 18
+    },
+    {
+      "name": "zoneinfo",
+      "import_sites": 18
+    },
+    {
+      "name": "auto_lock_settle",
+      "import_sites": 18
+    },
+    {
+      "name": "requests",
+      "import_sites": 17
+    },
+    {
+      "name": "_gmail_email",
+      "import_sites": 17
+    },
+    {
+      "name": "_scraper_health",
+      "import_sites": 17
+    },
+    {
+      "name": "math",
+      "import_sites": 12
+    },
+    {
+      "name": "urllib",
+      "import_sites": 11
+    },
+    {
+      "name": "generate_video_reveal",
+      "import_sites": 11
+    },
+    {
+      "name": "io",
+      "import_sites": 10
+    },
+    {
+      "name": "_subscribers",
+      "import_sites": 10
+    },
+    {
+      "name": "logging",
+      "import_sites": 9
+    },
+    {
+      "name": "unicodedata",
+      "import_sites": 9
+    },
+    {
+      "name": "lock_timing",
+      "import_sites": 9
+    },
+    {
+      "name": "collections",
+      "import_sites": 8
+    },
+    {
+      "name": "_schedule_carry",
+      "import_sites": 8
+    }
+  ],
+  "next_priority": [
+    "Regulatory/market correctness and verification of outcome semantics",
+    "NHL confirmed starters / rest / current-vs-prior without leakage",
+    "Sports-specific efficiency models, shot data and lineups",
+    "Odds history plus prospective closing line and calibration",
+    "EU hockey feeds from official permitted sources",
+    "Licensed xG source (Opta/The Analyst not copied)"
+  ]
+}
