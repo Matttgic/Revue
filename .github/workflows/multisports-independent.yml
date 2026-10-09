@@ -24,6 +24,8 @@ on:
       - 'tests/test_equipes_avance_multisports.py'
       - 'modeles/simulations/ensemble_montecarlo_bayes.py'
       - 'tests/test_ensemble_montecarlo_bayes.py'
+      - 'outils/suivi_ensemble.py'
+      - 'tests/test_suivi_ensemble.py'
       - '.github/workflows/multisports-independent.yml'
 
 permissions:
@@ -77,6 +79,10 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_ensemble_montecarlo_bayes.py' -v
       - name: Générer ensemble Monte Carlo Bayes Elo en mode SHADOW
         run: python -m modeles.simulations.ensemble_montecarlo_bayes --history docs/multisports-history.json --output docs/ensemble-mc-bayes-latest.json
+      - name: Tester suivi prospectif ensemble sans cotes
+        run: python -m unittest discover -s tests -p 'test_suivi_ensemble.py' -v
+      - name: Enregistrer prévisions ensemble pre-match et scores vérifiés
+        run: python -m outils.suivi_ensemble
       - name: Tests du backtest chronologique
         run: python -m unittest discover -s tests -p 'test_backtest_multisports.py' -v
       - name: Brier et log loss historiques par compétition
@@ -85,7 +91,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json docs/football-espn-stat-cache.json docs/football-espn-team-features.json docs/football-shadow-ledger.json docs/football-shadow-performance.json docs/equipes-avance-shadow.json docs/ensemble-mc-bayes-latest.json
+          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json docs/football-espn-stat-cache.json docs/football-espn-team-features.json docs/football-shadow-ledger.json docs/football-shadow-performance.json docs/equipes-avance-shadow.json docs/ensemble-mc-bayes-latest.json docs/ensemble-mc-bayes-ledger.json docs/ensemble-mc-bayes-performance.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else
