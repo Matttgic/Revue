@@ -169,41 +169,108 @@ def query_url(league: League, start: date, end: date) -> str:
     return BASE + "/" + league.provider + "/scoreboard?" + urlencode(params)
 
 
-def load_league(league: League, now: datetime, days: int) -> tuple[list[Event], dict]:
-    """Never silently report a successful feed when all requests errored."""
-    day = now.astimezone(PARIS).date()
-    intervals = _windows(day - timedelta(days=league.history_days),
-                         day + timedelta(days=days + 1), league.window_days)
-    all_events: dict[str, Event] = {}
-    failures = []
-    responses = 0
-    first_dates = []
-    for start, end in intervals:
-        try:
-            payload = _fetch(query_url(league, start, end))
-            raw = payload["events"]
-            responses += 1
-            for v in raw:
-                parsed = parse_event(v, league.key)
-                if parsed:
-                    # exclude unwanted ESPN default date fallback outside requested range
-                    dt = parsed.start.astimezone(PARIS).date()
-                    if start - timedelta(days=1) <= dt <= end + timedelta(days=1):
-                        previous = all_events.get(parsed.id)
-                        if previous is None or (parsed.scored and not previous.scored):
-                            all_events[parsed.id] = parsed
-                        first_dates.append(dt)
-        except RuntimeError as exc:
-            failures.append(f"{start}:{str(exc)[:90]}")
-    # Using a partial history could skew season strength; report exactly how much.
-    status = "ok" if responses == len(intervals) else "partial" if responses else "failed"
-    return sorted(all_events.values(), key=lambda e: (e.start, e.id)), {
-        "status": status, "requests_ok": responses, "requests_total": len(intervals),
-        "errors": failures[:4], "events": len(all_events),
-        "range_min": min(first_dates).isoformat() if first_dates else None,
-        "range_max": max(first_dates).isoformat() if first_dates else None,
+def _cache_event(g: Event) -> dict:
+    return {
+        "id": g.id, "league": g.league, "start": g.start.isoformat(),
+        "home_id": g.home_id, "away_id": g.away_id,
+        "home": g.home, "away": g.away, "complete": g.complete,
+        "home_score": g.home_score, "away_score": g.away_score,
     }
 
+
+def _read_cached_event(row: dict) -> Event | None:
+    try:
+        start = datetime.fromisoformat(row["start"].replace("Z", "+00:00"))
+        if start.tzinfo is None:
+            return None
+        return Event(
+            id=str(row["id"]), league=str(row["league"]),
+            start=start.astimezone(timezone.utc),
+            home_id=str(row["home_id"]), away_id=str(row["away_id"]),
+            home=str(row["home"]), away=str(row["away"]),
+            complete=bool(row["complete"]),
+            home_score=_number(row.get("home_score")) if row["complete"] else None,
+            away_score=_number(row.get("away_score")) if row["complete"] else None,
+        )
+    except (KeyError, AttributeError, TypeError, ValueError):
+        return None
+
+
+def load_league(league: League, now: datetime, days: int,
+                history: dict | None = None) -> tuple[list[Event], dict, dict]:
+    """Scoreboards are queried BY DATE, with immutable completed days cached.
+
+    Past results from successful queries are saved in a small, transparent JSON
+    across GitHub Actions runs. Yesterday / today / future are always re-fetched;
+    older days are fetched only if they were never successfully downloaded.
+    """
+    day = now.astimezone(PARIS).date()
+    begin = day - timedelta(days=league.history_days)
+    until = day + timedelta(days=days + 1)
+    dates = [begin + timedelta(days=i) for i in range((until - begin).days + 1)]
+    history = history if isinstance(history, dict) else {}
+    previously_scanned = set(history.get("days_ok") or [])
+    all_events: dict[str, Event] = {}
+    for row in history.get("events") or []:
+        ev = _read_cached_event(row)
+        if ev and ev.league == league.key:
+            dt = ev.start.astimezone(PARIS).date()
+            if begin - timedelta(days=1) <= dt <= until + timedelta(days=1):
+                all_events[ev.id] = ev
+
+    failures: list[str] = []
+    requests_ok = 0
+    cached_skips = 0
+    for requested in dates:
+        day_key = requested.isoformat()
+        # Old successful snapshots are fixed; preserve the published source
+        # score exactly. Recent and upcoming dates are refreshable.
+        if requested < day - timedelta(days=2) and day_key in previously_scanned:
+            cached_skips += 1
+            continue
+        try:
+            # One date per ESPN request. Multi-day ranges returned HTTP 400.
+            payload = _fetch(query_url(league, requested, requested))
+            requests_ok += 1
+            previously_scanned.add(day_key)
+            for item in payload["events"]:
+                game = parse_event(item, league.key)
+                if game:
+                    observed_date = game.start.astimezone(PARIS).date()
+                    if abs((observed_date - requested).days) <= 1:
+                        prev = all_events.get(game.id)
+                        if prev is None or game.scored or not prev.scored:
+                            all_events[game.id] = game
+        except RuntimeError as exc:
+            failures.append(f"{day_key}:{str(exc)[:80]}")
+
+    # Limit snapshots to current training horizon rather than archiving
+    # full ESPN responses, personal data or vendor pricing.
+    all_events = {
+        gid: event for gid, event in all_events.items()
+        if begin - timedelta(days=1) <= event.start.astimezone(PARIS).date()
+        <= until + timedelta(days=1)
+    }
+    previously_scanned = {
+        s for s in previously_scanned
+        if begin <= date.fromisoformat(s) <= until
+    }
+    total = len(dates)
+    successes = requests_ok + cached_skips
+    status = "ok" if successes == total else "partial" if successes else "failed"
+    events = sorted(all_events.values(), key=lambda e: (e.start, e.id))
+    feed = {
+        "status": status, "requests_ok": requests_ok, "requests_total": total,
+        "cache_hits": cached_skips, "requests_failed": len(failures),
+        "errors": failures[:4], "events": len(events),
+        "range_min": events[0].start.astimezone(PARIS).date().isoformat() if events else None,
+        "range_max": events[-1].start.astimezone(PARIS).date().isoformat() if events else None,
+    }
+    cache = {
+        "days_ok": sorted(previously_scanned),
+        "events": [_cache_event(g) for g in events],
+    }
+    return events, feed, cache
 
 def _logistic(elo_home: float, elo_away: float, home_advantage: float) -> float:
     return 1.0 / (1.0 + 10 ** ((elo_away - elo_home - home_advantage) / 400))
@@ -348,7 +415,7 @@ def load_nhl_reference(path: Path, now: datetime, days: int) -> tuple[list[dict]
 
 
 def build_snapshot(when: datetime, days: int, only: set[str] | None = None,
-                   nhl_file: Path | None = None) -> dict:
+                   nhl_file: Path | None = None, cache_store: dict | None = None) -> dict:
     if not 1 <= days <= 7:
         raise ValueError("days must be 1..7")
     if only and not only.issubset({x.key for x in LEAGUES} | {"NHL"}):
@@ -357,11 +424,14 @@ def build_snapshot(when: datetime, days: int, only: set[str] | None = None,
     feeds = {}
     by_league = {}
     with ThreadPoolExecutor(max_workers=4) as pool:
-        jobs = {pool.submit(load_league, league, when, days): league for league in selected}
+        jobs = {pool.submit(load_league, league, when, days,
+                            (cache_store or {}).get(league.key)): league for league in selected}
         for done in as_completed(jobs):
             league = jobs[done]
             try:
-                events, feed = done.result()
+                events, feed, refreshed_cache = done.result()
+                if cache_store is not None:
+                    cache_store[league.key] = refreshed_cache
                 games = calculate(league, events, when, days)
             except Exception as err:
                 feed = {"status": "failed", "errors": [str(err)[:150]]}
@@ -407,17 +477,30 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--leagues", help="Liste de ligues séparées par virgules (ex : NBA,NFL,PL,NHL)")
     parser.add_argument("--output", default="docs/multisports-latest.json")
     parser.add_argument("--nhl-file", default="docs/nhl-model-latest.json")
+    parser.add_argument("--history-file", default="docs/multisports-history.json")
     args = parser.parse_args(argv)
     selected = set(x.strip().upper() for x in args.leagues.split(",")) if args.leagues else None
+    cache_file = Path(args.history_file)
+    try:
+        previous_cache = json.loads(cache_file.read_text(encoding="utf-8"))
+        if not isinstance(previous_cache, dict) or previous_cache.get("version") != 1:
+            previous_cache = {}
+    except (OSError, ValueError):
+        previous_cache = {}
+    league_cache = previous_cache.get("leagues", {}) if isinstance(previous_cache.get("leagues"), dict) else {}
     try:
         report = build_snapshot(
-            datetime.now(timezone.utc), args.days, selected, Path(args.nhl_file)
+            datetime.now(timezone.utc), args.days, selected,
+            Path(args.nhl_file), cache_store=league_cache,
         )
     except ValueError as err:
         parser.error(str(err))
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    cache_file.parent.mkdir(parents=True, exist_ok=True)
+    cache_file.write_text(json.dumps({"version": 1, "leagues": league_cache},
+                                     ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     overview = report["overview"]
     print(f"Multisports : {overview['fixtures']} matchs, {overview['predicted']} probabilités; "
           f"{overview['feeds_ok']} sources OK, {overview['feeds_partial']} partielles, "
