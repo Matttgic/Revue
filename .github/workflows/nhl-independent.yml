@@ -1,0 +1,48 @@
+name: Revue - NHL Independent
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 8,14,22 * * *'
+  push:
+    paths:
+      - 'modeles/simulations/nhl_independant.py'
+      - 'tests/test_nhl_independant.py'
+      - '.github/workflows/nhl-independent.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: revue-nhl-independent
+  cancel-in-progress: false
+
+jobs:
+  test-and-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout Revue
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests NHL sans réseau
+        run: python -m unittest discover -s tests -p 'test_nhl_independant.py' -v
+      - name: Données et prédictions NHL
+        if: github.event_name != 'push'
+        run: python modeles/simulations/nhl_independant.py --days 2 --output docs/nhl-model-latest.json
+      - name: Publier les prédictions vérifiables
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/nhl-model-latest.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement"
+          else
+            git commit -m "data: rafraîchir le prototype NHL indépendant"
+            git push
+          fi
