@@ -12,7 +12,7 @@ DOCS=ROOT/"docs"
 PAGES=(
     "index.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","football-avance.html",
-    "qualite-modeles.html","ensemble-mc-bayes.html",
+    "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html",
 )
 
 class Page(HTMLParser):
@@ -70,6 +70,12 @@ class ArenaTests(unittest.TestCase):
                         check=subprocess.run([node,"--check",str(script)],
                             capture_output=True,text=True,timeout=12)
                         self.assertEqual(check.returncode,0,check.stderr)
+
+    def test_main_page_uses_strict_reproduction_not_35_percent(self):
+        front=(DOCS/"index.html").read_text(encoding="utf-8")
+        self.assertIn("parite-modeles-clairvoyance.json",front)
+        self.assertIn("parite-clairvoyance.html",front)
+        self.assertNotIn('jsonFile("progression-revue.json")',front)
 
     def test_progress_is_explained_and_weighted(self):
         import json
