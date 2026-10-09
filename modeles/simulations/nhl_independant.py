@@ -206,6 +206,39 @@ def _score_for_goals(game: Game) -> tuple[int, int]:
     return h, a
 
 
+def _prior_weight_research(games: int | float) -> float:
+    """Independent piecewise season-strength shrink, experimental only.
+
+    The research principle is a vanishing previous-season prior as enough
+    actual games accumulate. These candidate points are intentionally
+    configurable and are NOT calibrated odds or proprietary source code.
+    """
+    knots = ((0, 1.0), (2, .90), (5, .70), (10, .40), (15, .20), (20, 0.0))
+    try:
+        n = max(0.0, float(games))
+        if not math.isfinite(n):
+            return 1.0
+    except (TypeError, ValueError):
+        return 1.0
+    for i in range(1, len(knots)):
+        end, end_weight = knots[i]
+        if n <= end:
+            begin, begin_weight = knots[i - 1]
+            share = (n - begin) / (end - begin)
+            return (1 - share) * begin_weight + share * end_weight
+    return 0.0
+
+
+def _research_goal_rate(current_goals: float, current_n: int,
+                        previous_per_game: float) -> float:
+    """Shrink a rate to last season, with no future games or false xG."""
+    if current_n <= 0:
+        return previous_per_game
+    share = _prior_weight_research(current_n)
+    return ((1 - share) * current_goals / current_n +
+            share * previous_per_game)
+
+
 def _team_rates(games: list[Game], fallback: float) -> dict[str, tuple[float, float]]:
     stats: dict[str, list[float]] = defaultdict(lambda: [0.0, 0.0, 0.0])
     for g in games:
@@ -273,6 +306,21 @@ def predict(games_prior: list[Game], games_current: list[Game],
             continue
         ah, dh = rates(game.home)
         aa, da = rates(game.away)
+        # A second independent candidate fades the prior to zero at 20 games.
+        # Original 12 pseudo-game model stays unchanged and remains the default.
+        def alt_rates(team: str) -> tuple[float, float]:
+            old_for, old_against = prior_rates.get(team, (league_gpg, league_gpg))
+            return (_research_goal_rate(gf[team], counts[team], old_for),
+                    _research_goal_rate(ga[team], counts[team], old_against))
+        ah_r, dh_r = alt_rates(game.home)
+        aa_r, da_r = alt_rates(game.away)
+        lh_r = max(0.6, min(6.0, ah_r * da_r / league_gpg * HOME_FACTOR))
+        la_r = max(0.6, min(6.0, aa_r * dh_r / league_gpg * AWAY_FACTOR))
+        ph_reg_r, ph_draw_r = _distribution(lh_r, la_r)
+        # This is only a parallel probability, never a production selection.
+        p_home_r = 0.5 * (ph_reg_r + ph_draw_r * _elo_probability(
+            elo[game.home], elo[game.away])) + 0.5 * _elo_probability(
+            elo[game.home], elo[game.away])
         lh = max(0.6, min(6.0, ah * da / league_gpg * HOME_FACTOR))
         la = max(0.6, min(6.0, aa * dh / league_gpg * AWAY_FACTOR))
         p_reg, p_tie = _distribution(lh, la)
@@ -295,6 +343,17 @@ def predict(games_prior: list[Game], games_current: list[Game],
                 "over_6_5": round(_over(lh + la, 6.5), 4),
             },
             "expected_goals": {"home": round(lh, 3), "away": round(la, 3)},
+            "research_prior_fade": {
+                "status": "shadow_not_selected_uncalibrated",
+                "prob_home": round(p_home_r, 4),
+                "prob_away": round(1 - p_home_r, 4),
+                "expected_goals": {"home": round(lh_r, 3), "away": round(la_r, 3)},
+                "current_games": {"home": counts[game.home],
+                                  "away": counts[game.away]},
+                "prior_weight": {"home": round(_prior_weight_research(counts[game.home]), 4),
+                                 "away": round(_prior_weight_research(counts[game.away]), 4)},
+                "note": "Research candidate only. Prior fades to zero at 20 completed current-season games."
+            },
             "training_games": {"previous_season": len(prior), "current_season": len(current)},
             "note": "Probabilités expérimentales non calibrées ; pas de cote française intégrée.",
         })
