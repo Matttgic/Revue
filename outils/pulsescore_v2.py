@@ -71,7 +71,7 @@ def _side(outcome:str,home:str,away:str) -> str|None:
 
 def translate_market(m:dict,event:dict,observed:datetime) -> dict|None:
     """Normalize only verified full-game head-to-head/total market structures."""
-    if m.get("isActive") is False:return None
+    if m.get("isActive") is False or m.get("suspended") is True:return None
     period=str(m.get("period") or "").upper()
     if period not in ("FULL_TIME","MATCH","GAME","GAME_INCLUDING_OVERTIME",""):
         return None
@@ -127,12 +127,14 @@ def translate_market(m:dict,event:dict,observed:datetime) -> dict|None:
     update=timestamp(raw_stamp) or observed
     return {"key":market,"last_update":update.isoformat(),
             "observed_origin":"provider" if timestamp(raw_stamp) else "fetch_observation",
+            "raw_market_name":str(m.get("rawName") or ""),
+            "period":str(m.get("period") or ""),
             "outcomes":outcomes}
 
 
 def translate_event(raw:dict,book_key:str,observed:datetime)->dict|None:
     """Return The Odds API-compatible event with one observed FR book."""
-    if raw.get("live") is True or raw.get("isLive") is True:
+    if raw.get("live") is True or raw.get("isLive") is True or raw.get("suspended") is True:
         return None
     home,away=raw.get("home"),raw.get("away")
     start=timestamp(raw.get("startTime") or raw.get("startDate"))
