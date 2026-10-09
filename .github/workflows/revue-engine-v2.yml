@@ -9,6 +9,8 @@ on:
     paths:
       - 'outils/revue_engine_v2.py'
       - 'tests/test_revue_engine_v2.py'
+      - 'outils/pulsescore_v2.py'
+      - 'tests/test_pulsescore_v2.py'
       - '.github/workflows/revue-engine-v2.yml'
 
 permissions:
@@ -31,10 +33,13 @@ jobs:
           python-version: '3.12'
       - name: Tests anti-fuite et règlements
         run: python -m unittest discover -s tests -p 'test_revue_engine_v2.py' -v
+      - name: Tests PulseScore Pro pré-match sans appels payants
+        run: python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
       - name: Mise à jour du registre PAPIER uniquement
         env:
           # Push triggers never charge odds API credits.
           ODDS_API_KEY: ${{ github.event_name != 'push' && (secrets.THE_ODDS_API_KEY || secrets.ODDS_API_KEY) || '' }}
+          PULSESCORE_API_KEY: ${{ github.event_name != 'push' && (secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY) || '' }}
         run: |
           python outils/revue_engine_v2.py \
             --predictions docs/multisports-latest.json \
