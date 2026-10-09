@@ -72,7 +72,7 @@ jobs:
       - name: Tester modèles équipes avancés NBA NFL NCAA MLB
         run: python -m unittest discover -s tests -p 'test_equipes_avance_multisports.py' -v
       - name: Comparer les modèles avancés des équipes (shadow uniquement)
-        run: python -m modeles.simulations.equipes_avance_multisports --history docs/multisports-history.json --output docs/equipes-avance-shadow.json docs/ensemble-mc-bayes-latest.json
+        run: python -m modeles.simulations.equipes_avance_multisports --history docs/multisports-history.json --output docs/equipes-avance-shadow.json
       - name: Tester ensemble Monte Carlo Bayes Elo chronologique
         run: python -m unittest discover -s tests -p 'test_ensemble_montecarlo_bayes.py' -v
       - name: Générer ensemble Monte Carlo Bayes Elo en mode SHADOW
