@@ -14,6 +14,8 @@ import json
 import math
 from pathlib import Path
 from collections import defaultdict
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from modeles.simulations.multisports_independant import (
     LEAGUES, _read_cached_event, calculate
 )
