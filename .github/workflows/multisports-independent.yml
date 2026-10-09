@@ -9,6 +9,8 @@ on:
       - 'tests/test_multisports_independant.py'
       - 'modeles/simulations/sports_individuels_et_liiga.py'
       - 'tests/test_sports_individuels_et_liiga.py'
+      - 'modeles/simulations/nhl_joueurs_independant.py'
+      - 'tests/test_nhl_joueurs_independant.py'
       - '.github/workflows/multisports-independent.yml'
 
 permissions:
@@ -32,6 +34,10 @@ jobs:
       - name: Mettre à jour NHL depuis API officielle
         run: python modeles/simulations/nhl_independant.py --days 3 --output docs/nhl-model-latest.json
         continue-on-error: true
+      - name: Tester le modèle des joueurs NHL
+        run: python -m unittest discover -s tests -p 'test_nhl_joueurs_independant.py' -v
+      - name: Calculer les profils buteurs, passeurs et tirs NHL
+        run: python modeles/simulations/nhl_joueurs_independant.py --nhl-file docs/nhl-model-latest.json
       - name: Tester tennis UFC Liiga sans réseau
         run: python -m unittest discover -s tests -p 'test_sports_individuels_et_liiga.py' -v
       - name: Tennis UFC Liiga depuis données réelles
@@ -42,7 +48,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json
+          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/nhl-players-latest.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else
