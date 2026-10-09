@@ -1,6 +1,10 @@
 name: Revue - Publier site mobile
 on:
   workflow_dispatch:
+  # GITHUB_TOKEN commits from the data scanner do not trigger push workflows.
+  # Periodically republish its stored real prices without any new API call.
+  schedule:
+    - cron: '30 0,6,12,18 * * *'
   push:
     branches: [main]
     paths:
