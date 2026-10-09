@@ -105,9 +105,11 @@ class ESPNAdvancedTests(unittest.TestCase):
 
     def test_football_uses_genuine_espn_aggregate(self):
         cache,report=build(make_history(4),{},NOW,fetch=lambda *x:make_stats(),max_calls=4)
-        shadow=predict("PL",make_events(),make_future(),NOW,
+        # Match stats become usable only AFTER their observation time.
+        at=NOW+timedelta(minutes=1)
+        shadow=predict("PL",make_events(),make_future(),at,
                        espn_features=report["teams"])
-        base=predict("PL",make_events(),make_future(),NOW)
+        base=predict("PL",make_events(),make_future(),at)
         self.assertTrue(shadow["espn_stats_used"])
         self.assertFalse(shadow["xg_used"])
         self.assertNotEqual(shadow["probabilities"],base["probabilities"])
