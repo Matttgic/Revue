@@ -10,6 +10,15 @@ from pathlib import Path
 import re
 
 TARGETS={
+    "_boxMullerZ":10000,
+    "_nflHFA":10000,
+    "_nflInjAdj":10000,
+    "_forceHalfLine":10000,
+    "cfbWeatherImpact":10000,
+    "_NFL_LG_TOTAL":10000,
+    "_NFL_SIGMA_MARGIN":10000,
+    "_NFL_SIGMA_TOTAL":10000,
+    "NFL_INJ_TOTAL_SHARE":10000,
     "_socCal":27425,
     "ml2d":1600,
     "nhlMC":7624,
@@ -38,7 +47,7 @@ def main():
         found=[]
         # Inspect a small local vicinity; helpers may sit far from MC code.
         near=range(max(0,line-10),min(len(lines),line+10))
-        if name in ("_socCal","ml2d"):
+        if name in ("_socCal","ml2d","_boxMullerZ","_nflHFA","_nflInjAdj","_forceHalfLine","cfbWeatherImpact","_NFL_LG_TOTAL","_NFL_SIGMA_MARGIN","_NFL_SIGMA_TOTAL","NFL_INJ_TOTAL_SHARE"):
             near=range(len(lines))
         for i in near:
             line_text=lines[i].strip()
