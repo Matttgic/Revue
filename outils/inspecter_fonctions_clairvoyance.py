@@ -28,11 +28,13 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--source",required=True)
     ap.add_argument("--limit",type=int,default=4000)
+    ap.add_argument("--only",nargs="*",default=None)
     a=ap.parse_args()
     if not 50<=a.limit<=10000:raise ValueError("Bounded excerpts only")
     lines=Path(a.source).read_text(encoding="utf-8",errors="replace").splitlines()
     print("Reference frontend lines:",len(lines))
     for name,line in TARGETS.items():
+        if a.only and name not in a.only:continue
         found=[]
         # Inspect a small local vicinity; helpers may sit far from MC code.
         near=range(max(0,line-10),min(len(lines),line+10))
@@ -49,7 +51,7 @@ def main():
             print("NO DEFINITION",name,line)
             continue
         i=found[0]
-        sample="\n".join(lines[i:min(len(lines),i+65)])[:a.limit]
+        sample="\n".join(lines[i:min(len(lines),i+170)])[:a.limit]
         print("\n"+"="*50)
         print("FUNCTION",name,"START LINE",i+1,"excerpt chars",len(sample))
         print(sample)
