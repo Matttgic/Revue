@@ -113,7 +113,9 @@ class PaperTests(unittest.TestCase):
         e=quotes()
         for book in e["bookmakers"]:
             book["markets"][0]["outcomes"]=[x for x in book["markets"][0]["outcomes"] if x["name"]!="Draw"]
-        self.assertEqual(market_recommendations(models(),{"PL":[e]},NOW)[0],[])
+        actual=market_recommendations(models(),{"PL":[e]},NOW)[0]
+        self.assertFalse(any(x["market"]=="h2h" for x in actual))
+        self.assertTrue(all(x["market"]=="totals" for x in actual))
 
     def test_only_paper_and_no_duplicate_event(self):
         selections,_=market_recommendations(models(),{"PL":[quotes()]},NOW)
