@@ -30,13 +30,15 @@ function recentRates(teamId,allGames,count=5){
   }
   return {games:slice.length,gf:attack/slice.length,ga:conceded/slice.length};
 }
-function lastFiveForm(teamId,allGames,base){
+function recentFormDelta(teamId,allGames,base){
   const last=recentRates(teamId,allGames,5);
-  if(!last)return 1;
-  const seasonMargin=(base.gf||0)-(base.ga||0);
-  const recentMargin=last.gf-last.ga;
-  const adjustment=(recentMargin-seasonMargin)*.05;
-  return 1+Math.max(-.06,Math.min(.06,adjustment));
+  if(!last)return null;
+  return (last.gf-last.ga)-((base.gf||0)-(base.ga||0));
+}
+function lastFiveForm(teamId,allGames,base){
+  const delta=recentFormDelta(teamId,allGames,base);
+  if(delta==null)return 1;
+  return 1+Math.max(-.06,Math.min(.06,delta*.05));
 }
 function clampMargin(p){
   if(!(p>0&&p<1))return p;
@@ -100,4 +102,4 @@ function swissMatch(home,away,ou,opts){return euroHockeyGame(home,away,ou,opts);
 function czechMatch(home,away,ou,opts){return euroHockeyGame(home,away,ou,opts);}
 function shlMatch(home,away,ou,opts){return euroHockeyGame(home,away,ou,opts);}
 module.exports={euroHockeyGame,liigaMatch,swissMatch,czechMatch,shlMatch,
-  clampMargin,marketHalfGoalLine,recentRates,lastFiveForm};
+  clampMargin,marketHalfGoalLine,recentRates,recentFormDelta,lastFiveForm};
