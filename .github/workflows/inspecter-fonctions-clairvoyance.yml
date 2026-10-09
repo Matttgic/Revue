@@ -1,0 +1,28 @@
+name: Revue - Inspection limitée fonctions JS Clairvoyance
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'outils/inspecter_fonctions_clairvoyance.py'
+      - '.github/workflows/inspecter-fonctions-clairvoyance.yml'
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: revue
+      - uses: actions/checkout@v4
+        with:
+          repository: Purple-Wraith/clairvoyance-backend
+          path: reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspecter signatures et courts segments des fonctions JS
+        working-directory: revue
+        run: python -m outils.inspecter_fonctions_clairvoyance --source ../reference/docs/app.html --limit 2800
