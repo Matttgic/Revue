@@ -1,17 +1,25 @@
-# Validateur de cotes observées (outil original Revue)
+# Outils originaux de contrôle Revue
 
-Ce module démontre un **contrat minimal** : une probabilité de modèle ne peut être comparée qu'à une cotation **observée**, externe, horodatée, associée à un bookmaker, un marché, une sélection et un identifiant de source.
+Ces modules sont **écrits pour Revue**, sans reproduction du code des dépôts tiers. Ils servent à vérifier la qualité d'un signal; ils ne démontrent pas la rentabilité d'un pari.
 
-- `outils/validateur_cotes.py` : structure `Cotation`, validation et calcul unitaire d'EV.
-- `tests/test_validateur_cotes.py` : contrôles de provenance, de temps et des bornes.
-- Aucune copie de code de VCheque ; outil original inspiré d'un défaut repéré pendant son audit.
+| Outil | Objet | Tests |
+|---|---|---|
+| [validateur_cotes.py](validateur_cotes.py) | Rejeter les cotes non observées et vérifier la structure du signal EV | [Tests](../tests/test_validateur_cotes.py) |
+| [sensibilite_devig.py](sensibilite_devig.py) | Comparer multiplicatif, additif et puissance pour estimer la sensibilité au retrait de marge | [Tests](../tests/test_sensibilite_devig.py) |
+| [chronologie_pre_match.py](chronologie_pre_match.py) | Exclure les décisions enregistrées après le coup d'envoi ou sans preuves d'horodatage | [Tests](../tests/test_chronologie_pre_match.py) |
 
-## Commande
+## Documentation spécifique
+
+- [Chronologie et politique stricte pour les backtests](CONTROLE_CHRONOLOGIE.md)
+
+## Tests unitaires
 
 ```bash
-python -m unittest discover -s tests -p "test_validateur_cotes.py" -v
+python -m unittest discover -s tests -p "test_*.py" -v
 ```
 
 ## Limitations
 
-La validation des champs **ne prouve pas** que les informations ont été authentifiées, que la cote était obtenable, ni qu'un marché est autorisé par l'ANJ. Connecteurs et vérifications de provenance/réglementation restent nécessaires.
+Les contrôles valident des **formats et contraintes temporelles**, pas l'authenticité d'une source ni la légalité ANJ d'un marché. Il reste obligatoire de vérifier les licences, cotes réellement obtenables, l'origine et l'heure de chaque donnée, ainsi que la calibration du modèle.
+
+Les tests de chronologie ont été passés sur copie locale identique des fichiers du 2026-10-09 (10/10); les suites des autres modules n'ont pas été rejouées au cours de cet audit.
