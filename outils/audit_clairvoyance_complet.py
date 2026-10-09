@@ -96,7 +96,8 @@ def inspect_frontend_model_symbols(root: Path) -> dict:
     flags=("nhl","nba","mlb","nfl","cfb","soccer","foot","hockey","goalie",
            "elo","poisson","bayes","ensemble","xg","predict","simulat",
            "backtest","calibr","injur","spread","market","margin",
-           "model","prob","odds","prior","rate","line")
+           "model","prob","odds","prior","rate","line",
+           "liiga","nla","extraliga","shl")
     for pattern in patterns:
         for hit in re.finditer(pattern,source):
             name=hit.group(1)
@@ -110,8 +111,8 @@ def inspect_frontend_model_symbols(root: Path) -> dict:
         "source_bytes":len(source.encode("utf-8")),
         "named_function_count":len(names),
         "model_related_count":len(found),
-        "model_symbols":found[:300],
-        "symbols_truncated":len(found)>300,
+        "model_symbols":found,
+        "symbols_truncated":False,
         "note":"Function names only, no original JS source or model weights exported.",
     }
 
