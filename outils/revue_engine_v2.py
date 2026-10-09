@@ -242,8 +242,23 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                     if mk=="h2h":
                         soccer="draw_90" in game["probabilities"]
                         has_draw=any(str(x.get("name","")).lower()=="draw" for x in outcomes)
-                        if soccer!=has_draw:
+                        if soccer!=has_draw or len(outcomes)!=(3 if soccer else 2):
                             diagnostics["market_rule_incompatible"]+=1
+                            continue
+                    # PulseScore FULL_TIME is not enough to prove whether
+                    # a hockey market includes OT. NHL model uses game incl OT.
+                    is_pulse=str(event.get("id") or "").startswith("review:")
+                    if league=="NHL" and is_pulse:
+                        label=str(market.get("raw_market_name") or "").lower()
+                        period=str(market.get("period") or "").upper()
+                        explicit_ot=(period in ("GAME_INCLUDING_OVERTIME","INCLUDING_OVERTIME")
+                            or any(fragment in label for fragment in (
+                                "incl ot","including ot","including overtime",
+                                "overtime included","prolongation incl",
+                                "prolongations incl","incluant prolongation",
+                                "incl. prolongation","avec prolongation")))
+                        if not explicit_ot:
+                            diagnostics["nhl_overtime_market_not_verified"]+=1
                             continue
                     observed=quote_book_valid(book,market,now)
                     if observed is None:
@@ -296,6 +311,7 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                             "model_at":model_stamp.isoformat(),
                             "observed_at":now.isoformat(),
                             "chronology":gate,
+                            "market_rule_verified":True,
                             "status":"EXPERIMENTAL_PAPER_ONLY",
                             "note":"Estimation non calibrée; aucune EV démontrée.",
                         })
@@ -355,6 +371,12 @@ def settle_ledger(ledger:dict,cache:dict,now:datetime,
     nhl_cache={}
     for bet in ledger.get("bets",[]):
         if bet.get("status")!="pending":continue
+        # Legacy Pulse NHL picks lacked documented OT vs regulation
+        # settlement semantics. Quarantine rather than claim a paper win.
+        if bet.get("league")=="NHL" and bet.get("market_rule_verified") is not True:
+            bet["status"]="market_rule_unverified"
+            bet["settlement_note"]="NHL market period not proven to include overtime."
+            continue
         start=timestamp(bet.get("start_utc"))
         if start is None or start>=now:continue
         league=bet.get("league")
@@ -416,6 +438,8 @@ def paper_locks(candidates:list[dict],ledger:dict,now:datetime,
 def verified_pre_match(b:dict) -> bool:
     """Recompute temporal provenance from raw fields, never trust a status tag."""
     if b.get("chronology")!=PRE_VALIDE:
+        return False
+    if b.get("league")=="NHL" and b.get("market_rule_verified") is not True:
         return False
     lock=timestamp(b.get("locked_at"))
     start=timestamp(b.get("start_utc"))
