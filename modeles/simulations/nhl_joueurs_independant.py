@@ -66,6 +66,96 @@ def _fetch_stats(season: int, teams: set[str]) -> tuple[list[dict],dict]:
     return all_rows,{"requested":len(teams),"failed":failed,
                      "successful":len(teams)-len(failed)}
 
+def _espn_team_map() -> dict[str,str]:
+    """ESPN numeric team IDs → official abbreviations."""
+    url="https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams?limit=100"
+    with urlopen(Request(url,headers={"Accept":"application/json"}),timeout=18) as response:
+        payload=json.loads(response.read().decode("utf-8"))
+    out={}
+    for sport in payload.get("sports") or []:
+        for league in sport.get("leagues") or []:
+            for team_row in league.get("teams") or []:
+                t=team_row.get("team") or {}
+                if t.get("id") and t.get("abbreviation"):
+                    out[str(t["id"])]=str(t["abbreviation"]).upper()
+    return out
+
+
+def _normalise_espn_athlete(row:dict,team_ids:dict[str,str]) -> dict|None:
+    """Parse ESPN byathlete category *names* + positional values, not labels."""
+    a=row.get("athlete") or {}
+    if not a.get("id"):
+        return None
+    teams={
+        str(t.get("abbreviation") or "").upper() for t in a.get("teams") or []
+        if isinstance(t,dict) and t.get("abbreviation")
+    }
+    if a.get("teamId"):
+        team=team_ids.get(str(a["teamId"]))
+        if team:
+            teams.add(team)
+    if not teams:
+        return None
+    attrs={}
+    for cat in row.get("categories") or []:
+        label=cat.get("name")
+        # Named schema comes from response categories at the root, but
+        # by-athlete categories may expose values only. Caller passes names.
+        if isinstance(cat.get("names"),list):
+            names=cat["names"]
+            vals=cat.get("values") or []
+            attrs.update({f"{label}.{name}":val for name,val in zip(names,vals)})
+    return {
+        "playerId":str(a["id"]),
+        "skaterFullName":str(a.get("displayName") or str(a["id"])),
+        "teamAbbrevs":" ".join(sorted(teams)),
+        "gamesPlayed":attrs.get("general.games"),
+        "goals":attrs.get("offensive.goals"),
+        "assists":attrs.get("offensive.assists"),
+        "points":attrs.get("offensive.points"),
+        "shots":attrs.get("offensive.shotsTotal"),
+    }
+
+
+def _fetch_espn_stats(season:int,clubs:set[str]) -> tuple[list[dict],dict]:
+    """Working 2026 ESPN stats endpoint, prior & current season, paginated."""
+    endpoint="https://site.web.api.espn.com/apis/common/v3/sports/hockey/nhl/statistics/byathlete"
+    # Current ESPN season is the LAST four digits (2026-27 is season=2027).
+    season_year=int(str(season)[-4:])
+    mapping=_espn_team_map()
+    page=1;raw=[];errors=[]
+    while page<=12:
+        params=urlencode({"limit":100,"category":"skaters","season":season_year,
+                          "page":page,"isqualified":"false"})
+        try:
+            with urlopen(Request(endpoint+"?"+params,headers={"Accept":"application/json"}),timeout=22) as response:
+                body=json.loads(response.read().decode("utf-8"))
+        except Exception as err:
+            errors.append(f"page{page}:{type(err).__name__}:{str(err)[:70]}")
+            break
+        athletes=body.get("athletes") or []
+        categories=body.get("categories") or []
+        names={cat.get("name"):cat.get("names") or [] for cat in categories if isinstance(cat,dict)}
+        for row in athletes:
+            # Flatten using response column names; row categories own only values.
+            r=dict(row)
+            cats=[]
+            for cat in row.get("categories") or []:
+                cc=dict(cat)
+                cc["names"]=names.get(cat.get("name"),[])
+                cats.append(cc)
+            r["categories"]=cats
+            parsed=_normalise_espn_athlete(r,mapping)
+            if parsed and any(t in clubs for t in parsed["teamAbbrevs"].split()):
+                raw.append(parsed)
+        total_pages=int((body.get("pagination") or {}).get("pages") or 1)
+        if page>=total_pages:
+            break
+        page+=1
+    return raw,{"source":"ESPN byathlete","pages_attempted":page,
+                "rows":len(raw),"errors":errors,"teams_mapped":len(mapping)}
+
+
 def parse_rows(rows:list[dict]) -> dict[str,dict]:
     """Aggregate across traded-team rows. Never pretend unavailable stats exist."""
     found={}
@@ -206,10 +296,14 @@ def main():
                 clubs.update((game["home"],game["away"]))
         except (KeyError,TypeError,ValueError):
             pass
-    previous, prevdiag=_fetch_stats(season-10001,clubs)
-    current, curdiag=_fetch_stats(season,clubs)
+    try:
+        previous, prevdiag=_fetch_espn_stats(season-10001,clubs)
+        current, curdiag=_fetch_espn_stats(season,clubs)
+    except Exception as err:
+        previous,current=[],[]
+        prevdiag=curdiag={"error":f"{type(err).__name__}:{str(err)[:120]}"}
     report=run(fixtures,previous,current,as_of)
-    report["source"]="NHL Web API / club-stats/{team}/{season}/2"
+    report["source"]="ESPN NHL / statistics/byathlete (public live stats)"
     report["diagnostics"]={"previous":prevdiag,"current":curdiag}
     if not previous:
         report["status"]="source_indisponible"
