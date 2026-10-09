@@ -4,6 +4,8 @@
 
 > **Principe : une idée intéressante n'est pas une stratégie rentable démontrée.** Aucun rendement n'est garanti. La bibliothèque distingue hypothèse, code reproductible, backtest et validation hors échantillon.
 
+**Audit Opta :** Clairvoyance intègre les xG, xGA, PPDA, statistiques d'équipes et Opta Power Rankings via The Analyst, mais **Revue n'a pas encore d'accès autorisé à ces données**, et notre modèle n'est pas la copie exacte de son moteur. [Voir l'audit et les écarts](analyses/2026-10-09_Clairvoyance_Opta_modele_ecarts.md).
+
 ## Engine V2 — reconstruction indépendante du fonctionnement Clairvoyance
 
 - [Portail web Revue](docs/index.html) et [tableau « Engine V2 »](docs/engine-v2.html) : radar de cotes réelles, simulations et suivi en unités fictives.
