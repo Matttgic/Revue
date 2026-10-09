@@ -28,7 +28,7 @@ BOOKMAKERS={
 }
 SPORT_GROUPS={
     "NBA":"basketball","WNBA":"basketball","NCAAB":"basketball",
-    "NFL":"american-football","CFB":"american-football",
+    "NFL":"american-football",
     "MLB":"baseball","NHL":"ice-hockey",
     "PL":"soccer","LALIGA":"soccer","SERIEA":"soccer",
     "BUNDESLIGA":"soccer","LIGUE1":"soccer","MLS":"soccer",
