@@ -51,6 +51,18 @@ a.link{display:inline-block;border:1px solid var(--line);border-radius:8px;paddi
 a.link:hover{border-color:var(--lime)}
 footer{color:var(--soft);padding:26px 0;margin-top:42px;border-top:1px solid var(--line);font-size:12px}
 @media(max-width:620px){.hero{grid-template-columns:1fr;padding:25px 0}.stamp{text-align:left}.ribbon{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi:nth-child(2){border-right:0}.kpi:nth-child(-n+2){border-bottom:1px solid var(--line)}.kpi:nth-child(3){padding-left:0}.twocol{grid-template-columns:1fr}}
+</style><style>
+.prices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.price-game{padding:17px;border:1px solid rgba(85,245,222,.22);border-radius:12px;background:rgba(6,19,34,.8)}
+.price-game h3{font-size:18px;letter-spacing:-.035em;margin:7px 0 12px}
+.price-game .pr-book{border-top:1px solid rgba(110,158,193,.22);padding:9px 0}
+.price-game .pr-book>strong{color:#a7d6ed;font:700 12px 'Chakra Petch',sans-serif;text-transform:uppercase}
+.price-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.price-item{min-width:61px;padding:8px;text-align:center;background:rgba(18,38,59,.76);border:1px solid rgba(104,146,189,.22);border-radius:7px;flex:1}
+.price-item span{display:block;color:var(--muted);font-size:10px}
+.price-item strong{font:800 17px 'Chakra Petch',sans-serif;color:var(--cyan)}
+.price-when{font-size:11px;color:var(--muted);margin-top:7px}
+.price-when.stale{color:var(--orange)}
 </style><link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a><a href="./engine-v2.html" aria-current="page">SCANNER</a><a href="./multisports.html">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main>
 <header><div class="logo">REVUE<span style="color:var(--lime)"> / </span>ENGINE</div>
 <div class="live"><span class="dot"></span><span id="runtime">État du moteur…</span></div></header>
@@ -66,11 +78,18 @@ footer{color:var(--soft);padding:26px 0;margin-top:42px;border-top:1px solid var
 <div class="notice" id="notice"><div aria-hidden="true">!</div><div><strong id="notice-title">Modèle non validé</strong>
 <p id="notice-body">Probabilités non calibrées : aucun pronostic ne doit être interprété comme un avantage financier démontré.</p></div></div>
 <nav aria-label="Sections de la page">
-<button data-tab="radar" aria-selected="true">01 / Radar des cotes</button>
-<button data-tab="ledger" aria-selected="false">02 / Registre papier</button>
-<button data-tab="coverage" aria-selected="false">03 / Couverture et qualité</button>
+<button data-tab="prices" aria-selected="true">01 / Toutes les cotes</button>
+<button data-tab="radar" aria-selected="false">02 / Écarts théoriques</button>
+<button data-tab="ledger" aria-selected="false">03 / Registre papier</button>
+<button data-tab="coverage" aria-selected="false">04 / Couverture et qualité</button>
 </nav>
-<section id="radar"><div class="sectionhead"><div><h2>Opportunités théoriques</h2><div class="hint">Uniquement des cotes réelles horodatées, jamais synthétiques</div></div>
+<section id="prices"><div class="sectionhead"><div><h2>Cotes reçues des bookmakers français</h2><div class="hint">Tous les marchés compatibles collectés, y compris sans sélection EV. Prix ponctuels, pas du direct.</div></div><div class="filters"><select id="prices-league" aria-label="Filtrer les cotes par compétition"><option value="">Toutes les compétitions</option></select><button class="refresh" id="prices-refresh">Actualiser</button></div></div>
+<div id="prices-count" class="hint" role="status" aria-live="polite">Récupération des prix observés…</div>
+<div id="prices-cards" class="prices-grid"></div>
+<div id="prices-empty" class="empty" hidden>Aucun marché récent associé aux rencontres ciblées. Le radar PulseScore recherche prioritairement les matchs des prochaines heures. Consulte le prochain rafraîchissement pour les nouvelles cotes.</div>
+<p class="caption">Les cotes sont uniquement des prix observés à l’heure indiquée. En hockey, les règles de prolongation peuvent ne pas être vérifiées. Elles ne constituent pas une recommandation de pari.</p>
+</section>
+<section id="radar" hidden><div class="sectionhead"><div><h2>Opportunités théoriques</h2><div class="hint">Uniquement des cotes réelles horodatées, jamais synthétiques</div></div>
 <div class="filters"><select id="league" aria-label="Compétition"><option value="">Toutes les compétitions</option></select><button class="refresh" id="refresh">Actualiser</button></div></div>
 <div id="cards" class="grid"></div><div class="empty" id="radar-empty" hidden>Aucune cote admissible affichée. Le radar peut être inactif, ou aucun écart n'a passé les filtres de contrôle.</div>
 <p class="caption" style="margin-top:17px">EV = probabilité du modèle × cote - 1 ; elle est indicative tant que le modèle n'est pas calibré. Pinnacle n'est jamais présenté comme un bookmaker où parier en France.</p></section>
@@ -98,7 +117,7 @@ let data=null,ledger=null;
 function setTabs(){
  document.querySelectorAll("button[data-tab]").forEach(b=>b.addEventListener("click",()=>{
   document.querySelectorAll("button[data-tab]").forEach(q=>q.setAttribute("aria-selected",String(q===b)));
-  for(const id of ["radar","ledger","coverage"])$(id).hidden=(id!==b.dataset.tab);
+  for(const id of ["prices","radar","ledger","coverage"])$(id).hidden=(id!==b.dataset.tab);
  }));
 }
 function radar(){
@@ -123,6 +142,71 @@ function radar(){
   c.append(make("div","caption","Cote observée "+formatTime(item.quote_at)+" · modèle non calibré"));
   cards.append(c);
  }
+}
+const bookLabel={betclic_fr:"Betclic",winamax_fr:"Winamax",unibet_fr:"Unibet",netbet_fr:"NetBet",pmu_fr:"PMU"};
+let currentPriceBoard=[];
+function displayPrices(){
+ const pick=$("prices-league"),prev=pick.value;
+ const leagues=[...new Set(currentPriceBoard.map(x=>x.league))].sort();
+ pick.replaceChildren(make("option","","Toutes les compétitions"));pick.firstChild.value="";
+ for(const lg of leagues){const option=make("option","",lg);option.value=lg;pick.append(option)}
+ if(leagues.includes(prev))pick.value=prev;
+ const events=currentPriceBoard.filter(x=>!pick.value||x.league===pick.value);
+ const host=$("prices-cards");host.replaceChildren();
+ $("prices-empty").hidden=events.length>0;
+ $("prices-count").textContent=events.length+" match(s) avec prix · collecte "+(data?.generated_at_utc?formatTime(data.generated_at_utc):"inconnue");
+ const now=Date.now();
+ for(const e of events.slice(0,100)){
+  if(Date.parse(e.start_utc)<=now)continue;
+  const card=make("article","price-game");
+  card.append(make("div","mini",e.league+" · "+formatTime(e.start_utc)),
+              make("h3","",e.away+" @ "+e.home));
+  const times=[];
+  for(const b of e.bookmakers||[]){
+   const wrap=make("div","pr-book");wrap.append(make("strong","",bookLabel[b.bookmaker]||b.bookmaker));
+   const grid=make("div","price-row");
+   for(const market of b.markets||[]){
+    times.push(Date.parse(market.quote_at));
+    for(const row of market.outcomes||[]){
+     const tag=make("div","price-item");
+     const label=market.market==="totals"?"O/U "+String(row.line)+" · ":"";
+     const side=row.selection==="home"?"1":row.selection==="away"?"2":row.selection==="draw"?"N":row.selection==="over"?"Plus":"Moins";
+     tag.append(make("span","",label+side),
+       make("strong","",Number(row.price).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:3})));
+     grid.append(tag);
+    }
+    if(market.period_rule==="overtime_rule_unverified")
+     wrap.append(make("div","hint","Attention : prolongation non vérifiée"));
+   }
+   wrap.append(grid);card.append(wrap);
+  }
+  const latest=Math.max(...times.filter(Number.isFinite));
+  const stale=!Number.isFinite(latest)||now-latest>50*60000;
+  card.append(make("div","price-when"+(stale?" stale":""),
+    "Cotes relevées : "+(Number.isFinite(latest)?new Date(latest).toLocaleString("fr-FR",{timeZone:"Europe/Paris",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}):"heure indisponible")+
+    (stale?" · ancien relevé, vérifie le bookmaker":"")));
+  host.append(card);
+ }
+}
+function setupPrices(){
+ currentPriceBoard=(data?.odds_board?.events||[]).filter(e=>e.league!=="CFB");
+ if(!currentPriceBoard.length){
+  // Old report compatibility until next credentialed scan.
+  const byEvent=new Map();
+  for(const c of data?.candidates||[]){
+   const key=c.league+":"+c.event_id;
+   if(!byEvent.has(key))byEvent.set(key,{league:c.league,event_id:c.event_id,start_utc:c.start_utc,
+     home:c.home,away:c.away,bookmakers:[]});
+   const e=byEvent.get(key);
+   let b=e.bookmakers.find(x=>x.bookmaker===c.bookmaker);
+   if(!b){b={bookmaker:c.bookmaker,markets:[]};e.bookmakers.push(b)}
+   b.markets.push({market:c.market,quote_at:c.quote_at,period_rule:"from_filtered_candidates",
+     outcomes:[{selection:c.side,line:c.line,price:c.bookmaker_price}]});
+  }
+  currentPriceBoard=[...byEvent.values()];
+  if(currentPriceBoard.length)$("prices-count").textContent="Ancien format : sélections filtrées uniquement";
+ }
+ displayPrices();
 }
 function fillLedger(){
  const bets=[...(ledger?.bets||[])].reverse();
@@ -174,9 +258,11 @@ async function load(){
    $("notice-title").textContent="Probabilités expérimentales";
    $("notice-body").textContent="Les écarts calculés ne prouvent pas une value. Tous les picks sont des tests papier, soumis au filtre pré-match et à des cotes réelles.";
   }
-  radar();fillLedger();
+  setupPrices();radar();fillLedger();
  }catch(e){$("runtime").textContent="Fichiers indisponibles";$("notice-body").textContent=e.message}
 }
+$("prices-league").addEventListener("change",displayPrices);
+$("prices-refresh").addEventListener("click",load);
 $("league").addEventListener("change",radar);
 $("refresh").addEventListener("click",load);
 setTabs();load();
