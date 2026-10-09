@@ -18,6 +18,28 @@ class ReproductionOnlyProgressTests(unittest.TestCase):
         self.assertIsNone(p["overall_repository_reproduction_percent"])
         self.assertEqual(p["remaining_unverified"],11)
         self.assertIn("CFB",p["excluded"])
+    def test_three_js_functions_count_after_true_source_parity(self):
+        js={"status":"frontend_function_output_parity_verified",
+            "reference_commit":"demo",
+            "exact_equality_tests_passed":28,
+            "verified_modules":["frontend_nba_bayes","frontend_nfl_bayes",
+                                "frontend_soccer_market_blend"]}
+        p=generate(data(),audit(),NOW,js)
+        self.assertEqual(p["verified_formula_parity_models"],5)
+        self.assertEqual(p["formula_parity_percent"],38)
+        self.assertEqual(p["remaining_unverified"],8)
+        self.assertEqual(p["exact_equality_tests_passed"],71)
+
+    def test_source_commit_mismatch_cannot_boost_progress(self):
+        js={"status":"frontend_function_output_parity_verified",
+            "reference_commit":"different",
+            "exact_equality_tests_passed":100,
+            "verified_modules":["frontend_nba_bayes","frontend_nfl_bayes",
+                                "frontend_soccer_market_blend"]}
+        p=generate(data(),audit(),NOW,js)
+        self.assertEqual(p["verified_formula_parity_models"],2)
+        self.assertEqual(p["formula_parity_percent"],15)
+
     def test_original_models_never_count(self):
         p=generate({"status":"experimental_no_bets","verified_modules":["backend_mlb_elo"],"exact_equality_tests_passed":999},audit(),NOW)
         self.assertEqual(p["verified_formula_parity_models"],0)
