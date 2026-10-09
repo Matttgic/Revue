@@ -7,6 +7,7 @@ from modeles.simulations.nhl_independant import (
     Game, PARIS, _distribution, _elo_probability, _over, _poisson,
     _score_for_goals, _update_elo, parse_game, parse_timestamp,
     predict, prev_season, season_code,
+    _prior_weight_research, _research_goal_rate,
 )
 from datetime import date
 
@@ -117,6 +118,39 @@ class NHLIndependentTests(unittest.TestCase):
         result = predict([], [g], now, future.astimezone(PARIS).date())
         self.assertEqual(len(result), 1)
         self.assertIn("non calibrées", result[0]["note"])
+
+    def test_prior_research_weight_fades_by_20_games(self):
+        cases=((0, 1.), (2, .90), (5, .70), (10, .40),
+               (15, .20), (20, 0.), (25, 0.))
+        for games, share in cases:
+            with self.subTest(games=games):
+                self.assertAlmostEqual(_prior_weight_research(games), share)
+        self.assertAlmostEqual(_prior_weight_research(7.5), .55)
+        self.assertAlmostEqual(_prior_weight_research(None), 1.)
+        self.assertAlmostEqual(_prior_weight_research(float("nan")), 1.)
+
+    def test_prior_research_never_uses_unplayed_games(self):
+        self.assertEqual(_research_goal_rate(0, 0, 2.7), 2.7)
+        self.assertEqual(_research_goal_rate(100, 20, 2.7), 5.)
+        self.assertAlmostEqual(_research_goal_rate(20, 10, 3.), 2.4)
+
+    def test_research_variant_does_not_replace_default_nhl_probabilities(self):
+        now = datetime.now(timezone.utc)
+        prior = [parse_game(raw_game(i, now - timedelta(days=60+i),
+                                 hs=3, aus=3)) for i in range(1, 23)]
+        current = [parse_game(raw_game(200+i, now - timedelta(days=i+1),
+                                    hs=5, aus=2)) for i in range(1, 14)]
+        kickoff = now + timedelta(days=1)
+        current.append(parse_game(raw_game(900, kickoff, state="FUT")))
+        rows = predict(prior, current, now, kickoff.astimezone(PARIS).date())
+        self.assertEqual(len(rows), 1)
+        research = rows[0]["research_prior_fade"]
+        self.assertAlmostEqual(research["prob_home"]+research["prob_away"], 1., places=4)
+        self.assertAlmostEqual(rows[0]["probabilities"]["home_win"] +
+                               rows[0]["probabilities"]["away_win"], 1., places=4)
+        self.assertEqual(research["status"], "shadow_not_selected_uncalibrated")
+        self.assertNotEqual(research["expected_goals"], rows[0]["expected_goals"])
+        self.assertNotIn("research_prior_fade", rows[0]["probabilities"])
 
     def test_home_advantage_elo(self):
         self.assertGreater(_elo_probability(1500, 1500), 0.5)
