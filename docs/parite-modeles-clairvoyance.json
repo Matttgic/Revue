@@ -1,0 +1,168 @@
+{
+  "generated_at_utc": "2026-10-09T22:17:53.565060+00:00",
+  "name": "Clairvoyance Model Reproduction — FIRST 13 model functions",
+  "status": "initial_defined_scope_not_entire_repository",
+  "excluded": [
+    "CFB"
+  ],
+  "total_target_models": 13,
+  "verified_formula_parity_models": 2,
+  "remaining_unverified": 11,
+  "formula_parity_percent": 15,
+  "overall_repository_reproduction_percent": null,
+  "prediction_parity_on_live_data_percent": null,
+  "original_source_commit": "3657d6e0b7481fb2e34a5f9ad4e3069aac1e698e",
+  "exact_equality_tests_passed": 43,
+  "models": [
+    {
+      "id": "backend_mlb_elo",
+      "label": "MLB · Elo / marché moneyline",
+      "original_function": "predict_mlb_game",
+      "source_file": "app/services/predictor.py",
+      "source_indexed": true,
+      "status": "exact_formula_parity_verified",
+      "verified_source_commit": "3657d6e0b7481fb2e34a5f9ad4e3069aac1e698e",
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "backend_nhl_elo_moneypuck_goalie",
+      "label": "NHL · Elo / xG / gardien",
+      "original_function": "predict_nhl_game",
+      "source_file": "app/services/predictor.py",
+      "source_indexed": true,
+      "status": "exact_formula_parity_verified",
+      "verified_source_commit": "3657d6e0b7481fb2e34a5f9ad4e3069aac1e698e",
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nhl_mc",
+      "label": "NHL · Monte-Carlo",
+      "original_function": "nhlMC",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nhl_ensemble",
+      "label": "NHL · Ensemble",
+      "original_function": "nhlEns",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nba_mc",
+      "label": "NBA · Monte-Carlo",
+      "original_function": "nbaMC",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nba_bayes",
+      "label": "NBA · Bayes",
+      "original_function": "nbaGetBayes",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nba_ensemble",
+      "label": "NBA · Ensemble",
+      "original_function": "nbaEns",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nfl_mc",
+      "label": "NFL · Monte-Carlo",
+      "original_function": "nflMC",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nfl_bayes",
+      "label": "NFL · Bayes",
+      "original_function": "_nflBayes",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_nfl_ensemble",
+      "label": "NFL · Ensemble",
+      "original_function": "nflEns",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_soccer_xg",
+      "label": "Football · xG",
+      "original_function": "_socXG",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_soccer_mc",
+      "label": "Football · Monte-Carlo",
+      "original_function": "_soccerMC",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    },
+    {
+      "id": "frontend_soccer_market_blend",
+      "label": "Football · Pondération du marché",
+      "original_function": "_socMarketBlend",
+      "source_file": "docs/app.html",
+      "source_indexed": true,
+      "status": "pending_implementation_or_parity",
+      "verified_source_commit": null,
+      "reproduced_with_same_data": false,
+      "verified_with_original_datasets": false
+    }
+  ],
+  "notes": [
+    "Percentage covers ONLY the 13 explicitly listed core functions, not all of Clairvoyance.",
+    "Source-side mathematical parity is verified on test inputs; real data parity and profit are NOT verified.",
+    "Revue's original models, Monte-Carlo/Bayes experiments, pages and API integrations are EXCLUDED.",
+    "Progress can increase only after direct source-vs-reproduction parity tests on pinned source versions.",
+    "CFB intentionally excluded at the user's request."
+  ]
+}
