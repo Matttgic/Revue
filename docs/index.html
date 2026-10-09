@@ -38,6 +38,13 @@
     .section-title h2{font:700 clamp(1.4rem,3.6vw,2rem) 'Chakra Petch',sans-serif;letter-spacing:-.025em;margin:0}
     .section-title small{color:#698297;font-size:10px;letter-spacing:.12em;font-family:monospace}
     .section-title h2 span{color:var(--cyan)}
+    .replication{margin:14px 0 24px;padding:17px 20px;border:1px solid rgba(85,245,222,.24);background:linear-gradient(120deg,rgba(11,34,45,.72),rgba(20,21,45,.84));}
+    .rep-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .rep-top span{font:700 12px 'Chakra Petch',sans-serif;letter-spacing:.13em;color:var(--cyan)}
+    .rep-top strong{font:700 27px 'Chakra Petch',sans-serif;color:var(--fg)}
+    .rep-bar{height:8px;border:1px solid rgba(116,168,195,.3);background:rgba(8,20,33,.8);margin:12px 0 8px;overflow:hidden}
+    .rep-bar>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#309dc1,#55f5de);transition:width .7s}
+    .rep-caption{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     .meters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
     .meter{background:linear-gradient(150deg,rgba(17,31,51,.96),rgba(9,17,34,.95));border:1px solid rgba(114,153,199,.2);padding:21px 17px 16px;position:relative;min-width:0}
     .meter::before{content:"";position:absolute;top:0;left:0;width:40px;height:2px;background:var(--cyan);opacity:.7}
@@ -125,6 +132,11 @@
     </div>
   </section>
 
+  <section class="replication" aria-label="Avancement fonctionnel vers Clairvoyance">
+    <div class="rep-top"><span>// COUVERTURE FONCTIONNELLE ESTIMÉE</span><strong id="rep-value">—</strong></div>
+    <div class="rep-bar" role="progressbar" aria-label="Progression estimée" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="rep-progress"><span id="rep-fill"></span></div>
+    <div class="rep-caption"><span id="rep-change">Synchronisation des validations…</span><span>Estimation éditoriale, pas équivalence des prédictions.</span></div>
+  </section>
   <section aria-labelledby="stats-heading">
     <div class="section-title"><h2 id="stats-heading"><span>//</span> TÉLÉMÉTRIE</h2><small>MESURES ISSUES DES DERNIERS RAPPORTS</small></div>
     <div class="meters">
@@ -197,6 +209,17 @@ function telemetry(id,value){
     ? Number(value).toLocaleString("fr-FR"):"—";
 }
 async function refresh(){
+  const progress=await jsonFile("progression-revue.json").catch(()=>null);
+  if(progress){
+    const checked=Math.round((progress.categories||[]).reduce((sum,c)=>sum+Number(c.weight||0)*Number(c.coverage||0),0));
+    const confirmed=checked===progress.estimated_functional_coverage_percent?checked:null;
+    if(confirmed!==null){
+      by("rep-value").textContent=confirmed+" %";
+      by("rep-fill").style.width=confirmed+"%";
+      by("rep-progress").setAttribute("aria-valuenow",String(confirmed));
+      by("rep-change").textContent="Évolution : "+progress.previous_estimate_percent+" → "+confirmed+" % · "+progress.categories.length+" domaines audités";
+    }
+  }
   const [models,scanner,health]=await Promise.allSettled([
     jsonFile("multisports-latest.json"),jsonFile("engine-v2-latest.json"),
     jsonFile("health-latest.json")
