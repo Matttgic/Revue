@@ -2,7 +2,7 @@
 import unittest
 from datetime import datetime,timedelta,timezone
 from modeles.simulations.nhl_joueurs_independant import (
-    profile,parse_rows,poisson_over,run,score_player,season_id,
+    profile,parse_rows,poisson_over,run,score_player,season_id,_normalise_espn_athlete,
 )
 
 
@@ -77,6 +77,20 @@ class TestNHLJoueurs(unittest.TestCase):
         self.assertEqual(sorted(result["teams"]),["BOS","NYR"])
         self.assertEqual(result["teams"]["BOS"][0]["name"],"Test Forward")
         self.assertNotIn("DET",result["teams"])
+
+    def test_esnp_stats_category_names_and_team_mapping(self):
+        sample={
+            "athlete":{"id":"1001","displayName":"Test Player","teamId":"37"},
+            "categories":[
+                {"name":"general","names":["games","other"],"values":[22,10]},
+                {"name":"offensive","names":["goals","assists","points","shotsTotal"],"values":[12,22,34,88]},
+            ],
+        }
+        row=_normalise_espn_athlete(sample,{"37":"VGK"})
+        self.assertEqual(row["teamAbbrevs"],"VGK")
+        self.assertEqual(row["gamesPlayed"],22)
+        self.assertEqual(row["shots"],88)
+        self.assertEqual(row["goals"],12)
 
     def test_no_fake_players_if_none_known(self):
         res=run({"games":[{"event_id":1,"home":"BOS","away":"NYR",
