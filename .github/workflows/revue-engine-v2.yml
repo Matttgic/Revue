@@ -1,0 +1,56 @@
+name: Revue - Engine V2 (simulation)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Refresh after the forecast workflow, keep runs spaced out.
+    - cron: '00 0,8,16 * * *'
+  push:
+    paths:
+      - 'outils/revue_engine_v2.py'
+      - 'tests/test_revue_engine_v2.py'
+      - '.github/workflows/revue-engine-v2.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: revue-engine-v2-paper
+  cancel-in-progress: false
+
+jobs:
+  check-and-paper:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: GitHub checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests anti-fuite et règlements
+        run: python -m unittest discover -s tests -p 'test_revue_engine_v2.py' -v
+      - name: Mise à jour du registre PAPIER uniquement
+        env:
+          # Push triggers never charge odds API credits.
+          ODDS_API_KEY: ${{ github.event_name != 'push' && (secrets.THE_ODDS_API_KEY || secrets.ODDS_API_KEY) || '' }}
+        run: |
+          python outils/revue_engine_v2.py \
+            --predictions docs/multisports-latest.json \
+            --history docs/multisports-history.json \
+            --ledger docs/engine-v2-ledger.json \
+            --output docs/engine-v2-latest.json \
+            --max-sports 14
+      - name: Publier uniquement la simulation et le suivi
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/engine-v2-ledger.json docs/engine-v2-latest.json
+          if git diff --cached --quiet; then
+            echo "Aucun changement"
+          else
+            git commit -m "paper: actualiser suivi pré-match V2"
+            git pull --rebase -X theirs origin main
+            git push origin HEAD:main
+          fi
