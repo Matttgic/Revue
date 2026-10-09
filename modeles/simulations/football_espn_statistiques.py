@@ -137,6 +137,8 @@ def _team_sample(rows:list[dict])->dict:
         return round(sum(values)/len(values),3) if values else None
     return {"games":n,"shots_per_game":avg("totalShots"),
             "sot_per_game":avg("shotsOnTarget"),
+            "shots_allowed_per_game":avg("shotsAllowed"),
+            "sot_allowed_per_game":avg("sotAllowed"),
             "possession_pct":avg("possessionPct"),
             "passes_per_game":avg("totalPasses"),
             "accurate_passes_per_game":avg("accuratePasses"),
@@ -155,9 +157,17 @@ def calculate_team_features(cache:dict,as_of:datetime,min_games:int=3)->dict:
         if league not in LEAGUES_ESPN:continue
         for side in ("home","away"):
             tid=str(event.get(f"{side}_id") or "")
-            stats=(event.get("derived") or {}).get(side)
+            both=(event.get("derived") or {})
+            stats=both.get(side)
+            opponent=both.get("away" if side=="home" else "home")
             if tid and isinstance(stats,dict):
-                pool[(league,tid)].append((start,observed,stats))
+                row=dict(stats)
+                if isinstance(opponent,dict):
+                    if "totalShots" in opponent:
+                        row["shotsAllowed"]=opponent["totalShots"]
+                    if "shotsOnTarget" in opponent:
+                        row["sotAllowed"]=opponent["shotsOnTarget"]
+                pool[(league,tid)].append((start,observed,row))
     result={}
     for (league,team),values in pool.items():
         games=sorted(values,key=lambda t:t[0],reverse=True)[:12]
