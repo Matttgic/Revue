@@ -4,6 +4,15 @@
 
 > **Principe : une idée intéressante n'est pas une stratégie rentable démontrée.** Aucun rendement n'est garanti. La bibliothèque distingue hypothèse, code reproductible, backtest et validation hors échantillon.
 
+## Engine V2 — reconstruction indépendante du fonctionnement Clairvoyance
+
+- [Tableau de bord « Engine V2 »](docs/engine-v2.html) : radar de cotes réelles, simulations et suivi en unités fictives.
+- [Moteur original Python](outils/revue_engine_v2.py) : prix Betclic/Winamax/Unibet/PMU/NetBet, Pinnacle seulement pour comparaison, contrôle strict pré-match, règlement des matchs, historique.
+- [Guide d'utilisation Android et configuration de clé](outils/ENGINE-V2-README.md) ; [GitHub Actions Engine V2](.github/workflows/revue-engine-v2.yml).
+- [Dernier rapport moteur](docs/engine-v2-latest.json) et [registre paper](docs/engine-v2-ledger.json).
+
+**Première validation technique : 21 tests passés sur GitHub (09/10/2026).** La collecte de cotes est **désactivée tant que le secret THE_ODDS_API_KEY n'est pas configuré** ; aucune opportunité fictive ni ROI inventé. Pas de paris en argent réel. Cette V2 ne prétend pas reproduire l'ensemble des fichiers originaux ni démontrer une stratégie rentable.
+
 ## Revue élargie — 19 flux détectés + profils NHL (prototype)
 
 Le moteur récupère les compétitions de football, basket, football américain, baseball et NHL ainsi que les matchs ATP/WTA, UFC et Liiga. **Flux joignable ne signifie pas prédiction validée.**
