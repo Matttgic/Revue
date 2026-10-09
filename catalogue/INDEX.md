@@ -32,6 +32,11 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 
 | REV-MOD-MULTI-01 | Football / NBA / NFL / NCAA / MLB / WNBA / NHL | Victoire / 1N2 / totaux foot et NHL | Moteur original multisports, 14 flux avec tests et suivi | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 133 rencontres et 99 prédictions lors d'un run API réel ; aucun rendement évalué | [Modèle](../modeles/simulations/MULTISPORTS-README.md) |
 
+| REV-MOD-IND-01 | Tennis ATP/WTA | Match winner | Elo individuel avec historique ESPN et refus si données insuffisantes | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | API et 12 tests fonctionnels, mais 0 proba tennis exploitable au run 09/10/2026 | [Fiche](../modeles/simulations/SPORTS_INDIVIDUELS_README.md) |
+| REV-MOD-IND-02 | MMA UFC | Combat winner | Elo individuel et fallback carrière uniquement si bilan sourcé | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | API fonctionnelle, 12 prochains combats mais aucune probabilité retenue au run | [Fiche](../modeles/simulations/SPORTS_INDIVIDUELS_README.md) |
+| REV-MOD-IND-03 | Hockey Finlande Liiga | ML et totaux 4,5/5,5 | Elo régularisé + Poisson et historique API Liiga | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 544 matchs de saison / 6 sorties probas au run ; aucun ROI démontré | [Fiche](../modeles/simulations/SPORTS_INDIVIDUELS_README.md) |
+| REV-MOD-NHL-02 | NHL | Joueur buteur, passeur, point et tirs | Régression saisons précédentes, ESPN NHL skaters, Poisson de comptage | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 224 profils/32 équipes réellement publiés, effectifs non confirmés, ROI inconnu | [Fiche](../modeles/simulations/NHL-JOUEURS-README.md) |
+
 ## Analyses par source
 
 - [2026-10-09 — Purple-Wraith/clairvoyance-backend](../analyses/2026-10-09_Purple-Wraith_clairvoyance-backend.md) : 8 pistes NHL/hockey/validation et un outil de contrôle original, métriques historiques contaminées par des locks tardifs/inconnus ; aucune copie de source sans licence.
