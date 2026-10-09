@@ -141,7 +141,7 @@ async function load(){
    fetch("engine-v2-ledger.json?v="+Date.now(),{cache:"no-store"})]);
   if(!a.ok||!b.ok)throw Error("Rapport non publié");
   data=await a.json();ledger=await b.json();
-  $("runtime").textContent=data.odds_status==="active"?"Radar connecté · simulations uniquement":"Collecte des cotes inactive";
+  $("runtime").textContent=String(data.odds_status).startsWith("active")?"Radar connecté · simulations uniquement":"Collecte des cotes inactive";
   $("updated").textContent=formatTime(data.generated_at_utc);
   $("mode").textContent=data.mode;
   $("k-events").textContent=data.coverage?.eligible_leagues?.length??0;
@@ -155,7 +155,7 @@ async function load(){
     "Aucune erreur API déclarée.";
   if(data.odds_status==="disabled_no_key"){
    $("notice-title").textContent="Clé de cotes non configurée";
-   $("notice-body").textContent="Ajouter le secret THE_ODDS_API_KEY dans Settings → Secrets and variables → Actions (sur GitHub). Rien n'est inventé tant que l'API est inactive. Le suivi est une simulation, pas un compte bookmaker.";
+   $("notice-body").textContent="Ajouter PULSESCORE_API_KEY (PulseScore Pro) ou THE_ODDS_API_KEY (The Odds API) dans Settings → Secrets and variables → Actions de GitHub. Sans clé, aucun prix n'est inventé. Les sélections restent des simulations.";
   }else{
    $("notice-title").textContent="Probabilités expérimentales";
    $("notice-body").textContent="Les écarts calculés ne prouvent pas une value. Tous les picks sont des tests papier, soumis au filtre pré-match et à des cotes réelles.";
