@@ -1,0 +1,19 @@
+name: Revue - Probe ESPN Soccer Stats
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'outils/probe_espn_football_stats.py'
+      - '.github/workflows/probe-football-data.yml'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python outils/probe_espn_football_stats.py
