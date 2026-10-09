@@ -98,4 +98,4 @@ function verifyEuroHockeyMatches(source,compare){
   }
   return count;
 }
-module.exports={verifyEuroHockeyMatches};
+module.exports={verifyEuroHockeyMatches,sourceFunction,fixtureCases};
