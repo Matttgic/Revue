@@ -71,6 +71,19 @@ class ArenaTests(unittest.TestCase):
                             capture_output=True,text=True,timeout=12)
                         self.assertEqual(check.returncode,0,check.stderr)
 
+    def test_progress_is_explained_and_weighted(self):
+        import json
+        d=json.loads((DOCS/"progression-revue.json").read_text(encoding="utf-8"))
+        weights=d["categories"]
+        self.assertEqual(sum(x["weight"] for x in weights),100)
+        self.assertEqual(round(sum(x["weight"]*x["coverage"] for x in weights)),
+                         d["estimated_functional_coverage_percent"])
+        self.assertIn("Editorial",d["estimate_method"])
+        self.assertIn("CFB",d["excluded_by_user"])
+        self.assertNotIn("profit",d["goal"].lower())
+        self.assertIn("progression-revue.json",
+                      (DOCS/"index.html").read_text(encoding="utf-8"))
+
     def test_all_internal_links_exist(self):
         for name in PAGES:
             doc=Page();doc.feed((DOCS/name).read_text(encoding="utf-8"))
