@@ -126,7 +126,7 @@ def _fetch_espn_stats(season:int,clubs:set[str]) -> tuple[list[dict],dict]:
     page=1;raw=[];errors=[]
     while page<=12:
         params=urlencode({"limit":100,"category":"skaters","season":season_year,
-                          "page":page,"isqualified":"false"})
+                          "page":page,"isqualified":"false","seasontype":2})
         try:
             with urlopen(Request(endpoint+"?"+params,headers={"Accept":"application/json"}),timeout=22) as response:
                 body=json.loads(response.read().decode("utf-8"))
