@@ -524,6 +524,13 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
         meta["status"]="active_the_odds_api" if meta["requests"] else "no_odds_returned"
     picks,notes=market_recommendations(models,odds,now)
     paper_locks(picks,ledger,now)
+    # Observe subsequent real prices of the EXACT locked paper market only.
+    # Historical price data is never synthesized from latest odds.
+    from outils.historique_cotes_clv import observe as follow_prices
+    from outils.historique_cotes_clv import report as closing_report
+    observations=follow_prices(ledger,odds,now)
+    price_tracking=closing_report(ledger,now)
+    price_tracking["scan_observations"]=observations
     report={
         "generated_at_utc":now.isoformat(),
         "engine":"Revue Engine V2 — indépendant / expérimental",
@@ -536,6 +543,7 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
         "candidates":picks[:100],
         "diagnostics":notes,
         "paper":ledger_statistics(ledger),
+        "price_tracking":price_tracking,
         "warning":"Aucun modèle calibré. EV supposée, non vérifiée. Aucun pari réel automatique.",
     }
     return report,ledger
