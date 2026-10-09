@@ -21,12 +21,16 @@ select{border:1px solid var(--line);border-radius:9px;background:var(--panel);pa
 footer{border-top:1px solid var(--line);padding-top:22px;margin-top:35px}a{color:#b8d7fc}p.note{font-size:12px}
 </style></head><body><main>
 <header><small>REVUE / LAB · Candidat de recherche</small><h1>Le football<br><span>en profondeur.</span></h1>
-<p>Forme, Elo, correction Dixon-Coles et possibilité d'ajouter des xG autorisés. Comparaison chronologique contre le modèle précédent.</p></header>
+<p>Forme, Elo, correction Dixon-Coles et données de tirs/tirs cadrés réellement observées sur ESPN. Comparaison chronologique contre le modèle précédent. Les vrais xG Opta ne sont pas fournis.</p></header>
 <div class="notice"><strong>Ce modèle n'est pas utilisé pour miser.</strong><br>Ses probabilités ne sont pas calibrées. Aucune donnée Opta autorisée n'est encore connectée. Les résultats présentés sont exploratoires et ne remplacent pas le modèle de production.</div>
 <div class="filters"><h2>Prochains matchs</h2><select id="league" aria-label="Championnat"><option value="">Tous les championnats</option></select></div>
 <div id="status" class="muted">Chargement des prévisions…</div><div id="cards" class="grid"></div>
 <h2 style="margin-top:32px">Comparaison avec le modèle actuel</h2><p class="note">Plus le Brier est bas, meilleure est l'erreur moyenne. Les différences sur quelques dizaines de matchs sont très incertaines.</p>
 <div id="audits" class="audits"></div>
+<h2 style="margin-top:32px">Validation prospective, matchs verrouillés avant le début</h2>
+<p class="note">Chaque couple de probabilités (ancien et candidat) est enregistré avant le match, puis évalué une seule fois au score final. Aucun rendement de pari simulé ici.</p>
+<div id="prospective" class="audits"><div class="audit muted">Chargement du registre pré-match…</div></div>
+
 <footer><p><a href="index.html">← Revue</a> · <a href="https://github.com/Matttgic/Revue/blob/main/modeles/simulations/FOOTBALL-AVANCE-README.md">Méthode et limites</a></p></footer>
 </main><script>
 "use strict";
@@ -87,4 +91,27 @@ async function init(){
  }catch(e){by("status").textContent="Données indisponibles : "+e.message}
 }
 init();
+async function showProspective(){
+ const el=by("prospective");
+ try{
+  const r=await fetch("football-shadow-performance.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("Le rapport n'est pas encore publié");
+  const data=await r.json();
+  el.replaceChildren();
+  for(const [key,label] of [["ALL","Tous championnats"],["WITH_ESPN_SHOTS","Avec tirs ESPN"],["WITHOUT_ESPN_SHOTS","Sans tirs ESPN"]]){
+   const g=data.performance?.[key]||{};
+   const box=node("article","audit");
+   box.append(node("div","label",label),
+              node("strong","",String(g.n_recorded||0)+" prévisions archivées"),
+              node("p","muted",String(g.n_settled||0)+" matchs évalués · "+String(g.n_pending||0)+" à jouer"));
+   if(g.n_settled){
+     box.append(node("p","muted","Brier ancien : "+g.scores.baseline_metrics.brier),
+                node("p","muted","Brier candidat : "+g.scores.shadow_metrics.brier),
+                node("p","muted","Différence : "+g.brier_delta_candidate_minus_baseline+" (négative = mieux)"));
+   }else box.append(node("p","note","Échantillon pas encore disponible ; aucune conclusion."));
+   el.append(box);
+  }
+ }catch(e){el.replaceChildren(node("p","muted","Rapport prospectif : "+e.message))}
+}
+showProspective();
 </script></body></html>
