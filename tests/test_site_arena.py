@@ -12,7 +12,7 @@ DOCS=ROOT/"docs"
 PAGES=(
     "index.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","football-avance.html",
-    "qualite-modeles.html",
+    "qualite-modeles.html","ensemble-mc-bayes.html",
 )
 
 class Page(HTMLParser):
