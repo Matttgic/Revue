@@ -1,0 +1,35 @@
+name: Revue - Verify PulseScore Connection
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/check-pulsescore.yml'
+      - 'outils/check_pulsescore_connection.py'
+permissions:
+  contents: write
+concurrency:
+  group: revue-pulse-verify
+  cancel-in-progress: false
+jobs:
+  one-request-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify PulseScore key with one read-only request
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+        run: python outils/check_pulsescore_connection.py
+      - name: Save sanitized connection status only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/pulsescore-connection-status.json
+          if ! git diff --cached --quiet; then
+            git commit -m "diagnostics: vérifier accès PulseScore sans exposer les données"
+            git pull --rebase -X theirs origin main
+            git push origin HEAD:main
+          fi
