@@ -4,6 +4,15 @@
 
 > **Principe : une idée intéressante n'est pas une stratégie rentable démontrée.** Aucun rendement n'est garanti. La bibliothèque distingue hypothèse, code reproductible, backtest et validation hors échantillon.
 
+## Premier modèle exécutable : NHL Independent (prototype)
+
+- [Moteur Python original Elo + Poisson](modeles/simulations/nhl_independant.py) et [documentation](modeles/simulations/NHL-INDEPENDANT-README.md)
+- [Dernières probabilités NHL](docs/nhl-model-latest.json) (fichier calculé réellement depuis l'API NHL)
+- [Interface mobile](docs/nhl-model.html) (affichage comme site si GitHub Pages est activé pour /docs)
+- [Tests GitHub Actions](.github/workflows/nhl-independent.yml) : 13 tests réussis, rafraîchissement automatisé
+
+**Important :** modèle non calibré, sans données de gardien confirmé, sans prix de bookmaker français et sans stratégie de pari validée. Aucun code du dépôt Clairvoyance non licencié n'a été copié.
+
 ## Organisation
 
 ```text
