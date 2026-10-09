@@ -4,6 +4,14 @@
 
 > **Principe : une idée intéressante n'est pas une stratégie rentable démontrée.** Aucun rendement n'est garanti. La bibliothèque distingue hypothèse, code reproductible, backtest et validation hors échantillon.
 
+## Tableau de bord multisports — 14 flux connectés (prototype)
+
+- [Moteur multisports original](modeles/simulations/multisports_independant.py) et [documentation détaillée](modeles/simulations/MULTISPORTS-README.md).
+- [Tableau de bord mobile](docs/multisports.html) : football, basket, football américain, baseball et NHL ; nécessite GitHub Pages pour une adresse de site publique.
+- [Prédictions réellement générées](docs/multisports-latest.json) et [workflow d'actualisation](.github/workflows/multisports-independent.yml).
+- **Vérification du 09/10/2026 :** 14 flux ESPN/NHL répondent, 133 rencontres sur trois jours et 99 probabilités. D'autres compétitions restent explicitement sans source (hockey européen, tennis, MMA). Les chiffres changent à chaque exécution.
+- **Aucune EV réelle ni retour prouvé** : modèles exploratoires non calibrés, pas encore de cote de bookmaker français ni de props joueurs.
+
 ## Premier modèle exécutable : NHL Independent (prototype)
 
 - [Moteur Python original Elo + Poisson](modeles/simulations/nhl_independant.py) et [documentation](modeles/simulations/NHL-INDEPENDANT-README.md)
