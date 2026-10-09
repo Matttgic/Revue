@@ -14,6 +14,7 @@ const own = require("../modeles/reproduction/frontend_clairvoyance.js");
 const {verifyNHL} = require("./verify_clairvoyance_nhl.js");
 const {verifySoccerXG} = require("./verify_clairvoyance_soccer_xg.js");
 const {verifySoccerAnalytics} = require("./verify_clairvoyance_soccer_analytic.js");
+const {verifyEuroHockey} = require("./verify_clairvoyance_euro_hockey.js");
 
 function original(source, name) {
   const match = new RegExp("^function\\s+" + name + "\\s*\\(", "m").exec(source);
@@ -43,7 +44,9 @@ const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
                  frontend_nhl_mc: 0, frontend_nhl_ensemble: 0,
                  frontend_soccer_xg: 0,
                  frontend_soccer_poisson_pmf:0, frontend_soccer_poisson_over:0,
-                 frontend_soccer_margin_dist:0, frontend_soccer_spread_prob:0 };
+                 frontend_soccer_margin_dist:0, frontend_soccer_spread_prob:0,
+                 frontend_liiga_rates:0, frontend_nla_rates:0,
+                 frontend_extraliga_rates:0, frontend_shl_rates:0 };
 function compare(label, name, target, actual) {
   const left = JSON.stringify(target), right = JSON.stringify(actual);
   assert.equal(right, left, "Parity difference on " + label + ": " + right + " vs " + left);
@@ -353,6 +356,7 @@ function verify(source) {
   verifyNHL(source,compare);
   verifySoccerXG(source,compare);
   verifySoccerAnalytics(source,compare);
+  verifyEuroHockey(source,compare);
   return checks;
 }
 
