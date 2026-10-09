@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#060a14">
+<title>REVUE ARENA — Laboratoire Monte Carlo / Bayes / Elo</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1160px!important}
+.hero{margin:28px 0 20px;padding:29px 22px;background:linear-gradient(120deg,rgba(17,33,57,.96),rgba(12,20,43,.95));border:1px solid rgba(89,243,219,.26);border-radius:14px;position:relative;overflow:hidden}
+.hero::after{position:absolute;right:-90px;top:-100px;width:280px;height:280px;border-radius:50%;content:"";background:radial-gradient(circle,rgba(170,126,255,.20),transparent 68%);pointer-events:none}
+.hero .tag{font:700 11px 'Chakra Petch',system-ui,sans-serif;letter-spacing:.16em;color:var(--cyan)}
+.hero h1{font:700 clamp(2.25rem,7vw,5rem)/.94 'Chakra Petch',system-ui,sans-serif;margin:16px 0;letter-spacing:-.064em}
+.hero h1 span{color:var(--cyan)}
+.hero p{color:var(--muted);max-width:740px;line-height:1.65;margin:0}
+.note{margin:18px 0;padding:14px 16px;border-left:3px solid var(--orange);background:rgba(16,25,42,.76);color:#d1dce8;font-size:12px}
+.controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;margin:25px 0 12px}
+.controls h2,.section-title{margin:0;font:700 22px 'Chakra Petch',sans-serif}
+.controls select{min-width:210px;padding:12px;border:1px solid var(--edge);border-radius:9px;background:#102039;color:var(--fg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.panel{padding:19px;border:1px solid rgba(113,153,198,.22);background:linear-gradient(135deg,rgba(17,31,52,.98),rgba(8,18,34,.97));border-radius:12px}
+.panel .kicker{color:var(--cyan);font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.12em}
+.panel h3{font:700 21px/1.2 'Chakra Petch',sans-serif;margin:11px 0}
+.stats{display:flex;gap:11px;flex-wrap:wrap;margin:10px 0}
+.stat{background:rgba(7,17,33,.8)!important;border:1px solid rgba(104,151,183,.24)!important;padding:13px 14px!important;border-radius:10px!important;flex:1;min-width:82px}
+.stat label{font-size:10px;color:var(--muted);display:block}
+.stat strong{font:700 22px 'Chakra Petch',sans-serif;color:#eef8ff}
+.label{font:700 10px 'Chakra Petch',sans-serif;color:var(--cyan)!important;letter-spacing:.1em}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
+.meters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}
+.meters>div{text-align:center;background:rgba(6,16,29,.75);border:1px solid rgba(125,170,194,.15);padding:10px 6px;border-radius:8px}
+.meters strong{display:block;color:var(--cyan);font:700 19px 'Chakra Petch',sans-serif}
+.meters span{display:block;color:var(--muted);font-size:10px}
+.empty{border:1px dashed var(--edge);border-radius:10px;padding:20px;color:var(--muted)}
+.score{font:700 26px 'Chakra Petch',sans-serif;margin-top:12px}
+.delta{font:700 14px 'Chakra Petch',sans-serif}
+.good{color:var(--cyan)}.bad{color:#ffa5a5}.neutral{color:var(--muted)}
+footer{margin-top:32px;border-top:1px solid var(--edge);padding:25px 0;color:var(--muted);font-size:12px}
+@media(max-width:600px){.meters{gap:4px}.meters strong{font-size:15px}.controls select{width:100%}}
+</style>
+</head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation"><a href="./index.html">QG</a><a href="./engine-v2.html">SCANNER</a><a href="./multisports.html" aria-current="page">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav>
+<span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i> RESEARCH</span>
+</div></div>
+<main>
+<section class="hero">
+<div class="tag">// RESEARCH LAB 07 — NO AUTOMATIC BETS</div>
+<h1>SIMULATE.<br><span>COMPARE. EVOLVE.</span></h1>
+<p>Trois approches indépendantes par rencontre : Monte-Carlo (768 simulations), Bayes (lissage de victoires) et Elo. Leur combinaison est évaluée chronologiquement face aux modèles Revue précédents.</p>
+</section>
+<div class="note"><strong>MODE EXPÉRIMENTAL</strong> — Ces probabilités ne sont pas calibrées et ne sont pas des cotes. Aucun pari n'est automatiquement déclenché. L'absence de données pour un sport ne produit pas de prédictions inventées.</div>
+<p id="metadata" class="small" role="status">Chargement des résultats du moteur…</p>
+<div class="controls"><h2>01 / MATCHS À VENIR</h2><select id="league" aria-label="Championnat"><option value="">Tous les sports</option></select></div>
+<div id="games" class="grid"></div>
+<div class="controls" style="margin-top:38px"><h2>02 / COMPARAISON CHRONOLOGIQUE</h2><span class="small">Score de Brier : plus petit = meilleur</span></div>
+<div id="evaluation" class="grid"></div>
+<footer>REVUE ARENA · Les modèles Monte-Carlo, Bayes et Elo sont des algorithmes indépendants développés pour Revue. Les résultats historiques ne démontrent pas une rentabilité en conditions réelles.
+<a href="https://github.com/Matttgic/Revue/blob/main/modeles/simulations/ensemble_montecarlo_bayes.py">Voir le code ↗</a></footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const names={NBA:"NBA",WNBA:"WNBA",NCAAB:"NCAA Basket",NFL:"NFL",MLB:"MLB"};
+let snapshot=null;
+const dateString=iso=>new Date(iso).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+function el(tag,cls,text){
+ const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=String(text);return n;
+}
+function metric(label,value){
+ const n=el("div","stat");n.append(el("label","",label),el("strong","",value));return n;
+}
+const percent=x=>typeof x==="number"?(100*x).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"N.C.";
+function score(x){return Number.isFinite(x)?x.toLocaleString("fr-FR",{minimumFractionDigits:3,maximumFractionDigits:5}):"—";}
+function render(){
+ const selected=$("league").value;
+ const games=$("games");games.replaceChildren();
+ const evalbox=$("evaluation");evalbox.replaceChildren();
+ let played=0;
+ for(const [lg,d] of Object.entries(snapshot?.leagues||{})){
+  if(selected&&selected!==lg)continue;
+  const upcoming=(d.games||[]).filter(g=>Date.parse(g.start_utc)>Date.now());
+  for(const g of upcoming){
+   played++;
+   const box=el("article","panel");
+   box.append(el("span","kicker",lg+" · "+dateString(g.start_utc)),el("h3","",g.home+" — "+g.away));
+   if(g.probabilities){
+    const ms=el("div","stats");
+    ms.append(metric("DOMICILE",percent(g.probabilities.home_win)),
+              metric("EXTÉRIEUR",percent(g.probabilities.away_win)));
+    box.append(ms);
+    const modes=el("div","meters");
+    for(const [label,key] of [["Monte-Carlo","monte_carlo"],["Bayes","bayes"],["Elo","elo"]]){
+     const col=el("div");col.append(el("strong","",percent(g.components?.[key])),
+                                   el("span","",label));modes.append(col);
+    }
+    box.append(modes);
+    box.append(el("p","small","Historique : "+g.training_games.home+" et "+g.training_games.away+" matchs par équipe. Prévision exploratoire."));
+   }else box.append(el("p","small","Historique insuffisant pour produire une probabilité."));
+   games.append(box);
+  }
+  const e=d.evaluation||{};
+  const panel=el("article","panel");
+  panel.append(el("div","kicker",lg+" / BACKTEST"),el("h3","",names[lg]||lg));
+  if(e.n>0&&e.scores){
+   panel.append(el("p","small",e.n+" matchs évalués avec connaissance antérieure au coup d'envoi."));
+   const m=el("div","stats");
+   m.append(metric("PRODUCTION",score(e.scores.baseline?.brier_binary)),
+            metric("PRÉCÉDENT",score(e.scores.previous_shadow?.brier_binary)),
+            metric("ENSEMBLE",score(e.scores.ensemble?.brier_binary)));
+   panel.append(m);
+   const delta=e.delta_brier_vs_baseline;
+   panel.append(el("div","delta "+(delta<0?"good":delta>0?"bad":"neutral"),
+                    "Écart / production : "+(delta>0?"+":"")+score(delta)+
+                    (delta<0?" · amélioration":delta>0?" · dégradation":" · identique")));
+   if(e.n<100)panel.append(el("div","small","Échantillon inférieur à 100 matchs : résultat fragile."));
+  }else panel.append(el("p","small","Pas assez de données historiques pour une comparaison fiable."));
+  evalbox.append(panel);
+ }
+ if(!played)games.append(el("div","empty","Aucun prochain match exploitable avec cet historique."));
+ if(!evalbox.children.length)evalbox.append(el("div","empty","Aucun historique disponible."));
+}
+async function load(){
+ try{
+  const response=await fetch("./ensemble-mc-bayes-latest.json?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw new Error("Rapport non encore publié");
+  snapshot=await response.json();
+  $("metadata").textContent="Dernier calcul : "+dateString(snapshot.generated_at_utc)+
+   " · "+snapshot.parameters.iterations+" simulations / match · Mode SHADOW · CFB exclu";
+  const select=$("league");
+  for(const lg of Object.keys(snapshot.leagues||{})){
+   if(lg==="CFB")continue;
+   const option=el("option","",names[lg]||lg);option.value=lg;select.append(option);
+  }
+  select.addEventListener("change",render);
+  render();
+ }catch(err){
+  $("metadata").textContent="Le rapport n'est pas accessible : "+err.message;
+  $("games").append(el("p","empty","Les statistiques seront publiées à la fin du prochain calcul GitHub."));
+ }
+}
+load();
+</script>
+</body></html>
