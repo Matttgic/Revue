@@ -414,11 +414,52 @@ def load_nhl_reference(path: Path, now: datetime, days: int) -> tuple[list[dict]
         return [], {"status": "failed", "message": str(err)[:120]}
 
 
+def load_optional_sports(path: Path, now: datetime, days: int) -> tuple[dict, dict]:
+    """Ingest ATP/WTA/UFC/Liiga outputs only when recent and properly tagged."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        timestamp = datetime.fromisoformat(data["generated_at_utc"].replace("Z", "+00:00"))
+        if timestamp.tzinfo is None:
+            raise ValueError("Timestamp without timezone")
+        if (now-timestamp).total_seconds() > 24*3600 or timestamp > now+timedelta(minutes=5):
+            return {}, {"status": "stale", "message": "Flux périmé"}
+        allowed = {"ATP", "WTA", "UFC", "LIIGA", "TENNIS"}
+        competitions = {}
+        for key, entry in (data.get("competitions") or {}).items():
+            if key not in allowed or not isinstance(entry, dict):
+                continue
+            source_games = entry.get("games") or []
+            if not isinstance(source_games, list):
+                continue
+            games = []
+            for g in source_games:
+                try:
+                    start = datetime.fromisoformat(g["start_utc"].replace("Z", "+00:00"))
+                    if start.tzinfo is None or start <= now:
+                        continue
+                    if start.astimezone(PARIS).date() >= now.astimezone(PARIS).date()+timedelta(days=days):
+                        continue
+                    games.append(g)
+                except (ValueError, TypeError, KeyError):
+                    continue
+            competitions[key] = {
+                "name": str(entry.get("name") or key),
+                "sport": str(entry.get("sport") or key),
+                "model": str(entry.get("model") or "non calibré"),
+                "status": entry.get("status", "failed"),
+                "games": games,
+            }
+        return competitions, {"status": "ok", "competitions": len(competitions)}
+    except (OSError, KeyError, ValueError, TypeError) as err:
+        return {}, {"status": "failed", "message": str(err)[:120]}
+
+
 def build_snapshot(when: datetime, days: int, only: set[str] | None = None,
-                   nhl_file: Path | None = None, cache_store: dict | None = None) -> dict:
+                   nhl_file: Path | None = None, cache_store: dict | None = None,
+                   optional_file: Path | None = None) -> dict:
     if not 1 <= days <= 7:
         raise ValueError("days must be 1..7")
-    if only and not only.issubset({x.key for x in LEAGUES} | {"NHL"}):
+    if only and not only.issubset({x.key for x in LEAGUES} | {"NHL", "ATP", "WTA", "UFC", "LIIGA", "TENNIS"}):
         raise ValueError("Unknown sport selection")
     selected = [v for v in LEAGUES if not only or v.key in only]
     feeds = {}
@@ -448,8 +489,13 @@ def build_snapshot(when: datetime, days: int, only: set[str] | None = None,
             "name": "NHL", "sport": "Hockey", "model": "Elo + Poisson NHL",
             "status": check["status"], "games": rows,
         }
+    optional, optional_diag = load_optional_sports(optional_file or Path("docs/individual-latest.json"), when, days)
+    for key, record in optional.items():
+        if only is None or key in only:
+            by_league[key] = record
+            feeds[key] = {"status": record["status"], "events": len(record["games"])}
     unsupported = [] if only else [
-        {**item, "status": "source_non_connectee"} for item in UNSUPPORTED
+        {**item, "status": "source_non_connectee"} for item in UNSUPPORTED if item["key"] not in by_league
     ]
     return {
         "generated_at_utc": when.astimezone(timezone.utc).isoformat(),
@@ -478,6 +524,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output", default="docs/multisports-latest.json")
     parser.add_argument("--nhl-file", default="docs/nhl-model-latest.json")
     parser.add_argument("--history-file", default="docs/multisports-history.json")
+    parser.add_argument("--individual-file", default="docs/individual-latest.json")
     args = parser.parse_args(argv)
     selected = set(x.strip().upper() for x in args.leagues.split(",")) if args.leagues else None
     cache_file = Path(args.history_file)
@@ -492,6 +539,7 @@ def main(argv: list[str] | None = None) -> int:
         report = build_snapshot(
             datetime.now(timezone.utc), args.days, selected,
             Path(args.nhl_file), cache_store=league_cache,
+            optional_file=Path(args.individual_file),
         )
     except ValueError as err:
         parser.error(str(err))
