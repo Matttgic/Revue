@@ -1,0 +1,30 @@
+name: Revue - Check MoneyPuck data schema
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/probe-moneypuck.yml'
+permissions:
+  contents: read
+jobs:
+  inspect-allowed-download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Inspect ONLY official season-download CSV column names
+        run: |
+          python - <<'PY'
+          import csv,io,urllib.request
+          for y in (2026,2025):
+              url=f"https://moneypuck.com/moneypuck/playerData/seasonSummary/{y}/regular/teams.csv"
+              try:
+                  with urllib.request.urlopen(url,timeout=22) as response:
+                      rows=list(csv.DictReader(io.StringIO(response.read().decode("utf-8-sig"))))
+                  if not rows:
+                      print(y,"EMPTY")
+                  else:
+                      print(y,"ROWS",len(rows),"FIELDS",sorted(rows[0].keys()))
+                      print(y,"situation values", sorted(set(x.get("situation","") for x in rows))[:12])
+              except Exception as exc:
+                  print(y,"UNAVAILABLE",type(exc).__name__)
+          PY
