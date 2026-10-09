@@ -178,6 +178,7 @@ class PaperTests(unittest.TestCase):
             "id":"paper-001","event_id":"nhl-1","league":"NHL","market":"totals",
             "side":"over","line":5.5,"start_utc":iso(old),
             "status":"pending","chronology":"pre_valide",
+            "market_rule_verified":True,
             "bookmaker_price":1.8,"paper_stake_units":1,
             "locked_at":iso(old-timedelta(hours=3)),
             "quote_at":iso(old-timedelta(hours=3,minutes=4)),
@@ -194,6 +195,7 @@ class PaperTests(unittest.TestCase):
             "id":"paper-002","event_id":"nhl-2","league":"NHL","market":"totals",
             "side":"over","line":5.5,"start_utc":iso(old),
             "status":"pending","chronology":"pre_valide",
+            "market_rule_verified":True,
             "bookmaker_price":1.8,"paper_stake_units":1,
             "locked_at":iso(old-timedelta(hours=3)),
             "quote_at":iso(old-timedelta(hours=3,minutes=4)),
@@ -204,12 +206,29 @@ class PaperTests(unittest.TestCase):
         self.assertEqual(ledger["bets"][0]["score"],{"home":4,"away":3})
         self.assertEqual(ledger["bets"][0]["status"],"won")
 
+    def test_unverified_nhl_market_quarantined(self):
+        old=NOW-timedelta(days=2)
+        entry={
+            "id":"paper-legacy","event_id":"nhl-old","league":"NHL",
+            "market":"totals","side":"over","line":5.5,
+            "start_utc":iso(old),"locked_at":iso(old-timedelta(hours=3)),
+            "quote_at":iso(old-timedelta(hours=3,minutes=2)),
+            "model_at":iso(old-timedelta(hours=4)),
+            "chronology":"pre_valide","status":"pending",
+            "paper_stake_units":1,"bookmaker_price":2.2
+        }
+        ledger={"bets":[entry]}
+        settle_ledger(ledger,{},NOW,lambda *args:(4,3,"SO"))
+        self.assertEqual(ledger["bets"][0]["status"],"market_rule_unverified")
+        self.assertIsNone(ledger_statistics(ledger)["paper_roi_pct"])
+
     def test_unknown_shootout_unsettled(self):
         old=NOW-timedelta(days=2)
         ledger={"bets":[{
             "id":"paper-002","event_id":"nhl-2","league":"NHL","market":"totals",
             "side":"under","line":5.5,"start_utc":iso(old),
             "status":"pending","chronology":"pre_valide",
+            "market_rule_verified":True,
             "bookmaker_price":1.8,"paper_stake_units":1,
             "locked_at":iso(old-timedelta(hours=3)),
             "quote_at":iso(old-timedelta(hours=3,minutes=4)),
