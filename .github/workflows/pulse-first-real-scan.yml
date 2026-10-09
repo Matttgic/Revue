@@ -1,5 +1,6 @@
 name: Revue - First PulseScore Real Scan
-# Run one validated real 6-hour PulseScore scan with bookmaker consensus and archived price movements.
+# Refresh the 6-hour PulseScore odds BOARD once after adding the all-prices display.
+# Budget capped at 32 calls; routine refresh remains in revue-engine-v2.yml.
 on:
   workflow_dispatch:
   push:
@@ -19,10 +20,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Vérifier les 12 tests PulseScore et les 24 tests du moteur
+      - name: Vérifier PulseScore, le moteur et le tableau des prix
         run: |
           python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
           python -m unittest discover -s tests -p 'test_revue_engine_v2.py' -v
+          python -m unittest discover -s tests -p 'test_tableau_cotes.py' -v
       - name: Scanner les vraies cotes FR en mode simulation
         env:
           PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
@@ -39,7 +41,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs/engine-v2-ledger.json docs/engine-v2-latest.json
           if ! git diff --cached --quiet; then
-            git commit -m "paper: premier scan PulseScore de bookmakers français"
+            git commit -m "data: cotes françaises complètes observées PulseScore"
             git pull --rebase -X theirs origin main
             git push origin HEAD:main
           fi
