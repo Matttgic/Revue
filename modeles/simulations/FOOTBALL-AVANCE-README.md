@@ -12,6 +12,16 @@ Développement du 09/10/2026. Réécriture originale inspirée d'approches stati
 - Toutes les features doivent avoir une date de publication pré-match ; aucune valeur post-match ne peut rétroagir sur une ancienne évaluation.
 - Les identifiants d'équipe sont les identifiants ESPN dans le JSON des scores. Aucune comparaison floue silencieuse des noms.
 
+## Ajout vérifié : statistiques avancées ESPN
+
+Le collecteur [football_espn_statistiques.py](football_espn_statistiques.py) utilise les résumés de matchs ESPN et calcule des moyennes par équipe : tirs, tirs cadrés, tirs concédés, possession, passes, interceptions et tacles. Aucun xG Opta n'est inventé. Chaque observation conserve sa date de collecte et n'est utilisée qu'après celle-ci.
+
+Premier résultat réel du 9 octobre 2026 : 72 matchs traités, 23 équipes avec au moins trois matchs et cinq prévisions enrichies. Les autres reviennent au modèle sans statistiques avancées.
+
+Le suivi [prévisions enregistrées](../../docs/football-shadow-ledger.json) et [rapport Brier/log loss](../../docs/football-shadow-performance.json) compare l'ancien modèle et le candidat avant les coups d'envoi. Premier enregistrement : 34 matchs dont quatre avec statistiques ESPN, aucun encore terminé au moment du premier rapport.
+
+Le modèle reste en expérimentation et ne pilote pas Engine V2. Les données Opta de Clairvoyance ne sont pas intégrées.
+
 ## Première comparaison historique réelle (score-only, le 09/10/2026 à 20h10 CEST)
 
 | Championnat | Matchs évalués | Brier ancien | Brier candidat | Différence candidat - ancien | Verdict |
