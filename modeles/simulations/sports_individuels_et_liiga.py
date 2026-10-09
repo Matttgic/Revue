@@ -29,7 +29,7 @@ SOURCES = {
     "UFC": f"{ESPN}/mma/ufc/scoreboard",
 }
 # ATP and WTA are tried individually, then ALL only to catalog unclassified matches.
-HISTORY_DAYS = {"ATP": 24, "WTA": 24, "TENNIS": 4, "UFC": 100}
+HISTORY_DAYS = {"ATP": 21, "WTA": 21, "TENNIS": 4, "UFC": 50}
 MIN_MATCHES = {"ATP": 6, "WTA": 6, "TENNIS": 6, "UFC": 3, "LIIGA": 4}
 
 
@@ -213,7 +213,10 @@ def parse_liiga(data, now: datetime) -> list[dict]:
 
 
 def predict_liiga(events: list[dict], now: datetime, days=3) -> list[dict]:
-    from modeles.simulations.nhl_independant import _distribution, _over
+    try:
+        from .nhl_independant import _distribution, _over
+    except ImportError:
+        from nhl_independant import _distribution, _over
     unique = {}
     for e in events:
         if e["id"] not in unique or (e["finished"] and not unique[e["id"]]["finished"]):
@@ -321,7 +324,6 @@ def _fetch_individual(league: str, now: datetime, days: int,
             fails.append(key+":"+str(err)[:75])
     dates={d for d in dates if begin.isoformat()<=d<=end.isoformat()}
     result=sorted(matches.values(),key=lambda x:(x.starts,x.id))
-    success=requests+len(dates)-requests # status compute via total matched dates
     coverage=len(dates)
     status="ok" if coverage==(end-begin).days+1 else "partial" if coverage else "failed"
     return result,{"status":status,"dates_ok":coverage,"dates_total":(end-begin).days+1,
