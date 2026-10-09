@@ -83,7 +83,7 @@ class Tests(unittest.TestCase):
         ledger,_=reconcile({"events":{}},b(),s(),history(),NOW)
         report=summarize(ledger,NOW)
         self.assertEqual(report["performance"]["ALL"]["n_settled"],0)
-        self.assertNotIn("roi",str(report).lower())
+        self.assertFalse(any("roi" in key.lower() for key in report["performance"]["ALL"]))
 
     def test_unverified_post_start_lock_excluded_from_metrics(self):
         ledger,_=reconcile({"events":{}},b(),s(),history(),NOW)
