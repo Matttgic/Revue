@@ -12,11 +12,11 @@ def audit():
 class ReproductionOnlyProgressTests(unittest.TestCase):
     def test_two_original_models_are_verified(self):
         p=generate(data(),audit(),NOW)
-        self.assertEqual(p["total_target_models"],21)
+        self.assertEqual(p["total_target_models"],29)
         self.assertEqual(p["verified_formula_parity_models"],2)
-        self.assertEqual(p["formula_parity_percent"],10)
+        self.assertEqual(p["formula_parity_percent"],7)
         self.assertIsNone(p["overall_repository_reproduction_percent"])
-        self.assertEqual(p["remaining_unverified"],19)
+        self.assertEqual(p["remaining_unverified"],27)
         self.assertIn("CFB",p["excluded"])
     def test_three_js_functions_count_after_true_source_parity(self):
         js={"status":"frontend_function_output_parity_verified",
@@ -26,8 +26,8 @@ class ReproductionOnlyProgressTests(unittest.TestCase):
                                 "frontend_soccer_market_blend"]}
         p=generate(data(),audit(),NOW,js)
         self.assertEqual(p["verified_formula_parity_models"],5)
-        self.assertEqual(p["formula_parity_percent"],24)
-        self.assertEqual(p["remaining_unverified"],16)
+        self.assertEqual(p["formula_parity_percent"],17)
+        self.assertEqual(p["remaining_unverified"],24)
         self.assertEqual(p["exact_equality_tests_passed"],71)
 
     def test_source_commit_mismatch_cannot_boost_progress(self):
@@ -38,7 +38,7 @@ class ReproductionOnlyProgressTests(unittest.TestCase):
                                 "frontend_soccer_market_blend"]}
         p=generate(data(),audit(),NOW,js)
         self.assertEqual(p["verified_formula_parity_models"],2)
-        self.assertEqual(p["formula_parity_percent"],10)
+        self.assertEqual(p["formula_parity_percent"],7)
 
     def test_original_models_never_count(self):
         p=generate({"status":"experimental_no_bets","verified_modules":["backend_mlb_elo"],"exact_equality_tests_passed":999},audit(),NOW)
