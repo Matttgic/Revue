@@ -7,6 +7,8 @@ on:
       - 'outils/verifier_parite_clairvoyance.py'
       - 'tests/test_clairvoyance_model_reproduction.py'
       - 'outils/catalogue_parite_modeles.py'
+      - 'modeles/reproduction/frontend_clairvoyance.js'
+      - 'outils/verify_clairvoyance_frontend.js'
       - 'tests/test_catalogue_parite_modeles.py'
       - '.github/workflows/parite-clairvoyance-predictor.yml'
   schedule:
@@ -38,6 +40,12 @@ jobs:
       - name: Verify real parity against original reference (read only AST)
         working-directory: revue
         run: python -m outils.verifier_parite_clairvoyance --reference ../clairvoyance_reference --output docs/parite-clairvoyance-predictor.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Vérifier les fonctions JavaScript originales sur mêmes entrées
+        working-directory: revue
+        run: node outils/verify_clairvoyance_frontend.js ../clairvoyance_reference docs/parite-clairvoyance-frontend.json
       - name: Check the strict model parity progress measurement
         working-directory: revue
         run: python -m unittest discover -s tests -p 'test_catalogue_parite_modeles.py' -v
@@ -49,7 +57,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/parite-clairvoyance-predictor.json docs/parite-modeles-clairvoyance.json
+          git add docs/parite-clairvoyance-predictor.json docs/parite-clairvoyance-frontend.json docs/parite-modeles-clairvoyance.json
           if ! git diff --cached --quiet; then
             git commit -m "parity: verify original Clairvoyance backend MLB and NHL models"
             git pull --rebase -X theirs origin main
