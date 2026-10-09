@@ -78,6 +78,16 @@ class OddsTrajectoryTests(unittest.TestCase):
         observe(d,odds(),NOW)
         self.assertIsNone(closing_sample(b))
         self.assertEqual(report(d,NOW)["n_tracked"],0)
+    def test_valid_legacy_non_hockey_market_is_tracked(self):
+        d=ledger()
+        del d["bets"][0]["market_rule_verified"]
+        self.assertEqual(observe(d,odds(),NOW)["new_observations"],1)
+        self.assertEqual(report(d,NOW)["n_tracked"],1)
+    def test_old_nhl_market_remains_excluded(self):
+        d=ledger(k="NHL")
+        del d["bets"][0]["market_rule_verified"]
+        self.assertEqual(report(d,NOW)["n_tracked"],0)
+
     def test_no_roi_from_price_movement(self):
         d=ledger()
         result=report(d,NOW)
