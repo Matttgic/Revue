@@ -7,6 +7,8 @@ on:
     paths:
       - 'modeles/simulations/multisports_independant.py'
       - 'tests/test_multisports_independant.py'
+      - 'modeles/simulations/sports_individuels_et_liiga.py'
+      - 'tests/test_sports_individuels_et_liiga.py'
       - '.github/workflows/multisports-independent.yml'
 
 permissions:
@@ -30,13 +32,17 @@ jobs:
       - name: Mettre à jour NHL depuis API officielle
         run: python modeles/simulations/nhl_independant.py --days 3 --output docs/nhl-model-latest.json
         continue-on-error: true
+      - name: Tester tennis UFC Liiga sans réseau
+        run: python -m unittest discover -s tests -p 'test_sports_individuels_et_liiga.py' -v
+      - name: Tennis UFC Liiga depuis données réelles
+        run: python modeles/simulations/sports_individuels_et_liiga.py --days 3 --output docs/individual-latest.json
       - name: Calculer toutes les compétitions disponibles
         run: python modeles/simulations/multisports_independant.py --days 3 --output docs/multisports-latest.json
       - name: Enregistrer uniquement les prédictions calculées
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json
+          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else
