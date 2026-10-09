@@ -12,7 +12,9 @@ def games(n=20,league="NBA"):
     return [fixture(i,-n+i,league,(90+i%15,85+i%9)) for i in range(n)]
 class MultiTeamTests(unittest.TestCase):
     def test_league_cover(self):
-        self.assertEqual(set(SPORTS),{"NBA","WNBA","NCAAB","NFL","CFB","MLB"})
+        self.assertEqual(set(SPORTS),{"NBA","WNBA","NCAAB","NFL","MLB"})
+    def test_cfb_not_in_experimental_models(self):
+        self.assertNotIn("CFB", SPORTS)
     def test_history_lag(self):
         g=fixture(1,-.1)
         self.assertEqual(history_before([g],"NBA",NOW),[])
