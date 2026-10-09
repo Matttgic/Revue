@@ -3,6 +3,9 @@ import unittest
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
+import shutil
+import subprocess
+import tempfile
 
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
@@ -43,6 +46,30 @@ class ArenaTests(unittest.TestCase):
                 self.assertIn("./index.html",dom.links)
                 self.assertIn("rv-topbar",text)
                 self.assertIn("rv-nav",text)
+
+    def test_all_inline_javascript_parses(self):
+        node=shutil.which("node")
+        if not node:self.skipTest("Node.js unavailable in local environment")
+        class Scripts(HTMLParser):
+            def __init__(self):
+                super().__init__();self.parts=[];self.reading=False
+            def handle_starttag(self,tag,attrs):
+                if tag=="script" and not dict(attrs).get("src"):self.reading=True;self.parts.append("")
+            def handle_endtag(self,tag):
+                if tag=="script":self.reading=False
+            def handle_data(self,data):
+                if self.reading:self.parts[-1]+=data
+        for name in PAGES:
+            p=Scripts();p.feed((DOCS/name).read_text(encoding="utf-8"))
+            for i,js in enumerate(p.parts):
+                if not js.strip():continue
+                with self.subTest(page=name,script=i):
+                    with tempfile.TemporaryDirectory() as tmp:
+                        script=Path(tmp)/"check.js"
+                        script.write_text(js,encoding="utf-8")
+                        check=subprocess.run([node,"--check",str(script)],
+                            capture_output=True,text=True,timeout=12)
+                        self.assertEqual(check.returncode,0,check.stderr)
 
     def test_all_internal_links_exist(self):
         for name in PAGES:
