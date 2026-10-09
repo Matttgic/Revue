@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""Named Clairvoyance model-parity scoreboard, NOT overall project completion.
+
+13 explicit primary prediction functions, CFB excluded at user request.
+A function is 'verified' ONLY when a GitHub CI parity report compares actual
+output to source from a pinned Clairvoyance commit. Other Revue innovations
+and numeric backtests cannot boost this percentage.
+"""
+from __future__ import annotations
+import argparse,json
+from datetime import datetime,timezone
+from pathlib import Path
+
+MODELS=(
+    ("backend_mlb_elo","MLB · Elo / marché moneyline","app/services/predictor.py","predict_mlb_game"),
+    ("backend_nhl_elo_moneypuck_goalie","NHL · Elo / xG / gardien","app/services/predictor.py","predict_nhl_game"),
+    ("frontend_nhl_mc","NHL · Monte-Carlo","docs/app.html","nhlMC"),
+    ("frontend_nhl_ensemble","NHL · Ensemble","docs/app.html","nhlEns"),
+    ("frontend_nba_mc","NBA · Monte-Carlo","docs/app.html","nbaMC"),
+    ("frontend_nba_bayes","NBA · Bayes","docs/app.html","nbaGetBayes"),
+    ("frontend_nba_ensemble","NBA · Ensemble","docs/app.html","nbaEns"),
+    ("frontend_nfl_mc","NFL · Monte-Carlo","docs/app.html","nflMC"),
+    ("frontend_nfl_bayes","NFL · Bayes","docs/app.html","_nflBayes"),
+    ("frontend_nfl_ensemble","NFL · Ensemble","docs/app.html","nflEns"),
+    ("frontend_soccer_xg","Football · xG","docs/app.html","_socXG"),
+    ("frontend_soccer_mc","Football · Monte-Carlo","docs/app.html","_soccerMC"),
+    ("frontend_soccer_market_blend","Football · Pondération du marché","docs/app.html","_socMarketBlend"),
+)
+
+def generate(reference_parity:dict,audit:dict,as_of:datetime)->dict:
+    verified=set(reference_parity.get("verified_modules") or [])
+    same=(reference_parity.get("status")=="predictor_formula_parity_verified"
+          and (reference_parity.get("exact_equality_tests_passed") or 0)>0)
+    listed={x["name"] for x in audit.get("frontend_model_symbols",{}).get("model_symbols",[])}
+    entries=[]
+    for model_id,label,source,fn in MODELS:
+        is_verified=(same and model_id in verified and
+                     (source!="docs/app.html" or fn in listed))
+        is_indexed=source!="docs/app.html" or fn in listed
+        entries.append({
+            "id":model_id,"label":label,"original_function":fn,
+            "source_file":source,
+            "source_indexed":is_indexed,
+            "status":"exact_formula_parity_verified" if is_verified else
+                     "pending_implementation_or_parity",
+            "verified_source_commit":reference_parity.get("reference_commit")
+                        if is_verified else None,
+            "reproduced_with_same_data":False,
+            "verified_with_original_datasets":False,
+        })
+    n_verified=sum(item["status"]=="exact_formula_parity_verified"
+                   for item in entries)
+    n_total=len(entries)
+    return {
+        "generated_at_utc":as_of.astimezone(timezone.utc).isoformat(),
+        "name":"Clairvoyance Model Reproduction — FIRST 13 model functions",
+        "status":"initial_defined_scope_not_entire_repository",
+        "excluded":["CFB"],
+        "total_target_models":n_total,
+        "verified_formula_parity_models":n_verified,
+        "remaining_unverified":n_total-n_verified,
+        "formula_parity_percent":round(100*n_verified/n_total),
+        "overall_repository_reproduction_percent":None,
+        "prediction_parity_on_live_data_percent":None,
+        "original_source_commit":reference_parity.get("reference_commit"),
+        "exact_equality_tests_passed":reference_parity.get("exact_equality_tests_passed",0),
+        "models":entries,
+        "notes":[
+            "Percentage covers ONLY the 13 explicitly listed core functions, not all of Clairvoyance.",
+            "Source-side mathematical parity is verified on test inputs; real data parity and profit are NOT verified.",
+            "Revue's original models, Monte-Carlo/Bayes experiments, pages and API integrations are EXCLUDED.",
+            "Progress can increase only after direct source-vs-reproduction parity tests on pinned source versions.",
+            "CFB intentionally excluded at the user's request.",
+        ],
+    }
+
+def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--parity",default="docs/parite-clairvoyance-predictor.json")
+    parser.add_argument("--audit",default="docs/clairvoyance-code-audit.json")
+    parser.add_argument("--output",default="docs/parite-modeles-clairvoyance.json")
+    args=parser.parse_args()
+    result=generate(json.loads(Path(args.parity).read_text(encoding="utf-8")),
+                    json.loads(Path(args.audit).read_text(encoding="utf-8")),
+                    datetime.now(timezone.utc))
+    dest=Path(args.output)
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    dest.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print("STRICT PARITY",result["verified_formula_parity_models"],"/",
+          result["total_target_models"],"=",result["formula_parity_percent"],
+          "% (13 selected functions, NOT whole repo)")
+
+if __name__=="__main__":
+    main()
