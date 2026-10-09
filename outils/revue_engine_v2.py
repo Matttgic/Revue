@@ -512,7 +512,7 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
         # No code or data is copied from the unrelated Clairvoyance project.
         from outils.pulsescore_v2 import scan as pulse_scan
         odds,diag=pulse_scan(pulsescore_key,models,now,max_calls=32,
-                             days_horizon=6)
+                             days_horizon=24)
         meta={
             "status":"active_pulsescore",
             "requests":[{"provider":"PulseScore","calls":diag["requests"],
