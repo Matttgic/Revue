@@ -1,43 +1,224 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>REVUE / Laboratoire multisports</title>
-<meta name="description" content="Laboratoire Revue : modèles sportifs, cotes françaises, simulation prospective et validation.">
-<style>
-:root{color-scheme:dark;--b:#111717;--panel:#1b2423;--edge:#3b4943;--fg:#eef0e9;--muted:#aebdb5;--lime:#d4f5a0;--blue:#a8cede}
-*{box-sizing:border-box}body{margin:0;background:var(--b);color:var(--fg);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-main{max-width:1100px;margin:auto;padding:0 20px}
-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0;border-bottom:1px solid var(--edge)}
-.logo{font-size:18px;font-weight:900;letter-spacing:.22em}.logo span{color:var(--lime)}
-header a,footer a{color:var(--muted);font-size:12px;text-underline-offset:3px}
-.hero{padding:85px 0 66px;display:grid;grid-template-columns:1.4fr .6fr;gap:20px}
-.eyebrow{color:var(--lime);letter-spacing:.18em;text-transform:uppercase;font-size:11px;font-weight:850}
-h1{font-size:clamp(3.3rem,8vw,7rem);font-weight:850;letter-spacing:-.09em;line-height:.9;margin:17px 0 28px}
-h1 em{color:var(--lime);font-style:normal}
-p{color:var(--muted);max-width:630px}.subtitle{font-size:1.08rem}
-.sidebar{display:flex;flex-direction:column;justify-content:end;align-items:flex-end;gap:13px;text-align:right;color:var(--muted);font-size:13px}
-.line{height:80px;border-right:1px solid var(--lime)}.status{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--lime)}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;padding-bottom:40px}
-.card{display:block;text-decoration:none;color:var(--fg);border:1px solid var(--edge);border-radius:12px;padding:30px;background:var(--panel);transition:background .15s,border-color .15s}
-.card:hover{background:#25332d;border-color:var(--lime)}.card .num{font-size:12px;font-weight:900;color:var(--lime)}
-.card h2{font-size:1.6rem;letter-spacing:-.045em;line-height:1.2;margin:25px 0 11px}
-.card p{font-size:13px;margin:0;color:var(--muted)}.card .go{margin-top:22px;color:var(--lime);font-weight:800}
-.disclaimer{border-top:1px solid var(--edge);padding:25px 0;font-size:13px;color:var(--muted)}
-footer{border-top:1px solid var(--edge);padding:20px 0 40px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-@media(max-width:700px){.hero{grid-template-columns:1fr;padding:55px 0 35px}.sidebar{align-items:start;text-align:left}.line{height:16px}.grid{grid-template-columns:1fr}.card{padding:22px}h1{letter-spacing:-.075em}}
-</style></head><body><main>
-<header><div class="logo">REVUE <span>/</span> LAB</div><a href="https://github.com/Matttgic/Revue">Code & transparence ↗</a></header>
-<section class="hero"><div><div class="eyebrow">SPORTS / ALGORITHMES / PREUVE</div>
-<h1>Chaque cote<br>mérite un <em>test.</em></h1>
-<p class="subtitle">Modèles multisports, données observées, simulation de stratégies et vérification chronologique. Une bibliothèque de recherche utilisable depuis un smartphone.</p></div>
-<div class="sidebar"><div class="line"></div><div class="status">Recherche active</div><div>Football · Basket · Hockey<br>Baseball · Tennis · UFC</div><div>Heure des données : Europe/Paris</div></div>
-</section>
-<div class="grid">
-<a class="card" href="./engine-v2.html"><div class="num">01 / ENGINE</div><h2>Radar cotes & registre</h2><p>Comparaison des prix français quand la clé API est configurée. Suivi des simulations strictement pré-match, résultats et unités fictives.</p><div class="go">Accéder →</div></a>
-<a class="card" href="./multisports.html"><div class="num">02 / MODÈLES</div><h2>Prédictions multisports</h2><p>Les matchs à venir et les probabilités produites par sport. Les rencontres sans historique suffisant sont explicitement signalées.</p><div class="go">Explorer →</div></a>
-<a class="card" href="./nhl-joueurs.html"><div class="num">03 / JOUEURS</div><h2>Radar NHL</h2><p>Profils expérimentaux pour buteur, passeur, point et tirs ; données de joueurs observées, alignements non confirmés.</p><div class="go">Voir les profils →</div></a>
-<a class="card" href="./football-avance.html"><div class="num">04 / RECHERCHE FOOTBALL</div><h2>Modèle football avancé</h2><p>Forme et Elo, correction Dixon-Coles, comparatif historique avec le modèle actuel. xG et classements de puissance non alimentés faute de licence de données.</p><div class="go">Comparer →</div></a>
-<a class="card" href="./qualite-modeles.html"><div class="num">05 / ÉVALUATION</div><h2>Qualité des modèles</h2><p>Backtests sur les scores, Brier et log loss avec leurs limites. Aucune démonstration de rentabilité sans cotes horodatées.</p><div class="go">Évaluer →</div></a>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#060a14">
+  <meta name="description" content="Revue Arena : laboratoire de modèles sportifs, radar de cotes françaises et performances vérifiables.">
+  <title>REVUE ARENA — Mission Control</title>
+  <link rel="stylesheet" href="./theme.css?v=2">
+  <style>
+    .rv-top-inner{max-width:1240px}
+    main.arena{max-width:1240px!important}
+    .control-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:28px 0 15px}
+    .control-heading p{margin:0;color:var(--muted);font-family:'Chakra Petch',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+    .control-heading .right{display:flex;align-items:center;gap:8px;color:var(--cyan)}
+    .control-heading .serial{color:#5c748a;font-family:monospace;font-size:10px}
+    .hero-main{position:relative;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(315px,.88fr);border:1px solid rgba(101,150,187,.3);border-radius:3px;min-height:446px;overflow:hidden;background:linear-gradient(122deg,rgba(13,27,46,.96),rgba(7,13,30,.94))}
+    .hero-main::before{content:"";position:absolute;top:0;left:0;width:170px;height:3px;background:linear-gradient(90deg,var(--cyan),transparent)}
+    .hero-main::after{content:"";pointer-events:none;position:absolute;inset:0;background:linear-gradient(120deg,transparent 54%,rgba(155,110,244,.065) 80%,transparent)}
+    .hero-copy{padding:52px 30px 46px 45px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;position:relative;z-index:1}
+    .hero-copy .overline{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.26em;color:var(--cyan);display:flex;gap:9px;align-items:center}
+    .hero-copy .overline::before{content:"";width:22px;height:2px;background:var(--cyan)}
+    h1{font:700 clamp(3.25rem,7vw,6.5rem)/.88 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.067em;margin:20px 0 20px;text-transform:uppercase}
+    h1 .gradient{background:linear-gradient(105deg,#d1fdf7 4%,#55f5de 47%,#8a97ff 100%);color:transparent;-webkit-background-clip:text;background-clip:text}
+    .hero-copy .summary{font-size:14px;line-height:1.68;margin:0;max-width:500px;color:#b9cadc}
+    .hero-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}
+    .hero-tags span{padding:5px 9px;border:1px solid rgba(128,168,203,.24);color:#8faec8;font-family:monospace;font-size:10px;letter-spacing:.06em}
+    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:26px}
+    .action{padding:13px 17px;min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;border:1px solid rgba(119,177,210,.3);color:var(--fg);font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.1em;text-transform:uppercase;transition:transform .2s,border-color .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
+    .action.primary{background:var(--cyan);color:#041324;border-color:var(--cyan);font-weight:800}
+    .action:hover{transform:translateY(-2px);border-color:var(--cyan)}
+    .holo{position:relative;overflow:hidden;display:grid;place-items:center;min-height:390px;border-left:1px solid rgba(118,162,195,.17)}
+    .holo .vector{width:min(90%,410px);height:auto;overflow:visible;animation:floaty 7s ease-in-out infinite}
+    .holo::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(55,195,184,.13),transparent 65%),repeating-linear-gradient(0deg,transparent 0px,transparent 7px,rgba(77,133,175,.025) 8px,transparent 9px)}
+    .holo-badge{position:absolute;top:22px;right:23px;color:var(--cyan);font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.19em;display:flex;align-items:center;gap:9px}
+    .holo-base{position:absolute;bottom:23px;left:20px;color:#7a95b1;font:600 10px monospace;letter-spacing:.14em}
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:38px 0 17px;gap:10px}
+    .section-title h2{font:700 clamp(1.4rem,3.6vw,2rem) 'Chakra Petch',sans-serif;letter-spacing:-.025em;margin:0}
+    .section-title small{color:#698297;font-size:10px;letter-spacing:.12em;font-family:monospace}
+    .section-title h2 span{color:var(--cyan)}
+    .meters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+    .meter{background:linear-gradient(150deg,rgba(17,31,51,.96),rgba(9,17,34,.95));border:1px solid rgba(114,153,199,.2);padding:21px 17px 16px;position:relative;min-width:0}
+    .meter::before{content:"";position:absolute;top:0;left:0;width:40px;height:2px;background:var(--cyan);opacity:.7}
+    .meter .index{font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.16em;color:#8eaac3}
+    .meter .num{display:block;color:var(--fg);font:700 clamp(1.55rem,3.3vw,2.45rem) 'Chakra Petch',sans-serif;letter-spacing:-.06em;margin:10px 0 4px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+    .meter .note{color:var(--muted);font-size:11px}
+    .meter .marker{position:absolute;right:13px;top:16px;color:var(--cyan);font:700 11px monospace}
+    .modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .module{display:flex;flex-direction:column;min-height:216px;padding:20px 20px 18px;border:1px solid rgba(109,155,198,.22);background:linear-gradient(145deg,rgba(16,29,49,.93),rgba(8,16,33,.96));color:var(--fg);text-decoration:none;position:relative;overflow:hidden;transition:border-color .22s,transform .22s,background .22s}
+    .module::before{content:"";position:absolute;left:0;top:0;height:3px;width:26%;background:var(--block-color,var(--cyan));opacity:.75}
+    .module::after{content:"";position:absolute;bottom:0;right:0;width:25px;height:25px;border-bottom:1px solid var(--block-color,var(--cyan));border-right:1px solid var(--block-color,var(--cyan));opacity:.4}
+    .module:hover{border-color:var(--block-color,var(--cyan));transform:translateY(-4px);background:#14233c}
+    .module .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .module .category{font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.19em;color:var(--block-color,var(--cyan));text-transform:uppercase}
+    .module .icon{width:40px;height:40px;display:grid;place-items:center;font:700 16px 'Chakra Petch',sans-serif;color:var(--block-color,var(--cyan));border:1px solid rgba(137,170,207,.22);background:rgba(9,18,35,.7)}
+    .module h3{font:700 25px/1.08 'Chakra Petch',sans-serif;letter-spacing:-.04em;margin:15px 0 8px}
+    .module p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
+    .module .launch{margin-top:auto;padding-top:18px;display:flex;justify-content:space-between;font:700 11px 'Chakra Petch',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--block-color,var(--cyan))}
+    .module .launch strong{font-size:17px}
+    .terminal{margin-top:26px;border:1px solid rgba(116,162,200,.25);background:rgba(5,12,25,.91);display:grid;grid-template-columns:210px 1fr}
+    .terminal .labelcol{padding:21px 19px;border-right:1px solid rgba(116,162,200,.2);color:var(--cyan);font:700 12px 'Chakra Petch',sans-serif;letter-spacing:.17em}
+    .terminal .labelcol small{display:block;color:#718da8;font:11px/1.7 monospace;margin-top:13px;letter-spacing:normal}
+    .terminal .lines{padding:17px 19px;font:12px/1.85 monospace;color:#9eb4c9;word-break:break-word}
+    .terminal .lines span{color:var(--cyan)}
+    .terminal .lines strong{color:#eaf4ff;font-weight:500}
+    .disclosure{font-size:12px;line-height:1.7;color:#88a0b8;margin:28px 0 10px;border-left:2px solid var(--orange);padding:9px 12px}
+    .bottom{border-top:1px solid rgba(114,153,199,.19);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;color:#738ca5;font:11px monospace}
+    .bottom a{color:var(--cyan)}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    @media(max-width:920px){.hero-main{grid-template-columns:1.2fr .8fr}.hero-copy{padding:35px 20px}.modules{grid-template-columns:repeat(2,minmax(0,1fr))}.meters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:690px){.hero-main{grid-template-columns:1fr}.hero-copy{padding:34px 23px 30px}.holo{min-height:242px;border-left:0;border-top:1px solid rgba(118,162,195,.15)}.holo .vector{width:235px}.holo-badge{right:15px;top:10px}.holo-base{bottom:12px}.hero-copy h1{font-size:clamp(3.35rem,13vw,5.7rem)}.modules{grid-template-columns:1fr}.module{min-height:195px}.control-heading .serial{display:none}.terminal{grid-template-columns:1fr}.terminal .labelcol{border-right:0;border-bottom:1px solid rgba(116,162,200,.2)}.terminal .labelcol small{display:inline;margin-left:12px}}
+    @media(prefers-reduced-motion:reduce){.holo .vector{animation:none}}
+  </style>
+</head>
+<body>
+<div class="rv-topbar">
+  <div class="rv-top-inner">
+    <a href="./index.html" class="rv-brand" aria-label="Revue accueil"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+    <nav class="rv-nav" aria-label="Navigation principale">
+      <a aria-current="page" href="./index.html">QG</a>
+      <a href="./engine-v2.html">SCANNER</a>
+      <a href="./multisports.html">MODÈLES</a>
+      <a href="./nhl-joueurs.html">NHL</a>
+      <a href="./qualite-modeles.html">AUDIT</a>
+    </nav>
+    <span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span>
+  </div>
 </div>
-<div class="disclaimer">Revue est un laboratoire expérimental, pas un bookmaker ni un service de paris automatiques. Aucun rendement n'est garanti, aucun dépôt d'argent ni mise réelle n'est déclenché.</div>
-<footer><span>REVUE / ENGINE V2 © Recherche technique</span><a href="https://github.com/Matttgic/Revue/blob/main/outils/ENGINE-V2-README.md">Méthodes, sources et configuration</a></footer>
-</main></body></html>
+<main class="arena">
+  <div class="control-heading"><p>COMMAND CENTER <span style="color:var(--cyan)">/</span> RECHERCHE SPORTIVE</p><div class="right"><i class="rv-led" aria-hidden="true"></i><span class="serial">SYS.2026 // V02</span></div></div>
+  <section class="hero-main" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <span class="overline">BIENVENUE DANS L'ARENA</span>
+      <h1 id="hero-title">EVERY<br>MATCH.<br><span class="gradient">A SIGNAL.</span></h1>
+      <p class="summary">Un QG pour analyser les matchs, explorer des modèles indépendants et surveiller les cotes françaises. Des probabilités vérifiées dans le temps, pas des promesses de gains.</p>
+      <div class="hero-tags"><span>01 // MULTISPORT</span><span>02 // DATA LIVE*</span><span>03 // SHADOW MODE</span></div>
+      <div class="actions">
+        <a class="action primary" href="./engine-v2.html">DÉMARRER LE SCANNER <span aria-hidden="true">↗</span></a>
+        <a class="action" href="./multisports.html">VOIR LES MODÈLES <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="holo" aria-hidden="true">
+      <span class="holo-badge"><i class="rv-led"></i> SIGNAL MONITOR</span>
+      <svg class="vector" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="a" x1="70" y1="20" x2="320" y2="380"><stop stop-color="#55f5de"/><stop offset="1" stop-color="#ac88fc"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3"/></filter></defs>
+        <circle cx="200" cy="200" r="163" stroke="#34526A" stroke-dasharray="2 14" stroke-width="1.5"/>
+        <circle cx="200" cy="200" r="134" stroke="#2A4861"/>
+        <circle cx="200" cy="200" r="120" stroke="url(#a)" stroke-opacity=".9" stroke-width="1.5" stroke-dasharray="136 19 38 19 136 19 38 19 55"/>
+        <circle cx="200" cy="200" r="101" stroke="#253C59" stroke-dasharray="3 9"/>
+        <path d="M200 32V104M200 296V368M32 200H104M296 200H368" stroke="#55F5DE" stroke-opacity=".45"/>
+        <path d="M97 103L303 297M303 103L97 297" stroke="#394E75" stroke-opacity=".45" stroke-dasharray="4 10"/>
+        <path d="M200 120L270 160V240L200 280L130 240V160Z" stroke="url(#a)" stroke-width="2" fill="#0E2130" fill-opacity=".6"/>
+        <path d="M200 142L249 171V229L200 258L151 229V171Z" stroke="#557CA1" stroke-opacity=".7"/>
+        <path d="M200 164L232 182V218L200 237L168 218V182Z" fill="#55F5DE" fill-opacity=".07" stroke="#55F5DE" stroke-opacity=".45"/>
+        <path d="M180 218V182H204C225 182 224 206 204 206H180M203 206L222 226" stroke="#55F5DE" stroke-width="8" stroke-linejoin="miter"/>
+        <circle cx="200" cy="200" r="153" stroke="#55F5DE" stroke-opacity=".3" stroke-width="2" stroke-dasharray="2 16"/>
+        <circle cx="270" cy="160" r="5" fill="#55F5DE"/><circle cx="130" cy="240" r="4" fill="#AD8AFF"/>
+        <path d="M265 92H350M265 92L250 107" stroke="#55F5DE" stroke-opacity=".7"/>
+        <path d="M65 304H136L150 290" stroke="#AE8AFF" stroke-opacity=".65"/>
+        <text x="351" y="86" text-anchor="end" fill="#55F5DE" font-size="9" font-family="monospace">SCANNING</text>
+        <text x="64" y="322" fill="#AE8AFF" font-size="9" font-family="monospace">MODEL / 01</text>
+        <path d="M200 18L208 32H192Z" fill="#55F5DE"/>
+      </svg>
+      <span class="holo-base">RUNTIME // STATISTICAL NETWORK</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="stats-heading">
+    <div class="section-title"><h2 id="stats-heading"><span>//</span> TÉLÉMÉTRIE</h2><small>MESURES ISSUES DES DERNIERS RAPPORTS</small></div>
+    <div class="meters">
+      <div class="meter"><span class="index">01 / SOURCES</span><span class="marker">◈</span><strong id="meter-feeds" class="num">—</strong><span class="note">Flux de données opérationnels</span></div>
+      <div class="meter"><span class="index">02 / CALENDRIER</span><span class="marker">◇</span><strong id="meter-fixtures" class="num">—</strong><span class="note">Rencontres répertoriées</span></div>
+      <div class="meter"><span class="index">03 / PRIX</span><span class="marker">⊕</span><strong id="meter-odds" class="num">—</strong><span class="note">Écarts candidats (non validés)</span></div>
+      <div class="meter"><span class="index">04 / SIMULATIONS</span><span class="marker">⌁</span><strong id="meter-paper" class="num">—</strong><span class="note">Positions papier enregistrées</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="modules-heading">
+    <div class="section-title"><h2 id="modules-heading"><span>//</span> MODULES DE COMBAT</h2><small>SÉLECTIONNE TON ESPACE DE TRAVAIL</small></div>
+    <div class="modules">
+      <a class="module" style="--block-color:#55f5de" href="./engine-v2.html">
+        <div class="top"><span class="category">01 / MARKET RADAR</span><span class="icon">⌖</span></div>
+        <h3>Scanner de cotes</h3><p>Détecter les différences de prix, lire les marchés français et suivre le registre papier.</p>
+        <span class="launch">ACCÉDER AU SCANNER <strong>↗</strong></span>
+      </a>
+      <a class="module" style="--block-color:#9b94ff" href="./multisports.html">
+        <div class="top"><span class="category">02 / MATCH ENGINE</span><span class="icon">∑</span></div>
+        <h3>Prédictions multisports</h3><p>Football, basket, hockey, NFL, baseball, tennis et autres ligues alimentées.</p>
+        <span class="launch">EXPLORER LES MODÈLES <strong>↗</strong></span>
+      </a>
+      <a class="module" style="--block-color:#ffb667" href="./nhl-joueurs.html">
+        <div class="top"><span class="category">03 / PLAYER TRACKER</span><span class="icon">◎</span></div>
+        <h3>Joueurs NHL</h3><p>Profils des joueurs pour les buts, passes, points et tirs. Données non calibrées.</p>
+        <span class="launch">OUVRIR LE RADAR <strong>↗</strong></span>
+      </a>
+      <a class="module" style="--block-color:#5ed3ff" href="./football-avance.html">
+        <div class="top"><span class="category">04 / FOOTBALL LAB</span><span class="icon">△</span></div>
+        <h3>Football avancé</h3><p>Forme, Elo, Dixon-Coles, tirs ESPN et comparaison avec l'ancien modèle.</p>
+        <span class="launch">VOIR LES RECHERCHES <strong>↗</strong></span>
+      </a>
+      <a class="module" style="--block-color:#ee91d9" href="./nhl-model.html">
+        <div class="top"><span class="category">05 / HOCKEY MODEL</span><span class="icon">✦</span></div>
+        <h3>Moteur NHL</h3><p>Probabilités Elo–Poisson, scores attendus et contrôle de l'historique.</p>
+        <span class="launch">DÉCOUVRIR LE MOTEUR <strong>↗</strong></span>
+      </a>
+      <a class="module" style="--block-color:#98c6ff" href="./qualite-modeles.html">
+        <div class="top"><span class="category">06 / MODEL AUDIT</span><span class="icon">≋</span></div>
+        <h3>Performance & tests</h3><p>Brier, log loss, contrôles chronologiques et transparence des limites.</p>
+        <span class="launch">CONSULTER LES AUDITS <strong>↗</strong></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="terminal" aria-label="État des systèmes">
+    <div class="labelcol">SYSTEM STATUS<small>MONITORING / PARIS</small></div>
+    <div class="lines" id="terminal" role="status" aria-live="polite"><span>[INIT]</span> Chargement des derniers états du moteur…</div>
+  </section>
+  <p class="disclosure">* Les données ne sont pas diffusées en temps réel : elles proviennent des dernières exécutions GitHub Actions. Les modèles et différences de cotes restent expérimentaux ; aucune mise réelle n'est déclenchée et aucun gain n'est garanti.</p>
+  <footer class="bottom"><span>REVUE ARENA <span style="color:#4d6a83">//</span> ENGINEERING OVER HYPE</span><a href="https://github.com/Matttgic/Revue">CODE SOURCE ↗</a></footer>
+</main>
+<script>
+"use strict";
+const by = id => document.getElementById(id);
+const frDate = iso => new Date(iso).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
+async function jsonFile(file){
+  const response=await fetch("./"+file+"?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw new Error("indisponible");
+  return response.json();
+}
+function telemetry(id,value){
+  by(id).textContent=Number.isFinite(Number(value)) && value!==null && value!==undefined
+    ? Number(value).toLocaleString("fr-FR"):"—";
+}
+async function refresh(){
+  const [models,scanner,health]=await Promise.allSettled([
+    jsonFile("multisports-latest.json"),jsonFile("engine-v2-latest.json"),
+    jsonFile("health-latest.json")
+  ]);
+  const m=models.status==="fulfilled"?models.value:null;
+  const s=scanner.status==="fulfilled"?scanner.value:null;
+  const h=health.status==="fulfilled"?health.value:null;
+  telemetry("meter-feeds",m?.overview?.feeds_ok);
+  telemetry("meter-fixtures",m?.overview?.fixtures);
+  telemetry("meter-odds",s?.candidate_count);
+  telemetry("meter-paper",s?.paper?.n_paper);
+  const consoleEl=by("terminal");consoleEl.replaceChildren();
+  const write=(tag,message)=>{
+    const div=document.createElement("div");
+    const label=document.createElement("span");label.textContent="["+tag+"] ";
+    const body=document.createElement("strong");body.textContent=message;
+    div.append(label,body);consoleEl.append(div);
+  };
+  if(s){
+    const age=(Date.now()-Date.parse(s.generated_at_utc))/3600000;
+    const stale=!Number.isFinite(age)||age>6||age<-.2;
+    write("ODDS",String(s.odds_status).startsWith("active") && !stale?"PulseScore actif au dernier scan":"Source prix non confirmée à cette heure");
+    write("SCAN",frDate(s.generated_at_utc)+" · "+String(s.coverage?.requested?.[0]?.calls??"—")+" appels lors du dernier rapport");
+  }else write("ODDS","Aucun rapport de scan disponible");
+  if(m)write("MODELS",frDate(m.generated_at_utc)+" · "+String(m.overview?.predicted??"—")+" probabilités calculées");
+  if(h)write("HEALTH","Dernier diagnostic : "+String(h.status||"non indiqué"));
+}
+refresh();
+</script>
+</body></html>
