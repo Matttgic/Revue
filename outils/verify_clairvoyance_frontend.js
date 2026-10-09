@@ -34,7 +34,7 @@ function vmFn(source, names, env) {
 
 let checks = 0;
 const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
-                 frontend_soccer_market_blend: 0 };
+                 frontend_soccer_market_blend: 0, frontend_soccer_mc: 0 };
 function compare(label, name, target, actual) {
   const left = JSON.stringify(target), right = JSON.stringify(actual);
   assert.equal(right, left, "Parity difference on " + label + ": " + right + " vs " + left);
@@ -121,6 +121,40 @@ function verify(source) {
     compare(t.label,"frontend_soccer_market_blend",
       ref._socMarketBlend(...t.p,...t.lines),
       own.soccerMarketBlend(...t.p,...t.lines,t.weights,t.cal));
+  }
+  // Freeze the random stream in both functions. This verifies not merely
+  // approximate Poisson probabilities but every simulated outcome, including
+  // xG fallbacks, O/U thresholds, 1X2, expected scores and BTTS.
+  function seeded(seed) {
+    let state = seed | 0;
+    return () => {
+      state ^= state << 13;
+      state ^= state >>> 17;
+      state ^= state << 5;
+      return (state >>> 0) / 4294967296;
+    };
+  }
+  const mcCases = [
+    [1.4,1.1,200,12345],
+    [1.8,0.7,350,45678],
+    [0.5,3.2,300,345678],
+    [0,0,200,456789],
+    [null,1.9,200,1337],
+    [-1,2.1,200,77777],
+    [NaN,NaN,200,1515],
+    ["2.0","0.9",200,3001],
+    [0.9,0.9,250,88888],
+    [2.1,1.3,25000,44444],
+  ];
+  for (const [i,[hg,ag,n,seed]] of mcCases.entries()) {
+    const randOriginal=seeded(seed);
+    const randReplica=seeded(seed);
+    const math=Object.create(Math);
+    math.random=randOriginal;
+    const ctx=vmFn(source,["_soccerMC"],{ Math:math, _SOC_MC_N:25000 });
+    compare("soccer-mc "+i,"frontend_soccer_mc",
+      ctx._soccerMC(hg,ag,n),
+      own.soccerMonteCarlo(hg,ag,n,randReplica));
   }
   return checks;
 }
