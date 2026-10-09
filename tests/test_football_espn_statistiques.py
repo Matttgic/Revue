@@ -71,6 +71,28 @@ class ESPNAdvancedTests(unittest.TestCase):
         self.assertEqual(status["responses_parsed"],3)
         self.assertEqual(status["errors"],{})
 
+    def test_prioritizes_upcoming_teams_before_other_leagues(self):
+        history=make_history(7)
+        history["leagues"]["PL"]["events"].append({
+            "id":"900","league":"PL",
+            "start":iso(NOW+timedelta(hours=4)),
+            "home_id":"100","away_id":"200","home":"Home","away":"Away",
+            "complete":False,"home_score":None,"away_score":None,
+        })
+        history["leagues"]["LALIGA"]={"events":[{
+            "id":str(700+i),"league":"LALIGA",
+            "start":iso(NOW-timedelta(hours=20+i)),
+            "home_id":"501","away_id":"502",
+            "complete":True,"home_score":1,"away_score":0,
+        } for i in range(8)]}
+        called=[]
+        def fetch(league,event):
+            called.append(league)
+            return make_stats()
+        _,status=update_cache(history,{},NOW,fetch=fetch,max_calls=3)
+        self.assertEqual(status["calls_attempted"],3)
+        self.assertEqual(called,["PL","PL","PL"])
+
     def test_repeat_scan_reuses_previous(self):
         def fake(*args):return make_stats()
         cache1,_=update_cache(make_history(3),{},NOW,fetch=fake,max_calls=3)
