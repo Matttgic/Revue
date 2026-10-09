@@ -84,17 +84,20 @@ def parse_espn_scoreboard(data: dict, league: str) -> list[Match]:
         for idx, comp in enumerate(competitions):
             if not isinstance(comp, dict):
                 continue
-            if comp.get("type", {}).get("abbreviation", "") == "DBL":
+            kind = comp.get("type") or {}
+            if isinstance(kind, dict) and kind.get("abbreviation", "") == "DBL":
                 continue
             members = comp.get("competitors") or []
             if len(members) != 2:
                 continue
             players = []
             for member in members:
+                if not isinstance(member, dict):
+                    break
                 athlete = member.get("athlete") or member.get("team") or {}
                 aid = athlete.get("id") or member.get("id")
                 name = athlete.get("displayName") or athlete.get("fullName") or athlete.get("shortName")
-                if not aid or not name:
+                if not isinstance(athlete, dict) or not aid or not name:
                     break
                 # Some tennis tournaments publish doubles as pair names; exclude.
                 if " / " in str(name) or " & " in str(name):
