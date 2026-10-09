@@ -28,6 +28,8 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 | REV-CLAIR-07 | Hockey NHL | Effectifs | Lissage du niveau des joueurs indisponibles | [Clairvoyance](https://github.com/Purple-Wraith/clairvoyance-backend) | À étudier | NC | Sources ciblées inspectées ; aucun backtest reproduit | [Fiche](../recherche/hockey/nhl-valeur-absences.md) |
 | REV-CLAIR-08 | Multi-sports | Architecture | Elo actualisé une fois par match, pas par pick | [Clairvoyance](https://github.com/Purple-Wraith/clairvoyance-backend) | À étudier | NC | Sources ciblées inspectées ; aucun backtest reproduit | [Fiche](../recherche/transversales/elo-actualisation-unique.md) |
 
+| REV-MOD-NHL-01 | Hockey NHL | Moneyline / Totaux 4,5 / 5,5 / 6,5 | Modèle original Elo + Poisson + actualisation NHL | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 13 tests GitHub réussis ; API live consultée ; 7 matchs publiés le 2026-10-09 ; aucune calibration OOS | [Modèle](../modeles/simulations/NHL-INDEPENDANT-README.md) |
+
 ## Analyses par source
 
 - [2026-10-09 — Purple-Wraith/clairvoyance-backend](../analyses/2026-10-09_Purple-Wraith_clairvoyance-backend.md) : 8 pistes NHL/hockey/validation et un outil de contrôle original, métriques historiques contaminées par des locks tardifs/inconnus ; aucune copie de source sans licence.
