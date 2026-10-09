@@ -1,0 +1,35 @@
+{
+  "generated_at_utc": "2026-10-09T22:16:13.970709+00:00",
+  "reference": "Purple-Wraith/clairvoyance-backend",
+  "reference_commit": "3657d6e0b7481fb2e34a5f9ad4e3069aac1e698e",
+  "reference_function_file": "app/services/predictor.py",
+  "implementation_file": "modeles/reproduction/clairvoyance_predictor.py",
+  "status": "predictor_formula_parity_verified",
+  "exact_equality_tests_passed": 43,
+  "checked_examples": {
+    "mlb": 8,
+    "nhl": 10
+  },
+  "reference_functions_verified": [
+    "american_to_implied",
+    "edge_pct",
+    "elo_win_prob",
+    "implied_to_american",
+    "predict_mlb_game",
+    "predict_nhl_game"
+  ],
+  "verified_modules": [
+    "backend_mlb_elo",
+    "backend_nhl_elo_moneypuck_goalie"
+  ],
+  "input_data_coverage": "mocked_observed_inputs_not_live_moneypuck_or_goalies",
+  "remaining": [
+    "data_providers",
+    "database_behavior",
+    "frontend_app_models",
+    "historical_backtest",
+    "price_markets",
+    "seasons"
+  ],
+  "strict_limits": "Formula parity under supplied inputs ONLY. Not complete Clairvoyance replication. No source code redistributed, no financial claims."
+}
