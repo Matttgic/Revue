@@ -39,7 +39,7 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 
 | REV-OUT-BT-01 | Multi-sports | Audit probabiliste, pas paris | Backtest chronologique ESPN, Brier/log loss par compétition | [Revue](https://github.com/Matttgic/Revue) | Testé techniquement | NC | Tests GitHub réussis ; MLB n=207, NFL n=65 ; ROI non calculable sans cotes | [Fiche](../outils/BACKTESTS_MULTISPORTS.md) |
 
-| REV-MOD-ENGINE-V2 | Multi-sports / France | 1N2, ML et totaux | Scanner de vrais prix français + Pinnacle, rapprochement temporel, ledger simulé et règlement | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 21 tests réels passés ; API de cotes non activée sans secret ; aucun EV/ROI prouvé | [Guide](../outils/ENGINE-V2-README.md) |
+| REV-MOD-ENGINE-V2 | Multi-sports / France | 1N2, ML et totaux | Scanner de vrais prix français + Pinnacle, rapprochement temporel, ledger simulé et règlement | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 36 tests Engine V2/PulseScore réussis ; aucune clé configurée ; EV/ROI non validés | [Guide](../outils/ENGINE-V2-README.md) |
 
 ## Analyses par source
 
