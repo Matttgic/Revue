@@ -157,7 +157,10 @@ class PaperTests(unittest.TestCase):
             "id":"paper-001","event_id":"nhl-1","league":"NHL","market":"totals",
             "side":"over","line":5.5,"start_utc":iso(old),
             "status":"pending","chronology":"pre_valide",
-            "bookmaker_price":1.8,"paper_stake_units":1
+            "bookmaker_price":1.8,"paper_stake_units":1,
+            "locked_at":iso(old-timedelta(hours=3)),
+            "quote_at":iso(old-timedelta(hours=3,minutes=4)),
+            "model_at":iso(old-timedelta(hours=4))
         }]}
         settle_ledger(ledger,{},NOW,lambda *args:(4,2,"SO"))
         # Official SO score 4-2 (2-goal margin, impossible shootout margin)
@@ -170,7 +173,10 @@ class PaperTests(unittest.TestCase):
             "id":"paper-002","event_id":"nhl-2","league":"NHL","market":"totals",
             "side":"over","line":5.5,"start_utc":iso(old),
             "status":"pending","chronology":"pre_valide",
-            "bookmaker_price":1.8,"paper_stake_units":1
+            "bookmaker_price":1.8,"paper_stake_units":1,
+            "locked_at":iso(old-timedelta(hours=3)),
+            "quote_at":iso(old-timedelta(hours=3,minutes=4)),
+            "model_at":iso(old-timedelta(hours=4))
         }]}
         settle_ledger(ledger,{},NOW,lambda *args:(4,3,"SO"))
         self.assertEqual(ledger["bets"][0]["status"],"won") # 3-3 => 6 > 5.5
@@ -183,7 +189,10 @@ class PaperTests(unittest.TestCase):
             "id":"paper-002","event_id":"nhl-2","league":"NHL","market":"totals",
             "side":"under","line":5.5,"start_utc":iso(old),
             "status":"pending","chronology":"pre_valide",
-            "bookmaker_price":1.8,"paper_stake_units":1
+            "bookmaker_price":1.8,"paper_stake_units":1,
+            "locked_at":iso(old-timedelta(hours=3)),
+            "quote_at":iso(old-timedelta(hours=3,minutes=4)),
+            "model_at":iso(old-timedelta(hours=4))
         }]}
         settle_ledger(ledger,{},NOW,lambda *args:(3,2))
         self.assertEqual(ledger["bets"][0]["status"],"pending")
@@ -195,6 +204,19 @@ class PaperTests(unittest.TestCase):
         self.assertEqual(report["odds_status"],"disabled_no_key")
         self.assertEqual(report["candidate_count"],0)
         self.assertEqual(report["paper"]["n_paper"],0)
+
+    def test_spoofed_prevalid_late_record_excluded(self):
+        data={"bets":[{
+            "status":"won","chronology":"pre_valide",
+            "locked_at":iso(NOW),
+            "start_utc":iso(NOW-timedelta(hours=1)),
+            "quote_at":iso(NOW-timedelta(hours=2)),
+            "model_at":iso(NOW-timedelta(hours=2)),
+            "paper_units_returned":3.5,"paper_stake_units":1,
+        }]}
+        stats=ledger_statistics(data)
+        self.assertEqual(stats["graded_pre_start"],0)
+        self.assertEqual(stats["excluded_unsafe_timestamps"],1)
 
     def test_no_unverified_historical_roi(self):
         data={"bets":[{
