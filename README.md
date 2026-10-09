@@ -2,8 +2,8 @@
 
 > **Mission prioritaire : reproduire fidèlement les modèles du dépôt [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend), et non inventer des modèles de remplacement.**
 
-- **Parité vérifiée :** [2 sur 13 fonctions de référence ciblées, soit 15 % sur ce périmètre initial](docs/parite-modeles-clairvoyance.json) ; il ne s'agit **pas** de 15 % de tout le dépôt.
-- **Résultat contrôlé :** [43 comparaisons directes de sorties identiques pour les formules MLB et NHL](docs/parite-clairvoyance-predictor.json) ; la correspondance des données réelles et du reste de l'application n'est pas encore vérifiée.
+- **Parité mathématique :** les [13 premières fonctions modèles de référence ont passé les comparaisons avec Clairvoyance (13/13 = 100 % sur ce premier sous-ensemble)](docs/parite-modeles-clairvoyance.json). **Cela n'équivaut pas à reproduire 100 % du dépôt original**, qui comprend d'autres modèles et données.
+- **Résultat contrôlé :** [161 comparaisons exactes, dont 43 dans le backend Python](docs/parite-modeles-clairvoyance.json), les autres avec le véritable moteur JavaScript. La parité sur des données de match réelles et la reproduction des autres fonctions de l'application ne sont pas encore vérifiées.
 - **Méthode et statut exact des modèles :** [documentation reproduction](modeles/reproduction/README.md) · [tableau de bord gaming parité](docs/parite-clairvoyance.html) · [tests automatisés à la source](.github/workflows/parite-clairvoyance-predictor.yml).
 - **CFB exclu** à la demande de l'utilisateur.
 - Les modèles exploratoires Elo, Poisson, MC et Bayes écrits précédemment dans `modeles/simulations/` sont **des expériences distinctes** et ne sont **jamais comptabilisés comme des reproductions**. Les anciennes estimations de 30–35 % mélangeaient fonctionnalités du site et innovations et ne mesuraient pas la fidélité.
