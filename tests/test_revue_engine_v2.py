@@ -225,6 +225,16 @@ class PaperTests(unittest.TestCase):
         self.assertEqual(stats["graded_pre_start"],0)
         self.assertEqual(stats["excluded_unsafe_timestamps"],1)
 
+    def test_stale_model_does_not_spend_paid_calls(self):
+        from unittest.mock import patch
+        stale=models()
+        stale["generated_at_utc"]=iso(NOW-timedelta(hours=10))
+        with patch("outils.revue_engine_v2.download_odds") as calls:
+            report,_=execute(stale,{"leagues":{}},{"bets":[]},NOW,
+                             api_key="private_test_key")
+            calls.assert_not_called()
+        self.assertEqual(report["odds_status"],"disabled_stale_model")
+
     def test_no_unverified_historical_roi(self):
         data={"bets":[{
             "status":"won","chronology":"indetermine",
