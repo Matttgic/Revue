@@ -25,4 +25,4 @@ jobs:
           python-version: '3.12'
       - name: Inspecter signatures et courts segments des fonctions JS
         working-directory: revue
-        run: python -m outils.inspecter_fonctions_clairvoyance --source ../reference/docs/app.html --limit 2800
+        run: python -m outils.inspecter_fonctions_clairvoyance --source ../reference/docs/app.html --only nflMC nbaMC --limit 9000
