@@ -36,4 +36,6 @@ Cette EV est **par construction** autour de -5 %, pas une opportunité décelée
 
 ## Suite
 
-Créer un outil original de validation des cotations; comparer sur flux autorisés Pinnacle et opérateurs accessibles en France, avec précautions ANJ. Ne pas confondre probabilité d'issue et rapport espéré.
+**Outil original créé et testé :** [validateur_cotes.py](../../outils/validateur_cotes.py) et [8 tests unitaires](../../tests/test_validateur_cotes.py). Le contrôle exige une provenance externe déclarée, un identifiant, un bookmaker et une cotation antérieure au début de l'événement. Cette vérification est **structurelle** : elle ne certifie pas l'authenticité de la source ni la conformité ANJ.
+
+Comparer ensuite sur flux autorisés auprès d'opérateurs accessibles en France, avec précautions ANJ. Ne pas confondre probabilité d'issue et rapport espéré.
