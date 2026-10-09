@@ -87,7 +87,8 @@ def same_team(a:str,b:str,league:str="")->bool:
     short,long=(a,b) if len(a)<len(b) else (b,a)
     # ESPN often uses just cityless nicknames, e.g. "Eagles".
     # Only suffix match on a substantial nickname (no "FC"/"United" shortcuts).
-    return len(short)>=5 and long.endswith(" "+short) and len(short.split())>=1
+    return (len(short)>=5 and short not in ("united","city") and
+            (long.endswith(" "+short) or long.startswith(short+" ")))
 
 
 def match_fixture(quote:dict, games:list[dict],league:str)->dict|None:
@@ -296,6 +297,7 @@ def _outcome_from_score(bet:dict,home:float,away:float)->str|None:
     market=bet["market"]
     side=bet["side"]
     if market=="h2h":
+        if home==away and side!="draw":return None
         # League-specific h2h settlement rule: 90m for soccer; incl extra
         # time/overtime elsewhere. ESPN scores may differ on rare forfeits.
         return ("won" if ((side=="draw" and home==away) or
