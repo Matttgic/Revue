@@ -21,6 +21,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Vérifier navigation et exclusion CFB avant la publication
+        run: python -m unittest discover -s tests -p 'test_site_arena.py' -v
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
