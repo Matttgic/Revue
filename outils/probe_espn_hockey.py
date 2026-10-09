@@ -17,6 +17,9 @@ for q in queries:
         print("Query",q,"ROOT",list(data)[:15])
         print("Categories:",[{"name":c.get("name"),"labels":(c.get("labels") or [])[:20],"keys":list(c)} for c in (data.get("categories") or [])[:3]])
         athletes=data.get("athletes") or []
-        print("Athletes",len(athletes),"example",json.dumps(athletes[0] if athletes else None)[:1500])
+        print("Athletes",len(athletes),"ATHLETE_KEYS",list((athletes[0] or {}).keys()) if athletes else [])
+        if athletes:
+            print("ATHLETE_DATA",json.dumps(athletes[0],ensure_ascii=False)[-3200:])
+            print("CATEGORY_NAMES",[(c.get("name"),(c.get("names") or [])[:20]) for c in data.get("categories",[])])
     except Exception as e:
         print("FAILED",q,type(e).__name__,str(e)[:150])
