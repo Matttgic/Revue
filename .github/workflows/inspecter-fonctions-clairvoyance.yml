@@ -25,4 +25,4 @@ jobs:
           python-version: '3.12'
       - name: Inspecter signatures et courts segments des fonctions JS
         working-directory: revue
-        run: python -m outils.inspecter_fonctions_clairvoyance --source ../reference/docs/app.html --only shlEns _hkBlendCore _hkMktNoVig _hkOdds --limit 10000
+        run: python -m outils.inspecter_fonctions_clairvoyance --source ../reference/docs/app.html --only _hkBlendAlpha _hkValidDec HOCKEY_MKT_BLEND_ALPHA HOCKEY_MKT_BLEND_FULL_GP HOCKEY_MKT_BLEND_ALPHA_EARLY _HK_MKT_OVERROUND_MIN _HK_MKT_OVERROUND_MAX _HK_MKT_PMIN _HK_MKT_PMAX --limit 1100
