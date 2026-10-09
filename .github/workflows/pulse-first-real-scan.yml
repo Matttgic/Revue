@@ -1,0 +1,44 @@
+name: Revue - First PulseScore Real Scan
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/pulse-first-real-scan.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-engine-v2-paper
+  cancel-in-progress: false
+jobs:
+  first-real-pulse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Vérifier les 12 tests PulseScore et les 24 tests du moteur
+        run: |
+          python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
+          python -m unittest discover -s tests -p 'test_revue_engine_v2.py' -v
+      - name: Scanner les vraies cotes FR en mode simulation
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+          ODDS_API_KEY: ''
+        run: |
+          python outils/revue_engine_v2.py \
+            --predictions docs/multisports-latest.json \
+            --history docs/multisports-history.json \
+            --ledger docs/engine-v2-ledger.json \
+            --output docs/engine-v2-latest.json
+      - name: Publier résultats papier vérifiables seulement
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/engine-v2-ledger.json docs/engine-v2-latest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "paper: premier scan PulseScore de bookmakers français"
+            git pull --rebase -X theirs origin main
+            git push origin HEAD:main
+          fi
