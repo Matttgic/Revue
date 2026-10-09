@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revue | Laboratoire Football Avancé</title><style>
+:root{color-scheme:dark;--bg:#121715;--panel:#1d2622;--line:#3d4c43;--fg:#ecf1e9;--sub:#afc0b6;--accent:#d4f59a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 system-ui,sans-serif}main{max-width:1070px;margin:auto;padding:25px 16px 70px}
+h1{font-size:clamp(2.3rem,6vw,4.8rem);line-height:.99;letter-spacing:-.07em;margin:12px 0 19px}
+h1 span{color:var(--accent)}h2{font-size:1.2rem;letter-spacing:-.035em}
+small{letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--accent)}
+p,.muted{color:var(--sub)}.notice{border-left:3px solid var(--accent);padding:14px 17px;background:#263029;margin:25px 0}
+.filters{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:25px 0}
+select{border:1px solid var(--line);border-radius:9px;background:var(--panel);padding:12px;color:var(--fg);font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.card{border:1px solid var(--line);background:var(--panel);padding:20px;border-radius:12px}
+.card h3{font-size:1.2rem;letter-spacing:-.035em;margin:8px 0 15px}
+.label{font-size:11px;color:var(--accent);font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.probs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0 16px}
+.probs div{border-top:2px solid var(--line);padding:6px 0}
+.probs b{font-size:1.35rem;letter-spacing:-.04em}
+.probs span{display:block;font-size:11px;color:var(--sub)}
+.audits{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:11px}
+.audit{padding:16px;border:1px solid var(--line);border-radius:10px}.audit strong{display:block;font-size:1.15rem;margin-top:9px}
+footer{border-top:1px solid var(--line);padding-top:22px;margin-top:35px}a{color:#b8d7fc}p.note{font-size:12px}
+</style></head><body><main>
+<header><small>REVUE / LAB · Candidat de recherche</small><h1>Le football<br><span>en profondeur.</span></h1>
+<p>Forme, Elo, correction Dixon-Coles et possibilité d'ajouter des xG autorisés. Comparaison chronologique contre le modèle précédent.</p></header>
+<div class="notice"><strong>Ce modèle n'est pas utilisé pour miser.</strong><br>Ses probabilités ne sont pas calibrées. Aucune donnée Opta autorisée n'est encore connectée. Les résultats présentés sont exploratoires et ne remplacent pas le modèle de production.</div>
+<div class="filters"><h2>Prochains matchs</h2><select id="league" aria-label="Championnat"><option value="">Tous les championnats</option></select></div>
+<div id="status" class="muted">Chargement des prévisions…</div><div id="cards" class="grid"></div>
+<h2 style="margin-top:32px">Comparaison avec le modèle actuel</h2><p class="note">Plus le Brier est bas, meilleure est l'erreur moyenne. Les différences sur quelques dizaines de matchs sont très incertaines.</p>
+<div id="audits" class="audits"></div>
+<footer><p><a href="index.html">← Revue</a> · <a href="https://github.com/Matttgic/Revue/blob/main/modeles/simulations/FOOTBALL-AVANCE-README.md">Méthode et limites</a></p></footer>
+</main><script>
+"use strict";
+const by=id=>document.getElementById(id);
+function node(tag,cls,content){const el=document.createElement(tag);if(cls)el.className=cls;if(content!==undefined)el.textContent=String(content);return el}
+let data=null;
+const percent=p=>typeof p==="number"?(p*100).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"NC";
+function render(){
+ const cards=by("cards");cards.replaceChildren();
+ const lg=by("league").value;
+ const found=Object.entries(data.competitions||{}).filter(([id])=>!lg||id===lg);
+ let n=0;
+ for(const [code,info] of found){
+  for(const g of info.games||[]){
+   n++;const c=node("article","card");
+   c.append(node("div","label",code+" · "+new Date(g.start_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"})),
+            node("h3","",g.home+" — "+g.away));
+   if(g.probabilities){
+    const grid=node("div","probs");
+    for(const [name,key] of [["1","home_win_90"],["N","draw_90"],["2","away_win_90"]]){
+     const cell=node("div");cell.append(node("b","",percent(g.probabilities[key])),node("span","",name));grid.append(cell)
+    }
+    c.append(grid,node("div","muted","Plus de 2,5 buts : "+percent(g.probabilities.over_2_5)));
+   }else c.append(node("p","muted","Historique insuffisant, pas de probabilité."));
+   c.append(node("p","note",(g.xg_used?"Données xG autorisées appliquées":"Score-only : pas de données Opta")+
+             " · "+g.training_games.home+" / "+g.training_games.away+" matchs historiques"));
+   cards.append(c);
+  }
+ }
+ if(!n)cards.append(node("div","muted","Aucun match à afficher pour ce championnat."));
+}
+async function init(){
+ try{
+ const r=await fetch("football-advanced-shadow.json?t="+Date.now(),{cache:"no-store"});
+ if(!r.ok)throw Error("Le fichier de recherche n'est pas publié.");
+ data=await r.json();
+ const league=by("league");
+ for(const [code,item] of Object.entries(data.competitions||{})){
+  const o=node("option","",item.name||code);o.value=code;league.append(o)
+ }
+ league.addEventListener("change",render);
+ const seen=Object.values(data.competitions||{}).reduce((n,v)=>n+v.games.filter(g=>g.probabilities).length,0);
+ by("status").textContent="Dernier calcul : "+new Date(data.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"medium",timeStyle:"short"})+
+ " · "+seen+" prévisions · source xG : "+data.licensed_advanced_features.status;
+ render();
+ const audit=by("audits");
+ for(const [code,v] of Object.entries(data.competitions||{})){
+  const box=node("div","audit");box.append(node("div","label",code));
+  if(v.evaluation.status==="small_historical_score_backtest"){
+   const delta=v.evaluation.shadow_brier_delta_vs_baseline;
+   box.append(node("strong","",v.evaluation.n+" matchs comparés"),
+       node("p","muted","Brier modèle actuel : "+v.evaluation.baseline.brier),
+       node("p","muted","Brier candidat : "+v.evaluation.shadow.brier),
+       node("p","muted","Différence : "+(delta>0?"+":"")+delta+" (moins = mieux)"))
+  }else box.append(node("p","muted","Pas assez de rencontres évaluables pour le moment."));
+  audit.append(box);
+ }
+ }catch(e){by("status").textContent="Données indisponibles : "+e.message}
+}
+init();
+</script></body></html>
