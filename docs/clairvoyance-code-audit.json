@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-10-09T21:40:37.302255+00:00",
+  "generated_at_utc": "2026-10-09T23:50:47.639710+00:00",
   "source": "Purple-Wraith/clairvoyance-backend",
-  "source_commit_sha": "3657d6e0b7481fb2e34a5f9ad4e3069aac1e698e",
+  "source_commit_sha": "1cb6eaf01ac79fae79ebdab0f80e18e0c2f07273",
   "policy": "Static inspection only. Source code not copied or executed.",
   "copyright": {
     "license_file_present": false,
@@ -20,7 +20,7 @@
     "source": "docs/app.html",
     "source_bytes": 2671918,
     "named_function_count": 1468,
-    "model_related_count": 306,
+    "model_related_count": 339,
     "model_symbols": [
       {
         "name": "eloMOV",
@@ -467,6 +467,22 @@
         "line": 9696
       },
       {
+        "name": "autoSettleLiiga",
+        "line": 9739
+      },
+      {
+        "name": "autoSettleShl",
+        "line": 9740
+      },
+      {
+        "name": "autoSettleNla",
+        "line": 9741
+      },
+      {
+        "name": "autoSettleExtraliga",
+        "line": 9742
+      },
+      {
         "name": "autoSettleSoccer",
         "line": 9823
       },
@@ -715,16 +731,64 @@
         "line": 11893
       },
       {
+        "name": "loadLiigaScheduleData",
+        "line": 11916
+      },
+      {
         "name": "_liigaBlendedRates",
         "line": 11931
+      },
+      {
+        "name": "liigaMC",
+        "line": 11951
+      },
+      {
+        "name": "liigaEns",
+        "line": 11993
+      },
+      {
+        "name": "_liigaPopulateDayFilter",
+        "line": 12076
+      },
+      {
+        "name": "loadNlaScheduleData",
+        "line": 12109
       },
       {
         "name": "_nlaBlendedRates",
         "line": 12116
       },
       {
+        "name": "nlaMC",
+        "line": 12129
+      },
+      {
+        "name": "nlaEns",
+        "line": 12150
+      },
+      {
+        "name": "_nlaPopulateDayFilter",
+        "line": 12200
+      },
+      {
+        "name": "loadExtraligaScheduleData",
+        "line": 12225
+      },
+      {
         "name": "_extraligaBlendedRates",
         "line": 12232
+      },
+      {
+        "name": "extraligaMC",
+        "line": 12245
+      },
+      {
+        "name": "extraligaEns",
+        "line": 12266
+      },
+      {
+        "name": "_extraligaPopulateDayFilter",
+        "line": 12317
       },
       {
         "name": "_hkRecentRates",
@@ -751,8 +815,72 @@
         "line": 12492
       },
       {
+        "name": "_liigaMatchCard",
+        "line": 12601
+      },
+      {
+        "name": "_liigaMatchCardRaw",
+        "line": 12602
+      },
+      {
+        "name": "renderLiigaMatches",
+        "line": 12744
+      },
+      {
+        "name": "_nlaMatchCard",
+        "line": 12770
+      },
+      {
+        "name": "_nlaMatchCardRaw",
+        "line": 12771
+      },
+      {
+        "name": "renderNlaMatches",
+        "line": 12887
+      },
+      {
+        "name": "_extraligaMatchCard",
+        "line": 12909
+      },
+      {
+        "name": "_extraligaMatchCardRaw",
+        "line": 12910
+      },
+      {
+        "name": "renderExtraligaMatches",
+        "line": 13026
+      },
+      {
+        "name": "loadShlScheduleData",
+        "line": 13062
+      },
+      {
         "name": "_shlBlendedRates",
         "line": 13078
+      },
+      {
+        "name": "shlMC",
+        "line": 13099
+      },
+      {
+        "name": "shlEns",
+        "line": 13139
+      },
+      {
+        "name": "_shlPopulateDayFilter",
+        "line": 13198
+      },
+      {
+        "name": "_shlMatchCard",
+        "line": 13222
+      },
+      {
+        "name": "_shlMatchCardRaw",
+        "line": 13223
+      },
+      {
+        "name": "renderShlMatches",
+        "line": 13346
       },
       {
         "name": "triggerPipeline",
@@ -1035,6 +1163,10 @@
         "line": 22114
       },
       {
+        "name": "refreshLive",
+        "line": 22393
+      },
+      {
         "name": "updateLiveProbabilities",
         "line": 22905
       },
@@ -1221,9 +1353,33 @@
       {
         "name": "_clvGetLiveOdds",
         "line": 32016
+      },
+      {
+        "name": "_augmentWithLiveOdds",
+        "line": 32050
+      },
+      {
+        "name": "_clvFetchESPNOdds",
+        "line": 32065
+      },
+      {
+        "name": "findOddsMatch",
+        "line": 32170
+      },
+      {
+        "name": "_clvGetMarketLine",
+        "line": 32290
+      },
+      {
+        "name": "_ptModel",
+        "line": 32999
+      },
+      {
+        "name": "line",
+        "line": 33436
       }
     ],
-    "symbols_truncated": true,
+    "symbols_truncated": false,
     "note": "Function names only, no original JS source or model weights exported."
   },
   "extensions": {
