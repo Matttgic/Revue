@@ -32,7 +32,7 @@ button.primary,button[aria-pressed=true]{background:var(--green);border-color:va
 .unsupported{margin:14px 0;display:flex;flex-wrap:wrap;gap:7px}
 .unsupported span{font-size:.78rem;border:1px solid var(--line);color:var(--dim);border-radius:7px;padding:7px 9px}
 footer{color:var(--muted);font-size:.8rem;margin-top:24px}a{color:var(--blue);text-underline-offset:3px}
-</style></head><body><main>
+</style><link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a><a href="./engine-v2.html">SCANNER</a><a href="./multisports.html" aria-current="page">MODÈLES</a><a href="./nhl-joueurs.html">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main>
 <header><div><div class="kicker">REVUE / LABORATOIRE MULTISPORTS</div><h1>Le terrain est <span>ouvert.</span></h1><p>Prédictions expérimentales, classées par compétition.</p></div><button class="primary" id="refresh">Actualiser</button></header>
 <p style="margin:16px 0"><a href="./nhl-joueurs.html" style="border:1px solid var(--line);padding:10px 13px;display:inline-block;border-radius:8px;text-decoration:none">NHL — Buteurs, passeurs et tirs →</a>
 <a href="./qualite-modeles.html" style="border:1px solid var(--line);padding:10px 13px;display:inline-block;border-radius:8px;text-decoration:none;margin-left:6px">Qualité des modèles →</a></p>
@@ -105,14 +105,16 @@ async function load(){
   const r=await fetch("./multisports-latest.json?t="+Date.now(),{cache:"no-store"});
   if(!r.ok)throw Error("JSON non encore publié (HTTP "+r.status+")");
   const d=await r.json();if(!d.competitions||!d.overview)throw Error("Données incomplètes");
-  payload=d;
-  $("fixtures").textContent=d.overview.fixtures;
-  $("predictions").textContent=d.overview.predicted;
+  // CFB was removed from active Revue models; ignore old published JSON too.
+  payload={...d,competitions:Object.fromEntries(Object.entries(d.competitions).filter(([key])=>key!=="CFB"))};
+  const active=Object.values(payload.competitions).flatMap(league=>league.games||[]);
+  $("fixtures").textContent=active.length;
+  $("predictions").textContent=active.filter(game=>game.probabilities!=null).length;
   $("feeds").textContent=d.overview.feeds_ok+d.overview.feeds_partial;
   $("updated").textContent="Calcul du "+new Date(d.generated_at_utc).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Paris"})+" (Paris)";
   $("unsupported").replaceChildren();
   for(const sport of d.sources_non_connectees||[])$("unsupported").append(el("span","",sport.label+" · non connecté"));
-  const failures=Object.entries(d.overview.league_feed_diagnostics||{}).filter(([key,diag])=>diag.status!=="ok");
+  const failures=Object.entries(d.overview.league_feed_diagnostics||{}).filter(([key,diag])=>key!=="CFB"&&diag.status!=="ok");
   $("diagnostics").textContent=failures.length? "Flux incomplets ou indisponibles : "+failures.map(([key,diag])=>key+" ("+diag.status+")").join(", "):"Tous les flux interrogés ont répondu.";
   filters();draw();
  }catch(err){$("updated").textContent="Données indisponibles : "+err.message;$("empty").hidden=false;}
