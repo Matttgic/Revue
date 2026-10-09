@@ -1,0 +1,39 @@
+name: Revue - Health diagnostics
+on:
+  workflow_dispatch:
+  schedule:
+    # 20 minutes after the odds scanner every six hours.
+    - cron: '20 0,6,12,18 * * *'
+  push:
+    paths:
+      - 'outils/diagnostic_revue.py'
+      - 'tests/test_diagnostic_revue.py'
+      - '.github/workflows/health-revue.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-health-no-api
+  cancel-in-progress: false
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate monitoring
+        run: python -m unittest discover -s tests -p 'test_diagnostic_revue.py' -v
+      - name: Check data timestamps and status without API call
+        run: python -m outils.diagnostic_revue
+      - name: Publish health snapshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/health-latest.json
+          if ! git diff --cached --quiet; then
+            git commit -m "health: actualiser état modèles cotes et vérifications"
+            git pull --rebase -X theirs origin main
+            git push origin HEAD:main
+          fi
