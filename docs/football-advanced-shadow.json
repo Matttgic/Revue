@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-09T20:08:23.317144+00:00",
+  "generated_at_utc": "2026-10-09T21:47:51.501811+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -7,7 +7,7 @@
   },
   "espn_observed_features": {
     "status": "available",
-    "teams": 73,
+    "teams": 92,
     "genuine_xg": false
   },
   "competitions": {
@@ -523,17 +523,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 18,
+        "n": 19,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.59453,
-          "logloss": 1.00262
+          "brier": 0.60513,
+          "logloss": 1.01691
         },
         "baseline": {
-          "brier": 0.59717,
-          "logloss": 1.00121
+          "brier": 0.60931,
+          "logloss": 1.01899
         },
-        "shadow_brier_delta_vs_baseline": -0.00264,
+        "shadow_brier_delta_vs_baseline": -0.00418,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -1160,8 +1160,19 @@
         }
       ],
       "evaluation": {
-        "status": "insufficient_history",
-        "n": 0
+        "status": "small_historical_score_backtest",
+        "n": 1,
+        "licensed_features_used_in_backtest": 0,
+        "shadow": {
+          "brier": 0.80166,
+          "logloss": 1.27154
+        },
+        "baseline": {
+          "brier": 0.77773,
+          "logloss": 1.22997
+        },
+        "shadow_brier_delta_vs_baseline": 0.02393,
+        "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "MLS": {
@@ -1210,14 +1221,14 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.46194,
-            "draw_90": 0.26023,
-            "away_win_90": 0.27783,
-            "over_2_5": 0.5324
+            "home_win_90": 0.46503,
+            "draw_90": 0.25925,
+            "away_win_90": 0.27571,
+            "over_2_5": 0.53476
           },
           "expected_score": {
-            "home": 1.612,
-            "away": 1.196
+            "home": 1.624,
+            "away": 1.194
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -1225,7 +1236,7 @@
           "odds": null,
           "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
           "espn_features_published_at": {
-            "home": "2026-10-09T19:24:40.316823+00:00",
+            "home": "2026-10-09T21:47:48.334863+00:00",
             "away": "2026-10-09T20:08:19.847436+00:00"
           }
         },
@@ -1303,19 +1314,24 @@
             "away": 10
           },
           "probabilities": {
-            "home_win_90": 0.75751,
-            "draw_90": 0.12972,
-            "away_win_90": 0.11276,
-            "over_2_5": 0.79046
+            "home_win_90": 0.77155,
+            "draw_90": 0.12132,
+            "away_win_90": 0.10713,
+            "over_2_5": 0.80726
           },
           "expected_score": {
-            "home": 3.156,
-            "away": 1.049
+            "home": 3.286,
+            "away": 1.051
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761850",
@@ -1329,19 +1345,24 @@
             "away": 8
           },
           "probabilities": {
-            "home_win_90": 0.55656,
-            "draw_90": 0.21995,
-            "away_win_90": 0.22349,
-            "over_2_5": 0.63647
+            "home_win_90": 0.54141,
+            "draw_90": 0.22344,
+            "away_win_90": 0.23514,
+            "over_2_5": 0.63846
           },
           "expected_score": {
-            "home": 2.085,
-            "away": 1.194
+            "home": 2.05,
+            "away": 1.239
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761851",
@@ -1355,19 +1376,24 @@
             "away": 10
           },
           "probabilities": {
-            "home_win_90": 0.43563,
-            "draw_90": 0.24876,
-            "away_win_90": 0.31561,
-            "over_2_5": 0.59922
+            "home_win_90": 0.43109,
+            "draw_90": 0.24539,
+            "away_win_90": 0.32352,
+            "over_2_5": 0.61725
           },
           "expected_score": {
-            "home": 1.693,
-            "away": 1.408
+            "home": 1.72,
+            "away": 1.466
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761852",
@@ -1381,19 +1407,24 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.50025,
-            "draw_90": 0.2203,
-            "away_win_90": 0.27945,
-            "over_2_5": 0.6945
+            "home_win_90": 0.48544,
+            "draw_90": 0.22183,
+            "away_win_90": 0.29274,
+            "over_2_5": 0.69937
           },
           "expected_score": {
-            "home": 2.105,
-            "away": 1.48
+            "home": 2.077,
+            "away": 1.535
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761853",
@@ -1408,18 +1439,23 @@
           },
           "probabilities": {
             "home_win_90": 0.33435,
-            "draw_90": 0.27786,
-            "away_win_90": 0.38779,
-            "over_2_5": 0.48229
+            "draw_90": 0.27733,
+            "away_win_90": 0.38831,
+            "over_2_5": 0.48435
           },
           "expected_score": {
-            "home": 1.226,
-            "away": 1.376
+            "home": 1.23,
+            "away": 1.381
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T20:08:19.847436+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761854",
@@ -1433,19 +1469,24 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.39836,
-            "draw_90": 0.25418,
-            "away_win_90": 0.34746,
-            "over_2_5": 0.58384
+            "home_win_90": 0.39114,
+            "draw_90": 0.25496,
+            "away_win_90": 0.3539,
+            "over_2_5": 0.58172
           },
           "expected_score": {
-            "home": 1.587,
-            "away": 1.445
+            "home": 1.563,
+            "away": 1.459
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761855",
@@ -1459,19 +1500,24 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.42608,
-            "draw_90": 0.22165,
-            "away_win_90": 0.35227,
-            "over_2_5": 0.73141
+            "home_win_90": 0.43761,
+            "draw_90": 0.21614,
+            "away_win_90": 0.34626,
+            "over_2_5": 0.75408
           },
           "expected_score": {
-            "home": 1.995,
-            "away": 1.807
+            "home": 2.096,
+            "away": 1.851
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761856",
@@ -1485,19 +1531,24 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.29422,
-            "draw_90": 0.26561,
-            "away_win_90": 0.44017,
-            "over_2_5": 0.51268
+            "home_win_90": 0.27976,
+            "draw_90": 0.2611,
+            "away_win_90": 0.45914,
+            "over_2_5": 0.51963
           },
           "expected_score": {
-            "home": 1.17,
-            "away": 1.555
+            "home": 1.14,
+            "away": 1.615
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T20:08:19.847436+00:00"
+          }
         },
         {
           "event_id": "761857",
@@ -1511,19 +1562,24 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.41536,
-            "draw_90": 0.2624,
-            "away_win_90": 0.32224,
-            "over_2_5": 0.54348
+            "home_win_90": 0.41492,
+            "draw_90": 0.25805,
+            "away_win_90": 0.32703,
+            "over_2_5": 0.56336
           },
           "expected_score": {
-            "home": 1.534,
-            "away": 1.32
+            "home": 1.572,
+            "away": 1.369
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         },
         {
           "event_id": "761858",
@@ -1537,19 +1593,24 @@
             "away": 10
           },
           "probabilities": {
-            "home_win_90": 0.27865,
-            "draw_90": 0.26233,
-            "away_win_90": 0.45901,
-            "over_2_5": 0.5147
+            "home_win_90": 0.27163,
+            "draw_90": 0.25604,
+            "away_win_90": 0.47234,
+            "over_2_5": 0.53321
           },
           "expected_score": {
-            "home": 1.132,
-            "away": 1.603
+            "home": 1.14,
+            "away": 1.671
           },
           "xg_used": false,
-          "espn_stats_used": false,
+          "espn_stats_used": true,
           "status": "shadow_non_calibre",
-          "odds": null
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-09T21:47:48.334863+00:00",
+            "away": "2026-10-09T21:47:48.334863+00:00"
+          }
         }
       ],
       "evaluation": {
