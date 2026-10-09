@@ -37,9 +37,6 @@ jobs:
         continue-on-error: true
       - name: Tester le modèle des joueurs NHL
         run: python -m unittest discover -s tests -p 'test_nhl_joueurs_independant.py' -v
-      - name: Diagnostiquer stats ESPN NHL pour le fallback
-        run: python outils/probe_espn_hockey.py
-        continue-on-error: true
       - name: Calculer les profils buteurs, passeurs et tirs NHL
         run: python modeles/simulations/nhl_joueurs_independant.py --nhl-file docs/nhl-model-latest.json
       - name: Tester tennis UFC Liiga sans réseau
