@@ -97,7 +97,7 @@ def inspect_frontend_model_symbols(root: Path) -> dict:
            "elo","poisson","bayes","ensemble","xg","predict","simulat",
            "backtest","calibr","injur","spread","market","margin",
            "model","prob","odds","prior","rate","line",
-           "liiga","nla","extraliga","shl")
+           "liiga","nla","extraliga","shl","form","blend","mkt")
     for pattern in patterns:
         for hit in re.finditer(pattern,source):
             name=hit.group(1)
