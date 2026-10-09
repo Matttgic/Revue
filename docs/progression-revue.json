@@ -1,0 +1,115 @@
+{
+  "updated_at_utc": "2026-10-09T21:52:00+00:00",
+  "reference_repository": "Purple-Wraith/clairvoyance-backend",
+  "target_repository": "Matttgic/Revue",
+  "estimated_functional_coverage_percent": 33,
+  "previous_estimate_percent": 30,
+  "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
+  "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
+  "excluded_by_user": [
+    "CFB"
+  ],
+  "model_status": "experimental models never automatically promoted to live picks",
+  "categories": [
+    {
+      "id": "infrastructure",
+      "title": "Infrastructure et automatisation",
+      "weight": 10,
+      "coverage": 0.8,
+      "status": "partiel",
+      "remaining": "Alertes et observabilité plus complètes"
+    },
+    {
+      "id": "sports_data",
+      "title": "Sources et données sportives",
+      "weight": 10,
+      "coverage": 0.5,
+      "status": "partiel",
+      "remaining": "Historique saisons entières, disponibilités joueurs"
+    },
+    {
+      "id": "odds",
+      "title": "Cotes françaises et marchés",
+      "weight": 14,
+      "coverage": 0.55,
+      "status": "partiel",
+      "remaining": "Marchés supplémentaires, vérification du règlement et cotes de clôture"
+    },
+    {
+      "id": "football",
+      "title": "Modèles football",
+      "weight": 12,
+      "coverage": 0.22,
+      "status": "partiel",
+      "remaining": "xG/xGA autorisés, compositions, calibration avancée"
+    },
+    {
+      "id": "hockey",
+      "title": "NHL et hockey spécialisé",
+      "weight": 16,
+      "coverage": 0.2,
+      "status": "partiel",
+      "remaining": "Gardiens confirmés, MoneyPuck, marché tirs et simulation calibrée"
+    },
+    {
+      "id": "basketball",
+      "title": "Modèles basketball",
+      "weight": 10,
+      "coverage": 0.13,
+      "status": "partiel",
+      "remaining": "Tempo, efficacités, joueurs absents et minutes"
+    },
+    {
+      "id": "nfl_mlb",
+      "title": "Modèles NFL et MLB",
+      "weight": 10,
+      "coverage": 0.23,
+      "status": "partiel",
+      "remaining": "QB, lanceurs, météo, blessures et stabilité saisonnière"
+    },
+    {
+      "id": "additional_sports",
+      "title": "Sports spécialisés supplémentaires",
+      "weight": 8,
+      "coverage": 0.05,
+      "status": "partiel",
+      "remaining": "Flux et modèles officiels vérifiables"
+    },
+    {
+      "id": "validation",
+      "title": "Backtest prospectif, CLV et calibration",
+      "weight": 8,
+      "coverage": 0.3,
+      "status": "partiel",
+      "remaining": "Cotes chronologiques et saison de validation complète"
+    },
+    {
+      "id": "licensed_data",
+      "title": "Droits et accès aux données premium",
+      "weight": 2,
+      "coverage": 0,
+      "status": "absent",
+      "remaining": "Droit d'utiliser Opta ou substitution ouverte crédible"
+    }
+  ],
+  "completed_this_iteration": [
+    "Audit JavaScript frontend: 1468 named functions, 306 model-related symbols indexed",
+    "NHL fade-out interseason prior candidate separately from production",
+    "Independent Elo/Bayes/Monte Carlo scores-only ensemble for NBA WNBA NCAA basketball NFL MLB",
+    "12 offline tests for ensemble, chronologically compared against previous and baseline",
+    "Prospective lock-before-kickoff ledger with strict 20-minute buffer and final-score grading",
+    "12 additional prospective ledger tests, 17 genuine paired predictions registered",
+    "Mobile gaming research dashboard, with historical scores and prospective scorecards"
+  ],
+  "published_reports": {
+    "ensemble": "docs/ensemble-mc-bayes-latest.json",
+    "prospective": "docs/ensemble-mc-bayes-performance.json",
+    "functions": "docs/clairvoyance-code-audit.json"
+  },
+  "warnings": [
+    "Functional percentage is approximate and is not a mathematically established replication percentage",
+    "Monetary profitability is unverified",
+    "Source code being public does not grant wholesale source redistribution rights",
+    "Never report Opta or confirmed goalies unless such data is actually present"
+  ]
+}
