@@ -14,6 +14,30 @@ const {poissonMass,marginDistribution,asianHomeCover}=
   require("./frontend_clairvoyance_soccer_analytic.js");
 const LOGIT_SHIFT=.18;
 
+function recentRates(teamId,allGames,count=5){
+  const selected=(allGames||[]).filter(g=>g.state==="post" &&
+    g.homeScore!=null&&g.awayScore!=null &&
+    (g.home===teamId||g.away===teamId));
+  selected.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const n=count||5;
+  const slice=selected.slice(0,n);
+  if(slice.length<3)return null;
+  let attack=0,conceded=0;
+  for(const g of slice){
+    const isHome=g.home===teamId;
+    attack+=isHome?g.homeScore:g.awayScore;
+    conceded+=isHome?g.awayScore:g.homeScore;
+  }
+  return {games:slice.length,gf:attack/slice.length,ga:conceded/slice.length};
+}
+function lastFiveForm(teamId,allGames,base){
+  const last=recentRates(teamId,allGames,5);
+  if(!last)return 1;
+  const seasonMargin=(base.gf||0)-(base.ga||0);
+  const recentMargin=last.gf-last.ga;
+  const adjustment=(recentMargin-seasonMargin)*.05;
+  return 1+Math.max(-.06,Math.min(.06,adjustment));
+}
 function clampMargin(p){
   if(!(p>0&&p<1))return p;
   const shifted=Math.log(p/(1-p))+LOGIT_SHIFT;
@@ -39,7 +63,7 @@ function euroHockeyGame(homeId,awayId,marketTotal,options={}){
   if(!h||!a)return null;
   const hRates=previousSeasonRates(h);
   const aRates=previousSeasonRates(a);
-  const form=options.formFactor||(()=>1);
+  const form=options.formFactor||lastFiveForm;
   const hFactor=form(homeId,source.games,hRates);
   const aFactor=form(awayId,source.games,aRates);
   const homeIce=.055;
@@ -76,4 +100,4 @@ function swissMatch(home,away,ou,opts){return euroHockeyGame(home,away,ou,opts);
 function czechMatch(home,away,ou,opts){return euroHockeyGame(home,away,ou,opts);}
 function shlMatch(home,away,ou,opts){return euroHockeyGame(home,away,ou,opts);}
 module.exports={euroHockeyGame,liigaMatch,swissMatch,czechMatch,shlMatch,
-  clampMargin,marketHalfGoalLine};
+  clampMargin,marketHalfGoalLine,recentRates,lastFiveForm};
