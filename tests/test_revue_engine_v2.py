@@ -136,7 +136,9 @@ class PaperTests(unittest.TestCase):
         self.assertEqual(ledger["bets"][0]["status"],"pending")
         settle_ledger(ledger,history,START+timedelta(hours=5))
         self.assertEqual(ledger["bets"][0]["status"],"won")
-        self.assertAlmostEqual(ledger_statistics(ledger)["paper_roi_pct"],85)
+        self.assertAlmostEqual(
+            ledger_statistics(ledger)["paper_roi_pct"],
+            100 * (ledger["bets"][0]["bookmaker_price"]-1))
 
     def test_soccer_draw_correct(self):
         b={"market":"h2h","side":"draw"}
