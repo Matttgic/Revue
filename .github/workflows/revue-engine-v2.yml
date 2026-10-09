@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # Refresh after the forecast workflow, keep runs spaced out.
-    - cron: '00 0,8,16 * * *'
+    - cron: '00 0,6,12,18 * * *'
   push:
     paths:
       - 'outils/revue_engine_v2.py'
@@ -13,6 +13,8 @@ on:
       - 'tests/test_pulsescore_v2.py'
       - 'outils/consensus_quotations.py'
       - 'tests/test_consensus_quotations.py'
+      - 'outils/historique_cotes_clv.py'
+      - 'tests/test_historique_cotes_clv.py'
       - '.github/workflows/revue-engine-v2.yml'
 
 permissions:
@@ -39,6 +41,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
       - name: Tests consensus bookmaker et de-vig
         run: python -m unittest discover -s tests -p 'test_consensus_quotations.py' -v
+      - name: Tests historique cotes réelles et proxy CLV
+        run: python -m unittest discover -s tests -p 'test_historique_cotes_clv.py' -v
       - name: Mise à jour du registre PAPIER uniquement
         if: github.event_name != 'push'
         env:
