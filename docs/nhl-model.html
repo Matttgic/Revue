@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revue | NHL Independent</title>
+<style>
+:root{color-scheme:dark;--bg:#0c1217;--panel:#172128;--line:#2c3a42;--fg:#ecf3ee;--muted:#aabdb6;--accent:#ccf47d}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--fg);margin:0}
+main{max-width:900px;margin:auto;padding:26px 15px 70px}
+header{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:25px}
+h1{font-size:clamp(2rem,7vw,4.2rem);letter-spacing:-.055em;margin:6px 0 10px;line-height:1}
+strong.em{color:var(--accent)}p{color:var(--muted)}.kicker{text-transform:uppercase;letter-spacing:.18em;color:var(--accent);font-size:11px;font-weight:900}
+button{background:var(--accent);color:#14200b;border:0;border-radius:9px;padding:11px 18px;font-weight:800;cursor:pointer}
+.notice{border-left:3px solid var(--accent);background:#1b2421;margin:24px 0;padding:15px;font-size:.9rem}
+#status{color:var(--muted);font-size:.86rem;margin:14px 0 23px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:13px}
+.card{border:1px solid var(--line);border-radius:13px;background:var(--panel);padding:18px}
+.date{font-size:.8rem;font-weight:700;color:var(--accent)}
+.teams{font-size:1.3rem;font-weight:800;letter-spacing:-.02em;margin:10px 0 17px}
+.metric{display:flex;justify-content:space-between;margin-top:12px;font-size:.86rem;color:var(--muted)}
+.metric b{color:var(--fg);font-variant-numeric:tabular-nums}.track{margin-top:4px;height:6px;background:#34424a;border-radius:6px;overflow:hidden}
+.track span{display:block;height:100%;background:var(--accent);border-radius:6px}
+.track.alt span{background:#76acd5}.detail{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);margin-top:16px;padding-top:13px}
+#empty{padding:22px;border:1px dashed var(--line);border-radius:12px;color:var(--muted)}
+footer{font-size:.81rem;color:var(--muted);border-top:1px solid var(--line);margin-top:35px;padding-top:20px}
+a{color:#9cc8f2}
+</style></head><body><main>
+<header><div><span class="kicker">Revue / Recherche NHL</span><h1>NHL Independent<strong class="em">.</strong></h1>
+<p>Prochaines rencontres — estimation Elo × Poisson</p></div><button id="refresh">Rafraîchir</button></header>
+<div class="notice"><strong>Modèle expérimental.</strong> Probabilités non calibrées, pas de cotes françaises ni de recommandations de mise. Les gardiens titulaires ne sont pas encore intégrés. Aucun rendement garanti.</div>
+<div id="status" role="status" aria-live="polite">Chargement des données…</div>
+<h2>Matchs à venir <small id="count"></small></h2><section class="grid" id="grid"></section>
+<p id="empty" hidden>Aucune rencontre future publiée. Le premier calcul automatique n'a peut-être pas encore été exécuté.</p>
+<footer>Heures : Europe/Paris. Données : NHL Web API. <a href="https://github.com/Matttgic/Revue/blob/main/modeles/simulations/nhl_independant.py">Modèle Python</a> · <a href="https://github.com/Matttgic/Revue/actions/workflows/nhl-independent.yml">Actualisations GitHub Actions</a></footer>
+</main>
+<script>
+"use strict";
+const by=id=>document.getElementById(id);
+const create=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node};
+const percent=p=>(100*p).toLocaleString("fr-FR",{maximumFractionDigits:1,minimumFractionDigits:1})+" %";
+function metric(card,label,p,alt=false){
+ const line=create("div","metric");line.append(create("span","",label),create("b","",percent(p)));card.append(line);
+ const track=create("div","track"+(alt?" alt":""));const bar=create("span");bar.style.width=Math.max(0,Math.min(100,p*100))+"%";track.append(bar);card.append(track);
+}
+async function load(){
+ by("status").textContent="Lecture des résultats…";by("grid").replaceChildren();by("empty").hidden=true;
+ try{
+  const response=await fetch("./nhl-model-latest.json?update="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw new Error("Résultats non encore publiés (HTTP "+response.status+")");
+  const data=await response.json();if(!Array.isArray(data.games))throw new Error("Format inattendu");
+  const stamp=new Date(data.generated_at_utc).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Paris"});
+  by("status").textContent="Calcul : "+stamp+" (Paris) · "+data.model;
+  by("count").textContent="("+data.games.length+")";by("empty").hidden=data.games.length>0;
+  for(const g of data.games){
+   const card=create("article","card");
+   const start=new Date(g.start_utc).toLocaleString("fr-FR",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Paris"});
+   card.append(create("div","date",start),create("div","teams",g.away+" @ "+g.home));
+   metric(card,"Victoire "+g.home,g.probabilities.home_win);
+   metric(card,"Victoire "+g.away,g.probabilities.away_win);
+   metric(card,"Plus de 5,5 buts",g.probabilities.over_5_5,true);
+   card.append(create("div","detail","Buts estimés : "+g.expected_goals.home+" / "+g.expected_goals.away+" · Sans cote bookmaker"));
+   by("grid").append(card);
+  }
+ }catch(e){by("status").textContent="Données indisponibles : "+e.message;by("empty").hidden=false;}
+}
+by("refresh").addEventListener("click",load);load();
+</script></body></html>
