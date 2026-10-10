@@ -3,6 +3,8 @@ name: Revue - Surveillance CI et alertes
 on:
   workflow_run:
     workflows:
+      - "Revue - Parité exacte Clairvoyance"
+      - "Revue - Parité exacte modèles Clairvoyance"
       - "Revue - Match Center unifié"
       - "Revue - MoneyPuck official NHL data"
       - "Revue - Clairvoyance NHL MoneyPuck Shadow"
