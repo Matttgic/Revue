@@ -20,6 +20,11 @@ MAX_ODDS_AGE = timedelta(hours=24)
 MAX_SOURCE_AGE = timedelta(hours=72)
 
 
+class DuplicateFixtureError(ValueError):
+    """A repeated source ID is a data-integrity failure, never silently skipped."""
+
+
+
 def instant(s: object) -> datetime:
     if not isinstance(s, str):
         raise ValueError("Horodatage absent")
@@ -96,7 +101,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                     continue
                 key = game_key(league, raw["event_id"])
                 if key in events:
-                    raise ValueError(f"Duplicate event in fixture inventory: {key}")
+                    raise DuplicateFixtureError(f"Duplicate event in fixture inventory: {key}")
                 team_home, team_away = raw["home"], raw["away"]
                 if not team_home or not team_away or team_home == team_away:
                     continue
@@ -120,6 +125,8 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                     })
                 obs["model_status"] = raw.get("status", "unknown")
                 events[key] = obs
+            except DuplicateFixtureError:
+                raise
             except (KeyError, ValueError, TypeError):
                 rejected["fixture_mismatch"] += 1
                 continue
