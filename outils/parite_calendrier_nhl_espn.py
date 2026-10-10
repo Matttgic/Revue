@@ -33,6 +33,9 @@ def resolve_reference_ids(reference:dict, own:dict) -> tuple[list[dict],list[dic
             continue
     matches,missing=[],[]
     for game in own["games"]:
+        nhl_id=str(game.get("event_id"))
+        if nhl_id in official_ids:
+            raise ValueError("Duplicated official NHL game ID")
         try:
             nhl_id=str(game["event_id"])
             key=(game["home"],game["away"],instant(game["start_utc"]))
