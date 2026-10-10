@@ -13,6 +13,8 @@ on:
     paths:
       - 'outils/clairvoyance_elo_settlement_replay.py'
       - 'outils/verifier_phase1_nhl.py'
+      - 'outils/parite_nhl_gardiens_publics.py'
+      - 'tests/test_parite_nhl_gardiens_publics.py'
       - 'tests/test_clairvoyance_elo_settlement_replay.py'
       - 'tests/test_verifier_phase1_nhl.py'
       - '.github/workflows/phase1-nhl-fidelity.yml'
@@ -34,6 +36,7 @@ jobs:
       - name: Strict source-inspired ELO settlement rule tests
         run: |
           python -m unittest discover -s tests -p 'test_clairvoyance_elo_settlement_replay.py' -v
+          python -m unittest discover -s tests -p 'test_parite_nhl_gardiens_publics.py' -v
           python -m unittest discover -s tests -p 'test_verifier_phase1_nhl.py' -v
           python -m unittest discover -s tests -p 'test_clairvoyance_model_reproduction.py' -v
           python -m unittest discover -s tests -p 'test_nhl_source_input_gap.py' -v
@@ -46,9 +49,10 @@ jobs:
             git reset --hard origin/main
             python -m unittest discover -s tests -p 'test_clairvoyance_elo_settlement_replay.py'
             python -m unittest discover -s tests -p 'test_verifier_phase1_nhl.py'
+            python -m outils.parite_nhl_gardiens_publics
             python -m outils.clairvoyance_elo_settlement_replay
             python -m outils.verifier_phase1_nhl
-            git add docs/clairvoyance-elo-source-audit.json docs/phase1-nhl-fidelity.json
+            git add docs/clairvoyance-elo-source-audit.json docs/parite-nhl-gardiens-publics.json docs/phase1-nhl-fidelity.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'audit(phase1): record source Elo settlement replay and explicit SQL parity blockers'
             if git push origin HEAD:main; then exit 0; fi
