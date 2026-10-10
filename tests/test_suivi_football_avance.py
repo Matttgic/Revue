@@ -24,7 +24,8 @@ def s():
             }]}}}
 def history(done=False):
     return {"leagues":{"PL":{"events":[{
-        "id":"2026","complete":done,"home_score":2 if done else None,
+        "id":"2026","start":at(START),"home":"Team A","away":"Team B",
+        "complete":done,"home_score":2 if done else None,
         "away_score":1 if done else None
     }]}}}
 
@@ -78,6 +79,16 @@ class Tests(unittest.TestCase):
         report=summarize(ledger,later)
         self.assertEqual(report["performance"]["ALL"]["n_settled"],1)
         self.assertLess(report["performance"]["ALL"]["brier_delta_candidate_minus_baseline"],0)
+
+    def test_official_final_must_match_clubs_and_start(self):
+        book,_=reconcile({"events":{}},b(),s(),history(),NOW)
+        for key,wrong in (("away","Other Team"),("home","Other Home"),
+                          ("start",at(START+timedelta(hours=2)))):
+            h=history(done=True)
+            h["leagues"]["PL"]["events"][0][key]=wrong
+            copybook={"events":{"PL:2026":dict(book["events"]["PL:2026"])}}
+            result,_=reconcile(copybook,b(),s(),h,START+timedelta(hours=4))
+            self.assertEqual(result["events"]["PL:2026"]["status"],"pending")
 
     def test_no_market_roi(self):
         ledger,_=reconcile({"events":{}},b(),s(),history(),NOW)
