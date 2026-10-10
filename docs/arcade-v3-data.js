@@ -214,6 +214,94 @@ function radarComparisons(doc,now){
  }
  return out;
 }
+
+const OWNED_LEAGUES=new Set(["PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","NBA","WNBA","NCAAB","NFL","MLB"]);
+const OWNED_MODELS=new Set(["baseline","advanced_team","montecarlo_bayes","football_advanced","own_elo"]);
+const OWNED_SOCCER=new Set(["PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1"]);
+function ownedSnapshot(ledger,report,now){
+ const empty={status:"unavailable",locked:0,settled:0,elo:0,rows:new Map(),stats:null,since:null};
+ if(!ledger||!report||ledger.version!=="revue_phase2_owned_history_v1"||
+   report.version!=="revue_phase2_owned_performance_v1"||
+   report.status!=="new_revue_history_prospective_not_source_sql"||
+   ledger.since_utc!==report.since_utc||
+   report.identical_original_clairvoyance_sql_history!==false||
+   report.replayed_old_results!==false||report.real_bets_enabled!==false||
+   report.odds_queried!==false||report.roi_computed!==false||
+   report.models_calibrated!==false||report.bet_recommendations_verified!==false||
+   !age(report.generated_at_utc,now,18)||
+   !ledger.events||typeof ledger.events!=="object"||Array.isArray(ledger.events)||
+   !ledger.elo_events||typeof ledger.elo_events!=="object"||Array.isArray(ledger.elo_events)||
+   !ledger.elo_ratings||typeof ledger.elo_ratings!=="object"||
+   !report.per_league||typeof report.per_league!=="object")
+   return empty;
+ const since=ms(ledger.since_utc),updated=ms(ledger.updated_at_utc);
+ if(since===null||since>now+120000||updated===null||updated<since||updated>now+120000||
+   ms(report.generated_at_utc)<updated-120000)return empty;
+ const rows=new Map(),perLeague=new Map(),count={settled:0};
+ for(const [key,e] of Object.entries(ledger.events)){
+  if(!e||typeof e!=="object"||!OWNED_LEAGUES.has(e.league)||
+    key!==e.league+":"+e.event_id||rows.has(key)||
+    typeof e.home!=="string"||!e.home||
+    typeof e.away!=="string"||!e.away||e.home===e.away||
+    !["pending","settled"].includes(e.status)||
+    e.real_bet!==false||e.stake_units!==0||
+    e.market!==(OWNED_SOCCER.has(e.league)?"1X2_90min":"full_game_two_way")||
+    ms(e.start_utc)===null||ms(e.locked_at_utc)===null||
+    ms(e.locked_at_utc)<since||ms(e.locked_at_utc)>now+120000||
+    ms(e.locked_at_utc)>ms(e.start_utc)-20*60000||
+    !e.probabilities||typeof e.probabilities!=="object"||
+    !e.probabilities.baseline)return empty;
+  const expected=OWNED_SOCCER.has(e.league)?3:2;
+  const projections=[];
+  for(const [id,m] of Object.entries(e.probabilities)){
+   const probs=m?.probabilities;
+   if(!OWNED_MODELS.has(id)||!Array.isArray(probs)||probs.length!==expected||
+      !probs.every(p=>finite(p,0,1)&&p>0&&p<1)||
+      Math.abs(probs.reduce((a,b)=>a+b,0)-1)>0.0001||
+      typeof m.model_id!=="string"||!m.model_id||
+      ms(m.published_at_utc)===null||ms(m.published_at_utc)>ms(e.locked_at_utc)+120000||
+      ms(m.published_at_utc)>ms(e.start_utc)-20*60000)return empty;
+   projections.push({id,name:String(m.model_id),probabilities:[...probs],
+     publishedAt:m.published_at_utc});
+  }
+  if(e.status==="settled"){
+   if(ms(e.resolved_at_utc)===null||ms(e.resolved_at_utc)<ms(e.start_utc)||
+     ms(e.resolved_at_utc)>now+120000||e.score_source!=="ESPN scoreboard"||
+     !Number.isInteger(e.home_score)||!Number.isInteger(e.away_score)||
+     e.home_score<0||e.away_score<0||
+     !e.model_scores||Object.keys(e.model_scores).length!==projections.length||
+     projections.some(p=>!finite(e.model_scores[p.id]?.brier,0,2)||
+       !finite(e.model_scores[p.id]?.log_loss,0,100)))return empty;
+   count.settled++;
+  }else if(e.model_scores!==null||e.result!==null)return empty;
+  const countFor=perLeague.get(e.league)||{locked:0,settled:0};
+  countFor.locked++;
+  if(e.status==="settled")countFor.settled++;
+  perLeague.set(e.league,countFor);
+  rows.set(key,{key,league:e.league,eventId:String(e.event_id),
+    home:e.home,away:e.away,start:e.start_utc,lockedAt:e.locked_at_utc,
+    market:e.market,status:e.status,result:e.result,
+    projections,scores:e.status==="settled"?e.model_scores:null});
+ }
+ if(rows.size!==report.total_unique_matches_locked||
+   count.settled!==report.total_unique_matches_settled||
+   Object.keys(ledger.elo_events).length!==report.total_independent_elo_finals)return empty;
+ for(const [lg,x] of perLeague){
+  const sum=report.per_league[lg];
+  if(!sum||x.locked!==sum.locked||x.settled!==sum.settled)return empty;
+ }
+ const validResearch=Object.values(report.per_league).every(group=>
+   group&&typeof group==="object"&&group.models&&
+   Object.values(group.models).every(stat=>
+     Number.isInteger(stat?.settled)&&stat.settled>=0&&
+     (stat.settled===0?(stat.brier===null&&stat.log_loss===null):
+      finite(stat.brier,0,2)&&finite(stat.log_loss,0,100))));
+ if(!validResearch)return empty;
+ return {status:"prospective_independent_unvalidated",
+   locked:rows.size,settled:count.settled,elo:report.total_independent_elo_finals,
+   rows,stats:report.per_league,since:ledger.since_utc};
+}
+
 function build(sources,now){
  const gamesOk=sourceMatch(sources.matches,now);
  const picksOk=sourcePicks(sources.picks);
@@ -221,6 +309,7 @@ function build(sources,now){
  const journal=paper(sources.picks);
  const quotes=originalResearch(sources.picks,now);
  const radar=radarComparisons(sources.radar,now);
+ const owned=ownedSnapshot(sources.ownedLedger,sources.ownedPerformance,now);
  const goalieRows=new Map();
  if(safeGoalies(sources.goalies,now))for(const r of sources.goalies.rows){
    if(!future(r.start_utc,now)||
@@ -253,6 +342,9 @@ function build(sources,now){
   const goalie=(espn&&espn.home===g.home&&espn.away===g.away&&
                ms(espn.start_utc)===ms(g.start_utc))?espn:null;
   const srcModels=sourceModels(g);
+  const ownCandidate=owned.rows.get(key);
+  const own=(ownCandidate&&ownCandidate.home===g.home&&ownCandidate.away===g.away&&
+    ms(ownCandidate.start)===ms(g.start_utc))?ownCandidate:null;
   const why=[
     "Aucune cote française actuelle confirmée pour une comparaison EV.",
     "Aucun modèle calibré et validé pour recommander une mise.",
@@ -261,13 +353,15 @@ function build(sources,now){
   if(h)why.push(goalie?
     "NHL : ESPN distingue les gardiens confirmés/probables, mais les blessures et données NHL Edge restent non vérifiées.":
     "NHL : gardien titulaire, blessures et données NHL Edge non vérifiés.");
+  if(own)why.push("Revue phase 2 : "+own.projections.length+" modèle(s) gelé(s) avant ce match, non calibré(s). Historique indépendant, pas un avantage vérifié.");
   if(q.length)why.push("Une cote historique existe mais ne constitue pas une offre actuelle.");
   if(comparisons.length)why.push("PulseScore : écarts entre bookmakers FR observés, sans EV ni disponibilité en temps réel vérifiées.");
   else if(priceSamples.length)why.push("PulseScore : prix réellement observés mais sans comparaison suffisamment concordante de bookmakers.");
   events.push({
     key,league:g.league,sport:g.sport||g.league,id:String(g.event_id),
     home:String(g.home),away:String(g.away),start:g.start_utc,
-    modelCount:srcModels.length+(h?2:0),
+    modelCount:srcModels.length+(h?2:0)+(own?own.projections.length:0),
+    owned:own,
     models:srcModels,hockey:h?{
       mc:h.research.monte_carlo_home,ensemble:h.research.ensemble_home,
       drawCount:h.research.simulation_draws,
@@ -299,12 +393,15 @@ function build(sources,now){
    nhl:nhlOk?"partial_research":"missing_or_stale",
    espnGoalies:safeGoalies(sources.goalies,now)?"observed_status_separate":"missing_or_stale",
    radar:safeRadar(sources.radar,now)?"bounded_six_hour_observations":"missing_or_stale",
+   own:owned.status,
   },
   matchUpdated:gamesOk?sources.matches.generated_at_utc:null,
   paper:journal,
+  ownedSummary:{locked:owned.locked,settled:owned.settled,elo:owned.elo,
+    since:owned.since,stats:owned.stats},
   events,
   hiddenCFB:true,
  };
 }
-return {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies,safeRadar,radarComparisons,originalResearch};
+return {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies,safeRadar,radarComparisons,originalResearch,ownedSnapshot};
 });
