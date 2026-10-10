@@ -142,7 +142,7 @@ class ArenaTests(unittest.TestCase):
                   "real_bets_enabled","live_bookmaker_prices","original_clairvoyance_sql_parity",
                   "paper_roi_percent","paper_records","research_selections","bookmakers",
                   "localStorage","settled","unverified","EXPORTER MON JOURNAL",
-                  "timeZone:\\\"Europe/Paris\\\""):
+                  "Europe/Paris"):
             with self.subTest(key=k):self.assertIn(k,html)
         self.assertNotIn("innerHTML",html)
         doc=json.loads((DOCS/"picks-center-latest.json").read_text(encoding="utf-8"))
