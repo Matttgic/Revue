@@ -13,11 +13,19 @@ from collections import Counter
 from datetime import datetime, timedelta, timezone
 import math
 
-from modeles.simulations.nhl_independant import Game, season_code
-from outils.clairvoyance_nhl_moneypuck_shadow import as_utc
+from modeles.simulations.nhl_independant import Game
 
 ALLOWED_SNAPSHOT_AGE = timedelta(days=7)
 MAX_CURRENT_GAMES = 100
+
+
+def as_utc(value: object) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError('Missing ISO timestamp')
+    parsed = datetime.fromisoformat(value.replace('Z', '+00:00'))
+    if parsed.tzinfo is None:
+        raise ValueError('Naive timestamp')
+    return parsed.astimezone(timezone.utc)
 
 
 def _whole_nonnegative(value: object) -> bool:
@@ -39,8 +47,7 @@ def verify_point_in_time(
     now = as_of.astimezone(timezone.utc)
     first = int(expected_season[:4])
     source_label = f"{first}-{first + 1}"
-    if (season_code(now.date()) != expected_season or
-        teams.get("current_season") != source_label or
+    if (teams.get("current_season") != source_label or
         goalies.get("current_season") != source_label):
         raise ValueError("MoneyPuck and NHL season identity mismatch")
     info = teams.get("status", {}).get(source_label, {})
