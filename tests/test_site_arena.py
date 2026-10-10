@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","command-center.html","operations.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","command-center.html","operations.html","model-input-lab.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -114,6 +114,26 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_nhl_mlb_model_input_comparator_has_verified_experimental_sources(self):
+        import json
+        ui=(DOCS/"model-input-lab.html").read_text(encoding="utf-8")
+        home=(DOCS/"index.html").read_text(encoding="utf-8")
+        exact=(DOCS/"reproduction-exacte.html").read_text(encoding="utf-8")
+        self.assertIn("model-input-lab.html",home)
+        self.assertIn("model-input-lab.html",exact)
+        for snippet in ("nhl-source-input-delta.json","mlb-source-elo-gap.json",
+                        "original_database_raw_value_equality_verified",
+                        "original_sql_ratings_verified_equal","real_bets_enabled",
+                        "timeZone:\"Europe/Paris\"", "fetch("):
+            with self.subTest(snippet=snippet):self.assertIn(snippet,ui)
+        nhl=json.loads((DOCS/"nhl-source-input-delta.json").read_text(encoding="utf-8"))
+        mlb=json.loads((DOCS/"mlb-source-elo-gap.json").read_text(encoding="utf-8"))
+        self.assertFalse(nhl["original_inputs_identical"])
+        self.assertFalse(nhl["real_bets_enabled"])
+        self.assertFalse(mlb["original_sql_ratings_verified_equal"])
+        self.assertFalse(mlb["real_bets_enabled"])
+        self.assertEqual(len(mlb["games"]),mlb["games_comparable"])
 
     def test_github_workflow_supervision_is_public_data_not_original_daily_log(self):
         import json

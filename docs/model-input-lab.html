@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071021">
+<meta name="description" content="REVUE Model Input Lab : écarts de calcul NHL xG et MLB Elo, sans pari ni valeur de marché inventée.">
+<title>REVUE — Origine des probabilités</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1170px!important;margin:0 auto!important;padding:36px 17px 80px!important}
+h1,h2,h3{font-family:'Chakra Petch',sans-serif}
+h1{font-weight:800;line-height:1;letter-spacing:-.056em;font-size:clamp(36px,7vw,70px);margin:10px 0 17px;color:#f2fcff}
+h1 span{color:#56f3dc}
+.eyebrow{color:#5debdc;letter-spacing:.15em;font:700 11px 'Chakra Petch',sans-serif}
+.lead{max-width:830px;line-height:1.75;font-size:13px;color:#a8c7d5}
+.caveat{border-left:3px solid #efb987;background:#202739;padding:15px 17px;color:#eed2b6;font-size:12px;line-height:1.75;margin:23px 0}
+.numbers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 24px}
+.number{border:1px solid #385572;background:linear-gradient(145deg,#192c45,#0e1b2e);padding:17px}
+.number small{display:block;color:#9cbdd2;font:700 10px/1.5 'Chakra Petch',sans-serif;letter-spacing:.08em}
+.number strong{display:block;color:#60f5df;font:800 clamp(23px,3vw,36px) 'Chakra Petch',sans-serif;margin-top:12px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 12px}
+.tabs button{background:#182b41;border:1px solid #38576c;color:#b4c9d7;padding:12px 24px;font:800 12px 'Chakra Petch',sans-serif;cursor:pointer;letter-spacing:.09em}
+.tabs button[aria-selected="true"]{background:#195450;color:#eaffff;border-color:#5df1de}
+.note{border:1px solid #38556b;color:#a2c5d4;padding:15px;background:#102438;font:12px/1.7 'DM Sans',sans-serif}
+.state{font:11px/1.6 monospace;color:#b0cbda;margin:14px 0}
+.rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.game{background:linear-gradient(133deg,#172b45,#0f1b2e);border:1px solid #365773;padding:19px;min-width:0}
+.game small{color:#6fe3da;font:700 10px/1.5 monospace}
+.game h3{margin:8px 0 17px;color:#e7fcff;font-size:20px;line-height:1.3;overflow-wrap:anywhere}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.col{background:#1c394e;padding:12px;min-width:0}
+.col small{display:block;color:#a8c7d7;font:10px/1.5 'DM Sans',sans-serif}
+.col strong{color:#e8fcfa;display:block;font:800 25px 'Chakra Petch',sans-serif;margin-top:7px}
+.diff{margin:13px 0 0;color:#5bf5d8;font:800 14px 'Chakra Petch',sans-serif}
+.details{margin-top:8px;color:#9db7cb;font:11px/1.65 'DM Sans',sans-serif}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}
+.links a{border:1px solid #486079;padding:10px;color:#82f4e4;text-decoration:none;font:700 11px 'Chakra Petch',sans-serif}
+.empty{padding:30px;color:#a9becd;border:1px dashed #46647d}
+@media(max-width:840px){.numbers{grid-template-columns:repeat(2,minmax(0,1fr))}.rows{grid-template-columns:1fr}}
+@media(max-width:390px){.number strong{font-size:23px}.col strong{font-size:20px}}
+</style></head><body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./command-center.html">CONTRÔLE</a>
+<a href="./predictions-revue.html">PRÉVISIONS</a><a href="./model-input-lab.html" aria-current="page">MODEL LAB</a>
+<a href="./reproduction-exacte.html">PARITÉ</a>
+</nav><span class="rv-top-tag">SOURCE / FORENSICS</span></div></div>
+<main>
+<div class="eyebrow">REVUE / ORIGINAL MODEL INPUT FORENSICS</div>
+<h1>LA FORMULE EST LÀ.<br><span>QUELLE DONNÉE ENTRE ?</span></h1>
+<p class="lead">Reproduction indépendante des calculs d'entrée du prédicteur Clairvoyance : xG MoneyPuck pour la NHL, Elo ESPN pour le MLB. Chaque comparaison conserve les mêmes équipes et rend visible l'effet d'une hypothèse de données.</p>
+<div class="caveat">Ceci n'est PAS la reproduction exacte des prédictions de Clairvoyance : sa base SQL, ses instantanés, sa saison active et ses cotes ne sont pas accessibles. Aucun pari proposé, aucune probabilité calibrée ni rentabilité démontrée. Les rencontres sont celles enregistrées au moment des audits, pas un flux live.</div>
+<div class="numbers">
+<div class="number"><small>MATCHS NHL COMPARABLES</small><strong id="nhl-count">—</strong></div>
+<div class="number"><small>ÉCART ÉCHELLE xG NHL</small><strong id="nhl-delta">—</strong></div>
+<div class="number"><small>MATCHS MLB COMPARABLES</small><strong id="mlb-count">—</strong></div>
+<div class="number"><small>ÉCART ELO MLB</small><strong id="mlb-delta">—</strong></div>
+</div>
+<div class="tabs" role="tablist" aria-label="Sport">
+<button role="tab" data-sport="nhl" aria-selected="true">NHL · ÉCHELLE xG</button>
+<button role="tab" data-sport="mlb" aria-selected="false">MLB · ÉCART ELO</button>
+</div>
+<div id="analysis" class="note" role="note">Chargement des preuves…</div>
+<div id="status" class="state" role="status" aria-live="polite">Vérification des rapports horodatés…</div>
+<div id="games" class="rows" role="tabpanel"></div>
+<div class="links">
+<a href="./nhl-source-input-gap.html">ANALYSE NHL DÉTAILLÉE ↗</a>
+<a href="./nhl-source-input-delta.json">RAPPORT NHL JSON ↗</a>
+<a href="./mlb-source-elo-gap.json">RAPPORT MLB JSON ↗</a>
+<a href="./reproduction-exacte.html">AUDIT GLOBAL ↗</a>
+</div>
+<p class="details">MoneyPuck.com est crédité pour les variables NHL de recherche personnelle non commerciale. Revue n'envoie aucune requête à un bookmaker depuis cette page ; tous les scénarios utilisent les fichiers horodatés déjà publiés. Fuseau d'affichage : Europe/Paris.</p>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const add=(tag,klass,content)=>{const e=document.createElement(tag);if(klass)e.className=klass;if(content!==undefined)e.textContent=String(content);return e;};
+const pct=n=>Number.isFinite(n)?(100*n).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
+const points=n=>Number.isFinite(n)?n.toLocaleString("fr-FR",{maximumFractionDigits:2})+" pts":"—";
+const when=t=>new Date(t).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
+let reports={nhl:null,mlb:null},sport="nhl";
+async function loadOne(file){
+ const r=await fetch("./"+file+"?t="+Date.now(),{cache:"no-store"});
+ if(!r.ok)throw Error("HTTP "+r.status+" · "+file);
+ return r.json();
+}
+function card(game,nhl){
+ const c=add("article","game"),g=add("div","cols");
+ c.append(add("small","",(nhl?"NHL ":"MLB ")+game.event_id+" · "+when(game.start_utc)));
+ c.append(add("h3","",game.away+" @ "+game.home));
+ const values=nhl?[
+  ["XG ALL · 0–100",game.all_xg_only_home_probability],
+  ["XG ALL · 0–1",game.all_xg_raw_fraction_only_home_probability]
+ ]:[
+  ["ELO REJOUÉ REVUE",game.replayed_revue_home_probability],
+  ["SI DEUX ELO À 1500",game.original_default_both_missing_home_probability]
+ ];
+ for(const [label,value] of values){
+  const cell=add("div","col");
+  cell.append(add("small","",label),add("strong","",pct(value)));
+  g.append(cell);
+ }
+ c.append(g);
+ c.append(add("p","diff",nhl?
+   "ÉCART D'ÉCHELLE : "+points(game.raw_fraction_vs_pct_points_scale_change_pp):
+   "ÉCART D'ELO : "+points(game.replay_vs_both_default_pp)));
+ c.append(add("p","details",nhl?
+   "Comparaison conditionnelle ; gardiens historiques et Elo Revue identiques entre ces deux calculs.":
+   "Elo Revue : "+game.revue_elo_home.toFixed(2)+" / "+game.revue_elo_away.toFixed(2)+
+   " · Elo SQL original inconnu ; repli 1500 hypothétique."));
+ return c;
+}
+function render(){
+ const root=$("games");root.replaceChildren();
+ for(const el of document.querySelectorAll("[data-sport]"))
+  el.setAttribute("aria-selected",String(el.dataset.sport===sport));
+ const data=reports[sport];
+ if(!data){
+  root.append(add("div","empty","Rapport non disponible ou provenance non vérifiée."));
+  return;
+ }
+ $("analysis").textContent=sport==="nhl"?
+  "La source publique lit xGoalsPercentage sans changement d'échelle, tandis que sa formule divise la différence par 100. Le scénario fraction 0–1 ne prouve pas que les lignes SQL originales contenaient ces valeurs. Les gardiens, saisons et Elo sont d'autres divergences.":
+  "Le prédicteur source applique +35 Elo à domicile, utilise l'Elo SQL connu et retombe à 1500 si une équipe n'est pas présente. Revue a rejoué son propre historique ESPN. La disponibilité des équipes dans la SQL originale n'est pas connue.";
+ const list=data.games||[];
+ if(!list.length){root.append(add("div","empty","Aucune rencontre comparable dans cet instantané."));return;}
+ for(const game of list)root.append(card(game,sport==="nhl"));
+}
+document.querySelectorAll("[data-sport]").forEach(b=>b.addEventListener("click",()=>{
+ sport=b.dataset.sport;render();
+}));
+(async()=>{
+ const results=await Promise.allSettled([
+  loadOne("nhl-source-input-delta.json"),loadOne("mlb-source-elo-gap.json")]);
+ let errors=[];
+ const nhl=results[0].status==="fulfilled"?results[0].value:null;
+ if(nhl?.status==="diagnostic_not_original_source_parity" &&
+    nhl.original_inputs_identical===false && nhl.real_bets_enabled===false &&
+    nhl.raw_moneypuck_fraction_scenario?.original_database_raw_value_equality_verified===false){
+  reports.nhl=nhl;
+  $("nhl-count").textContent=String(nhl.games_comparable);
+  $("nhl-delta").textContent=points(nhl.mean_abs_delta_source_xg_input_scale_pp);
+ }else errors.push("NHL non vérifié");
+ const mlb=results[1].status==="fulfilled"?results[1].value:null;
+ if(mlb?.status==="conditional_source_elo_fallback_sensitivity_not_original_reproduction" &&
+    mlb.original_sql_ratings_verified_equal===false && mlb.real_bets_enabled===false &&
+    mlb.historical_statuses_are_not_point_in_time_observations===true){
+  reports.mlb=mlb;
+  $("mlb-count").textContent=String(mlb.games_comparable);
+  $("mlb-delta").textContent=points(mlb.mean_abs_delta_revue_vs_both_fallback_pp);
+ }else errors.push("MLB non vérifié");
+ $("status").textContent=(errors.length?errors.join(" ; ")+" · ":"")+
+  "NHL : "+(reports.nhl?when(reports.nhl.generated_at_utc):"absent")+
+  " · MLB : "+(reports.mlb?when(reports.mlb.generated_at_utc):"absent")+
+  " · rapport historique, NON temps réel.";
+ render();
+})();
+</script></body></html>
