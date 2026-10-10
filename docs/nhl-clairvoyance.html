@@ -17,6 +17,12 @@ h1 span{color:#55f5de}
 .notice strong{color:#e6f7fe}
 .notice a,footer a{color:#55f5de}
 .status{margin:17px 0;color:#a6c5d8;font-size:12px}
+.performance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:22px 0}
+.performance>div{padding:14px 16px;border:1px solid #324b67;background:#0e2034}
+.performance label{color:#8baac2;font:700 10px monospace}
+.performance strong{display:block;color:#e5f8ff;font:800 27px 'Chakra Petch',system-ui,sans-serif;margin:5px 0}
+.performance small{font-size:10px;color:#8da9bc}
+@media(max-width:600px){.performance{grid-template-columns:1fr 1fr}.performance>div:last-child{grid-column:span 2}}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
 .tabs select,.tabs button{background:#12253b;border:1px solid #3d5f75;color:#d0e6f4;padding:12px 14px;min-height:44px;cursor:pointer}
 .tabs button[aria-pressed=true]{background:#55f5de;color:#051b23;border-color:#55f5de;font-weight:800}
@@ -58,6 +64,11 @@ footer{font-size:12px;line-height:1.8;color:#829db2;border-top:1px solid #2c4058
 <strong>Statut : SHADOW — expérimental, sans recommandations de paris.</strong>
 La formule mathématique est vérifiée sur entrées communes ; ce n'est pas une reproduction de la base Elo ni des prédictions finales de Clairvoyance. Les gardiens affichés sont les plus utilisés sur la saison, <strong>pas les titulaires confirmés</strong>. Les petites tailles d'échantillon en début de saison rendent ces probabilités instables. Pas de cotes, pas de validation de rentabilité.
 Données provenant de <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com</a> (usage personnel non commercial avec attribution).</section>
+<section class="performance" aria-label="Validation prospective sur résultats officiels">
+<div><label>PRÉVISIONS VERROUILLÉES</label><strong id="locked">—</strong><small>20 minutes minimum avant match</small></div>
+<div><label>RÉSULTATS RÉGLÉS</label><strong id="settled">—</strong><small>Score NHL officiel</small></div>
+<div><label>SCORE DE BRIER</label><strong id="brier">—</strong><small>Évaluation hors échantillon</small></div>
+</section>
 <div class="tabs">
 <button data-filter="upcoming" aria-pressed="true">À venir</button>
 <button data-filter="all" aria-pressed="false">Tous les matchs du rapport</button>
@@ -81,6 +92,17 @@ const by=id=>document.getElementById(id);
 const make=(tag,cls,content)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(content!==undefined)e.textContent=content;return e};
 const pct=n=>Number.isFinite(Number(n))?(100*Number(n)).toLocaleString("fr-FR",{minimumFractionDigits:1,maximumFractionDigits:1})+" %":"—";
 let payload=null,filter="upcoming";
+async function loadPerformance(){
+ try{
+  const r=await fetch("./nhl-shadow-performance.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("rapport indisponible");
+  const d=await r.json();
+  if(d.model!=="nhl_clairvoyance_moneypuck_shadow_v1")throw Error("rapport inattendu");
+  by("locked").textContent=String(d.locked_events);
+  by("settled").textContent=String(d.settled);
+  by("brier").textContent=d.mean_brier===null?"En attente":Number(d.mean_brier).toLocaleString("fr-FR",{maximumFractionDigits:4});
+ }catch(err){by("locked").textContent="—";by("settled").textContent="—";by("brier").textContent="—";}
+}
 function line(root,title,value){
  const e=make("div","row");e.append(make("span","",title),make("strong","",value));root.append(e);
 }
@@ -146,5 +168,5 @@ document.querySelectorAll("button[data-filter]").forEach(button=>button.addEvent
  render();
 }));
 by("teamFilter").addEventListener("change",render);
-load();
+load();loadPerformance();
 </script></body></html>
