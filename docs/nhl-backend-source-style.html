@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080c18">
+<meta name="description" content="Comparaison NHL des entrées de prédiction de Revue avec les sélecteurs documentés du backend Clairvoyance.">
+<title>Revue • NHL source</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1000px!important;margin:auto!important;padding:36px 16px 70px!important}
+h1{font:800 clamp(31px,8vw,56px)/1.05 'Chakra Petch',sans-serif;margin:14px 0;letter-spacing:-.04em}
+h1 em{font-style:normal;color:#62e9d5}
+.intro,.warn,.hint{max-width:860px;line-height:1.75;color:#b8cadc;font-size:13px}
+.warn{background:#192437;border-left:3px solid #ffc481;padding:14px 17px;margin:23px 0;color:#f0d4aa}
+.meters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:22px 0}
+.meter,.match{border:1px solid #33546c;background:linear-gradient(130deg,#192d47,#0c182c);padding:18px}
+.meter small{color:#b9d4e5;font:700 11px 'Chakra Petch',sans-serif}
+.meter strong{display:block;font:800 28px 'Chakra Petch',sans-serif;color:#62e9d5;margin-top:9px}
+.match{margin-bottom:12px}
+.match h2{font:800 20px 'Chakra Petch',sans-serif;margin:3px 0}
+.match .detail{color:#9ebfce;font-size:11px;margin:9px 0 14px}
+.values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.values div{background:#213a50;padding:10px}
+.values span{font-size:10px;color:#b1cedd;display:block;line-height:1.5}
+.values b{font:700 19px 'Chakra Petch',sans-serif;display:block;margin-top:7px}
+.bad{color:#ffd399;font-size:12px;margin-top:10px}
+#status{font:12px/1.6 'DM Sans',sans-serif;color:#d1e8eb}
+.links{display:flex;gap:17px;flex-wrap:wrap;margin-top:26px;font-size:12px}
+@media(max-width:650px){.meters{grid-template-columns:1fr 1fr}.values{grid-template-columns:1fr}.meter strong{font-size:23px}}
+</style>
+</head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation"><a href="./index.html">QG</a><a href="./match-center.html">MATCHS</a><a href="./nhl-source-input-gap.html">AUDIT NHL</a></nav>
+<span class="rv-top-tag">REPRODUCTION // NHL</span>
+</div></div>
+<main>
+<p class="intro">REVUE / NHL / RECHERCHE</p>
+<h1>NHL <em>SOURCE-STYLE</em></h1>
+<p class="intro">Comparaison sur des matchs officiels à venir. Les calculs utilisent les xG MoneyPuck <strong>toutes situations</strong>, le gardien NHL ayant disputé le plus de rencontres et la formule backend de Clairvoyance. Les Elo restent ceux de Revue : il ne s'agit donc <strong>pas</strong> des prédictions exactes de Clairvoyance.</p>
+<div class="warn">Aucune cote ni recommandation de pari. Les gardiens affichés ne sont pas des titulaires confirmés. La formule backend n'est pas nécessairement celle des « meilleurs paris » affichés par Clairvoyance. Les anciennes prévisions sont conservées telles quelles.</div>
+<div class="meters">
+<div class="meter"><small>RENCONTRES RETENUES</small><strong id="m-games">—</strong></div>
+<div class="meter"><small>GARDIENS NON AMBIGUS</small><strong id="m-goalies">—</strong></div>
+<div class="meter"><small>ÉCART MOYEN · 0–1</small><strong id="m-gap">—</strong></div>
+</div>
+<p id="status" role="status" aria-live="polite">Lecture du dernier rapport…</p>
+<section id="matches" aria-label="Comparaison des rencontres"></section>
+<p class="hint">Ligne 1 : prévision Revue gelée en 5v5. Ligne 2 : calcul source-style avec le ratio xG brut entre 0 et 1. Ligne 3 : sensibilité si les mêmes xG étaient enregistrés en pourcentage 0–100. Les deux dernières lignes ne sont pas des prévisions verrouillées, ni une estimation de la probabilité publiée par Clairvoyance.</p>
+<div class="links"><a href="./nhl-backend-source-style-latest.json">RAPPORT JSON</a><a href="./nhl-source-input-gap.html">AUDIT DES SOURCES</a><a href="./nhl-clairvoyance.html">BILAN NHL</a></div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const fmt=p=>typeof p==="number"&&Number.isFinite(p)?(p*100).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"Indisponible";
+const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=String(text);if(cls)e.className=cls;return e;};
+(async()=>{
+try{
+const response=await fetch("./nhl-backend-source-style-latest.json",{cache:"no-store"});
+if(!response.ok)throw Error("Rapport non publié");
+const data=await response.json();
+if(data.version!=="revue_nhl_backend_source_style_v1"||
+ data.status!=="backend_style_input_scenario_not_original_model_parity"||
+ data.real_bets_enabled!==false||data.has_verified_original_predictions!==false||
+ data.frozen_ledger_unchanged!==true||!Array.isArray(data.games))
+ throw Error("Parité ou provenance du rapport non validée");
+$("m-games").textContent=data.future_matched_games;
+$("m-goalies").textContent=data.complete_goalie_comparisons;
+$("m-gap").textContent=typeof data.mean_abs_raw_fraction_vs_frozen_pp==="number"
+ ?data.mean_abs_raw_fraction_vs_frozen_pp.toLocaleString("fr-FR")+" pt":"—";
+$("status").textContent="Dernière analyse : "+new Date(data.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+" (Paris). Config source publique ≠ saison analysée. Le rapport n'est pas un flux live.";
+const root=$("matches");
+if(!data.games.length)root.append(el("p","Aucun match comparable avant le prochain coup d'envoi. Les données manquantes ne sont pas remplacées."));
+for(const g of data.games){
+ const article=el("article",undefined,"match");
+ article.append(el("h2",g.away+" @ "+g.home));
+ article.append(el("p","NHL "+g.event_id+" · "+new Date(g.kickoff_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+" (Paris)","detail"));
+ const values=el("div",undefined,"values");
+ for(const [label,key] of [["Revue gelée, xG 5v5","frozen_revue_home_probability"],["Source-style, xG brut 0–1","raw_fraction_home_probability"],["Sensibilité, xG 0–100","percentage_point_home_probability"]]){
+   const cell=el("div");cell.append(el("span",label));cell.append(el("b",fmt(g[key])));values.append(cell);
+ }
+ article.append(values);
+ if(g.raw_fraction_home_probability===null) article.append(el("p","Gardien officiel ambigu ou manquant : aucune probabilité source-style calculée.","bad"));
+ else if(g.source_observed_by_frozen_model_time!==true)article.append(el("p","Données officielles publiées après le gel initial : comparaison descriptive uniquement.","bad"));
+ root.append(article);
+}
+}catch(error){$("status").textContent="Rapport NHL indisponible ou non validé : "+error.message;}
+})();
+</script>
+</body>
+</html>
