@@ -24,7 +24,9 @@ SOURCE_KEYS={"data":"data.json","nba":"nba_schedule.json",
 MAX_DAYS=10
 def date(s):
     if not isinstance(s,str):raise ValueError("Unparseable timestamp")
-    v=s.replace("Z","+00:00")
+    v=s.strip().replace("Z","+00:00")
+    m=re.fullmatch(r"(\d{4}-\d\d-\d\d) (\d\d:\d\d)(?::\d\d)? UTC",v)
+    if m:v=m.group(1)+"T"+m.group(2)+":00+00:00"
     t=datetime.fromisoformat(v)
     if t.tzinfo is None:raise ValueError("Timestamp missing UTC offset")
     return t.astimezone(timezone.utc)
