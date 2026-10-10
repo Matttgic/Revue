@@ -1,0 +1,110 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b19">
+<meta name="description" content="Audit indépendant des couvertures mathématiques sur cotes françaises observées ; ce ne sont pas des opportunités de pari confirmées.">
+<title>Écarts de cotes · Audit Revue</title>
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+main{max-width:980px!important;margin:auto!important;padding:28px 16px 90px!important}
+header h1{font:900 clamp(35px,6vw,60px)/1.1 'Chakra Petch',sans-serif;letter-spacing:-.055em;margin:12px 0}
+header h1 span{color:#72f3df}
+.subtitle{color:#c2d3e4;font-size:13px;line-height:1.7;max-width:770px}
+.notice{border-left:3px solid #e9ba86;padding:15px;background:#272b3b;color:#e4d2bd;font-size:12px;line-height:1.75;margin:20px 0}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+.metric{padding:16px;border:1px solid #405a70;border-radius:13px;background:#152940}
+.metric small{color:#abc2d4;font:700 11px 'Chakra Petch',sans-serif}
+.metric strong{display:block;margin:12px 0 2px;font:900 32px 'Chakra Petch',sans-serif;color:#70f4df}
+.stack{display:grid;gap:12px}
+.fixture{padding:20px;border-radius:13px;border:1px solid #3b5b74;background:#14233a}
+.fixture h2{font:800 21px 'Chakra Petch',sans-serif;margin:9px 0}
+.fixture p{color:#c4d7e0;font-size:12px;line-height:1.7}
+.leg{display:grid;grid-template-columns:1fr auto auto;gap:9px;border-top:1px solid #35506a;padding:10px 0;font-size:12px}
+.leg strong{color:#80f2de}
+.eyebrow{font:800 10px 'Chakra Petch',sans-serif;color:#7feee0}
+#status{color:#b1d0e1;font-size:12px;margin:12px 0}
+@media(max-width:590px){.metrics{grid-template-columns:1fr 1fr}.metric:last-child{grid-column:span 2}.leg{grid-template-columns:1fr auto}.leg span:last-child{grid-column:span 2}}
+</style></head>
+<body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav>
+</div></div>
+<main>
+<header><span class="arc-eyebrow">REVUE / PRIX DE MARCHÉ / CONTRÔLE MATHÉMATIQUE</span>
+<h1>ÉCARTS <span>DE COTES.</span></h1>
+<p class="subtitle">Lecture automatique des cotes françaises déjà récupérées par PulseScore. Une couverture mathématique exige toutes les issues du même match, avec le même règlement, des prix horodatés et plusieurs bookmakers. Le scanner ne consomme aucun appel API supplémentaire.</p></header>
+<div class="notice"><strong>Ce ne sont pas des surebets exécutables.</strong> Ce calcul est réalisé sur des instantanés déjà collectés. Une cote peut changer ou être refusée ; les plafonds de mise, les frais et les règles de règlement peuvent annuler l'avantage théorique. Aucune mise ni disponibilité réelle n'est vérifiée.</div>
+<div class="metrics">
+<article class="metric"><small>Marchés complets contrôlés</small><strong id="complete">—</strong></article>
+<article class="metric"><small>Écarts théoriques détectés</small><strong id="found">—</strong></article>
+<article class="metric"><small>Appels API supplémentaires</small><strong>0</strong></article>
+</div>
+<p id="status" role="status" aria-live="polite">Vérification des relevés horodatés…</p>
+<section id="list" class="stack" aria-live="polite"></section>
+<div class="arc-v3-extra"><a class="arc-btn" href="./radar-6h.html">COTES OBSERVÉES ↗</a>
+<a class="arc-btn" href="./revue-crossbook-latest.json">AUDIT JSON ↗</a>
+<a class="arc-btn" href="./lab.html">LAB ↗</a></div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const el=(tag,text,cls)=>{const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=String(text);return x};
+const dec=n=>Number(n).toLocaleString("fr-FR",{maximumFractionDigits:3,minimumFractionDigits:2});
+const clock=d=>new Date(d).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+(async()=>{
+try{
+const res=await fetch("./revue-crossbook-latest.json",{cache:"no-store"});
+if(!res.ok)throw Error("audit pas encore publié");
+const d=await res.json();
+const age=Date.now()-Date.parse(d.generated_at_utc);
+if(d.version!=="revue_quotations_crossbook_coverage_v1"||
+   d.status!=="math_only_quotes_observed_no_bookable_confirmation"||
+   !Array.isArray(d.potential_snapshot_covers)||
+   d.risk_flags?.claim_guaranteed_profit!==false||
+   d.risk_flags?.claim_positive_expected_value!==false||
+   d.risk_flags?.real_bets_enabled!==false||
+   d.risk_flags?.actual_prices_bookable_verified!==false||
+   d.risk_flags?.paid_api_calls_for_this_audit!==0||
+   !Number.isFinite(age)||age< -120000||age>3*3600000)
+ throw Error("audit invalide ou trop ancien");
+$("complete").textContent=d.complete_cross_book_markets_checked;
+$("found").textContent=d.potential_snapshot_cover_count;
+$("status").textContent="Audit du "+clock(d.generated_at_utc)+
+ " · aucune valeur positive confirmée / aucune disponibilité bookmaker garantie.";
+const rows=d.potential_snapshot_covers.filter(x=>
+ x.period_rule==="90min"&&
+ ["PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS"].includes(x.league)&&
+ x.claim_executable_arbitrage===false&&x.all_prices_confirmed_bookable===false&&
+ x.inverse_odds_sum<1&&Array.isArray(x.outcomes)&&
+ x.outcomes.length===(x.market==="h2h"?3:2)&&
+ new Set(x.outcomes.map(q=>q.book)).size>=2&&
+ x.outcomes.every(q=>Number.isFinite(q.odds)&&q.odds>1&&
+ Date.parse(q.quote_at_utc)<=Date.parse(x.start_utc)-20*60000));
+if(!rows.length){
+ const p=el("p","Aucune couverture mathématique suffisamment vérifiée sur les relevés disponibles. Ce résultat est normal : rien n'est inventé.","subtitle");
+ $("list").append(p);
+}
+for(const x of rows){
+ const article=el("article",undefined,"fixture");
+ const label=el("div",x.league+" · "+clock(x.start_utc)+" · "+
+     (x.market==="h2h"?"1X2, 90 minutes":"Total "+x.line+" buts, 90 minutes"),"eyebrow");
+ article.append(label,el("h2",x.away+" — "+x.home));
+ article.append(el("p","Excédent mathématique calculé : "+dec(x.mathematical_snapshot_excess_pct)+
+  " % sur les prix OBSERVÉS, avec règlement et disponibilité encore non confirmés."));
+ for(const q of x.outcomes){
+  const leg=el("div",undefined,"leg");
+  const side=q.side==="home"?"Domicile":q.side==="away"?"Extérieur":q.side==="draw"?"Match nul":q.side==="over"?"Plus":"Moins";
+  leg.append(el("span",side),el("strong",q.book.replace("_fr","")+" @ "+dec(q.odds)),
+    el("span","observé : "+clock(q.quote_at_utc)));
+  article.append(leg);
+ }
+ article.append(el("p","Aucune validation de mise, de disponibilité ou d'EV. Ces cotes historiques ne sont pas une recommandation."));
+ $("list").append(article);
+}
+}catch(error){
+$("complete").textContent="—";$("found").textContent="—";
+$("status").textContent="Audit indisponible : "+error.message;
+$("list").replaceChildren(el("p","Aucun écart extrapolé en absence de données vérifiées.","subtitle"));
+}
+})();
+</script></body></html>
