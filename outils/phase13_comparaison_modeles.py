@@ -220,6 +220,7 @@ def nhl_comparison(ledger,now):
   "paired":{"games":len(pairs),"reference":score_summary([p[0] for p in pairs]),
             "candidate":score_summary([p[1] for p in pairs]),
             "comparison_validated":len(pairs)>=PAIRED_MIN},
+  "native_binary_scalar_brier":round(sum((r["p"][0]-(1 if r["y"]==0 else 0))**2 for r in single)/len(single),6) if single else None,
   "separate_official_NHL_source":True,"original_sql_parity_proven":False,
   "automatically_deployed":False}
  if pairs:
@@ -245,12 +246,14 @@ def evaluate(ledger,nhl,integrity,now):
   metrics=score_summary(rows)
   n=3 if lg in SOCCER_ALL else 2
   baseline=score_summary([dict(r,p=[1/n]*n) for r in rows])
-  versions[mid]={"league":lg,"model_id":mid,"settled":len(rows),
+  group_key=lg+"::"+mid
+  gate=calibrate(rows)
+  versions[group_key]={"league":lg,"model_id":mid,"settled":len(rows),
    "frozen_locked":sum(x.get("model_id")==mid and x.get("league")==lg for x in ledger["records"].values()),
    "raw":metrics,"uniform_reference_same_matches":baseline,
-   "reliability":bins(rows),"calibration":calibrate(rows),
+   "reliability":bins(rows),"calibration":gate,
    "preliminary_assessment_at_100":len(rows)>=TRAIN_N,
-   "independent_holdout_complete":calibrate(rows)["holdout"] is not None,
+   "independent_holdout_complete":gate["holdout"] is not None,
    "approved_for_betting":False,"automatic_champion":False}
  # Only compare models from the SAME league, market and identified match.
  leagues={lg for lg,mid in models}
