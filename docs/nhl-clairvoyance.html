@@ -140,7 +140,7 @@ async function loadPerformance(){
   by("brier").textContent=refBrier==null?"En attente":Number(refBrier).toLocaleString("fr-FR",{maximumFractionDigits:4});
   by("brierRefMeta").textContent=pairedCount>0?"Mêmes "+pairedCount+" matchs que variante":"Score sur "+String(d.settled||0)+" matchs";
   by("brierAlt").textContent=d.mean_brier_research==null?"En attente":Number(d.mean_brier_research).toLocaleString("fr-FR",{maximumFractionDigits:4});
-  by("paired").textContent=String(d.research_paired_settled||0)+" matchs comparés (plus petit = mieux)";
+  by("paired").textContent=String(d.research_paired_locked||0)+" prévisions appariées verrouillées · "+String(d.research_paired_settled||0)+" réglées";
  }catch(err){by("locked").textContent="—";by("settled").textContent="—";by("brier").textContent="—";by("brierAlt").textContent="—";by("paired").textContent="Comparaison indisponible";by("brierRefMeta").textContent="Évaluation indisponible";}
 }
 function line(root,title,value){
