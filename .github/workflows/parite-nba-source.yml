@@ -1,0 +1,47 @@
+name: Revue - Parité source NBA Clairvoyance
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'modeles/reproduction/clairvoyance_nba_source.py'
+      - 'outils/verifier_parite_nba_source.py'
+      - '.github/workflows/parite-nba-source.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-parite-nba-source
+  cancel-in-progress: false
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: revue
+      - uses: actions/checkout@v4
+        with:
+          repository: Purple-Wraith/clairvoyance-backend
+          path: reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Comparer 4 préparations NBA avec le code original du dépôt
+        working-directory: revue
+        run: python -m outils.verifier_parite_nba_source --reference ../reference
+      - name: Publier seulement la preuve de parité sans code tiers
+        working-directory: revue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/parite-clairvoyance-nba-source.json
+          if ! git diff --cached --quiet; then
+            git commit -m "parity: verify four source NBA preprocessing functions"
+            for i in 1 2 3 4; do
+              git pull --rebase -X theirs origin main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep "$i"
+            done
+            exit 1
+          fi
