@@ -65,6 +65,13 @@ input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border
 .odds-line .rule{color:#839eb4;font:10px/1.5 monospace}
 .hint{color:#91a8bd;font:11px/1.6 'DM Sans',sans-serif;margin:8px 0}
 .empty{border:1px dashed #42617b;padding:30px;text-align:center;color:#a1bcd0}
+.scores{margin:30px 0;border-top:1px solid #314d63;padding-top:20px}
+.scores h2{font:800 24px 'Chakra Petch',sans-serif;color:#daf8ff}
+.scores-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:10px}
+.scores-row{border:1px solid #324e69;background:#142339;padding:15px}
+.scores-row .teams-score{display:flex;justify-content:space-between;gap:8px;margin:10px 0;font:800 19px 'Chakra Petch',sans-serif}
+.scores-row .actual{font:800 19px 'Chakra Petch',sans-serif;color:#55f5de}
+.scores-row .sub{font:11px/1.7 'DM Sans',sans-serif;color:#a9bed1}
 .recent{margin-top:43px;border-top:1px solid #344c63;padding-top:21px}
 .recent h2{font:800 24px 'Chakra Petch',sans-serif;color:#d8faff;margin:3px 0 9px}
 .recent .sub{color:#8baac2;font:12px/1.6 'DM Sans',sans-serif;margin-bottom:15px}
@@ -99,6 +106,12 @@ input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border
 <nav class="sport-filters" id="leagueFilters" aria-label="Filtrer par compétition"></nav>
 <p class="status" id="status" role="status" aria-live="polite">Chargement des rencontres et des cotes observées…</p>
 <div id="schedule"></div>
+<section class="scores" aria-labelledby="scores-title">
+<h2 id="scores-title">SCORES OFFICIELS / OBSERVÉS</h2>
+<p class="subtitle">Scores de tableaux NHL officiels et ESPN relevés lors du dernier rafraîchissement. Pas de flux continu ; les scores peuvent avoir évolué depuis l'observation. Cette section ne constitue pas un historique de paris.</p>
+<p class="status" id="scoreboardStatus">Lecture des scores disponibles…</p>
+<div id="scoreboardGrid" class="scores-grid"></div>
+</section>
 <section class="recent" aria-labelledby="recent-title">
 <h2 id="recent-title">RÉSULTATS / REGISTRE PROSPECTIF</h2>
 <p class="sub">Scores NHL officiels pour les seules prévisions enregistrées avant match. Les autres sports seront ajoutés uniquement après validation de leur chaîne de règlement. Aucune mise réelle n'est déduite de ce tableau.</p>
@@ -198,6 +211,30 @@ function matchCard(e){
  });
  article.append(button,detail);return article;
 }
+function renderScoreboard(){
+ const items=center.scoreboard_observed||[],root=el("scoreboardGrid");
+ root.replaceChildren();
+ el("scoreboardStatus").textContent=String(center.scoreboard_finals||0)+
+  " résultats terminés · "+String(center.scoreboard_in_progress||0)+
+  " rencontres en cours à l'heure de l'observation · données ponctuelles";
+ if(!items.length){
+  root.append(create("div","empty","Aucun score officiel récent vérifié. Les sources sont peut-être en cours de synchronisation."));
+  return;
+ }
+ for(const e of items.slice(0,24)){
+  const row=create("article","scores-row");
+  row.append(create("div","mono",e.league+" / "+frDate(e.kickoff_utc)));
+  const teams=create("div","teams-score");
+  teams.append(create("span","",e.away+" / "+e.home));
+  teams.append(create("span","actual",
+    String(e.away_score)+" — "+String(e.home_score)));
+  row.append(teams);
+  row.append(create("div","sub",
+   (e.state==="final"?"TERMINÉ":"EN COURS AU DERNIER RELEVÉ")+" · "+
+   e.source+" · relevé "+frDate(e.observed_at_utc)+" · pas un ticket"));
+  root.append(row);
+ }
+}
 function renderOfficialResults(){
  const status=el("resultsStatus"),grid=el("resultsGrid");grid.replaceChildren();
  const result=center.official_results||[];
@@ -250,7 +287,7 @@ async function load(){
   if(d.status!=="experimental_revue_match_center"||d.real_bets_enabled!==false||
      d.live_scores!==false||d.bookmaker_prices_are_live!==false||!Array.isArray(d.events))
     throw Error("Format inattendu");
-  center=d;renderOfficialResults();
+  center=d;renderOfficialResults();renderScoreboard();
   for(const [key,value] of [["n-events",d.metrics.upcoming_matches],["n-leagues",d.metrics.leagues],
                               ["n-models",d.metrics.with_research_model],["n-prices",d.metrics.with_observed_bookmaker_quotes]]){
    el(key).textContent=Number(value).toLocaleString("fr-FR");
