@@ -264,7 +264,7 @@ def main():
     outcome=analyze(docs,datetime.now(timezone.utc))
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
-    out.write_text(json.dumps(out,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf8")
+    out.write_text(json.dumps(outcome,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf8")
     print("Cross-book observed: complete markets",outcome["complete_cross_book_markets_checked"],
           "math-only theoretical covers",outcome["potential_snapshot_cover_count"],
           "real bets",outcome["risk_flags"]["real_bets_enabled"])
