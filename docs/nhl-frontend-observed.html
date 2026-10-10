@@ -86,8 +86,32 @@ try {
    " retenues · "+(d.missing_or_neutral_inputs||[]).length+
    " catégories de variables incomplètes.";
  const root=$("games");
- if(!d.games.length)root.append(put("p","Aucun match NHL pré-match exploitable avec les données disponibles. Aucune prédiction inventée."));
- for(const g of d.games){
+ const probable=new Map();
+ try {
+  const er=await fetch("./nhl-espn-goalies-latest.json",{cache:"no-store"});
+  if(er.ok){
+   const esp=await er.json();
+   const eage=Date.now()-Date.parse(esp.generated_at_utc);
+   if(esp.status==="espn_probable_goalies_observed_not_part_of_model"&&
+      esp.source==="ESPN NHL scoreboard, separate from official NHL IDs"&&
+      esp.used_in_prediction_model===false&&esp.real_bets_enabled===false&&
+      Number.isFinite(eage)&&eage>= -120000&&eage<=8*3600000&&
+      Array.isArray(esp.rows))
+    for(const row of esp.rows) {
+     const t=Date.parse(row.observed_at_utc);
+     const start=Date.parse(row.start_utc);
+     if(!Number.isFinite(t)||!Number.isFinite(start)||
+        t>Date.now()||t>start-20*60000||
+        row.used_in_model_probabilities!==false)continue;
+     const ident=String(row.event_id);
+     if(probable.has(ident))probable.set(ident,null);
+     else probable.set(ident,row);
+    }
+  }
+ }catch(error){ /* Optional status source unavailable: never infer a starter. */ }
+ const upcoming=d.games.filter(g=>Date.parse(g.start_utc)>Date.now()+20*60000);
+ if(!upcoming.length)root.append(put("p","Aucun match NHL à venir parmi les prévisions publiées. Les prédictions verrouillées restent consultables dans le suivi prospectif."));
+ for(const g of upcoming){
    const c=put("article",undefined,"game");
    c.append(put("h2",g.away+" @ "+g.home));
    c.append(put("p","NHL "+g.event_id+" · "+dt(g.start_utc),"sub"));
@@ -105,6 +129,17 @@ try {
        (g.observed.home.goalie_name||"non vérifié")+" / "+
        (g.observed.away.goalie_name||"non vérifié")+
        " · Blessures non vérifiées · Pas de comparaison de cotes · Recherche uniquement","meta"));
+   const p=probable.get(String(g.event_id));
+   if(p && p.home===g.home && p.away===g.away &&
+      Date.parse(p.start_utc)===Date.parse(g.start_utc)){
+    const describe=x=>x&&["confirmed","projected"].includes(x.status)?
+      x.name+" ("+(x.status==="confirmed"?"confirmé par ESPN":"annoncé probable par ESPN")+")":
+      "non renseigné";
+    c.append(put("p","ESPN · information observée le "+dt(p.observed_at_utc)+
+      " : domicile "+describe(p.home_goalie)+" · extérieur "+
+      describe(p.away_goalie)+
+      ". Statuts non utilisés dans les probabilités ci-dessus.","meta"));
+   }
    root.append(c);
  }
 } catch(err) {
