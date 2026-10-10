@@ -73,7 +73,7 @@ def candidate(event,code,ph,ingredients,inputs,model_type="2way"):
   "model_id":code,"status":STATUS,"probabilities":outcomes,
   "calibrated":False,"source_sql_parity":False,"bookable_price_verified":False,
   "EV":None,"betting_recommendation":None,
-  "inputs_observed_utc":inputs,"method":ingredients}
+  "inputs_observed_utc":dict(inputs),"method":ingredients}
 
 def index_games(doc,rows,now):
  if not isinstance(doc,dict) or not isinstance(rows,list):return {}
@@ -94,8 +94,9 @@ def index_games(doc,rows,now):
 def nba_candidates(e,prior,advanced,now):
  if e["league"]!="NBA" or not before(prior,now,instant(e["start_utc"])):
   return [],"nba_prior_unavailable"
+ prior_year=prior.get("previous_season_end_year")
  if (prior.get("status")!="shadow_nba_prior_only" or
-     prior.get("previous_season_end_year")!=2026):
+     type(prior_year) is not int or not 2020<=prior_year<=2100):
   return [],"nba_prior_wrong_season"
  matches=[m for m in prior.get("matches") or [] if str(m.get("event_id"))==e["event_id"]]
  if len(matches)!=1 or not exact_fixture(matches[0],e):
@@ -111,8 +112,8 @@ def nba_candidates(e,prior,advanced,now):
   return candidates,"nba_advanced_prior_stale"
  ratings=advanced.get("teamRatings") or {}
  if (advanced.get("status")!="source_formula_observed_regular_season_advanced" or
-     advanced.get("season_previous")!=2026 or
-     advanced.get("season_current")!=2027 or
+     advanced.get("season_previous")!=prior_year or
+     advanced.get("season_current")!=prior_year+1 or
      advanced.get("teams_with_current_advanced")!=0 or
      advanced.get("teams_with_previous_advanced")!=30 or
      ratings.get("statsMode")!="prior"):
