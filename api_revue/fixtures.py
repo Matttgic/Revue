@@ -50,6 +50,7 @@ def _correct_score(row: dict, score: dict) -> bool:
             row["away"] == score["away"] and
             timestamp(row["start_utc"]) == timestamp(score["kickoff_utc"]) and
             score["state"] in ("final", "in_progress") and
+            timestamp(score["observed_at_utc"]) >= timestamp(row["start_utc"]) and
             type(score["home_score"]) is int and
             type(score["away_score"]) is int and
             0 <= score["home_score"] <= 500 and
