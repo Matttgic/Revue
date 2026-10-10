@@ -104,7 +104,10 @@ def step(ledger:dict,baseline:dict,experiment:dict,history:dict,
             continue
         if now<=start:continue
         outcome=valid.get((record["league"],record["event_id"]))
-        if outcome is None:continue
+        if (outcome is None or utc(outcome.get("start"))!=start or
+            outcome.get("home")!=record.get("home") or
+            outcome.get("away")!=record.get("away")):
+            continue
         hs,as_=outcome.get("home_score"),outcome.get("away_score")
         try:h,away=float(hs),float(as_)
         except (ValueError,TypeError):continue
