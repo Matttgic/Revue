@@ -108,6 +108,42 @@ def own_http_route_signatures(root: Path) -> list[str]:
     return sorted(result)
 
 
+def current_nhl_schedule_pairs(reference: Path, mapping: dict) -> bool:
+    """Recheck factual IDs against current original NHL calendar, not just commit."""
+    path=reference/"docs/nhl_schedule.json"
+    if mapping.get("status")!="verified_fixture_identity_pairs" or not path.is_file():
+        return False
+    try:
+        source=_json(path)
+        originals={}
+        for item in source.get("games") or []:
+            try:
+                when=datetime.fromisoformat(item["date"].replace("Z","+00:00")).astimezone(timezone.utc)
+                key=(item["home"],item["away"],when.isoformat())
+                originals.setdefault(key,[]).append(str(item["id"]))
+            except (KeyError,TypeError,ValueError):
+                continue
+        observed=mapping.get("mappings") or []
+        if (not observed or mapping.get("matched")!=len(observed) or
+            mapping.get("unmatched") != 0):
+            return False
+        provider_ids=set()
+        official_ids=set()
+        for row in observed:
+            key=(row["home"],row["away"],datetime.fromisoformat(
+                row["start_utc"].replace("Z","+00:00")).astimezone(timezone.utc).isoformat())
+            espn=str(row["original_espn_id"])
+            official=str(row["nhl_game_id"])
+            if (originals.get(key)!=[espn] or
+                espn in provider_ids or official in official_ids):
+                return False
+            provider_ids.add(espn)
+            official_ids.add(official)
+        return True
+    except (OSError,KeyError,TypeError,ValueError,UnicodeDecodeError):
+        return False
+
+
 def route_inventory(root: Path) -> list[dict]:
     found = []
     for relative in ROUTE_SOURCES:
@@ -204,14 +240,7 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
     )
     id_path=target/"docs/parite-nhl-espn-id-map.json"
     id_map=_json(id_path) if id_path.is_file() else {}
-    id_pairs_current=bool(
-        current_sha and id_map.get("source_commit")==current_sha and
-        id_map.get("status")=="verified_fixture_identity_pairs" and
-        type(id_map.get("matched")) is int and id_map["matched"]>0 and
-        type(id_map.get("unmatched")) is int and id_map["unmatched"]>=0 and
-        id_map["matched"]==len(id_map.get("mappings") or []) and
-        len({str(x.get("original_espn_id")) for x in id_map["mappings"]}) == id_map["matched"]
-    )
+    id_pairs_current=current_nhl_schedule_pairs(reference,id_map)
     checked = model.get("verified_formula_parity_models")
     target_count = model.get("total_target_models")
     if not (type(checked) is int and type(target_count) is int and
@@ -312,8 +341,10 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "all_original_models_catalogued": False,
         },
         "nhl_fixture_identity": {
-            "verified_source_revision": id_pairs_current,
+            "verified_source_revision": bool(id_map.get("source_commit")==current_sha and id_pairs_current),
+            "verified_against_current_source_schedule": id_pairs_current,
             "source_espn_id_matches": id_map.get("matched",0) if id_pairs_current else 0,
+            "mapping_created_from_source_commit": id_map.get("source_commit"),
             "revue_id_pairs_exact_team_and_utc": id_pairs_current,
             "all_source_data_equal": False,
             "original_goalie_odds_or_roster_equal": False,
