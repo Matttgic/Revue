@@ -1,0 +1,43 @@
+name: Revue - NBA Clairvoyance avancees ESPN
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '35 7 * * *'
+  push:
+    paths:
+      - 'outils/nba_ratings_clairvoyance_advanced.py'
+      - 'modeles/reproduction/clairvoyance_nba_espn_source.py'
+      - 'tests/test_nba_ratings_clairvoyance_advanced.py'
+      - '.github/workflows/clairvoyance-nba-advanced.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-nba-source-advanced
+  cancel-in-progress: false
+jobs:
+  nba:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tester conformité des taux et exclusivité saison régulière
+        run: python -m unittest discover -s tests -p 'test_nba_ratings_clairvoyance_advanced.py' -v
+      - name: Agréger ESPN équipes NBA avec les fonctions Clairvoyance reproduites
+        run: python -m outils.nba_ratings_clairvoyance_advanced
+      - name: Publier exclusivement agrégats statistiques dérivés
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clairvoyance-nba-advanced-ratings.json docs/clairvoyance-nba-espn-advanced-cache.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data: regular-season NBA advanced source parity for 30 teams"
+            for i in 1 2 3 4; do
+              git pull --rebase -X theirs origin main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep "$i"
+            done
+            exit 1
+          fi
