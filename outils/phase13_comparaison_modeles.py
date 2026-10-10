@@ -90,10 +90,10 @@ def verify(ledger,now):
    raise ValueError("Real money/odds cannot inform phase13 model metrics")
   start=instant(r["kickoff_utc"]);locked=instant(r["locked_at_utc"])
   source=instant(r["source_model_at_utc"])
-  if source>locked or locked>start-timedelta(minutes=20) or
-     not isinstance(r.get("input_observed_at_utc"),dict) or
-     not r["input_observed_at_utc"] or
-     any(instant(v)>source for v in r["input_observed_at_utc"].values()):
+  if (source>locked or locked>start-timedelta(minutes=20) or
+      not isinstance(r.get("input_observed_at_utc"),dict) or
+      not r["input_observed_at_utc"] or
+      any(instant(v)>source for v in r["input_observed_at_utc"].values())):
    raise ValueError("Leaked pregame source timestamps")
   market=("90min_1x2" if n==3 else "full_game_2way")
   if r.get("market")!=market:raise ValueError("Market period identity mismatch")
