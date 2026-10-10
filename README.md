@@ -7,6 +7,7 @@
 
 **Le but n'est plus « 50 % de fonctionnalités similaires » mais une reproduction exacte, comportement par comportement et sur la même version du code original, hors CFB.**
 
+- **API Revue désormais disponible en production sur Vercel** : [vérification /health](https://revue-api-tawny.vercel.app/health) · [routes, tests et limitations](api_revue/README.md) · [test distant public](.github/workflows/api-vercel-smoke.yml) · [correspondance vérifiée de 18 identifiants NHL ↔ ESPN](docs/parite-nhl-espn-id-map.json). Cinq signatures originales déclarées sur vingt-quatre, mais **aucune équivalence de bout en bout complète** : les réponses `/predictions/` restent désactivées faute de mêmes données. Données absentes jamais inventées.
 - [**Tableau de l'identité globale**](docs/reproduction-exacte.html) · [rapport vérifiable avec l'empreinte du code source](docs/reproduction-exacte-audit.json) · [auditeur automatisé quotidien](.github/workflows/parite-exacte-clairvoyance.yml).
 - La formule ne suffit pas : chaque module doit donner le **même résultat pour les mêmes données et à la même heure**, avec des contrats API, des règles de marchés et des interactions vérifiés.
 - [Catalogue 44 fonctions sur 44](docs/parite-modeles-clairvoyance.json) vérifié sur la **version source en cours** par les actions GitHub. Les 44 fonctions ne représentent pas tout le frontend ni le backend.
