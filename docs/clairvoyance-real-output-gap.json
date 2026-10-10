@@ -1,6 +1,6 @@
 {
   "status": "public_original_source_fixture_and_nhl_output_diagnostic",
-  "generated_at_utc": "2026-10-10T16:42:52.932215+00:00",
+  "generated_at_utc": "2026-10-10T20:41:37.215355+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
   "real_bets_enabled": false,
@@ -11,48 +11,50 @@
     "data": {
       "status": "fresh",
       "observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "age_hours": 1.51,
+      "age_hours": 5.49,
       "events": 17
     },
     "soccer": {
       "status": "fresh",
       "observed_at_utc": "2026-10-10T16:26:00+00:00",
-      "age_hours": 0.28,
+      "age_hours": 4.26,
       "events": 33
     },
     "nfl": {
       "status": "fresh",
-      "observed_at_utc": "2026-10-10T16:26:00+00:00",
-      "age_hours": 0.28,
+      "observed_at_utc": "2026-10-10T17:44:00+00:00",
+      "age_hours": 2.96,
       "events": 305
     },
     "nba": {
       "status": "fresh",
-      "observed_at_utc": "2026-10-10T16:26:00+00:00",
-      "age_hours": 0.28,
+      "observed_at_utc": "2026-10-10T17:44:00+00:00",
+      "age_hours": 2.96,
       "events": 47
     }
   },
   "source_fixture_total": 402,
-  "revue_fixture_total": 106,
-  "strict_event_matches": 62,
+  "revue_fixture_total": 115,
+  "strict_event_matches": 51,
   "source_ambiguous_event_ids": [],
   "revue_ambiguous_event_ids": [],
   "identity_rejections": {},
   "reference_unmatched_by_league": {
-    "BUNDESLIGA": 5,
-    "LALIGA": 2,
+    "BUNDESLIGA": 6,
+    "LALIGA": 4,
+    "MLS": 2,
     "NBA": 35,
     "NFL": 292,
-    "PL": 5,
-    "SERIEA": 1
+    "NHL": 3,
+    "PL": 6,
+    "SERIEA": 3
   },
   "by_league": {
     "NHL": {
       "source_fixtures": 17,
-      "identical_id_and_kickoff": 17,
-      "unmatched": 0,
-      "identity_match_percent": 100.0
+      "identical_id_and_kickoff": 14,
+      "unmatched": 3,
+      "identity_match_percent": 82.4
     },
     "NBA": {
       "source_fixtures": 47,
@@ -74,141 +76,36 @@
     },
     "PL": {
       "source_fixtures": 6,
-      "identical_id_and_kickoff": 1,
-      "unmatched": 5,
-      "identity_match_percent": 16.7
+      "identical_id_and_kickoff": 0,
+      "unmatched": 6,
+      "identity_match_percent": 0.0
     },
     "LALIGA": {
       "source_fixtures": 4,
-      "identical_id_and_kickoff": 2,
-      "unmatched": 2,
-      "identity_match_percent": 50.0
+      "identical_id_and_kickoff": 0,
+      "unmatched": 4,
+      "identity_match_percent": 0.0
     },
     "BUNDESLIGA": {
       "source_fixtures": 6,
-      "identical_id_and_kickoff": 1,
-      "unmatched": 5,
-      "identity_match_percent": 16.7
+      "identical_id_and_kickoff": 0,
+      "unmatched": 6,
+      "identity_match_percent": 0.0
     },
     "MLS": {
       "source_fixtures": 14,
-      "identical_id_and_kickoff": 14,
-      "unmatched": 0,
-      "identity_match_percent": 100.0
+      "identical_id_and_kickoff": 12,
+      "unmatched": 2,
+      "identity_match_percent": 85.7
     },
     "SERIEA": {
       "source_fixtures": 3,
-      "identical_id_and_kickoff": 2,
-      "unmatched": 1,
-      "identity_match_percent": 66.7
+      "identical_id_and_kickoff": 0,
+      "unmatched": 3,
+      "identity_match_percent": 0.0
     }
   },
   "matched_fixtures": [
-    {
-      "key": "BUNDESLIGA:401884780",
-      "league": "BUNDESLIGA",
-      "event_id": "401884780",
-      "kickoff_utc": "2026-10-10T16:30:00+00:00",
-      "original": {
-        "home": "RB Leipzig",
-        "away": "Eintracht Frankfurt",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "RB Leipzig",
-        "away": "Frankfurt",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "LALIGA:401882848",
-      "league": "LALIGA",
-      "event_id": "401882848",
-      "kickoff_utc": "2026-10-10T19:00:00+00:00",
-      "original": {
-        "home": "Real Madrid",
-        "away": "Villarreal",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "Real Madrid",
-        "away": "Villarreal",
-        "models_available": 2,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "LALIGA:401882853",
-      "league": "LALIGA",
-      "event_id": "401882853",
-      "kickoff_utc": "2026-10-10T16:30:00+00:00",
-      "original": {
-        "home": "Barcelona",
-        "away": "Getafe",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "Barcelona",
-        "away": "Getafe",
-        "models_available": 2,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "MLS:761845",
-      "league": "MLS",
-      "event_id": "761845",
-      "kickoff_utc": "2026-10-10T17:00:00+00:00",
-      "original": {
-        "home": "Toronto FC",
-        "away": "CF Montréal",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "Toronto",
-        "away": "CF Montréal",
-        "models_available": 2,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "MLS:761846",
-      "league": "MLS",
-      "event_id": "761846",
-      "kickoff_utc": "2026-10-10T18:30:00+00:00",
-      "original": {
-        "home": "Chicago Fire FC",
-        "away": "New York City FC",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "Chicago",
-        "away": "NYCFC",
-        "models_available": 2,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
     {
       "key": "MLS:761847",
       "league": "MLS",
@@ -470,7 +367,7 @@
         "home": "IND",
         "away": "ATL",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Pacers",
@@ -491,7 +388,7 @@
         "home": "MIA",
         "away": "MIN",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Heat",
@@ -512,7 +409,7 @@
         "home": "BOS",
         "away": "PHI",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Celtics",
@@ -533,7 +430,7 @@
         "home": "GS",
         "away": "SAC",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Warriors",
@@ -554,7 +451,7 @@
         "home": "HOU",
         "away": "DAL",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Rockets",
@@ -575,7 +472,7 @@
         "home": "CLE",
         "away": "ORL",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Cavaliers",
@@ -596,7 +493,7 @@
         "home": "PHX",
         "away": "SA",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Suns",
@@ -617,7 +514,7 @@
         "home": "CHA",
         "away": "MIL",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Hornets",
@@ -638,7 +535,7 @@
         "home": "TOR",
         "away": "LAC",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Raptors",
@@ -659,7 +556,7 @@
         "home": "WSH",
         "away": "DET",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Wizards",
@@ -680,7 +577,7 @@
         "home": "DEN",
         "away": "CHI",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Nuggets",
@@ -701,7 +598,7 @@
         "home": "POR",
         "away": "LON",
         "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Trail Blazers",
@@ -722,7 +619,7 @@
         "home": "JAX",
         "away": "PHI",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Jaguars",
@@ -743,7 +640,7 @@
         "home": "MIA",
         "away": "CIN",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Dolphins",
@@ -764,7 +661,7 @@
         "home": "NYJ",
         "away": "CLE",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Jets",
@@ -785,7 +682,7 @@
         "home": "TEN",
         "away": "HOU",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Titans",
@@ -806,7 +703,7 @@
         "home": "PIT",
         "away": "IND",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Steelers",
@@ -827,7 +724,7 @@
         "home": "NE",
         "away": "LV",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Patriots",
@@ -848,7 +745,7 @@
         "home": "NO",
         "away": "MIN",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Saints",
@@ -869,7 +766,7 @@
         "home": "WSH",
         "away": "NYG",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Commanders",
@@ -890,7 +787,7 @@
         "home": "LAC",
         "away": "DEN",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Chargers",
@@ -911,7 +808,7 @@
         "home": "GB",
         "away": "CHI",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Packers",
@@ -932,7 +829,7 @@
         "home": "ARI",
         "away": "DET",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Cardinals",
@@ -953,7 +850,7 @@
         "home": "SEA",
         "away": "SF",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Seahawks",
@@ -974,7 +871,7 @@
         "home": "ATL",
         "away": "BAL",
         "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
+        "observed_at_utc": "2026-10-10T17:44:00+00:00"
       },
       "revue": {
         "home": "Falcons",
@@ -983,69 +880,6 @@
         "bookmaker_prices_verified_live": false
       },
       "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020070",
-      "league": "NHL",
-      "event_id": "2026020070",
-      "kickoff_utc": "2026-10-10T17:00:00+00:00",
-      "original": {
-        "home": "BOS",
-        "away": "PHI",
-        "source": "data.json:today",
-        "observed_at_utc": "2026-10-10T15:12:08.390737+00:00"
-      },
-      "revue": {
-        "home": "BOS",
-        "away": "PHI",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020071",
-      "league": "NHL",
-      "event_id": "2026020071",
-      "kickoff_utc": "2026-10-10T19:30:00+00:00",
-      "original": {
-        "home": "NJD",
-        "away": "VAN",
-        "source": "data.json:today",
-        "observed_at_utc": "2026-10-10T15:12:08.390737+00:00"
-      },
-      "revue": {
-        "home": "NJD",
-        "away": "VAN",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020072",
-      "league": "NHL",
-      "event_id": "2026020072",
-      "kickoff_utc": "2026-10-10T20:00:00+00:00",
-      "original": {
-        "home": "SJS",
-        "away": "EDM",
-        "source": "data.json:today",
-        "observed_at_utc": "2026-10-10T15:12:08.390737+00:00"
-      },
-      "revue": {
-        "home": "SJS",
-        "away": "EDM",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
       "id_and_kickoff_verified": true,
       "model_output_parity_verified": false
     },
@@ -1342,78 +1176,16 @@
       "identical_names": true,
       "id_and_kickoff_verified": true,
       "model_output_parity_verified": false
-    },
-    {
-      "key": "PL:401878773",
-      "league": "PL",
-      "event_id": "401878773",
-      "kickoff_utc": "2026-10-10T16:30:00+00:00",
-      "original": {
-        "home": "Manchester United",
-        "away": "Tottenham Hotspur",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "Man United",
-        "away": "Spurs",
-        "models_available": 2,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "SERIEA:401874754",
-      "league": "SERIEA",
-      "event_id": "401874754",
-      "kickoff_utc": "2026-10-10T18:45:00+00:00",
-      "original": {
-        "home": "Napoli",
-        "away": "Frosinone",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "Napoli",
-        "away": "Frosinone",
-        "models_available": 2,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "SERIEA:401875021",
-      "league": "SERIEA",
-      "event_id": "401875021",
-      "kickoff_utc": "2026-10-10T16:00:00+00:00",
-      "original": {
-        "home": "Internazionale",
-        "away": "Parma",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-10T16:26:00+00:00"
-      },
-      "revue": {
-        "home": "Inter Milan",
-        "away": "Parma",
-        "models_available": 2,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
     }
   ],
   "original_nhl_best_bets_reported": 20,
-  "nhl_same_market_model_comparisons": 17,
+  "nhl_same_market_model_comparisons": 12,
   "nhl_model_comparison_outcomes": {
-    "compared": 17,
+    "missing_same_market_model": 5,
+    "compared": 12,
     "unsupported_market_spread_or_prop": 3
   },
-  "nhl_mean_abs_probability_difference_pp": 10.55,
+  "nhl_mean_abs_probability_difference_pp": 9.78,
   "nhl_source_vs_revue": [
     {
       "league": "NHL",
@@ -1425,12 +1197,12 @@
       "side": "home",
       "line": null,
       "original_probability": 0.644,
-      "revue_probability": 0.652,
-      "difference_revue_minus_original_pp": 0.8,
-      "status": "compared",
+      "revue_probability": null,
+      "difference_revue_minus_original_pp": null,
+      "status": "missing_same_market_model",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
-      "same_scheduled_fixture_and_market": true,
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
+      "same_scheduled_fixture_and_market": false,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
       "source_quote_is_french_live_verified": false,
@@ -1450,7 +1222,7 @@
       "difference_revue_minus_original_pp": -11.1,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1471,7 +1243,7 @@
       "difference_revue_minus_original_pp": -27.8,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1492,7 +1264,7 @@
       "difference_revue_minus_original_pp": -9.3,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1513,7 +1285,7 @@
       "difference_revue_minus_original_pp": 6.0,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1530,12 +1302,12 @@
       "side": "away",
       "line": null,
       "original_probability": 0.372,
-      "revue_probability": 0.111,
-      "difference_revue_minus_original_pp": -26.1,
-      "status": "compared",
+      "revue_probability": null,
+      "difference_revue_minus_original_pp": null,
+      "status": "missing_same_market_model",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
-      "same_scheduled_fixture_and_market": true,
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
+      "same_scheduled_fixture_and_market": false,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
       "source_quote_is_french_live_verified": false,
@@ -1555,7 +1327,7 @@
       "difference_revue_minus_original_pp": -13.9,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1576,7 +1348,7 @@
       "difference_revue_minus_original_pp": -6.7,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T13:45:58.033609+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:34:43.983289+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1593,12 +1365,12 @@
       "side": "under",
       "line": 5.5,
       "original_probability": 0.56,
-      "revue_probability": 0.5195,
-      "difference_revue_minus_original_pp": -4.05,
-      "status": "compared",
+      "revue_probability": null,
+      "difference_revue_minus_original_pp": null,
+      "status": "missing_same_market_model",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
-      "same_scheduled_fixture_and_market": true,
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
+      "same_scheduled_fixture_and_market": false,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
       "source_quote_is_french_live_verified": false,
@@ -1614,12 +1386,12 @@
       "side": "under",
       "line": 6.5,
       "original_probability": 0.56,
-      "revue_probability": 0.4754,
-      "difference_revue_minus_original_pp": -8.46,
-      "status": "compared",
+      "revue_probability": null,
+      "difference_revue_minus_original_pp": null,
+      "status": "missing_same_market_model",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
-      "same_scheduled_fixture_and_market": true,
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
+      "same_scheduled_fixture_and_market": false,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
       "source_quote_is_french_live_verified": false,
@@ -1635,12 +1407,12 @@
       "side": "under",
       "line": 6.5,
       "original_probability": 0.56,
-      "revue_probability": 0.3339,
-      "difference_revue_minus_original_pp": -22.61,
-      "status": "compared",
+      "revue_probability": null,
+      "difference_revue_minus_original_pp": null,
+      "status": "missing_same_market_model",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
-      "same_scheduled_fixture_and_market": true,
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
+      "same_scheduled_fixture_and_market": false,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
       "source_quote_is_french_live_verified": false,
@@ -1660,7 +1432,7 @@
       "difference_revue_minus_original_pp": -1.27,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1677,11 +1449,11 @@
       "side": "under",
       "line": 6.5,
       "original_probability": 0.56,
-      "revue_probability": 0.5401,
-      "difference_revue_minus_original_pp": -1.99,
+      "revue_probability": 0.54,
+      "difference_revue_minus_original_pp": -2.0,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1702,7 +1474,7 @@
       "difference_revue_minus_original_pp": -7.22,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1723,7 +1495,7 @@
       "difference_revue_minus_original_pp": -12.04,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1744,7 +1516,7 @@
       "difference_revue_minus_original_pp": 4.68,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1765,7 +1537,7 @@
       "difference_revue_minus_original_pp": -15.35,
       "status": "compared",
       "original_observed_at_utc": "2026-10-10T15:12:08.390737+00:00",
-      "revue_observed_at_utc": "2026-10-10T16:21:09.217347+00:00",
+      "revue_observed_at_utc": "2026-10-10T20:39:20.198895+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -1779,11 +1551,11 @@
   "reference_historic_lock_timing": {
     "status": "observed",
     "original_source_basis": "all locks (including picks locked after the game started)",
-    "observed_classified_total": 3846,
-    "pre_start_recorded": 1051,
+    "observed_classified_total": 3883,
+    "pre_start_recorded": 1088,
     "locked_after_start_included": 181,
     "unknown_lock_timing_included": 2614,
-    "pre_start_fraction_pct": 27.33,
+    "pre_start_fraction_pct": 28.02,
     "non_pre_match_proven_or_unknown": 2795,
     "may_not_be_claimed_as_reproducible_roi": true,
     "note": "Original source figures count all locks, including late and unknown lock times. Do not compare published overall returns to Revue's verified pre-match paper ledger."
