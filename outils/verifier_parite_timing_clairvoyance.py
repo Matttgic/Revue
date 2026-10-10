@@ -40,7 +40,7 @@ def validate(reference, source_path):
                      "BUND", "MLS", "MLB", "WNBA", "KHL",
                      "Premier League", "La Liga", "Basketball", "Hockey"]
     rng = random.Random(20261010)
-    start = 1791652800000  # 2026-10-10T20:00Z
+    start = 1791662400000  # 2026-10-10T20:00Z
     fixtures = [
         {"date": "2026-10-11T01:00:00Z", "home": "BOS", "away": "PHI"},
         {"date": "2026-11-01T08:30:00Z", "home": "TOR", "away": "MTL"},
