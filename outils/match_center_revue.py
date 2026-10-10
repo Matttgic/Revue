@@ -255,6 +255,53 @@ def validated_scoreboard(doc: dict | None, now: datetime) -> list[dict]:
     return sorted(rows,key=lambda e:(e["kickoff_utc"],e["league"]),reverse=True)
 
 
+def official_mlb_probable_pitchers(event: dict, source: dict | None, now: datetime) -> dict | None:
+    """Official probable pitchers only, never independently confirmed starters."""
+    if event.get("league")!="MLB" or not isinstance(source,dict):
+        return None
+    if (source.get("status")!="official_MLB_probable_pitchers_observed_not_confirmed" or
+        source.get("model_recomputed") is not False or
+        source.get("real_bets_enabled") is not False or
+        source.get("confirmed_starting_pitchers")!=0 or
+        not isinstance(source.get("rows"),list)):
+        return None
+    try:
+        kickoff=instant(event["start_utc"])
+        if not model_snapshot(source,now,kickoff):
+            return None
+        records=[r for r in source["rows"] if isinstance(r,dict) and
+                 str(r.get("event_id"))==str(event["event_id"])]
+        if len(records)!=1:
+            return None
+        r=records[0]
+        observed=instant(r["observed_at_utc"])
+        if (r.get("home")!=event["home"] or r.get("away")!=event["away"] or
+            instant(r["start_utc"])!=kickoff or
+            not now-timedelta(hours=12)<=observed<=now or observed>=kickoff or
+            r.get("pitchers_are_probable_not_confirmed") is not True or
+            r.get("starting_pitchers_independently_confirmed") is not False or
+            r.get("used_in_model_probabilities") is not False or
+            r.get("sportsbook_prices_verified") is not False):
+            return None
+        sides={};used=set()
+        for side in ("home","away"):
+            raw=r.get(side+"_pitcher")
+            if raw is None:sides[side]=None;continue
+            if (not isinstance(raw,dict) or raw.get("status")!="probable_unconfirmed" or
+                raw.get("source")!="MLB Stats API probablePitcher" or
+                type(raw.get("mlb_person_id")) is not int or raw["mlb_person_id"]<=0 or
+                not isinstance(raw.get("name"),str) or not raw["name"].strip() or
+                raw["mlb_person_id"] in used):
+                return None
+            used.add(raw["mlb_person_id"])
+            sides[side]={"name":raw["name"].strip(),"status":"probable_unconfirmed"}
+        return {"observed_at_utc":observed.isoformat(),
+                "home":sides["home"],"away":sides["away"],
+                "confirmed_actual_starters":False,"model_probabilities_recomputed":False}
+    except (ValueError,TypeError,KeyError):
+        return None
+
+
 def official_goalie_observation(event: dict, source: dict | None, now: datetime) -> dict | None:
     """Only timestamp- and NHL-id-matched ESPN observations; no starter assumption."""
     if event.get("league")!="NHL" or not isinstance(source,dict):
@@ -307,7 +354,8 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                    players: dict | None = None,
                    scoreboard: dict | None = None,
                    model_candidates: dict | None = None,
-                   goalie_observations: dict | None = None) -> dict:
+                   goalie_observations: dict | None = None,
+                   pitcher_observations: dict | None = None) -> dict:
     if now.tzinfo is None:
         raise ValueError("now timezone required")
     now = now.astimezone(timezone.utc)
@@ -458,6 +506,8 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                       "Revue ESPN · "+league+" · recherche",cand.get("probabilities"))
 
     for row in events.values():
+        if row["league"] == "MLB":
+            row["observed_mlb_probable_pitchers"]=official_mlb_probable_pitchers(row,pitcher_observations,now)
         if row["league"] == "NHL":
             row["observed_nhl_goalies"]=official_goalie_observation(row,goalie_observations,now)
             row["player_profiles"]=nhl_players_for_fixture(
@@ -561,6 +611,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
             "with_research_model":sum(bool(e["research"]) for e in output),
             "with_phase10_research":sum(any(x["id"] in allowed for x in e["research"]) for e in output),
             "with_verified_espn_goalie_observation":sum(e.get("observed_nhl_goalies") is not None for e in output),
+            "with_official_mlb_probable_pitchers":sum(e.get("observed_mlb_probable_pitchers") is not None for e in output),
             "leagues":len(leagues),
         },
         "leagues":leagues, "events":output, "rejections":rejected,
@@ -589,6 +640,12 @@ def main() -> None:
         "players":"nhl-players-latest.json",
     }
     data={k:json.loads((root/v).read_text(encoding="utf-8")) for k,v in mapping.items()}
+    pitcher_path=root/"mlb-official-probable-pitchers-latest.json"
+    if pitcher_path.is_file():
+        try:
+            data["pitcher_observations"]=json.loads(pitcher_path.read_text(encoding="utf-8"))
+        except (ValueError,OSError):
+            data["pitcher_observations"]=None
     goalie_path=root/"nhl-espn-goalies-latest.json"
     if goalie_path.is_file():
         try:
