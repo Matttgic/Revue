@@ -18,6 +18,7 @@ on:
       - 'outils/phase12_audit.py'
       - 'outils/phase13_comparaison_modeles.py'
       - 'tests/test_phase13_comparaison_modeles.py'
+      - 'tests/test_phase13_site.py'
       - 'tests/test_phase12_audit.py'
       - 'tests/test_phase12_site.py'
       - 'tests/test_phase12_official_finals.py'
@@ -56,6 +57,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_phase12_official_finals.py' -v
           python -m unittest discover -s tests -p 'test_phase12_audit.py' -v
           python -m unittest discover -s tests -p 'test_phase13_comparaison_modeles.py' -v
+          python -m unittest discover -s tests -p 'test_phase13_site.py' -v
           python -m unittest discover -s tests -p 'test_phase12_site.py' -v
           python -m unittest discover -s tests -p 'test_phase10_modeles_site.py' -v
           python -m unittest discover -s tests -p 'test_match_center_revue.py' -v

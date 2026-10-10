@@ -72,6 +72,8 @@ jobs:
           python -m unittest discover -s tests -p 'test_mlb_official_pitchers.py' -v
           python -m unittest discover -s tests -p 'test_phase11_site.py' -v
           python -m unittest discover -s tests -p 'test_phase12_site.py' -v
+          python -m unittest discover -s tests -p 'test_phase13_site.py' -v
+          node --check docs/phase13-modeles.js
           node --check docs/phase12-results.js
           node --check docs/phase10-modeles.js
           python -m outils.phase9_acceptation_production
@@ -104,6 +106,9 @@ jobs:
             '/phase10-modeles.html':b'm10-matches',
             '/phase11-donnees.html':b'p11-quarantine',
             '/phase12-resultats.html':b's12-state',
+            '/phase13-modeles.html':b'p13-models',
+            '/phase13-modeles.js':b'revue_phase13_model_evaluation_v1',
+            '/phase13-modeles-evaluation-latest.json':b'revue_phase13_model_evaluation_v1',
             '/phase12-results.js':b'revue_phase12_settlement_audit_v1',
             '/phase12-result-integrity-latest.json':b'revue_phase12_settlement_audit_v1',
             '/phase11-data.js':b'revue_phase11_source_quality_v1',
