@@ -1,0 +1,110 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070f1d">
+<meta name="description" content="Avancement indépendant du projet Revue : couverture fonctionnelle pondérée, preuves de tests et écart vers reproduction exacte.">
+<title>REVUE — Avancement vérifiable</title><link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1170px!important;margin:0 auto!important;padding:34px 18px 80px!important}
+.eyebrow{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.19em;color:#5af0d9}
+h1{font:800 clamp(37px,7vw,70px)/.96 'Chakra Petch',sans-serif;letter-spacing:-.06em;margin:16px 0 14px;color:#f4fcff}
+h1 span{color:#62e9d8}
+.lead{font:13px/1.8 'DM Sans',sans-serif;color:#abc7d6;max-width:850px}
+.headline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:26px 0}
+.stat{background:linear-gradient(138deg,#162f45,#101e33);padding:20px;border:1px solid #35546e}
+.stat small{display:block;font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.08em;color:#98b5c6}
+.stat strong{font:800 clamp(25px,3.8vw,44px) 'Chakra Petch',sans-serif;color:#63f2da;display:block;margin:13px 0 4px}
+.stat p{margin:0;color:#9bb4ca;font:11px/1.6 'DM Sans',sans-serif}
+.warning{background:#1b2637;border-left:3px solid #e0a574;color:#dfc2a7;padding:16px;font:12px/1.7 'DM Sans',sans-serif;margin-bottom:24px}
+h2{font:800 23px 'Chakra Petch',sans-serif;color:#e6f9ff;margin:33px 0 16px}
+.categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.category{border:1px solid #33526c;background:#12283b;padding:17px}
+.category .top{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.category strong{font:700 15px 'Chakra Petch',sans-serif;color:#dffbff}
+.category em{font:800 22px 'Chakra Petch',sans-serif;color:#61f5da;font-style:normal}
+.category .bar{height:7px;background:#233a4b;border:1px solid #39536b;margin:13px 0;overflow:hidden}
+.category .bar span{height:100%;display:block;background:linear-gradient(90deg,#398ead,#67f3d9)}
+.category p{font:11px/1.65 'DM Sans',sans-serif;color:#a1bdd0}
+.category small{font:10px monospace;color:#7fa7be}
+.checkpoint{border:1px solid #315672;background:#10283a;padding:18px}
+.checkpoint ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.checkpoint li{padding:12px;background:#1c394e;color:#d8f5fb;font:12px/1.55 'DM Sans',sans-serif}
+.checkpoint li strong{display:block;font:800 23px 'Chakra Petch',sans-serif;color:#5ff0d8}
+#status{color:#a4c1d3;font:11px/1.6 monospace;padding:9px 0}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+.links a{border:1px solid #33566a;color:#71f1db;text-decoration:none;padding:12px;font:700 11px 'Chakra Petch',sans-serif}
+@media(max-width:720px){.headline{grid-template-columns:1fr 1fr}.categories{grid-template-columns:1fr}.checkpoint ul{grid-template-columns:1fr}}
+</style></head><body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation">
+<a href="./index.html">QG</a><a href="./command-center.html">CONTRÔLE</a><a href="./match-dossier.html">DOSSIERS</a>
+<a href="./avancement.html" aria-current="page">AVANCEMENT</a><a href="./reproduction-exacte.html">PARITÉ EXACTE</a></nav>
+<span class="rv-top-tag">PROGRESS / VERIFIED</span></div></div>
+<main>
+<div class="eyebrow">REVUE / SUIVI DE CONSTRUCTION</div>
+<h1>LES CHOSES <span>AVANCENT.</span><br>LA PREUVE RESTE.</h1>
+<p class="lead">Le score de couverture mesure une estimation pondérée des fonctionnalités construites et reliées. Il est indépendant des 44 formules testées sur mêmes entrées et n'est jamais présenté comme un pourcentage de reproduction exacte de Clairvoyance.</p>
+<div class="headline">
+<div class="stat"><small>COUVERTURE FONCTIONNELLE ESTIMÉE</small><strong id="functional">—</strong><p id="delta">Comparée à l'ancien jalon</p></div>
+<div class="stat"><small>SIGNATURES API ORIGINALES PRÉSENTES</small><strong id="routes">—</strong><p>Routes déclarées ; contenu parfois différent</p></div>
+<div class="stat"><small>PARITÉ DE BOUT EN BOUT</small><strong id="exact">—</strong><p>Aucune équivalence de service entièrement prouvée</p></div>
+</div>
+<div class="warning">Le pourcentage fonctionnel est une appréciation éditoriale pondérée, non une mesure automatique d'identité avec le site original. La parité exacte exige les mêmes données, horizons, règles, réponses, interactions et erreurs. La base SQL originale et certaines données premium ne sont pas disponibles.</div>
+<h2>Progression par chantier</h2><div id="categories" class="categories"></div>
+<h2>Preuves du dernier jalon</h2><div class="checkpoint"><ul id="evidence"></ul></div>
+<p id="status" role="status" aria-live="polite">Vérification du dernier rapport…</p>
+<div class="links"><a href="./progression-revue.json">MÉTHODE ET DÉTAIL JSON ↗</a>
+<a href="./match-dossier.html">DOSSIERS DE MATCHS ↗</a>
+<a href="./reproduction-exacte.html">AUDIT EXACT SÉPARÉ ↗</a>
+<a href="https://github.com/Matttgic/Revue/actions">TESTS GITHUB ACTIONS ↗</a>
+</div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=String(txt);return n;};
+const percent=x=>Math.round(100*x);
+async function get(path){const r=await fetch("./"+path+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);return r.json();}
+(async()=>{
+ try{
+  const [p,a,d]=await Promise.all([get("progression-revue.json"),get("reproduction-exacte-audit.json"),get("match-dossiers-latest.json")]);
+  if(p.exact_reproduction_percent!==null||p.exact_end_to_end_parity!=="NOT_VERIFIED"||
+     a.exact_reproduction_percent!==null||a.exact_end_to_end_parity!=="NOT_VERIFIED"||
+     d.status!=="source_audited_static_match_dossiers_not_live"||
+     d.real_bets_enabled!==false||!Array.isArray(p.categories))
+    throw Error("Sources de progression non vérifiées");
+  const denominator=p.categories.reduce((s,c)=>s+c.weight,0);
+  const weighted=p.categories.reduce((s,c)=>s+c.weight*c.coverage,0);
+  if(denominator!==100||Math.round(weighted)!==p.estimated_functional_coverage_percent)
+    throw Error("Progression pondérée incohérente");
+  $("functional").textContent=p.estimated_functional_coverage_percent+" %";
+  $("delta").textContent="Ancien jalon "+p.previous_estimate_percent+" % · +"+
+   (p.estimated_functional_coverage_percent-p.previous_estimate_percent)+" points (estimation)";
+  $("routes").textContent=a.backend.source_signatures_declared_in_revue+" / "+a.backend.source_route_count;
+  $("exact").textContent="NON VÉRIFIÉE";
+  const cats=$("categories");
+  for(const c of p.categories){
+   const card=el("article","category"),head=el("div","top"),bar=el("div","bar");
+   head.append(el("strong","",c.title),el("em","",percent(c.coverage)+" %"));
+   const fill=el("span");fill.style.width=percent(c.coverage)+" %";bar.append(fill);
+   card.append(head,bar,el("p","",c.remaining),el("small","", "Poids dans l'estimation : "+c.weight+" %"));
+   cats.append(card);
+  }
+  const expected=p.latest_checkpoint_evidence;
+  if(expected.game_dossiers!==d.count||
+     expected.historical_espn_finals!==d.historical_finals_in_available_archive)
+     throw Error("Les preuves de dossiers ne correspondent plus au jalon ; ne pas afficher ces compteurs");
+  const details=[
+   ["Dossiers de match",d.count],
+   ["Matchs avec cotes observées",d.with_observed_prices],
+   ["Matchs avec historique d'équipe",d.with_descriptive_team_history],
+   ["Prévisions fictives verrouillées",d.with_locked_forecasts],
+   ["Résultats ESPN archivés",d.historical_finals_in_available_archive]];
+  for(const [name,count] of details){
+   const entry=el("li");entry.append(el("strong","",count),el("span","",name));$("evidence").append(entry);
+  }
+  $("status").textContent="Jalon daté "+new Date(p.updated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})+
+   " · méthode : appréciation pondérée ; rapports de sources horodatés et contrôlables.";
+ }catch(e){$("status").textContent="Preuve d'avancement indisponible : "+e.message;}
+})();
+</script></body></html>
