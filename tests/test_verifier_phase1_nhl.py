@@ -44,10 +44,10 @@ class FidelityGate(unittest.TestCase):
         self.assertFalse(a["acceptance_gates"]["original_published_model_identity"])
         self.assertFalse(a["acceptance_gates"]["prospective_nhl_100_outcomes_for_initial_quality"])
         self.assertEqual(a["checkpoint"]["verified_target_formulas"],44)
-        self.assertEqual(a["checkpoint"]["identical_public_5v5_xg_nhl_games"],17)
-        self.assertEqual(a["checkpoint"]["published_nhl_moneyline_comparisons"],8)
-        self.assertEqual(a["checkpoint"]["published_nhl_moneyline_mean_gap_pp"],12.71)
-        self.assertEqual(a["checkpoint"]["original_source_data_checks_done"],1)
+        self.assertEqual(a["checkpoint"]["identical_public_5v5_xg_nhl_games"],F["input_summary"]["identical_5v5_xg_both_teams"])
+        self.assertEqual(a["checkpoint"]["published_nhl_moneyline_comparisons"],F["model_summary"]["moneyline"]["comparisons"])
+        self.assertEqual(a["checkpoint"]["published_nhl_moneyline_mean_gap_pp"],F["model_summary"]["moneyline"]["mean_absolute_gap_pp"])
+        self.assertEqual(a["checkpoint"]["original_source_data_checks_done"],I["completed_data_checks"])
         self.assertFalse(a["real_bets_enabled"])
 
     def test_no_guessed_original_elo_state(self):
