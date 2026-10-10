@@ -1,8 +1,9 @@
 name: Revue - NBA Elo Clairvoyance sur donnees ESPN
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '18 7 * * *'
+  # Legacy standings-only mode kept for manual diagnosis.
+  # Automated daily NBA calculations use clairvoyance-nba-advanced.yml
+  # to prevent preseason standings from entering current-season Elo.
   push:
     paths:
       - 'outils/nba_ratings_clairvoyance_live.py'
