@@ -85,6 +85,7 @@ class Tests(unittest.TestCase):
         with self.assertRaises(ValueError):build(*x,NOW)
     def test_cfb_not_in_report(self):
         x=sample();x[0]["observations"][0]["league"]="CFB"
+        x[0]["market_rows_observed"]=0
         r=build(*x,NOW)
         self.assertEqual(r["quote_sources"]["fixtures"],0)
         self.assertTrue(r["CFB_excluded"])
