@@ -113,7 +113,7 @@ function renderWhy(e){
     observation.append(h("p","",
       side+" · "+q.book.replace("_fr","")+" @ "+f(q.price)+
       " · relevé "+date(q.observedAt)+
-      (!q.comparableMarketRule?" · RÈGLEMENT / PROLONGATION NON VÉRIFIÉ":"")));
+      (!q.comparableMarketRule?" · RÈGLES DU MARCHÉ NON VÉRIFIÉES":"")));
   }
   observation.append(h("small","","Prix déjà observés, non garantis toujours proposés. Aucune valeur positive validée."));
   root.append(observation);
@@ -185,8 +185,8 @@ function drawEvents(){
  const source=state?.events||[];
  const items=source.filter(e=>(activeSport==="all"||sportOf(e)===activeSport)&&
   (!query||(e.away+" "+e.home+" "+e.league).toLowerCase().includes(query)));
- const chosen=items.slice(0,10);
- put("v3-count",items.length+" rencontre(s) à surveiller");
+ const chosen=window.RevueArcadeV3.prioritizeForReview(items).slice(0,10);
+ put("v3-count",items.length+" rencontre(s) · mieux documentées d'abord (pas un classement de paris)");
  put("home-active",0);
  root.replaceChildren();
  if(!chosen.length){

@@ -81,7 +81,8 @@ function originalResearch(doc,now){
      continue;
   const k=r.league+":"+r.event_id;
   if(!m.has(k))m.set(k,[]);
-  m.get(k).push({market:r.market,side:r.side,line:r.line,
+  m.get(k).push({home:r.home,away:r.away,start:r.start_utc,
+    market:r.market,side:r.side,line:r.line,
     selection:r.selection_label,quote:quote.decimal_odds,
     bookmaker:quote.bookmaker,observedAt:quote.quote_at_utc});
  }
@@ -149,6 +150,8 @@ function radarComparisons(doc,now){
        if(!["h2h","totals"].includes(market.market))continue;
        if(!age(market.quote_at,now,2)||ms(market.quote_at)>ms(game.start_utc)-20*60000)
          continue;
+       const rule=typeof market.period_rule==="string"?market.period_rule.trim():"";
+       if(!rule)continue;
        for(const selection of market.outcomes||[]){
          if(!selections.has(selection.selection)||!finite(selection.price,1.01,100))
            continue;
@@ -164,11 +167,13 @@ function radarComparisons(doc,now){
            line,book:book.bookmaker,price:selection.price,
            observedAt:market.quote_at,
            periodRule:market.period_rule,
-           comparableMarketRule:game.league!=="NHL"||
-             market.period_rule==="including_ot_confirmed",
+           comparableMarketRule:game.league==="NHL"?
+             rule==="including_ot_confirmed":
+             (!SOCCER_MARKET_LEAGUES.has(game.league)||rule==="90min"),
          });
-         if(game.league==="NHL"&&market.period_rule!=="including_ot_confirmed")continue;
-         const key=market.market+"|"+selection.selection+"|"+(line==null?"":line);
+         if(game.league==="NHL"&&rule!=="including_ot_confirmed")continue;
+         if(SOCCER_MARKET_LEAGUES.has(game.league)&&rule!=="90min")continue;
+         const key=market.market+"|"+selection.selection+"|"+(line==null?"":line)+"|"+rule;
          if(!groups.has(key))groups.set(key,new Map());
          const peers=groups.get(key);
          if(peers.has(book.bookmaker)){peers.set(book.bookmaker,null);continue;}
@@ -183,10 +188,10 @@ function radarComparisons(doc,now){
       const observed=[...group.values()].filter(Boolean);
       if(observed.length<2)continue;
       observed.sort((a,b)=>b.price-a.price);
-      const [market,side,line]=key.split("|");
+      const [market,side,line,periodRule]=key.split("|");
       const top=observed[0],bottom=observed[observed.length-1];
       comparisons.push({
-       market,side,line:line===""?null:Number(line),
+       market,side,line:line===""?null:Number(line),periodRule,
        topBook:top.book,topPrice:top.price,lowPrice:bottom.price,
        differencePercent:Math.round((top.price/bottom.price-1)*1000)/10,
        bookCount:observed.length,
@@ -215,6 +220,7 @@ function radarComparisons(doc,now){
  return out;
 }
 
+const SOCCER_MARKET_LEAGUES=new Set(["PL","LIGUE1","LALIGA","SERIEA","BUNDESLIGA","MLS"]);
 const OWNED_LEAGUES=new Set(["PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","NBA","WNBA","NCAAB","NFL","MLB"]);
 const OWNED_MODELS=new Set(["baseline","advanced_team","montecarlo_bayes","football_advanced","own_elo"]);
 const OWNED_SOCCER=new Set(["PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1"]);
@@ -302,6 +308,15 @@ function ownedSnapshot(ledger,report,now){
    rows,stats:report.per_league,since:ledger.since_utc};
 }
 
+// For display only: source coverage never implies profitability or a certified bet.
+function prioritizeForReview(events){
+ const coverage=e=>4*Number(!!e.owned)+3*Number((e.recentCrossBookPrices?.length||0)>0)+
+   2*Number((e.recentObservedPriceExamples?.length||0)>0)+
+   Number((e.models?.length||0)>0||!!e.hockey);
+ return [...events].sort((a,b)=>coverage(b)-coverage(a)||
+   (ms(a.start)||Infinity)-(ms(b.start)||Infinity)||
+   String(a.key).localeCompare(String(b.key)));
+}
 function build(sources,now){
  const gamesOk=sourceMatch(sources.matches,now);
  const picksOk=sourcePicks(sources.picks);
@@ -332,7 +347,9 @@ function build(sources,now){
   const key=g.league+":"+g.event_id;
   const h=g.league==="NHL"?hockey.get(String(g.event_id)):null;
   if(h&&(h.home!==g.home||h.away!==g.away||ms(h.start_utc)!==ms(g.start_utc)))continue;
-  const q=quotes.get(key)||[];
+  // Match ID alone is not enough to attribute archived prices.
+  const q=(quotes.get(key)||[]).filter(v=>v.home===g.home&&v.away===g.away&&
+    ms(v.start)===ms(g.start_utc));
   const observedRadar=radar.get(key);
   const matchRadar=observedRadar&&observedRadar.home===g.home&&
      observedRadar.away===g.away&&ms(observedRadar.start)===ms(g.start_utc);
@@ -403,5 +420,5 @@ function build(sources,now){
   hiddenCFB:true,
  };
 }
-return {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies,safeRadar,radarComparisons,originalResearch,ownedSnapshot};
+return {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies,safeRadar,radarComparisons,originalResearch,ownedSnapshot,prioritizeForReview};
 });
