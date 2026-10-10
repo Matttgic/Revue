@@ -129,6 +129,21 @@ async def get_goalie(id): pass
                 self.assertIsNone(out["exact_reproduction_percent"])
                 self.assertEqual(out["exact_end_to_end_parity"],"NOT_VERIFIED")
 
+    def test_static_dom_is_structural_inventory_not_visual_identity(self):
+        with TemporaryDirectory() as tmp:
+            source,target=Path(tmp)/"original",Path(tmp)/"revue"
+            self.make(source,target)
+            _write(source,"docs/app.html",'<html><section id="matches"></section><div id="bets"></div></html>')
+            _write(target,"docs/index.html",'<html><section id="matches"></section></html>')
+            _write(target,"docs/nhl.html",'<html><div id="other"></div></html>')
+            result=strict_report(source,target,NOW)
+            dom=result["frontend"]["static_dom_inventory"]
+            self.assertEqual(dom["source_static_ids"],2)
+            self.assertEqual(dom["same_static_ids"],1)
+            self.assertEqual(dom["original_static_ids_not_present_in_revue"],1)
+            self.assertEqual(dom["first_unmatched_source_ids"],["bets"])
+            self.assertEqual(result["frontend"]["pixel_accurate_visual_comparison"],"NOT_PERFORMED")
+
     def test_scope_excludes_cfb(self):
         with TemporaryDirectory() as tmp:
             source,target=Path(tmp)/"original",Path(tmp)/"revue"
