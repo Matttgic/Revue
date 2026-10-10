@@ -125,6 +125,7 @@ def summarize(ledger:dict,now:datetime) -> dict:
              isinstance(r.get("brier"),(int,float))]
     pending=[r for r in rows if r.get("status")=="pending"]
     n=len(settled)
+    paired_locked=sum(1 for r in rows if isinstance(r.get("research_home_win_probability"),(int,float)))
     paired=[r for r in settled if isinstance(r.get("research_brier"),(int,float))]
     paired_count=len(paired)
     ref_paired=(sum(r["brier"] for r in paired)/paired_count) if paired_count else None
@@ -136,6 +137,7 @@ def summarize(ledger:dict,now:datetime) -> dict:
         "min_results_for_preliminary_assessment":100,
         "statistical_status":"preliminary_only" if n>=100 else "insufficient_sample",
         "mean_brier":round(sum(r["brier"] for r in settled)/n,6) if n else None,
+        "research_paired_locked":paired_locked,
         "research_paired_settled":paired_count,
         "mean_brier_reference_on_paired":round(ref_paired,6) if paired_count else None,
         "mean_brier_research":round(alt_paired,6) if paired_count else None,
