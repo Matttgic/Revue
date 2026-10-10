@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b19">
+<meta name="description" content="Modèles de hockey européen SHL, ligue suisse et Extraliga, alimentés par les calendriers publics Clairvoyance et testés avec les formules indépendantes Revue">
+<title>Hockey européen — Revue Arcade</title>
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+.eu-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 23px}
+.eu-tabs button{min-height:46px;padding:11px 17px;background:#1c2742;border:1px solid #525784;border-radius:10px;color:#e7eaff;cursor:pointer;font:800 12px 'Chakra Petch',sans-serif}
+.eu-tabs button[aria-pressed=true]{background:#5df5e1;border-color:#5df5e1;color:#11162a}
+.eu-card{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;align-items:center}
+.eu-card .big{font:800 27px 'Chakra Petch',sans-serif;color:#79f4df}
+.eu-card .side{font:800 14px 'Chakra Petch',sans-serif;color:#dedafa}
+.eu-card .tiny{font-size:11px;color:#b5b9d7}
+.eu-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.eu-number{font:800 21px 'Chakra Petch',sans-serif}
+.eu-performance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.eu-perf{padding:15px;border:1px solid #464a7c;border-radius:12px;background:#171d35}
+.eu-perf strong{font:800 24px 'Chakra Petch',sans-serif;display:block;margin:7px 0;color:#79f4df}
+.eu-perf small{color:#bbc1db;font-size:11px;line-height:1.5}
+@media(max-width:600px){.eu-card{grid-template-columns:1fr}.eu-performance{grid-template-columns:1fr 1fr}}
+</style>
+</head><body class="retro" data-page="euro">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand" aria-label="Accueil Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./historique.html">HISTORIQUE</a><a href="./lab.html" aria-current="page">LAB</a></nav>
+<span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i> HOCKEY EURO / RESEARCH</span>
+</div></div>
+<nav class="arc-bottom-nav" aria-label="Navigation mobile"><a href="./index.html"><span class="arc-nav-icon">⌂</span>ACCUEIL</a><a href="./play.html"><span class="arc-nav-icon">▷</span>À JOUER</a><a href="./bilan.html"><span class="arc-nav-icon">▤</span>BILAN</a><a href="./historique.html"><span class="arc-nav-icon">◷</span>HISTO</a><a href="./lab.html" aria-current="page"><span class="arc-nav-icon">⚙</span>LAB</a></nav>
+<main class="arc-main">
+<header class="arc-intro"><div><div class="arc-eyebrow">LAB / REPRODUCTION CLAIRVOYANCE</div><h1>HOCKEY <span class="arc-gradient">EUROPÉEN.</span></h1>
+<p>Calendriers publics SHL, National League suisse et Extraliga tchèque. Les formules Monte-Carlo/Poisson et Ensemble sont reconstruites indépendamment dans Revue ; leur identité sur les données réellement utilisées par Clairvoyance n'est pas prouvée.</p></div>
+<a href="./lab.html" class="arc-btn">← RETOUR AU LAB</a></header>
+<div class="arc-signal">Les probabilités affichées sont <strong>expérimentales et non calibrées</strong>. Les données proviennent d'instantanés publics du dépôt de référence et peuvent être périmées. Aucune cote française, aucun calcul d'EV, aucune recommandation de pari. Les résultats réglés proviennent de l'état « post » de cette source, et non d'une vérification officielle indépendante.</div>
+<section class="arc-kpis arc-section"><article class="arc-kpi arc-kpi--mint"><div class="caption">Matchs dans les 72 h</div><strong id="n-total" class="value">—</strong><div class="hint">Vérifiés au dernier traitement</div></article>
+<article class="arc-kpi"><div class="caption">Prévisions figées</div><strong id="n-locked" class="value">—</strong><div class="hint">Horodatées avant match</div></article>
+<article class="arc-kpi"><div class="caption">Évaluées</div><strong id="n-settled" class="value">—</strong><div class="hint">Brier et Log Loss</div></article>
+<article class="arc-kpi arc-kpi--pink"><div class="caption">Parité complète</div><strong class="value">NON</strong><div class="hint">Données originales non entièrement identiques</div></article></section>
+<div id="eu-status" class="arc-signal arc-signal--good" aria-live="polite" role="status">Chargement du rapport source horodaté…</div>
+<div class="eu-tabs" aria-label="Choix de ligue"><button type="button" data-lg="shl" aria-pressed="true">SHL · SUÈDE</button>
+<button type="button" data-lg="nla" aria-pressed="false">NL · SUISSE</button>
+<button type="button" data-lg="extraliga" aria-pressed="false">EXTRALIGA · TCHÉQUIE</button></div>
+<section class="arc-section"><div class="arc-section-head"><h2 id="league-label">Rencontres SHL</h2><span id="league-count" class="arc-chip">—</span></div>
+<div class="arc-list" id="games" aria-live="polite"><div class="arc-placeholder">Lecture des matchs…</div></div></section>
+<section class="arc-section arc-surface"><div class="arc-section-head"><h2>Bilan prospectif par ligue</h2><span class="arc-chip arc-chip--off">AUCUN ROI SANS COTE</span></div>
+<p class="arc-subtitle">Une prévision est enregistrée uniquement si elle est publiée au moins 20 minutes avant le coup d'envoi. Aucun résultat passé n'est transformé rétroactivement en prédiction.</p><div id="performance" class="eu-performance"></div>
+<p id="ledger-status" class="arc-help" role="status" aria-live="polite">Lecture du journal…</p></section>
+<div class="arc-surface"><h2>Provenance et fidélité</h2><p class="arc-help">Calendriers factuels issus des fichiers publics <a href="https://github.com/Purple-Wraith/clairvoyance-backend/tree/main/docs">clairvoyance-backend/docs</a> ; modèles calculés par le code de Revue. Les cotes de bookmakers étrangers intégrées au dépôt original sont explicitement écartées. Pour l'égalité des formules sur mêmes entrées, voir <a href="./parite-clairvoyance.html">l'audit de parité</a>. La parité des sorties réelles et le système d'origine restent à confirmer.</p></div>
+<footer class="arc-footer"><span>HOCKEY EURO / SOURCE PUBLIQUE / RECHERCHE NON CALIBRÉE</span><a href="./reproduction-exacte.html">AUDIT REPRODUCTION ↗</a></footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id),e=(t,c,v)=>{const x=document.createElement(t);if(c)x.className=c;if(v!==undefined)x.textContent=String(v);return x;};
+const fmtTime=s=>new Date(s).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+const pct=x=>typeof x==="number"&&Number.isFinite(x)?(100*x).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
+const n=x=>typeof x==="number"&&Number.isFinite(x)?x.toLocaleString("fr-FR",{maximumFractionDigits:4}):"—";
+const labels={shl:"SHL · Suède",nla:"National League · Suisse",extraliga:"Extraliga · Tchéquie"};
+let report=null,locked=null,perf=null,current="shl";
+const safe=d=>d&&d.version==="revised_eu_hockey_1"&&
+ d.status==="revue_euro_hockey_research_reference_observed"&&
+ d.original_source_output_equivalence_verified===false&&
+ d.fr_bookmaker_odds_verified===false&&d.real_bets_enabled===false&&
+ d.ev_verified===false&&d.calibrated===false&&
+ typeof d.competitions==="object"&&
+ ["shl","nla","extraliga"].every(l=>Array.isArray(d.competitions[l]?.games));
+const card=g=>{
+ const a=e("article","arc-surface eu-card"),left=e("div"),right=e("div");
+ left.append(e("div","arc-eyebrow",g.league+" · "+fmtTime(g.kickoff_utc)),
+  e("h3","",g.home+" — "+g.away),
+  e("p","arc-help",g.home_gp+" matchs domicile / "+g.away_gp+" matchs extérieur dans les données de la saison. Modèle non calibré."));
+ const tags=e("div","eu-meta");
+ tags.append(e("span","arc-chip arc-chip--off","PAS DE COTE FR"),
+  e("span","arc-chip","MONTE-CARLO + ENSEMBLE"));
+ const original=locked?.records?.find(r=>r.key===g.key);
+ if(original)tags.append(e("span","arc-chip",original.status==="settled"?"ÉVALUÉ":"PROBA VERROUILLÉE"));
+ left.append(tags);
+ right.append(e("div","arc-subtitle","Victoire domicile · Ensemble"),e("div","big",pct(g.ensemble_home_win)),
+  e("div","arc-subtitle","Monte-Carlo : "+pct(g.poisson_home_win)+" · over "+n(g.total_line)+" buts : "+pct(g.poisson_over)),
+  e("div","arc-help","Projection buts : "+n(g.expected_home_goals)+" / "+n(g.expected_away_goals)));
+ if(original?.status==="settled")right.append(e("p","arc-help","Résultat : "+original.score.home+"–"+original.score.away+" · Brier "+n(original.brier)));
+ a.append(left,right);return a;
+};
+const render=()=>{
+ const root=$("games");root.replaceChildren();
+ for(const b of document.querySelectorAll("[data-lg]"))b.setAttribute("aria-pressed",String(b.dataset.lg===current));
+ $("league-label").textContent=labels[current];
+ const source=report?.competitions[current],all=source?.games||[];
+ const future=all.filter(g=>Date.parse(g.kickoff_utc)>Date.now()+20*60000);
+ $("league-count").textContent=future.length+" match(s) futurs";
+ if(!source||source.status!=="ok")root.append(e("div","arc-placeholder","Source indisponible ou périmée : "+(source?.status||"sans données")));
+ else if(!future.length)root.append(e("div","arc-placeholder","Aucune rencontre avec une prévision vérifiable dans cette fenêtre de 72 heures."));
+ else for(const g of future.slice(0,40))root.append(card(g));
+};
+document.querySelectorAll("[data-lg]").forEach(btn=>btn.addEventListener("click",()=>{current=btn.dataset.lg;render();}));
+const get=async file=>{const res=await fetch("./"+file+"?t="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error(file+" HTTP "+res.status);return res.json();};
+(async()=>{
+ try{
+  const r=await get("euro-hockey-latest.json");if(!safe(r))throw Error("Rapport sans provenance vérifiable");
+  report=r;$("n-total").textContent=r.total_games;
+  $("eu-status").textContent="Modèles mis à jour le "+fmtTime(r.generated_at_utc)+
+   ". Données de référence : "+Object.entries(r.competitions).map(([l,v])=>l.toUpperCase()+" "+v.status+" ("+(v.source_generated_utc?fmtTime(v.source_generated_utc):"indisponible")+")").join(" · ");
+  render();
+ }catch(err){$("eu-status").textContent="Flux européen indisponible : "+err.message;render();}
+ try{
+  const [l,p]=await Promise.all([get("euro-hockey-prospective-ledger.json"),get("euro-hockey-prospective-performance.json")]);
+  if(l.version!=="euro_hockey_immutable_pre_match_v1"||p.status!=="independent_euro_hockey_pre_match_research"||
+   p.real_bets!==0||p.roi!==null||p.observed_post_state_is_not_independent_official_verification!==true||
+   !Array.isArray(l.records)||l.records.some(x=>x.real_bet!==false||x.units!==0))throw Error("Suivi non vérifié");
+  locked=l;perf=p;$("n-locked").textContent=p.total_locked;$("n-settled").textContent=p.total_settled;
+  const root=$("performance");root.replaceChildren();
+  for(const lg of ["shl","nla","extraliga"]){
+   const d=p.leagues[lg],box=e("article","eu-perf");
+   box.append(e("small","",labels[lg]),e("strong","",d.settled+"/"+d.locked),
+    e("small","","BRIER "+n(d.mean_brier)+" · LOG LOSS "+n(d.mean_log_loss)));
+   root.append(box);
+  }
+  $("ledger-status").textContent="Dernière évaluation "+fmtTime(p.generated_at_utc)+
+   " · seulement des prévisions verrouillées avant les matchs · résultats observés dans la source de référence, non certifiés par une autorité indépendante.";
+  render();
+ }catch(err){$("ledger-status").textContent="Suivi non disponible : "+err.message;}
+})();
+</script></body></html>
