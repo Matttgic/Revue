@@ -72,7 +72,7 @@ class PaperPickHttpTests(unittest.TestCase):
         self.assertEqual(self.client.get("/picks/1").json()["id"], 1)
         self.assertEqual(self.client.get("/picks/999").status_code, 404)
         self.assertEqual(self.client.post("/picks/", json={}).status_code, 405)
-        self.assertEqual(self.client.patch("/picks/1/void").status_code, 405)
+        self.assertEqual(self.client.patch("/picks/1/void").status_code, 404)  # no write route registered
 
     def test_stats_same_field_shape_and_paper_payout(self):
         res = self.client.get("/picks/stats")
