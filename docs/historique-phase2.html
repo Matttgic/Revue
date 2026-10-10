@@ -1,0 +1,198 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b19">
+<title>Historique autonome · Revue Arcade</title>
+<meta name="description" content="Toutes les prédictions sportives de Revue, verrouillées avant les matchs et réglées avec les résultats officiels. Elo propre à Revue, sans historique importé.">
+<link rel="stylesheet" href="./theme.css?v=2">
+<link rel="stylesheet" href="./retro.css?v=1">
+<style>
+main{max-width:1080px!important;margin:0 auto!important;padding:31px 17px 85px!important}
+h1{font:900 clamp(37px,7vw,65px)/1 'Chakra Petch',sans-serif;letter-spacing:-.055em;margin:15px 0}
+h1 span{color:#70f5e0}
+.description{font-size:13px;line-height:1.75;color:#bed2dd;max-width:820px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:26px 0}
+.metric{background:linear-gradient(135deg,#152c42,#101e31);border:1px solid #395a72;border-radius:13px;padding:17px;min-width:0}
+.metric small{font:700 10px 'Chakra Petch',sans-serif;color:#acc4d0}
+.metric strong{font:900 clamp(24px,4.8vw,37px) 'Chakra Petch',sans-serif;color:#77f4dd;display:block;margin-top:9px}
+.note{border-left:3px solid #e6af7b;padding:15px;background:#292739;font-size:12px;color:#e8d4c3;line-height:1.7;margin:20px 0}
+.filters{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin:17px 0}
+.filters select{background:#18334c;border:1px solid #54738d;color:#edfaff;padding:11px;border-radius:8px}
+.subtitle{color:#aec6d2;font-size:12px;line-height:1.6}
+h2{font:800 25px 'Chakra Petch',sans-serif;margin:29px 0 16px}
+.matches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.match{padding:19px;border:1px solid #38566e;border-radius:13px;background:#14283d;min-width:0}
+.match h3{font:800 18px 'Chakra Petch',sans-serif;margin:11px 0}
+.match .meta{font:700 10px 'Chakra Petch',sans-serif;color:#83e8da}
+.match .outcome{font:800 11px 'Chakra Petch',sans-serif;color:#e5e8f2}
+.versus{font-size:12px;padding:11px 0;border-top:1px solid #3b5568;display:grid;grid-template-columns:1fr auto;gap:8px}
+.versus strong{color:#8befdb}
+.comp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.model{padding:16px;border:1px solid #3e586e;border-radius:12px;background:#172c40}
+.model strong{display:block;font:800 13px 'Chakra Petch',sans-serif}
+.model p{color:#bcd0e0;font-size:11px;line-height:1.7}
+.elogroup{padding:15px;border:1px solid #3b566f;border-radius:11px;margin:8px 0;background:#14293d}
+.elogroup h3{margin:4px 0 10px;font:800 14px 'Chakra Petch',sans-serif}
+.elorow{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:6px 0;border-top:1px solid #294458}
+.footer-links{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
+#status{font-size:12px;color:#aad3df}
+@media(max-width:740px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.matches,.comp{grid-template-columns:1fr}}
+</style></head>
+<body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav>
+</div></div>
+<main>
+<header><span class="arc-eyebrow">REVUE / PHASE 2 / HISTORIQUE DEPUIS LE PREMIER RUN</span>
+<h1>NOTRE <span>HISTORIQUE.</span></h1>
+<p class="description">Les prévisions et les probabilités sont enregistrées une seule fois avant le coup d’envoi. Les résultats proviennent des scores finaux observés par ESPN. Le classement Elo est reconstruit uniquement avec les matchs terminés depuis le démarrage réel de cet historique.</p></header>
+<div class="note"><strong>Historique prospectif indépendant :</strong> aucune prédiction historique inventée, aucune importation du SQL Clairvoyance. Les probabilités sont expérimentales, sans calibration ou avantage démontré. Les compétitions NHL, MLS et UCL relèvent de suivis distincts tant que les règles de prolongation ne sont pas pleinement comparables. Aucun pari réel n’est placé.</div>
+<div class="metrics">
+<div class="metric"><small>PRÉVISIONS VERROUILLÉES</small><strong id="locks">—</strong></div>
+<div class="metric"><small>RÉSULTATS RÉGLÉS</small><strong id="settled">—</strong></div>
+<div class="metric"><small>MATCHS ELO OBSERVÉS</small><strong id="elo">—</strong></div>
+<div class="metric"><small>COMPÉTITIONS ACTIVES</small><strong id="leagues">—</strong></div>
+</div>
+<p id="status" role="status" aria-live="polite">Lecture de l’historique des prédictions Revue…</p>
+<section>
+<h2>Comparer les modèles</h2>
+<p class="subtitle">Brier Score et Log Loss : plus bas signifie une meilleure prévision, mais seulement sur les rencontres effectivement réglées. Les modèles ne sont pas classés comme fiables avec un échantillon insuffisant.</p>
+<div id="models" class="comp"></div>
+</section>
+<section>
+<h2>Prévisions enregistrées</h2>
+<div class="filters">
+<label for="league-filter" class="arc-eyebrow">Compétition</label>
+<select id="league-filter"><option value="">Toutes les compétitions</option></select>
+<label for="state-filter" class="arc-eyebrow">Statut</label>
+<select id="state-filter"><option value="">Tous</option><option value="pending">En attente</option><option value="settled">Réglés</option></select>
+</div>
+<div id="matches" class="matches"></div>
+</section>
+<section><h2>Notre Elo officiel indépendant</h2>
+<p class="subtitle">Valeur initiale 1 500, coefficient K = 24. Les classements partent de zéro le jour de création de l’historique. Sans match observé depuis ce jour, aucun classement Elo n’est affiché.</p>
+<div id="elo-table"></div>
+</section>
+<div class="footer-links">
+<a class="arc-btn" href="./bilan.html">← BILAN</a>
+<a class="arc-btn" href="./phase2-owned-performance.json">STATISTIQUES BRUTES ↗</a>
+<a class="arc-btn" href="./phase2-owned-ledger.json">JOURNAL VERROUILLÉ ↗</a>
+<a class="arc-btn" href="./phase1-nhl.html">FIDÉLITÉ NHL ↗</a>
+</div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const node=(tag,text,cls)=>{const v=document.createElement(tag);if(text!==undefined)v.textContent=String(text);if(cls)v.className=cls;return v};
+const number=x=>typeof x==="number"&&Number.isFinite(x)?x.toLocaleString("fr-FR",{maximumFractionDigits:4}):"—";
+const percent=x=>typeof x==="number"&&Number.isFinite(x)?(x*100).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
+const displayDate=x=>new Date(x).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+const modelNames={baseline:"Elo / score de base",advanced_team:"Elo et marge récente",montecarlo_bayes:"Monte-Carlo, Bayes et Elo",football_advanced:"Football avancé"};
+let stored=[],ledger;
+function showMatches(){
+ const target=$("matches");target.replaceChildren();
+ const lg=$("league-filter").value,status=$("state-filter").value;
+ const filtered=stored.filter(e=>(!lg||e.league===lg)&&(!status||e.status===status));
+ for(const e of filtered.slice(0,45)){
+  const card=node("article",undefined,"match");
+  card.append(node("div",e.league+" · "+displayDate(e.start_utc)+" · "+(e.status==="settled"?"TERMINÉ":"VERROUILLÉ"),"meta"));
+  card.append(node("h3",e.away+" @ "+e.home));
+  const badge=e.status==="settled"?
+   ("Résultat : "+e.home_score+"–"+e.away_score+" · "+e.result):
+   "Pas encore de résultat final confirmé";
+  card.append(node("div",badge,"outcome"));
+  const entries=e.probabilities||{};
+  for(const [name,forecast] of Object.entries(entries)){
+    const line=node("div",undefined,"versus");
+    const values=forecast.probabilities||[];
+    const label=e.market==="1X2_90min"?
+      ("1 : "+percent(values[0])+" / N : "+percent(values[1])+" / 2 : "+percent(values[2])):
+      ("Domicile : "+percent(values[0])+" / Extérieur : "+percent(values[1]));
+    line.append(node("span",(modelNames[name]||name)+" · "+label));
+    const stat=e.model_scores?.[name];
+    line.append(node("strong",stat?"Brier "+number(stat.brier):"PRÉ-MATCH"));
+    card.append(line);
+  }
+  card.append(node("p","Verrouillé le "+displayDate(e.locked_at_utc)+" · modèle expérimental, aucune cote ni mise.","subtitle"));
+  target.append(card);
+ }
+ if(!filtered.length)target.append(node("p","Aucun enregistrement pour ce filtre.","subtitle"));
+}
+function showElo(ratings){
+ const root=$("elo-table");root.replaceChildren();
+ let sports=0;
+ for(const [lg,teams] of Object.entries(ratings||{})){
+   const entries=Object.entries(teams).filter(([,rating])=>typeof rating==="number"&&Number.isFinite(rating));
+   if(!entries.length)continue;
+   sports++;
+   entries.sort((a,b)=>b[1]-a[1]);
+   const group=node("div",undefined,"elogroup");group.append(node("h3",lg));
+   for(const [team,rating] of entries.slice(0,12)){
+     const item=node("div",undefined,"elorow");
+     item.append(node("span",team),node("strong",number(rating)));
+     group.append(item);
+   }
+   root.append(group);
+ }
+ if(!sports)root.append(node("p","Aucun match final éligible depuis la création de l’historique. Le classement Elo démarre à 1 500.","subtitle"));
+}
+(async()=>{
+ try{
+  const [a,b]=await Promise.all([
+   fetch("./phase2-owned-performance.json",{cache:"no-store"}),
+   fetch("./phase2-owned-ledger.json",{cache:"no-store"})
+  ]);
+  if(!a.ok||!b.ok)throw Error("rapports non publiés");
+  const p=await a.json();ledger=await b.json();
+  const age=Date.now()-Date.parse(p.generated_at_utc);
+  if(p.version!=="revue_phase2_owned_performance_v1"||
+    p.status!=="new_revue_history_prospective_not_source_sql"||
+    ledger.version!=="revue_phase2_owned_history_v1"||
+    p.since_utc!==ledger.since_utc||
+    p.real_bets_enabled!==false||p.replayed_old_results!==false||
+    p.identical_original_clairvoyance_sql_history!==false||
+    p.models_calibrated!==false||p.odds_queried!==false||
+    typeof ledger.events!=="object"||!ledger.events||
+    !Number.isFinite(age)||age< -120000||age>12*3600000||
+    Object.keys(ledger.events).length!==p.total_unique_matches_locked)
+    throw Error("journal invalide ou non actualisé");
+  stored=Object.values(ledger.events).filter(e=>e&&
+    e.real_bet===false&&e.stake_units===0&&
+    ["pending","settled"].includes(e.status)&&
+    Date.parse(e.locked_at_utc)<=Date.parse(e.start_utc)-20*60000&&
+    Date.parse(e.locked_at_utc)>=Date.parse(ledger.since_utc));
+  if(stored.length!==p.total_unique_matches_locked)throw Error("contrôle temporel échoué");
+  stored.sort((a,b)=>Date.parse(a.start_utc)-Date.parse(b.start_utc));
+  $("locks").textContent=p.total_unique_matches_locked;
+  $("settled").textContent=p.total_unique_matches_settled;
+  $("elo").textContent=p.total_independent_elo_finals;
+  $("leagues").textContent=new Set(stored.map(e=>e.league)).size;
+  $("status").textContent="Historique lancé le "+displayDate(p.since_utc)+
+    " · dernière vérification "+displayDate(p.generated_at_utc)+
+    " · aucune prédiction rétroactive.";
+  const leagues=[...new Set(stored.map(e=>e.league))].sort();
+  for(const lg of leagues){const opt=node("option",lg);opt.value=lg;$("league-filter").append(opt);}
+  showMatches();showElo(ledger.elo_ratings);
+  const root=$("models");
+  for(const [lg,value] of Object.entries(p.per_league||{})){
+    if(!value.locked&&!value.independent_elo_finals)continue;
+    const row=node("article",undefined,"model");
+    row.append(node("strong",lg+" · "+value.settled+"/"+value.locked+" réglés"));
+    for(const [name,stat] of Object.entries(value.models||{})){
+      if(!stat.settled)continue;
+      row.append(node("p",(modelNames[name]||name)+
+        " · "+stat.settled+" observations · Brier "+number(stat.brier)+
+        " · Log Loss "+number(stat.log_loss)));
+    }
+    if(value.settled<100)row.append(node("p","Échantillon insuffisant, aucune promotion du modèle.","subtitle"));
+    root.append(row);
+  }
+  if(!root.children.length)root.append(node("p","Les comparaisons apparaîtront après les premiers résultats officiels.","subtitle"));
+ }catch(error){
+  $("status").textContent="Historique non disponible : "+error.message;
+  $("matches").append(node("p","Aucune prédiction ou performance extrapolée.","subtitle"));
+ }
+})();
+$("league-filter").addEventListener("change",showMatches);
+$("state-filter").addEventListener("change",showMatches);
+</script></body></html>
