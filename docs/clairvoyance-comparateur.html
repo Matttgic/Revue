@@ -1,0 +1,160 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080b19">
+<meta name="description" content="Comparaison des matchs et probabilités publiés par Clairvoyance et calculés par Revue. Neuf compétitions, contrôle des identités et des écarts réels.">
+<title>Clairvoyance vs Revue — Audit des sorties</title>
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+.parity-table{display:grid;gap:8px}.parity-row{display:grid;grid-template-columns:minmax(0,1.35fr) repeat(3,minmax(78px,.7fr));gap:14px;align-items:center;background:#19213d;border:1px solid #464c72;border-radius:13px;padding:15px}
+.parity-game{color:#e8edff;font:800 15px/1.3 'Chakra Petch',sans-serif}.parity-small{color:#aeb3d2;font:11px/1.65 'DM Sans',sans-serif;margin-top:5px;overflow-wrap:anywhere}
+.parity-number{font:800 23px 'Chakra Petch',sans-serif;color:#76f5e2}.parity-gap{color:#ffb4c8}
+.parity-sub{font:700 10px 'Chakra Petch',sans-serif;color:#a9acc8;text-transform:uppercase;margin-bottom:4px}
+.parity-sources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.parity-source{border:1px solid #464d77;background:#1b2540;border-radius:13px;padding:16px}.parity-source strong{font:800 15px 'Chakra Petch',sans-serif}.parity-source p{margin:7px 0 0;font-size:11px;color:#bcc0d6;line-height:1.55}
+.parity-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.parity-counts div{padding:15px;border:1px solid #434b75;border-radius:12px;background:#171f3b}.parity-counts strong{display:block;font:800 23px 'Chakra Petch',sans-serif;color:#80f2e2}.parity-counts small{color:#afb6cf;font-size:11px}
+.parity-search{width:100%;max-width:310px}.parity-inline{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.parity-foot{font-size:11px;color:#acb8d0;line-height:1.8}
+@media(max-width:730px){.parity-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.parity-row .parity-game-block{grid-column:1/-1}.parity-number{font-size:20px}.parity-sources{grid-template-columns:1fr}.parity-counts{grid-template-columns:1fr 1fr}}
+</style></head><body class="retro" data-page="parity-output">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./historique.html">HISTORIQUE</a><a href="./lab.html" aria-current="page">LAB</a></nav>
+<span class="rv-top-tag">SOURCE PARITY / RESEARCH</span></div></div>
+<nav class="arc-bottom-nav" aria-label="Navigation mobile"><a href="./index.html"><span class="arc-nav-icon">⌂</span>ACCUEIL</a><a href="./play.html"><span class="arc-nav-icon">▷</span>À JOUER</a><a href="./bilan.html"><span class="arc-nav-icon">▤</span>BILAN</a><a href="./historique.html"><span class="arc-nav-icon">◷</span>HISTO</a><a href="./lab.html" aria-current="page"><span class="arc-nav-icon">⚙</span>LAB</a></nav>
+<main class="arc-main">
+<header class="arc-intro"><div><div class="arc-eyebrow">LAB / ÉGALITÉ DES SORTIES</div>
+<h1>CLAIRVOYANCE <span class="arc-gradient">VS REVUE.</span></h1>
+<p>La comparaison qui manquait : mêmes rencontres identifiées, mêmes marchés lorsqu'ils existent, probabilités réellement publiées et différence chiffrée. On sépare la reproduction des formules de l'égalité des résultats.</p>
+</div><a href="./lab.html" class="arc-btn">← RETOUR AU LAB</a></header>
+<div class="arc-signal"><strong>Important :</strong> il s'agit de deux instantanés à des heures différentes et de modèles n'utilisant pas nécessairement les mêmes données. Un faible écart ne prouve pas une reproduction exacte ; un écart élevé révèle du travail restant. Ce comparateur n'affiche aucune cote française valide ni aucun conseil de pari.</div>
+<section class="arc-kpis arc-section" aria-label="Avancement de la comparaison">
+<article class="arc-kpi arc-kpi--mint"><div class="caption">Matchs référence</div><strong id="parity-source" class="value">—</strong><div class="hint">Plusieurs horizons, notamment saison NFL</div></article>
+<article class="arc-kpi"><div class="caption">Identités communes</div><strong id="parity-matches" class="value">—</strong><div class="hint">Identifiant + heure du match</div></article>
+<article class="arc-kpi"><div class="caption">Prévisions comparées</div><strong id="parity-comparable" class="value">—</strong><div class="hint">Même marché NHL et pré-match</div></article>
+<article class="arc-kpi arc-kpi--pink"><div class="caption">Écart absolu moyen</div><strong id="parity-gap" class="value">—</strong><div class="hint">Points de probabilité · NHL uniquement</div></article>
+</section>
+<p class="arc-subtitle" id="parity-status" role="status" aria-live="polite">Lecture du rapport source horodaté…</p>
+<section class="arc-section">
+<div class="arc-section-head"><h2>01 / Les vrais écarts NHL</h2><span class="arc-chip arc-chip--off">PAS UN TABLEAU DE PARIS</span></div>
+<p class="arc-subtitle">Écart positif = Revue estime davantage cette sélection que Clairvoyance. Écart négatif = Revue l'estime moins. Les matchs peuvent déjà avoir commencé depuis la publication.</p>
+<div class="arc-filters" style="margin-top:17px"><label for="parity-market" class="arc-visually-hidden">Marché de comparaison</label>
+<select id="parity-market" class="arc-select"><option value="all">TOUS LES MARCHÉS</option><option value="moneyline_including_overtime">VAINQUEUR INCL. PROLONGATION</option><option value="full_game_total">TOTAL DE BUTS</option></select>
+<label for="parity-sort" class="arc-visually-hidden">Tri</label><select id="parity-sort" class="arc-select"><option value="gap">PLUS GRANDS ÉCARTS</option><option value="kickoff">HEURE DU MATCH</option></select>
+<input type="search" class="arc-input parity-search" id="parity-query" placeholder="Club NHL (BOS, PHI, PIT…)" aria-label="Rechercher un club"></div>
+<div id="parity-results" class="parity-table"><div class="arc-placeholder">Chargement des probabilités…</div></div></section>
+<section class="arc-section"><div class="arc-section-head"><h2>02 / Couverture des calendriers</h2><span class="arc-chip">9 CHAMPIONNATS</span></div>
+<p class="arc-subtitle">Une correspondance signifie uniquement : même compétition, même identifiant d'événement et même coup d'envoi (± 5 minutes). Les horizons de publication ne sont pas équivalents : on ne calcule pas de score global trompeur sur les 402 matchs.</p>
+<div id="parity-leagues" class="parity-counts" style="margin-top:17px"></div></section>
+<section class="arc-section arc-surface"><div class="arc-section-head"><h2>03 / Fiabilité des anciens bilans</h2><span class="arc-chip arc-chip--off">ÉCHANTILLON D'ORIGINE, PAS NOTRE ROI</span></div>
+<div class="parity-counts" id="parity-locks"></div>
+<p class="arc-help" id="parity-timing-note">L'heure de verrouillage de chaque ancienne sélection doit être vérifiée avant tout calcul de performance reproductible.</p></section>
+<section class="arc-section">
+<div class="arc-section-head"><h2>04 / Sources vérifiées</h2><a href="./clairvoyance-real-output-gap.json">RAPPORT JSON ↗</a></div>
+<div id="parity-sources" class="parity-sources"></div>
+</section>
+<div class="arc-signal arc-signal--good">Le laboratoire compare les sorties publiques, sans recopier les scripts de Clairvoyance. Le catalogue de <a href="./parite-clairvoyance.html">44 fonctions</a> concerne des tests sur <strong>mêmes entrées</strong> ; ici, les données réelles des deux systèmes ne sont pas garanties identiques. Consulte aussi <a href="./reproduction-exacte.html">l'audit de reproduction complète</a>.</div>
+<footer class="arc-footer"><span>REVUE SOURCE PARITY · 0 PARI RÉEL · 0 EV CERTIFIÉE</span><a href="./lab.html">LAB ↗</a></footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const node=(t,c,value)=>{const v=document.createElement(t);if(c)v.className=c;if(value!==undefined)v.textContent=String(value);return v;};
+const formatDate=s=>new Date(s).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+const p=n=>Number.isFinite(n)?(n*100).toLocaleString("fr-FR",{maximumFractionDigits:2})+" %":"—";
+const f=n=>Number.isFinite(n)?n.toLocaleString("fr-FR",{maximumFractionDigits:2}):"—";
+const names={NHL:"NHL",NBA:"NBA",MLB:"MLB",NFL:"NFL",PL:"Premier League",LALIGA:"Liga",BUNDESLIGA:"Bundesliga",MLS:"MLS",SERIEA:"Serie A"};
+let doc=null;
+function valid(x){
+ return x?.status==="public_original_source_fixture_and_nhl_output_diagnostic"&&
+ x.real_bets_enabled===false&&x.live_french_odds_verified===false&&
+ x.exact_prediction_parity_verified===false&&x.point_in_time_feature_parity_verified===false&&
+ x.original_history_profit_report_excluded===true&&
+ Array.isArray(x.matched_fixtures)&&Array.isArray(x.nhl_source_vs_revue)&&
+ x.strict_event_matches===x.matched_fixtures.length&&
+ x.nhl_same_market_model_comparisons===
+ x.nhl_source_vs_revue.filter(r=>r.status==="compared").length;
+}
+function renderCompare(){
+ const root=$("parity-results");root.replaceChildren();if(!doc)return;
+ let items=doc.nhl_source_vs_revue.filter(x=>x.status==="compared"&&
+   ($("parity-market").value==="all"||x.market===$("parity-market").value));
+ const q=$("parity-query").value.trim().toUpperCase();
+ if(q)items=items.filter(x=>[x.home,x.away,x.key].some(v=>v.includes(q)));
+ if($("parity-sort").value==="gap")items.sort((a,b)=>Math.abs(b.difference_revue_minus_original_pp)-Math.abs(a.difference_revue_minus_original_pp));
+ else items.sort((a,b)=>Date.parse(a.kickoff_utc)-Date.parse(b.kickoff_utc));
+ if(!items.length){root.append(node("div","arc-placeholder","Aucune comparaison pré-match disponible pour ce filtre."));return;}
+ for(const r of items){
+  const card=node("article","parity-row");
+  const game=node("div","parity-game-block");
+  game.append(node("div","parity-game",r.away+" @ "+r.home),
+   node("div","parity-small",formatDate(r.kickoff_utc)+" · "+
+    (r.market==="full_game_total"?(r.side==="under"?"MOINS DE ":"PLUS DE ")+r.line+" buts":
+    (r.side==="home"?r.home:r.away)+" vainqueur incl. prolongation")));
+  const v1=node("div"),v2=node("div"),v3=node("div");
+  v1.append(node("div","parity-sub","Clairvoyance"),node("strong","parity-number",p(r.original_probability)));
+  v2.append(node("div","parity-sub","Revue"),node("strong","parity-number",p(r.revue_probability)));
+  const diff=r.difference_revue_minus_original_pp;
+  v3.append(node("div","parity-sub","Écart Revue − source"),
+    node("strong","parity-number parity-gap",(diff>=0?"+":"")+f(diff)+" pts"));
+  card.append(game,v1,v2,v3);
+  root.append(card);
+ }
+}
+function renderLeague(){
+ const root=$("parity-leagues");root.replaceChildren();if(!doc)return;
+ for(const lg of ["NHL","NBA","NFL","MLB","PL","LALIGA","BUNDESLIGA","SERIEA","MLS"]){
+  const m=doc.by_league[lg];if(!m)continue;
+  const card=node("div");
+  card.append(node("div","parity-sub",names[lg]||lg),
+    node("strong","",m.identical_id_and_kickoff+" / "+m.source_fixtures),
+    node("small","",m.source_fixtures?
+     "Identifiants et heures communs · autres matchs hors fenêtre ou sans équivalent Revue":
+     "Aucun match dans ce relevé de référence"));
+  root.append(card);
+ }
+}
+function renderTiming(){
+ const r=doc.reference_historic_lock_timing,root=$("parity-locks");root.replaceChildren();
+ if(!r||r.status!=="observed"){
+  root.append(node("div","arc-placeholder","La ventilation des anciens verrouillages n'est pas disponible."));
+  return;
+ }
+ for(const [label,k] of [["AVANT COUP D'ENVOI","pre_start_recorded"],
+                          ["APRÈS DÉBUT","locked_after_start_included"],
+                          ["HORODATAGE INCONNU","unknown_lock_timing_included"]]){
+  const c=node("div");c.append(node("strong","",r[k]),node("small","",label));root.append(c);
+ }
+ $("parity-timing-note").textContent=
+  "Sur "+r.observed_classified_total+" anciennes sélections classées par la source, "+
+  r.non_pre_match_proven_or_unknown+" ont été verrouillées après le début ou ont un horaire inconnu. "+
+  "Le ROI original ne peut donc pas être directement comparé au bilan pré-match vérifié de Revue.";
+}
+function renderSources(){
+ const root=$("parity-sources");root.replaceChildren();
+ const names={data:"Source données & sélections NHL",nba:"Calendrier NBA",nfl:"Calendrier NFL",soccer:"Calendriers football"};
+ for(const [key,x] of Object.entries(doc.source_inputs)){
+  const c=node("article","parity-source");
+  c.append(node("strong","",names[key]||key),
+    node("p","",x.status==="fresh"?"Rapport observé le "+formatDate(x.observed_at_utc)+
+    " · "+x.events+" matchs source indexés": "État : "+x.status+
+    " · les données peuvent être trop anciennes"));
+  root.append(c);
+ }
+}
+for(const id of ["parity-market","parity-sort","parity-query"])
+ $(id).addEventListener(id==="parity-query"?"input":"change",renderCompare);
+(async()=>{
+ try{
+  const r=await fetch("./clairvoyance-real-output-gap.json?ts="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("HTTP "+r.status);
+  const d=await r.json();if(!valid(d))throw Error("Rapport ou état de provenance invalide");
+  doc=d;$("parity-source").textContent=d.source_fixture_total;
+  $("parity-matches").textContent=d.strict_event_matches;
+  $("parity-comparable").textContent=d.nhl_same_market_model_comparisons;
+  $("parity-gap").textContent=f(d.nhl_mean_abs_probability_difference_pp)+" pts";
+  $("parity-status").textContent="Rapport généré "+formatDate(d.generated_at_utc)+
+   " · modèle expérimental, dates de calcul et données originales non identiques · "+
+   d.nhl_model_comparison_outcomes.unsupported_market_spread_or_prop+" marchés non comparables exclus";
+  renderCompare();renderLeague();renderTiming();renderSources();
+ }catch(err){$("parity-status").textContent="Rapport non vérifié ou indisponible : "+err.message;
+  $("parity-results").replaceChildren(node("div","arc-placeholder","Aucune probabilité ne peut être affichée sans contrôle de provenance."));}
+})();
+</script></body></html>
