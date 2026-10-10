@@ -31,7 +31,7 @@ def rate_per_hour(value:object,minutes:Optional[float])->Optional[float]:
     if not minutes:
         return None
     n=numeric(value)
-    return round(60*n/minutes,4) if n is not None else None
+    return round(n/minutes*60,4) if n is not None else None
 
 
 def normalize_team_record(row:dict)->dict|None:
