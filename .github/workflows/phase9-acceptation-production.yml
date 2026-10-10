@@ -1,0 +1,52 @@
+name: Revue - Phase 9 Production Acceptance
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 0,6,12,18 * * *'
+  push:
+    paths:
+      - 'outils/phase9_acceptation_production.py'
+      - 'tests/test_phase9_acceptation.py'
+      - '.github/workflows/phase9-acceptation-production.yml'
+      - 'docs/phase9-production.html'
+permissions:
+  contents: write
+concurrency:
+  group: revue-phase9-qa
+  cancel-in-progress: false
+jobs:
+  acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Safety and interface regression tests
+        run: |
+          python -m unittest discover -s tests -p 'test_phase9_acceptation.py' -v
+          python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
+          python -m unittest discover -s tests -p 'test_phase8_site.py' -v
+          python -m unittest discover -s tests -p 'test_phase7_cotes_et_bilan.py' -v
+          node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js
+      - name: Validate sources without paid API calls
+        run: python -m outils.phase9_acceptation_production
+      - name: Publish latest safety and data status
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.phase9_acceptation_production
+            git add docs/phase9-readiness-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'qa(phase9): release safety and data freshness'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
