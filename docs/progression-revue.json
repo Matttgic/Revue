@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-10T01:50:00+00:00",
+  "updated_at_utc": "2026-10-10T02:02:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 39,
-  "previous_estimate_percent": 38,
+  "estimated_functional_coverage_percent": 40,
+  "previous_estimate_percent": 39,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
   "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
   "excluded_by_user": [
@@ -47,9 +47,9 @@
       "id": "hockey",
       "title": "NHL et hockey spécialisé",
       "weight": 16,
-      "coverage": 0.29,
+      "coverage": 0.3,
       "status": "partiel",
-      "remaining": "Titularisations NHL confirmées, modèles buteurs/tirs, calibration et assez de résultats prospectifs"
+      "remaining": "Titulaires NHL confirmés, tirs/buteurs, calibration démontrée sur matchs futurs"
     },
     {
       "id": "basketball",
@@ -79,9 +79,9 @@
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.54,
+      "coverage": 0.64,
       "status": "partiel",
-      "remaining": "≥100 résultats prospectifs appariés, calibration et backtests historiques authentiquement point-in-time, CLV"
+      "remaining": "Accumululer 100 résultats NHL officiels par modèle + 40 rencontres futures de validation, vérifier incertitude et stabilité, cotes historiques/CLV"
     },
     {
       "id": "licensed_data",
@@ -120,7 +120,12 @@
     "Contrôle point-in-time NHL/MoneyPuck : réconciliation des 32 équipes, 60 gardiens et 65 matchs officiels pré-source",
     "Verrouillage des nouvelles prévisions impossible sans audit vérifié avec horodatage identique au rapport",
     "Horodatage des prévisions enregistré seulement après le téléchargement du calendrier NHL",
-    "12 tests anti-fuite et test d'intégration complet API→audit→prévisions→journal réussis dans GitHub Actions"
+    "12 tests anti-fuite et test d'intégration complet API→audit→prévisions→journal réussis dans GitHub Actions",
+    "Calibration expérimentale NHL pré-enregistrée : 100 résultats verrouillés/terminés en entraînement, 40 nouveaux matchs en test strictement postérieur",
+    "Régression logistique régularisée sur logit, entraînée sans aucun résultat de test; évaluation Brier/Log Loss et baseline issue de l'entraînement",
+    "Rejet de résultats de règlement futurs, antérieurs au match et de scores officiels incohérents",
+    "Rapport NHL calibration généré sur GitHub sans inventer de résultats; 0 événements disponibles au premier lancement",
+    "Tableau mobile de progression et diagrammes de calibration prédit vs observé par tranche, sans activation de mises"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -135,7 +140,9 @@
     "nhl_ledger": "docs/nhl-shadow-ledger.json",
     "nhl_research_documentation": "recherche/hockey/nhl-moneypuck-deux-modeles.md",
     "workflow_alerts": ".github/workflows/ci-failure-alerts.yml",
-    "nhl_temporal_audit": "docs/nhl-clairvoyance-shadow-latest.json#point_in_time_audit"
+    "nhl_temporal_audit": "docs/nhl-clairvoyance-shadow-latest.json#point_in_time_audit",
+    "nhl_calibration": "docs/nhl-calibration-latest.json",
+    "nhl_calibration_protocol": "recherche/hockey/nhl-calibration-prospective.md"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
