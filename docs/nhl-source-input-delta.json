@@ -1,0 +1,718 @@
+{
+  "generated_at_utc": "2026-10-10T12:37:40.123354+00:00",
+  "status": "diagnostic_not_original_source_parity",
+  "original_source_selector": {
+    "money_puck_situation": "all",
+    "goalie": "NHL Edge most games played",
+    "observed_source_config_defaults": {
+      "NHL_SEASON": "20252026",
+      "NHL_GAME_TYPE": 3
+    }
+  },
+  "diagnostic_source_season": "2026-2027",
+  "diagnostic_game_type_id": 2,
+  "source_default_differs_from_diagnostic": true,
+  "same_team_csv_snapshot_for_both_situations": true,
+  "nhl_goalies_observed_after_frozen_forecast": true,
+  "source_observation_times_utc": {
+    "frozen_forecast": "2026-10-10T01:48:52.743486+00:00",
+    "moneypuck_team_observed": "2026-10-10T01:17:47.721324+00:00",
+    "moneypuck_goalie_observed": "2026-10-10T01:17:47.970993+00:00",
+    "official_goalie_observed": "2026-10-10T11:37:38.569978+00:00",
+    "moneypuck_team_provider": "2026-10-09T10:31:22+00:00",
+    "moneypuck_goalie_provider": "2026-10-09T10:31:22+00:00"
+  },
+  "num_frozen_shadow_games": 18,
+  "games_comparable": 18,
+  "games_with_unique_nhl_official_goalie": 16,
+  "different_all_vs_5on5_team_rates": 31,
+  "mean_abs_delta_xg_only_pp": 1.13,
+  "mean_abs_delta_combined_pp": 1.63,
+  "skipped": {},
+  "real_bets_enabled": false,
+  "original_inputs_identical": false,
+  "end_to_end_parity_verified": false,
+  "disclaimer": "Research sensitivity only. Revue Elo is NOT original SQL. The public source config defaults to 2025-26 playoffs; this run uses 2026-27 regular season. Source default does not prove deployment config. MoneyPuck raw xGoalsPercentage scale in original storage remains unverified. NHL official goalie stats can postdate the frozen forecast.",
+  "games": [
+    {
+      "event_id": "2026020070",
+      "home": "BOS",
+      "away": "PHI",
+      "start_utc": "2026-10-10T17:00:00+00:00",
+      "frozen_published_home_probability": 0.652,
+      "recomputed_frozen_inputs_probability": 0.652,
+      "all_xg_only_home_probability": 0.631,
+      "official_goalie_only_home_probability": 0.652,
+      "all_xg_and_official_goalie_home_probability": 0.631,
+      "xg_only_change_pp": -2.1,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": -2.1,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.9322,
+          "name": "Jeremy Swayman",
+          "games": 4
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.92727,
+          "name": "Joseph Woll",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 47.0,
+        "away": 35.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 51.0,
+        "away": 32.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020071",
+      "home": "NJD",
+      "away": "VAN",
+      "start_utc": "2026-10-10T19:30:00+00:00",
+      "frozen_published_home_probability": 0.889,
+      "recomputed_frozen_inputs_probability": 0.889,
+      "all_xg_only_home_probability": 0.871,
+      "official_goalie_only_home_probability": 0.874,
+      "all_xg_and_official_goalie_home_probability": 0.856,
+      "xg_only_change_pp": -1.8,
+      "goalie_only_change_pp": -1.5,
+      "combined_change_pp": -3.3,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.875,
+          "name": "Jake Allen",
+          "games": 2
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.79611,
+          "name": "Kevin Lankinen",
+          "games": 4
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 53.0,
+        "away": 40.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 57.99999999999999,
+        "away": 39.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020072",
+      "home": "SJS",
+      "away": "EDM",
+      "start_utc": "2026-10-10T20:00:00+00:00",
+      "frozen_published_home_probability": 0.449,
+      "recomputed_frozen_inputs_probability": 0.449,
+      "all_xg_only_home_probability": 0.455,
+      "official_goalie_only_home_probability": 0.449,
+      "all_xg_and_official_goalie_home_probability": 0.455,
+      "xg_only_change_pp": 0.6,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": 0.6,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.86206,
+          "name": "Yaroslav Askarov",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.86301,
+          "name": "Devon Levi",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 38.0,
+        "away": 57.99999999999999
+      },
+      "xg_5on5_share_pct": {
+        "home": 34.0,
+        "away": 56.00000000000001
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020073",
+      "home": "FLA",
+      "away": "MIN",
+      "start_utc": "2026-10-10T22:00:00+00:00",
+      "frozen_published_home_probability": 0.543,
+      "recomputed_frozen_inputs_probability": 0.543,
+      "all_xg_only_home_probability": 0.504,
+      "official_goalie_only_home_probability": 0.543,
+      "all_xg_and_official_goalie_home_probability": 0.504,
+      "xg_only_change_pp": -3.9,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": -3.9,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.92727,
+          "name": "Jacob Markstrom",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.92727,
+          "name": "Jesper Wallstedt",
+          "games": 4
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 54.0,
+        "away": 49.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 65.0,
+        "away": 47.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020074",
+      "home": "BUF",
+      "away": "UTA",
+      "start_utc": "2026-10-10T23:00:00+00:00",
+      "frozen_published_home_probability": 0.39,
+      "recomputed_frozen_inputs_probability": 0.39,
+      "all_xg_only_home_probability": 0.378,
+      "official_goalie_only_home_probability": 0.39,
+      "all_xg_and_official_goalie_home_probability": 0.378,
+      "xg_only_change_pp": -1.2,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": -1.2,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.78181,
+          "name": "Ukko-Pekka Luukkonen",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.89156,
+          "name": "Karel Vejmelka",
+          "games": 4
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 59.0,
+        "away": 59.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 61.0,
+        "away": 56.99999999999999
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020075",
+      "home": "MTL",
+      "away": "DET",
+      "start_utc": "2026-10-10T23:00:00+00:00",
+      "frozen_published_home_probability": 0.538,
+      "recomputed_frozen_inputs_probability": 0.538,
+      "all_xg_only_home_probability": 0.532,
+      "official_goalie_only_home_probability": 0.616,
+      "all_xg_and_official_goalie_home_probability": 0.61,
+      "xg_only_change_pp": -0.6,
+      "goalie_only_change_pp": 7.8,
+      "combined_change_pp": 7.2,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.85555,
+          "name": "Jakub Dobes",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.86206,
+          "name": "John Gibson",
+          "games": 4
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 48.0,
+        "away": 55.00000000000001
+      },
+      "xg_5on5_share_pct": {
+        "home": 55.00000000000001,
+        "away": 60.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020076",
+      "home": "OTT",
+      "away": "NSH",
+      "start_utc": "2026-10-10T23:00:00+00:00",
+      "frozen_published_home_probability": 0.729,
+      "recomputed_frozen_inputs_probability": 0.729,
+      "all_xg_only_home_probability": 0.711,
+      "official_goalie_only_home_probability": 0.73,
+      "all_xg_and_official_goalie_home_probability": 0.712,
+      "xg_only_change_pp": -1.8,
+      "goalie_only_change_pp": 0.1,
+      "combined_change_pp": -1.7,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.95588,
+          "name": "Linus Ullmark",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.91538,
+          "name": "Juuse Saros",
+          "games": 4
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 48.0,
+        "away": 44.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 49.0,
+        "away": 39.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020077",
+      "home": "PIT",
+      "away": "DAL",
+      "start_utc": "2026-10-10T23:00:00+00:00",
+      "frozen_published_home_probability": 0.251,
+      "recomputed_frozen_inputs_probability": 0.251,
+      "all_xg_only_home_probability": 0.245,
+      "official_goalie_only_home_probability": 0.251,
+      "all_xg_and_official_goalie_home_probability": 0.245,
+      "xg_only_change_pp": -0.6,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": -0.6,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.85915,
+          "name": "Arturs Silovs",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.96721,
+          "name": "Jake Oettinger",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 53.0,
+        "away": 54.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 54.0,
+        "away": 53.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020078",
+      "home": "CHI",
+      "away": "CAR",
+      "start_utc": "2026-10-10T23:00:00+00:00",
+      "frozen_published_home_probability": 0.329,
+      "recomputed_frozen_inputs_probability": 0.329,
+      "all_xg_only_home_probability": 0.326,
+      "official_goalie_only_home_probability": 0.326,
+      "all_xg_and_official_goalie_home_probability": 0.323,
+      "xg_only_change_pp": -0.3,
+      "goalie_only_change_pp": -0.3,
+      "combined_change_pp": -0.6,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.8901,
+          "name": "Spencer Knight",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.85074,
+          "name": "Brandon Bussi",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 41.0,
+        "away": 63.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 38.0,
+        "away": 59.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020079",
+      "home": "STL",
+      "away": "CBJ",
+      "start_utc": "2026-10-10T23:00:00+00:00",
+      "frozen_published_home_probability": 0.62,
+      "recomputed_frozen_inputs_probability": 0.62,
+      "all_xg_only_home_probability": 0.623,
+      "official_goalie_only_home_probability": 0.62,
+      "all_xg_and_official_goalie_home_probability": 0.623,
+      "xg_only_change_pp": 0.3,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": 0.3,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.92957,
+          "name": "Joel Hofer",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.87719,
+          "name": "Jet Greaves",
+          "games": 2
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 49.0,
+        "away": 50.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 53.0,
+        "away": 55.00000000000001
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020080",
+      "home": "COL",
+      "away": "TOR",
+      "start_utc": "2026-10-10T23:00:00+00:00",
+      "frozen_published_home_probability": 0.74,
+      "recomputed_frozen_inputs_probability": 0.74,
+      "all_xg_only_home_probability": 0.737,
+      "official_goalie_only_home_probability": 0.74,
+      "all_xg_and_official_goalie_home_probability": 0.737,
+      "xg_only_change_pp": -0.3,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": -0.3,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.89473,
+          "name": "Mackenzie Blackwood",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.90625,
+          "name": "Sergei Bobrovsky",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 56.99999999999999,
+        "away": 44.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 56.00000000000001,
+        "away": 42.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020081",
+      "home": "NYI",
+      "away": "TBL",
+      "start_utc": "2026-10-10T23:30:00+00:00",
+      "frozen_published_home_probability": 0.534,
+      "recomputed_frozen_inputs_probability": 0.534,
+      "all_xg_only_home_probability": 0.525,
+      "official_goalie_only_home_probability": 0.534,
+      "all_xg_and_official_goalie_home_probability": 0.525,
+      "xg_only_change_pp": -0.9,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": -0.9,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.96511,
+          "name": "Ilya Sorokin",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.9,
+          "name": "Andrei Vasilevskiy",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 44.0,
+        "away": 59.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 48.0,
+        "away": 60.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020082",
+      "home": "CGY",
+      "away": "ANA",
+      "start_utc": "2026-10-11T02:00:00+00:00",
+      "frozen_published_home_probability": 0.293,
+      "recomputed_frozen_inputs_probability": 0.293,
+      "all_xg_only_home_probability": 0.281,
+      "official_goalie_only_home_probability": null,
+      "all_xg_and_official_goalie_home_probability": null,
+      "xg_only_change_pp": -1.2,
+      "goalie_only_change_pp": null,
+      "combined_change_pp": null,
+      "official_goalie_selection": {
+        "home": {
+          "status": "tie_or_zero_games",
+          "games": 2
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.88297,
+          "name": "Lukas Dostal",
+          "games": 4
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 43.0,
+        "away": 47.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 46.0,
+        "away": 46.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020083",
+      "home": "VGK",
+      "away": "LAK",
+      "start_utc": "2026-10-11T02:00:00+00:00",
+      "frozen_published_home_probability": 0.785,
+      "recomputed_frozen_inputs_probability": 0.785,
+      "all_xg_only_home_probability": 0.794,
+      "official_goalie_only_home_probability": 0.773,
+      "all_xg_and_official_goalie_home_probability": 0.782,
+      "xg_only_change_pp": 0.9,
+      "goalie_only_change_pp": -1.2,
+      "combined_change_pp": -0.3,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.89041,
+          "name": "Carter Hart",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.8305,
+          "name": "Darcy Kuemper",
+          "games": 2
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 64.0,
+        "away": 53.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 61.0,
+        "away": 53.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020084",
+      "home": "WSH",
+      "away": "SEA",
+      "start_utc": "2026-10-11T21:00:00+00:00",
+      "frozen_published_home_probability": 0.683,
+      "recomputed_frozen_inputs_probability": 0.683,
+      "all_xg_only_home_probability": 0.674,
+      "official_goalie_only_home_probability": null,
+      "all_xg_and_official_goalie_home_probability": null,
+      "xg_only_change_pp": -0.9,
+      "goalie_only_change_pp": null,
+      "combined_change_pp": null,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.92941,
+          "name": "Logan Thompson",
+          "games": 3
+        },
+        "away": {
+          "status": "tie_or_zero_games",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 44.0,
+        "away": 45.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 50.0,
+        "away": 48.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020085",
+      "home": "NYR",
+      "away": "VAN",
+      "start_utc": "2026-10-11T22:00:00+00:00",
+      "frozen_published_home_probability": 0.95,
+      "recomputed_frozen_inputs_probability": 0.95,
+      "all_xg_only_home_probability": 0.95,
+      "official_goalie_only_home_probability": 0.943,
+      "all_xg_and_official_goalie_home_probability": 0.95,
+      "xg_only_change_pp": 0.0,
+      "goalie_only_change_pp": -0.7,
+      "combined_change_pp": 0.0,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.9266,
+          "name": "Igor Shesterkin",
+          "games": 5
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.79611,
+          "name": "Kevin Lankinen",
+          "games": 4
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 56.99999999999999,
+        "away": 40.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 49.0,
+        "away": 39.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020086",
+      "home": "PHI",
+      "away": "CAR",
+      "start_utc": "2026-10-11T23:00:00+00:00",
+      "frozen_published_home_probability": 0.493,
+      "recomputed_frozen_inputs_probability": 0.493,
+      "all_xg_only_home_probability": 0.49,
+      "official_goalie_only_home_probability": 0.492,
+      "all_xg_and_official_goalie_home_probability": 0.489,
+      "xg_only_change_pp": -0.3,
+      "goalie_only_change_pp": -0.1,
+      "combined_change_pp": -0.4,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.92727,
+          "name": "Joseph Woll",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.85074,
+          "name": "Brandon Bussi",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 35.0,
+        "away": 63.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 32.0,
+        "away": 59.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    },
+    {
+      "event_id": "2026020087",
+      "home": "BUF",
+      "away": "FLA",
+      "start_utc": "2026-10-12T17:00:00+00:00",
+      "frozen_published_home_probability": 0.324,
+      "recomputed_frozen_inputs_probability": 0.324,
+      "all_xg_only_home_probability": 0.351,
+      "official_goalie_only_home_probability": 0.324,
+      "all_xg_and_official_goalie_home_probability": 0.351,
+      "xg_only_change_pp": 2.7,
+      "goalie_only_change_pp": 0.0,
+      "combined_change_pp": 2.7,
+      "official_goalie_selection": {
+        "home": {
+          "status": "unique_most_games",
+          "save_pct": 0.78181,
+          "name": "Ukko-Pekka Luukkonen",
+          "games": 3
+        },
+        "away": {
+          "status": "unique_most_games",
+          "save_pct": 0.92727,
+          "name": "Jacob Markstrom",
+          "games": 3
+        }
+      },
+      "xg_all_share_pct": {
+        "home": 59.0,
+        "away": 54.0
+      },
+      "xg_5on5_share_pct": {
+        "home": 61.0,
+        "away": 65.0
+      },
+      "new_comparison_uses_original_sql": false,
+      "is_new_frozen_prediction": false
+    }
+  ]
+}
