@@ -1,7 +1,12 @@
 """Fail-closed NHL MoneyPuck feature freshness and sample chronology tests."""
 import copy
 from datetime import datetime, timedelta, timezone
+import json
+from pathlib import Path
+import sys
+from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 
 from modeles.simulations.nhl_independant import Game
 from outils.nhl_point_in_time_audit import verify_point_in_time, as_utc
@@ -16,7 +21,8 @@ SEASON="2026-2027"
 def fixture():
     row=lambda team,count:{"team":team,"season":SEASON,"situation":"5on5",
                             "games_played":count,"xg_share":.52}
-    t={"source":"MoneyPuck.com","is_live":False,"current_season":SEASON,
+    t={"source":"MoneyPuck.com","source_page":"https://moneypuck.com/data.htm",
+       "is_live":False,"current_season":SEASON,
        "generated_at_utc":SNAPSHOT.isoformat(),
        "status":{SEASON:{"status":"available","source_updated_utc":SOURCE.isoformat()}},
        "seasons":{SEASON:[row("BOS",2),row("NYR",2)]}}
@@ -108,6 +114,42 @@ class TemporalIntegrityTest(unittest.TestCase):
         t["status"][SEASON]["source_updated_utc"]="bad"
         with self.assertRaises(ValueError):
             self.verify(t,g,s)
+
+    def test_full_pipeline_fetches_fixtures_before_timestamp_and_locks_audited_pick(self):
+        from outils import clairvoyance_nhl_moneypuck_shadow as runner
+
+        t,g,schedule=fixture()
+        # The fake clock advances while downloads are happening. A snapshot
+        # must not be labeled with an as-of time BEFORE those NHL API reads.
+        class ControlledClock(datetime):
+            sequence=iter((NOW-timedelta(minutes=30),NOW))
+            @classmethod
+            def now(cls,tz=None):
+                value=next(cls.sequence)
+                return value.astimezone(tz) if tz else value.replace(tzinfo=None)
+
+        with TemporaryDirectory() as temp:
+            folder=Path(temp)
+            for name,source in (("teams.json",t),("goalies.json",g)):
+                (folder/name).write_text(json.dumps(source),encoding="utf-8")
+            args=["nhl-shadow","--teams",str(folder/"teams.json"),
+                  "--goalies",str(folder/"goalies.json"),
+                  "--output",str(folder/"forecast.json"),
+                  "--ledger",str(folder/"ledger.json"),
+                  "--performance",str(folder/"performance.json")]
+            with patch.object(runner,"datetime",ControlledClock), \\
+                 patch.object(runner,"download_season",side_effect=[[],schedule]) as downloads, \\
+                 patch.object(sys,"argv",args):
+                runner.main()
+            self.assertEqual(downloads.call_count,2)
+            forecast=json.loads((folder/"forecast.json").read_text(encoding="utf-8"))
+            ledger=json.loads((folder/"ledger.json").read_text(encoding="utf-8"))
+            self.assertEqual(forecast["generated_at_utc"],NOW.isoformat())
+            self.assertEqual(forecast["point_in_time_audit"]["status"],"verified_temporal_bounds")
+            self.assertEqual(forecast["point_in_time_audit"]["official_games_before_team_source"],2)
+            self.assertEqual(len(ledger["events"]),1)
+            self.assertEqual(ledger["events"][0]["locked_at_utc"],NOW.isoformat())
+            self.assertIsNotNone(ledger["events"][0]["research_home_win_probability"])
 
     def test_current_source_undercount_is_allowed(self):
         t,g,s=fixture()
