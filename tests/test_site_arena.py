@@ -110,7 +110,7 @@ class ArenaTests(unittest.TestCase):
         self.assertIn("./lab.html",front)
         self.assertIn("parite-clairvoyance.html",lab)
         self.assertIn("reproduction-exacte.html",lab)
-        self.assertIn("aucune",lab.lower())
+        self.assertIn("ne reproduit pas encore intégralement",lab.lower())
         self.assertNotIn('jsonFile("progression-revue.json")',front)
 
     def test_progress_is_exact_source_model_parity(self):
