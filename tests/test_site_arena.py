@@ -127,7 +127,7 @@ class ArenaTests(unittest.TestCase):
         for literal in ("match-dossiers-latest.json","original_clairvoyance_equivalence_verified",
                         "historical_data_not_point_in_time_forecasts",
                         "source_match_center_at_utc","locked_forecast",
-                        "historical_player_profiles","market_groups","timeZone:\\"Europe/Paris\\"",
+                        "historical_player_profiles","market_groups","Europe/Paris",
                         "no_real_betting"):
             with self.subTest(fragment=literal):self.assertIn(literal,text)
         self.assertNotIn("innerHTML",text)

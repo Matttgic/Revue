@@ -202,7 +202,7 @@ def compile_dossiers(center,history,ledger,asof):
             if not eid.isdecimal():
                 # Stable UFC odds identifiers may contain a hyphen; a key is
                 # safe if nonempty and no query fragments or URL separators.
-                if not eid or len(eid)>100 or not all(c.isalnum() or c in "-_" for c in eid):
+                if not eid or len(eid)>100 or not all(c.isalnum() or c in "-_:" for c in eid):
                     raise ValueError("Invalid nonnumeric sports event ID")
         key=league+":"+eid
         if key in seen:raise ValueError("Duplicate match-center event ID")
