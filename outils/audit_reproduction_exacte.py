@@ -12,6 +12,7 @@ import argparse
 import ast
 from datetime import datetime, timezone
 import hashlib
+from html.parser import HTMLParser
 import json
 from pathlib import Path
 import subprocess
@@ -59,6 +60,32 @@ def sha256(path: Path) -> str | None:
         for chunk in iter(lambda: inp.read(1024 * 512), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+class StaticIds(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.ids: set[str] = set()
+        self.page_links: set[str] = set()
+
+    def handle_starttag(self, tag, attributes):
+        attrs = dict(attributes)
+        if attrs.get("id"):
+            self.ids.add(str(attrs["id"]))
+        if tag == "a" and attrs.get("href"):
+            self.page_links.add(str(attrs["href"]))
+
+
+def static_dom(root: Path, pages: tuple[str, ...]) -> StaticIds:
+    parser = StaticIds()
+    for relative in pages:
+        page = root / relative
+        if not page.is_file():
+            continue
+        # Static HTML only. Original dynamic JS templates, CSS, animations,
+        # and pixel-accurate rendering are NOT captured by this method.
+        parser.feed(page.read_text(encoding="utf-8"))
+    return parser
 
 
 def route_inventory(root: Path) -> list[dict]:
@@ -160,6 +187,11 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
     source_front = reference / FRONTEND_SOURCE
     target_front = target / "docs/index.html"
     src_hash, dst_hash = sha256(source_front), sha256(target_front)
+    source_dom = static_dom(reference, (FRONTEND_SOURCE,))
+    target_htmls = tuple(sorted(str(p.relative_to(target)) for p in
+                                (target / 'docs').glob('*.html')))
+    target_dom = static_dom(target, target_htmls)
+    source_missing = sorted(source_dom.ids - target_dom.ids)
     source_web = (reference / "docs/index.html")
     products = [{
         "original": relative,
@@ -212,6 +244,14 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "identical_html": src_hash == dst_hash,
             "pixel_accurate_visual_comparison": "NOT_PERFORMED",
             "interactive_behaviour_parity": "NOT_VERIFIED",
+            "static_dom_inventory": {
+                "source_static_ids": len(source_dom.ids),
+                "target_static_ids_all_pages": len(target_dom.ids),
+                "same_static_ids": len(source_dom.ids & target_dom.ids),
+                "original_static_ids_not_present_in_revue": len(source_missing),
+                "first_unmatched_source_ids": source_missing[:45],
+                "measurement_limits": "Only static HTML IDs, across all Revue HTML pages. Dynamic JS content, page design, layout, and behavior are NOT verified.",
+            },
         },
         "backend": {
             "source_routes": all_routes,
