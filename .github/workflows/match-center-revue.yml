@@ -12,6 +12,10 @@ on:
   push:
     paths:
       - 'outils/match_center_revue.py'
+      - 'outils/phase10_modeles_multisports.py'
+      - 'outils/phase10_validation_prospective.py'
+      - 'tests/test_phase10_modeles_multisports.py'
+      - 'tests/test_phase10_validation_prospective.py'
       - 'outils/scoreboard_revue.py'
       - 'outils/prospectif_multisports_revue.py'
       - 'outils/revue_match_dossiers.py'
@@ -39,6 +43,8 @@ jobs:
           python-version: '3.12'
       - name: Test model/market joins, missing data and regulatory filters
         run: |
+          python -m unittest discover -s tests -p 'test_phase10_modeles_multisports.py' -v
+          python -m unittest discover -s tests -p 'test_phase10_validation_prospective.py' -v
           python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
           python -m unittest discover -s tests -p 'test_scoreboard_revue.py' -v
           python -m unittest discover -s tests -p 'test_prospectif_multisports_revue.py' -v
@@ -53,10 +59,15 @@ jobs:
             # Public scoreboards are best effort; a failing sports provider
             # must not block a fresh bookmakers/model dashboard.
             python -m outils.scoreboard_revue || echo 'Score source unavailable; no stale scores will be shown'
+            # Model report uses prior known fixtures; each stage validates
+            # kickoff, teams and source observation time before promotion.
+            python -m outils.phase10_modeles_multisports
             python -m outils.match_center_revue
             python -m outils.prospectif_multisports_revue
+            python -m outils.phase10_validation_prospective
             python -m outils.revue_match_dossiers
             git add docs/match-center-latest.json docs/multisport-prospective-ledger.json docs/multisport-prospective-performance.json docs/match-dossiers-latest.json
+            git add docs/phase10-modeles-multisports-latest.json docs/phase10-modeles-prospectif-ledger.json docs/phase10-modeles-performance.json
             if test -f docs/scoreboard-revue-latest.json; then git add docs/scoreboard-revue-latest.json; fi
             if git diff --cached --quiet; then
               echo "No match-center change"
