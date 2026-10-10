@@ -137,5 +137,34 @@ class PulseScoreTests(unittest.TestCase):
             scan("secret",models(),NOW,max_calls=34,fetch=lambda *args:([],False))
 
 
+    def test_balanced_radar_fairly_covers_three_sports_with_eight_calls(self):
+        m=models()
+        for league,delta in (("NHL",3),("NFL",4)):
+            m["competitions"][league]={"games":[{
+                "event_id":league+"-fixture","home":"Home","away":"Away",
+                "start_utc":when(NOW+timedelta(hours=delta)),
+                "status":"prototype_non_calibre",
+                "probabilities":{"home_win":.55,"away_win":.45}
+            }]}
+        calls=[]
+        def fake(book,sport,key,page):
+            calls.append((sport,book,page))
+            return [],False
+        odds,summary=scan("safe-test",m,NOW,max_calls=8,days_horizon=6,
+                          fetch=fake,balanced=True)
+        self.assertEqual(summary["requests"],8)
+        self.assertEqual(summary["allocation_mode"],"sport_balanced")
+        self.assertEqual(len(summary["calls_by_sport"]),3)
+        self.assertEqual(sorted(summary["calls_by_sport"].values()),[2,3,3])
+        self.assertEqual(set(summary["calls_by_sport"]),{"soccer","ice-hockey","american-football"})
+        self.assertEqual(odds,{})
+        self.assertTrue(summary["truncated"])
+        calls.clear()
+        _,original=scan("safe-test",m,NOW,max_calls=8,days_horizon=6,fetch=fake)
+        self.assertEqual(original["allocation_mode"],"sport_priority")
+        self.assertEqual(original["requests"],8)
+        self.assertLess(len(original["calls_by_sport"]),3)
+
+
 if __name__=="__main__":
     unittest.main()
