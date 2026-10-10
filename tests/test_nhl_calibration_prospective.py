@@ -119,6 +119,23 @@ class NHLProspectiveCalibrationTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     build_report(dataset,START+timedelta(days=2))
 
+    def test_result_must_be_known_after_game_and_before_report(self):
+        sample_set=sample(1)
+        game=sample_set["events"][0]
+        game["resolved_at_utc"]=(START-timedelta(minutes=5)).isoformat()
+        with self.assertRaisesRegex(ValueError,"pre-kickoff"):
+            build_report(sample_set,START+timedelta(days=3))
+        sample_set=sample(1)
+        with self.assertRaisesRegex(ValueError,"settled by now"):
+            build_report(sample_set,START+timedelta(minutes=30))
+
+    def test_official_final_goals_must_match_the_winner(self):
+        sample_set=sample(1)
+        sample_set["events"][0]["home_goals"]=0
+        sample_set["events"][0]["away_goals"]=3
+        with self.assertRaisesRegex(ValueError,"goals disagree"):
+            build_report(sample_set,START+timedelta(days=3))
+
     def test_old_original_only_samples_do_not_backfill_candidate(self):
         doc=build_report(sample(140,include_variant=False),START+timedelta(days=145))
         self.assertEqual(doc["models"]["clairvoyance_formula"]["holdout_samples"],40)
