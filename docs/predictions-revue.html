@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071122">
+<meta name="description" content="Prévisions de recherche NHL et MLB de Revue sur les mêmes formules backend que Clairvoyance, mais pas les mêmes données d'entrée privées.">
+<title>REVUE — Prédictions expérimentales MLB / NHL</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1110px;margin:auto;padding:30px 16px 75px}
+.head small,.eyebrow{color:#5be9d7;font:700 11px 'Chakra Petch',monospace;letter-spacing:.16em}
+h1,h2,h3{font-family:'Chakra Petch',system-ui,sans-serif;letter-spacing:-.04em}
+h1{font-size:clamp(31px,7vw,68px);line-height:1;max-width:850px;margin:14px 0}
+h1 span{color:#55f5de}
+.subtitle{max-width:780px;color:#a6bfd0;font:13px/1.8 'DM Sans',sans-serif}
+.disclaimer{margin:24px 0;background:linear-gradient(120deg,#252536,#102033);border-left:3px solid #d0a16a;padding:17px;color:#deccb8;font:12px/1.8 'DM Sans',sans-serif}
+.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:25px 0 13px}
+.toolbar button{background:#14283c;border:1px solid #3e5268;color:#e1f9fa;cursor:pointer;padding:11px 16px;font:700 12px 'Chakra Petch',sans-serif}
+.toolbar button.active{background:#225b5b;border-color:#56edda}
+.status{background:#162338;border:1px solid #38516c;padding:13px;font:12px/1.6 monospace;color:#a0c1d2}
+.day{font:700 12px 'Chakra Petch',monospace;color:#84e5dc;margin:27px 0 12px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.game{background:linear-gradient(145deg,#142841,#101a2d);border:1px solid #395773;padding:19px;min-width:0}
+.game .eyebrow{font-size:10px;letter-spacing:.08em}
+.teams{font:800 22px/1.3 'Chakra Petch',sans-serif;margin:14px 0 10px;overflow-wrap:anywhere}
+.probs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.prob{background:#1e3850;padding:12px;min-width:0}
+.prob strong{display:block;font:800 26px 'Chakra Petch',sans-serif;color:#55f5de}
+.prob small{font:11px/1.5 'DM Sans',sans-serif;color:#b7cfe0}
+.tally{height:7px;background:#30475c;overflow:hidden}
+.tally span{display:block;height:100%;background:#55f5de}
+.meta{font:11px/1.65 'DM Sans',sans-serif;color:#9fb9c9}
+.label{color:#c4a8ff;font:700 11px 'Chakra Petch',sans-serif}
+.empty{padding:30px;border:1px dashed #527084;color:#adbfcf;font-size:13px}
+footer{border-top:1px solid #344960;margin-top:39px;padding-top:21px;color:#9fb8cc;font:11px/1.7 'DM Sans',sans-serif}
+footer a{color:#5ce8db}
+@media(max-width:750px){.cards{grid-template-columns:1fr}.teams{font-size:20px}}
+</style>
+</head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./match-center.html">MATCHS</a>
+<a href="./predictions-revue.html" aria-current="page">PRÉVISIONS</a>
+<a href="./reproduction-exacte.html">PARITÉ EXACTE</a></nav>
+<span class="rv-top-tag">RECHERCHE</span></div></div>
+<main>
+<header class="head"><small>REVUE // PREDICTOR LAB</small>
+<h1>LES MÊMES FORMULES.<br><span>PAS ENCORE LES MÊMES DONNÉES.</span></h1>
+<p class="subtitle">Prévisions NHL et MLB calculées avec le prédicteur reconstruit à partir de statistiques Revue horodatées. Les identifiants ESPN sont vérifiés pour les rencontres NHL. Tu peux inspecter les probabilités, leur provenance et leurs limites, sans prétendre qu'elles sont les choix du site Clairvoyance.</p>
+</header>
+<div class="disclaimer">Aucun pari recommandé, aucune cote de bookmaker inventée, aucun rendement démontré. Les gardiens NHL sont des références historiques et pas des titulaires confirmés. Les cotes et la base Elo du site original ne sont pas reproduites. Le service peut refuser de répondre si un snapshot est périmé ou si aucun match admissible n'existe.</div>
+<nav class="toolbar" id="dates" aria-label="Jour des rencontres en UTC"></nav>
+<p class="status" id="status" role="status" aria-live="polite">Chargement des prévisions de recherche…</p>
+<div id="results"></div>
+<footer>API Revue indépendante : <a href="https://revue-api-tawny.vercel.app/docs">documentation FastAPI</a> · <a href="./reproduction-exacte.html">audit de reproduction exacte</a> · <a href="./match-center.html">calendrier multisports</a>. Les résultats sont affichés en fuseau Europe/Paris, mais les filtres de jour utilisent la date UTC pour correspondre au contrat API.</footer>
+</main>
+<script>
+"use strict";
+const API="https://revue-api-tawny.vercel.app";
+const get=id=>document.getElementById(id);
+const dom=(tag,cls,text)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e;};
+const fmtPct=x=>(100*x).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %";
+const fmtTime=x=>new Date(x).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
+let currentDay="";
+function isoDay(offset){return new Date(Date.now()+offset*86400000).toISOString().slice(0,10);}
+function renderGames(items){
+ const root=get("results");root.replaceChildren();
+ if(!items.length){root.append(dom("div","empty","Aucune prévision admissible. Vérifie les jours suivants."));return;}
+ const sports=[...new Set(items.map(x=>x.sport))];
+ for(const sport of sports){
+  const section=dom("section");
+  section.append(dom("h2","day",sport.toUpperCase()+" / PRÉVISIONS HORODATÉES"));
+  const grid=dom("div","cards");
+  for(const m of items.filter(x=>x.sport===sport)){
+   const p=m.formula_result;
+   const box=dom("article","game");
+   box.append(dom("small","eyebrow","ESPN "+m.espn_game_id+" · "+fmtTime(m.match_start_utc)));
+   box.append(dom("h3","teams",p.away_team+" @ "+p.home_team));
+   const probs=dom("div","probs");
+   for(const [team,prob] of [[p.home_team,p.model_home_win_prob],[p.away_team,p.model_away_win_prob]]){
+    const cell=dom("div","prob");
+    cell.append(dom("small","",team),dom("strong","",fmtPct(prob)));
+    const bar=dom("div","tally"),fill=dom("span");
+    fill.style.width=Math.min(100,Math.max(0,100*prob))+"%";
+    bar.append(fill);cell.append(bar);probs.append(cell);
+   }
+   box.append(probs);
+   const tags=dom("div","label","MODÈLE EXPÉRIMENTAL · COTES INDISPONIBLES");
+   box.append(tags);
+   let detail="Calcul daté : "+fmtTime(m.input_snapshot_utc)+
+       " · Original Elo/SQL : NON VÉRIFIÉ · Pas de conseil de mise";
+   if(m.sport==="nhl")detail+=" · Gardiens titulaires NON CONFIRMÉS";
+   else detail+=" · "+String(m.features.historical_mlb_final_games)+" résultats MLB historiques pour l'Elo Revue";
+   box.append(dom("p","meta",detail));grid.append(box);
+  }
+  section.append(grid);root.append(section);
+ }
+}
+async function load(day){
+ currentDay=day;
+ get("results").replaceChildren();
+ get("status").textContent="Recherche des rencontres du "+day+" (jour UTC)…";
+ for(const button of get("dates").querySelectorAll("button")){
+  button.classList.toggle("active",button.dataset.day===day);
+ }
+ try{
+  const resp=await fetch(API+"/revue/predictions?game_date="+encodeURIComponent(day),
+                         {cache:"no-store"});
+  const j=await resp.json();
+  if(day!==currentDay)return;
+  if(resp.status===503){
+   get("status").textContent="Aucune prévision vérifiable disponible pour ce jour. Source absente ou aucun match admissible.";
+   renderGames([]);return;
+  }
+  if(!resp.ok)throw Error("HTTP "+resp.status);
+  if(j.status!=="revue_research_same_formula_not_original_source_inputs"||
+     j.source_input_parity_with_original!==false||
+     j.real_bets_enabled!==false||!Array.isArray(j.predictions))
+    throw Error("Le rapport n'a pas les garanties attendues");
+  const filtered=j.predictions.filter(x=>x && x.real_bets_enabled===false &&
+    x.pick_recommendation_verified===false && x.formula_result &&
+    x.formula_result.recommendation===null && x.formula_result.market_home_ml===null &&
+    Number.isFinite(x.formula_result.model_home_win_prob) &&
+    Number.isFinite(x.formula_result.model_away_win_prob) &&
+    new Date(x.match_start_utc).getTime()>Date.now());
+  get("status").textContent=filtered.length+" prévision(s) admissible(s) pour le "+day+
+   " · formules vérifiées sur mêmes entrées Revue · aucune identité des données originales démontrée";
+  renderGames(filtered);
+ }catch(err){if(currentDay===day)get("status").textContent="Prévisions indisponibles : "+err.message;}
+}
+for(let n=0;n<3;n++){
+ const day=isoDay(n),b=dom("button","",n===0?"AUJOURD'HUI UTC":n===1?"DEMAIN UTC":"+2 JOURS");
+ b.type="button";b.dataset.day=day;b.addEventListener("click",()=>load(day));
+ get("dates").append(b);
+}
+load(isoDay(0));
+</script></body></html>
