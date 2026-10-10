@@ -57,7 +57,9 @@ MODELS=(
     ("frontend_nba_prop_line","NBA · Ligne joueurs","docs/app.html","_modelLineForProp"),
     ("frontend_nhl_injuries","NHL · Ajustement blessures","docs/app.html","computeInjuryImpact"),
     ("frontend_nhl_form","NHL · Facteur de forme","docs/app.html","_nhlFormFactor"),
-    ("frontend_nba_injury_implication","NBA · Implications blessures","docs/app.html","injuryImplication"),
+    # injuryImplication only generates editorial injury-warning prose, not a
+    # numeric prediction. Excluded from the model-completion denominator.
+    ("frontend_nba_elo_probability","NBA · Transformation Elo en probabilité","docs/app.html","nbaEloWP"),
 )
 
 def generate(reference_parity:dict,audit:dict,as_of:datetime,
@@ -143,6 +145,8 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
             "Source-side mathematical parity is verified on test inputs; real data parity and profit are NOT verified.",
             "Revue's original models, Monte-Carlo/Bayes experiments, pages and API integrations are EXCLUDED.",
             "Progress can increase only after direct source-vs-reproduction parity tests on pinned source versions.",
+            "injuryImplication is a prose-only UI explanation, excluded from numeric-model scope.",
+            "Replacing that mistakenly counted UI helper with the exact original NBA Elo probability transform.",
             "CFB intentionally excluded at the user's request.",
         ],
     }
