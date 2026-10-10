@@ -113,7 +113,7 @@
       <span class="overline">BIENVENUE DANS L'ARENA</span>
       <h1 id="hero-title">EVERY<br>MATCH.<br><span class="gradient">A SIGNAL.</span></h1>
       <p class="summary">Un QG pour analyser les matchs, explorer des modèles indépendants et surveiller les cotes françaises. Des probabilités vérifiées dans le temps, pas des promesses de gains.</p>
-      <div class="hero-tags"><span>01 // MULTISPORT</span><span>02 // DATA LIVE*</span><span>03 // SHADOW MODE</span></div>
+      <div class="hero-tags"><span>01 // MULTISPORT</span><span>02 // PRIX HORODATÉS</span><span>03 // SHADOW MODE</span></div>
       <div class="actions">
         <a class="action primary" href="./match-center.html">MATCHS DU JOUR <span aria-hidden="true">↗</span></a>
         <a class="action" href="./engine-v2.html">SCANNER DE COTES <span aria-hidden="true">→</span></a>
@@ -163,7 +163,7 @@
 
   <section class="today-shell" aria-labelledby="today-title">
     <div class="today-top"><h2 id="today-title">// MATCHS À VENIR</h2><a href="./match-center.html">OUVRIR LE MATCH CENTER ↗</a></div>
-    <p class="today-desc" id="today-status">Chargement du calendrier Revue…</p>
+    <p class="today-desc" id="today-status">Chargement des rencontres disposant de données Revue…</p>
     <div id="today-grid" class="today-grid"></div>
   </section>
 
@@ -289,7 +289,11 @@ async function loadTodaysBoard(){
   try{
     const board=await jsonFile("match-center-latest.json");
     if(board.status!=="experimental_revue_match_center" || !Array.isArray(board.events))throw Error("Rapport non vérifié");
-    const upcoming=board.events.filter(g=>Date.parse(g.start_utc)>Date.now()).slice(0,3);
+    // Surface real observations and usable model coverage first; never call these "best bets".
+    const upcoming=board.events.filter(g=>Date.parse(g.start_utc)>Date.now())
+      .sort((a,b)=>Number(b.quotes.length>0)-Number(a.quotes.length>0)||
+        Number(b.research.length>0)-Number(a.research.length>0)||
+        Date.parse(a.start_utc)-Date.parse(b.start_utc)).slice(0,3);
     const age=Math.max(0,(Date.now()-Date.parse(board.generated_at_utc))/3600000);
     status.textContent=String(board.metrics?.upcoming_matches??0)+" matchs recensés sur 72 h · "+
        String(board.metrics?.with_observed_bookmaker_quotes??0)+" avec tarifs horodatés · "+
