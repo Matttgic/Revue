@@ -11,7 +11,7 @@ h1 em{color:#55f5de;font-style:normal}
 p{line-height:1.75;color:#9fb5cb}
 .kicker{color:#55f5de;font:700 12px 'Chakra Petch',monospace;letter-spacing:.17em}
 .notice{border-left:3px solid #cca979;background:#202635;padding:16px 18px;color:#f2dcc5;margin:25px 0;font-size:13px}
-.panels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:28px 0}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:11px;margin:28px 0}
 .panel{background:linear-gradient(140deg,#13243a,#101827);border:1px solid #344a64;padding:20px}
 .panel strong{display:block;margin:13px 0 8px;color:#ecfdff;font:800 32px 'Chakra Petch',system-ui}
 .panel small{font-size:11px;line-height:1.6;color:#91b2c9}
@@ -44,6 +44,7 @@ footer a{color:#55f5de}
 <article class="panel"><label>FORMULES TESTÉES · CATALOGUE CIBLÉ</label><strong id="formula">…</strong><small>Comparées à l'original sur entrées communes. Revalidation nécessaire si la version source change.</small></article>
 <article class="panel"><label>ROUTES API D'ORIGINE</label><strong id="routes">…</strong><small>Routes recensées dans Clairvoyance, équivalence de bout en bout encore non prouvée.</small></article>
 <article class="panel"><label>NHL · MÊMES ENTRÉES REVUE</label><strong id="nhlReal">…</strong><small>Égalité intégrale sur des rencontres réelles, sans prétendre que Clairvoyance disposait des mêmes statistiques.</small></article>
+<article class="panel"><label>ROUTES API IMPLÉMENTÉES (SIGNATURE)</label><strong id="apiPresent">—</strong><small>Mêmes chemins HTTP déclarés, sans garantie de réponses identiques. Le serveur Vercel est disponible séparément.</small></article>
 <article class="panel"><label>PARITÉ GLOBALE EXACTE</label><strong id="global">NON VÉRIFIÉE</strong><small>Ce statut ne peut devenir validé que par des tests complets : interface, backend, données et sorties.</small></article>
 </div>
 <p class="sub" id="revision">Lecture de l'empreinte GitHub de la référence…</p>
@@ -57,7 +58,7 @@ footer a{color:#55f5de}
 <div class="table-scroll"><table><thead><tr><th>Fichier Clairvoyance</th><th>Taille référence</th><th>Identité des données</th></tr></thead><tbody id="dataTable"></tbody></table></div>
 <h2>Conditions pour atteindre l'identité</h2>
 <ol id="blockers"><li>Vérification sur la version courante de Clairvoyance</li><li>Reproduction indépendante des calculs et des contrats d'API</li><li>Mêmes données publiques/licites au même instant</li><li>Comparaison automatisée des réponses sur des matchs réels</li><li>Comparaison de la navigation, des comportements et du rendu sur mobile</li></ol>
-<div class="links"><a href="./parite-clairvoyance.html">VOIR LES TESTS DE FORMULES ↗</a><a href="./match-center.html">VOIR L'APPLICATION REVUE ↗</a><a href="https://github.com/Purple-Wraith/clairvoyance-backend">RÉFÉRENCE ORIGINALE ↗</a></div>
+<div class="links"><a href="https://revue-api-tawny.vercel.app/health">API REVUE EN LIGNE ↗</a><a href="./parite-clairvoyance.html">VOIR LES TESTS DE FORMULES ↗</a><a href="./match-center.html">VOIR L'APPLICATION REVUE ↗</a><a href="https://github.com/Purple-Wraith/clairvoyance-backend">RÉFÉRENCE ORIGINALE ↗</a></div>
 <footer>Source : <a href="./reproduction-exacte-audit.json">audit reproductible JSON</a>. Version originale vérifiée dans une copie temporaire GitHub Actions. Aucun fichier du site de référence ni jeu de données sous licence redistribué dans Revue.</footer>
 </main>
 <script>
@@ -77,6 +78,7 @@ async function load(){
   by("routes").textContent=report.backend.end_to_end_verified_equivalent_routes+
     "/"+report.backend.source_route_count;
   by("global").textContent="NON VÉRIFIÉE";
+  by("apiPresent").textContent=String(report.backend.source_signatures_declared_in_revue||0)+"/"+report.backend.source_route_count;
   const tested=report.model_formulas.current_nhl_real_fixtures_tested||0;
   const equal=report.model_formulas.current_nhl_full_output_dicts_equal||0;
   by("nhlReal").textContent=tested?equal+"/"+tested:"NON VÉRIFIÉ";
@@ -98,7 +100,8 @@ async function load(){
   for(const r of report.backend.source_routes){
    const tr=document.createElement("tr");
    cell(tr,r.method);cell(tr,r.path);cell(tr,r.original_function);
-   cell(tr,"NON VALIDÉ","status");routes.append(tr);
+   const declaration=(report.backend.declared_matching_signatures||[]).includes(r.method+" "+r.path);
+   cell(tr,declaration?"ROUTE DÉCLARÉE · ÉQUIVALENCE NON PROUVÉE":"NON IMPLÉMENTÉE / NON VALIDÉE","status");routes.append(tr);
   }
   const data=by("dataTable");data.replaceChildren();
   for(const p of report.static_data_contracts.items){
