@@ -1,0 +1,341 @@
+{
+  "version": "revue_phase13_model_evaluation_v1",
+  "generated_at_utc": "2026-10-10T23:22:05.718347+00:00",
+  "status": "research_only_awaiting_prospective_evidence",
+  "protocol": {
+    "prospective_only": true,
+    "calibration_train_first_official_finals": 100,
+    "holdout_new_kickoffs_strictly_after_training_resolution": 40,
+    "temperature_grid_frozen": [
+      0.65,
+      0.8,
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      2.5
+    ],
+    "pairing": "identical ESPN event, league, teams, kickoff and market period",
+    "preliminary_paired_sample": 30,
+    "bootstrap_ci_only_after_paired_count": 30,
+    "no_across_sport_aggregation": true,
+    "no_auto_model_selection": true
+  },
+  "metrics": {
+    "locked": 65,
+    "settled": 0,
+    "distinct_settled_fixtures": 0,
+    "paired_comparisons": 3,
+    "paired_observation_overlap_not_independent": 0
+  },
+  "models": {
+    "revue_football_espn_shots_log_pool_v1": {
+      "league": "SERIEA",
+      "model_id": "revue_football_espn_shots_log_pool_v1",
+      "settled": 0,
+      "frozen_locked": 7,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "revue_mlb_espn_history_elo_v1": {
+      "league": "MLB",
+      "model_id": "revue_mlb_espn_history_elo_v1",
+      "settled": 0,
+      "frozen_locked": 3,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "revue_nba_espn_previous_standings_prior_v1": {
+      "league": "NBA",
+      "model_id": "revue_nba_espn_previous_standings_prior_v1",
+      "settled": 0,
+      "frozen_locked": 10,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "revue_nba_prior_consensus_v1": {
+      "league": "NBA",
+      "model_id": "revue_nba_prior_consensus_v1",
+      "settled": 0,
+      "frozen_locked": 10,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "revue_nba_prior_elo_regressed_v1": {
+      "league": "NBA",
+      "model_id": "revue_nba_prior_elo_regressed_v1",
+      "settled": 0,
+      "frozen_locked": 10,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    }
+  },
+  "paired_comparisons": [
+    {
+      "league": "NBA",
+      "reference": "revue_nba_espn_previous_standings_prior_v1",
+      "candidate": "revue_nba_prior_consensus_v1",
+      "paired_games": 0,
+      "reference_scores": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "candidate_scores": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "delta_brier_candidate_minus_reference": null,
+      "delta_logloss_candidate_minus_reference": null,
+      "bootstrap_95_brier_delta": null,
+      "bootstrap_95_logloss_delta": null,
+      "research_status": "insufficient_pairs",
+      "candidate_outperformed_on_games": 0,
+      "paired_samples_are_distinct_fixtures": true,
+      "auto_promote": false
+    },
+    {
+      "league": "NBA",
+      "reference": "revue_nba_espn_previous_standings_prior_v1",
+      "candidate": "revue_nba_prior_elo_regressed_v1",
+      "paired_games": 0,
+      "reference_scores": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "candidate_scores": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "delta_brier_candidate_minus_reference": null,
+      "delta_logloss_candidate_minus_reference": null,
+      "bootstrap_95_brier_delta": null,
+      "bootstrap_95_logloss_delta": null,
+      "research_status": "insufficient_pairs",
+      "candidate_outperformed_on_games": 0,
+      "paired_samples_are_distinct_fixtures": true,
+      "auto_promote": false
+    },
+    {
+      "league": "NBA",
+      "reference": "revue_nba_prior_consensus_v1",
+      "candidate": "revue_nba_prior_elo_regressed_v1",
+      "paired_games": 0,
+      "reference_scores": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "candidate_scores": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "delta_brier_candidate_minus_reference": null,
+      "delta_logloss_candidate_minus_reference": null,
+      "bootstrap_95_brier_delta": null,
+      "bootstrap_95_logloss_delta": null,
+      "research_status": "insufficient_pairs",
+      "candidate_outperformed_on_games": 0,
+      "paired_samples_are_distinct_fixtures": true,
+      "auto_promote": false
+    }
+  ],
+  "NHL": {
+    "locked": 18,
+    "settled": 1,
+    "paired_settled": 0,
+    "reference_score": {
+      "n": 1,
+      "brier": 0.242208,
+      "logloss": 0.427711
+    },
+    "paired": {
+      "games": 0,
+      "reference": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "candidate": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "comparison_validated": false
+    },
+    "separate_official_NHL_source": true,
+    "original_sql_parity_proven": false,
+    "automatically_deployed": false
+  },
+  "real_bets_enabled": false,
+  "verified_profitable_models": 0,
+  "calibrated_models_approved": 0,
+  "original_clairvoyance_parity_proven": false,
+  "source_sql_access": false,
+  "ROI": null,
+  "note": "A lower Brier/LogLoss is an observed research metric, not proof of an edge. Correlated NBA priors count as a single paired fixture, and all deployment requires independent later review."
+}
