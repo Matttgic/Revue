@@ -16,6 +16,10 @@ def pred(kick=KICK,at=NOW):
         "status":"experimental_not_calibrated",
         "sources":{"source_updated_utc":{"teams":source_at,"goalies":source_at},
                    "source_snapshot_utc":{"teams":source_at,"goalies":source_at}},
+        "point_in_time_audit":{"status":"verified_temporal_bounds",
+                               "as_of_utc":at.isoformat(),
+                               "source_updated_utc":{"teams":source_at,"goalies":source_at},
+                               "team_5v5_rows_checked":2},
         "games":[{"event_id":"NHL-101","home":"BOS","away":"NYR",
                   "start_utc":kick.isoformat(),"home_win":0.65,"shadow_only":True,
                   "calibrated":False,"model_id":"clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
@@ -87,6 +91,25 @@ class ProspectiveLedgerTests(unittest.TestCase):
         }
         data=update_ledger(None,document,[],NOW)
         self.assertIsNone(data["events"][0]["research_home_win_probability"])
+
+    def test_unverified_or_later_audit_blocks_all_new_locks(self):
+        doc=pred()
+        doc.pop("point_in_time_audit")
+        self.assertEqual(update_ledger(None,doc,[],NOW)["events"],[])
+        doc=pred()
+        doc["point_in_time_audit"]["as_of_utc"]=(NOW+timedelta(minutes=1)).isoformat()
+        self.assertEqual(update_ledger(None,doc,[],NOW)["events"],[])
+        doc=pred()
+        doc["point_in_time_audit"]["source_updated_utc"]["teams"]="2020-01-01T00:00:00+00:00"
+        self.assertEqual(update_ledger(None,doc,[],NOW)["events"],[])
+
+    def test_audit_gate_cannot_change_existing_pending_locks(self):
+        original=update_ledger(None,pred(),[],NOW)
+        old=copy.deepcopy(original["events"][0])
+        invalid=pred(at=NOW+timedelta(minutes=3))
+        invalid.pop("point_in_time_audit")
+        after=update_ledger(original,invalid,[],NOW+timedelta(minutes=3))
+        self.assertEqual(after["events"][0],old)
 
     def test_never_create_backdated_lock(self):
         late=pred(kick=NOW+timedelta(minutes=15))
