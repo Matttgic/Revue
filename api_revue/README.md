@@ -103,6 +103,14 @@ heures pour les scores) sont refusées, plutôt que silencieusement remplacées.
 - Source statique et historique réel sur Pages : `docs/github-workflows-latest.json`, généré par `outils/github_actions_monitor.py`; observabilité en HTML `docs/operations.html`.
 - La couverture des routes **déclarées** atteint 16/24, soit 66,7 %. Aucune équivalence complète de bout en bout n'est encore établie. L'API Vercel peut être en retard tant que la limitation du compte bloque son redéploiement.
 
+## Dossiers de matchs et archive ESPN rapprochée
+
+- Frontend personnel : [Dossiers de matchs](../docs/match-dossier.html), avec deep links directs `?league=...&id=...`, filtres de compétition, vue par bookmaker et règlement de marché, historiques des équipes, modèles observés et prévisions pré-match verrouillées seulement en cas d'identité exacte.
+- Le producteur `outils/revue_match_dossiers.py` fusionne des **instantanés existants** du Match Center, les résultats passés ESPN et le journal prospectif, sans nouvel appel d'API sportives. Chaque cotes doit porter `quote_at_utc <= match_start-20min`, et les livres ne sont comparés que sur une règle de marché identique et vérifiée. Aucun EV ni pari réel.
+- Routes propres à Revue : `GET /revue/games?league=NHL&only_priced=true` (pagination, recherche) et `GET /revue/games/{league}/{event_id}` (détail). Les données périmées ou sans provenance sont refusées. API Vercel à redéployer lorsque quota disponible.
+- Les résultats ESPN dans la fiche sont **descriptifs et non point-in-time** : ne pas les employer pour simuler une prévision historiquement disponible. Les titulaires NHL ne sont jamais confirmés par une fiche issue des profils historiques.
+- Couverture originale encore limitée à **16/24 signatures**, inchangée par ces endpoints Revue additionnels. La parité application reste non vérifiée.
+
 ## Reste avant une reproduction complète
 
 1. La base SQL originale et ses 24 comportements API : seize signatures GET sont présentes, mais l'identité de leurs résultats n'est pas prouvée ; restent notamment les statuts admin, l'historique des picks, Elo MLB et des correspondances statistiques exactes.

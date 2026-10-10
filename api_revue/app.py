@@ -17,6 +17,7 @@ from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_row
 from api_revue.mlb_elo import mlb_elo_from_file
 from api_revue.paper_picks import paper_picks, paper_pick_stats
 from api_revue.operational import ledger_data, control_status
+from api_revue.game_dossiers import list_dossiers,dossier_detail
 from api_revue.admin_readonly import source_admin_status,source_admin_logs,revue_workflows
 from api_revue.research_predictions import predictions_from_files
 from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
@@ -310,6 +311,31 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
             return revue_workflows(directory,now(),workflow=workflow,limit=limit)
         except SourceUnavailable as exc:
             raise HTTPException(status_code=503,detail=str(exc)) from exc
+
+    @app.get("/revue/games")
+    def revue_games(response:Response,league:str|None=Query(default=None),
+                    query:str|None=Query(default=None,max_length=80),
+                    only_priced:bool=Query(default=False),
+                    limit:int=Query(default=50,ge=1,le=200),
+                    offset:int=Query(default=0,ge=0)):
+        response.headers["Cache-Control"]="no-store"
+        response.headers["X-Revue-Parity"]="Independent Revue dossiers, not original SQL or live bookmaker odds"
+        try:
+            return list_dossiers(directory,now(),league,query,only_priced,limit,offset)
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
+
+    @app.get("/revue/games/{league}/{event_id}")
+    def revue_game_detail(league:str,event_id:str,response:Response):
+        response.headers["Cache-Control"]="no-store"
+        response.headers["X-Revue-Parity"]="Revue observed research game, not original source prediction"
+        try:
+            result=dossier_detail(directory,now(),league,event_id)
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
+        if result is None:
+            raise HTTPException(status_code=404,detail="Source-audited match dossier absent")
+        return result
 
     @app.get("/revue/ledger")
     def revue_multisport_paper_ledger(response:Response):
