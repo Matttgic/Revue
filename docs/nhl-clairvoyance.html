@@ -64,6 +64,15 @@ h1 span{color:#55f5de}
 .cal-bin{display:grid;grid-template-columns:67px 1fr;gap:8px;align-items:center;font-size:11px;color:#a6c2d0}
 .cal-bin div{background:#21364b;height:7px}
 .cal-bin div span{display:block;height:100%;background:#55f5de}
+.cal-bin .cal-compare{background:transparent;height:auto;display:grid;gap:3px}
+.cal-bin .cal-compare>div{height:5px;border-radius:3px}
+.cal-bin .cal-compare .observed{background:#a78aff}
+.cal-bin .cal-compare .predicted{background:#55f5de}
+.cal-bin .cal-compare div{background:#273c52}
+.cal-bin .cal-compare .observed,.cal-bin .cal-compare .predicted{display:block;height:100%}
+.cal-legend{font-size:10px;color:#a2bed5;margin:11px 0 5px}
+.cal-legend b{color:#55f5de;font-weight:700}
+.cal-legend em{color:#b6a6ff;font-style:normal;font-weight:700}
 .results-section{margin-top:33px;padding-top:18px;border-top:1px solid #324b67}
 .results-section h2{font:800 24px 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.04em;color:#e8f9ff;margin-bottom:7px}
 .results-section .hint{color:#8baac2;font-size:12px;line-height:1.6;margin:0 0 16px}
@@ -239,17 +248,24 @@ async function loadCalibration(){
    const bins=(v.reliability_bins||[]).filter(x=>x.count>0);
    if(bins.length){
     root.append(make("div","sep","FIABILITÉ OBSERVÉE · ÉCHANTILLON"));
+    const legend=make("div","cal-legend");
+    legend.append(make("b","","TURQUOISE : prédit · "),make("em","","VIOLET : observé"));
+    root.append(legend);
     const grid=make("div","cal-bins");
     for(const b of bins){
       const cell=make("div","cal-bin");
-      cell.append(make("span","",Math.round(b.from*100)+"–"+Math.round(b.to*100)+" %"));
-      const content=make("div"),span=make("span");
-      span.style.width=Math.max(0,Math.min(100,100*b.observed_rate))+"%";
-      content.append(span);cell.append(content);
+      cell.append(make("span","",Math.round(b.from*100)+"–"+Math.round(b.to*100)+" % · n="+b.count));
+      const content=make("div","cal-compare");
+      for(const [key,css] of [["predicted_mean","predicted"],["observed_rate","observed"]]){
+       const track=make("div"),fill=make("span",css);
+       fill.style.width=Math.max(0,Math.min(100,100*b[key]))+"%";
+       track.append(fill);content.append(track);
+      }
+      cell.append(content);
       grid.append(cell);
     }
     root.append(grid);
-    root.append(make("div","cal-info","Barres : fréquence réelle de victoire domicile dans chaque tranche de probabilité · petits échantillons à interpréter prudemment"));
+    root.append(make("div","cal-info","Comparaison des probabilités prédites et des victoires observées, par tranche. Le petit nombre de matchs limite la précision."));
    }else root.append(make("div","cal-info","Aucun résultat officiel enregistré dans ce modèle."));
    root.append(make("div","mini","NON VALIDÉ POUR DES MISES RÉELLES"));
    by("calCards").append(root);
