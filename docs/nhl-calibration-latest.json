@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-10T01:56:39.611767+00:00",
+  "generated_at_utc": "2026-10-10T23:30:32.605961+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 0,
+      "settled_samples": 3,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 100,
-      "raw_brier": null,
-      "raw_logloss": null,
+      "training_remaining": 97,
+      "raw_brier": 0.111675,
+      "raw_logloss": 0.380463,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -44,23 +44,23 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 0,
-          "predicted_mean": null,
-          "observed_rate": null
+          "count": 1,
+          "predicted_mean": 0.449,
+          "observed_rate": 0.0
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 0,
-          "predicted_mean": null,
-          "observed_rate": null
+          "count": 1,
+          "predicted_mean": 0.652,
+          "observed_rate": 1.0
         },
         {
           "from": 0.8,
           "to": 1.0,
-          "count": 0,
-          "predicted_mean": null,
-          "observed_rate": null
+          "count": 1,
+          "predicted_mean": 0.889,
+          "observed_rate": 1.0
         }
       ],
       "calibration_status": "insufficient_training",
