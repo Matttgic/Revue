@@ -53,6 +53,16 @@ class ExportTests(unittest.TestCase):
             d=json.loads(f.read_text())
             self.assertTrue(d["static_snapshot"])
 
+    def test_actual_paper_settlements_are_consistent_with_known_observations(self):
+        root=Path(__file__).resolve().parents[1]/"docs"
+        raw=json.loads((root/"engine-v2-ledger.json").read_text())
+        source_graded=[r for r in raw["bets"] if r["status"] in {"won","lost","push"}]
+        output,_=generate(root,datetime.now(timezone.utc))
+        converted={r["id"]:r for r in output["records"]}
+        rejected=[(r["id"],converted[r["id"]]["exclusion_reason"]) for r in source_graded
+                  if converted[r["id"]]["status"] not in {"won","lost","push"}]
+        self.assertFalse(rejected,"Source-graded paper records should keep their validated status: "+str(rejected))
+
     def test_ledger_missing_refuses_to_publish(self):
         (self.root/"engine-v2-ledger.json").unlink()
         with self.assertRaises(Exception):publish(self.root,NOW)

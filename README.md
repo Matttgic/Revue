@@ -2,7 +2,7 @@
 
 - **Page mobile** : [docs/command-center.html](docs/command-center.html). Quatre onglets : matchs à venir, cotes historiques observées, journal multisport des simulations et état des sources. Recherche, filtres par sport, CSV des simulations et actualisation des fichiers existants.
 - **API** : `GET /revue/control` résume la fraîcheur des fichiers (sans prétendre au statut réel des fournisseurs). `GET /revue/ledger` relit le registre papier, classe les entrées incertaines hors P&L et calcule ROI / unités fictives **uniquement sur les résultats vérifiables**.
-- Sans API Vercel disponible, l'interface affiche le journal brut en mode non vérifié **sans calculer de rendement**. Aucun pari réel, aucune clé API exposée, aucun nouveau coût de requête sportive.
+- GitHub Pages charge en premier les deux exports vérifiés (`docs/revue-control-ledger-latest.json` et `docs/revue-control-state-latest.json`) publiés automatiquement et **sans appel API payant**. Si ces fichiers manquent, elle tente l'API puis le journal brut sans notation ni ROI. Aucun pari réel, aucune clé API exposée, aucun nouveau coût de requête sportive.
 - Vérification CI : `tests/test_revue_operational.py` + `tests/test_site_arena.py`.
 
 # Revue — Reproduction des modèles Clairvoyance

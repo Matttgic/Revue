@@ -293,29 +293,43 @@ function rawFallback(doc){
 async function refresh(){
  const stamp="?t="+Date.now();
  data.errors=[];$("load-status").textContent="Mise à jour des instantanés…";
- const [match,engine,health,control,journal]=await Promise.all([
+ // GitHub Pages is the primary source: no Vercel deployment or paid odds
+ // request required to display validated journal and source freshness.
+ const [match,engine,health,stateStatic,journalStatic]=await Promise.all([
   safe("Match Center","./match-center-latest.json"+stamp),
   safe("Cotes","./engine-v2-latest.json"+stamp),
   safe("Santé","./health-latest.json"+stamp),
-  safe("API état",API+"/revue/control"),
-  safe("API journal",API+"/revue/ledger")
+  safe("État statique","./revue-control-state-latest.json"+stamp),
+  safe("Journal statique","./revue-control-ledger-latest.json"+stamp)
  ]);
  data.matches=match?.real_bets_enabled===false&&Array.isArray(match.events)?match:null;
  data.scanner=engine?.paper?.paper_only===true&&Array.isArray(engine.candidates)?engine:null;
  data.health=health&&typeof health==="object"?health:null;
- data.ops=control?.not_live_provider_health===true&&control?.real_bets_enabled===false?control:null;
- data.journal=journal?.paper_only===true&&journal?.real_bets_enabled===false&&Array.isArray(journal.records)?journal:null;
+ data.ops=stateStatic?.static_snapshot===true&&stateStatic?.not_live_provider_health===true&&
+    stateStatic?.real_bets_enabled===false?stateStatic:null;
+ data.journal=journalStatic?.static_snapshot===true&&journalStatic?.paper_only===true&&
+    journalStatic?.real_bets_enabled===false&&Array.isArray(journalStatic.records)?journalStatic:null;
+ if(!data.ops){
+  const remote=await safe("API état",API+"/revue/control");
+  if(remote?.not_live_provider_health===true&&remote?.real_bets_enabled===false)data.ops=remote;
+ }
  if(!data.journal){
-  const fallback=await safe("Journal brut","./engine-v2-ledger.json"+stamp);
-  if(fallback)data.journal=rawFallback(fallback);
+  const remote=await safe("API journal",API+"/revue/ledger");
+  if(remote?.paper_only===true&&remote?.real_bets_enabled===false&&
+    Array.isArray(remote.records))data.journal=remote;
+ }
+ if(!data.journal){
+  const raw=await safe("Journal brut","./engine-v2-ledger.json"+stamp);
+  if(raw)data.journal=rawFallback(raw);
  }
  setNumbers();render();
- const usedFallback=data.journal?.records?.some(x=>x.exclusion_reason?.startsWith("API de validation"));
+ const unverifiedFallback=data.journal?.records?.some(x=>x.exclusion_reason?.startsWith("API de validation"));
  $("load-status").textContent=
    (data.errors.length?data.errors.join(" ; ")+" · ":"")+
-   (usedFallback?"Journal brut non noté (API inaccessible). ":"")+
+   (unverifiedFallback?"Journal brut non noté. ":"")+
+   (data.journal?.generated_at_utc?"Journal certifié au "+fmtTime(data.journal.generated_at_utc)+" · ":"")+
    "Dernière lecture locale : "+fmtTime(new Date().toISOString())+
-   ". Actualiser relit les fichiers ; aucune nouvelle cote n'est collectée.";
+   ". Le bouton actualiser relit les fichiers sans appel payant de cotes.";
 }
 for(const b of document.querySelectorAll("[data-tab]"))b.addEventListener("click",()=>activate(b.dataset.tab));
 $("sport").addEventListener("change",render);

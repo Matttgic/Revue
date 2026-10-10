@@ -122,11 +122,20 @@ class ArenaTests(unittest.TestCase):
         self.assertIn("CENTRE DE CONTRÔLE",home)
         for key in ("match-center-latest.json","engine-v2-latest.json",
                     "health-latest.json","engine-v2-ledger.json",
+                    "revue-control-ledger-latest.json","revue-control-state-latest.json",
                     "/revue/control","/revue/ledger","EXPORT CSV",
                     "timeZone:\"Europe/Paris\"",
                     "real_bets_enabled","paper_only","AUCUNE value démontrée",
                     "API de validation indisponible"):
             with self.subTest(fragment=key):self.assertIn(key,page)
+        import json
+        journal=json.loads((DOCS/"revue-control-ledger-latest.json").read_text(encoding="utf-8"))
+        state=json.loads((DOCS/"revue-control-state-latest.json").read_text(encoding="utf-8"))
+        self.assertTrue(journal["paper_only"])
+        self.assertTrue(journal["static_snapshot"])
+        self.assertFalse(journal["real_bets_enabled"])
+        self.assertTrue(state["not_live_provider_health"])
+        self.assertTrue(state["static_snapshot"])
         self.assertNotIn("localStorage",page)
         self.assertNotIn("document.write",page)
 
