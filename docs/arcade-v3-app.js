@@ -54,6 +54,37 @@ function renderWhy(e){
   }
   root.append(block);
  }
+ if(e.owned){
+  const panel=h("section","arc-v3-model arc-v3-owned");
+  const seen=date(e.owned.lockedAt);
+  panel.append(h("strong","","HISTORIQUE REVUE · "+e.owned.projections.length+" modèles figés"));
+  panel.append(h("p","","Verrouillage : "+seen+" · "+
+    (e.owned.market==="1X2_90min"?"Football 90 minutes (1/N/2)":"Match complet, 2 issues")+
+    " · aucune recommandation de mise."));
+  for(const pred of e.owned.projections){
+    const line=h("div","arc-v3-owned-entry");
+    const name=({baseline:"Base score/Elo",advanced_team:"Elo + forme",
+      montecarlo_bayes:"Monte-Carlo / Bayes",football_advanced:"Football avancé",
+      own_elo:"Elo propre à Revue"})[pred.id]||pred.id;
+    const labels=e.owned.market==="1X2_90min"?
+      ["Domicile","Nul","Extérieur"]:["Domicile","Extérieur"];
+    const probs=h("div","arc-v3-owned-probs");
+    for(let i=0;i<pred.probabilities.length;i++){
+      const datum=h("span","",labels[i]+" "+pf(pred.probabilities[i]));
+      probs.append(datum);
+    }
+    line.append(h("strong","",name),probs);
+    if(e.owned.scores?.[pred.id]){
+      line.append(h("small","","Résultat enregistré · Brier "+f(e.owned.scores[pred.id].brier)+
+        " · Log Loss "+f(e.owned.scores[pred.id].log_loss)));
+    }
+    panel.append(line);
+  }
+  const link=h("a","arc-btn","HISTORIQUE DES MODÈLES ↗");
+  link.href="./historique-phase2.html";
+  panel.append(link);
+  root.append(panel);
+ }
  if(e.hockey){
   const block=h("div","arc-v3-model");
   add(block,h("strong","","NHL Monte-Carlo / Ensemble · partiel, non calibré"),
@@ -121,7 +152,8 @@ function createCard(e){
   h("span","arc-v3-date",date(e.start)));
  c.append(a,h("h3","",e.away+" — "+e.home));
  const info=h("p","arc-v3-game-info",e.modelCount+
-  " modèle(s) expérimental(aux) · "+
+  " modèle(s) expérimental(aux)"+
+  (e.owned?" · "+e.owned.projections.length+" prévision(s) verrouillée(s)":"")+" · "+
   (e.recentCrossBookPrices?.length?
     e.recentCrossBookPrices.length+" écarts de cotes PulseScore observés":
     e.recentObservedPriceExamples?.length?
@@ -212,7 +244,16 @@ function renderState(){
    (m?"CALENDRIER VÉRIFIÉ":"CALENDRIER INDISPONIBLE")+" · "+
    (n?"NHL EXPÉRIMENTAL":"NHL NON ACTUALISÉ")+" · "+
    (state.sources.radar==="bounded_six_hour_observations"?"PULSESCORE 6H OBSERVÉ":"PULSESCORE 6H INDISPONIBLE")+" · "+
+   (state.sources.own==="prospective_independent_unvalidated"?"HISTORIQUE REVUE CONNECTÉ":"HISTORIQUE REVUE À ACTUALISER")+" · "+
    (state.paper?"BILAN FICTIF VÉRIFIÉ":"BILAN NON VÉRIFIÉ"));
+ const owned=state.ownedSummary;
+ put("v3-owned-locked",state.sources.own==="prospective_independent_unvalidated"?owned.locked:"—");
+ put("v3-owned-settled",state.sources.own==="prospective_independent_unvalidated"?owned.settled:"—");
+ put("v3-owned-elo",state.sources.own==="prospective_independent_unvalidated"?owned.elo:"—");
+ put("v3-owned-status",state.sources.own==="prospective_independent_unvalidated"?
+   "Prévisions figées depuis "+date(owned.since)+
+   " · aucun modèle calibré, aucun ROI réel · "+owned.locked+" matchs enregistrés.":
+   "Historique indépendant indisponible ou non actualisé : aucune statistique extrapolée.");
  drawEvents();drawPaper();
 }
 function bootEvents(){
@@ -231,7 +272,7 @@ function bootEvents(){
 }
 document.addEventListener("DOMContentLoaded",async()=>{
  bootEvents();
- const names=["match-center-latest.json","picks-center-latest.json","nhl-frontend-observed-latest.json","nhl-espn-goalies-latest.json","pulsescore-radar-latest.json"];
+ const names=["match-center-latest.json","picks-center-latest.json","nhl-frontend-observed-latest.json","nhl-espn-goalies-latest.json","pulsescore-radar-latest.json","phase2-owned-ledger.json","phase2-owned-performance.json"];
  const result=await Promise.allSettled(names.map(load));
  const inputs={
   matches:result[0].status==="fulfilled"?result[0].value:null,
@@ -239,6 +280,8 @@ document.addEventListener("DOMContentLoaded",async()=>{
   nhl:result[2].status==="fulfilled"?result[2].value:null,
   goalies:result[3].status==="fulfilled"?result[3].value:null,
   radar:result[4].status==="fulfilled"?result[4].value:null,
+  ownedLedger:result[5].status==="fulfilled"?result[5].value:null,
+  ownedPerformance:result[6].status==="fulfilled"?result[6].value:null,
  };
  if(!window.RevueArcadeV3) {
   put("home-status","Erreur moteur de présentation");
