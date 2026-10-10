@@ -86,7 +86,7 @@ def update_pair(winner:float,loser:float)->tuple[float,float]:
             raise ValueError("Invalid Elo")
     exp=1/(1+10**((loser-winner)/400))
     return (round(winner+SOURCE_K*(1-exp),2),
-            round(loser-SOURCE_K*exp,2))
+            round(loser-SOURCE_K*(1-exp),2))
 
 
 def reconstruct(ledger:dict,now:datetime)->dict:
