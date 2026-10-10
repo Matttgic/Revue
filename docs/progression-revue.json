@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-10T14:08:58.832861+00:00",
+  "updated_at_utc": "2026-10-10T16:27:33.288+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 55,
-  "previous_estimate_percent": 54,
+  "estimated_functional_coverage_percent": 56,
+  "previous_estimate_percent": 55,
   "estimate_method": "Editorial dated weighted functional-coverage checklist (weights sum 100), recomputed from displayed categories. Subjective, not verified end-to-end reproduction, model forecast parity, profitability or SLA.",
   "goal": "Reproduction fidèle et vérifiable à 100 % de Clairvoyance (hors CFB) : interface, API, acquisition de données, calculs et prédictions sur entrées identiques",
   "excluded_by_user": [
@@ -71,9 +71,9 @@
       "id": "additional_sports",
       "title": "Sports spécialisés supplémentaires",
       "weight": 8,
-      "coverage": 0.24,
+      "coverage": 0.38,
       "status": "partiel",
-      "remaining": "ATP/WTA depuis ESPN avec exclusion des tableaux fictifs, combats UFC connus et Liiga officielle ; suivi immuable des prévisions et Brier/Log Loss. SHL, Suisse NL et Extraliga sans flux indépendant assez complet pour prédire. Les modèles UFC et tennis restent souvent indisponibles faute d'historique suffisant."
+      "remaining": "ATP/WTA/UFC depuis ESPN et Liiga depuis la source officielle, avec suivi de prévisions figées. SHL, Suisse NL et Extraliga : calendriers publics du dépôt de référence désormais raccordés aux formules localement reconstruites et à un journal pré-match. Les cotes françaises, les alignements, les résultats officiels indépendants et les comparaisons de sorties source restent non vérifiés."
     },
     {
       "id": "validation",
@@ -163,7 +163,12 @@
     "ATP/WTA: corrected invalid ESPN tournament bracket placeholders; 76 WTA TBD-only fixtures removed rather than showing fake matchups.",
     "Liiga: independent official liiga.fi v2 results now cached as ended-only historical records, available for first-party prospect settlement.",
     "ATP/WTA/UFC/LIIGA prospect lock and result evaluator: immutable 20-minute pre-game snapshots, explicit ESPN winner flags or official Liiga finished results; strictly no wager or ROI.",
-    "Independent mobile individual sports center with tennis, MMA and Liiga match cards, training sample disclosure, source health and future Brier/Log Loss by league."
+    "Independent mobile individual sports center with tennis, MMA and Liiga match cards, training sample disclosure, source health and future Brier/Log Loss by league.",
+    "Independent connected SHL, Swiss NL and Czech Extraliga to factual fixture/season summaries from publicly published original source data, with reference provenance and stale-feed gates. No original code, bookmaker odds or logos copied.",
+    "Integrated existing verified same-input Clairvoyance European hockey Monte-Carlo/Poisson and Ensemble replica functions with actual future sports games. Not a proof of deployed production output equality.",
+    "Immutable before-kickoff research forecast ledger for 3 European leagues, with temporal identity checks, Brier/Log Loss only on source-marked finals and no ROI without odds.",
+    "14 actual future model evaluations and 14 pre-match research freezes on first successful source run, 7 each NL and Extraliga, zero SHL within requested 72-hour window.",
+    "Clear Arcade research page linked in Play and Lab, without adding any top-level navigation item; mobile site passed publication tests."
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -203,7 +208,10 @@
     "mlb_elo_diagnostic": "docs/mlb-source-elo-gap.json",
     "individual_research": "docs/individual-latest.json",
     "individual_prospective": "docs/individual-prospective-performance.json",
-    "individual_forecast_locks": "docs/individual-prospective-ledger.json"
+    "individual_forecast_locks": "docs/individual-prospective-ledger.json",
+    "european_hockey_models": "docs/euro-hockey-latest.json",
+    "european_hockey_prospective": "docs/euro-hockey-prospective-performance.json",
+    "european_hockey_frozen_picks": "docs/euro-hockey-prospective-ledger.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -225,7 +233,8 @@
     "Le nouveau service /revue/predictions est une recherche Revue; les inputs SQL, gardiens et marchés de Clairvoyance ne sont pas identiques et /predictions/ original répond volontairement 503.",
     "Les 44 fonctions ciblées validées, le 18/18 NHL et les 12 modèles du jour ne mesurent PAS le pourcentage de reproduction complète du site original.",
     "The new 54% coverage is a dated editorial functional estimate, not exact Clairvoyance reproduction; historical original data cannot be recreated from missing SQL.",
-    "55% is a dated subjective functional checklist estimate, not exact source reproduction. ATP/WTA/UFC absent model outputs are NOT replaced with guessed probabilities."
+    "55% is a dated subjective functional checklist estimate, not exact source reproduction. ATP/WTA/UFC absent model outputs are NOT replaced with guessed probabilities.",
+    "Reference league schedule facts were read from upstream published JSON, not an independent official data vendor; source 'post' settlements do not establish official results or exact deployed-model equivalence."
   ],
   "exact_reproduction_percent": null,
   "exact_end_to_end_parity": "NOT_VERIFIED",
@@ -261,5 +270,31 @@
       "EXTRALIGA"
     ],
     "profit_roi_established": false
+  },
+  "latest_euro_hockey_evidence": {
+    "observed_at_utc": "2026-10-10T16:27:33.288Z",
+    "upstream": "Publicly published Purple-Wraith/clairvoyance-backend/docs/{shl,nla,extraliga}_schedule.json",
+    "generated_files": [
+      "docs/euro-hockey-latest.json",
+      "docs/euro-hockey-prospective-ledger.json",
+      "docs/euro-hockey-prospective-performance.json"
+    ],
+    "source_status": {
+      "SHL": "ok",
+      "NLA": "ok",
+      "EXTRALIGA": "ok"
+    },
+    "future_models_72h": {
+      "SHL": 0,
+      "NLA": 7,
+      "EXTRALIGA": 7
+    },
+    "total_frozen_pre_game": 14,
+    "settled_at_checkpoint": 0,
+    "same_input_reference_formulas_previously_verified": true,
+    "real_original_predictions_identical_verified": false,
+    "live_fr_odds_verified": false,
+    "independent_official_results_verified": false,
+    "profits_verifiable": false
   }
 }
