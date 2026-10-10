@@ -18,6 +18,10 @@ TARGETS={
     "_nlaBlendedRates":12116,
     "_extraligaBlendedRates":12232,
     "_shlBlendedRates":13078,
+    "_socFormFactorRaw":27219,
+    "_socFormFactor":27230,
+    "_socXGBlendCLDomestic":26831,
+    "_socXGFromFBref":26670,
     "_socPoissonPmf":27508,
     "_socMarginDist":27509,
     "_socSpreadProb":27527,
@@ -88,7 +92,7 @@ def main():
         found=[]
         # Inspect a small local vicinity; helpers may sit far from MC code.
         near=range(max(0,line-10),min(len(lines),line+10))
-        if name in ("shlEns","_liigaBlendedRates","_nlaBlendedRates","_extraligaBlendedRates","_shlBlendedRates","_socPoissonPmf","_socMarginDist","_socSpreadProb","_poissonOverProb","_socHomeAdv","_socTeamHomeAwaySplit","_blendLeagueOpta","_socXGRaw","_socXGBlendCLDomestic","_socXGFromFBref","_poisSampler","_hkRecentRates","_hkFormFactorRaw","_hkFormFactor","_hkBlendAlpha","_hkValidDec","HOCKEY_MKT_BLEND_ALPHA","HOCKEY_MKT_BLEND_FULL_GP","HOCKEY_MKT_BLEND_ALPHA_EARLY","_HK_MKT_OVERROUND_MIN","_HK_MKT_OVERROUND_MAX","_HK_MKT_PMIN","_HK_MKT_PMAX","_hkMarginCal","_nhlLiveCf","_nhlFormFactor","_hkBlendNhl","_hkPlLegsAt","_hkMktNoVig","_hkBlendCore","_NHL_LG_PP","_NHL_LG_PK","_NHL_LG_GA60","_socCal","ml2d","_boxMullerZ","_nflHFA","_nflInjAdj","_forceHalfLine","cfbWeatherImpact","_NFL_LG_TOTAL","_NFL_SIGMA_MARGIN","_NFL_SIGMA_TOTAL","NFL_INJ_TOTAL_SHARE"):
+        if name in ("_socFormFactorRaw","_socFormFactor","_socXGBlendCLDomestic","_socXGFromFBref","shlEns","_liigaBlendedRates","_nlaBlendedRates","_extraligaBlendedRates","_shlBlendedRates","_socPoissonPmf","_socMarginDist","_socSpreadProb","_poissonOverProb","_socHomeAdv","_socTeamHomeAwaySplit","_blendLeagueOpta","_socXGRaw","_socXGBlendCLDomestic","_socXGFromFBref","_poisSampler","_hkRecentRates","_hkFormFactorRaw","_hkFormFactor","_hkBlendAlpha","_hkValidDec","HOCKEY_MKT_BLEND_ALPHA","HOCKEY_MKT_BLEND_FULL_GP","HOCKEY_MKT_BLEND_ALPHA_EARLY","_HK_MKT_OVERROUND_MIN","_HK_MKT_OVERROUND_MAX","_HK_MKT_PMIN","_HK_MKT_PMAX","_hkMarginCal","_nhlLiveCf","_nhlFormFactor","_hkBlendNhl","_hkPlLegsAt","_hkMktNoVig","_hkBlendCore","_NHL_LG_PP","_NHL_LG_PK","_NHL_LG_GA60","_socCal","ml2d","_boxMullerZ","_nflHFA","_nflInjAdj","_forceHalfLine","cfbWeatherImpact","_NFL_LG_TOTAL","_NFL_SIGMA_MARGIN","_NFL_SIGMA_TOTAL","NFL_INJ_TOTAL_SHARE"):
             near=range(len(lines))
         for i in near:
             line_text=lines[i].strip()
