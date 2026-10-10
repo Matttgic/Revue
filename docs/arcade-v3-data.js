@@ -259,7 +259,7 @@ function ownedSnapshot(ledger,report,now){
       !probs.every(p=>finite(p,0,1)&&p>0&&p<1)||
       Math.abs(probs.reduce((a,b)=>a+b,0)-1)>0.0001||
       typeof m.model_id!=="string"||!m.model_id||
-      ms(m.published_at_utc)===null||ms(m.published_at_utc)>ms(e.locked_at_utc)+120000||
+      ms(m.published_at_utc)===null||ms(m.published_at_utc)>ms(e.locked_at_utc)||
       ms(m.published_at_utc)>ms(e.start_utc)-20*60000)return empty;
    projections.push({id,name:String(m.model_id),probabilities:[...probs],
      publishedAt:m.published_at_utc});
