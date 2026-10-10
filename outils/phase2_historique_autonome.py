@@ -30,10 +30,11 @@ SCORE_MIN_DELAY=timedelta(minutes=35)
 SOCCER=frozenset(("PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1"))
 TWO_WAY=frozenset(("NBA","WNBA","NCAAB","NFL","MLB"))
 SUPPORTED=SOCCER|TWO_WAY
-MODEL_KEYS=("baseline","advanced_team","montecarlo_bayes","football_advanced")
+MODEL_KEYS=("baseline","advanced_team","montecarlo_bayes","football_advanced","own_elo")
 OWN_ELO_K=24.0
 OWN_ELO_BASE=1500.0
 HOLDOUT_MIN=100
+OWN_ELO_MIN_GAMES=3
 
 def utc(value):
     if not isinstance(value,str):raise ValueError("Missing timestamp")
@@ -106,6 +107,39 @@ def _challenger(name,doc,source,league,now):
             "probabilities":normalized,"published_at_utc":created.isoformat(),
             "training_games":deepcopy(row.get("training_games"))}
 
+def _own_elo_forecast(source,league,models,now):
+    """Additional independent shadow probability, after >=3 OWN observed finals per team.
+
+    Previous-run verified official results only. It is never substituted for a
+    source Clairvoyance Elo and never backfilled into existing locked games.
+    """
+    if league not in TWO_WAY:return None
+    ratings=models.get("owned_elo_ratings") or {}
+    events=models.get("owned_elo_events") or {}
+    pool=ratings.get(league,{})
+    home,away=source["home"],source["away"]
+    if (not isinstance(pool,dict) or home not in pool or away not in pool):
+        return None
+    counts=Counter()
+    for e in events.values():
+        if e.get("league")!=league:continue
+        try: when=utc(e["observed_at_utc"])
+        except (TypeError,KeyError,ValueError):return None
+        if when>now:return None
+        counts[e["home"]]+=1;counts[e["away"]]+=1
+    if min(counts[home],counts[away])<OWN_ELO_MIN_GAMES:return None
+    h,a=pool[home],pool[away]
+    if any(type(x) not in (int,float) or not math.isfinite(x) or not 500<=x<=2500 for x in (h,a)):
+        return None
+    p=1/(1+10**((a-h)/400))
+    if not 0<p<1:return None
+    return {"model_id":"revue_own_future_only_elo_k24_v1",
+            "probabilities":[round(p,9),round(1-p,9)],
+            "published_at_utc":now.isoformat(),
+            "training_games":{"home":counts[home],"away":counts[away]},
+            "source":"only observed Revue-owned ESPN finals from prior runs",
+            "home_advantage_added":False}
+
 def _lock_game(source,league,models,now,since):
     try:
         kickoff=utc(source["start_utc"])
@@ -128,6 +162,8 @@ def _lock_game(source,league,models,now,since):
       "probabilities":base,"published_at_utc":model_stamp.isoformat(),
       "training_games":deepcopy(source.get("training_games")),
     }}
+    own_elo=_own_elo_forecast(source,league,models,now)
+    if own_elo:frozen["own_elo"]=own_elo
     for name in ("advanced_team","montecarlo_bayes","football_advanced"):
         doc=models.get(name)
         if not doc:continue
@@ -205,6 +241,8 @@ def step(previous,baseline,advanced,ensemble,football,scores,now):
             "football_advanced":football}
     base_at=_valid_generated(baseline,now)
     models["baseline_stamp"]=base_at
+    models["owned_elo_ratings"]=prev["elo_ratings"]
+    models["owned_elo_events"]=prev["elo_events"]
     added=0
     if (base_at is not None and baseline.get("status")=="prototype_non_calibre"
         and isinstance(baseline.get("competitions"),dict)):
