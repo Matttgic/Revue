@@ -32,6 +32,7 @@ jobs:
               f"/nhl/schedule?game_date={local_day}",
               "/nhl/teams","/nhl/goalies?min_games=1",
               "/nhl/skaters?team=ANA","/nhl/moneypuck?situation=all",
+              "/nhl/moneypuck/live",
           )
           for route in routes:
               try:
@@ -64,6 +65,12 @@ jobs:
                   assert all(type(r.get("player_id")) is int for r in data)
                   assert all(0<=r["overall_save_pct"]<=1 for r in data
                              if r.get("overall_save_pct") is not None)
+              elif route=="/nhl/moneypuck/live":
+                  assert isinstance(data,dict)
+                  assert data.get("source")=="moneypuck.com"
+                  assert data.get("revue_reproduction_status","").startswith("partial")
+                  assert data.get("confirmed_starting_goalies") is False
+                  assert len(data.get("teams",{}))>=20 and len(data.get("goalies",[]))>=20
               elif route.startswith("/nhl/skaters"):
                   assert isinstance(data,list) and len(data)>=8
                   assert all(r["team_abbrev"]=="ANA" for r in data)
