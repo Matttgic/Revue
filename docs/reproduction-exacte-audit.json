@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-10-10T08:48:16.247932+00:00",
+  "generated_at_utc": "2026-10-10T10:48:28.294027+00:00",
   "source_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "source_commit": "95258833b66179084f3ab946e25d794898200ec6",
+  "source_commit": "001b1928ceb088dde20233afbba8a8b6255ff39b",
   "source_revision_status": "source_revision_recorded",
   "scope": "exact end-to-end application behaviour (CFB intentionally excluded)",
   "goal": "100% verified equality of interface, backend, data features, calculations, and outputs on identical time-stamped inputs",
@@ -14,8 +14,8 @@
   "copyright_note": "No license located is not permission. Reimplement independently or obtain explicit authorization.",
   "frontend": {
     "reference_path": "docs/app.html",
-    "reference_size_bytes": 2671918,
-    "reference_sha256": "fc661ce48198f8d525be688fb3816538deb50b9ba73b53bdb0348a9d83cea506",
+    "reference_size_bytes": 2675924,
+    "reference_sha256": "e5a3c1bbea1fb3ce5760c74b4ea8277bcc7c4fc068c160e86ecc7b8ae102d3c0",
     "reference_index_and_app_same_bytes": true,
     "target_path": "docs/index.html",
     "target_size_bytes": 28653,
@@ -25,7 +25,7 @@
     "interactive_behaviour_parity": "NOT_VERIFIED",
     "static_dom_inventory": {
       "source_static_ids": 527,
-      "target_static_ids_all_pages": 122,
+      "target_static_ids_all_pages": 124,
       "same_static_ids": 1,
       "original_static_ids_not_present_in_revue": 526,
       "first_unmatched_source_ids": [
@@ -250,6 +250,16 @@
       }
     ],
     "source_route_count": 24,
+    "source_signatures_declared_in_revue": 5,
+    "declared_matching_signatures": [
+      "GET /health",
+      "GET /mlb/games/{espn_id}",
+      "GET /mlb/schedule",
+      "GET /nhl/schedule",
+      "GET /predictions/"
+    ],
+    "declared_but_unverified_not_full_parity": true,
+    "serving_api_host": "https://revue-api-tawny.vercel.app",
     "end_to_end_verified_equivalent_routes": 0,
     "status": "FastAPI + database behaviour not replicated as equivalent server API"
   },
@@ -257,10 +267,10 @@
     "verified_in_declared_subset": 44,
     "declared_subset_total": 44,
     "reference_commit_of_verification": "95258833b66179084f3ab946e25d794898200ec6",
-    "verification_is_on_current_source_commit": true,
-    "current_real_game_same_input_outputs_equal": "VERIFIED_ON_REVUE_INPUTS_ONLY",
-    "current_nhl_real_fixtures_tested": 18,
-    "current_nhl_full_output_dicts_equal": 18,
+    "verification_is_on_current_source_commit": false,
+    "current_real_game_same_input_outputs_equal": "NOT_VERIFIED",
+    "current_nhl_real_fixtures_tested": 0,
+    "current_nhl_full_output_dicts_equal": 0,
     "original_proprietary_input_identity_verified": false,
     "all_original_models_catalogued": false
   },
@@ -288,7 +298,7 @@
       {
         "original": "docs/live_data.json",
         "reference_file_exists": true,
-        "reference_size_bytes": 2743,
+        "reference_size_bytes": 15055,
         "identical_path_in_revue": false,
         "identical_bytes_confirmed": false,
         "equivalent_semantic_content": "unverified"
@@ -345,27 +355,27 @@
   },
   "prior_test_evidence": {
     "docs/parite-modeles-clairvoyance.json": {
-      "status": "verified_at_current_commit",
+      "status": "historical_or_unpinned_evidence",
       "source_commit_of_test": "95258833b66179084f3ab946e25d794898200ec6",
-      "matches_current_source_commit": true,
+      "matches_current_source_commit": false,
       "targeted_formula_tests": 5232
     },
     "docs/parite-clairvoyance-frontend.json": {
-      "status": "verified_at_current_commit",
+      "status": "historical_or_unpinned_evidence",
       "source_commit_of_test": "95258833b66179084f3ab946e25d794898200ec6",
-      "matches_current_source_commit": true,
+      "matches_current_source_commit": false,
       "targeted_formula_tests": 4743
     },
     "docs/parite-clairvoyance-predictor.json": {
-      "status": "verified_at_current_commit",
+      "status": "historical_or_unpinned_evidence",
       "source_commit_of_test": "95258833b66179084f3ab946e25d794898200ec6",
-      "matches_current_source_commit": true,
+      "matches_current_source_commit": false,
       "targeted_formula_tests": 43
     },
     "docs/parite-clairvoyance-nhl-observe.json": {
-      "status": "verified_at_current_commit",
+      "status": "historical_or_unpinned_evidence",
       "source_commit_of_test": "95258833b66179084f3ab946e25d794898200ec6",
-      "matches_current_source_commit": true,
+      "matches_current_source_commit": false,
       "targeted_formula_tests": null
     },
     "docs/parite-donnees-clairvoyance.json": {
