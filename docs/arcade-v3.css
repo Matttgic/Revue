@@ -111,3 +111,22 @@ body[data-page="arcade-v3"] .arc-main{max-width:1180px!important}
  .arc-v3-game{transition:none}
  .arc-v3-game:hover{transform:none}
 }
+
+
+/* Phase 3: research forecasts next to facts, NEVER mixed into paper ROI. */
+.arc-v3-owned-summary{margin:22px 0 27px;padding:20px;border:1px solid #39637b;
+ border-radius:16px;background:linear-gradient(135deg,rgba(24,49,68,.94),rgba(15,26,46,.94))}
+.arc-v3-owned-summary .arc-v3-headline h3{font:800 clamp(17px,3vw,24px)/1.2 'Chakra Petch',sans-serif;margin:0}
+.arc-v3-owned-summary .arc-v3-headline h3 span{color:#70efd9}
+.arc-v3-owned{border:1px solid #35647c;background:rgba(15,42,61,.8);padding:16px;border-radius:13px}
+.arc-v3-owned-entry{padding:11px 0;border-top:1px solid #365066}
+.arc-v3-owned-entry>strong{display:block;font:700 12px 'Chakra Petch',sans-serif}
+.arc-v3-owned-probs{display:flex;flex-wrap:wrap;gap:7px;margin:7px 0}
+.arc-v3-owned-probs span{display:inline-block;border:1px solid #4d6c7c;
+ border-radius:6px;padding:6px 8px;color:#a0ffde;font:700 11px 'Chakra Petch',sans-serif}
+.arc-v3-owned-summary .arc-v3-stats{margin-top:15px}
+@media(max-width:660px){
+ .arc-v3-owned-summary{padding:13px}
+ .arc-v3-owned-summary .arc-v3-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .arc-v3-owned-summary .arc-v3-stat:last-child{grid-column:span 2}
+}
