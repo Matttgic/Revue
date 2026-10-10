@@ -1,0 +1,36 @@
+name: Revue - API Clairvoyance contrats
+on:
+  push:
+    paths:
+      - "api_revue/**"
+      - "requirements-api.txt"
+      - "tests/test_api_clairvoyance_*.py"
+      - ".github/workflows/clairvoyance-api-contracts.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install runtime API dependencies
+        run: python -m pip install -r requirements-api.txt
+      - name: Verify no invented odds or forged official results
+        run: python -m unittest discover -s tests -p 'test_api_clairvoyance_fixtures.py' -v
+      - name: Exercise original NHL/MLB source-compatible HTTP field contracts
+        run: python -m unittest discover -s tests -p 'test_api_clairvoyance_http.py' -v
+      - name: Ensure FastAPI boot and documented original route signatures
+        run: |
+          python - <<'PY'
+          from api_revue.app import app
+          exposed={(method,path) for path, item in app.openapi()["paths"].items() for method in item}
+          target={("get","/health"),("get","/nhl/schedule"),("get","/mlb/schedule"),
+                  ("get","/mlb/games/{espn_id}"),("get","/predictions/")}
+          assert target <= exposed, (target - exposed)
+          print("HTTP routes exposed:",len(exposed),"read-only; no betting endpoints")
+          PY
