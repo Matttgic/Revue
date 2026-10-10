@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-10-10T08:41:00+00:00",
+  "updated_at_utc": "2026-10-10T11:39:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
   "estimated_functional_coverage_percent": 50,
@@ -142,7 +142,12 @@
     "Workflow Match Center et site mobile publiés et testés par GitHub Actions",
     "Audit indépendant de reproduction exacte : empreintes sources, routes backend, contrats JSON et version originale vérifiée automatiquement.",
     "44/44 formules ciblées revalidées sur le commit original 95258833 avec 5232 égalités; pas de revendication de parité d'application.",
-    "Passage du suivi de 50 % fonctionnel à un rapport de parité bout en bout explicitement NON VÉRIFIÉE."
+    "Passage du suivi de 50 % fonctionnel à un rapport de parité bout en bout explicitement NON VÉRIFIÉE.",
+    "Backend FastAPI déployé Vercel, 10 signatures GET originales présentes sur 24, 0 équivalence de bout en bout revendiquée.",
+    "Collecte NHL Stats REST source officielle : 32 équipes, 62 gardiens et 645 patineurs enregistrés, 8 sous-rapports disponibles.",
+    "Statistiques tirs NHL par type alimentées pour les 645 patineurs à partir des colonnes officielles shotsOnNetWrist/Snap/Slap/Backhand/TipIn/Deflected/WrapAround.",
+    "Comparaison AST source sur NHL/MLB : 5/5 modèles Pydantic avec mêmes champs, types et nullabilité ; l'identité SQL et des valeurs reste non vérifiée.",
+    "Contrôle API public Vercel réussi sur calendrier NHL/ESPN, équipes, gardiens, patineurs, MoneyPuck et endpoint de santé."
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -168,7 +173,11 @@
     "multisport_prospective_performance": "docs/multisport-prospective-performance.json",
     "match_center_market_dashboard": "docs/match-center.html",
     "performance_comparator": "docs/performance-comparateur.html",
-    "functionality_milestone": "recherche/produit/jalon-50-couverture-fonctionnelle.md"
+    "functionality_milestone": "recherche/produit/jalon-50-couverture-fonctionnelle.md",
+    "nhl_official_stats": "docs/nhl-official-stats-latest.json",
+    "api_status": "https://revue-api-tawny.vercel.app/health",
+    "nhl_espn_identity": "docs/parite-nhl-espn-id-map.json",
+    "strict_api_field_parity": "docs/reproduction-exacte-audit.json#http_response_schema_field_parity"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -184,7 +193,9 @@
     "50 % est une couverture fonctionnelle éditoriale, absolument pas une mesure de reproduction exacte. L'identité bout en bout n'est pas encore démontrée.",
     "24 routes FastAPI de la source actuelle, 0 équivalence HTTP complète validée; frontend de référence de 2 671 918 octets non reproduit à l'identique.",
     "44 fonctions ciblées revalidées contre le commit 95258833 ; la parité sur des données de matchs identiques reste indémontrée.",
-    "Aucune licence du dépôt Clairvoyance identifiée : pas de copie des fichiers originaux ni de redistribution de données sous licence."
+    "Aucune licence du dépôt Clairvoyance identifiée : pas de copie des fichiers originaux ni de redistribution de données sous licence.",
+    "10/24 = 41,7 % de couverture en signatures HTTP uniquement, pas en fonctions équivalentes ; 0 route démontrée strictement identique sur données, erreurs et identité SQL.",
+    "Les tirages NHL et contrats 5/5 ne rendent pas la reproduction exacte globale calculable : backend original, données et frontend restent partiels."
   ],
   "exact_reproduction_percent": null,
   "exact_end_to_end_parity": "NOT_VERIFIED",
