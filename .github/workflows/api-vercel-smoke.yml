@@ -90,6 +90,23 @@ jobs:
                   assert all(r.get("goals_for") is None for r in data)
               if route.startswith("/nhl/") and not route.startswith("/nhl/schedule"):
                   print("Verified NHL API rows:",len(data))
+          # Source-shaped endpoints are paper-only. Never claim historical
+          # SQL picks; verify the provenance header as well as the data type.
+          for path, expected_kind in (("/picks/", list), ("/picks/stats", dict)):
+              with urlopen(base+path,timeout=15) as resp:
+                  assert resp.status==200
+                  assert "paper ledger" in resp.headers.get("X-Revue-Parity","")
+                  doc=json.load(resp)
+                  assert isinstance(doc,expected_kind)
+              if path=="/picks/":
+                  assert all(p["sport"] in ("nhl","mlb") and
+                             "SIMULATION" in p["notes"] for p in doc)
+                  print("Source-shaped Revue paper picks:",len(doc))
+              else:
+                  assert set(doc)=={"summary","by_sport","by_bet_type"}
+                  assert set(doc["summary"])=={"won","lost","push",
+                         "win_rate","pnl","roi","total_wagered"}
+                  print("Source-shaped paper stats returned")
           # The source /predictions/ remains unavailable until original
           # bookmaker, SQL and goalie inputs can be verified. The separate
           # Revue endpoint may serve *research-only* forecasts on active days.
