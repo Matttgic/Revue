@@ -72,6 +72,13 @@ input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border
 .scores-row .teams-score{display:flex;justify-content:space-between;gap:8px;margin:10px 0;font:800 19px 'Chakra Petch',sans-serif}
 .scores-row .actual{font:800 19px 'Chakra Petch',sans-serif;color:#55f5de}
 .scores-row .sub{font:11px/1.7 'DM Sans',sans-serif;color:#a9bed1}
+.validation{margin:35px 0;border:1px solid #2f5261;background:#0f2030;padding:20px}
+.validation h2{font:800 24px 'Chakra Petch',sans-serif;color:#e5fcff}
+.validation-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px}
+.validation-grid article{padding:15px;border:1px solid #38546d;background:#13253b}
+.validation-grid strong{display:block;color:#54f4dd;font:800 27px 'Chakra Petch',sans-serif;margin:7px 0}
+.validation-grid small{font:11px/1.6 'DM Sans',sans-serif;color:#9fb6ca}
+.validation-grid .v-name{font:800 12px 'Chakra Petch',sans-serif;color:#eefaff}
 .recent{margin-top:43px;border-top:1px solid #344c63;padding-top:21px}
 .recent h2{font:800 24px 'Chakra Petch',sans-serif;color:#d8faff;margin:3px 0 9px}
 .recent .sub{color:#8baac2;font:12px/1.6 'DM Sans',sans-serif;margin-bottom:15px}
@@ -106,6 +113,12 @@ input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border
 <nav class="sport-filters" id="leagueFilters" aria-label="Filtrer par compétition"></nav>
 <p class="status" id="status" role="status" aria-live="polite">Chargement des rencontres et des cotes observées…</p>
 <div id="schedule"></div>
+<section class="validation" aria-labelledby="validation-title">
+<h2 id="validation-title">PERFORMANCE / MODÈLES VERROUILLÉS</h2>
+<p class="subtitle">Les modèles sont enregistrés avant les rencontres puis comparés sur leurs vrais résultats. Le score Brier mesure leur précision probabiliste ; aucune cote ou rentabilité n'est déduite de ces chiffres.</p>
+<p class="status" id="validationStatus">Chargement du registre multisports…</p>
+<div id="validationGrid" class="validation-grid"></div>
+</section>
 <section class="scores" aria-labelledby="scores-title">
 <h2 id="scores-title">SCORES OFFICIELS / OBSERVÉS</h2>
 <p class="subtitle">Scores de tableaux NHL officiels et ESPN relevés lors du dernier rafraîchissement. Pas de flux continu ; les scores peuvent avoir évolué depuis l'observation. Cette section ne constitue pas un historique de paris.</p>
@@ -211,6 +224,32 @@ function matchCard(e){
  });
  article.append(button,detail);return article;
 }
+async function loadProspectivePerformance(){
+ const state=el("validationStatus"),root=el("validationGrid");
+ try{
+  const response=await fetch("./multisport-prospective-performance.json?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("Rapport indisponible");
+  const data=await response.json();
+  if(data.version!=="revue_multisport_pre_match_v1"||data.real_bets!==0||data.roi!==null)throw Error("Format inattendu");
+  root.replaceChildren();
+  state.textContent=data.total_locked+" prévision(s) verrouillée(s) · "+
+    data.pending+" en attente · "+data.settled+" réglée(s) · aucune mise réelle";
+  const names={"revue_multisports_score_model":"REVUE SCORE",
+   "revue_ensemble_mc_bayes_elo":"MONTE-CARLO / BAYES",
+   "clairvoyance_nhl_formula_revue_inputs":"CLAIRVOYANCE NHL",
+   "revue_nhl_low_sample_shrink_v1":"NHL PRUDENT"};
+  if(!Object.keys(data.models||{}).length){
+   root.append(create("div","empty","Aucun résultat prospectif encore réglé. Les scores ne seront calculés qu'après confirmation officielle."));
+  }
+  for(const [key,v] of Object.entries(data.models||{})){
+   const card=create("article");
+   card.append(create("div","v-name",names[key]||key));
+   card.append(create("strong","",v.mean_brier==null?"EN ATTENTE":v.mean_brier.toLocaleString("fr-FR",{maximumFractionDigits:4})));
+   card.append(create("small","",v.settled+" résultats · Brier plus faible = mieux ; non comparable sans les mêmes matchs"));
+   root.append(card);
+  }
+ }catch(err){state.textContent="Évaluation multisports indisponible : "+err.message;root.replaceChildren();}
+}
 function renderScoreboard(){
  const items=center.scoreboard_observed||[],root=el("scoreboardGrid");
  root.replaceChildren();
@@ -315,5 +354,5 @@ document.querySelectorAll("[data-range]").forEach(button=>button.addEventListene
 el("search").addEventListener("input",render);
 el("withOdds").addEventListener("change",render);
 el("withModel").addEventListener("change",render);
-load();
+load();loadProspectivePerformance();
 </script></body></html>
