@@ -62,6 +62,21 @@ class DataAuditTests(unittest.TestCase):
                              "unverified_live_inputs")
             self.assertFalse(a["full_model_output_parity_on_real_games"])
 
+    def test_money_puck_parser_parity_never_implies_live_data(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            docs=root/"docs";docs.mkdir()
+            (docs/"parite-clairvoyance-moneypuck-parser.json").write_text(json.dumps({
+                "status":"moneypuck_csv_parser_exact_parity_verified",
+                "exact_equality_tests_passed":203
+            }))
+            report=check(root,NOW)
+            source=report["sources"]["nhl_moneypuck"]
+            self.assertTrue(source["parser_parity_verified"])
+            self.assertEqual(source["parser_equality_checks"],203)
+            self.assertEqual(source["status"],"unverified_live_inputs")
+            self.assertFalse(report["full_model_output_parity_on_real_games"])
+
     def test_invalid_timestamp_rejected(self):
         with self.assertRaises(ValueError):
             check(Path("."),datetime(2026,10,10))
