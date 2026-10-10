@@ -1,0 +1,40 @@
+{
+  "version": "revue_elo_settlement_only_source_semantics_v1",
+  "generated_at_utc": "2026-10-10T20:25:27.802639+00:00",
+  "reference": "Purple-Wraith/clairvoyance-backend:app/services/settlement.py + app/services/elo.py",
+  "reference_initial_elo": 1500.0,
+  "reference_k_factor": 32.0,
+  "updates_only_on_settled_moneyline_picks": true,
+  "updates_every_completed_nhl_game": false,
+  "zero_home_bonus_during_elo_update": true,
+  "reproduced_math_not_original_elo_database": true,
+  "original_sql_elo_values_available": false,
+  "identical_original_settled_pick_history_verified": false,
+  "original_sql_ordering_verified": false,
+  "source_backend_model_is_published_public_best_bet_model_verified": false,
+  "real_bets_enabled": false,
+  "paper_ledger_modified": false,
+  "no_backfilled_picks": true,
+  "eligible_revue_settled_moneyline_updates": 0,
+  "duplicate_event_updates": [],
+  "rejected_entries": {
+    "not_moneyline": 9,
+    "not_nhl_or_mlb": 16,
+    "not_verified_settled_moneyline": 1
+  },
+  "by_sport": {
+    "MLB": {
+      "settled_paper_moneyline_updates": 0,
+      "teams_with_updates": 0,
+      "ratings": {}
+    },
+    "NHL": {
+      "settled_paper_moneyline_updates": 0,
+      "teams_with_updates": 0,
+      "ratings": {}
+    }
+  },
+  "update_audit": [],
+  "status": "source_elo_update_math_verified_private_state_unknown",
+  "note": "Clairvoyance SQL updates Elo after each settled moneyline PICK, not every game. Revue's separately sourced settled-paper subset cannot recover source SQL: original picks, settlement order, starting SQL values and DB history are unknown. Zero verified Revue NHL updates is an honest empty simulation, not default Elo proof."
+}
