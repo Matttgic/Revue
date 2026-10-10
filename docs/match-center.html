@@ -28,6 +28,7 @@ h1 em{font-style:normal;color:var(--teal)}
 .toolbar button[aria-pressed=true],.sport-filters button[aria-pressed=true]{background:#23545a;border-color:#5de8d6;color:#e9fffd}
 input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border-radius:0;padding:12px 14px;min-width:160px;width:100%;outline-color:#55f5de;font:13px 'DM Sans',sans-serif}
 .only{color:#a8c4d5;font-size:11px;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.extra-filters{display:flex;gap:15px;justify-content:flex-end;flex-wrap:wrap}
 .only input{accent-color:#55f5de}
 .sport-filters{margin-bottom:22px}
 .status{border-left:2px solid #9d88ff;padding:11px 13px;margin:15px 0 24px;font:12px/1.6 monospace;color:#a9b6cb;background:#131c2b}
@@ -86,7 +87,7 @@ input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border
 <button type="button" data-range="tomorrow" aria-pressed="false">DEMAIN</button>
 <button type="button" data-range="all" aria-pressed="false">72 HEURES</button></div>
 <input id="search" type="search" aria-label="Rechercher équipe ou ligue" placeholder="Rechercher une équipe, une ligue…">
-<label class="only"><input type="checkbox" id="withOdds"> Avec cotes observées seulement</label></section>
+<div class="extra-filters"><label class="only"><input type="checkbox" id="withModel"> Avec modèle seulement</label><label class="only"><input type="checkbox" id="withOdds"> Avec cotes observées seulement</label></div></section>
 <nav class="sport-filters" id="leagueFilters" aria-label="Filtrer par compétition"></nav>
 <p class="status" id="status" role="status" aria-live="polite">Chargement des rencontres et des cotes observées…</p>
 <div id="schedule"></div>
@@ -164,6 +165,7 @@ function render(){
  if(range==="today")rows=rows.filter(e=>e.local_day===today);
  if(range==="tomorrow")rows=rows.filter(e=>e.local_day===tomorrow);
  if(league!=="all")rows=rows.filter(e=>e.league===league);
+ if(el("withModel").checked)rows=rows.filter(e=>e.research.length>0);
  if(el("withOdds").checked)rows=rows.filter(e=>e.quotes.length>0);
  if(q)rows=rows.filter(e=>(e.league+" "+e.sport+" "+e.home+" "+e.away).toLocaleLowerCase("fr").includes(q));
  const root=el("schedule");root.replaceChildren();
@@ -214,5 +216,6 @@ document.querySelectorAll("[data-range]").forEach(button=>button.addEventListene
 }));
 el("search").addEventListener("input",render);
 el("withOdds").addEventListener("change",render);
+el("withModel").addEventListener("change",render);
 load();
 </script></body></html>
