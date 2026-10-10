@@ -1,0 +1,47 @@
+name: Revue - Picks Center fonctionnel
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 * * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Export Control Center statique'
+      - 'Revue - Engine V2 (simulation)'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/picks_center_revue.py'
+      - 'tests/test_picks_center_revue.py'
+      - '.github/workflows/picks-center-revue.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-picks-center-static
+  cancel-in-progress: false
+jobs:
+  export:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test selection, bookmaker grouping, timing and paper grading contracts
+        run: python -m unittest discover -s tests -p 'test_picks_center_revue.py' -v
+      - name: Export observed picks and verified paper records without new API quota use
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.picks_center_revue
+            git add docs/picks-center-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(picks): publish research selections and validated paper journal'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
