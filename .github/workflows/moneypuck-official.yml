@@ -1,0 +1,52 @@
+name: Revue - MoneyPuck official NHL data
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '35 06 * * *'
+  push:
+    paths:
+      - 'outils/moneypuck_feed.py'
+      - 'modeles/reproduction/clairvoyance_moneypuck_parser.py'
+      - 'tests/test_moneypuck_feed.py'
+      - '.github/workflows/moneypuck-official.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: revue-moneypuck-official
+  cancel-in-progress: false
+
+jobs:
+  download-official-csv:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline source and data-quality tests
+        run: |
+          python -m unittest discover -s tests -p 'test_moneypuck_feed.py' -v
+          python -m unittest discover -s tests -p 'test_moneypuck_compat.py' -v
+      - name: Fetch ONLY the official MoneyPuck season download CSV
+        run: python -m outils.moneypuck_feed --output docs/moneypuck-nhl-latest.json
+      - name: Publish derived data and explicit attribution (no original CSV)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/moneypuck-nhl-latest.json
+          if git diff --cached --quiet; then
+            echo "No derived data changes"
+            exit 0
+          fi
+          git commit -m "data(nhl): refresh official MoneyPuck-derived team metrics"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
