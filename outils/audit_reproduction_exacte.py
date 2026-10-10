@@ -1,0 +1,262 @@
+#!/usr/bin/env python3
+"""Strict, reproducible audit of Clairvoyance full-stack reproduction.
+
+Source is a temporary, read-only checkout. Report summaries and hashes only:
+no third-party source code or proprietary dataset is redistributed.
+Function-level equality and first-party features never count as a 100%
+end-to-end clone. Outputs JSON with null for unmeasured exact parity.
+"""
+from __future__ import annotations
+
+import argparse
+import ast
+from datetime import datetime, timezone
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+
+EXPECTED_SOURCE = "Purple-Wraith/clairvoyance-backend"
+TARGET = "Matttgic/Revue"
+FRONTEND_SOURCE = "docs/app.html"
+ROUTE_SOURCES = (
+    "app/main.py", "app/routers/admin.py", "app/routers/mlb.py",
+    "app/routers/nhl.py", "app/routers/picks.py",
+    "app/routers/predictions.py",
+)
+# This is an explicitly declared subset of published JSON products, not all
+# hundreds of source files. Neither keys nor outputs are fabricated.
+STATIC_PRODUCTS = (
+    "docs/data.json", "docs/picks.json", "docs/live_data.json",
+    "docs/automation_status.json", "docs/engine_performance.json",
+    "docs/sport_performance.json", "docs/player_stats.json",
+    "docs/team_logos.json", "docs/soccer_fbref.json",
+)
+EVIDENCE_REPORTS = (
+    "docs/parite-modeles-clairvoyance.json",
+    "docs/parite-clairvoyance-frontend.json",
+    "docs/parite-clairvoyance-predictor.json",
+    "docs/parite-donnees-clairvoyance.json",
+)
+
+
+def source_commit(folder: Path) -> str | None:
+    try:
+        return subprocess.check_output(
+            ["git", "-C", str(folder), "rev-parse", "HEAD"],
+            text=True, timeout=8, stderr=subprocess.DEVNULL,
+        ).strip()
+    except (subprocess.SubprocessError, FileNotFoundError):
+        return None
+
+
+def sha256(path: Path) -> str | None:
+    if not path.is_file():
+        return None
+    h = hashlib.sha256()
+    with path.open("rb") as inp:
+        for chunk in iter(lambda: inp.read(1024 * 512), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def route_inventory(root: Path) -> list[dict]:
+    found = []
+    for relative in ROUTE_SOURCES:
+        path = root / relative
+        if not path.is_file():
+            raise FileNotFoundError(f"Original route source unavailable: {relative}")
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=relative)
+        router_prefix = ""
+        for node in tree.body:
+            if isinstance(node, ast.Assign) and any(
+                isinstance(t, ast.Name) and t.id == "router" for t in node.targets
+            ) and isinstance(node.value, ast.Call):
+                for arg in node.value.keywords:
+                    if arg.arg == "prefix" and isinstance(arg.value, ast.Constant):
+                        router_prefix = str(arg.value.value)
+        for node in tree.body:
+            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                continue
+            for dec in node.decorator_list:
+                if not isinstance(dec, ast.Call) or not isinstance(dec.func, ast.Attribute):
+                    continue
+                owner = dec.func.value
+                if not isinstance(owner, ast.Name) or owner.id not in ("app", "router"):
+                    continue
+                method = dec.func.attr.upper()
+                if method not in ("GET", "POST", "PATCH", "DELETE", "PUT"):
+                    continue
+                if not dec.args or not isinstance(dec.args[0], ast.Constant):
+                    continue
+                pathpart = str(dec.args[0].value)
+                route = (router_prefix if owner.id == "router" else "") + pathpart
+                found.append({
+                    "method": method, "path": route,
+                    "source_file": relative,
+                    "original_function": node.name,
+                    "target_parity": "unverified",
+                })
+    return sorted(found, key=lambda r: (r["path"], r["method"]))
+
+
+def _json(path: Path) -> dict:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError(f"Expected JSON object: {path}")
+    return data
+
+
+def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
+    if generated.tzinfo is None:
+        raise ValueError("Audit timestamp must be timezone aware")
+    if not (reference / FRONTEND_SOURCE).is_file():
+        raise FileNotFoundError("Original frontend missing")
+    if not (target / "docs/index.html").is_file():
+        raise FileNotFoundError("Revue frontend missing")
+    routes = route_inventory(reference)
+    current_sha = source_commit(reference)
+    if not current_sha:
+        # A source snapshot without its commit is useful for inspection only,
+        # NOT for proof of an exact reproduction of any particular revision.
+        revision_status = "unverified_source_commit"
+    else:
+        revision_status = "source_revision_recorded"
+
+    evidence = {}
+    for relative in EVIDENCE_REPORTS:
+        path = target / relative
+        if not path.is_file():
+            evidence[relative] = {"status": "missing"}
+            continue
+        obj = _json(path)
+        pinned = obj.get("original_source_commit") or obj.get("reference_commit")
+        supported = bool(current_sha and pinned == current_sha)
+        evidence[relative] = {
+            "status": "verified_at_current_commit" if supported else
+                      "historical_or_unpinned_evidence",
+            "source_commit_of_test": pinned,
+            "matches_current_source_commit": supported,
+            "targeted_formula_tests": obj.get("exact_equality_tests_passed"),
+        }
+    model = _json(target / "docs/parite-modeles-clairvoyance.json")
+    checked = model.get("verified_formula_parity_models")
+    target_count = model.get("total_target_models")
+    if not (type(checked) is int and type(target_count) is int and
+            0 <= checked <= target_count):
+        raise ValueError("Unreliable formula equality test counts")
+    source_front = reference / FRONTEND_SOURCE
+    target_front = target / "docs/index.html"
+    src_hash, dst_hash = sha256(source_front), sha256(target_front)
+    source_web = (reference / "docs/index.html")
+    products = [{
+        "original": relative,
+        "reference_file_exists": (reference / relative).is_file(),
+        "reference_size_bytes": (reference / relative).stat().st_size
+            if (reference / relative).is_file() else None,
+        "identical_path_in_revue": (target / relative).is_file(),
+        "identical_bytes_confirmed": (
+            sha256(reference / relative) == sha256(target / relative))
+            if (reference / relative).is_file() and (target / relative).is_file()
+            else False,
+        "equivalent_semantic_content": "unverified",
+    } for relative in STATIC_PRODUCTS]
+    license_candidates = (
+        "LICENSE", "LICENSE.md", "LICENSE.txt", "COPYING", "COPYING.md",
+    )
+    license_found = next(
+        (rel for rel in license_candidates if (reference / rel).is_file()),
+        None,
+    )
+    # A static GitHub Pages site is not an HTTP JSON backend. Revue may have
+    # working export files but this is not equivalent to the FastAPI route.
+    all_routes = [
+        {**route, "target_parity": "not_implemented_as_equivalent_http_api"}
+        for route in routes
+    ]
+    return {
+        "generated_at_utc": generated.astimezone(timezone.utc).isoformat(),
+        "source_repository": EXPECTED_SOURCE,
+        "target_repository": TARGET,
+        "source_commit": current_sha,
+        "source_revision_status": revision_status,
+        "scope": "exact end-to-end application behaviour (CFB intentionally excluded)",
+        "goal": "100% verified equality of interface, backend, data features, calculations, and outputs on identical time-stamped inputs",
+        "exact_reproduction_percent": None,
+        "exact_end_to_end_parity": "NOT_VERIFIED",
+        "functional_coverage_percent_is_not_reproduction": True,
+        "original_license_file": license_found,
+        "wholesale_source_redistribution_authorized": False,
+        "copyright_note": "No license located is not permission. Reimplement independently or obtain explicit authorization.",
+        "frontend": {
+            "reference_path": FRONTEND_SOURCE,
+            "reference_size_bytes": source_front.stat().st_size,
+            "reference_sha256": src_hash,
+            "reference_index_and_app_same_bytes":
+                sha256(source_web) == src_hash,
+            "target_path": "docs/index.html",
+            "target_size_bytes": target_front.stat().st_size,
+            "target_sha256": dst_hash,
+            "identical_html": src_hash == dst_hash,
+            "pixel_accurate_visual_comparison": "NOT_PERFORMED",
+            "interactive_behaviour_parity": "NOT_VERIFIED",
+        },
+        "backend": {
+            "source_routes": all_routes,
+            "source_route_count": len(all_routes),
+            "end_to_end_verified_equivalent_routes": 0,
+            "status": "FastAPI + database behaviour not replicated as equivalent server API",
+        },
+        "model_formulas": {
+            "verified_in_declared_subset": checked,
+            "declared_subset_total": target_count,
+            "reference_commit_of_verification":
+                model.get("original_source_commit"),
+            "verification_is_on_current_source_commit":
+                bool(current_sha and
+                     model.get("original_source_commit") == current_sha),
+            "current_real_game_same_input_outputs_equal":
+                "NOT_VERIFIED",
+            "all_original_models_catalogued": False,
+        },
+        "static_data_contracts": {
+            "declared_subset_count": len(products),
+            "byte_identical_products": sum(x["identical_bytes_confirmed"] for x in products),
+            "same_real_input_semantic_parity": "NOT_VERIFIED",
+            "items": products,
+        },
+        "prior_test_evidence": evidence,
+        "critical_blockers": [
+            "No matching original frontend interaction/pixel rendering evidence",
+            "Source FastAPI routes, database writes and security behaviour not reproduced as exact API",
+            "Original data and injury/lineup provider snapshots not proven identical and temporally matched",
+            "Real matches have not been tested with same model inputs, market rules and output probabilities",
+            "Third-party datasets such as Opta may be subject to separate redistribution restrictions",
+        ],
+        "note": "Function-level exact checks are valuable but cannot be added to functional estimates or used as a full-app reproduction percentage.",
+    }
+
+
+def main() -> None:
+    cli = argparse.ArgumentParser()
+    cli.add_argument("--source", type=Path, required=True)
+    cli.add_argument("--target", type=Path, default=Path("."))
+    cli.add_argument("--output", type=Path, default=Path("docs/reproduction-exacte-audit.json"))
+    args = cli.parse_args()
+    report = strict_report(
+        args.source.resolve(), args.target.resolve(), datetime.now(timezone.utc)
+    )
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    print("Reproduction exacte:", report["exact_end_to_end_parity"],
+          "source API", report["backend"]["source_route_count"],
+          "routes, Revue equivalent", report["backend"]["end_to_end_verified_equivalent_routes"],
+          "historical formula", report["model_formulas"]["verified_in_declared_subset"],
+          "of", report["model_formulas"]["declared_subset_total"])
+
+
+if __name__ == "__main__":
+    main()
