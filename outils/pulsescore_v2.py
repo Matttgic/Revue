@@ -160,7 +160,7 @@ def translate_event(raw:dict,book_key:str,observed:datetime)->dict|None:
 
 def scan(key:str,models:dict,now:datetime,
          max_calls:int=MAX_CALLS,days_horizon:int=HORIZON_HOURS,
-         fetch=None) -> tuple[dict,dict]:
+         fetch=None, balanced:bool=False) -> tuple[dict,dict]:
     """Radar: scan each sport/book ONCE, then optionally a second page.
 
     Limits calls globally rather than per sport to prevent monthly blowups.
@@ -189,17 +189,24 @@ def scan(key:str,models:dict,now:datetime,
     earliest={sport:min(timestamp(g["start_utc"]) for league,games in interested.items()
             if SPORT_GROUPS[league]==sport for g in games) for sport in sports}
     sport_order=sorted(sports,key=lambda sport:earliest[sport])
-    tasks=deque((sport,b,1) for sport in sport_order for b in BOOKMAKERS)
+    # Bounded short-horizon scans need sport breadth: first two books across
+    # every sport before third books, with no extra API calls.
+    tasks=(deque((sport,b,1) for b in BOOKMAKERS for sport in sport_order)
+           if balanced else
+           deque((sport,b,1) for sport in sport_order for b in BOOKMAKERS))
     results=defaultdict(dict)
     stats={"status":"active","requests":0,"errors":{},"matched_events":0,
            "sports":sport_order,"bookmakers":list(BOOKMAKERS),
            "truncated":False,"max_calls":max_calls,
+           "allocation_mode":"sport_balanced" if balanced else "sport_priority",
+           "calls_by_sport":{},
            "horizon_hours":days_horizon,
            "observation_provenance":"provider updatedAt when present; else time fetched",
            }
     while tasks and stats["requests"]<max_calls:
         sport,book_key,page=tasks.popleft()
         prefix=BOOKMAKERS[book_key]
+        stats["calls_by_sport"][sport]=stats["calls_by_sport"].get(sport,0)+1
         try:
             records,has_next=fetch(prefix,sport,key,page)
             stats["requests"]+=1
