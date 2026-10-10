@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-10T01:37:00+00:00",
+  "updated_at_utc": "2026-10-10T01:50:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 38,
-  "previous_estimate_percent": 37,
+  "estimated_functional_coverage_percent": 39,
+  "previous_estimate_percent": 38,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
   "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
   "excluded_by_user": [
@@ -47,9 +47,9 @@
       "id": "hockey",
       "title": "NHL et hockey spécialisé",
       "weight": 16,
-      "coverage": 0.27,
+      "coverage": 0.29,
       "status": "partiel",
-      "remaining": "Gardiens titulaires vérifiés, calibration NHL, tirs/buteurs et validation prospective suffisante"
+      "remaining": "Titularisations NHL confirmées, modèles buteurs/tirs, calibration et assez de résultats prospectifs"
     },
     {
       "id": "basketball",
@@ -79,9 +79,9 @@
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.46,
+      "coverage": 0.54,
       "status": "partiel",
-      "remaining": "≥100 résultats prospectifs appariés NHL, calibration à froid, historique des cotes et CLV"
+      "remaining": "≥100 résultats prospectifs appariés, calibration et backtests historiques authentiquement point-in-time, CLV"
     },
     {
       "id": "licensed_data",
@@ -116,7 +116,11 @@
     "Benchmark expérimental Brier et Log Loss avec référence aléatoire p=50%",
     "Résolution des conflits GitHub Actions par calcul systématique à partir du dernier journal distant sans rebase JSON",
     "8 workflows GitHub Actions critiques surveillés automatiquement : une Issue ouverte en cas d'échec, mise à jour sans doublon, fermeture au prochain succès",
-    "6 tests locaux de l'alerte ainsi que workflow GitHub de validation réussis (simulation uniquement, pas de fausse Issue)"
+    "6 tests locaux de l'alerte ainsi que workflow GitHub de validation réussis (simulation uniquement, pas de fausse Issue)",
+    "Contrôle point-in-time NHL/MoneyPuck : réconciliation des 32 équipes, 60 gardiens et 65 matchs officiels pré-source",
+    "Verrouillage des nouvelles prévisions impossible sans audit vérifié avec horodatage identique au rapport",
+    "Horodatage des prévisions enregistré seulement après le téléchargement du calendrier NHL",
+    "12 tests anti-fuite et test d'intégration complet API→audit→prévisions→journal réussis dans GitHub Actions"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -130,7 +134,8 @@
     "money_puck_goalies": "docs/moneypuck-goalies-latest.json",
     "nhl_ledger": "docs/nhl-shadow-ledger.json",
     "nhl_research_documentation": "recherche/hockey/nhl-moneypuck-deux-modeles.md",
-    "workflow_alerts": ".github/workflows/ci-failure-alerts.yml"
+    "workflow_alerts": ".github/workflows/ci-failure-alerts.yml",
+    "nhl_temporal_audit": "docs/nhl-clairvoyance-shadow-latest.json#point_in_time_audit"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -138,6 +143,7 @@
     "Source code being public does not grant wholesale source redistribution rights",
     "Never report Opta or confirmed goalies unless such data is actually present",
     "Research NHL shrink weights fixed a priori, not statistically calibrated; no predictive superiority established.",
-    "No comparative predictive superiority can be claimed until enough prospectively settled paired games exist."
+    "No comparative predictive superiority can be claimed until enough prospectively settled paired games exist.",
+    "Cross-source sample consistency is not proof of the absence of any source-publisher error. Prospective calibration remains unverified."
   ]
 }
