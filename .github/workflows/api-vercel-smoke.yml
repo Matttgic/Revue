@@ -74,6 +74,9 @@ jobs:
               elif route.startswith("/nhl/skaters"):
                   assert isinstance(data,list) and len(data)>=8
                   assert all(r["team_abbrev"]=="ANA" for r in data)
+                  assert all(type(r.get("player_id")) is int for r in data)
+                  assert all(type(r.get("shots_wrist")) is int for r in data)
+                  assert any(r["shots_wrist"]>0 for r in data)
               else:
                   assert isinstance(data,list) and len(data)>=25
                   assert all(r["situation"]=="all" and 0<=r["x_goals_pct"]<=1
