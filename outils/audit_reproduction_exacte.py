@@ -247,6 +247,16 @@ def main() -> None:
         args.source.resolve(), args.target.resolve(), datetime.now(timezone.utc)
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    if args.output.is_file():
+        try:
+            previous = json.loads(args.output.read_text(encoding="utf-8"))
+            check_new = {k: v for k, v in report.items() if k != "generated_at_utc"}
+            check_old = {k: v for k, v in previous.items() if k != "generated_at_utc"}
+            if check_new == check_old:
+                # No meaningful changes: avoid a daily commit for the clock.
+                report["generated_at_utc"] = previous["generated_at_utc"]
+        except (ValueError, KeyError, TypeError):
+            pass
     args.output.write_text(
         json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
         encoding="utf-8",
