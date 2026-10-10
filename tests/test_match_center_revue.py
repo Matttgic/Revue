@@ -216,6 +216,25 @@ class MatchCenterTests(unittest.TestCase):
         stale["scoreboard"]["generated_at_utc"]=(NOW-timedelta(hours=4)).isoformat()
         self.assertEqual(build(stale)["scoreboard_observed"],[])
 
+    def test_market_comparison_is_price_only_and_respects_rules(self):
+        payload=fixture()
+        markets=payload["scanner"]["odds_board"]["events"][0]["bookmakers"]
+        markets.append({"bookmaker":"winamax_fr","markets":[
+          {"market":"h2h","period_rule":"90min","quote_at":QUOTE,"outcomes":[
+            {"selection":"home","price":1.93},{"selection":"draw","price":3.4},
+            {"selection":"away","price":4.4}]}]})
+        row=build(payload)["events"][0]
+        board=row["price_comparison"]
+        self.assertEqual(board["books_compared"],2)
+        self.assertEqual(board["highest_observed_prices"]["home"]["bookmaker"],"winamax_fr")
+        self.assertEqual(board["highest_observed_prices"]["away"]["bookmaker"],"betclic_fr")
+        self.assertTrue(board["no_ev_claim"])
+        self.assertIsNone(row["ev"])
+        markets[-1]["markets"][0]["period_rule"]="overtime_rule_unverified"
+        self.assertEqual(build(payload)["events"][0]["price_comparison"]["books_compared"],1)
+        markets[0]["markets"][0]["period_rule"]="overtime_rule_unverified"
+        self.assertIsNone(build(payload)["events"][0]["price_comparison"])
+
     def test_nhl_players_are_current_club_observed_not_confirmed(self):
         payload=fixture()
         upcoming={"event_id":"2026020088","home":"BOS","away":"PHI","start_utc":KICK,
