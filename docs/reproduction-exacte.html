@@ -48,6 +48,7 @@ footer a{color:#55f5de}
 <article class="panel"><label>PARITÉ GLOBALE EXACTE</label><strong id="global">NON VÉRIFIÉE</strong><small>Ce statut ne peut devenir validé que par des tests complets : interface, backend, données et sorties.</small></article>
 </div>
 <p class="sub" id="revision">Lecture de l'empreinte GitHub de la référence…</p>
+<p class="sub" id="nhlIdentity">Vérification des identifiants ESPN / NHL contre le calendrier original…</p>
 <h2>Interface / structure à rapprocher</h2>
 <p class="gap" id="domStatus">Analyse des éléments statiques de la page Clairvoyance…</p>
 <p class="gap">Ce relevé identifie les blocs HTML déclarés dans les fichiers. Il ne mesure ni les pixels, ni les interactions générées par JavaScript : le but n'est pas de rajouter artificiellement des identifiants.</p>
@@ -96,6 +97,10 @@ async function load(){
     const tr=document.createElement("tr");cell(tr,id);cell(tr,"BLOC SOURCE ABSENT / NON ALIGNE","status");body.append(tr);
    }
   }
+  const ids=report.nhl_fixture_identity||{};
+  by("nhlIdentity").textContent=ids.verified_against_current_source_schedule?
+    String(ids.source_espn_id_matches)+" correspondances NHL/ESPN vérifiées contre le calendrier original actuel · cela ne prouve pas les mêmes cotes ou données de gardiens":
+    "Correspondances NHL/ESPN en attente de vérification sur le calendrier original actuel";
   const routes=by("routeTable");routes.replaceChildren();
   for(const r of report.backend.source_routes){
    const tr=document.createElement("tr");
