@@ -33,7 +33,7 @@ def fixture():
         "goalie_strength":[{"playerId":8945,"evSaves":71,"evSavePct":.922}],
         "skater_summary":[{"playerId":9876,"skaterFullName":"Sample Skater",
                            "teamAbbrevs":"T02","gamesPlayed":4}],
-        "skater_shots":[{"playerId":9876,"wristShots":8,"slapShots":2}],
+        "skater_shots":[{"playerId":9876,"shotsOnNetWrist":8,"shotsOnNetSlap":2,"shotsOnNetTipIn":3}],
     }
 
 
@@ -51,6 +51,8 @@ class NHLStatsSnapshotTests(unittest.TestCase):
         self.assertEqual(goalie["saves_even_strength"],71)
         self.assertEqual(len(report["goalies"]),1)
         self.assertEqual(report["skaters"][0]["shots_wrist"],8)
+        self.assertEqual(report["skaters"][0]["shots_slap"],2)
+        self.assertEqual(report["skaters"][0]["shots_tip"],3)
         self.assertIsNone(report["skaters"][0]["avg_speed"])
         self.assertEqual(report["game_type_id"],2)
         self.assertEqual(report["status"],"verified_nhl_official_stats_snapshot")
