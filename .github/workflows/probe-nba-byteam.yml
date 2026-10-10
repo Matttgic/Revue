@@ -1,0 +1,20 @@
+name: Revue - Probe NBA ESPN Byteam
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'outils/probe_nba_espn_byteam.py'
+      - '.github/workflows/probe-nba-byteam.yml'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Vérifier sources NBA saison régulière 2025-26 et 2026-27
+        run: python -m outils.probe_nba_espn_byteam
