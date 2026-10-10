@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","command-center.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","command-center.html","operations.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -114,6 +114,22 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_github_workflow_supervision_is_public_data_not_original_daily_log(self):
+        import json
+        page=(DOCS/"operations.html").read_text(encoding="utf-8")
+        home=(DOCS/"index.html").read_text(encoding="utf-8")
+        command=(DOCS/"command-center.html").read_text(encoding="utf-8")
+        d=json.loads((DOCS/"github-workflows-latest.json").read_text(encoding="utf-8"))
+        self.assertIn("operations.html",home)
+        self.assertIn("operations.html",command)
+        self.assertIn("github-workflows-latest.json",page)
+        self.assertIn("not_original_clairvoyance_daily_logs",page)
+        self.assertIn("not_real_time_provider_status",page)
+        self.assertTrue(d["not_original_clairvoyance_daily_logs"])
+        self.assertTrue(d["not_real_time_provider_status"])
+        self.assertFalse(d["real_bets_enabled"])
+        self.assertEqual(d["observed_runs"],len(d["runs"]))
 
     def test_all_in_one_command_center_is_connected_and_honest(self):
         page=(DOCS/"command-center.html").read_text(encoding="utf-8")
