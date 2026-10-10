@@ -25,6 +25,13 @@
 - Le backend original utilise MoneyPuck `situation=all` et les taux d'arrêt des gardiens issus des statistiques NHL saison/type choisies ; Revue calcule **deux hypothèses d'échelle xG** (valeurs brutes 0–1, pourcentage 0–100), avec **Elo proxy Revue inchangé** et refuse de choisir arbitrairement les gardiens à égalité. Les analyses sont uniquement pré-match, avec provenance et horodatages vérifiés ; le registre figé n'est jamais modifié.
 - **Ce n'est pas la parité NHL finale** : saisons et paramètres par défaut originaux différents de la saison 2026–2027 utilisée, Elo SQL non accessible, valeurs stockées SQL non vérifiées, moteur frontend des meilleurs paris potentiellement distinct. Aucun ROI ni cote inventé. **62 % de couverture fonctionnelle estimée inchangée** tant que les critères ne sont pas prouvés.
 
+### NHL frontend : Monte-Carlo et Ensemble sur données observées (2026-10-10)
+
+- [Page mobile](docs/nhl-frontend-observed.html) · [rapport pré-match](docs/nhl-frontend-observed-latest.json) · [générateur indépendant](outils/nhl_frontend_observed.js) · [tests de chronologie / non-invention](tests/test_nhl_frontend_observed.js) · [workflow](.github/workflows/nhl-frontend-observed.yml).
+- Première exécution GitHub Actions validée : **15 matchs calculés sur 18 rencontres examinées, 25 000 simulations par match**. Id NHL contrôlé, instantanés antérieurs au coup d'envoi, Elo et bookmaker inexistants non inventés, aucun pari réel ni fictif créé.
+- Le code mathématique `nhlMC` / `nhlEns` a été reconstitué et testé séparément contre la référence originale. Le branchement utilise **NHL Stats REST**, xG/60 **MoneyPuck 5v5** et gardiens historiques MoneyPuck ; les moyennes par match sont utilisées explicitement comme *proxies* de GF60. **Ce n'est pas la parité des prévisions frontend d'origine** : NHL Edge, blessures, forme, HV, titulaire confirmé, vrais coefficients de calibration et cotes restent indisponibles ou neutres. Résultats **non calibrés**, à ne pas présenter comme des paris sélectionnés.
+- La CI se réexécute quotidiennement et après la mise à jour du moteur NHL de données. Elle rejette les données périmées / postérieures au cutoff, et ne modifie jamais les pronostics historiques ni les bilans. **Couverture fonctionnelle globale toujours estimée à 62 %**, jusqu'à nouvel audit pondéré.
+
 ## Priorité absolue — identité vérifiable avec Clairvoyance
 
 **Le but n'est plus « 50 % de fonctionnalités similaires » mais une reproduction exacte, comportement par comportement et sur la même version du code original, hors CFB.**
