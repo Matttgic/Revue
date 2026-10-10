@@ -7,8 +7,10 @@ on:
     paths:
       - 'outils/match_center_revue.py'
       - 'outils/scoreboard_revue.py'
+      - 'outils/prospectif_multisports_revue.py'
       - 'tests/test_match_center_revue.py'
       - 'tests/test_scoreboard_revue.py'
+      - 'tests/test_prospectif_multisports_revue.py'
       - '.github/workflows/match-center-revue.yml'
 permissions:
   contents: write
@@ -30,6 +32,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
           python -m unittest discover -s tests -p 'test_scoreboard_revue.py' -v
+          python -m unittest discover -s tests -p 'test_prospectif_multisports_revue.py' -v
       - name: Recompute upcoming board against newest saved real feeds
         run: |
           git config user.name "github-actions[bot]"
@@ -41,7 +44,8 @@ jobs:
             # must not block a fresh bookmakers/model dashboard.
             python -m outils.scoreboard_revue || echo 'Score source unavailable; no stale scores will be shown'
             python -m outils.match_center_revue
-            git add docs/match-center-latest.json
+            python -m outils.prospectif_multisports_revue
+            git add docs/match-center-latest.json docs/multisport-prospective-ledger.json docs/multisport-prospective-performance.json
             if test -f docs/scoreboard-revue-latest.json; then git add docs/scoreboard-revue-latest.json; fi
             if git diff --cached --quiet; then
               echo "No match-center change"
