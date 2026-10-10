@@ -1,0 +1,44 @@
+name: Revue - Historique executions CI
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 0,6,12,18 * * *'
+  push:
+    paths:
+      - 'outils/github_actions_monitor.py'
+      - 'tests/test_github_actions_monitor.py'
+      - '.github/workflows/github-actions-monitor.yml'
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: revue-history-ci
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate real run provenance and lifecycle
+        run: python -m unittest discover -s tests -p 'test_github_actions_monitor.py' -v
+      - name: Publish verified GitHub run metadata without sports API calls
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.github_actions_monitor
+            git add docs/github-workflows-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(ops): capture actual Revue GitHub Actions run history'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
