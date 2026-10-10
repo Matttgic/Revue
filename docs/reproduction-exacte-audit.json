@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-10-10T11:40:25.039972+00:00",
+  "generated_at_utc": "2026-10-10T11:44:45.208370+00:00",
   "source_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "source_commit": "ff6c774ae80d5dc1327c157c3f8c8176737d3d11",
+  "source_commit": "b31ad2b76fc7d68d7422bc6675abe48b1e7501c3",
   "source_revision_status": "source_revision_recorded",
   "scope": "exact end-to-end application behaviour (CFB intentionally excluded)",
   "goal": "100% verified equality of interface, backend, data features, calculations, and outputs on identical time-stamped inputs",
@@ -272,19 +272,29 @@
   "model_formulas": {
     "verified_in_declared_subset": 44,
     "declared_subset_total": 44,
-    "reference_commit_of_verification": "d1558beb0229f3f614a051ce6932baacc4e46f62",
-    "verification_is_on_current_source_commit": false,
-    "current_real_game_same_input_outputs_equal": "NOT_VERIFIED",
-    "current_nhl_real_fixtures_tested": 0,
-    "current_nhl_full_output_dicts_equal": 0,
+    "reference_commit_of_verification": "b31ad2b76fc7d68d7422bc6675abe48b1e7501c3",
+    "verification_is_on_current_source_commit": true,
+    "current_real_game_same_input_outputs_equal": "VERIFIED_ON_REVUE_INPUTS_ONLY",
+    "current_nhl_real_fixtures_tested": 18,
+    "current_nhl_full_output_dicts_equal": 18,
     "original_proprietary_input_identity_verified": false,
     "all_original_models_catalogued": false
   },
+  "mlb_elo_source_replay": {
+    "source_formula_unchanged_since_test": true,
+    "replayed_espn_final_games": 299,
+    "exact_update_results": 299,
+    "mlb_teams_in_history": 30,
+    "original_database_elo_ratings_equal": false,
+    "original_complete_training_history_equal": false,
+    "evidence_file": "docs/parite-elo-mlb-source.json",
+    "note": "Exact original Elo arithmetic on Revue history, not original SQL values, source data, or betting model parity."
+  },
   "nhl_fixture_identity": {
-    "verified_source_revision": false,
+    "verified_source_revision": true,
     "verified_against_current_source_schedule": true,
     "source_espn_id_matches": 18,
-    "mapping_created_from_source_commit": "d1558beb0229f3f614a051ce6932baacc4e46f62",
+    "mapping_created_from_source_commit": "b31ad2b76fc7d68d7422bc6675abe48b1e7501c3",
     "revue_id_pairs_exact_team_and_utc": true,
     "all_source_data_equal": false,
     "original_goalie_odds_or_roster_equal": false,
@@ -421,27 +431,27 @@
   },
   "prior_test_evidence": {
     "docs/parite-modeles-clairvoyance.json": {
-      "status": "historical_or_unpinned_evidence",
-      "source_commit_of_test": "d1558beb0229f3f614a051ce6932baacc4e46f62",
-      "matches_current_source_commit": false,
+      "status": "verified_at_current_commit",
+      "source_commit_of_test": "b31ad2b76fc7d68d7422bc6675abe48b1e7501c3",
+      "matches_current_source_commit": true,
       "targeted_formula_tests": 5232
     },
     "docs/parite-clairvoyance-frontend.json": {
-      "status": "historical_or_unpinned_evidence",
-      "source_commit_of_test": "d1558beb0229f3f614a051ce6932baacc4e46f62",
-      "matches_current_source_commit": false,
+      "status": "verified_at_current_commit",
+      "source_commit_of_test": "b31ad2b76fc7d68d7422bc6675abe48b1e7501c3",
+      "matches_current_source_commit": true,
       "targeted_formula_tests": 4743
     },
     "docs/parite-clairvoyance-predictor.json": {
-      "status": "historical_or_unpinned_evidence",
-      "source_commit_of_test": "d1558beb0229f3f614a051ce6932baacc4e46f62",
-      "matches_current_source_commit": false,
+      "status": "verified_at_current_commit",
+      "source_commit_of_test": "b31ad2b76fc7d68d7422bc6675abe48b1e7501c3",
+      "matches_current_source_commit": true,
       "targeted_formula_tests": 43
     },
     "docs/parite-clairvoyance-nhl-observe.json": {
-      "status": "historical_or_unpinned_evidence",
-      "source_commit_of_test": "d1558beb0229f3f614a051ce6932baacc4e46f62",
-      "matches_current_source_commit": false,
+      "status": "verified_at_current_commit",
+      "source_commit_of_test": "b31ad2b76fc7d68d7422bc6675abe48b1e7501c3",
+      "matches_current_source_commit": true,
       "targeted_formula_tests": null
     },
     "docs/parite-donnees-clairvoyance.json": {
