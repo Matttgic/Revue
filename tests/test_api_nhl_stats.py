@@ -7,6 +7,8 @@ import unittest
 
 from fastapi.testclient import TestClient
 from api_revue.app import create_app
+from api_revue.nhl_stats import live_moneypuck_snapshot
+from api_revue.fixtures import SourceUnavailable
 
 NOW=datetime(2026,10,10,14,tzinfo=timezone.utc)
 
@@ -113,6 +115,29 @@ class NHLAdvancedRoutes(unittest.TestCase):
         mp["seasons"]["2026-2027"][0]["xg_share"]=400
         self.put("moneypuck-nhl-latest.json",mp)
         self.assertEqual(self.client.get("/nhl/moneypuck").status_code,503)
+
+    def test_fresh_moneypuck_live_source_and_no_phantom_fields(self):
+        header="team,situation,games_played,goalsFor,goalsAgainst,xGoalsPercentage,name,icetime,xGoals,goals"
+        teamrows=[f"T{i:02d},all,3,9,8,, ,,, " for i in range(1,26)]
+        teamrows += [f"T{i:02d},5on5,3,,,0.53, ,,, " for i in range(1,26)]
+        goalie=[f"T{i:02d},all,3,,,,Goalie{i},3600,3.2,2" for i in range(1,26)]
+        def fetch(url):
+            return header+"\\n"+"\\n".join(goalie if url.endswith("goalies.csv") else teamrows)
+        data=live_moneypuck_snapshot(NOW,fetcher=fetch)
+        self.assertEqual(len(data["teams"]),25)
+        self.assertEqual(len(data["goalies"]),25)
+        self.assertEqual(data["teams"]["T01"]["goals_for_pg"],3)
+        self.assertEqual(data["teams"]["T01"]["xgf_pct"],53)
+        self.assertEqual(data["goalies"][0]["gsax"],1.2)
+        self.assertFalse(data["confirmed_starting_goalies"])
+        self.assertIn("partial",data["revue_reproduction_status"])
+
+    def test_moneypuck_live_fails_closed_when_provider_down(self):
+        def blocked(url):
+            raise OSError("provider unavailable")
+        with self.assertRaises(SourceUnavailable):
+            live_moneypuck_snapshot(NOW,fetcher=blocked)
+        self.assertEqual(self.client.post("/nhl/moneypuck/live").status_code,405)
 
     def test_cors_only_for_revue_frontend(self):
         yes=self.client.get("/nhl/teams",headers={"Origin":"https://matttgic.github.io"})
