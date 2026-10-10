@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-10T13:37:00+00:00",
+  "updated_at_utc": "2026-10-10T14:08:58.832861+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 54,
-  "previous_estimate_percent": 50,
+  "estimated_functional_coverage_percent": 55,
+  "previous_estimate_percent": 54,
   "estimate_method": "Editorial dated weighted functional-coverage checklist (weights sum 100), recomputed from displayed categories. Subjective, not verified end-to-end reproduction, model forecast parity, profitability or SLA.",
   "goal": "Reproduction fidèle et vérifiable à 100 % de Clairvoyance (hors CFB) : interface, API, acquisition de données, calculs et prédictions sur entrées identiques",
   "excluded_by_user": [
@@ -71,9 +71,9 @@
       "id": "additional_sports",
       "title": "Sports spécialisés supplémentaires",
       "weight": 8,
-      "coverage": 0.1,
+      "coverage": 0.24,
       "status": "partiel",
-      "remaining": "Couverture calendrier sur UFC/LIIGA, mais modèles spécialisés très partiels."
+      "remaining": "ATP/WTA depuis ESPN avec exclusion des tableaux fictifs, combats UFC connus et Liiga officielle ; suivi immuable des prévisions et Brier/Log Loss. SHL, Suisse NL et Extraliga sans flux indépendant assez complet pour prédire. Les modèles UFC et tennis restent souvent indisponibles faute d'historique suffisant."
     },
     {
       "id": "validation",
@@ -159,7 +159,11 @@
     "Read-only original admin GET status/log signatures with SQL and original scheduler uncertainty surfaced.",
     "117 source-verified Revue game dossiers from current snapshot, 19 with observed FR odds, 907 ESPN historical finals, 82 matches with descriptive team history, 36 strictly linked frozen paper forecasts.",
     "Mobile 360-degree game dossier searchable by league/date/club, historical H2H/totals bookmaker tables, model probabilities, team results, NHL historical player profiles and shareable game deep links.",
-    "Two additional own read-only /revue/games API routes, verified schema/provenance and freshness checks."
+    "Two additional own read-only /revue/games API routes, verified schema/provenance and freshness checks.",
+    "ATP/WTA: corrected invalid ESPN tournament bracket placeholders; 76 WTA TBD-only fixtures removed rather than showing fake matchups.",
+    "Liiga: independent official liiga.fi v2 results now cached as ended-only historical records, available for first-party prospect settlement.",
+    "ATP/WTA/UFC/LIIGA prospect lock and result evaluator: immutable 20-minute pre-game snapshots, explicit ESPN winner flags or official Liiga finished results; strictly no wager or ROI.",
+    "Independent mobile individual sports center with tennis, MMA and Liiga match cards, training sample disclosure, source health and future Brier/Log Loss by league."
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -196,7 +200,10 @@
     "match_dossiers": "docs/match-dossiers-latest.json",
     "workflow_runs": "docs/github-workflows-latest.json",
     "nhl_xg_scale_diagnostic": "docs/nhl-source-input-delta.json",
-    "mlb_elo_diagnostic": "docs/mlb-source-elo-gap.json"
+    "mlb_elo_diagnostic": "docs/mlb-source-elo-gap.json",
+    "individual_research": "docs/individual-latest.json",
+    "individual_prospective": "docs/individual-prospective-performance.json",
+    "individual_forecast_locks": "docs/individual-prospective-ledger.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -217,7 +224,8 @@
     "Les tirages NHL et contrats 5/5 ne rendent pas la reproduction exacte globale calculable : backend original, données et frontend restent partiels.",
     "Le nouveau service /revue/predictions est une recherche Revue; les inputs SQL, gardiens et marchés de Clairvoyance ne sont pas identiques et /predictions/ original répond volontairement 503.",
     "Les 44 fonctions ciblées validées, le 18/18 NHL et les 12 modèles du jour ne mesurent PAS le pourcentage de reproduction complète du site original.",
-    "The new 54% coverage is a dated editorial functional estimate, not exact Clairvoyance reproduction; historical original data cannot be recreated from missing SQL."
+    "The new 54% coverage is a dated editorial functional estimate, not exact Clairvoyance reproduction; historical original data cannot be recreated from missing SQL.",
+    "55% is a dated subjective functional checklist estimate, not exact source reproduction. ATP/WTA/UFC absent model outputs are NOT replaced with guessed probabilities."
   ],
   "exact_reproduction_percent": null,
   "exact_end_to_end_parity": "NOT_VERIFIED",
@@ -236,5 +244,22 @@
     "declared_original_api_signatures": 16,
     "original_api_routes": 24,
     "end_to_end_source_equivalent_routes_verified": 0
+  },
+  "latest_individual_checkpoint_evidence": {
+    "observed_at_utc": "2026-10-10T14:08:58.832861+00:00",
+    "source_individual": "docs/individual-latest.json",
+    "source_results": "docs/individual-history.json",
+    "source_prospective": "docs/individual-prospective-performance.json",
+    "valid_wta_fixtures": 0,
+    "verified_liiga_ended_records": 94,
+    "future_ufc_fights": 12,
+    "frozen_pre_game_forecasts": 1,
+    "settled_frozen_forecasts": 0,
+    "confirmed_incomplete_sports": [
+      "SHL",
+      "NL",
+      "EXTRALIGA"
+    ],
+    "profit_roi_established": false
   }
 }

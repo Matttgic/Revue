@@ -77,13 +77,17 @@ class ArenaTests(unittest.TestCase):
         self.assertEqual(sum(x["weight"] for x in p["categories"]),100)
         self.assertEqual(p["estimated_functional_coverage_percent"],
                          round(sum(x["weight"]*x["coverage"] for x in p["categories"])))
-        self.assertEqual(p["estimated_functional_coverage_percent"],54)
+        self.assertEqual(p["estimated_functional_coverage_percent"],55)
         checkpoint=p["latest_checkpoint_evidence"]
         self.assertGreater(checkpoint["game_dossiers"],0)
         self.assertGreater(checkpoint["historical_espn_finals"],0)
         self.assertLessEqual(checkpoint["dossiers_with_matched_frozen_research"],
                              checkpoint["game_dossiers"])
         self.assertIn("au dernier jalon",(DOCS/"avancement.html").read_text(encoding="utf-8"))
+        ind=p["latest_individual_checkpoint_evidence"]
+        self.assertGreater(ind["verified_liiga_ended_records"],0)
+        self.assertFalse(ind["profit_roi_established"])
+        self.assertIn("SHL",ind["confirmed_incomplete_sports"])
         self.assertIsNone(p["exact_reproduction_percent"])
         self.assertIn("avancement.html",(DOCS/"index.html").read_text(encoding="utf-8"))
 
