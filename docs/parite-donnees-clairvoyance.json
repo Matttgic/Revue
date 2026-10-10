@@ -1,0 +1,47 @@
+{
+  "generated_at_utc": "2026-10-10T00:44:36.255881+00:00",
+  "status": "source_data_parity_not_yet_verified",
+  "formula_parity_not_sufficient": true,
+  "cfb_excluded": true,
+  "sources": {
+    "nba_previous_advanced": {
+      "status": "available_verified_input_parser",
+      "observed_teams": 30,
+      "needed_teams": 30,
+      "source": "ESPN 2025-26 real prior regular-season efficiencies",
+      "warning": "Prior season, not current roster"
+    },
+    "nba_current_advanced": {
+      "status": "missing_or_partial",
+      "observed_teams": 0,
+      "needed_teams": 30,
+      "source": "ESPN current regular-season efficiencies",
+      "warning": "Do not substitute preseason standings or prior ratings for current advanced stats"
+    },
+    "nhl_moneypuck": {
+      "status": "unverified_live_inputs",
+      "source": "Original references MoneyPuck 5on5; Revue has no independently verified matching game-time feed",
+      "warning": "A NHL simulation or skater table is not a matched MoneyPuck dataset"
+    },
+    "nhl_goalies": {
+      "status": "unverified_live_inputs",
+      "source": "Original has goalies and expected goalie starts, but matching pregame snapshots not validated",
+      "warning": "Most-played goalie is not a confirmed starter"
+    },
+    "football_authorized_xg": {
+      "status": "missing",
+      "source": "Real ESPN boxscore shots may exist; these are NOT Opta xG/xGA",
+      "warning": "No redistribution or invention of Opta proprietary fields"
+    },
+    "bookmaker_original_price_match": {
+      "status": "unverified_live_inputs",
+      "quote_snapshots": 14,
+      "source": "Revue PulseScore snapshots; source-specific market, odds timestamp and normalization not yet matched to Clairvoyance",
+      "warning": "Live odds from different providers/instants need not agree"
+    }
+  },
+  "completed_data_checks": 1,
+  "total_data_checks": 6,
+  "full_model_output_parity_on_real_games": false,
+  "note": "No percentage of whole repository claimed; counts refer to 6 explicit data-source checks."
+}
