@@ -70,7 +70,7 @@ class SourceGapTests(unittest.TestCase):
 
     def test_original_mismatched_conflicting_duplicate_ref_ids_rejected(self):
         a,revue,shadow,model=fixture()
-        a["nba"]["games"][0]["date"]="2026-10-12T22:30Z"
+        a["nba"]["games"][0]={**a["nba"]["games"][0],"date":"2026-10-12T22:30Z"}
         _,_,bad=calendar(a,AT)
         self.assertIn("NBA:401902645",bad)
 
