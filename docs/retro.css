@@ -124,26 +124,4 @@ body.retro .rv-top-tag{font-size:9px;color:var(--arc-violet);letter-spacing:.16e
 @media(prefers-reduced-motion:reduce){body.retro *,body.retro *::before,body.retro *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.arc-console{transform:rotateY(-14deg) rotateX(10deg) rotateZ(-6deg)}}
 
 
-/* Arcade V3 information architecture. Existing history/Lab pages remain
-   accessible from the Bilan links and the Lab footer, not primary navigation. */
-body.retro[data-page="arcade-v3"] .rv-nav a:nth-child(n+4),
-body.retro[data-page="play"] .rv-nav a:nth-child(n+4),
-body.retro[data-page="bilan"] .rv-nav a:nth-child(n+4),
-body.retro[data-page="historique"] .rv-nav a:nth-child(n+4),
-body.retro[data-page="lab"] .rv-nav a:nth-child(n+4),
-body.retro[data-page="arcade-v3"] .arc-bottom-nav a:nth-child(n+4),
-body.retro[data-page="play"] .arc-bottom-nav a:nth-child(n+4),
-body.retro[data-page="bilan"] .arc-bottom-nav a:nth-child(n+4),
-body.retro[data-page="historique"] .arc-bottom-nav a:nth-child(n+4),
-body.retro[data-page="lab"] .arc-bottom-nav a:nth-child(n+4) {
-  display:none;
-}
-@media(max-width:760px){
- body.retro[data-page="arcade-v3"] .arc-bottom-nav,
- body.retro[data-page="play"] .arc-bottom-nav,
- body.retro[data-page="bilan"] .arc-bottom-nav,
- body.retro[data-page="historique"] .arc-bottom-nav,
- body.retro[data-page="lab"] .arc-bottom-nav{
-  grid-template-columns:repeat(3,minmax(0,1fr));
- }
-}
+/* Phase 8: physical 3-link navigation, no nth-child hiding. */
