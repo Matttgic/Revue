@@ -3,13 +3,14 @@ const {test}=require("node:test");
 const assert=require("node:assert/strict");
 const fs=require("node:fs");
 const path=require("node:path");
-const {build,paper,sourcePicks,sourceMatch,safeNhl}=require("../docs/arcade-v3-data.js");
+const {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies}=require("../docs/arcade-v3-data.js");
 const ROOT=path.join(__dirname,"..","docs");
 const loaded=name=>JSON.parse(fs.readFileSync(path.join(ROOT,name),"utf8"));
 const P=loaded("picks-center-latest.json");
 const M=loaded("match-center-latest.json");
 const N=loaded("nhl-frontend-observed-latest.json");
-const T=Math.max(Date.parse(M.generated_at_utc),Date.parse(N.generated_at_utc),Date.parse(P.generated_at_utc))+120000;
+const G=loaded("nhl-espn-goalies-latest.json");
+const T=Math.max(Date.parse(M.generated_at_utc),Date.parse(N.generated_at_utc),Date.parse(P.generated_at_utc),Date.parse(G.generated_at_utc))+120000;
 const clone=x=>structuredClone(x);
 
 test("real-source snapshot: safe research and verified fictional profit, not real advice",()=>{
@@ -105,4 +106,24 @@ test("site never treats recorded historical prices as current odds",()=>{
    assert.ok(q.quote>1);
   }
  }
+});
+
+
+test("ESPN confirmed/projected goalie information stays separate from probabilities",()=>{
+ assert.equal(safeGoalies(G,T),true);
+ const report=build({picks:P,matches:M,nhl:N,goalies:G},T);
+ assert.equal(report.sources.espnGoalies,"observed_status_separate");
+ const joined=report.events.filter(x=>x.hockey?.espnObservedAt);
+ assert.ok(joined.length>0,"At least one official NHL fixture should align");
+ assert.ok(joined.every(x=>x.hockey.inputsComplete===false));
+ assert.ok(joined.every(x=>x.hockey.espnInformationNotIncludedInProbabilities===true));
+ assert.ok(joined.every(x=>x.actionable===false));
+ assert.ok(joined.some(x=>(x.hockey.espnGoalieHome?.status==="confirmed"||
+                          x.hockey.espnGoalieAway?.status==="confirmed")));
+ const tampered=structuredClone(G);
+ tampered.used_in_prediction_model=true;
+ assert.equal(safeGoalies(tampered,T),false);
+ const after=build({picks:P,matches:M,nhl:N,goalies:tampered},T);
+ assert.equal(after.sources.espnGoalies,"missing_or_stale");
+ assert.ok(after.events.every(x=>!x.hockey?.espnObservedAt));
 });
