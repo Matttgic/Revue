@@ -32,6 +32,30 @@ def grade_logloss(prob:float, result:int) -> float:
     return -math.log(prob if result else (1-prob))
 
 
+def _audited_prediction(report: dict, as_of: datetime) -> bool:
+    """Only audited, genuinely before-kickoff reports can create NEW locks.
+
+    Existing locked forecasts remain authoritative and may always be settled.
+    A missing or forged audit field is NOT grounds for retrospective backfill.
+    """
+    proof=report.get("point_in_time_audit") or {}
+    if proof.get("status")!="verified_temporal_bounds":
+        return False
+    try:
+        observed=as_utc(proof["as_of_utc"])
+        generated=as_utc(report["generated_at_utc"])
+        if observed!=generated or observed>as_of:
+            return False
+        published=report["sources"]["source_updated_utc"]
+        if proof.get("source_updated_utc")!=published:
+            return False
+        if not isinstance(proof.get("team_5v5_rows_checked"),int) or proof["team_5v5_rows_checked"]<2:
+            return False
+    except (KeyError,TypeError,ValueError):
+        return False
+    return True
+
+
 def _new_lock(row:dict, report:dict, as_of:datetime) -> dict | None:
     kickoff=as_utc(row["start_utc"])
     if kickoff-as_of<timedelta(minutes=LOCK_MINUTES):
@@ -92,7 +116,8 @@ def update_ledger(previous:dict|None,prediction:dict,
             raise ValueError("Duplicate historical event locks")
         # Records from disk are authoritative, no probability edits.
         ledger[key]=row.copy()
-    if prediction.get("status")=="experimental_not_calibrated":
+    if (prediction.get("status")=="experimental_not_calibrated" and
+        _audited_prediction(prediction,as_of)):
         for row in prediction.get("games") or []:
             key=str(row["event_id"])
             if key not in ledger:
