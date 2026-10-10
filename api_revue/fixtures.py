@@ -61,7 +61,9 @@ def _correct_score(row: dict, score: dict) -> bool:
 
 
 def fixture_rows(doc: dict, scores: dict | None, league: str,
-                 day: date, now: datetime) -> list[dict]:
+                 day: date, now: datetime, *,
+                 reference_ids: dict | None = None,
+                 require_original_espn_id: bool = False) -> list[dict]:
     """One event is sourced from a dated ESPN/NHL fixture, not from an invented pick."""
     if league not in ("MLB", "NHL"):
         raise ValueError("Only source-backed NHL and MLB adapters")
@@ -86,6 +88,16 @@ def fixture_rows(doc: dict, scores: dict | None, league: str,
         for event in scores.get("events") or [] if usable_scores and
         isinstance(event, dict)
     }
+    matches = {}
+    if league == "NHL" and isinstance(reference_ids, dict):
+        if reference_ids.get("status") == "verified_fixture_identity_pairs":
+            for pair in reference_ids.get("mappings") or []:
+                key = str(pair.get("nhl_game_id"))
+                if key in matches:
+                    raise SourceUnavailable("Ambiguous cross-provider ESPN identifiers")
+                matches[key] = pair
+    if league == "NHL" and require_original_espn_id and not matches:
+        raise SourceUnavailable("Verified original ESPN identifiers unavailable")
     results = []
     ids: set[str] = set()
     for raw in candidates:
@@ -101,6 +113,17 @@ def fixture_rows(doc: dict, scores: dict | None, league: str,
             if game_id in ids:
                 raise SourceUnavailable(f"Repeated event ID {league}/{game_id}")
             ids.add(game_id)
+            reference_espn = game_id
+            if league == "NHL":
+                pair = matches.get(game_id)
+                if pair is not None:
+                    if (pair.get("home") != home or pair.get("away") != away or
+                        timestamp(pair.get("start_utc")) != kickoff or
+                        not str(pair.get("original_espn_id", "")).isdecimal()):
+                        raise SourceUnavailable("Inconsistent original ESPN / NHL fixture identity")
+                    reference_espn = str(pair["original_espn_id"])
+                elif require_original_espn_id:
+                    raise SourceUnavailable("No exact source ESPN identity for NHL game")
             score = observed.get((league, game_id))
             status = "STATUS_SCHEDULED"
             home_score = away_score = None
@@ -114,8 +137,8 @@ def fixture_rows(doc: dict, scores: dict | None, league: str,
             # explicitly DIFFERENT numeric identifier derived from ESPN ID.
             # This is field-compatible, not DB-identity compatible.
             results.append({
-                "id": int(game_id),
-                "espn_id": game_id,
+                "id": int(reference_espn),
+                "espn_id": reference_espn,
                 "game_date": kickoff.date().isoformat(),
                 "game_time_utc": kickoff.isoformat(),
                 "status": status,
@@ -146,4 +169,9 @@ def fixtures_from_files(root: Path, league: str, day: date,
         scores = snapshot(root / "scoreboard-revue-latest.json", now, max_age_hours=2)
     except SourceUnavailable:
         scores = None
-    return fixture_rows(doc, scores, league, day, now)
+    reference = None
+    if league == "NHL":
+        reference = snapshot(root / "parite-nhl-espn-id-map.json", now, max_age_hours=72)
+    return fixture_rows(doc, scores, league, day, now,
+                        reference_ids=reference,
+                        require_original_espn_id=(league == "NHL"))
