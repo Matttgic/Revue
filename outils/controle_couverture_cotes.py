@@ -154,10 +154,12 @@ def analyze(boards:dict,now:datetime)->dict:
             checked_events.add(event_key)
             markets=defaultdict(list)
             seen_books=set()
+            ambiguous_event=False
             for book in e.get("bookmakers") or []:
                 bk=book.get("bookmaker")
                 if bk not in BOOKS:continue
                 if bk in seen_books:
+                    ambiguous_event=True
                     diagnostics["duplicate_bookmaker"]+=1
                     # A duplicate sportsbook entry on the same event means
                     # all of its markets are ambiguous; remove its quotes.
@@ -176,9 +178,13 @@ def analyze(boards:dict,now:datetime)->dict:
                         seen_market_keys.add(key)
                         markets[key].append({"book":bk,"prices":prices,"quote_at":when})
                 if invalid_market_keys:
+                    ambiguous_event=True
                     for key in invalid_market_keys:
                         markets[key]=[x for x in markets[key] if x["book"]!=bk]
                     diagnostics["duplicate_book_market"]+=len(invalid_market_keys)
+            if ambiguous_event:
+                diagnostics["ambiguous_event_skipped"]+=1
+                continue
             for (market,line),offers in markets.items():
                 if len(offers)<2:
                     diagnostics["not_enough_books"]+=1
