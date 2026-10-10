@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-10T16:27:33.288+00:00",
+  "updated_at_utc": "2026-10-10T16:42:52.932215+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 56,
-  "previous_estimate_percent": 55,
+  "estimated_functional_coverage_percent": 60,
+  "previous_estimate_percent": 56,
   "estimate_method": "Editorial dated weighted functional-coverage checklist (weights sum 100), recomputed from displayed categories. Subjective, not verified end-to-end reproduction, model forecast parity, profitability or SLA.",
   "goal": "Reproduction fidèle et vérifiable à 100 % de Clairvoyance (hors CFB) : interface, API, acquisition de données, calculs et prédictions sur entrées identiques",
   "excluded_by_user": [
@@ -23,9 +23,9 @@
       "id": "sports_data",
       "title": "Sources et données sportives",
       "weight": 10,
-      "coverage": 0.77,
+      "coverage": 0.83,
       "status": "partiel",
-      "remaining": "Dossiers de matchs + historique ESPN regroupés par équipe ; compositions et saisons incomplètes."
+      "remaining": "Calendriers publics de neuf compétitions normalisés, 402 rencontres recensées et 62 correspondances sur mêmes IDs/heures observés ; fenêtres différentes et joueurs/compositions encore incomplets."
     },
     {
       "id": "odds",
@@ -39,33 +39,33 @@
       "id": "football",
       "title": "Modèles football",
       "weight": 12,
-      "coverage": 0.29,
+      "coverage": 0.32,
       "status": "partiel",
-      "remaining": "Résultats historiques ESPN et modèles visibles ensemble ; entrée xG licenciée et parité source incomplètes."
+      "remaining": "Identités exactes vérifiées par ID/heure pour PL, Liga, Bundesliga, Serie A et MLS ; parité des entrées xG, blessures, compositions et probabilités originales non vérifiée."
     },
     {
       "id": "hockey",
       "title": "NHL et hockey spécialisé",
       "weight": 16,
-      "coverage": 0.46,
+      "coverage": 0.54,
       "status": "partiel",
-      "remaining": "NHL/MoneyPuck, joueurs historiques, comparaison de l'échelle xG et verrouillage pré-match ; titulaires non confirmés."
+      "remaining": "NHL original-vs-Revue : 17 probabilités correspondant aux mêmes matchs/marchés, écart absolu moyen 10,55 points, données et heures non identiques ; SHL/NL/Extraliga raccordées à leurs modèles reconstruits. Original SQL/gardiens confirmés toujours indisponibles."
     },
     {
       "id": "basketball",
       "title": "Modèles basketball",
       "weight": 10,
-      "coverage": 0.36,
+      "coverage": 0.4,
       "status": "partiel",
-      "remaining": "Historiques NBA/WNBA, modèles et scores visibles ; rotations et étalonnage insuffisants."
+      "remaining": "NBA : calendriers de référence ESPN et Revue recoupés sur 12 identités strictes parmi 47 événements de la source (horizons différents). Aucune égalité des probabilités NBA produites en conditions réelles vérifiée."
     },
     {
       "id": "nfl_mlb",
       "title": "Modèles NFL et MLB",
       "weight": 10,
-      "coverage": 0.4,
+      "coverage": 0.46,
       "status": "partiel",
-      "remaining": "Historique NFL/MLB, rejeu Elo ESPN MLB, étude du repli Elo à 1500 ; QB, pitchers, SQL d'origine absents."
+      "remaining": "NFL : calendrier public de la saison, 13 matchs en commun avec Revue sur 305 événements de référence (échéances différentes). MLB : aucune rencontre sur la fenêtre du relevé public, replay Elo ESPN indépendant sans parité SQL."
     },
     {
       "id": "additional_sports",
@@ -79,9 +79,9 @@
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.84,
+      "coverage": 0.91,
       "status": "partiel",
-      "remaining": "Identité événement-clubs-heure, contrôles temporels, séparation des règles, résultats papiers et tests automatiques."
+      "remaining": "Contrôle anti-ambiguïté sur compétition/ID/coup d'envoi, comparaison marché/probabilité NHL seulement si pré-match, 17 écarts réels mesurés ; audit des bilans origine révèle 181 verrouillages tardifs et 2614 non datés dans l'échantillon classifié."
     },
     {
       "id": "licensed_data",
@@ -168,7 +168,13 @@
     "Integrated existing verified same-input Clairvoyance European hockey Monte-Carlo/Poisson and Ensemble replica functions with actual future sports games. Not a proof of deployed production output equality.",
     "Immutable before-kickoff research forecast ledger for 3 European leagues, with temporal identity checks, Brier/Log Loss only on source-marked finals and no ROI without odds.",
     "14 actual future model evaluations and 14 pre-match research freezes on first successful source run, 7 each NL and Extraliga, zero SHL within requested 72-hour window.",
-    "Clear Arcade research page linked in Play and Lab, without adding any top-level navigation item; mobile site passed publication tests."
+    "Clear Arcade research page linked in Play and Lab, without adding any top-level navigation item; mobile site passed publication tests.",
+    "Source-to-Revue original production output bridge: independently normalize published NHL/NBA/MLB/NFL/PL/LALIGA/BUNDESLIGA/MLS/SERIEA fixtures and strict matching on league+event-ID+kickoff within 5 minutes.",
+    "First source comparison: 402 reference fixtures (includes entire NFL season), 62 strict Revue fixture matches (different publication horizons); avoids false site-wide coverage percentage.",
+    "17 actual published NHL moneyline/total model probabilities matched to Revue predictions on the same event/market, with timestamps established pregame and 10.55 percentage points mean absolute discrepancy; differences in model data and original runtime remain.",
+    "Original public historical ROI basis inspected, with 1051 classified pre-start records, 181 late locks, 2614 timing unknown; never mixed into Revue paper ROI or marketed as reproducible profitability.",
+    "New Retro-Arcade source comparison laboratory for model-probability differences, nine leagues, source freshness, and settlement-timing evidence, without expanding the five-item main menu.",
+    "Automated source comparison and online publication verified by dedicated Python unit suite and GitHub Pages CI."
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -211,7 +217,8 @@
     "individual_forecast_locks": "docs/individual-prospective-ledger.json",
     "european_hockey_models": "docs/euro-hockey-latest.json",
     "european_hockey_prospective": "docs/euro-hockey-prospective-performance.json",
-    "european_hockey_frozen_picks": "docs/euro-hockey-prospective-ledger.json"
+    "european_hockey_frozen_picks": "docs/euro-hockey-prospective-ledger.json",
+    "reference_real_outputs": "docs/clairvoyance-real-output-gap.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -234,7 +241,9 @@
     "Les 44 fonctions ciblées validées, le 18/18 NHL et les 12 modèles du jour ne mesurent PAS le pourcentage de reproduction complète du site original.",
     "The new 54% coverage is a dated editorial functional estimate, not exact Clairvoyance reproduction; historical original data cannot be recreated from missing SQL.",
     "55% is a dated subjective functional checklist estimate, not exact source reproduction. ATP/WTA/UFC absent model outputs are NOT replaced with guessed probabilities.",
-    "Reference league schedule facts were read from upstream published JSON, not an independent official data vendor; source 'post' settlements do not establish official results or exact deployed-model equivalence."
+    "Reference league schedule facts were read from upstream published JSON, not an independent official data vendor; source 'post' settlements do not establish official results or exact deployed-model equivalence.",
+    "60% functional-coverage score is a subjective and dated editorial checklist. The original-versus-Revue NHL pregame predictions still differ by 10.55 percentage points mean absolute discrepancy, so exact output parity must NOT be claimed.",
+    "Public original engine ROI includes post-kickoff or unknown-lock-time observations; it is excluded from Revue's verified pregame paper performance."
   ],
   "exact_reproduction_percent": null,
   "exact_end_to_end_parity": "NOT_VERIFIED",
@@ -296,5 +305,42 @@
     "live_fr_odds_verified": false,
     "independent_official_results_verified": false,
     "profits_verifiable": false
+  },
+  "latest_original_output_parity_evidence": {
+    "observed_at_utc": "2026-10-10T16:42:52.932215+00:00",
+    "report": "docs/clairvoyance-real-output-gap.json",
+    "reference_fixtures": 402,
+    "revue_fixtures_at_snapshot": 106,
+    "strict_fixture_identity_matches": 62,
+    "leagues_compared": [
+      "NHL",
+      "NBA",
+      "MLB",
+      "NFL",
+      "PL",
+      "LALIGA",
+      "BUNDESLIGA",
+      "MLS",
+      "SERIEA"
+    ],
+    "source_nhl_best_bets": 20,
+    "valid_same_market_nhl_probability_comparisons": 17,
+    "mean_abs_probability_gap_percentage_points": 10.55,
+    "original_timing_sample": {
+      "status": "observed",
+      "original_source_basis": "all locks (including picks locked after the game started)",
+      "observed_classified_total": 3846,
+      "pre_start_recorded": 1051,
+      "locked_after_start_included": 181,
+      "unknown_lock_timing_included": 2614,
+      "pre_start_fraction_pct": 27.33,
+      "non_pre_match_proven_or_unknown": 2795,
+      "may_not_be_claimed_as_reproducible_roi": true,
+      "note": "Original source figures count all locks, including late and unknown lock times. Do not compare published overall returns to Revue's verified pre-match paper ledger."
+    },
+    "includes_entire_NFL_season_in_reference": true,
+    "same_underlying_model_features_verified": false,
+    "end_to_end_original_predictions_reproduced": false,
+    "professional_betting_advice": false
   }
 }
