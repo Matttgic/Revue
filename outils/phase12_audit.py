@@ -49,7 +49,7 @@ def evaluate(prospective,nhl,picks,retro,now):
  excluded=(picks.get("paper_summary") or {}).get("excluded")
  if picks.get("real_bets_enabled") is not False or picks.get("verified_real_ev") is not False or type(excluded) is not int:raise ValueError("Paper source not verified")
  if retro.get("version")!="revue_phase12_settlement_reconciliation_v1" or retro.get("total_locks_after")!=len(prospective["records"]):raise ValueError("Reconciliation mismatch")
- if retro.get("settled_after")!=stats["settled"]:raise ValueError("Settled count mismatch")
+ if retro.get("settled_after")!=stats["settled"]:problems.append({"reconciliation":"settled count mismatch"})
  return {"version":VERSION,"generated_at_utc":now.isoformat(),
   "status":"audit_error" if problems else "official_results_active_sample_accumulating",
   "multisport":{"locked":len(prospective["records"]),**stats,"overdue_pending":len(overdue),"overdue_examples":overdue[:20]},
