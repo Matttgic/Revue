@@ -6,7 +6,9 @@ on:
   push:
     paths:
       - 'outils/clairvoyance_nhl_moneypuck_shadow.py'
+      - 'outils/nhl_shadow_tracker.py'
       - 'tests/test_clairvoyance_nhl_moneypuck_shadow.py'
+      - 'tests/test_nhl_shadow_tracker.py'
       - '.github/workflows/nhl-clairvoyance-moneypuck-shadow.yml'
 
 permissions:
@@ -29,6 +31,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_clairvoyance_nhl_moneypuck_shadow.py' -v
           python -m unittest discover -s tests -p 'test_clairvoyance_model_reproduction.py' -v
+          python -m unittest discover -s tests -p 'test_nhl_shadow_tracker.py' -v
       - name: Calculate strictly future NHL shadow predictions with official archived data
         run: |
           test -s docs/moneypuck-nhl-latest.json
@@ -38,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-clairvoyance-shadow-latest.json
+          git add docs/nhl-clairvoyance-shadow-latest.json docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
           if git diff --cached --quiet; then
             echo "No changed shadow model output"
             exit 0
