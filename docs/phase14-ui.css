@@ -1,0 +1,28 @@
+/* Phase 14: three-screen mobile product shell, retro modern with source truth. */
+.p14-brief{margin:15px 0 25px;padding:18px;border:1px solid #477b84;border-radius:17px;
+ background:linear-gradient(125deg,#112b3c 4%,#17233b 57%,#29223c);
+ position:relative;overflow:hidden;isolation:isolate}
+.p14-brief::before{content:"";position:absolute;pointer-events:none;width:190px;height:190px;
+ right:-75px;top:-100px;border-radius:50%;background:radial-gradient(circle,#6cf1d523,transparent 70%);z-index:-1}
+.p14-brief-top{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.p14-brief-top strong{color:#90f8df;font:800 12px 'Chakra Petch',sans-serif;letter-spacing:.06em}
+.p14-brief-top small{color:#aec7d5;font-size:11px}
+.p14-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:13px 0}
+.p14-metric{background:#132d40;border:1px solid #456577;border-radius:11px;padding:13px;min-width:0;
+ transition:transform .24s,border-color .24s;transform:perspective(450px) rotateX(1deg)}
+.p14-metric small{display:block;font:700 11px 'Chakra Petch',sans-serif;color:#bed1de;line-height:1.4}
+.p14-metric strong{display:block;color:#89f3d9;font:900 clamp(18px,3vw,26px) 'Chakra Petch',sans-serif;margin:6px 0}
+.p14-metric span{display:block;font-size:11px;color:#aec9d8;line-height:1.4}
+.p14-brief-msg{margin:0;color:#c9dbe2;font-size:12px;line-height:1.65}
+.p14-brief-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:13px}
+.p14-brief-actions a{border-bottom:1px solid #73d4cb;color:#a7f0e2;font:800 11px 'Chakra Petch',sans-serif;text-decoration:none}
+.p14-details{border:1px solid #3e5b70;border-radius:14px;background:#14283d;padding:0 16px;margin:20px 0}
+.p14-details>summary{cursor:pointer;color:#b9efdf;padding:14px 0;font:800 13px 'Chakra Petch',sans-serif;list-style-position:inside}
+.p14-details[open]{padding-bottom:16px}.p14-details>section{margin:5px 0}
+.p14-brief a:focus-visible,.p14-details summary:focus-visible{outline:3px solid #92f5d9;outline-offset:3px}
+@media(hover:hover){.p14-metric:hover{transform:translateY(-2px) perspective(450px) rotateX(1deg);border-color:#8af2d9}}
+@media(max-width:620px){.p14-brief{padding:14px}.p14-metrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.p14-metric{padding:10px 7px}.p14-metric strong{font-size:clamp(16px,5vw,23px)}
+.p14-metric span{font-size:10px}.p14-brief-actions{gap:11px}}
+@media(max-width:355px){.p14-metrics{grid-template-columns:1fr}.p14-metric{padding:11px}}
+@media(prefers-reduced-motion:reduce){.p14-metric{transition:none;transform:none!important}}

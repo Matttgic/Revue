@@ -6,12 +6,12 @@
 <meta name="description" content="REVUE ARCADE : quoi analyser aujourd'hui, pourquoi un pari est refusé et le bilan de simulations vérifiées.">
 <title>REVUE ARCADE · À jouer, pourquoi, bilan</title>
 <link rel="stylesheet" href="./theme.css?v=2">
-<link rel="stylesheet" href="./retro.css?v=1"><link rel="stylesheet" href="./phase8-ui.css?v=1">
+<link rel="stylesheet" href="./retro.css?v=1"><link rel="stylesheet" href="./phase8-ui.css?v=1"><link rel="stylesheet" href="./phase14-ui.css?v=1">
 <link rel="stylesheet" href="./arcade-v3.css?v=1">
 <script defer src="./retro-app.js?v=1"></script>
 <script defer src="./arcade-v3-data.js?v=3"></script>
 <script defer src="./arcade-v3-app.js?v=4"></script>
-</head>
+<script defer src="./phase14-ui.js?v=1"></script></head>
 <body class="retro" data-page="arcade-v3">
 <div class="rv-topbar"><div class="rv-top-inner">
 <a href="./index.html" class="rv-brand" aria-label="Revue Arcade, accueil"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
@@ -35,6 +35,9 @@
 <div class="arc-orbit"></div><div class="arc-console"><div class="arc-console-screen"><div class="arc-screen-text">REVUE<small>GAME DATA · NO GUESS</small></div></div><div class="arc-dpad"></div><div class="arc-pad-buttons"><i></i><i></i></div></div><div class="arc-grid"></div>
 </div>
 </header>
+<section id="phase14-brief" class="p14-brief" aria-label="Statut vérifié de Revue" role="region">
+<p class="p14-brief-msg" aria-live="polite">Vérification des matchs, prévisions et simulations…</p>
+</section>
 <nav class="arc-v3-sticky" aria-label="Les trois étapes de Revue">
 <a href="#home-jouer">01 · À JOUER</a>
 <a href="#home-pourquoi">02 · POURQUOI</a>
@@ -100,6 +103,7 @@
 <article class="arc-v3-stat"><div class="caption">En attente</div><strong id="v3-pending" class="value">—</strong><div class="hint">Non inclus dans le ROI</div></article>
 </div>
 <p class="arc-v3-paper-note" id="v3-paper-detail">Vérification du journal pré-match…</p>
+<details class="p14-details"><summary>NOTRE HISTORIQUE DE MODÈLES · détails techniques</summary>
 <section class="arc-v3-owned-summary" aria-label="Historique pré-match des modèles Revue">
  <div class="arc-v3-headline"><h3>NOTRE <span>HISTORIQUE.</span></h3>
  <a href="./historique-phase2.html" class="arc-btn">COMPARER LES MODÈLES ↗</a></div>
@@ -111,6 +115,7 @@
  </div>
  <p id="v3-owned-status" class="arc-v3-paper-note" role="status">Vérification du journal multisports…</p>
  </section>
+</details>
 <div class="arc-v3-headline"><h2>Derniers <span>résultats</span></h2>
 <a href="./historique.html">HISTORIQUE COMPLET ↗</a></div>
 <div id="home-recent" class="arc-v3-results" aria-live="polite"><div class="arc-v3-empty">Chargement des résultats vérifiés…</div></div>
