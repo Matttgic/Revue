@@ -25,6 +25,7 @@ Signatures GET présentes et vérifiées par tests de contrat :
 - `GET /nhl/teams`, `GET /nhl/goalies?min_games=1`, `GET /nhl/skaters?team=ANA` : statistiques saisonnières NHL officielles avec les champs indisponibles laissés à `null` ; aucune composition annoncée.
 - `GET /nhl/moneypuck?situation=all` : statistiques MoneyPuck de saison en snapshot horodaté, pas du direct.
 - `GET /nhl/moneypuck/live` : nouvelle récupération directe de fichiers CSV MoneyPuck équipes et gardiens ; vérifiée avec HTTP 200 en production. Pas un flux de matchs et pas encore identique aux filtres/champs Clairvoyance ; aucun titulaire confirmé.
+- `GET /revue/predictions?game_date=YYYY-MM-DD` : **route propre à Revue**, disponible sur Vercel. Elle calcule les probabilités NHL/MLB avec la même formule backend que Clairvoyance, mais exclusivement à partir des snapshots Revue horodatés. NHL : identifiants ESPN vérifiés, xG 5v5, Elo proxy et gardiens historiques avec audit temporel ; MLB : Elo rejoué sur les résultats officiels ESPN avant match. Seuls les matchs futurs (au moins 20 minutes) sont publiés, aucun prix n'est inventé. L'endpoint renvoie HTTP 503 si aucune prévision sûre n'existe. [Interface mobile](../docs/predictions-revue.html) · [tests HTTP et anti-fuite](../tests/test_api_revue_research_predictions.py).
 - `GET /predictions/?game_date=YYYY-MM-DD` : signature prévue mais
   intentionnellement **HTTP 503**, car les inputs Elo, gardiens et marchés
   de la base originale ne sont pas identiques et ne doivent pas être simulés.
