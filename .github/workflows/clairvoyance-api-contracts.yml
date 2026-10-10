@@ -5,6 +5,7 @@ on:
       - "api_revue/**"
       - "requirements-api.txt"
       - "tests/test_api_clairvoyance_*.py"
+      - "tests/test_api_nhl_stats.py"
       - ".github/workflows/clairvoyance-api-contracts.yml"
   workflow_dispatch:
 permissions:
@@ -32,7 +33,9 @@ jobs:
           from api_revue.app import app
           exposed={(method,path) for path, item in app.openapi()["paths"].items() for method in item}
           target={("get","/health"),("get","/nhl/schedule"),("get","/mlb/schedule"),
-                  ("get","/mlb/games/{espn_id}"),("get","/predictions/")}
+                  ("get","/mlb/games/{espn_id}"),("get","/predictions/"),
+                  ("get","/nhl/teams"),("get","/nhl/goalies"),
+                  ("get","/nhl/skaters"),("get","/nhl/moneypuck")}
           assert target <= exposed, (target - exposed)
           print("HTTP routes exposed:",len(exposed),"read-only; no betting endpoints")
           PY
