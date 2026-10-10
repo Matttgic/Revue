@@ -18,6 +18,8 @@ FILES = {
     "matchs":"match-center-latest.json",
     "cotes":"engine-v2-latest.json",
     "radar_6h":"pulsescore-radar-latest.json",
+    "calibration":"revue-model-quality-latest.json",
+    "couvertures":"revue-crossbook-latest.json",
     "resultats":"scoreboard-revue-latest.json",
     "journal":"revue-control-ledger-latest.json",
     "selection":"picks-center-latest.json",
@@ -30,7 +32,8 @@ FILES = {
     "reglements":"paper-score-settlement-latest.json",
 }
 AGE_LIMIT_HOURS = {
-    "calendrier":8,"matchs":3,"cotes":7,"radar_6h":4,"resultats":3,
+    "calendrier":8,"matchs":3,"cotes":7,"radar_6h":4,
+    "calibration":3,"couvertures":3,"resultats":3,
     "journal":3,"selection":3,"nhl_stats":30,
     "nhl_moneypuck":48,"nhl_gardiens":48,"nhl_frontend":24,
     "nhl_espgardiens":8,"nhl_modeles_suivis":12,
@@ -43,6 +46,8 @@ EXPECTED_STATUS = {
     "selection":"revue_independent_picks_hub_static_research_paper_only",
     "nhl_stats":"verified_nhl_official_stats_snapshot",
     "radar_6h":"observed",
+    "calibration":"prospective_probabilities_descriptive_not_calibrated",
+    "couvertures":"math_only_quotes_observed_no_bookable_confirmation",
     "nhl_frontend":"prospective_research_partial_input_frontend_not_parity",
     "nhl_espgardiens":"espn_probable_goalies_observed_not_part_of_model",
     "nhl_modeles_suivis":"prospective_partial_input_nhl_comparison_no_bets",
@@ -90,6 +95,21 @@ def layer(name,doc,now):
                and doc.get("real_bets_enabled") is False
                and doc.get("existing_paper_ledger_modified") is False
                and isinstance(doc.get("observations"),list))
+    if name=="calibration":
+        valid=(valid and doc.get("version")=="revue_prospective_paper_calibration_v1"
+               and doc.get("real_bets_enabled") is False
+               and doc.get("fitted_or_recalibrated_model") is False
+               and doc.get("verified_positive_ev") is False
+               and doc.get("bookmaker_baseline_includes_vig") is True
+               and isinstance(doc.get("total"),dict))
+    if name=="couvertures":
+        flags=doc.get("risk_flags") or {}
+        valid=(valid and doc.get("version")=="revue_quotations_crossbook_coverage_v1"
+               and flags.get("real_bets_enabled") is False
+               and flags.get("claim_guaranteed_profit") is False
+               and flags.get("actual_prices_bookable_verified") is False
+               and flags.get("paid_api_calls_for_this_audit")==0
+               and isinstance(doc.get("potential_snapshot_covers"),list))
     if name=="journal":
         valid=(doc.get("paper_only") is True and doc.get("real_bets_enabled") is False
                and isinstance(doc.get("summary"),dict))
@@ -129,6 +149,8 @@ def report(documents:dict,now:datetime)->dict:
     goalie_reports=d("nhl_espgardiens") or {}
     comparison=d("nhl_modeles_suivis") or {}
     radar=d("radar_6h") or {}
+    calibration=d("calibration") or {}
+    crossbook=d("couvertures") or {}
     data={
         "matchs_futurs_observes":int(matches.get("metrics",{}).get("upcoming_matches") or 0),
         "matchs_avec_cotes_historiques":int(matches.get("metrics",{}).get("with_observed_bookmaker_quotes") or 0),
@@ -154,6 +176,10 @@ def report(documents:dict,now:datetime)->dict:
         "radar_6h_matched":int(radar.get("matches_observed") or 0),
         "radar_6h_calls_used":int(radar.get("requests_used") or 0),
         "radar_6h_calls_cap":int(radar.get("request_cap") or 0),
+        "calibration_echantillon_qualifie":int(calibration.get("total",{}).get("count") or 0),
+        "calibration_matchs_distincts":int(calibration.get("total",{}).get("distinct_events") or 0),
+        "marche_complets_controles":int(crossbook.get("complete_cross_book_markets_checked") or 0),
+        "couvertures_math_observees":int(crossbook.get("potential_snapshot_cover_count") or 0),
         "cotes_fournisseur":odds.get("odds_status") or "unknown",
     }
     essential=("calendrier","matchs","cotes","resultats","journal","selection")
