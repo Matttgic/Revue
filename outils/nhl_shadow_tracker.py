@@ -41,6 +41,14 @@ def _new_lock(row:dict, report:dict, as_of:datetime) -> dict | None:
         not math.isfinite(probability) or not 0<probability<1 or
         row.get("shadow_only") is not True or row.get("calibrated") is not False):
         return None
+    candidate=row.get("research_low_sample_shrink") or {}
+    research_p=candidate.get("home_win")
+    if (candidate.get("model_id")!="revue_nhl_low_sample_shrink_v1" or
+        candidate.get("shadow_only") is not True or
+        candidate.get("calibrated") is not False or
+        not isinstance(research_p,(int,float)) or
+        not math.isfinite(research_p) or not 0<research_p<1):
+        research_p=None
     return {
         "event_id":str(row["event_id"]),
         "home":row["home"],"away":row["away"],
@@ -49,12 +57,15 @@ def _new_lock(row:dict, report:dict, as_of:datetime) -> dict | None:
         "source_prediction_at_utc":original.isoformat(),
         "home_win_probability":round(float(probability),6),
         "away_win_probability":round(1-float(probability),6),
+        "research_home_win_probability":round(float(research_p),6) if research_p is not None else None,
+        "research_model_id":"revue_nhl_low_sample_shrink_v1" if research_p is not None else None,
         "source_updated_utc":dict(times),"source_snapshot_utc":dict(snapshots),
         "xg_games_observed":row.get("xg_games_observed"),
         "historical_goalie_proxy":row.get("historical_goalie_proxy"),
         "model_id":row["model_id"],
         "status":"pending","resolved_at_utc":None,
         "result":None,"home_goals":None,"away_goals":None,"brier":None,
+        "research_brier":None,
     }
 
 
@@ -96,7 +107,10 @@ def update_ledger(previous:dict|None,prediction:dict,
         row.update({"status":"settled","resolved_at_utc":as_of.isoformat(),
                     "result":actual,"home_goals":event.home_goals,
                     "away_goals":event.away_goals,
-                    "brier":grade_brier(row["home_win_probability"],actual)})
+                    "brier":grade_brier(row["home_win_probability"],actual),
+                    "research_brier":grade_brier(row["research_home_win_probability"],actual)
+                    if isinstance(row.get("research_home_win_probability"),(int,float))
+                    else None})
     return {
         "version":VERSION,"updated_at_utc":as_of.isoformat(),
         "rule":"Immutable predictions only if created >=20 minutes before kickoff",
@@ -111,6 +125,10 @@ def summarize(ledger:dict,now:datetime) -> dict:
              isinstance(r.get("brier"),(int,float))]
     pending=[r for r in rows if r.get("status")=="pending"]
     n=len(settled)
+    paired=[r for r in settled if isinstance(r.get("research_brier"),(int,float))]
+    paired_count=len(paired)
+    ref_paired=(sum(r["brier"] for r in paired)/paired_count) if paired_count else None
+    alt_paired=(sum(r["research_brier"] for r in paired)/paired_count) if paired_count else None
     return {
         "generated_at_utc":now.astimezone(timezone.utc).isoformat(),
         "model":VERSION,
@@ -118,8 +136,13 @@ def summarize(ledger:dict,now:datetime) -> dict:
         "min_results_for_preliminary_assessment":100,
         "statistical_status":"preliminary_only" if n>=100 else "insufficient_sample",
         "mean_brier":round(sum(r["brier"] for r in settled)/n,6) if n else None,
+        "research_paired_settled":paired_count,
+        "mean_brier_reference_on_paired":round(ref_paired,6) if paired_count else None,
+        "mean_brier_research":round(alt_paired,6) if paired_count else None,
+        "brier_delta_research_minus_reference":round(alt_paired-ref_paired,6) if paired_count else None,
+        "research_status":"experimental_not_promoted",
         "home_win_rate_observed":round(sum(r["result"] for r in settled)/n,4) if n else None,
         "home_win_probability_mean":round(sum(r["home_win_probability"] for r in settled)/n,4) if n else None,
         "roi":None,"staked_units":0,"cash_bets":0,
-        "note":"No odds, stakes or profitable-claim basis. Outcomes graded only from future official final scores."
+        "note":"No odds, stakes or profitable-claim basis. Lower Brier is better. Research-vs-reference comparison only on same prospective events with both frozen probabilities."
     }
