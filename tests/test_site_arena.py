@@ -111,7 +111,7 @@ class ArenaTests(unittest.TestCase):
         self.assertIn("match-center-latest.json",landing)
         self.assertIn("match-center-latest.json",center)
         self.assertIn("bookmaker_prices_are_live",center)
-        self.assertIn("Pas de",center)
+        self.assertIn("Ni prix en direct",center)
         self.assertFalse(report["real_bets_enabled"])
         self.assertFalse(report["bookmaker_prices_are_live"])
         self.assertEqual(report["validated_value_bets"],0)
