@@ -9,7 +9,9 @@ on:
     paths:
       - 'outils/nhl_settlement_officiel.py'
       - 'outils/nhl_shadow_tracker.py'
+      - 'outils/nhl_calibration_prospective.py'
       - 'tests/test_nhl_settlement_officiel.py'
+      - 'tests/test_nhl_calibration_prospective.py'
       - '.github/workflows/nhl-settlement-officiel.yml'
 
 permissions:
@@ -36,6 +38,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_nhl_settlement_officiel.py' -v
           python -m unittest discover -s tests -p 'test_nhl_shadow_tracker.py' -v
+          python -m unittest discover -s tests -p 'test_nhl_calibration_prospective.py' -v
       - name: Verify prospective ledger exists
         run: test -s docs/nhl-shadow-ledger.json
       - name: Grade only genuine completed matches on the newest ledger
@@ -48,7 +51,12 @@ jobs:
             # The scorer never generates new probabilities. It does nothing
             # when the official games are not yet final or are already graded.
             python -m outils.nhl_settlement_officiel
-            git add docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
+            # Rebuild research validation only when new official results arrive
+            # (or when first installed); do not fabricate results or churn git.
+            if ! git diff --quiet -- docs/nhl-shadow-ledger.json || ! test -s docs/nhl-calibration-latest.json; then
+              python -m outils.nhl_calibration_prospective
+            fi
+            git add docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json docs/nhl-calibration-latest.json
             if git diff --cached --quiet; then
               echo "No newly settled official result"
               exit 0
