@@ -10,7 +10,7 @@ from outils.etat_donnees_revue import FILES,layer,report
 ROOT=Path(__file__).resolve().parents[1]/"docs"
 DATA={k:json.loads((ROOT/p).read_text(encoding="utf-8"))
       for k,p in FILES.items() if (ROOT/p).exists()}
-NOW=datetime(2026,10,10,18,14,tzinfo=timezone.utc)
+NOW=max(datetime.fromisoformat(d['generated_at_utc'].replace('Z','+00:00')) for d in DATA.values() if d.get('generated_at_utc'))+timedelta(minutes=2)
 
 
 class SourceReadinessTests(unittest.TestCase):
