@@ -20,6 +20,7 @@ FILES = {
     "radar_6h":"pulsescore-radar-latest.json",
     "calibration":"revue-model-quality-latest.json",
     "couvertures":"revue-crossbook-latest.json",
+    "historique_autonome":"phase2-owned-performance.json",
     "resultats":"scoreboard-revue-latest.json",
     "journal":"revue-control-ledger-latest.json",
     "selection":"picks-center-latest.json",
@@ -33,7 +34,7 @@ FILES = {
 }
 AGE_LIMIT_HOURS = {
     "calendrier":8,"matchs":3,"cotes":7,"radar_6h":4,
-    "calibration":3,"couvertures":3,"resultats":3,
+    "calibration":3,"couvertures":3,"historique_autonome":10,"resultats":3,
     "journal":3,"selection":3,"nhl_stats":30,
     "nhl_moneypuck":48,"nhl_gardiens":48,"nhl_frontend":24,
     "nhl_espgardiens":8,"nhl_modeles_suivis":12,
@@ -48,6 +49,7 @@ EXPECTED_STATUS = {
     "radar_6h":"observed",
     "calibration":"prospective_probabilities_descriptive_not_calibrated",
     "couvertures":"math_only_quotes_observed_no_bookable_confirmation",
+    "historique_autonome":"new_revue_history_prospective_not_source_sql",
     "nhl_frontend":"prospective_research_partial_input_frontend_not_parity",
     "nhl_espgardiens":"espn_probable_goalies_observed_not_part_of_model",
     "nhl_modeles_suivis":"prospective_partial_input_nhl_comparison_no_bets",
@@ -110,6 +112,18 @@ def layer(name,doc,now):
                and flags.get("actual_prices_bookable_verified") is False
                and flags.get("paid_api_calls_for_this_audit")==0
                and isinstance(doc.get("potential_snapshot_covers"),list))
+    if name=="historique_autonome":
+        valid=(valid and doc.get("version")=="revue_phase2_owned_performance_v1"
+               and doc.get("real_bets_enabled") is False
+               and doc.get("identical_original_clairvoyance_sql_history") is False
+               and doc.get("replayed_old_results") is False
+               and doc.get("odds_queried") is False
+               and doc.get("roi_computed") is False
+               and doc.get("models_calibrated") is False
+               and isinstance(doc.get("per_league"),dict)
+               and type(doc.get("total_unique_matches_locked")) is int
+               and type(doc.get("total_unique_matches_settled")) is int
+               and 0<=doc["total_unique_matches_settled"]<=doc["total_unique_matches_locked"])
     if name=="journal":
         valid=(doc.get("paper_only") is True and doc.get("real_bets_enabled") is False
                and isinstance(doc.get("summary"),dict))
@@ -151,6 +165,7 @@ def report(documents:dict,now:datetime)->dict:
     radar=d("radar_6h") or {}
     calibration=d("calibration") or {}
     crossbook=d("couvertures") or {}
+    own=d("historique_autonome") or {}
     data={
         "matchs_futurs_observes":int(matches.get("metrics",{}).get("upcoming_matches") or 0),
         "matchs_avec_cotes_historiques":int(matches.get("metrics",{}).get("with_observed_bookmaker_quotes") or 0),
@@ -180,6 +195,9 @@ def report(documents:dict,now:datetime)->dict:
         "calibration_matchs_distincts":int(calibration.get("total",{}).get("distinct_events") or 0),
         "marche_complets_controles":int(crossbook.get("complete_cross_book_markets_checked") or 0),
         "couvertures_math_observees":int(crossbook.get("potential_snapshot_cover_count") or 0),
+        "phase2_previsions_verrouillees":int(own.get("total_unique_matches_locked") or 0),
+        "phase2_resultats_regles":int(own.get("total_unique_matches_settled") or 0),
+        "phase2_matchs_elo_observes":int(own.get("total_independent_elo_finals") or 0),
         "cotes_fournisseur":odds.get("odds_status") or "unknown",
     }
     essential=("calendrier","matchs","cotes","resultats","journal","selection")
