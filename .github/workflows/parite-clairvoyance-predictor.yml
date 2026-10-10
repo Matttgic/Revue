@@ -40,8 +40,9 @@ on:
       - 'outils/verify_clairvoyance_nba_props.js'
       - 'tests/test_catalogue_parite_modeles.py'
       - '.github/workflows/parite-clairvoyance-predictor.yml'
+  # The original source changes; reevaluate pinned function parity every day.
   schedule:
-    - cron: '20 7 * * 1'
+    - cron: '20 8 * * *'
 permissions:
   contents: write
 concurrency:
