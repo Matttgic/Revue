@@ -40,6 +40,27 @@ toutes les réponses, la pagination, les erreurs et les données historiques
 doit être vérifiée. L'audit strict maintient donc
 `end_to_end_verified_equivalent_routes: 0`.
 
+## Picks : suivi fictif compatible avec les champs source (10 octobre 2026)
+
+Trois routes GET supplémentaires reproduisent le **schéma** du suivi Clairvoyance,
+mais pas ses données SQL : `GET /picks/` (filtres `status`, `sport`,
+`game_date`), `GET /picks/stats` (filtres `sport`, `bet_type`) et
+`GET /picks/{pick_id}`. Les seuls enregistrements admissibles sont des
+**simulations NHL/MLB** du registre Revue `engine-v2-ledger.json`, avec une
+chronologie pré-match valide et un marché vérifié. Les autres compétitions,
+les règles de marchés incertaines et CFB sont exclus. Aucune mutation
+(`POST /picks/`, `PATCH /picks/{pick_id}/void`) n'est disponible.
+
+Le prix du registre, en décimal, est converti et arrondi en `odds`
+**américain entier**, comme l'exige le schéma original. De très petits écarts
+arithmétiques peuvent en résulter. `amount`, `pnl`, `roi` sont
+**exclusivement des unités fictives**, jamais des euros misés ni un bilan
+de l'original. L'ID `paper-000001` devient l'entier `1` : il ne s'agit
+**jamais** de la clé SQL de Clairvoyance. L'ID ESPN NHL n'est exposé
+que si l'appariement officiel est strictement vérifié ; sinon `null`.
+Le header `X-Revue-Parity` rend ces limites vérifiables.
+Voir `tests/test_api_paper_picks.py`.
+
 ## Percée : identifiants NHL/ESPN
 
 Le rapport `docs/parite-nhl-espn-id-map.json` est créé depuis une copie

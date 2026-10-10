@@ -15,6 +15,7 @@ from pydantic import BaseModel
 
 from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_rows
 from api_revue.mlb_elo import mlb_elo_from_file
+from api_revue.paper_picks import paper_picks, paper_pick_stats
 from api_revue.research_predictions import predictions_from_files
 from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
 
@@ -220,6 +221,37 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
             raise HTTPException(status_code=422,detail=str(exc)) from exc
         except SourceUnavailable as exc:
             raise HTTPException(status_code=503,detail=str(exc)) from exc
+
+    def read_paper_picks(response:Response):
+        response.headers["Cache-Control"]="no-store"
+        response.headers["X-Revue-Parity"]="partial: Revue paper ledger, not Clairvoyance SQL picks; decimal prices converted to American odds"
+        try:
+            return paper_picks(directory)
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
+
+    @app.get("/picks/")
+    def picks_list(response:Response,status:str|None=None,
+                   sport:str|None=None,game_date:date|None=None):
+        rows=read_paper_picks(response)
+        return [row for row in rows
+                if (status is None or row["status"]==status)
+                and (sport is None or row["sport"]==sport.lower())
+                and (game_date is None or row["game_date"]==game_date.isoformat())]
+
+    @app.get("/picks/stats")
+    def picks_statistics(response:Response,sport:str|None=None,
+                         bet_type:str|None=None):
+        rows=read_paper_picks(response)
+        return paper_pick_stats(rows,sport=sport,bet_type=bet_type)
+
+    @app.get("/picks/{pick_id}")
+    def pick_detail(pick_id:int,response:Response):
+        rows=read_paper_picks(response)
+        for row in rows:
+            if row["id"]==pick_id:
+                return row
+        raise HTTPException(status_code=404,detail="Pick not found")
 
     @app.get("/predictions/")
     def predictions(game_date:date=Query(default_factory=date.today)):
