@@ -283,6 +283,30 @@ def report(data,soccer,nfl,nba,revue,shadow,nhl,now):
         "note":"Matches prove identity of a published event ID and kickoff only. Model probabilities are independently evaluated from different datasets and times. Not live; not identical model features; no arbitrage or betting recommendations."
     }
 
+def source_timing_risk(original_perf):
+    """Risk flags from original published statistics, NOT a Revue ROI source."""
+    if not isinstance(original_perf,dict):return {"status":"unavailable"}
+    b=original_perf.get("basis_detail") or {}
+    fields=("settled_pre_start","settled_locked_after_start_included",
+            "settled_unknown_timing_included")
+    nums=[b.get(field) for field in fields]
+    if not all(type(n) is int and n>=0 for n in nums):
+        return {"status":"invalid_counts"}
+    total=sum(nums)
+    if total<=0:return {"status":"empty"}
+    return {
+        "status":"observed",
+        "original_source_basis":str(original_perf.get("basis") or "")[:180],
+        "observed_classified_total":total,
+        "pre_start_recorded":nums[0],
+        "locked_after_start_included":nums[1],
+        "unknown_lock_timing_included":nums[2],
+        "pre_start_fraction_pct":round(100*nums[0]/total,2),
+        "non_pre_match_proven_or_unknown":nums[1]+nums[2],
+        "may_not_be_claimed_as_reproducible_roi":True,
+        "note":"Original source figures count all locks, including late and unknown lock times. Do not compare published overall returns to Revue's verified pre-match paper ledger."
+    }
+
 def download(file):
     req=Request(REF+file,headers={"User-Agent":"Revue-Source-Audit/1.0","Accept":"application/json"})
     with urlopen(req,timeout=24) as response:
@@ -301,6 +325,8 @@ def main():
                   originals["nba"],load("match-center-latest.json"),
                   load("nhl-clairvoyance-shadow-latest.json"),
                   load("nhl-model-latest.json"),now)
+    try:result["reference_historic_lock_timing"]=source_timing_risk(download("engine_performance.json"))
+    except (ValueError,TypeError,OSError):result["reference_historic_lock_timing"]={"status":"unavailable"}
     dest=Path(a.output);dest.parent.mkdir(parents=True,exist_ok=True)
     dest.write_text(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+"\n",encoding="utf-8")
     print("Real output gap:",result["strict_event_matches"],"matched fixtures out of",
