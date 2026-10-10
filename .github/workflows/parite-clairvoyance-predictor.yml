@@ -16,6 +16,8 @@ on:
       - 'tests/test_parite_calendrier_nhl_espn.py'
       - 'tests/test_clairvoyance_model_reproduction.py'
       - 'outils/catalogue_parite_modeles.py'
+      - 'outils/pin_source_parity.py'
+      - 'tests/test_pin_source_parity.py'
       - 'modeles/reproduction/frontend_clairvoyance.js'
       - 'outils/verify_clairvoyance_frontend.js'
       - 'modeles/reproduction/frontend_clairvoyance_nhl.js'
@@ -105,6 +107,11 @@ jobs:
       - name: Regenerate the 13-model strict reproduction scoreboard
         working-directory: revue
         run: python -m outils.catalogue_parite_modeles
+      - name: Pin exact original source code fingerprints after successful parity checks
+        working-directory: revue
+        run: |
+          python -m unittest discover -s tests -p 'test_pin_source_parity.py' -v
+          python -m outils.pin_source_parity --reference ../clairvoyance_reference
       - name: Publish ONLY equality metadata, not third-party code
         working-directory: revue
         run: |
