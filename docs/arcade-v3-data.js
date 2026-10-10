@@ -131,19 +131,22 @@ function radarComparisons(doc,now){
  const books=new Set(["betclic_fr","winamax_fr","unibet_fr","netbet_fr","pmu_fr"]);
  const selections=new Set(["home","away","draw","over","under"]);
  const seenEvents=new Set();
+ const invalidEventIds=new Set();
  for(const game of doc.observations){
    if(!game||game.league==="CFB"||!game.league||!game.event_id||
       !future(game.start_utc,now))continue;
    const eventKey=game.league+":"+game.event_id;
-   if(seenEvents.has(eventKey)){out.delete(eventKey);continue;}
+   if(seenEvents.has(eventKey)){
+     out.delete(eventKey);invalidEventIds.add(eventKey);continue;
+   }
+   if(invalidEventIds.has(eventKey))continue;
    seenEvents.add(eventKey);
    const groups=new Map();
+   const rawSamples=[];
    for(const book of game.bookmakers||[]){
      if(!books.has(book.bookmaker))continue;
      for(const market of book.markets||[]){
        if(!["h2h","totals"].includes(market.market))continue;
-       if(game.league==="NHL"&&market.period_rule!=="including_ot_confirmed")
-         continue;
        if(!age(market.quote_at,now,2)||ms(market.quote_at)>ms(game.start_utc)-20*60000)
          continue;
        for(const selection of market.outcomes||[]){
@@ -156,6 +159,15 @@ function radarComparisons(doc,now){
            continue;
          if(market.market==="h2h"&&!["home","away","draw"].includes(selection.selection))
            continue;
+         rawSamples.push({
+           market:market.market,side:selection.selection,
+           line,book:book.bookmaker,price:selection.price,
+           observedAt:market.quote_at,
+           periodRule:market.period_rule,
+           comparableMarketRule:game.league!=="NHL"||
+             market.period_rule==="including_ot_confirmed",
+         });
+         if(game.league==="NHL"&&market.period_rule!=="including_ot_confirmed")continue;
          const key=market.market+"|"+selection.selection+"|"+(line==null?"":line);
          if(!groups.has(key))groups.set(key,new Map());
          const peers=groups.get(key);
@@ -184,8 +196,21 @@ function radarComparisons(doc,now){
       });
    }
    comparisons.sort((a,b)=>b.differencePercent-a.differencePercent);
+   const referenceLine=game.league==="NHL"?5.5:2.5;
+   rawSamples.sort((a,b)=>
+     (a.market==="h2h"?0:1)-(b.market==="h2h"?0:1)||
+     (a.market==="totals"?Math.abs(a.line-referenceLine):0)-
+     (b.market==="totals"?Math.abs(b.line-referenceLine):0)||
+     a.book.localeCompare(b.book));
+   const examples=[],shown=new Set();
+   for(const item of rawSamples){
+     const sampleKey=item.market+":"+item.side;
+     if(shown.has(sampleKey))continue;
+     shown.add(sampleKey);examples.push(item);
+     if(examples.length>=5)break;
+   }
    out.set(eventKey,{home:game.home,away:game.away,start:game.start_utc,
-      compared:comparisons.slice(0,5)});
+      compared:comparisons.slice(0,5),examples});
  }
  return out;
 }
@@ -220,9 +245,10 @@ function build(sources,now){
   if(h&&(h.home!==g.home||h.away!==g.away||ms(h.start_utc)!==ms(g.start_utc)))continue;
   const q=quotes.get(key)||[];
   const observedRadar=radar.get(key);
-  const comparisons=(observedRadar&&observedRadar.home===g.home&&
-     observedRadar.away===g.away&&ms(observedRadar.start)===ms(g.start_utc))?
-     observedRadar.compared:[];
+  const matchRadar=observedRadar&&observedRadar.home===g.home&&
+     observedRadar.away===g.away&&ms(observedRadar.start)===ms(g.start_utc);
+  const comparisons=matchRadar?observedRadar.compared:[];
+  const priceSamples=matchRadar?observedRadar.examples:[];
   const espn=goalieRows.get(String(g.event_id));
   const goalie=(espn&&espn.home===g.home&&espn.away===g.away&&
                ms(espn.start_utc)===ms(g.start_utc))?espn:null;
@@ -237,6 +263,7 @@ function build(sources,now){
     "NHL : gardien titulaire, blessures et données NHL Edge non vérifiés.");
   if(q.length)why.push("Une cote historique existe mais ne constitue pas une offre actuelle.");
   if(comparisons.length)why.push("PulseScore : écarts entre bookmakers FR observés, sans EV ni disponibilité en temps réel vérifiées.");
+  else if(priceSamples.length)why.push("PulseScore : prix réellement observés mais sans comparaison suffisamment concordante de bookmakers.");
   events.push({
     key,league:g.league,sport:g.sport||g.league,id:String(g.event_id),
     home:String(g.home),away:String(g.away),start:g.start_utc,
@@ -254,6 +281,7 @@ function build(sources,now){
     }:null,
     historicalQuotes:q.slice(0,2),
     recentCrossBookPrices:comparisons,
+    recentObservedPriceExamples:priceSamples,
     why,
     verdict:"AUCUN PARI RECOMMANDÉ",
     actionable:false,
