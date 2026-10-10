@@ -3,7 +3,7 @@ import unittest
 from copy import deepcopy
 from datetime import datetime,timezone,timedelta
 from outils.clairvoyance_real_output_gap import (
-    calendar,join_events,model_rows,report,date,SPORTS)
+    calendar,join_events,model_rows,report,date,SPORTS,source_timing_risk)
 AT=datetime(2026,10,10,16,30,tzinfo=timezone.utc)
 BASE="2026-10-10T15:12:08+00:00"
 
@@ -94,6 +94,17 @@ class SourceGapTests(unittest.TestCase):
         self.assertEqual(arr,[])
         self.assertEqual(counts["source_generated_after_kickoff"],2)
         self.assertEqual(mean,None)
+
+    def test_original_public_roi_basis_excludes_late_and_unknown_locks(self):
+        status=source_timing_risk({"basis":"all locks (including picks locked after the game started)",
+             "basis_detail":{"settled_pre_start":1051,
+                 "settled_locked_after_start_included":181,
+                 "settled_unknown_timing_included":2614}})
+        self.assertEqual(status["status"],"observed")
+        self.assertEqual(status["observed_classified_total"],3846)
+        self.assertEqual(status["non_pre_match_proven_or_unknown"],2795)
+        self.assertTrue(status["may_not_be_claimed_as_reproducible_roi"])
+        self.assertEqual(source_timing_risk({})["status"],"invalid_counts")
 
     def test_original_and_revue_full_data_namespaces_are_never_co_mingled(self):
         a,revue,shadow,model=fixture()
