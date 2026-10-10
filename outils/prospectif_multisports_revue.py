@@ -108,7 +108,9 @@ def settle(ledger:dict,scores:dict,as_of:datetime) -> dict:
         if row["status"]!="pending":
             continue
         official=valid.get(row["key"])
-        if official is None or not compatible(row,official):
+        if official is None or not compatible(
+            {"home":row["home"],"away":row["away"],"start_utc":row["kickoff_utc"]},
+            {"home":official["home"],"away":official["away"],"start_utc":official["kickoff_utc"]}):
             continue
         kickoff=instant(row["kickoff_utc"])
         if not (kickoff < generated <= as_of):
