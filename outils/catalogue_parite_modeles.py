@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Named Clairvoyance model-parity scoreboard, NOT overall project completion.
+"""Source-vs-Revue reproduction catalogue, never a whole-repo completion claim.
 
-13 core source functions + 8 rate/analytics + 8 EU hockey models; CFB excluded.
-A function is 'verified' ONLY when a GitHub CI parity report compares actual
-output to source from a pinned Clairvoyance commit. Other Revue innovations
-and numeric backtests cannot boost this percentage.
+Explicit fixed list: 29 original source functions + four source-side NBA
+preprocessing functions + eleven new originals awaiting real parity.
+Every verified entry must carry a source commit and direct equality tests.
+CFB omitted on user's request. Experimental models do not count.
 """
 from __future__ import annotations
 import argparse,json
@@ -41,10 +41,27 @@ MODELS=(
     ("frontend_nla_ensemble","Suisse NL · Ensemble Bayes/Poisson/marché","docs/app.html","nlaEns"),
     ("frontend_extraliga_ensemble","Extraliga · Ensemble Bayes/Poisson/marché","docs/app.html","extraligaEns"),
     ("frontend_shl_ensemble","SHL · Ensemble Bayes/Poisson/marché","docs/app.html","shlEns"),
+    # Exact NBA preprocessing from scripts/clairvoyance_update.py:
+    ("backend_nba_season","NBA · Changement de saison","scripts/clairvoyance_update.py","nba_season_end_year"),
+    ("backend_nba_stats_selection","NBA · Sélection de saison statistique","scripts/clairvoyance_update.py","select_nba_team_stats"),
+    ("backend_nba_team_ratings","NBA · Force des équipes et Elo","scripts/clairvoyance_update.py","build_nba_team_ratings"),
+    ("backend_nba_player_tiers","NBA · Niveaux de joueurs","scripts/clairvoyance_update.py","apply_nba_player_tiers"),
+    # Next source functions to reconstruct, never substituted with Revue experiments:
+    ("frontend_soccer_form_raw","Football · Forme brute","docs/app.html","_socFormFactorRaw"),
+    ("frontend_soccer_form","Football · Facteur de forme","docs/app.html","_socFormFactor"),
+    ("frontend_soccer_xg_cl_domestic","Football · Fusion xG Ligue des champions","docs/app.html","_socXGBlendCLDomestic"),
+    ("frontend_soccer_xg_fbref","Football · Taux xG FBref","docs/app.html","_socXGFromFBref"),
+    ("frontend_nhl_goalie_update","NHL · Statistiques gardien","docs/app.html","_nhlApplyGoalieStats"),
+    ("frontend_nhl_player_props","NHL · Modèle marchés joueurs","docs/app.html","_generateNHLPropsLive"),
+    ("frontend_nba_player_props","NBA · Modèle marchés joueurs","docs/app.html","_generateNBAProps"),
+    ("frontend_nba_prop_line","NBA · Ligne joueurs","docs/app.html","_modelLineForProp"),
+    ("frontend_nhl_injuries","NHL · Ajustement blessures","docs/app.html","computeInjuryImpact"),
+    ("frontend_nhl_form","NHL · Facteur de forme","docs/app.html","_nhlFormFactor"),
+    ("frontend_nba_injury_implication","NBA · Implications blessures","docs/app.html","injuryImplication"),
 )
 
 def generate(reference_parity:dict,audit:dict,as_of:datetime,
-             frontend_parity:dict|None=None)->dict:
+             frontend_parity:dict|None=None,nba_parity:dict|None=None)->dict:
     verified=set(reference_parity.get("verified_modules") or [])
     same=(reference_parity.get("status")=="predictor_formula_parity_verified"
           and (reference_parity.get("exact_equality_tests_passed") or 0)>0)
@@ -54,10 +71,18 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
     verified_js=set(js.get("verified_modules") or []) if (
         source_unchanged and js.get("status")=="frontend_function_output_parity_verified"
         and (js.get("exact_equality_tests_passed") or 0)>0) else set()
+    nba=nba_parity or {}
+    nba_verified=set(nba.get("verified_modules") or []) if (
+        nba.get("status")=="nba_preprocessing_exact_parity_verified"
+        and (nba.get("exact_equality_tests_passed") or 0)>=400
+        and nba.get("reference_commit")) else set()
     listed={x["name"] for x in audit.get("frontend_model_symbols",{}).get("model_symbols",[])}
     entries=[]
     for model_id,label,source,fn in MODELS:
-        is_verified=(same and source!="docs/app.html" and model_id in verified or
+        is_verified=(source=="app/services/predictor.py"
+                     and same and model_id in verified or
+                     source=="scripts/clairvoyance_update.py"
+                     and model_id in nba_verified or
                      source=="docs/app.html" and model_id in verified_js and fn in listed)
         is_indexed=source!="docs/app.html" or fn in listed
         entries.append({
@@ -67,6 +92,7 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
             "status":"exact_formula_parity_verified" if is_verified else
                      "pending_implementation_or_parity",
             "verified_source_commit":(js.get("reference_commit") if source=="docs/app.html"
+                                   else nba.get("reference_commit") if source=="scripts/clairvoyance_update.py"
                                    else reference_parity.get("reference_commit"))
                         if is_verified else None,
             "reproduced_with_same_data":False,
@@ -79,11 +105,14 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
     first_count=sum(e["status"]=="exact_formula_parity_verified" for e in first)
     follow=entries[13:21]
     second_count=sum(e["status"]=="exact_formula_parity_verified" for e in follow)
-    game_models=entries[21:]
+    game_models=entries[21:29]
     third_count=sum(e["status"]=="exact_formula_parity_verified" for e in game_models)
+    prep=entries[29:33]
+    prep_count=sum(e["status"]=="exact_formula_parity_verified" for e in prep)
+    upcoming=entries[33:]
     return {
         "generated_at_utc":as_of.astimezone(timezone.utc).isoformat(),
-        "name":"Clairvoyance Model Reproduction — 29 original functions (13 core + 8 auxiliary + 8 Euro-hockey models)",
+        "name":"Clairvoyance Model Reproduction — 44 explicitly identified original functions",
         "status":"expanded_defined_scope_not_entire_repository",
         "phases":{
             "primary_13":{"verified":first_count,"target":13,
@@ -91,7 +120,11 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
             "extended_8":{"verified":second_count,"target":len(follow),
                           "percent":round(100*second_count/max(1,len(follow)))},
             "eu_hockey_game_models_8":{"verified":third_count,"target":len(game_models),
-                           "percent":round(100*third_count/max(1,len(game_models)))}
+                           "percent":round(100*third_count/max(1,len(game_models)))},
+            "nba_source_preprocessing_4":{"verified":prep_count,"target":len(prep),
+                            "percent":round(100*prep_count/max(1,len(prep)))},
+            "next_original_models_11":{"verified":sum(e["status"]=="exact_formula_parity_verified" for e in upcoming),
+                            "target":len(upcoming)}
         },
         "excluded":["CFB"],
         "total_target_models":n_total,
@@ -102,10 +135,11 @@ def generate(reference_parity:dict,audit:dict,as_of:datetime,
         "prediction_parity_on_live_data_percent":None,
         "original_source_commit":reference_parity.get("reference_commit"),
         "exact_equality_tests_passed":(reference_parity.get("exact_equality_tests_passed",0)
-                                      + (js.get("exact_equality_tests_passed",0) if verified_js else 0)),
+                                      + (js.get("exact_equality_tests_passed",0) if verified_js else 0)
+                                      + (nba.get("exact_equality_tests_passed",0) if nba_verified else 0)),
         "models":entries,
         "notes":[
-            "Percentage covers ONLY 29 explicitly listed original source functions: 13 primary, 8 analytical/rate functions and 8 EU hockey match models. NOT full Clairvoyance.",
+            "Percentage covers ONLY 44 explicitly catalogued functions: 29 previous, 4 NBA source functions and 11 pending. NOT all of Clairvoyance.",
             "Source-side mathematical parity is verified on test inputs; real data parity and profit are NOT verified.",
             "Revue's original models, Monte-Carlo/Bayes experiments, pages and API integrations are EXCLUDED.",
             "Progress can increase only after direct source-vs-reproduction parity tests on pinned source versions.",
@@ -118,14 +152,18 @@ def main():
     parser.add_argument("--parity",default="docs/parite-clairvoyance-predictor.json")
     parser.add_argument("--audit",default="docs/clairvoyance-code-audit.json")
     parser.add_argument("--frontend-parity",default="docs/parite-clairvoyance-frontend.json")
+    parser.add_argument("--nba-parity",default="docs/parite-clairvoyance-nba-source.json")
     parser.add_argument("--output",default="docs/parite-modeles-clairvoyance.json")
     args=parser.parse_args()
     frontend_path=Path(args.frontend_parity)
     frontend=(json.loads(frontend_path.read_text(encoding="utf-8"))
               if frontend_path.is_file() else None)
+    nba_path=Path(args.nba_parity)
+    nba=(json.loads(nba_path.read_text(encoding="utf-8"))
+         if nba_path.is_file() else None)
     result=generate(json.loads(Path(args.parity).read_text(encoding="utf-8")),
                     json.loads(Path(args.audit).read_text(encoding="utf-8")),
-                    datetime.now(timezone.utc),frontend)
+                    datetime.now(timezone.utc),frontend,nba)
     dest=Path(args.output)
     dest.parent.mkdir(parents=True,exist_ok=True)
     dest.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
