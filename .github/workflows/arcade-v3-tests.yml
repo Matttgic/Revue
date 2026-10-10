@@ -11,6 +11,7 @@ on:
       - 'docs/retro-app.js'
       - 'tests/test_arcade_v3_data.js'
       - 'tests/test_arcade_v3_radar.js'
+      - 'tests/test_arcade_v3_phase3.js'
       - 'tests/test_arcade_v3_site.py'
       - '.github/workflows/arcade-v3-tests.yml'
 permissions:
@@ -34,6 +35,8 @@ jobs:
         run: node --test tests/test_arcade_v3_data.js
       - name: Test bounded PulseScore current-odds observation overlays
         run: node --test tests/test_arcade_v3_radar.js
+      - name: Test source-joined Phase 3 model history, chronology and zero real bets
+        run: node --test tests/test_arcade_v3_phase3.js
       - name: Verify mobile structure, links, asset syntax and source provenance
         run: python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
       - name: Verify existing Arena routes still conform to contract
@@ -46,6 +49,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node --test tests/test_arcade_v3_data.js
+            node --test tests/test_arcade_v3_phase3.js
             python -m unittest discover -s tests -p 'test_arcade_v3_site.py'
             python - <<'PY'
           import json
@@ -57,7 +61,9 @@ jobs:
               'status':'verified_static_ui_and_data_model',
               'screens':['A JOUER','POURQUOI','BILAN'],
               'data_sources':['match-center-latest.json','picks-center-latest.json',
-                              'nhl-frontend-observed-latest.json'],
+                              'nhl-frontend-observed-latest.json',
+                              'phase2-owned-ledger.json','phase2-owned-performance.json',
+                              'pulsescore-radar-latest.json'],
               'real_bets_enabled':False,
               'live_bookmaker_prices_verified':False,
               'original_clairvoyance_predictions_verified':False,
