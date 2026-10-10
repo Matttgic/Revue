@@ -60,6 +60,9 @@ main{max-width:1160px!important}
 <div class="rv-warning"><strong>Lecture du pourcentage :</strong> il porte uniquement sur un périmètre élargi de fonctions sources identifiées, et non sur les centaines de fonctions de Clairvoyance. La parité des sorties à entrées identiques ne prouve pas encore l'accès aux mêmes données ni des résultats réels identiques. CFB est exclu sur demande.</div>
 <div class="rv-toolbar"><h2>// MODÈLES À REPRODUIRE</h2><select id="state" aria-label="Filtrer l'état du modèle"><option value="all">Tous les modèles</option><option value="verified">Parité vérifiée</option><option value="pending">À reproduire</option></select></div>
 <div id="models" class="rv-grid"></div>
+<div class="rv-toolbar" style="margin-top:36px"><h2>// DONNÉES D'ENTRÉE OBSERVÉES</h2><span style="font-size:12px;color:var(--muted)">Parité des résultats réels : non démontrée</span></div>
+<p style="font-size:12px;color:var(--muted)" id="source-audit-meta" role="status">Vérification des sources de données…</p>
+<div id="source-audit" class="rv-grid"></div>
 <div class="rv-notes">
 <p><strong>Vérification :</strong> les fonctions MLB/NHL du backend sont confrontées à l'original récupéré en lecture seule pendant une exécution GitHub Actions, sans conserver son code dans notre dépôt.</p>
 <p><strong>NBA avec ESPN :</strong> le <a href="./clairvoyance-nba-advanced-ratings.json">rapport des 30 équipes</a> applique les calculs de possessions, d’efficacité et d’Elo du code original aux statistiques de saison régulière ESPN. <a href="./parite-clairvoyance-espn-nba.json">460 comparaisons directes</a> ont réussi. La saison 2026–2027 n’étant pas encore disponible via cette source avancée, seuls les résultats 2025–2026 sont pris en compte ; aucune rencontre de présaison n’a été comptée. Les données BBRef et la parité des prédictions finales restent incomplètes.</p>
@@ -111,6 +114,40 @@ async function init(){
   show();$("state").addEventListener("change",show);
  }catch(err){$("metadata").textContent="Rapport temporairement indisponible : "+err.message}
 }
+async function loadInputs(){
+ const host=$("source-audit");
+ try{
+  const r=await fetch("./parite-donnees-clairvoyance.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error("rapport non encore publié");
+  const report=await r.json();
+  $("source-audit-meta").textContent=report.completed_data_checks+" sur "+
+    report.total_data_checks+" contrôles de données disponibles · Identité des prédictions réelles non démontrée";
+  host.replaceChildren();
+  const labels={
+    nba_previous_advanced:"NBA · Stats saison passée",
+    nba_current_advanced:"NBA · Stats saison actuelle",
+    nhl_moneypuck:"NHL · MoneyPuck",
+    nhl_goalies:"NHL · Gardiens",
+    football_authorized_xg:"Football · Véritables xG",
+    bookmaker_original_price_match:"Cotes · Même source et même instant"
+  };
+  for(const [key,v] of Object.entries(report.sources||{})){
+   const ok=v.status==="available_verified_input_parser";
+   const card=node("article",undefined,"rv-model"+(ok?" ok":""));
+   const hdr=node("header");
+   hdr.append(node("small",labels[key]||key),
+     node("span",ok?"SOURCE OBSERVÉE":"NON VÉRIFIÉE","rv-badge"+(ok?" ok":"")));
+   card.append(hdr,node("p",(v.source||"")+" · "+(v.warning||"")));
+   if(v.observed_teams!==undefined){
+     card.append(node("p",v.observed_teams+" / "+v.needed_teams+" équipes documentées"));
+   }
+   host.append(card);
+  }
+ }catch(err){
+  $("source-audit-meta").textContent="Contrôle des sources indisponible : "+err.message;
+ }
+}
 init();
+loadInputs();
 </script>
 </body></html>
