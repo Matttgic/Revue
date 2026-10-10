@@ -172,6 +172,8 @@ def main() -> None:
     parser.add_argument("--teams",default="docs/moneypuck-nhl-latest.json")
     parser.add_argument("--goalies",default="docs/moneypuck-goalies-latest.json")
     parser.add_argument("--output",default="docs/nhl-clairvoyance-shadow-latest.json")
+    parser.add_argument("--ledger",default="docs/nhl-shadow-ledger.json")
+    parser.add_argument("--performance",default="docs/nhl-shadow-performance.json")
     parser.add_argument("--days",type=int,default=3)
     args=parser.parse_args()
     now=datetime.now(timezone.utc)
@@ -186,7 +188,21 @@ def main() -> None:
     outfile.parent.mkdir(parents=True,exist_ok=True)
     outfile.write_text(json.dumps(report,ensure_ascii=False,indent=2,allow_nan=False)+"\n",
                        encoding="utf-8")
+    from outils.nhl_shadow_tracker import summarize,update_ledger
+    ledger_path=Path(args.ledger)
+    existing=json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else None
+    ledger=update_ledger(existing,report,current,now)
+    ledger_path.parent.mkdir(parents=True,exist_ok=True)
+    ledger_path.write_text(json.dumps(ledger,ensure_ascii=False,indent=2,allow_nan=False)+"\n",
+                           encoding="utf-8")
+    perf=summarize(ledger,now)
+    perf_path=Path(args.performance)
+    perf_path.parent.mkdir(parents=True,exist_ok=True)
+    perf_path.write_text(json.dumps(perf,ensure_ascii=False,indent=2,allow_nan=False)+"\n",
+                         encoding="utf-8")
     print("Clairvoyance NHL SHADOW with official MoneyPuck:",len(report["games"]),"future games")
+    print("Prospective locks:",perf["locked_events"],"resolved:",perf["settled"],
+          "mean Brier:",perf["mean_brier"])
 
 
 if __name__=="__main__":
