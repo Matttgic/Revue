@@ -176,6 +176,21 @@ function showDetails(e,root){
   block.append(probs);block.append(create("div","rule",q.rule_verified?"Règlement : "+q.rule+" · cote non live":"Règlement des prolongations non vérifié · aucune EV calculable"));
   root.append(block);
  }
+ if(e.price_comparison){
+  const comparison=e.price_comparison;
+  root.append(create("h3","","COMPARATEUR / MEILLEUR TARIF OBSERVÉ"));
+  const bar=create("div","odds-line");
+  bar.append(create("div","book",comparison.books_compared+" bookmaker(s) aux règles comparables · "+comparison.rule));
+  const offers=create("div","probs");
+  for(const [side,quote] of Object.entries(comparison.highest_observed_prices)){
+   offers.append(pill((side==="home"?e.home:side==="away"?e.away:"Nul")+
+     " "+fmtOdds(quote.price)+" · "+quote.bookmaker.replace(/_fr$/,"")));
+  }
+  bar.append(offers);
+  bar.append(create("div","rule","Marge brute de la grille la plus favorable observée : "+
+     pct(comparison.lowest_bookmaker_overround)+" · Pas un ROI ou une EV démontrée"));
+  root.append(bar);
+ }
  root.append(create("h3","","TOTAL POINTS / BUTS · PRIX OBSERVÉS"));
  if(!e.totals_quotes?.length)root.append(create("p","hint","Aucune ligne de total avec ses deux prix vérifiés pour cette rencontre."));
  for(const q of e.totals_quotes||[]){
