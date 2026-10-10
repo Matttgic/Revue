@@ -1,0 +1,79 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c1126">
+<title>Phase 4 · Clairvoyance vs Revue</title>
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+.p4{max-width:1080px;padding:30px 16px 105px;margin:auto}.p4hero{padding:28px;border:1px solid #416377;background:linear-gradient(120deg,#153343,#171a3a 75%,#291b43);border-radius:18px}
+.p4hero h1{font:900 clamp(32px,6vw,59px) 'Chakra Petch',sans-serif;letter-spacing:-.06em;margin:8px 0}.p4hero span,.p4numbers strong{color:#7aefdb}
+.p4hero p,.p4note,.p4card p{color:#bdd1dd;font-size:12px;line-height:1.7}
+.p4numbers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:18px 0}.p4numbers article,.p4card{border:1px solid #39546f;border-radius:13px;padding:18px;background:#17273e}
+.p4numbers strong{font:800 30px 'Chakra Petch',sans-serif;display:block;margin:7px 0}.p4numbers small{font-size:11px;color:#bdd1e0}
+.p4note{border:1px solid #80675e;background:#252736;border-radius:10px;padding:14px 17px;margin:19px 0}
+.p4rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.p4card h3{font:800 19px 'Chakra Petch',sans-serif;margin:5px 0}
+.p4stats{display:flex;gap:13px;flex-wrap:wrap;margin:11px 0}.p4stats span{padding:8px;border:1px solid #47647a;border-radius:8px;font-size:12px}.p4card b{color:#85eedb}
+.p4control{background:#1c2e48;border:1px solid #50657b;color:#e6f2f7;border-radius:8px;padding:10px;min-height:44px}
+a.p4link{color:#85f0dc}h2{font-family:'Chakra Petch',sans-serif}
+@media(max-width:700px){.p4numbers{grid-template-columns:repeat(2,minmax(0,1fr))}.p4rows{grid-template-columns:1fr}}
+</style></head><body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html">REVUE.</a><nav class="rv-nav"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav></div></div>
+<main class="p4"><header class="p4hero"><small>REVUE ARCADE / PHASE 04</small><h1>CLAIRVOYANCE <span>VS REVUE.</span></h1><p>Les sorties réellement observées, leurs écarts, et pourquoi une reproduction complète n'est pas encore démontrée.</p><a class="arc-btn" href="./lab.html">RETOUR AU LAB ↗</a></header>
+<section class="p4numbers" aria-label="Résultats"><article><small>Sélections source</small><strong id="p4-source">—</strong><small>Observations NHL</small></article>
+<article><small>Sorties comparables</small><strong id="p4-match">—</strong><small>Instantanés ≥20 min avant match</small></article>
+<article><small>Scénarios rapprochés</small><strong id="p4-scenario">—</strong><small>Unités xG alternatives</small></article>
+<article><small>Écart moyen</small><strong id="p4-gap">—</strong><small>Points de probabilité</small></article></section>
+<p id="p4-status" class="p4note" role="status" aria-live="polite">Lecture du rapport horodaté…</p>
+<section><h2>01 / Écarts observés</h2><label for="p4-filter">Filtre </label><select id="p4-filter" class="p4control"><option value="all">Tous les matchs</option><option value="compared">Comparables</option><option value="blocked">Exclus / manquants</option></select>
+<div id="p4-rows" class="p4rows" style="margin-top:14px"><p class="p4note">Aucun résultat inventé.</p></div></section>
+<section><h2>02 / Pour atteindre la fidélité du modèle original</h2><p class="p4note">Il faut disposer des mêmes historiques Elo, des mêmes données MoneyPuck avec unités cohérentes, des gardiens retenus, du même modèle réellement publié et des règles de marché. <strong>Ces conditions ne sont pas encore vérifiées.</strong> Une égalité de formule ou un faible écart entre deux instantanés ne prouve pas une parité des prédictions Clairvoyance.</p>
+<p><a class="p4link" href="./clairvoyance-comparateur.html">Audit détaillé ↗</a> · <a class="p4link" href="./phase4-evidence-latest.json">Rapport brut ↗</a></p></section>
+<footer class="arc-footer">0 PARI RÉEL · 0 EV VALIDÉE · AUCUN ROI RÉEL REVENDIQUÉ</footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id),n=(tag,value)=>{const e=document.createElement(tag);if(value!==undefined)e.textContent=String(value);return e;};
+const pp=v=>typeof v==="number"&&Number.isFinite(v)?(100*v).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
+const num=v=>typeof v==="number"&&Number.isFinite(v)?v.toLocaleString("fr-FR",{maximumFractionDigits:2}):"—";
+let report=null;
+function valid(x){return x?.version==="revue_phase4_published_evidence_v1"&&x.status==="published_output_diagnostic_not_original_parity"&&
+ x.actual_original_prediction_parity_verified===false&&x.original_sql_inputs_verified===false&&
+ x.original_forecast_lock_time_verified===false&&x.market_settlement_rules_verified===false&&
+ x.real_bets_enabled===false&&x.paid_api_calls===0&&Array.isArray(x.rows)&&
+ x.observed_probability_comparisons===x.rows.filter(r=>r.status==="observed_before_kickoff_both").length;}
+function render(){
+ const root=$("p4-rows");root.replaceChildren();
+ if(!report){root.append(n("p","Rapport indisponible ou non vérifié."));return;}
+ const mode=$("p4-filter").value,rows=report.rows.filter(r=>mode==="all"||(mode==="compared"?r.status==="observed_before_kickoff_both":r.status!=="observed_before_kickoff_both"));
+ rows.sort((a,b)=>Math.abs(b.delta_pp||0)-Math.abs(a.delta_pp||0));
+ if(!rows.length){root.append(n("p","Aucun match pour ce filtre."));return;}
+ for(const r of rows){
+  const card=n("article");card.className="p4card";
+  card.append(n("h3",r.away+" @ "+r.home),n("p",r.market==="full_game_total"?"Total de buts · "+r.side+" "+r.line:"Vainqueur · "+r.side));
+  const stats=n("div");stats.className="p4stats";
+  for(const [k,v] of [["Source",pp(r.reference_p)],["Revue",pp(r.revue_p)],["Écart",r.delta_pp===null?"—":num(r.delta_pp)+" pts"]]){
+   const s=n("span");s.append(n("b",k+" : "),n("span",v));stats.append(s);
+  }
+  card.append(stats,n("p",r.status==="observed_before_kickoff_both"?
+   "Sorties observées avant match, données et modèle d'origine non certifiés identiques.":
+   "Comparaison non recevable : "+r.status.replaceAll("_"," ")));
+  if(r.hypotheses){card.append(n("p","Hypothèses xG sur entrées Revue, pas source originale : fraction "+
+    pp(r.hypotheses.xg_fraction_probability)+" (écart à la source "+num(r.hypotheses.fraction_distance_to_source_pp)+
+    " pts) ; pourcentage "+pp(r.hypotheses.xg_percentage_points_probability)+
+    " (écart "+num(r.hypotheses.percentage_distance_to_source_pp)+" pts)."));}
+  root.append(card);
+ }
+}
+document.addEventListener("DOMContentLoaded",async()=>{
+ $("p4-filter").addEventListener("change",render);
+ try{
+  const r=await fetch("./phase4-evidence-latest.json",{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);
+  const d=await r.json();if(!valid(d))throw Error("Source invalidée");
+  report=d;$("p4-source").textContent=d.reference_selections;
+  $("p4-match").textContent=d.observed_probability_comparisons;
+  $("p4-scenario").textContent=d.matched_input_hypotheses;
+  $("p4-gap").textContent=d.mean_abs_delta_pp===null?"—":num(d.mean_abs_delta_pp)+" pts";
+  $("p4-status").textContent="Rapport du "+new Date(d.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})+
+   ". Comparaisons exploratoires : aucun historique SQL original, aucun verrouillage de prédiction source prouvé, aucune cote actuellement jouable certifiée.";
+ }catch(e){$("p4-status").textContent="Rapport indisponible : "+e.message;}
+ render();
+});
+</script></body></html>
