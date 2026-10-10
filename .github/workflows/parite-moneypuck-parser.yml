@@ -1,0 +1,51 @@
+name: Revue - Parité parseur NHL MoneyPuck
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'modeles/reproduction/clairvoyance_moneypuck_parser.py'
+      - 'outils/verifier_parite_moneypuck_source.py'
+      - 'tests/test_moneypuck_compat.py'
+      - '.github/workflows/parite-moneypuck-parser.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-source-parseur-moneypuck
+  cancel-in-progress: false
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: revue
+      - uses: actions/checkout@v4
+        with:
+          repository: Purple-Wraith/clairvoyance-backend
+          path: reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tester notre normalisation sans source externe
+        working-directory: revue
+        run: python -m unittest discover -s tests -p 'test_moneypuck_compat.py' -v
+      - name: Comparer les fonctions originales Clairvoyance en lecture seule
+        working-directory: revue
+        run: python -m outils.verifier_parite_moneypuck_source --reference ../reference
+      - name: Publier uniquement les comparaisons et la provenance
+        working-directory: revue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/parite-clairvoyance-moneypuck-parser.json
+          if ! git diff --cached --quiet; then
+            git commit -m "parity: validate MoneyPuck CSV row normalization against Clairvoyance source"
+            for attempt in 1 2 3 4; do
+              git pull --rebase -X theirs origin main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep "$attempt"
+            done
+            exit 1
+          fi
