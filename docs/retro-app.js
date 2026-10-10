@@ -299,6 +299,7 @@ function setupTilt(){
 document.addEventListener("DOMContentLoaded",async()=>{
  setupEvents();setupTilt();
  const route=document.body.dataset.page;
+ if(route==="arcade-v3")return; // V3 owns its data gates and UI; never boot two competing dashboards
  if(route==="lab"){put("lab-status","Laboratoire de recherche · réservé aux outils techniques, sans mise réelle");return;}
  await bootData();
  if(route==="home")renderHome();
