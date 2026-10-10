@@ -142,6 +142,42 @@ class MatchCenterTests(unittest.TestCase):
         payload["nhl"]["point_in_time_audit"]["status"]="failed"
         self.assertEqual(len([e for e in build(payload)["events"] if e["league"]=="NHL"][0]["research"]),1)
 
+    def test_only_official_pregame_locked_results_enter_the_site(self):
+        lock_time=NOW-timedelta(hours=12)
+        kickoff=NOW-timedelta(hours=8)
+        finish=NOW-timedelta(hours=5)
+        row={
+            "event_id":"2026020050","home":"BOS","away":"NYR",
+            "kickoff_utc":kickoff.isoformat(),
+            "locked_at_utc":lock_time.isoformat(),
+            "resolved_at_utc":finish.isoformat(),"status":"settled",
+            "result":1,"home_goals":3,"away_goals":2,
+            "home_win_probability":.63,"research_home_win_probability":.59,
+        }
+        payload=fixture()
+        payload["ledger"]={"version":"nhl_clairvoyance_moneypuck_shadow_v1",
+                           "events":[row,{**copy.deepcopy(row),"event_id":"pending","status":"pending"}]}
+        data=build(payload)
+        self.assertEqual(data["official_results_count"],1)
+        self.assertEqual(data["prospective_nhl_pending"],1)
+        game=data["official_results"][0]
+        self.assertEqual(game["winner"],"BOS")
+        self.assertTrue(game["official_result"])
+        self.assertEqual(game["clairvoyance_home_win"],.63)
+        self.assertEqual(game["research_home_win"],.59)
+        self.assertFalse(game["real_bet"])
+        self.assertEqual(game["staked_units"],0)
+
+        for key,value in (
+            ("locked_at_utc",(kickoff+timedelta(minutes=1)).isoformat()),
+            ("resolved_at_utc",(NOW+timedelta(hours=1)).isoformat()),
+            ("away_goals",4),
+            ("home_win_probability",1.4),
+        ):
+            mutated=copy.deepcopy(payload)
+            mutated["ledger"]["events"][0][key]=value
+            self.assertEqual(build(mutated)["official_results_count"],0)
+
     def test_unauthorized_bookmaker_not_published(self):
         payload=fixture()
         payload["scanner"]["odds_board"]["events"][0]["bookmakers"][0]["bookmaker"]="pinnacle"
