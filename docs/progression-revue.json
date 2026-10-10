@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-10-10T11:39:00+00:00",
+  "updated_at_utc": "2026-10-10T12:12:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
   "estimated_functional_coverage_percent": 50,
@@ -147,7 +147,13 @@
     "Collecte NHL Stats REST source officielle : 32 équipes, 62 gardiens et 645 patineurs enregistrés, 8 sous-rapports disponibles.",
     "Statistiques tirs NHL par type alimentées pour les 645 patineurs à partir des colonnes officielles shotsOnNetWrist/Snap/Slap/Backhand/TipIn/Deflected/WrapAround.",
     "Comparaison AST source sur NHL/MLB : 5/5 modèles Pydantic avec mêmes champs, types et nullabilité ; l'identité SQL et des valeurs reste non vérifiée.",
-    "Contrôle API public Vercel réussi sur calendrier NHL/ESPN, équipes, gardiens, patineurs, MoneyPuck et endpoint de santé."
+    "Contrôle API public Vercel réussi sur calendrier NHL/ESPN, équipes, gardiens, patineurs, MoneyPuck et endpoint de santé.",
+    "Nouvelle route FastAPI /revue/predictions (pas /predictions/ original) : modèles NHL/MLB réels à partir de données pré-match observées; 503 si indisponible, aucune cote/pick inventé",
+    "Route publique Vercel testée depuis GitHub : 12 prévisions NHL futures disponibles lors de la vérification de 2026-10-10",
+    "Interface gaming mobile docs/predictions-revue.html publiée sur GitHub Pages, filtres de date UTC et probabilités en Europe/Paris",
+    "Audit de la parité de 44 fonctions désormais épinglé aux SHA-256 de 3 fichiers originaux précis, indépendamment des commits de données",
+    "Égalité des prédictions NHL sur mêmes entrées Revue : 18/18 révalidés contre empreinte originale du predictor.py inchangée",
+    "Tests API, protection anti-fuite temporelle, vérification distante de Vercel, analyse JS des pages et déploiement Pages réussis"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -177,7 +183,10 @@
     "nhl_official_stats": "docs/nhl-official-stats-latest.json",
     "api_status": "https://revue-api-tawny.vercel.app/health",
     "nhl_espn_identity": "docs/parite-nhl-espn-id-map.json",
-    "strict_api_field_parity": "docs/reproduction-exacte-audit.json#http_response_schema_field_parity"
+    "strict_api_field_parity": "docs/reproduction-exacte-audit.json#http_response_schema_field_parity",
+    "prospective_formula_ui": "docs/predictions-revue.html",
+    "prospective_formula_api": "https://revue-api-tawny.vercel.app/revue/predictions",
+    "source_model_fingerprints": "docs/parite-modeles-clairvoyance.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -195,7 +204,9 @@
     "44 fonctions ciblées revalidées contre le commit 95258833 ; la parité sur des données de matchs identiques reste indémontrée.",
     "Aucune licence du dépôt Clairvoyance identifiée : pas de copie des fichiers originaux ni de redistribution de données sous licence.",
     "10/24 = 41,7 % de couverture en signatures HTTP uniquement, pas en fonctions équivalentes ; 0 route démontrée strictement identique sur données, erreurs et identité SQL.",
-    "Les tirages NHL et contrats 5/5 ne rendent pas la reproduction exacte globale calculable : backend original, données et frontend restent partiels."
+    "Les tirages NHL et contrats 5/5 ne rendent pas la reproduction exacte globale calculable : backend original, données et frontend restent partiels.",
+    "Le nouveau service /revue/predictions est une recherche Revue; les inputs SQL, gardiens et marchés de Clairvoyance ne sont pas identiques et /predictions/ original répond volontairement 503.",
+    "Les 44 fonctions ciblées validées, le 18/18 NHL et les 12 modèles du jour ne mesurent PAS le pourcentage de reproduction complète du site original."
   ],
   "exact_reproduction_percent": null,
   "exact_end_to_end_parity": "NOT_VERIFIED",
