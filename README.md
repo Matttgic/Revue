@@ -2,6 +2,21 @@
 
 > **Mission prioritaire : reproduire fidèlement les modèles du dépôt [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend), et non inventer des modèles de remplacement.**
 
+
+## Priorité absolue — identité vérifiable avec Clairvoyance
+
+**Le but n'est plus « 50 % de fonctionnalités similaires » mais une reproduction exacte, comportement par comportement et sur la même version du code original, hors CFB.**
+
+- [**Tableau de l'identité globale**](docs/reproduction-exacte.html) · [rapport vérifiable avec l'empreinte du code source](docs/reproduction-exacte-audit.json) · [auditeur automatisé quotidien](.github/workflows/parite-exacte-clairvoyance.yml).
+- La formule ne suffit pas : chaque module doit donner le **même résultat pour les mêmes données et à la même heure**, avec des contrats API, des règles de marchés et des interactions vérifiés.
+- [Catalogue 44 fonctions sur 44](docs/parite-modeles-clairvoyance.json) vérifié sur la **version source en cours** par les actions GitHub. Les 44 fonctions ne représentent pas tout le frontend ni le backend.
+- Le backend original comporte **24 routes FastAPI**, dont l'équivalence complète côté Revue n'est pas encore vérifiée ; son frontend principal a **2 671 918 octets** et n'est pas reproduit à l'identique. La correspondance pixel par pixel n'a pas encore été testée.
+- Les données originales des matchs, blessures, gardiens, cotes et modèles ne sont **pas** démontrées identiques. Aucun pourcentage de reproduction exacte globale n'est calculable à ce stade : `null` signifie « non établi », pas « 0 % ».
+- **Licence** : le dépôt public Clairvoyance ne présente pas de licence explicite. Revue reconstruit les comportements de manière indépendante et vérifie les sorties en CI sans redistribuer le code original ou les données sous droits réservés.
+
+Les projets de recherche annexes et le site gaming Revue sont conservés, mais **ils ne comptent jamais comme reproduction de Clairvoyance**.
+
+
 - **Scores ESPN/NHL et comparaison de modèles, sans données inventées** : [Match Center complet](docs/match-center.html) · [derniers scores observés](docs/scoreboard-revue-latest.json) · [registre multisports figé avant les matchs](docs/multisport-prospective-ledger.json) · [Brier et Log Loss](docs/multisport-prospective-performance.json) · [comparateur de performances](docs/performance-comparateur.html) · [périmètre et limites du jalon fonctionnel](recherche/produit/jalon-50-couverture-fonctionnelle.md). Scores officiels horodatés, prix comparés seulement sur des règles identiques, marchés totaux réels et profils NHL historiques, sans prétendre connaître les compositions du jour.
 - **Match Center Revue (interface gaming originale)** : [centre des matchs mobile](docs/match-center.html) · [rapport sur 72 h](docs/match-center-latest.json) · [workflow horaire](.github/workflows/match-center-revue.yml) · [méthode et écarts vs Clairvoyance](recherche/produit/match-center-revue-vs-clairvoyance.md). Les rencontres de plusieurs sports sont rapprochées par compétition, identifiant, adversaires et heure ; le détail rassemble plusieurs modèles et, lorsqu'elles existent, des cotes françaises réellement observées. Première exécution : **126 matchs / 14 ligues / 90 avec modèle / 9 avec cotes**, chiffres variables. **Pas de CFB, aucune cote inventée, aucun prix annoncé live, aucune EV ou sélection rentable prétendue.**
 - **Parité des fonctions ciblées :** [44 sur 44, soit 100 % du catalogue vérifié](docs/parite-modeles-clairvoyance.json), **pas 98 % du dépôt complet**, ni une équivalence des prédictions sur données réelles.
