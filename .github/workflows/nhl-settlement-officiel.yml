@@ -15,11 +15,10 @@ on:
 permissions:
   contents: write
 
-# The forecast workflow also writes the same ledger. Separate workflows
-# cannot share a concurrency group in a meaningful transaction; git rebase
-# rejects conflicting score edits instead of overwriting verified locks.
+# Share one concurrency group with the forecasting workflow; both commit
+# to the same prospective ledger, so they must not write simultaneously.
 concurrency:
-  group: revue-nhl-official-results
+  group: revue-nhl-clairvoyance-shadow
   cancel-in-progress: false
 
 jobs:
