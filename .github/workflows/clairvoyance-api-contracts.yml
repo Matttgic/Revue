@@ -35,7 +35,8 @@ jobs:
           target={("get","/health"),("get","/nhl/schedule"),("get","/mlb/schedule"),
                   ("get","/mlb/games/{espn_id}"),("get","/predictions/"),
                   ("get","/nhl/teams"),("get","/nhl/goalies"),
-                  ("get","/nhl/skaters"),("get","/nhl/moneypuck")}
+                  ("get","/nhl/skaters"),("get","/nhl/moneypuck"),
+                  ("get","/nhl/moneypuck/live")}
           assert target <= exposed, (target - exposed)
           print("HTTP routes exposed:",len(exposed),"read-only; no betting endpoints")
           PY
