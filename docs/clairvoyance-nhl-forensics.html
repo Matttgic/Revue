@@ -1,0 +1,170 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b19">
+<meta name="description" content="Le diagnostic réel des différences Clairvoyance/Revue sur MoneyPuck, Elo, gardiens et résultats NHL, sans pari ni modèle inventé.">
+<title>Diagnostic NHL — Clairvoyance vs Revue</title>
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+.nhl-gap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.nhl-gap{padding:19px;background:linear-gradient(140deg,#1e2644,#141c34);border:1px solid #54547a;border-radius:14px}
+.nhl-gap .top{display:flex;gap:12px;align-items:baseline;justify-content:space-between}
+.nhl-gap h3{font:800 17px 'Chakra Petch',sans-serif;color:#f6f3ff;margin:9px 0 6px}
+.nhl-gap p,.nhl-gap small{color:#b4bdd7;font:11px/1.8 'DM Sans',sans-serif}
+.nhl-gap strong{font:800 26px 'Chakra Petch',sans-serif;color:#5df5e1}
+.nhl-stack{width:100%;height:9px;background:#252c48;border-radius:10px;overflow:hidden;margin:9px 0}
+.nhl-stack>div{height:100%;background:linear-gradient(90deg,#6ffde7,#c29dff);border-radius:inherit;max-width:100%}
+.nhl-columns{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(240px,.9fr);gap:15px}
+.nhl-table{display:grid;gap:9px}
+.nhl-row{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(70px,.67fr));gap:12px;align-items:center;padding:16px;border:1px solid #4b5475;border-radius:12px;background:#19223d}
+.nhl-row strong{font:800 15px 'Chakra Petch',sans-serif}
+.nhl-row small{font:10px/1.6 'DM Sans',sans-serif;color:#aebcda;display:block;margin-top:4px}
+.nhl-row .value{font:800 22px 'Chakra Petch',sans-serif;color:#83f3e1}
+.nhl-row .diff{color:#ffa6c5}
+.nhl-factor{display:grid;gap:8px}
+.nhl-factor-item{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#e8e4f8;border-bottom:1px solid #414b69;padding:12px 0;font:12px 'DM Sans',sans-serif}
+.nhl-factor-item strong{font:800 17px 'Chakra Petch',sans-serif;color:#72f4e4;white-space:nowrap}
+.nhl-filter{padding:12px;min-height:44px;color:white;background:#18213b;border:1px solid #4b5474;border-radius:9px}
+@media(max-width:850px){.nhl-columns{grid-template-columns:1fr}.nhl-gap-grid{grid-template-columns:1fr}}
+@media(max-width:550px){.nhl-row{grid-template-columns:repeat(3,minmax(0,1fr))}.nhl-row>:first-child{grid-column:1/-1}.nhl-row .value{font-size:20px}}
+</style></head>
+<body class="retro" data-page="nhl-forensics">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand" aria-label="Accueil Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./historique.html">HISTORIQUE</a><a href="./lab.html" aria-current="page">LAB</a></nav>
+<span class="rv-top-tag">SOURCE PARITY / DIAGNOSTIC</span></div></div>
+<nav class="arc-bottom-nav" aria-label="Navigation mobile"><a href="./index.html"><span class="arc-nav-icon">⌂</span>ACCUEIL</a><a href="./play.html"><span class="arc-nav-icon">▷</span>À JOUER</a><a href="./bilan.html"><span class="arc-nav-icon">▤</span>BILAN</a><a href="./historique.html"><span class="arc-nav-icon">◷</span>HISTO</a><a href="./lab.html" aria-current="page"><span class="arc-nav-icon">⚙</span>LAB</a></nav>
+<main class="arc-main">
+<header class="arc-intro"><div><span class="arc-eyebrow">LAB / EXPÉRIENCE CONTRÔLÉE NHL</span>
+<h1>LES VRAIES <span class="arc-gradient">DIFFÉRENCES.</span></h1>
+<p>Le but n'est plus d'accumuler des modèles, mais de découvrir <strong>pourquoi</strong> Clairvoyance et Revue ne donnent pas le même pourcentage sur les mêmes matchs.</p></div>
+<a class="arc-btn" href="./clairvoyance-comparateur.html">← COMPARATEUR GLOBAL</a></header>
+<div class="arc-signal">Ce laboratoire utilise les pourcentages publiés par Clairvoyance et la formule NHL reproduite par Revue. Il ne copie pas le code source original. Même si un scénario rapproche les probabilités, cela ne prouve pas quels Elo, gardiens ou autres modèles le site original utilise. Aucune cote en direct, aucun pari recommandé.</div>
+<div class="arc-kpis arc-section">
+ <article class="arc-kpi arc-kpi--mint"><div class="caption">xG réellement identiques</div><strong id="nhl-xg" class="value">—</strong><div class="hint">Même événement et heure vérifiés</div></article>
+ <article class="arc-kpi"><div class="caption">Écart vainqueur NHL</div><strong id="nhl-gap" class="value">—</strong><div class="hint">Points de probabilité, moyenne absolue</div></article>
+ <article class="arc-kpi arc-kpi--pink"><div class="caption">Écarts de 5 points malgré mêmes xG</div><strong id="nhl-missing" class="value">—</strong><div class="hint">Autres paramètres à investiguer</div></article>
+ <article class="arc-kpi"><div class="caption">Totals source identiques</div><strong id="nhl-default" class="value">—</strong><div class="hint">Vérifier fallback ou modèle commun</div></article>
+</div>
+<p id="nhl-status" class="arc-subtitle" role="status" aria-live="polite">Comparaison de la provenance des données…</p>
+<section class="arc-section">
+<div class="arc-section-head"><h2>01 / D'où vient l'écart ?</h2><span class="arc-chip">SENSIBILITÉ · PAS UNE PREUVE CAUSALE</span></div>
+<div class="nhl-columns">
+ <div class="arc-surface"><h2>Simulation des différents paramètres</h2>
+ <p class="arc-help">Même formule du backend d'origine, mêmes pourcentages xG réels ; nous remplaçons <em>hypothétiquement</em> l'Elo ou les gardiens, un par un. Aucun scénario n'est identifié comme la configuration réelle du site source.</p>
+ <div class="nhl-factor" id="nhl-factors"><p class="arc-placeholder">Lecture des expériences…</p></div></div>
+ <div class="arc-surface"><h2>Ce qu'on sait vraiment</h2>
+ <div id="nhl-evidence" class="arc-list"><p class="arc-placeholder">Analyse des preuves…</p></div>
+ </div>
+</div>
+</section>
+<section class="arc-section">
+<div class="arc-section-head"><h2>02 / Différence par match</h2><span class="arc-chip arc-chip--off">AUCUNE EV CERTIFIÉE</span></div>
+<div class="arc-filters">
+<label class="arc-visually-hidden" for="nhl-market">Choisir le marché</label>
+<select id="nhl-market" class="nhl-filter"><option value="moneyline_including_overtime">VAINQUEUR NHL</option><option value="full_game_total">TOTAL DE BUTS</option><option value="all">TOUS</option></select>
+<label class="arc-visually-hidden" for="nhl-search">Rechercher une équipe</label>
+<input id="nhl-search" class="arc-input" type="search" placeholder="Ex. PIT, DAL, NJD…" autocomplete="off">
+</div><div class="nhl-table" id="nhl-table"><div class="arc-placeholder">Chargement des écarts chiffrés…</div></div>
+</section>
+<section class="arc-section arc-surface"><div class="arc-section-head"><h2>03 / Fichiers et tests</h2><span class="arc-chip">REPRODUCTIBLE</span></div>
+<p class="arc-help">Les rapprochements échouent si les identifiants, les heures de coup d'envoi ou les timestamps des instantanés ne correspondent pas. Le rapport s'actualise avec les workflows de comparaison, sans reprendre les historiques de paris ou les cotes étrangères du dépôt original.</p>
+<div class="arc-buttons"><a class="arc-btn" href="./clairvoyance-nhl-forensics.json">DONNÉES xG / ÉCARTS ↗</a><a class="arc-btn" href="./clairvoyance-nhl-scenarios.json">SCÉNARIOS ELO / GARDIENS ↗</a><a class="arc-btn" href="./reproduction-exacte.html">REPRODUCTION EXACTE ↗</a></div>
+</section>
+<footer class="arc-footer"><span>REVUE SOURCE FORENSICS · 0 PARI RÉEL · AUCUNE STRATÉGIE VALIDÉE</span><a href="./lab.html">LAB ↗</a></footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const create=(tag,cls,content)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(content!==undefined)n.textContent=String(content);return n;};
+const p=n=>Number.isFinite(n)?(n*100).toLocaleString("fr-FR",{maximumFractionDigits:2})+" %":"—";
+const pp=n=>Number.isFinite(n)?n.toLocaleString("fr-FR",{maximumFractionDigits:2})+" pts":"—";
+const dt=x=>new Date(x).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+let forensic=null,scenarios=null;
+function trusted(f){return f?.version==="nhl_input_gap_forensics_v1"&&
+f.status==="nhl_forensics_verified_observation_alignment"&&
+f.real_bet===false&&f.exact_prediction_replication_verified===false&&
+f.live_french_odds_verified===false&&Array.isArray(f.match_diagnostics);}
+function trustedScenario(s){return s?.version==="revue_nhl_backend_input_sensitivity_v1"&&
+s.status==="same_real_observed_nhl_features_hypothetical_scenarios"&&
+s.real_bets_enabled===false&&s.actual_original_hidden_elo_or_starters_verified===false&&
+s.original_published_model_family_verified===false&&Array.isArray(s.games);}
+function renderFactors(){
+ const root=$("nhl-factors");root.replaceChildren();
+ const choices=[
+ ["Données Revue observées","mean_abs_gap_published_vs_observed_revue_pp"],
+ ["Elo neutre : 1500 / 1500","mean_abs_gap_with_equal_elo_pp"],
+ ["Gardiens égaux : 91 %","mean_abs_gap_with_equal_goalies_pp"],
+ ["xG neutralisés 50/50","mean_abs_gap_with_neutral_xg_pp"]
+ ];
+ if(!scenarios||!scenarios.matched_scenarios){root.append(create("div","arc-placeholder","Aucune expérience alignée à afficher. Sans identifiants et timestamps concordants, pas de résultats inventés."));return;}
+ for(const [label,key] of choices){
+  const item=create("div","nhl-factor-item");
+  item.append(create("span","",label),create("strong","",pp(scenarios[key])));
+  root.append(item);
+ }
+ root.append(create("p","arc-help",scenarios.matched_scenarios+" rencontres calculables. "+
+  "Un écart moindre avec Elo neutre ne signifie PAS que Clairvoyance utilise Elo=1500."));
+}
+function renderEvidence(){
+ const root=$("nhl-evidence");root.replaceChildren();
+ if(!forensic)return;
+ const e=forensic.input_summary,m=forensic.model_summary;
+ const cards=[
+ ["xG MoneyPuck 5 contre 5",e.identical_5v5_xg_both_teams+" / "+e.same_event_and_kickoff_nhl+" matchs, mêmes valeurs chez les deux systèmes."],
+ ["Probabilités vainqueur",m.moneyline.comparisons+" sorties comparables ; écart moyen "+pp(m.moneyline.mean_absolute_gap_pp)+" malgré les xG égaux."],
+ ["Probabilités de totals",m.repeated_reference_probability_clusters.length?m.repeated_reference_probability_clusters[0].distinct_games+" matchs ont exactement "+p(m.repeated_reference_probability_clusters[0].original_probability)+" de probabilité publiée, avec des lignes et affichages différents.":"Aucune répétition sur trois matchs distincts."],
+ ["Ce qui reste inconnu","Elo SQL d'origine, gardiens réellement utilisés, contributions des autres modules et famille de modèle des « Best Bets »."]
+ ];
+ for(const [t,c] of cards){const item=create("div","nhl-gap");item.append(create("h3","",t),create("p","",c));root.append(item);}
+}
+function renderMatches(){
+ const root=$("nhl-table");root.replaceChildren();
+ if(!forensic)return;
+ const mode=$("nhl-market").value,q=$("nhl-search").value.trim().toUpperCase();
+ const rows=forensic.match_diagnostics.filter(r=>(mode==="all"||r.market===mode)&&
+  (!q||[r.home,r.away,r.key].some(x=>String(x).includes(q))));
+ if(!rows.length){root.append(create("div","arc-placeholder","Aucun match source valide pour ces filtres."));return;}
+ for(const r of rows){
+  const card=create("article","nhl-row");
+  const match=create("div");match.append(create("strong","",r.away+" @ "+r.home));
+  match.append(create("small","",dt(r.kickoff_utc)+" · "+(r.market==="moneyline_including_overtime"?
+    (r.side==="home"?r.home:r.away)+" vainqueur incl. prolongation":
+    (r.side==="under"?"Moins de ":"Plus de ")+r.line+" buts")));
+  match.append(create("small","","xG : "+r.reference_5v5_xg_pct.home+
+   " / "+r.reference_5v5_xg_pct.away+" · "+(r.xg_identity==="same_xg_both_teams"?"identiques":"non identiques")));
+  const v1=create("div");v1.append(create("small","","CLAIRVOYANCE"),create("div","value",p(r.reference_probability)));
+  const v2=create("div");v2.append(create("small","","REVUE"),create("div","value",p(r.revue_probability)));
+  const v3=create("div");v3.append(create("small","","ÉCART"),create("div","value diff",pp(r.absolute_gap_pp)));
+  card.append(match,v1,v2,v3);
+  root.append(card);
+ }
+}
+const fetchJSON=async name=>{
+ const res=await fetch("./"+name+"?t="+Date.now(),{cache:"no-store"});
+ if(!res.ok)throw Error(name+" HTTP "+res.status);
+ return res.json();
+};
+for(const id of ["nhl-market","nhl-search"])$(id).addEventListener(id==="nhl-search"?"input":"change",renderMatches);
+(async()=>{
+ try{
+  const f=await fetchJSON("clairvoyance-nhl-forensics.json");
+  if(!trusted(f))throw Error("Instantanés non alignés ou provenance non vérifiée ("+(f?.source_input_guard||"inconnue")+")");
+  forensic=f;
+  const summary=f.input_summary,model=f.model_summary;
+  $("nhl-xg").textContent=summary.identical_5v5_xg_both_teams+" / "+summary.same_event_and_kickoff_nhl;
+  $("nhl-gap").textContent=pp(model.moneyline.mean_absolute_gap_pp);
+  $("nhl-missing").textContent=model.identical_xg_but_moneyline_gap_over_5pp;
+  $("nhl-default").textContent=model.repeated_reference_probability_clusters.length?
+   model.repeated_reference_probability_clusters[0].distinct_games+" × "+
+    p(model.repeated_reference_probability_clusters[0].original_probability):"0";
+  $("nhl-status").textContent="Instantanés comparés avec provenance contrôlée, rapport du "+
+    dt(f.generated_at_utc)+". Les sorties peuvent être anciennes ; aucune cote actuelle ni conseil de pari.";
+  renderEvidence();renderMatches();
+ }catch(e){$("nhl-status").textContent="Aucune preuve alignée : "+e.message;}
+ try{
+  const data=await fetchJSON("clairvoyance-nhl-scenarios.json");
+  if(!trustedScenario(data))throw Error("Scénarios non vérifiés");
+  scenarios=data;renderFactors();
+ }catch(e){$("nhl-factors").replaceChildren(create("div","arc-placeholder","Scénarios indisponibles : "+e.message));}
+})();
+</script></body></html>
