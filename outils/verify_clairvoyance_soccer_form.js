@@ -1,7 +1,7 @@
 "use strict";
 /** Direct source-output comparisons for two original Clairvoyance JS form functions. */
 const vm=require("node:vm");
-const {original}=require("./verify_clairvoyance_frontend.js");
+const {sourceFunction}=require("./verify_clairvoyance_euro_hockey_matches.js");
 const clone=x=>JSON.parse(JSON.stringify(x));
 const own=require("../modeles/reproduction/frontend_clairvoyance_soccer_form.js");
 
@@ -45,7 +45,7 @@ function verifySoccerForm(source,compare){
     };
     const context=vm.createContext(env);
     for(const fn of ["_socFuzzyFind","_socFormFactorRaw","_socFormFactor"])
-      vm.runInContext(original(source,fn),context,{timeout:800});
+      vm.runInContext(sourceFunction(source,fn),context,{timeout:800});
     compare("soc form raw state "+ix+" "+name+" "+lg,
       "frontend_soccer_form_raw",context._socFormFactorRaw(name,lg),
       own.rawFormFactor(name,lg,blocks));
