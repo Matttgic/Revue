@@ -36,24 +36,31 @@ jobs:
           python -m unittest discover -s tests -p 'test_nhl_shadow_tracker.py' -v
           python -m unittest discover -s tests -p 'test_nhl_moneypuck_prudent.py' -v
           python -m outils.verifier_integrite_moneypuck
-      - name: Calculate strictly future NHL shadow predictions with official archived data
+      - name: Check required MoneyPuck publications
         run: |
           test -s docs/moneypuck-nhl-latest.json
           test -s docs/moneypuck-goalies-latest.json
-          python -m outils.clairvoyance_nhl_moneypuck_shadow --days 3
-      - name: Publish attributed predictions only (never original third-party CSV)
+          python -m outils.verifier_integrite_moneypuck
+      - name: Refresh from newest protected ledger and publish NHL forecasts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-clairvoyance-shadow-latest.json docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
-          if git diff --cached --quiet; then
-            echo "No changed shadow model output"
-            exit 0
-          fi
-          git commit -m "data(nhl): refresh MoneyPuck-backed Clairvoyance formula SHADOW"
+          # On concurrent push, discard stale locally generated JSON and calculate
+          # again against the newest remote ledger. Never rebase conflicting
+          # predictions or overwrite frozen pre-game locks.
           for attempt in 1 2 3; do
-            git pull --rebase origin main
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.verifier_integrite_moneypuck
+            python -m outils.clairvoyance_nhl_moneypuck_shadow --days 3
+            git add docs/nhl-clairvoyance-shadow-latest.json docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
+            if git diff --cached --quiet; then
+              echo "No changed shadow model output"
+              exit 0
+            fi
+            git commit -m "data(nhl): refresh MoneyPuck-backed Clairvoyance formula SHADOW"
             if git push origin HEAD:main; then exit 0; fi
+            echo "Concurrent update detected; rebuilding from latest immutable ledger (attempt $attempt)"
             sleep "$attempt"
           done
           exit 1
