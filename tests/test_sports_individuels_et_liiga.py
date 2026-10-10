@@ -36,6 +36,18 @@ class SportsIndividuelsLiigaTests(unittest.TestCase):
         e={"id":"t","competitions":[x]}
         self.assertEqual(parse_espn_scoreboard({"events":[e]},"ATP"),[])
 
+    def test_tennis_unresolved_bracket_seats_are_never_real_players(self):
+        for name in ("TBD","TBA","BYE","Winner of semifinal 1","Qualifier"):
+            with self.subTest(name=name):
+                raw=self.tennis_comp("placeholder",self.now+timedelta(days=1))
+                raw["competitors"][0]["athlete"]["displayName"]=name
+                self.assertEqual(parse_espn_scoreboard(
+                    {"events":[{"id":"bracket","competitions":[raw]}]},"WTA"),[])
+        from modeles.simulations.sports_individuels_et_liiga import Match,individual_elo
+        stale=Match("WTA:900","WTA",self.now+timedelta(days=1),
+                    "x","y","TBD","TBD",False,None)
+        self.assertEqual(individual_elo([stale],self.now,3),[])
+
     def test_ufc_fight_card_competitions(self):
         e={"id":"event","date":self.now.isoformat(),"competitions":[self.tennis_comp("fight",self.now)]}
         res=parse_espn_scoreboard({"events":[e]},"UFC")

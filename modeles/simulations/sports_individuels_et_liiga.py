@@ -58,6 +58,21 @@ def dt_utc(raw) -> datetime | None:
         return None
 
 
+# ESPN tournament brackets may announce placeholder seats under stable numeric
+# competitor IDs. They are NOT players or eligible historical training rows.
+PLACEHOLDER_NAMES = frozenset({
+    "TBD", "TBA", "TO BE DETERMINED", "TO BE ANNOUNCED",
+    "BYE", "TBD.", "QUALIFIER", "TBC", "UNKNOWN",
+})
+
+def valid_athlete(name: object) -> bool:
+    if not isinstance(name,str):
+        return False
+    val=" ".join(name.strip().upper().split())
+    return bool(val) and val not in PLACEHOLDER_NAMES and not val.startswith(
+        ("WINNER OF ","LOSER OF ","QUALIFIER ","TO BE DETERMINED ")) and len(val)<=125
+
+
 def _completed(comp: dict, parent: dict) -> bool:
     for obj in (comp, parent):
         status = obj.get("status") or {}
@@ -102,7 +117,7 @@ def parse_espn_scoreboard(data: dict, league: str) -> list[Match]:
                 if not isinstance(athlete, dict) or not aid or not name:
                     break
                 # Some tennis tournaments publish doubles as pair names; exclude.
-                if " / " in str(name) or " & " in str(name):
+                if not valid_athlete(name) or " / " in str(name) or " & " in str(name):
                     break
                 recs = member.get("records") or []
                 record = next((r.get("summary") for r in recs if isinstance(r, dict) and r.get("summary")), None)
@@ -167,6 +182,9 @@ def individual_elo(matches: list[Match], now: datetime, days=3) -> list[dict]:
     appearances = defaultdict(int)
     games: dict[str, Match] = {}
     for match in matches:
+        if (not valid_athlete(match.player1) or not valid_athlete(match.player2)
+            or match.player1.casefold()==match.player2.casefold()):
+            continue
         prev = games.get(match.id)
         if prev is None or (match.finished and not prev.finished):
             games[match.id] = match
@@ -396,11 +414,26 @@ def run(days: int, now: datetime, cache: dict | None=None) -> tuple[dict,dict]:
         data=_get_json(LIIGA.format(season=season),timeout=24)
         events=parse_liiga(data,now)
         games=predict_liiga(events,now,days)
+        updated["LIIGA"]={
+            "source":"liiga.fi public API v2",
+            "observed_at_utc":now.astimezone(timezone.utc).isoformat(),
+            "season":season,
+            "events":[{
+                "id":e["id"],"home":e["home"],"away":e["away"],
+                "starts":e["start"].isoformat(),
+                "finished":e["finished"],
+                "home_goals":e["hgoals"],"away_goals":e["agoals"],
+                "shootout":e["shootout"],
+            } for e in events if e["finished"] and e["start"]<now
+                  and e["hgoals"] is not None and e["agoals"] is not None
+                  and e["hgoals"]!=e["agoals"]],
+        }
         competitions["LIIGA"]={"name":"Liiga Finlande","sport":"Hockey",
            "model":"Elo + buts lissés / Poisson",
            "status":"ok","games":games,
            "diagnostics":{"source":"liiga.fi API v2","total_games":len(events),"season":season}}
     except (RuntimeError,ValueError) as err:
+        updated["LIIGA"]=cache.get("LIIGA",{})
         competitions["LIIGA"]={"name":"Liiga Finlande","sport":"Hockey",
            "model":"Elo + Poisson","status":"failed","games":[],
            "diagnostics":{"error":str(err)[:150],"season":season}}
