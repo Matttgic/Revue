@@ -138,6 +138,7 @@ async function loadInputs(){
    hdr.append(node("small",labels[key]||key),
      node("span",ok?"SOURCE OBSERVÉE":"NON VÉRIFIÉE","rv-badge"+(ok?" ok":"")));
    card.append(hdr,node("p",(v.source||"")+" · "+(v.warning||"")));
+   if(v.parser_parity_verified)card.append(node("p",v.parser_equality_checks+" comparaisons du parseur MoneyPuck réussies ; données en direct non vérifiées."));
    if(v.observed_teams!==undefined){
      card.append(node("p",v.observed_teams+" / "+v.needed_teams+" équipes documentées"));
    }
