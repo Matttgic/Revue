@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","play.html","bilan.html","historique.html","lab.html","euro-hockey.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","play.html","bilan.html","historique.html","lab.html","euro-hockey.html","clairvoyance-comparateur.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -364,6 +364,39 @@ class ArenaTests(unittest.TestCase):
         self.assertEqual(d["total_games"],sum(len(v["games"]) for v in d["competitions"].values()))
         journal=json.loads((DOCS/"euro-hockey-prospective-ledger.json").read_text(encoding="utf-8"))
         self.assertTrue(all(r["real_bet"] is False and r["units"]==0 for r in journal["records"]))
+
+    def test_original_source_nhl_outputs_and_nine_league_identity_report(self):
+        import json
+        html=(DOCS/"clairvoyance-comparateur.html").read_text(encoding="utf-8")
+        lab=(DOCS/"lab.html").read_text(encoding="utf-8")
+        self.assertIn("clairvoyance-comparateur.html",lab)
+        self.assertIn("retro.css",html)
+        self.assertIn("aria-label",html)
+        self.assertNotIn("innerHTML",html)
+        for token in ("clairvoyance-real-output-gap.json",
+                      "nhl_mean_abs_probability_difference_pp",
+                      "real_bets_enabled","source_inputs","parity-leagues",
+                      "reference_historic_lock_timing","observed_classified_total",
+                      "point_in_time_feature_parity_verified",
+                      "original_history_profit_report_excluded"):
+            with self.subTest(token=token):self.assertIn(token,html)
+        d=json.loads((DOCS/"clairvoyance-real-output-gap.json").read_text(encoding="utf-8"))
+        self.assertFalse(d["real_bets_enabled"])
+        self.assertFalse(d["exact_prediction_parity_verified"])
+        self.assertFalse(d["live_french_odds_verified"])
+        self.assertEqual(d["strict_event_matches"],len(d["matched_fixtures"]))
+        self.assertEqual(d["nhl_same_market_model_comparisons"],
+                         sum(x["status"]=="compared" for x in d["nhl_source_vs_revue"]))
+        self.assertEqual(d["source_fixture_total"],
+                         sum(x["source_fixtures"] for x in d["by_league"].values()))
+        self.assertTrue(all(x["source_quote_is_french_live_verified"] is False for x
+                            in d["nhl_source_vs_revue"]))
+        risk=d.get("reference_historic_lock_timing",{})
+        if risk.get("status")=="observed":
+            self.assertEqual(risk["observed_classified_total"],
+                             risk["pre_start_recorded"]+risk["locked_after_start_included"]+
+                             risk["unknown_lock_timing_included"])
+            self.assertTrue(risk["may_not_be_claimed_as_reproducible_roi"])
 
     def test_arcade_navigation_has_only_five_primary_destinations(self):
         import re
