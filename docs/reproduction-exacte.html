@@ -11,7 +11,7 @@ h1 em{color:#55f5de;font-style:normal}
 p{line-height:1.75;color:#9fb5cb}
 .kicker{color:#55f5de;font:700 12px 'Chakra Petch',monospace;letter-spacing:.17em}
 .notice{border-left:3px solid #cca979;background:#202635;padding:16px 18px;color:#f2dcc5;margin:25px 0;font-size:13px}
-.panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:28px 0}
+.panels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:28px 0}
 .panel{background:linear-gradient(140deg,#13243a,#101827);border:1px solid #344a64;padding:20px}
 .panel strong{display:block;margin:13px 0 8px;color:#ecfdff;font:800 32px 'Chakra Petch',system-ui}
 .panel small{font-size:11px;line-height:1.6;color:#91b2c9}
@@ -31,7 +31,7 @@ ol{color:#aaccdf;line-height:1.9;font-size:13px}
 .links a{padding:11px 14px;color:#61efdc;border:1px solid #3e596d;text-decoration:none;font:700 11px 'Chakra Petch',sans-serif}
 footer{margin-top:40px;border-top:1px solid #2f4359;padding-top:20px;color:#9ab2c8;font:12px/1.7 'DM Sans',sans-serif}
 footer a{color:#55f5de}
-@media(max-width:700px){.panels{grid-template-columns:1fr}.panel strong{font-size:26px}}
+@media(max-width:930px){.panels{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.panels{grid-template-columns:1fr}.panel strong{font-size:26px}}
 </style></head><body class="rv-subpage">
 <div class="rv-topbar"><div class="rv-top-inner"><a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
 <nav class="rv-nav" aria-label="Navigation principale">
@@ -43,6 +43,7 @@ footer a{color:#55f5de}
 <div class="panels">
 <article class="panel"><label>FORMULES TESTÉES · CATALOGUE CIBLÉ</label><strong id="formula">…</strong><small>Comparées à l'original sur entrées communes. Revalidation nécessaire si la version source change.</small></article>
 <article class="panel"><label>ROUTES API D'ORIGINE</label><strong id="routes">…</strong><small>Routes recensées dans Clairvoyance, équivalence de bout en bout encore non prouvée.</small></article>
+<article class="panel"><label>NHL · MÊMES ENTRÉES REVUE</label><strong id="nhlReal">…</strong><small>Égalité intégrale sur des rencontres réelles, sans prétendre que Clairvoyance disposait des mêmes statistiques.</small></article>
 <article class="panel"><label>PARITÉ GLOBALE EXACTE</label><strong id="global">NON VÉRIFIÉE</strong><small>Ce statut ne peut devenir validé que par des tests complets : interface, backend, données et sorties.</small></article>
 </div>
 <p class="sub" id="revision">Lecture de l'empreinte GitHub de la référence…</p>
@@ -72,6 +73,9 @@ async function load(){
   by("routes").textContent=report.backend.end_to_end_verified_equivalent_routes+
     "/"+report.backend.source_route_count;
   by("global").textContent="NON VÉRIFIÉE";
+  const tested=report.model_formulas.current_nhl_real_fixtures_tested||0;
+  const equal=report.model_formulas.current_nhl_full_output_dicts_equal||0;
+  by("nhlReal").textContent=tested?equal+"/"+tested:"NON VÉRIFIÉ";
   by("revision").textContent="Commit source : "+String(report.source_commit||"inconnu").slice(0,16)+
    " · dernière lecture "+new Date(report.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+
    " · "+(current?"formules vérifiées sur cette version":"tests de formules sur un commit antérieur");
