@@ -77,7 +77,7 @@ class ArenaTests(unittest.TestCase):
         self.assertEqual(sum(x["weight"] for x in p["categories"]),100)
         self.assertEqual(p["estimated_functional_coverage_percent"],
                          round(sum(x["weight"]*x["coverage"] for x in p["categories"])))
-        self.assertEqual(p["estimated_functional_coverage_percent"],60)
+        self.assertEqual(p["estimated_functional_coverage_percent"],62)
         checkpoint=p["latest_checkpoint_evidence"]
         self.assertGreater(checkpoint["game_dossiers"],0)
         self.assertGreater(checkpoint["historical_espn_finals"],0)
@@ -88,6 +88,11 @@ class ArenaTests(unittest.TestCase):
         self.assertGreater(ind["verified_liiga_ended_records"],0)
         self.assertFalse(ind["profit_roi_established"])
         self.assertIn("SHL",ind["confirmed_incomplete_sports"])
+        forensic=p["latest_nhl_original_input_forensics"]
+        self.assertEqual(forensic["exact_same_fixture_xg_5v5_matches"],17)
+        self.assertEqual(forensic["moneyline_comparisons"],8)
+        self.assertFalse(forensic["original_prediction_output_parity_verified"])
+        self.assertFalse(forensic["original_hidden_model_parameters_verified"])
         euro=p["latest_euro_hockey_evidence"]
         self.assertEqual(sum(euro["future_models_72h"].values()),14)
         self.assertEqual(euro["total_frozen_pre_game"],14)
