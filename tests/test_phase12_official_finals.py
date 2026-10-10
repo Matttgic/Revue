@@ -65,10 +65,9 @@ class OfficialRecoveryTests(unittest.TestCase):
  def test_duplicate_final_with_changed_score_is_quarantined(self):
   ledger=lock(None,observed(),NOW)
   def fetch(url):
-   if "/nba/" in url and "20261011" in url:
-    return {"events":[espn_game("NBA","101","Hawks","Bulls",112,104)]}
    if "/nba/" in url:
-    return {"events":[espn_game("NBA","101","Hawks","Bulls",98,121)]}
+    return {"events":[espn_game("NBA","101","Hawks","Bulls",112,104),
+                      espn_game("NBA","101","Hawks","Bulls",98,121)]}
    return {"events":[]}
   data=recover(ledger,AFTER,fetch)
   self.assertEqual(data["verified_finals"],0)
