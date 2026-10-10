@@ -127,4 +127,35 @@ class ModelTests(unittest.TestCase):
   self.assertTrue(all(x["probabilities"] for x in r["models"]))
   self.assertEqual(r["verified_positive_EV"],0)
 
+
+ def test_phase10_matches_only_exact_teams_and_clocks_in_match_center(self):
+  from outils.match_center_revue import collect_center
+  p=sample()
+  model_report=build(*p,NOW)
+  base=p[1];advanced=p[5]
+  fixture_data={"generated_at_utc":OBS,"competitions":{
+   "PL":{"sport":"Football","games":base["competitions"]["PL"]["games"]}}}
+  scanner={"mode":"PAPER_ONLY","odds_board":{"events":[]}}
+  nhl={"generated_at_utc":OBS,"games":[]}
+  ensemble={"generated_at_utc":OBS,"leagues":{}}
+  def attach(report):
+   return collect_center(fixture_data,scanner,advanced,nhl,ensemble,NOW,
+                         model_candidates=report)
+  good=attach(model_report)
+  event=good["events"][0]
+  self.assertIn("revue_football_espn_shots_log_pool_v1",{x["id"] for x in event["research"]})
+  self.assertIsNone(event["ev"])
+  self.assertFalse(event["qualified_for_real_betting"])
+  changed=copy.deepcopy(model_report)
+  football=[x for x in changed["models"] if x["league"]=="PL"][0]
+  football["home"]="Wrong club"
+  result=attach(changed)
+  self.assertNotIn("revue_football_espn_shots_log_pool_v1",
+     {x["id"] for x in result["events"][0]["research"]})
+  changed=copy.deepcopy(model_report);changed["verified_positive_EV"]=1
+  self.assertEqual(good["status"],"experimental_revue_match_center")
+  rejected=attach(changed)
+  self.assertNotIn("revue_football_espn_shots_log_pool_v1",
+     {x["id"] for x in rejected["events"][0]["research"]})
+
 if __name__=="__main__":unittest.main()
