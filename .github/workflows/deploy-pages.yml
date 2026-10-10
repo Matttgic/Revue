@@ -57,6 +57,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_site_arena.py' -v
           python -m unittest discover -s tests -p 'test_phase1_nhl_site.py' -v
+          python -m unittest discover -s tests -p 'test_phase2_site.py' -v
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
