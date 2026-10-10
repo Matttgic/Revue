@@ -35,7 +35,7 @@ class ArcadeV3Tests(unittest.TestCase):
             self.assertIn(key,page.anchors)
         for anchor in ("#home-jouer","#home-pourquoi","#home-bilan"):
             self.assertIn(anchor,page.refs)
-        for script in ("./arcade-v3-data.js?v=1","./arcade-v3-app.js?v=1"):
+        for script in ("./arcade-v3-data.js?v=3","./arcade-v3-app.js?v=3"):
             self.assertIn(script,page.refs)
         for link in ("./play.html","./bilan.html","./historique.html","./lab.html"):
             self.assertIn(link,page.refs)
