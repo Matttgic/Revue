@@ -1,7 +1,7 @@
 {
   "version": "revue_nhl_backend_input_sensitivity_v1",
   "status": "same_real_observed_nhl_features_hypothetical_scenarios",
-  "generated_at_utc": "2026-10-10T16:57:22.156131+00:00",
+  "generated_at_utc": "2026-10-10T20:41:49.375586+00:00",
   "source_forensics": "docs/clairvoyance-nhl-forensics.json",
   "scenarios": {
     "observed_revue_inputs": "Recalculated from observed Revue Elo + source-confirmed 5v5 xG + Revue historical goalie proxies",
@@ -10,13 +10,13 @@
     "neutral_xg_50_50": "Hypothetical: neutralize observed xG to 50/50",
     "equal_elo_equal_goalies": "Hypothetical combined neutral Elo and goalie"
   },
-  "matched_scenarios": 8,
-  "mean_abs_gap_published_vs_observed_revue_pp": 12.71,
-  "mean_abs_gap_with_equal_elo_pp": 9.28,
-  "mean_abs_gap_with_equal_goalies_pp": 9.34,
-  "mean_abs_gap_with_neutral_xg_pp": 12.44,
-  "games_where_equal_elo_reduces_gap": 5,
-  "games_where_equal_goalies_reduces_gap": 3,
+  "matched_scenarios": 6,
+  "mean_abs_gap_published_vs_observed_revue_pp": 12.47,
+  "mean_abs_gap_with_equal_elo_pp": 9.38,
+  "mean_abs_gap_with_equal_goalies_pp": 10.95,
+  "mean_abs_gap_with_neutral_xg_pp": 12.37,
+  "games_where_equal_elo_reduces_gap": 4,
+  "games_where_equal_goalies_reduces_gap": 1,
   "games": [
     {
       "event_id": "2026020077",
@@ -61,53 +61,6 @@
           "model_probability": 0.53,
           "absolute_gap_to_published_pp": 1.0,
           "change_from_observed_revue_pp": 28.8
-        }
-      },
-      "not_identified_as_causal_explanation": true
-    },
-    {
-      "event_id": "2026020071",
-      "league": "NHL",
-      "home": "NJD",
-      "away": "VAN",
-      "side": "away",
-      "kickoff_utc": "2026-10-10T19:30:00+00:00",
-      "published_probability": 0.372,
-      "recomputed_revue_probability": 0.111,
-      "source_5v5_xg_inputs_equal": true,
-      "elo_proxy": {
-        "home": 1491.31,
-        "away": 1401.58
-      },
-      "historical_goalie_proxy_not_confirmed_starter": {
-        "home_save_pct": 0.875,
-        "away_save_pct": 0.7885
-      },
-      "counterfactuals": {
-        "observed_revue_inputs": {
-          "model_probability": 0.111,
-          "absolute_gap_to_published_pp": 26.1,
-          "change_from_observed_revue_pp": 0.0
-        },
-        "equal_elo_1500": {
-          "model_probability": 0.234,
-          "absolute_gap_to_published_pp": 13.8,
-          "change_from_observed_revue_pp": 12.3
-        },
-        "equal_goalies_091": {
-          "model_probability": 0.284,
-          "absolute_gap_to_published_pp": 8.8,
-          "change_from_observed_revue_pp": 17.3
-        },
-        "neutral_xg_50_50": {
-          "model_probability": 0.168,
-          "absolute_gap_to_published_pp": 20.4,
-          "change_from_observed_revue_pp": 5.7
-        },
-        "equal_elo_equal_goalies": {
-          "model_probability": 0.407,
-          "absolute_gap_to_published_pp": 3.5,
-          "change_from_observed_revue_pp": 29.6
         }
       },
       "not_identified_as_causal_explanation": true
@@ -343,53 +296,6 @@
           "model_probability": 0.5,
           "absolute_gap_to_published_pp": 2.6,
           "change_from_observed_revue_pp": -3.4
-        }
-      },
-      "not_identified_as_causal_explanation": true
-    },
-    {
-      "event_id": "2026020070",
-      "league": "NHL",
-      "home": "BOS",
-      "away": "PHI",
-      "side": "home",
-      "kickoff_utc": "2026-10-10T17:00:00+00:00",
-      "published_probability": 0.644,
-      "recomputed_revue_probability": 0.652,
-      "source_5v5_xg_inputs_equal": true,
-      "elo_proxy": {
-        "home": 1528.27,
-        "away": 1493.44
-      },
-      "historical_goalie_proxy_not_confirmed_starter": {
-        "home_save_pct": 0.9322,
-        "away_save_pct": 0.9273
-      },
-      "counterfactuals": {
-        "observed_revue_inputs": {
-          "model_probability": 0.652,
-          "absolute_gap_to_published_pp": 0.8,
-          "change_from_observed_revue_pp": 0.0
-        },
-        "equal_elo_1500": {
-          "model_probability": 0.603,
-          "absolute_gap_to_published_pp": 4.1,
-          "change_from_observed_revue_pp": -4.9
-        },
-        "equal_goalies_091": {
-          "model_probability": 0.642,
-          "absolute_gap_to_published_pp": 0.2,
-          "change_from_observed_revue_pp": -1.0
-        },
-        "neutral_xg_50_50": {
-          "model_probability": 0.595,
-          "absolute_gap_to_published_pp": 4.9,
-          "change_from_observed_revue_pp": -5.7
-        },
-        "equal_elo_equal_goalies": {
-          "model_probability": 0.593,
-          "absolute_gap_to_published_pp": 5.1,
-          "change_from_observed_revue_pp": -5.9
         }
       },
       "not_identified_as_causal_explanation": true
