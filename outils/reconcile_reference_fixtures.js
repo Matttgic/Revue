@@ -2,7 +2,7 @@
 const fs=require("node:fs"),path=require("node:path");
 const REFERENCE="https://raw.githubusercontent.com/Purple-Wraith/clairvoyance-backend/main/docs/data.json";
 const sports=["nhl","nba","mlb"];
-function stamp(s){if(typeof s!=="string"||!/(Z|[+-]\\d\\d:\\d\\d)$/.test(s))return NaN;return Date.parse(s);}
+function stamp(s){if(typeof s!=="string"||!/(Z|[+-]\d\d:\d\d)$/.test(s))return NaN;return Date.parse(s);}
 function id(x){return String(x??"").toUpperCase().replace(/[^A-Z0-9]/g,"");}
 function reconcile(ref,local,now=Date.now()){
  if(!ref||!Array.isArray(local?.events)||!Number.isFinite(stamp(ref.generated))||!Number.isFinite(stamp(local.generated_at_utc)))throw Error("Source invalide");
