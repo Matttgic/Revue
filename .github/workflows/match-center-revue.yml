@@ -14,6 +14,8 @@ on:
       - 'outils/match_center_revue.py'
       - 'outils/phase10_modeles_multisports.py'
       - 'outils/phase10_validation_prospective.py'
+      - 'outils/phase12_official_finals.py'
+      - 'tests/test_phase12_official_finals.py'
       - 'tests/test_phase10_modeles_multisports.py'
       - 'tests/test_phase10_validation_prospective.py'
       - 'tests/test_phase10_modeles_site.py'
@@ -46,6 +48,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_phase10_modeles_multisports.py' -v
           python -m unittest discover -s tests -p 'test_phase10_validation_prospective.py' -v
+          python -m unittest discover -s tests -p 'test_phase12_official_finals.py' -v
           python -m unittest discover -s tests -p 'test_phase10_modeles_site.py' -v
           python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
           python -m unittest discover -s tests -p 'test_scoreboard_revue.py' -v
@@ -66,10 +69,14 @@ jobs:
             python -m outils.phase10_modeles_multisports
             python -m outils.match_center_revue
             python -m outils.prospectif_multisports_revue
+            # Only download official finals for previously frozen due games,
+            # including those outside the standard short ESPN scoreboard window.
+            python -m outils.phase12_official_finals
             python -m outils.phase10_validation_prospective
             python -m outils.revue_match_dossiers
             git add docs/match-center-latest.json docs/multisport-prospective-ledger.json docs/multisport-prospective-performance.json docs/match-dossiers-latest.json
             git add docs/phase10-modeles-multisports-latest.json docs/phase10-modeles-prospectif-ledger.json docs/phase10-modeles-performance.json
+            git add docs/phase12-official-finals-latest.json docs/phase12-reconciliation-latest.json
             if test -f docs/scoreboard-revue-latest.json; then git add docs/scoreboard-revue-latest.json; fi
             if git diff --cached --quiet; then
               echo "No match-center change"
