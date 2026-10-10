@@ -137,9 +137,9 @@ class TemporalIntegrityTest(unittest.TestCase):
                   "--output",str(folder/"forecast.json"),
                   "--ledger",str(folder/"ledger.json"),
                   "--performance",str(folder/"performance.json")]
-            with patch.object(runner,"datetime",ControlledClock), \\
-                 patch.object(runner,"download_season",side_effect=[[],schedule]) as downloads, \\
-                 patch.object(sys,"argv",args):
+            with (patch.object(runner,"datetime",ControlledClock),
+                  patch.object(runner,"download_season",side_effect=[[],schedule]) as downloads,
+                  patch.object(sys,"argv",args)):
                 runner.main()
             self.assertEqual(downloads.call_count,2)
             forecast=json.loads((folder/"forecast.json").read_text(encoding="utf-8"))
