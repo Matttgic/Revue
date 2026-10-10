@@ -1,0 +1,112 @@
+<!doctype html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b19">
+<title>Phase 1 · Fidélité NHL | Revue Arcade</title>
+<meta name="description" content="Comparaison auditée du modèle NHL Clairvoyance et Revue : formules identiques, données publiques, gardiens et différences restantes.">
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+main{max-width:1080px!important;margin:auto!important;padding:32px 16px 85px!important}
+header h1{font:900 clamp(36px,7vw,65px)/1 'Chakra Petch',sans-serif;margin:14px 0;letter-spacing:-.05em}
+header h1 span{color:#78f4df}
+.lead{color:#bcd2e2;font-size:13px;line-height:1.8;max-width:770px}
+.notice{border-left:4px solid #e8b780;padding:16px;background:#2a283b;color:#f0dcc8;font-size:12px;line-height:1.75;margin:20px 0}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:22px 0}
+.card{padding:17px;border:1px solid #3b5e6d;border-radius:13px;background:linear-gradient(155deg,#182f48,#101b31)}
+.card small{color:#b6cfdb;font:700 11px 'Chakra Petch',sans-serif}
+.card strong{display:block;color:#79f2dc;font:800 clamp(25px,5vw,38px) 'Chakra Petch',sans-serif;margin:9px 0}
+.card p{font-size:11px;color:#a6bdce}
+h2{font:800 clamp(22px,4vw,33px) 'Chakra Petch',sans-serif;margin:30px 0 15px}
+.report{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.rule{border:1px solid #3a526c;border-radius:12px;padding:17px;background:#17293e}
+.rule strong{font:800 13px/1.4 'Chakra Petch',sans-serif;display:block}
+.rule p{font-size:12px;line-height:1.7;color:#c0d3e1}
+.flag{color:#f3cc9c;font:800 10px 'Chakra Petch',sans-serif;letter-spacing:.08em;margin-bottom:7px}
+.flag.ok{color:#73efd5}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin:27px 0}
+#status{font-size:12px;color:#a3d0dc}
+@media(max-width:680px){.report{grid-template-columns:1fr}.summary{grid-template-columns:1fr 1fr}.summary .card:last-child{grid-column:span 2}}
+</style></head><body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav>
+</div></div>
+<main><header><span class="arc-eyebrow">REVUE / REPRODUCTION CLAIRVOYANCE / PHASE 1</span>
+<h1>FIDÉLITÉ <span>NHL.</span></h1>
+<p class="lead">Comparaison explicite des calculs, des rencontres, des vrais gardiens annoncés et des probabilités publiées. Un même résultat mathématique sur des entrées de test ne signifie pas que deux modèles disposent des mêmes données réelles.</p></header>
+<div class="notice"><strong>Ne pas confondre couverture et clone terminé :</strong> le nombre de contrôles réussis ne mesure pas la rentabilité ni un pourcentage global de reproduction. L’Elo SQL original dépend du règlement de paris moneyline dans la base privée Clairvoyance. Une reconstruction à partir de tous les scores NHL serait une autre méthode.</div>
+<p id="status" role="status" aria-live="polite">Vérification de l'audit de source…</p>
+<div class="summary">
+<div class="card"><small>Contrôles documentés</small><strong id="gates">—</strong><p>Contrôles binaires, pas une note de progression</p></div>
+<div class="card"><small>Formules ciblées identiques</small><strong id="formulas">—</strong><p>Égalité sur entrées identiques</p></div>
+<div class="card"><small>Gardiens publics identiques</small><strong id="goalies">—</strong><p>Noms de gardiens, pas SQL ni titularisations garanties</p></div>
+<div class="card"><small>Matchs NHL xG identiques</small><strong id="xg">—</strong><p>MoneyPuck 5 contre 5 vérifié</p></div>
+<div class="card"><small>Écart moyen de probabilité</small><strong id="gap">—</strong><p>Points de pourcentage, 8 moneylines observées</p></div>
+<div class="card"><small>Événements NHL évalués</small><strong id="settled">—</strong><p>Monte-Carlo et Ensemble, score officiel</p></div>
+</div>
+<h2>Contrôles de fidélité</h2>
+<div id="checks" class="report" aria-live="polite"></div>
+<h2>Ce qui manque pour l'identité complète</h2>
+<div id="remaining" class="report" aria-live="polite"></div>
+<div class="links">
+<a class="arc-btn" href="./index.html">← ACCUEIL ARCADE</a>
+<a class="arc-btn" href="./phase1-nhl-fidelity.json">AUDIT COMPLET ↗</a>
+<a class="arc-btn" href="./parite-nhl-gardiens-publics.json">MATCHS / GARDIENS ↗</a>
+<a class="arc-btn" href="./clairvoyance-elo-source-audit.json">SOURCE ELO ↗</a>
+<a class="arc-btn" href="./bilan.html">SUIVI DES MODÈLES ↗</a>
+</div>
+</main><script>
+"use strict";
+const $=x=>document.getElementById(x);
+const create=(tag,txt,cls)=>{const n=document.createElement(tag);if(txt!==undefined)n.textContent=String(txt);if(cls)n.className=cls;return n};
+const labels={
+public_nhl_goalie_names_cross_source_identity:"Gardiens ESPN · noms publics",
+public_formula_subset_same_input_parity:"Formules · mêmes entrées",
+public_nhl_fixture_and_xg_alignment:"Matchs et xG publics",
+source_elo_update_algorithm:"Règle source des mises à jour Elo",
+original_elo_sql_state_and_settlement_history:"Elo SQL et règlements originaux",
+same_as_original_licensed_or_private_inputs:"Mêmes données privées / premium",
+original_published_model_identity:"Identification du modèle publié",
+identical_published_probabilities:"Probabilités identiques",
+prospective_nhl_100_outcomes_for_initial_quality:"Échantillon NHL prospectif suffisant",
+};
+const val=x=>typeof x==="number"&&Number.isFinite(x)?x:"—";
+(async()=>{
+try{
+const r=await fetch("./phase1-nhl-fidelity.json",{cache:"no-store"});
+if(!r.ok)throw Error("audit absent");
+const j=await r.json();
+const age=Date.now()-Date.parse(j.generated_at_utc);
+if(j.version!=="revue_clairvoyance_nhl_phase1_acceptance_v1"||
+ !j.acceptance_gates||!Array.isArray(j.remaining_requirements)||
+ j.real_bets_enabled!==false||
+ j.phase1_completion_is_not_functional_coverage_percent!==true||
+ !Number.isFinite(age)||age< -120000||age>48*3600000)throw Error("audit ancien, incohérent ou non vérifié");
+const c=j.checkpoint;const passed=Object.values(j.acceptance_gates).filter(Boolean).length;
+$("status").textContent="Audit exécuté le "+new Date(j.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})+
+ (j.phase1_completed?" · identité vérifiée":" · reproduction partielle, accès source requis");
+$("gates").textContent=passed+" / "+Object.keys(j.acceptance_gates).length;
+$("formulas").textContent=val(c.verified_target_formulas)+" / "+val(c.targeted_formula_total);
+$("goalies").textContent=val(c.public_original_nhl_goalie_names_equal)+" / "+(2*val(c.public_original_nhl_goalie_matched_games));
+$("xg").textContent=val(c.identical_public_5v5_xg_nhl_games);
+$("gap").textContent=typeof c.published_nhl_moneyline_mean_gap_pp==="number"?
+ c.published_nhl_moneyline_mean_gap_pp.toLocaleString("fr-FR")+" pp":"—";
+$("settled").textContent=val(c.prospective_frontend_settled_games);
+for(const [key,ok] of Object.entries(j.acceptance_gates)){
+ const box=create("article",undefined,"rule");
+ box.append(create("div",ok?"VÉRIFIÉ":"NON DÉMONTRÉ","flag"+(ok?" ok":"")));
+ box.append(create("strong",labels[key]||key));
+ $("checks").append(box);
+}
+if(!j.remaining_requirements.length)$("remaining").append(create("p","Tous les contrôles documentés sont validés."));
+for(const x of j.remaining_requirements){
+ const box=create("article",undefined,"rule");
+ box.append(create("strong",labels[x.gate]||x.gate));
+ box.append(create("p",x.why));
+ $("remaining").append(box);
+}
+}catch(e){
+$("status").textContent="Audit indisponible ou non actualisé : "+e.message;
+$("checks").append(create("p","Aucune fidélité à l'original affirmée sans preuve source.","lead"));
+}
+})();
+</script></body></html>
