@@ -109,6 +109,31 @@ class ArcadeV3Tests(unittest.TestCase):
         self.assertFalse(r["risk_flags"]["claim_guaranteed_profit"])
         self.assertEqual(r["risk_flags"]["paid_api_calls_for_this_audit"],0)
 
+    def test_phase3_bilan_keeps_frozen_model_evidence_separate_from_paper_money(self):
+        bilan=(DOCS/"bilan.html").read_text(encoding="utf8")
+        app=(DOCS/"arcade-v3-app.js").read_text(encoding="utf8")
+        view=(DOCS/"phase3-bilan.js").read_text(encoding="utf8")
+        core=(DOCS/"arcade-v3-data.js").read_text(encoding="utf8")
+        page=Links();page.feed(HTML)
+        for anchor in ("v3-owned-locked","v3-owned-settled",
+                       "v3-owned-elo","v3-owned-status"):
+            self.assertIn(anchor,page.anchors)
+        self.assertIn("./historique-phase2.html",page.refs)
+        self.assertIn('id="phase3-owned-models"',bilan)
+        self.assertIn("./phase3-bilan.js?v=1",bilan)
+        self.assertIn("./arcade-v3-data.js?v=1",bilan)
+        self.assertIn("window.RevueArcadeV3.ownedSnapshot",view)
+        self.assertIn("models_calibrated!==false",view)
+        self.assertIn("roi_computed",core)
+        self.assertIn("phase2-owned-ledger.json",app)
+        self.assertIn("phase2-owned-performance.json",app)
+        self.assertIn('if(e.owned){',app)
+        self.assertNotIn("innerHTML",view)
+        self.assertNotIn("innerHTML",app)
+        for f in ("arcade-v3-data.js","arcade-v3-app.js","phase3-bilan.js"):
+            p=subprocess.run(["node","--check",str(DOCS/f)],capture_output=True,text=True)
+            self.assertEqual(p.returncode,0,f+":"+p.stderr)
+
     def test_node_scripts_parse_and_static_data_available(self):
         for file in ("arcade-v3-data.js","arcade-v3-app.js"):
             proc=subprocess.run(["node","--check",str(DOCS/file)],capture_output=True,text=True)
