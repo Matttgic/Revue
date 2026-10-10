@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-10T01:25:26.774908+00:00",
+  "generated_at_utc": "2026-10-10T01:28:13.594601+00:00",
   "model": "nhl_clairvoyance_moneypuck_shadow_v1",
   "locked_events": 18,
   "pending": 18,
@@ -7,10 +7,18 @@
   "min_results_for_preliminary_assessment": 100,
   "statistical_status": "insufficient_sample",
   "mean_brier": null,
+  "mean_logloss": null,
+  "coinflip_baseline_brier": 0.25,
+  "coinflip_baseline_logloss": 0.693147,
+  "brier_skill_vs_coinflip": null,
   "research_paired_locked": 0,
   "research_paired_settled": 0,
   "mean_brier_reference_on_paired": null,
   "mean_brier_research": null,
+  "mean_logloss_reference_on_paired": null,
+  "mean_logloss_research": null,
+  "logloss_delta_research_minus_reference": null,
+  "research_brier_skill_vs_coinflip_paired": null,
   "brier_delta_research_minus_reference": null,
   "research_status": "experimental_not_promoted",
   "home_win_rate_observed": null,
@@ -18,5 +26,5 @@
   "roi": null,
   "staked_units": 0,
   "cash_bets": 0,
-  "note": "No odds, stakes or profitable-claim basis. Lower Brier is better. Research-vs-reference comparison only on same prospective events with both frozen probabilities."
+  "note": "Experimental evaluation without ROI. Lower Brier/Log Loss is better. A fixed p=0.5 baseline scores Brier 0.25 and Log Loss ln(2). Paired comparison uses only identical events with both predictions frozen before kickoff."
 }
