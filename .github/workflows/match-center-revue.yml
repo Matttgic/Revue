@@ -6,7 +6,9 @@ on:
   push:
     paths:
       - 'outils/match_center_revue.py'
+      - 'outils/scoreboard_revue.py'
       - 'tests/test_match_center_revue.py'
+      - 'tests/test_scoreboard_revue.py'
       - '.github/workflows/match-center-revue.yml'
 permissions:
   contents: write
@@ -25,7 +27,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test model/market joins, missing data and regulatory filters
-        run: python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
+        run: |
+          python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
+          python -m unittest discover -s tests -p 'test_scoreboard_revue.py' -v
       - name: Recompute upcoming board against newest saved real feeds
         run: |
           git config user.name "github-actions[bot]"
@@ -33,8 +37,12 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
+            # Public scoreboards are best effort; a failing sports provider
+            # must not block a fresh bookmakers/model dashboard.
+            python -m outils.scoreboard_revue || echo 'Score source unavailable; no stale scores will be shown'
             python -m outils.match_center_revue
             git add docs/match-center-latest.json
+            if test -f docs/scoreboard-revue-latest.json; then git add docs/scoreboard-revue-latest.json; fi
             if git diff --cached --quiet; then
               echo "No match-center change"
               exit 0
