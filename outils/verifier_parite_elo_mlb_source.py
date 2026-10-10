@@ -8,13 +8,17 @@ does NOT establish equality of original SQL ratings or training history.
 from __future__ import annotations
 
 import argparse
+import asyncio
 import ast
 from datetime import datetime,timezone
 import json
 import hashlib
 from pathlib import Path
 import subprocess
+from types import SimpleNamespace
 
+from modeles.reproduction.clairvoyance_predictor import Game,mlb
+from outils.verifier_parite_clairvoyance import reference_functions
 from api_revue.mlb_elo import replay_mlb_elo,expected_score,update_winner_loser
 
 
@@ -43,9 +47,11 @@ def reference_elo(path:Path):
 
 def compare_original(reference:Path,history:dict,as_of:datetime)->dict:
     original=reference_elo(reference)
+    predictor=reference_functions(reference)
     replay=replay_mlb_elo(history,as_of)
     lookup={str(e["id"]):e for e in history["leagues"]["MLB"]["events"]}
     checked=0
+    matched_prediction_outputs=0
     for trace in replay["trace"]:
         game=lookup[trace["espn_id"]]
         hr,ar=trace["before_home_elo"],trace["before_away_elo"]
@@ -62,6 +68,20 @@ def compare_original(reference:Path,history:dict,as_of:datetime)->dict:
             after=(trace["after_away_elo"],trace["after_home_elo"])
         if not (want==got==after):
             raise AssertionError(f"Original/Revue full Elo update mismatch: {trace['espn_id']}")
+        # Compare the entire response to the original predictor functions
+        # on real fixtures but independently generated pregame Elo priors.
+        g=Game(str(trace["espn_id"]),trace["home"],trace["away"],
+               game_date=trace["kickoff_utc"][:10],
+               game_time_utc=trace["kickoff_utc"])
+        db=SimpleNamespace(
+            elos={("mlb",trace["home"]):hr,("mlb",trace["away"]):ar},
+            xg={},goalies={},
+        )
+        expected=asyncio.run(predictor["predict_mlb_game"](g,db))
+        actual=mlb(g,hr,ar)
+        if expected!=actual:
+            raise AssertionError(f"Full original/Revue MLB predictor parity mismatch {trace['espn_id']}")
+        matched_prediction_outputs+=1
         checked+=1
     commit=subprocess.check_output(["git","-C",str(reference),"rev-parse","HEAD"],text=True).strip()
     return {
@@ -72,6 +92,9 @@ def compare_original(reference:Path,history:dict,as_of:datetime)->dict:
         "historical_mlb_final_games_checked":checked,
         "elo_expected_probability_checks":checked*2,
         "exact_update_equal_to_original":checked,
+        "mlb_original_predictor_sha256":hashlib.sha256((reference/"app/services/predictor.py").read_bytes()).hexdigest(),
+        "same_input_full_prediction_objects_equal":matched_prediction_outputs,
+        "predictions_are_historical_equality_tests_not_pregame_bets":True,
         "teams":replay["teams_count"],
         "default_elo":original["DEFAULT_RATING"],
         "k_factor":original["K_FACTOR"],
