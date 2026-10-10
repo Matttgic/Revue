@@ -1,5 +1,5 @@
 /* REVUE Arcade V3 public renderer: WHAT -> WHY -> PAPER RESULTS.
- * No innerHTML, real offer, mocked probability, or fabricated bookmaker EV.
+ * Only DOM text nodes; no real offers, invented probabilities, or bookmaker EV.
  */
 "use strict";
 (function(){
