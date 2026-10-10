@@ -47,7 +47,7 @@ function vmFn(source, names, env) {
 }
 
 let checks = 0;
-const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
+const counts = { frontend_nba_elo_probability: 0, frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
                  frontend_soccer_market_blend: 0, frontend_soccer_mc: 0,
                  frontend_nba_mc: 0, frontend_nba_ensemble: 0,
                  frontend_nfl_mc: 0, frontend_nfl_ensemble: 0,
@@ -119,6 +119,18 @@ function verify(source) {
       reference.nbaGetBayes(x.abbr),
       own.nbaGetBayes(x.abbr, { teams:x.teams,standings:x.standing,
                                 ratings:x.rating,ledger:x.ledger }));
+  }
+
+  // Original function: nbaEloWP(eA,eB). Confirm exact IEEE-754 behavior.
+  // This is a probability transform, NOT an independently invented Elo model.
+  const refNbaElo=vmFn(source,["nbaEloWP"],{});
+  for (const [i,[a,b]] of [
+    [1550,1550],[1600,1450],[1300,1800],[1800,1300],
+    [1459.5,1460.75],[2100,600],[600,2100],
+    [-100,100],[0,0],[3400,3400],[1560,1480],[1480,1560]
+  ].entries()){
+    compare("NBA Elo "+i,"frontend_nba_elo_probability",
+      refNbaElo.nbaEloWP(a,b), own.nbaEloWinProbability(a,b));
   }
 
   const nflCases = [
