@@ -192,14 +192,23 @@ def main() -> None:
     parser.add_argument("--performance",default="docs/nhl-shadow-performance.json")
     parser.add_argument("--days",type=int,default=3)
     args=parser.parse_args()
-    now=datetime.now(timezone.utc)
-    target=now.astimezone(PARIS).date()
-    season=season_code(target)
+    # The as-of timestamp MUST be taken *after* all external NHL API reads.
+    # Otherwise a game that finishes during a slow download can appear as a
+    # final result before the purported prediction timestamp (look-ahead).
+    initial_date=datetime.now(PARIS).date()
+    season=season_code(initial_date)
     t=json.loads(Path(args.teams).read_text(encoding="utf-8"))
     g=json.loads(Path(args.goalies).read_text(encoding="utf-8"))
     previous=download_season(prev_season(season))
     current=download_season(season)
+    now=datetime.now(timezone.utc)
+    target=now.astimezone(PARIS).date()
+    if season_code(target)!=season:
+        raise RuntimeError("Season changed during NHL download; retry with new fixtures")
+    from outils.nhl_point_in_time_audit import verify_point_in_time
+    evidence=verify_point_in_time(t,g,current,now,season)
     report=predict_shadow(previous,current,t,g,now,target,args.days)
+    report["point_in_time_audit"]=evidence
     outfile=Path(args.output)
     outfile.parent.mkdir(parents=True,exist_ok=True)
     outfile.write_text(json.dumps(report,ensure_ascii=False,indent=2,allow_nan=False)+"\n",
