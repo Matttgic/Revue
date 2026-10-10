@@ -1,25 +1,10 @@
 {
-  "generated_at_utc": "2026-10-09T21:56:11.612296+00:00",
+  "generated_at_utc": "2026-10-10T02:38:09.075017+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401908940",
-          "league": "NBA",
-          "home": "Bulls",
-          "away": "Grizzlies",
-          "start_utc": "2026-10-10T00:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 1,
-            "away": 2
-          },
-          "probabilities": null,
-          "odds": null
-        },
         {
           "event_id": "401902645",
           "league": "NBA",
@@ -199,6 +184,66 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401898402",
+          "league": "NBA",
+          "home": "Hawks",
+          "away": "Thunder",
+          "start_utc": "2026-10-12T23:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 2,
+            "away": 2
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401901824",
+          "league": "NBA",
+          "home": "Wizards",
+          "away": "Nets",
+          "start_utc": "2026-10-12T23:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 1,
+            "away": 2
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401914124",
+          "league": "NBA",
+          "home": "Knicks",
+          "away": "Timberwolves",
+          "start_utc": "2026-10-12T23:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 2,
+            "away": 2
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401898721",
+          "league": "NBA",
+          "home": "Jazz",
+          "away": "Spurs",
+          "start_utc": "2026-10-13T01:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 2,
+            "away": 1
+          },
+          "probabilities": null,
+          "odds": null
         }
       ],
       "evaluation": {
@@ -208,54 +253,6 @@
     },
     "WNBA": {
       "games": [
-        {
-          "event_id": "401918299",
-          "league": "WNBA",
-          "home": "Liberty",
-          "away": "Dream",
-          "start_utc": "2026-10-09T23:30:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 10,
-            "away": 10
-          },
-          "probabilities": {
-            "home_win": 0.45811,
-            "away_win": 0.54189
-          },
-          "odds": null,
-          "expected_margin_home": -1.399,
-          "components": {
-            "elo_probability": 0.4632,
-            "margin_probability": 0.4494,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401918300",
-          "league": "WNBA",
-          "home": "Aces",
-          "away": "Valkyries",
-          "start_utc": "2026-10-10T01:30:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 10,
-            "away": 12
-          },
-          "probabilities": {
-            "home_win": 0.51652,
-            "away_win": 0.48348
-          },
-          "odds": null,
-          "expected_margin_home": 0.57,
-          "components": {
-            "elo_probability": 0.5141,
-            "margin_probability": 0.5207,
-            "last_games_form": 5
-          }
-        },
         {
           "event_id": "401918301",
           "league": "WNBA",
@@ -306,17 +303,17 @@
         }
       ],
       "evaluation": {
-        "n": 8,
+        "n": 9,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.1889,
-          "logloss_binary": 0.56903
+          "brier_binary": 0.19123,
+          "logloss_binary": 0.57388
         },
         "baseline": {
-          "brier_binary": 0.18048,
-          "logloss_binary": 0.55138
+          "brier_binary": 0.18398,
+          "logloss_binary": 0.55866
         },
-        "brier_delta_candidate_minus_baseline": 0.00842,
+        "brier_delta_candidate_minus_baseline": 0.00725,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -640,6 +637,30 @@
             "margin_probability": 0.4816,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401872994",
+          "league": "NFL",
+          "home": "Rams",
+          "away": "Bills",
+          "start_utc": "2026-10-13T00:15:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 7,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win": 0.52501,
+            "away_win": 0.47499
+          },
+          "odds": null,
+          "expected_margin_home": 0.426,
+          "components": {
+            "elo_probability": 0.532,
+            "margin_probability": 0.5131,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
@@ -730,6 +751,21 @@
             "margin_probability": 0.5079,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401908023",
+          "league": "MLB",
+          "home": "Rays",
+          "away": "CLE/CHW",
+          "start_utc": "2026-10-13T00:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 22,
+            "away": 0
+          },
+          "probabilities": null,
+          "odds": null
         }
       ],
       "evaluation": {
