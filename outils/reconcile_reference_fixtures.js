@@ -4,6 +4,16 @@ const REFERENCE="https://raw.githubusercontent.com/Purple-Wraith/clairvoyance-ba
 const sports=["nhl","nba","mlb"];
 function stamp(s){if(typeof s!=="string"||!/(Z|[+-]\d\d:\d\d)$/.test(s))return NaN;return Date.parse(s);}
 function id(x){return String(x??"").toUpperCase().replace(/[^A-Z0-9]/g,"");}
+const NBA_ALIASES=Object.freeze({
+ HAWKS:"ATL",CELTICS:"BOS",NETS:"BKN",HORNETS:"CHA",BULLS:"CHI",
+ CAVALIERS:"CLE",MAVERICKS:"DAL",NUGGETS:"DEN",PISTONS:"DET",
+ WARRIORS:"GS",ROCKETS:"HOU",PACERS:"IND",CLIPPERS:"LAC",
+ LAKERS:"LAL",GRIZZLIES:"MEM",HEAT:"MIA",BUCKS:"MIL",
+ TIMBERWOLVES:"MIN",PELICANS:"NO",KNICKS:"NY",THUNDER:"OKC",
+ MAGIC:"ORL","76ERS":"PHI",SUNS:"PHX","TRAILBLAZERS":"POR",
+ KINGS:"SAC",SPURS:"SA",RAPTORS:"TOR",JAZZ:"UTAH",WIZARDS:"WSH"
+});
+function team(s,league){const k=id(s);return league==="NBA"?(NBA_ALIASES[k]||k):k;}
 function reconcile(ref,local,now=Date.now()){
  if(!ref||!Array.isArray(local?.events)||!Number.isFinite(stamp(ref.generated))||!Number.isFinite(stamp(local.generated_at_utc)))throw Error("Source invalide");
  if(stamp(ref.generated)>now+120000||stamp(local.generated_at_utc)>now+120000)throw Error("Future data");
@@ -16,7 +26,7 @@ function reconcile(ref,local,now=Date.now()){
    if(e.id==null||!Number.isFinite(stamp(e.date)))continue;
    const key=String(e.id);
    const existing=candidates.get(key);
-   if(existing&&(id(existing.home)!==id(e.home)||id(existing.away)!==id(e.away)||stamp(existing.date)!==stamp(e.date)))throw Error("Contradictory upstream event");
+   if(existing&&(team(existing.home,l)!==team(e.home,l)||team(existing.away,l)!==team(e.away,l)||stamp(existing.date)!==stamp(e.date)))throw Error("Contradictory upstream event");
    candidates.set(key,e);
   }
   let matched=0,disagreements=0,overlap=0;
@@ -25,7 +35,7 @@ function reconcile(ref,local,now=Date.now()){
    const k=String(e.event_id);if(seen.has(k))throw Error("Duplicate local id");seen.add(k);
    const source=candidates.get(k);if(!source)continue;
    overlap++;
-   const names=id(source.home)===id(e.home)&&id(source.away)===id(e.away);
+   const names=team(source.home,l)===team(e.home,l)&&team(source.away,l)===team(e.away,l);
    const time=Number.isFinite(stamp(e.start_utc))&&Math.abs(stamp(source.date)-stamp(e.start_utc))<=60000;
    const same=names&&time;if(same)matched++;else disagreements++;
    matches.push({league:l,event_id:k,teams_equal:names,time_equal:time,
