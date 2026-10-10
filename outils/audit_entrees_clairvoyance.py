@@ -28,6 +28,7 @@ def check(root:Path,now:datetime)->dict:
     parser=json_read(root,"parite-clairvoyance-espn-nba.json")
     sport=json_read(root,"football-espn-team-features.json")
     scanner=json_read(root,"engine-v2-latest.json")
+    nhl_parser=json_read(root,"parite-clairvoyance-moneypuck-parser.json")
     rates=advanced.get("teamRatings") or {}
     teams=rates.get("teams") or {}
     teams=teams if isinstance(teams,dict) else {}
@@ -59,6 +60,11 @@ def check(root:Path,now:datetime)->dict:
             "warning":"Do not substitute preseason standings or prior ratings for current advanced stats"},
         "nhl_moneypuck":{
             "status":"unverified_live_inputs",
+            "parser_parity_verified":(
+                nhl_parser.get("status")=="moneypuck_csv_parser_exact_parity_verified"
+                and nhl_parser.get("exact_equality_tests_passed",0)>=200),
+            "parser_equality_checks":nhl_parser.get("exact_equality_tests_passed",0),
+            "data_use_terms":"Non-commercial + attribution, otherwise ask MoneyPuck for permission",
             "source":"Original references MoneyPuck 5on5; Revue has no independently verified matching game-time feed",
             "warning":"A NHL simulation or skater table is not a matched MoneyPuck dataset"},
         "nhl_goalies":{
