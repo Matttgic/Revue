@@ -175,11 +175,29 @@ def build():
                 "matched":1,"unmatched":0,
                 "mappings":[{"nhl_game_id":"2026020070","original_espn_id":"401892469"}],
             }))
+            _write(source,"docs/nhl_schedule.json",json.dumps({
+                "games":[{"id":"401892469","home":"BOS","away":"PHI",
+                          "date":NOW.isoformat()}],
+            }))
+            pair_file=target/"docs/parite-nhl-espn-id-map.json"
+            pair=json.loads(pair_file.read_text())
+            pair["mappings"][0].update(home="BOS",away="PHI",start_utc=NOW.isoformat())
+            _write(target,"docs/parite-nhl-espn-id-map.json",json.dumps(pair))
             with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v1"):
                 report=strict_report(source,target,NOW)
                 self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],1)
+                self.assertTrue(report["nhl_fixture_identity"]["verified_source_revision"])
                 self.assertFalse(report["nhl_fixture_identity"]["all_source_data_equal"])
                 self.assertIsNone(report["exact_reproduction_percent"])
+            with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v2"):
+                report=strict_report(source,target,NOW)
+                self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],1)
+                self.assertFalse(report["nhl_fixture_identity"]["verified_source_revision"])
+                self.assertTrue(report["nhl_fixture_identity"]["verified_against_current_source_schedule"])
+            _write(source,"docs/nhl_schedule.json",json.dumps({
+                "games":[{"id":"401892469","home":"COL","away":"PHI",
+                          "date":NOW.isoformat()}],
+            }))
             with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v2"):
                 report=strict_report(source,target,NOW)
                 self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],0)
