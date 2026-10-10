@@ -351,6 +351,14 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
         elo_audit.get("exact_update_equal_to_original")==elo_audit["historical_mlb_final_games_checked"] and
         elo_audit.get("original_clairvoyance_sql_rating_parity")=="NOT_VERIFIED"
     )
+    original_predictor_hash=sha256(reference/"app/services/predictor.py")
+    mlb_full_predictor_verified=bool(
+        elo_verified and original_predictor_hash and
+        elo_audit.get("mlb_original_predictor_sha256")==original_predictor_hash and
+        elo_audit.get("same_input_full_prediction_objects_equal") ==
+          elo_audit.get("historical_mlb_final_games_checked") and
+        elo_audit.get("predictions_are_historical_equality_tests_not_pregame_bets") is True
+    )
     checked = model.get("verified_formula_parity_models")
     target_count = model.get("total_target_models")
     if not (type(checked) is int and type(target_count) is int and
@@ -454,6 +462,9 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "source_formula_unchanged_since_test":elo_verified,
             "replayed_espn_final_games":elo_audit["historical_mlb_final_games_checked"] if elo_verified else 0,
             "exact_update_results":elo_audit["exact_update_equal_to_original"] if elo_verified else 0,
+            "historical_same_input_full_predictor_outputs_equal":elo_audit["same_input_full_prediction_objects_equal"] if mlb_full_predictor_verified else 0,
+            "historical_full_predictor_evidence_current":mlb_full_predictor_verified,
+            "these_were_not_prospective_locked_predictions":True,
             "mlb_teams_in_history":elo_audit.get("teams",0) if elo_verified else 0,
             "original_database_elo_ratings_equal":False,
             "original_complete_training_history_equal":False,
