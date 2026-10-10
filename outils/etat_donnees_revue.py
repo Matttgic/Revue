@@ -24,12 +24,15 @@ FILES = {
     "nhl_moneypuck":"moneypuck-nhl-latest.json",
     "nhl_gardiens":"moneypuck-goalies-latest.json",
     "nhl_frontend":"nhl-frontend-observed-latest.json",
+    "nhl_espgardiens":"nhl-espn-goalies-latest.json",
+    "nhl_modeles_suivis":"nhl-frontend-prospective-performance.json",
     "reglements":"paper-score-settlement-latest.json",
 }
 AGE_LIMIT_HOURS = {
     "calendrier":8,"matchs":3,"cotes":7,"resultats":3,
     "journal":3,"selection":3,"nhl_stats":30,
     "nhl_moneypuck":48,"nhl_gardiens":48,"nhl_frontend":24,
+    "nhl_espgardiens":8,"nhl_modeles_suivis":12,
     "reglements":3,
 }
 EXPECTED_STATUS = {
@@ -39,6 +42,8 @@ EXPECTED_STATUS = {
     "selection":"revue_independent_picks_hub_static_research_paper_only",
     "nhl_stats":"verified_nhl_official_stats_snapshot",
     "nhl_frontend":"prospective_research_partial_input_frontend_not_parity",
+    "nhl_espgardiens":"espn_probable_goalies_observed_not_part_of_model",
+    "nhl_modeles_suivis":"prospective_partial_input_nhl_comparison_no_bets",
     "reglements":"verified_paper_scoreboard_settlement_only",
 }
 EXPECTED_ODDS = {"active_pulsescore","active_the_odds_api","no_odds_returned",
@@ -77,6 +82,13 @@ def layer(name,doc,now):
         valid=doc.get("source")=="MoneyPuck.com" and doc.get("is_live") is False
     if name=="nhl_frontend":
         valid=valid and doc.get("real_bets_enabled") is False and doc.get("odds_and_value_bets_enabled") is False
+    if name=="nhl_espgardiens":
+        valid=valid and doc.get("used_in_prediction_model") is False and (
+            doc.get("source")=="ESPN NHL scoreboard, separate from official NHL IDs"
+            and doc.get("real_bets_enabled") is False)
+    if name=="nhl_modeles_suivis":
+        valid=valid and doc.get("real_bets_enabled") is False and (
+            doc.get("roi") is None and doc.get("same_game_comparison") is True)
     if name=="reglements":
         valid=valid and doc.get("no_bets_created") is True
     if name=="resultats":
@@ -99,6 +111,8 @@ def report(documents:dict,now:datetime)->dict:
     journal=d("journal") or {}
     nhl=d("nhl_frontend") or {}
     picks=d("selection") or {}
+    goalie_reports=d("nhl_espgardiens") or {}
+    comparison=d("nhl_modeles_suivis") or {}
     data={
         "matchs_futurs_observes":int(matches.get("metrics",{}).get("upcoming_matches") or 0),
         "matchs_avec_cotes_historiques":int(matches.get("metrics",{}).get("with_observed_bookmaker_quotes") or 0),
@@ -116,6 +130,10 @@ def report(documents:dict,now:datetime)->dict:
         "simulations_roi_fictif_pct":journal.get("summary",{}).get("paper_roi_pct"),
         "selection_experimentale":int(picks.get("unique_research_selections") or 0),
         "nhl_frontend_previsions":int(nhl.get("games_emitted") or 0),
+        "nhl_espgardiens_confirms":int(goalie_reports.get("verified_current_starters") or 0),
+        "nhl_espgardiens_probables":int(goalie_reports.get("projected_starters") or 0),
+        "nhl_modeles_pronostics_verrouilles":int(comparison.get("locked_games") or 0),
+        "nhl_modeles_resultats_verifies":int(comparison.get("settled_games") or 0),
         "bookmakers_fr_declares":len(odds.get("bookmakers_fr") or []),
         "cotes_fournisseur":odds.get("odds_status") or "unknown",
     }
