@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#060a14">
+<title>Revue | NHL Clairvoyance — MoneyPuck Shadow</title>
+<meta name="description" content="Comparaison expérimentale de la formule NHL Clairvoyance avec des données réelles MoneyPuck, sans cotes ni promesse de rendement.">
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+*{box-sizing:border-box}
+main{max-width:1170px;margin:0 auto;padding:33px 17px 80px}
+.kicker{font:700 11px 'Chakra Petch',system-ui,sans-serif;letter-spacing:.2em;color:#55f5de}
+h1{font:800 clamp(2.4rem,5.8vw,4.7rem)/.96 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.065em;text-transform:uppercase;color:#edf9ff;margin:15px 0}
+h1 span{color:#55f5de}
+.lead{color:#aabdd4;max-width:740px;font-size:14px;line-height:1.65}
+.intro{border-bottom:1px solid #344763;padding-bottom:24px;margin-bottom:20px}
+.notice{border:1px solid #3f566d;padding:18px 21px;background:linear-gradient(120deg,#152239,#11172b);color:#b6cedc;font-size:13px;line-height:1.7;margin:25px 0}
+.notice strong{color:#e6f7fe}
+.notice a,footer a{color:#55f5de}
+.status{margin:17px 0;color:#a6c5d8;font-size:12px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+.tabs select,.tabs button{background:#12253b;border:1px solid #3d5f75;color:#d0e6f4;padding:12px 14px;min-height:44px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:#55f5de;color:#051b23;border-color:#55f5de;font-weight:800}
+.tabs label{font-size:12px;color:#a6bacb}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:13px}
+.game{border:1px solid #344963;background:linear-gradient(145deg,#14233a,#0b1628);padding:20px;position:relative}
+.game::before{content:"";position:absolute;top:0;left:0;width:70px;height:3px;background:#55f5de}
+.eyebrow{display:flex;justify-content:space-between;gap:8px;color:#82a9c4;font:700 11px monospace}
+.teams{font:800 25px 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.025em;margin:15px 0 17px;color:#f4faff}
+.probs{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.prob{background:#0c1b2d;border:1px solid #30475f;padding:13px 12px}
+.prob .name{font:700 10px monospace;color:#a7bacd}
+.prob strong{display:block;color:#55f5de;font:800 31px 'Chakra Petch',sans-serif;margin-top:5px}
+.track{display:flex;background:#253b53;margin:12px 0;height:7px;overflow:hidden}
+.track span{display:block;background:#55f5de}
+.track span.away{background:#8c9cff}
+.row{display:flex;justify-content:space-between;gap:14px;color:#a9bfce;font-size:12px;padding:7px 0;border-bottom:1px solid #293a51}
+.row strong{color:#e6eff5;text-align:right}
+.sep{padding-top:13px;margin-top:7px;color:#77d5cd;font:700 10px monospace;letter-spacing:.11em}
+.mini{font-size:11px;line-height:1.5;color:#819bb2;margin:10px 0 0}
+.empty{padding:20px;border:1px dashed #39546f;color:#afc5d8}
+footer{font-size:12px;line-height:1.8;color:#829db2;border-top:1px solid #2c4058;margin-top:35px;padding-top:21px}
+@media(max-width:500px){.eyebrow{flex-direction:column}.cards{grid-template-columns:1fr}}
+</style></head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">QG</a>
+<a href="./engine-v2.html">SCANNER</a><a href="./multisports.html">MODÈLES</a>
+<a href="./nhl-joueurs.html" aria-current="page">NHL</a><a href="./football-avance.html">FOOTBALL</a>
+<a href="./qualite-modeles.html">AUDIT</a></nav>
+<span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span>
+</div></div>
+<main>
+<header class="intro"><span class="kicker">REVUE / REPRODUCTION / NHL / 02</span>
+<h1>CLAIRVOYANCE <span>NHL.</span></h1>
+<p class="lead">Formule NHL du moteur source confrontée à de véritables observations MoneyPuck (xG à 5 contre 5 et statistiques historiques des gardiens). Elo construit indépendamment dans Revue.</p></header>
+<section class="notice">
+<strong>Statut : SHADOW — expérimental, sans recommandations de paris.</strong>
+La formule mathématique est vérifiée sur entrées communes ; ce n'est pas une reproduction de la base Elo ni des prédictions finales de Clairvoyance. Les gardiens affichés sont les plus utilisés sur la saison, <strong>pas les titulaires confirmés</strong>. Les petites tailles d'échantillon en début de saison rendent ces probabilités instables. Pas de cotes, pas de validation de rentabilité.
+Données provenant de <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com</a> (usage personnel non commercial avec attribution).</section>
+<div class="tabs">
+<button data-filter="upcoming" aria-pressed="true">À venir</button>
+<button data-filter="all" aria-pressed="false">Tous les matchs du rapport</button>
+<label for="teamFilter">Club</label>
+<select id="teamFilter" aria-label="Filtrer les matchs par équipe"><option value="">Toutes les équipes</option></select>
+</div>
+<p id="status" class="status" role="status" aria-live="polite">Lecture des prédictions vérifiables…</p>
+<section class="cards" id="grid" aria-label="Prédictions expérimentales"></section>
+<p id="empty" class="empty" hidden>Aucun match prévisionnel valide disponible pour la sélection.</p>
+<footer>
+<strong>Provenance :</strong> <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com — données statistiques NHL</a> · <a href="./moneypuck.html">Statistiques xG et GSAx observées</a> ·
+<a href="./nhl-model.html">Modèle indépendant Elo-Poisson</a> ·
+<a href="https://github.com/Matttgic/Revue/blob/main/outils/clairvoyance_nhl_moneypuck_shadow.py">Code de calcul</a> ·
+<a href="https://github.com/Matttgic/Revue/actions/workflows/nhl-clairvoyance-moneypuck-shadow.yml">Exécutions et tests</a>.
+Horaires Europe/Paris. Aucun tarif bookmaker ni résultat futur supposé.
+</footer>
+</main>
+<script>
+"use strict";
+const by=id=>document.getElementById(id);
+const make=(tag,cls,content)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(content!==undefined)e.textContent=content;return e};
+const pct=n=>Number.isFinite(Number(n))?(100*Number(n)).toLocaleString("fr-FR",{minimumFractionDigits:1,maximumFractionDigits:1})+" %":"—";
+let payload=null,filter="upcoming";
+function line(root,title,value){
+ const e=make("div","row");e.append(make("span","",title),make("strong","",value));root.append(e);
+}
+function render(){
+ if(!payload)return;
+ const chosen=by("teamFilter").value,now=Date.now();
+ const all=payload.games||[];
+ const visible=all.filter(g=>(filter==="all"||Date.parse(g.start_utc)>now)&&
+  (!chosen||g.home===chosen||g.away===chosen))
+ .sort((a,b)=>Date.parse(a.start_utc)-Date.parse(b.start_utc));
+ by("grid").replaceChildren();by("empty").hidden=visible.length!==0;
+ const fresh=new Date(payload.generated_at_utc).toLocaleString("fr-FR",
+  {dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
+ const updated=payload.sources?.source_updated_utc?.teams||null;
+ const updatedText=updated?new Date(updated).toLocaleDateString("fr-FR",{dateStyle:"short",timeZone:"Europe/Paris"}):"inconnue";
+ by("status").textContent=visible.length+" matchs · calcul "+fresh+" (Paris) · source MoneyPuck du "+updatedText+" · statut : SHADOW";
+ for(const g of visible){
+  const card=make("article","game");
+  const head=make("div","eyebrow");
+  head.append(make("span","","NHL · "+g.event_id),make("span","",
+    new Date(g.start_utc).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short",timeZone:"Europe/Paris"})));
+  card.append(head,make("h2","teams",g.away+" @ "+g.home));
+  const group=make("div","probs");
+  for(const [team,p] of [[g.home,g.home_win],[g.away,g.away_win]]){
+   const node=make("div","prob");node.append(make("span","name",team),
+    make("strong","",pct(p)));group.append(node);
+  }
+  card.append(group);
+  const bar=make("div","track"),h=make("span"),a=make("span","away");
+  h.style.width=Math.max(0,Math.min(100,g.home_win*100))+"%";
+  a.style.width=Math.max(0,Math.min(100,g.away_win*100))+"%";
+  bar.append(h,a);card.append(bar);
+  card.append(make("div","sep","MONEYPUCK · STATISTIQUES 5V5 OBSERVÉES"));
+  line(card,g.home+" / xG",Number(g.xg_5v5_share_pct?.home||0).toLocaleString("fr-FR",{maximumFractionDigits:1})+" % · "+g.xg_games_observed?.home+" matchs");
+  line(card,g.away+" / xG",Number(g.xg_5v5_share_pct?.away||0).toLocaleString("fr-FR",{maximumFractionDigits:1})+" % · "+g.xg_games_observed?.away+" matchs");
+  card.append(make("div","sep","GARDIENS HISTORIQUES · TITULAIRES INCONNUS"));
+  for(const [name,gk] of [[g.home,g.historical_goalie_proxy?.home],[g.away,g.historical_goalie_proxy?.away]]){
+   line(card,name,gk?gk.name+" · "+gk.games+" matchs · "+pct(gk.save_pct):"Non disponible");
+  }
+  card.append(make("p","mini","Elo : proxy Revue, pas base Clairvoyance · Sans cote bookmaker · Ne pas traiter la probabilité comme une value vérifiée."));
+  by("grid").append(card);
+ }
+}
+async function load(){
+ try{
+  const r=await fetch("./nhl-clairvoyance-shadow-latest.json?fresh="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("Flux Clairvoyance NHL indisponible (HTTP "+r.status+")");
+  const doc=await r.json();
+  if(doc.status!=="experimental_not_calibrated"||doc.confirmed_starters!==false||
+    doc.bookmaker_odds_available!==false||!Array.isArray(doc.games))
+    throw Error("Le rapport ne correspond pas au format SHADOW attendu");
+  payload=doc;
+  const names=[...new Set(doc.games.flatMap(g=>[g.home,g.away]))].sort();
+  by("teamFilter").replaceChildren(make("option","","Toutes les équipes"));
+  by("teamFilter").firstChild.value="";
+  for(const name of names){const option=make("option","",name);option.value=name;by("teamFilter").append(option);}
+  render();
+ }catch(err){by("status").textContent=err.message;by("empty").hidden=false;}
+}
+document.querySelectorAll("button[data-filter]").forEach(button=>button.addEventListener("click",()=>{
+ filter=button.dataset.filter;
+ document.querySelectorAll("button[data-filter]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
+ render();
+}));
+by("teamFilter").addEventListener("change",render);
+load();
+</script></body></html>
