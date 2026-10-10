@@ -1,0 +1,57 @@
+name: Revue - NHL official results only
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Score-only settlement every four hours, independent of MoneyPuck refresh.
+    - cron: '15 0,4,8,12,16,20 * * *'
+  push:
+    paths:
+      - 'outils/nhl_settlement_officiel.py'
+      - 'outils/nhl_shadow_tracker.py'
+      - 'tests/test_nhl_settlement_officiel.py'
+      - '.github/workflows/nhl-settlement-officiel.yml'
+
+permissions:
+  contents: write
+
+# The forecast workflow also writes the same ledger. Separate workflows
+# cannot share a concurrency group in a meaningful transaction; git rebase
+# rejects conflicting score edits instead of overwriting verified locks.
+concurrency:
+  group: revue-nhl-official-results
+  cancel-in-progress: false
+
+jobs:
+  settle-locked-games:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove scoreboard handling and immutable comparison
+        run: |
+          python -m unittest discover -s tests -p 'test_nhl_settlement_officiel.py' -v
+          python -m unittest discover -s tests -p 'test_nhl_shadow_tracker.py' -v
+      - name: Settle only existing locked predictions using official NHL scores
+        run: |
+          test -s docs/nhl-shadow-ledger.json
+          python -m outils.nhl_settlement_officiel
+      - name: Publish only prospectively graded outcomes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
+          if git diff --cached --quiet; then
+            echo "No completed game to grade"
+            exit 0
+          fi
+          git commit -m "data(nhl): settle locked forecasts with official NHL final scores"
+          # If another workflow updated the ledger concurrently, do not clobber
+          # its locks. The next scheduled settlement retries on fresh checkout.
+          git pull --rebase origin main
+          git push origin HEAD:main
