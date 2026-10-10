@@ -189,8 +189,15 @@ function radarCard(row){
   node("span","",row.line==null?"Sans ligne":"Ligne "+row.line));
  card.append(market);
  const grid=node("div","prices");
- grid.append(priceSlot("COTE DÉCIMALE",{price:row.bookmaker_price,bookmaker:row.bookmaker}),
-   priceSlot("PROBA MODÈLE",{price:null}),priceSlot("BASE SHARP",{price:null}));
+ grid.append(priceSlot("COTE DÉCIMALE",{price:row.bookmaker_price,bookmaker:row.bookmaker}));
+ const model=node("div","price");
+ model.append(node("small","","PROBA MODÈLE"),node("strong","",pct(row.p_model)),
+   node("span","","Non calibrée"));
+ grid.append(model);
+ const sharp=node("div","price");
+ sharp.append(node("small","","BASE SHARP"),node("strong","",pct(row.p_sharp_no_vig)),
+   node("span","","Absente si non observée"));
+ grid.append(sharp);
  card.append(grid);
  cardFoot(card,"Probabilité modèle indicative : "+pct(row.p_model)+" · cote observée "+fmtTime(row.quote_at)+
    " ("+age(row.quote_at)+") · AUCUNE value démontrée.");
@@ -224,7 +231,7 @@ function healthRows(){
   const card=node("article","source-row"),info=node("div");
   info.append(node("h3","",name.toUpperCase().replaceAll("_"," ")),
    node("p","",src.generated_at_utc?"Dernier instantané "+fmtTime(src.generated_at_utc)+" · "+age(src.generated_at_utc):"Aucun instantané vérifiable"));
-  card.append(info,node("span","tag",src.state==="fresh"?"RÉCENT":src.state==="stale"?"PÉRIMÉ":src.state==="observed"?"OBSERVÉ":"INDISPONIBLE"));
+  card.append(info,node("span","tag",src.state==="fresh"?"RÉCENT AU RELEVÉ":src.state==="stale"?"PÉRIMÉ AU RELEVÉ":src.state==="observed"?"OBSERVÉ":"INDISPONIBLE"));
   root.append(card);
  }
  const health=data.health;
@@ -327,7 +334,7 @@ async function refresh(){
  $("load-status").textContent=
    (data.errors.length?data.errors.join(" ; ")+" · ":"")+
    (unverifiedFallback?"Journal brut non noté. ":"")+
-   (data.journal?.generated_at_utc?"Journal certifié au "+fmtTime(data.journal.generated_at_utc)+" · ":"")+
+   (data.journal?.generated_at_utc?"Journal contrôlé au "+fmtTime(data.journal.generated_at_utc)+" · ":"")+
    "Dernière lecture locale : "+fmtTime(new Date().toISOString())+
    ". Le bouton actualiser relit les fichiers sans appel payant de cotes.";
 }

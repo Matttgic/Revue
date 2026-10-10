@@ -99,6 +99,20 @@ class OperationalTests(unittest.TestCase):
         z=self.client.get("/revue/ledger").json()
         self.assertEqual(z["summary"]["settled"],0)
 
+    def test_observed_integer_valued_float_scores_are_valid_but_fractions_not(self):
+        path=self.root/"engine-v2-ledger.json"
+        d=json.loads(path.read_text(encoding="utf-8"))
+        d["bets"][0]["score"]={"home":91.0,"away":81.0}
+        self.write("engine-v2-ledger.json",d)
+        out=self.client.get("/revue/ledger").json()
+        self.assertEqual(out["summary"]["settled"],1)
+        self.assertEqual(out["records"][2]["score"],{"home":91,"away":81})
+        d["bets"][0]["score"]={"home":91.5,"away":81.0}
+        self.write("engine-v2-ledger.json",d)
+        out=self.client.get("/revue/ledger").json()
+        self.assertEqual(out["summary"]["settled"],0)
+        self.assertEqual(out["summary"]["excluded_or_unverified"],2)
+
     def test_missing_broken_ledger_fails_closed(self):
         (self.root/"engine-v2-ledger.json").unlink()
         self.assertEqual(self.client.get("/revue/ledger").status_code,503)
