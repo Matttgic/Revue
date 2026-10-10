@@ -18,7 +18,7 @@
 
 - **Audit des entrées NHL vers Clairvoyance (source 2026-10-10)** : [interface mobile](docs/nhl-source-input-gap.html) · [écarts mesurés JSON](docs/nhl-source-input-delta.json) · [moteur d'audit](outils/nhl_source_input_gap.py) · [tests](tests/test_nhl_source_input_gap.py). Comparaison des situations xG 5v5/all et des gardiens MoneyPuck/NHL Edge sur un échantillon pré-match, en gardant les Elo Revue identiques. Rapport descriptif horodaté, distinct des prévisions gelées ; la parité avec les inputs SQL originaux reste non démontrée.
 
-## Priorité absolue — identité vérifiable avec Clairvoyance
+\n### Reproduction du verrouillage pré-match (Clairvoyance)\n\n- [Mécanisme indépendant et limites](recherche/produit/parite-verrouillage-clairvoyance.md) · [tests de sécurité](tests/test_clairvoyance_lock_timing.py) · [comparateur avec le code original](outils/verifier_parite_timing_clairvoyance.py) · [workflow quotidien](.github/workflows/parite-clairvoyance-timing.yml).\n- Le comparateur valide les classes `pre`, `during`, `after`, `unknown`, les calendriers en heure de Denver, les sports, exclusions parlay et indicateurs agrégés sur **1 800 cas de test synthétiques** une fois la CI réussie. Aucun ancien ROI ou pick n'est reclassé automatiquement. **CFB exclu**. Revue distingue la parité du classificateur et sa propre règle plus stricte (inconnus non prouvés pré-match). La couverture éditoriale reste **62 %** jusqu'à nouvel audit.\n\n## Priorité absolue — identité vérifiable avec Clairvoyance
 
 **Le but n'est plus « 50 % de fonctionnalités similaires » mais une reproduction exacte, comportement par comportement et sur la même version du code original, hors CFB.**
 
