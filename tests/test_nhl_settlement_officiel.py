@@ -35,6 +35,12 @@ def report(with_variant=True):
             "source_updated_utc":{"teams":src,"goalies":src},
             "source_snapshot_utc":{"teams":src,"goalies":src},
         },
+        "point_in_time_audit":{
+            "status":"verified_temporal_bounds",
+            "as_of_utc":LOCKED.isoformat(),
+            "source_updated_utc":{"teams":src,"goalies":src},
+            "team_5v5_rows_checked":2,
+        },
         "games":[row],
     }
 
