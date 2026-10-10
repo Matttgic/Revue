@@ -62,6 +62,8 @@ main{max-width:1160px!important}
 <div id="models" class="rv-grid"></div>
 <div class="rv-notes">
 <p><strong>Vérification :</strong> les fonctions MLB/NHL du backend sont confrontées à l'original récupéré en lecture seule pendant une exécution GitHub Actions, sans conserver son code dans notre dépôt.</p>
+<p><strong>NBA avec ESPN :</strong> le <a href="./clairvoyance-nba-ratings.json">rapport des 30 équipes</a> applique désormais le calcul exact de forces et d’Elo du backend original aux classements ESPN. Il n’intègre pas encore les statistiques avancées Basketball-Reference, ni les autres composantes de la prédiction finale.</p>
+<p><strong>NHL props :</strong> la fonction source <code>_generateNHLPropsLive</code> retourne un tableau vide ; sa parité ne signifie pas qu’un modèle actif de paris joueurs a été reproduit.</p>
 <p><a href="https://github.com/Matttgic/Revue/blob/main/docs/parite-clairvoyance-predictor.json">Rapport de tests exacts ↗</a> · <a href="https://github.com/Matttgic/Revue/actions/workflows/parite-clairvoyance-predictor.yml">Workflow de parité ↗</a> · <a href="https://github.com/Purple-Wraith/clairvoyance-backend">Dépôt original ↗</a></p>
 </div>
 </main>
