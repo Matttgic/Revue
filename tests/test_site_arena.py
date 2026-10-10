@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","match-center.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","match-center.html","predictions-revue.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -114,6 +114,16 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_research_forecast_page_displays_no_unproven_original_picks(self):
+        frontend=(DOCS/"index.html").read_text(encoding="utf-8")
+        page=(DOCS/"predictions-revue.html").read_text(encoding="utf-8")
+        self.assertIn("predictions-revue.html",frontend)
+        self.assertIn("/revue/predictions",page)
+        self.assertIn("source_input_parity_with_original",page)
+        self.assertIn("pick_recommendation_verified",page)
+        self.assertIn("real_bets_enabled",page)
+        self.assertIn("Aucun pari recommandé",page)
 
     def test_performance_dashboard_has_genuine_report_sources(self):
         ui=(DOCS/"performance-comparateur.html").read_text(encoding="utf-8")
