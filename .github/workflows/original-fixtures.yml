@@ -1,0 +1,35 @@
+name: Revue - Parite calendrier original
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 5,11,17,23 * * *'
+  push:
+    paths:
+      - 'outils/reconcile_reference_fixtures.js'
+      - 'tests/test_reconcile_reference_fixtures.cjs'
+      - '.github/workflows/original-fixtures.yml'
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify strict factual source equivalence and no betting odds
+        run: node --test tests/test_reconcile_reference_fixtures.cjs
+      - name: Fetch original public factual schedules and compare to Revue
+        run: node outils/reconcile_reference_fixtures.js docs
+      - name: Publish evidence with latest source snapshot
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/clairvoyance-fixture-reconciliation.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data(parity): refresh exact NHL NBA MLB fixture intersections'
+            git pull --rebase -X theirs origin main
+            git push origin HEAD:main
+          fi
