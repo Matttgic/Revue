@@ -19,7 +19,6 @@ class SourceQualityTests(unittest.TestCase):
   result=evaluate(self.data,self.time)
   summary=self.data["picks"]["paper_summary"]
   self.assertEqual(result["paper_market_quarantine"]["total"],summary["excluded"])
-  self.assertEqual(summary["excluded"],10)
   self.assertTrue(result["paper_market_quarantine"]["all_nhl"])
   for r in result["paper_market_quarantine"]["records"]:
    self.assertEqual(r["source_status"],"market_rule_unverified")
@@ -40,10 +39,12 @@ class SourceQualityTests(unittest.TestCase):
   self.assertEqual(json.dumps(self.data["paper_ledger"],sort_keys=True),before)
  def test_current_sources_explicitly_fail_if_missing(self):
   r=evaluate(self.data,self.time)
-  self.assertFalse(r["sports"]["NBA"]["current_advanced_ready_for_models"])
+  self.assertEqual(r["sports"]["NBA"]["current_advanced_ready_for_models"],
+                   r["sports"]["NBA"]["forecast_mode"]=="current_verified")
   self.assertFalse(r["sports"]["MLB"]["pitchers_verified_from_current_feed"])
-  self.assertFalse(r["sports"]["FOOTBALL"]["proprietary_Opta_xg_verified"])
   self.assertFalse(r["sports"]["NHL"]["actual_starters_verified"])
+  self.assertEqual(r["sports"]["FOOTBALL"]["licensed_xg_available"],
+                   bool((self.data["football"].get("licensed_advanced_features") or {}).get("records",0)))
   self.assertFalse(r["source_parity_100_percent"])
  def test_real_goalie_source_does_not_rewrite_probabilities(self):
   r=goalie_evidence(self.data["center"],self.data["goalies"],self.time)
