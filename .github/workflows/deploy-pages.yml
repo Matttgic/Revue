@@ -5,6 +5,12 @@ on:
   # Periodically republish its stored real prices without any new API call.
   schedule:
     - cron: '30 0,6,12,18 * * *'
+  # An automatic MoneyPuck GITHUB_TOKEN commit does not trigger a push deploy.
+  # This event runs after that workflow completes and checks out latest main.
+  workflow_run:
+    workflows:
+      - 'Revue - MoneyPuck official NHL data'
+    types: [completed]
   push:
     branches: [main]
     paths:
@@ -20,6 +26,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   publish:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
