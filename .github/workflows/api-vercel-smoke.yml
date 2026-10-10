@@ -1,0 +1,47 @@
+name: Revue - Test API Vercel public
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'api_revue/**'
+      - 'api/index.py'
+      - 'requirements.txt'
+      - 'vercel.json'
+      - '.github/workflows/api-vercel-smoke.yml'
+  schedule:
+    - cron: '15 8 * * *'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Verify public Vercel API health and actual JSON content
+        run: |
+          python - <<'PY'
+          from urllib.request import urlopen
+          from urllib.error import HTTPError,URLError
+          import json
+          from datetime import datetime,timezone
+          base="https://revue-api-tawny.vercel.app"
+          for route in ("/health","/revue/parity","/nhl/schedule?game_date=2026-10-10"):
+              try:
+                  with urlopen(base+route,timeout=15) as resp:
+                      status=resp.status
+                      data=json.load(resp)
+              except HTTPError as exc:
+                  raise SystemExit(f"{route}: HTTP {exc.code}; public API not ready")
+              except (URLError,ValueError) as exc:
+                  raise SystemExit(f"{route}: source unavailable ({type(exc).__name__})")
+              print(route,"status",status,"json-kind",type(data).__name__)
+              assert status==200
+              if route=="/health":
+                  assert data=={"status":"ok"}
+              elif route=="/revue/parity":
+                  assert data["exact_end_to_end_parity"]=="NOT_VERIFIED"
+                  assert data["exact_reproduction_percent"] is None
+              else:
+                  assert isinstance(data,list)
+                  assert all(r.get("espn_id") and r.get("home_moneyline") is None for r in data)
+          PY
