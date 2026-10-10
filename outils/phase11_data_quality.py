@@ -160,6 +160,16 @@ def evaluate(data,now):
           age(nba,now,48)["status"]=="recent")
  mlb_replay=mlb.get("status")=="conditional_source_elo_fallback_sensitivity_not_original_reproduction"
  mlb_replay=mlb_replay and mlb.get("original_sql_ratings_verified_equal") is False
+ official_pitchers=data.get("mlb_pitchers") or {}
+ pitcher_report_valid=(
+  official_pitchers.get("status")=="official_MLB_probable_pitchers_observed_not_confirmed"
+  and official_pitchers.get("model_recomputed") is False
+  and official_pitchers.get("real_bets_enabled") is False
+  and official_pitchers.get("confirmed_starting_pitchers")==0
+  and age(official_pitchers,now,12)["status"]=="recent"
+  and isinstance(official_pitchers.get("rows"),list))
+ # An official probable pitcher NEVER becomes a confirmed starting pitcher.
+ probable_count=official_pitchers.get("probable_pitcher_sides",0) if pitcher_report_valid else 0
  shots=(football.get("status")=="shadow_experimental_never_auto_bet" and
        (football.get("espn_observed_features") or {}).get("genuine_xg") is False)
  licensed_xg=(football.get("licensed_advanced_features") or {}).get("records",0)>0
@@ -178,6 +188,9 @@ def evaluate(data,now):
      "original_sql_parity_proven":False},
   "MLB":{"ESPN_completed_games_used_for_diagnostic":mlb.get("diagnostic_revue_completed_espn_games") if mlb_replay else 0,
      "pitchers_verified_from_current_feed":False,
+     "official_probable_pitcher_feed_available":pitcher_report_valid,
+     "official_probable_pitcher_sides_observed":probable_count,
+     "official_probable_pitcher_source_status":official_pitchers.get("status","not_requested"),
      "original_elo_sql_verified":False,
      "missing":["official_pregame_starting_pitcher_feed","private_original_elo_sql"],
      "original_sql_parity_proven":False},
@@ -216,6 +229,10 @@ def main():
  p.add_argument("--output",default="docs/phase11-source-quality-latest.json")
  a=p.parse_args();root=Path(a.root)
  data={key:json.loads((root/name).read_text(encoding="utf8")) for key,name in INPUT_FILES.items()}
+ pitcher_path=root/"mlb-official-probable-pitchers-latest.json"
+ if pitcher_path.exists():
+  try:data["mlb_pitchers"]=json.loads(pitcher_path.read_text(encoding="utf8"))
+  except (ValueError,OSError):data["mlb_pitchers"]={"status":"invalid_source"}
  result=evaluate(data,datetime.now(timezone.utc))
  dest=Path(a.output);dest.parent.mkdir(parents=True,exist_ok=True)
  dest.write_text(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+"\n",encoding="utf8")
