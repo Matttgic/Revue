@@ -211,6 +211,7 @@ function renderState(){
  put("v3-data-status",
    (m?"CALENDRIER VÉRIFIÉ":"CALENDRIER INDISPONIBLE")+" · "+
    (n?"NHL EXPÉRIMENTAL":"NHL NON ACTUALISÉ")+" · "+
+   (state.sources.radar==="bounded_six_hour_observations"?"PULSESCORE 6H OBSERVÉ":"PULSESCORE 6H INDISPONIBLE")+" · "+
    (state.paper?"BILAN FICTIF VÉRIFIÉ":"BILAN NON VÉRIFIÉ"));
  drawEvents();drawPaper();
 }
