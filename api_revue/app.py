@@ -9,10 +9,12 @@ from __future__ import annotations
 from datetime import date,datetime,timezone
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Response
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_rows
+from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck
 
 
 class NHLGameOut(BaseModel):
@@ -36,6 +38,62 @@ class MLBGameOut(NHLGameOut):
     venue: str | None
 
 
+class NHLTeamStatOut(BaseModel):
+    id: int
+    team_id: int
+    team_abbrev: str
+    team_name: str | None
+    season: str
+    game_type_id: int
+    games_played: int | None
+    wins: int | None
+    losses: int | None
+    ot_losses: int | None
+    goals_for: int | None
+    goals_against: int | None
+    goals_for_per_game: float | None
+    goals_against_per_game: float | None
+    pp_pct: float | None
+    pk_pct: float | None
+    shots_for_per_game: float | None
+    shots_against_per_game: float | None
+    offensive_zone_time_pct: float | None
+    defensive_zone_time_pct: float | None
+    neutral_zone_time_pct: float | None
+
+
+class NHLGoalieStatOut(BaseModel):
+    id: int
+    player_id: int
+    player_name: str | None
+    team_abbrev: str | None
+    games_played: int | None
+    saves_even_strength: int | None
+    save_pct_even_strength: float | None
+    saves_power_play: int | None
+    save_pct_power_play: float | None
+    saves_short_handed: int | None
+    save_pct_short_handed: float | None
+    overall_save_pct: float | None
+    goals_against_avg: float | None
+
+
+class NHLSkaterStatOut(BaseModel):
+    id: int
+    player_id: int
+    player_name: str | None
+    team_abbrev: str | None
+    shots_wrist: int | None
+    shots_snap: int | None
+    shots_slap: int | None
+    shots_backhand: int | None
+    shots_tip: int | None
+    shots_deflected: int | None
+    shots_wrap_around: int | None
+    avg_speed: float | None
+    top_speed: float | None
+
+
 def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
     directory=root if root is not None else Path(__file__).resolve().parents[1]/"docs"
     now=clock if clock is not None else lambda:datetime.now(timezone.utc)
@@ -43,6 +101,12 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
         title="Revue — Clairvoyance source-contract lab",
         version="0.1.0",
         description="Original read-only API adapter, incomplete source equivalence. No real bets, no secret database.",
+    )
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["https://matttgic.github.io","https://revue-api-tawny.vercel.app"],
+        allow_credentials=False,allow_methods=["GET"],allow_headers=["Content-Type"],
     )
 
     @app.get("/health")
@@ -60,6 +124,38 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
     @app.get("/nhl/schedule",response_model=list[NHLGameOut])
     def nhl_schedule(game_date:date=Query(default_factory=date.today)):
         return read_schedule("NHL",game_date)
+
+    def read_nhl_data(func,*args):
+        try:
+            return func(directory,now(),*args)
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
+
+    @app.get("/nhl/teams",response_model=list[NHLTeamStatOut])
+    def nhl_teams(response:Response):
+        response.headers["X-Revue-Parity"]="partial: independent NHL IDs; not Clairvoyance SQL row IDs"
+        return read_nhl_data(official_teams)
+
+    @app.get("/nhl/goalies",response_model=list[NHLGoalieStatOut])
+    def nhl_goalies(response:Response,min_games:int=Query(default=1,ge=1)):
+        response.headers["X-Revue-Parity"]="partial: NHL season stats, no confirmed starters"
+        return read_nhl_data(official_goalies,min_games)
+
+    @app.get("/nhl/skaters",response_model=list[NHLSkaterStatOut])
+    def nhl_skaters(response:Response,team:str|None=Query(default=None)):
+        response.headers["X-Revue-Parity"]="partial: unknown NHL Edge stats are null"
+        try:
+            return read_nhl_data(official_skaters,team)
+        except ValueError as exc:
+            raise HTTPException(status_code=422,detail=str(exc)) from exc
+
+    @app.get("/nhl/moneypuck")
+    def nhl_moneypuck(response:Response,situation:str=Query(default="all")):
+        response.headers["X-Revue-Parity"]="partial: MoneyPuck last observed snapshot; NOT live"
+        try:
+            return read_nhl_data(season_moneypuck,situation.lower())
+        except ValueError as exc:
+            raise HTTPException(status_code=422,detail=str(exc)) from exc
 
     @app.get("/mlb/schedule",response_model=list[MLBGameOut])
     def mlb_schedule(game_date:date=Query(default_factory=date.today)):
