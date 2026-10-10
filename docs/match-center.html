@@ -65,6 +65,14 @@ input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border
 .odds-line .rule{color:#839eb4;font:10px/1.5 monospace}
 .hint{color:#91a8bd;font:11px/1.6 'DM Sans',sans-serif;margin:8px 0}
 .empty{border:1px dashed #42617b;padding:30px;text-align:center;color:#a1bcd0}
+.recent{margin-top:43px;border-top:1px solid #344c63;padding-top:21px}
+.recent h2{font:800 24px 'Chakra Petch',sans-serif;color:#d8faff;margin:3px 0 9px}
+.recent .sub{color:#8baac2;font:12px/1.6 'DM Sans',sans-serif;margin-bottom:15px}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:11px}
+.result-entry{border:1px solid #345269;background:#121f34;padding:17px}
+.result-entry strong{display:block;font:800 20px 'Chakra Petch',sans-serif;margin:10px 0;color:#effaff}
+.result-entry .score{font:700 13px 'Chakra Petch',sans-serif;color:#55f5de}
+.result-entry small{font-size:11px;color:#9bb6ca;line-height:1.7}
 .foot{margin-top:55px;padding:26px 0;border-top:1px solid #32465a;font:11px/1.7 'DM Sans',sans-serif;color:#8faabe}
 .foot a{color:#55f5de}
 @media(max-width:1000px){.toolbar{grid-template-columns:1fr 1fr}.toolbar .only{grid-column:1/-1}}
@@ -91,6 +99,12 @@ input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border
 <nav class="sport-filters" id="leagueFilters" aria-label="Filtrer par compétition"></nav>
 <p class="status" id="status" role="status" aria-live="polite">Chargement des rencontres et des cotes observées…</p>
 <div id="schedule"></div>
+<section class="recent" aria-labelledby="recent-title">
+<h2 id="recent-title">RÉSULTATS / REGISTRE PROSPECTIF</h2>
+<p class="sub">Scores NHL officiels pour les seules prévisions enregistrées avant match. Les autres sports seront ajoutés uniquement après validation de leur chaîne de règlement. Aucune mise réelle n'est déduite de ce tableau.</p>
+<p class="status" id="resultsStatus">Lecture des résultats verrouillés…</p>
+<div class="result-grid" id="resultsGrid"></div>
+</section>
 <footer class="foot">Sources propres à Revue : données ESPN / NHL, calculs indépendants et tarifs reçus des API autorisées. Les probabilités affichées ne sont pas calibrées, et une cote peut avoir expiré. Un pari peut être perdant, même si la probabilité estimée paraît élevée. <a href="./qualite-modeles.html">Voir les contrôles</a> · <a href="https://github.com/Matttgic/Revue">Code et méthodologie</a>.</footer>
 </main>
 <script>
@@ -157,6 +171,26 @@ function matchCard(e){
  });
  article.append(button,detail);return article;
 }
+function renderOfficialResults(){
+ const status=el("resultsStatus"),grid=el("resultsGrid");grid.replaceChildren();
+ const result=center.official_results||[];
+ status.textContent=result.length+" résultat(s) NHL officiels vérifiés · "+
+   String(center.prospective_nhl_pending||0)+" prévision(s) NHL encore en attente · aucune mise réelle enregistrée";
+ if(!result.length){
+  grid.append(create("div","empty","Aucun résultat NHL réglé pour le moment. Les résultats arriveront uniquement après confirmation officielle des matchs."));
+  return;
+ }
+ for(const game of result.slice(0,12)){
+  const card=create("article","result-entry");
+  card.append(create("div","mono",frDate(game.kickoff_utc)+" · NHL OFFICIEL"));
+  card.append(create("strong","",game.away+" @ "+game.home));
+  card.append(create("div","score",game.away_goals+" – "+game.home_goals+" · Vainqueur : "+game.winner));
+  const note=create("small","", "Probabilité domicile verrouillée Clairvoyance : "+pct(game.clairvoyance_home_win)+
+   (game.research_home_win==null?" · Variante prudente non verrouillée":" · Variante prudente : "+pct(game.research_home_win))+
+   " · simulation uniquement");
+  card.append(note);grid.append(card);
+ }
+}
 function render(){
  if(!center)return;
  const now=new Date(),today=localDay(now),tomorrow=localDay(new Date(now.getTime()+86400000));
@@ -189,7 +223,7 @@ async function load(){
   if(d.status!=="experimental_revue_match_center"||d.real_bets_enabled!==false||
      d.live_scores!==false||d.bookmaker_prices_are_live!==false||!Array.isArray(d.events))
     throw Error("Format inattendu");
-  center=d;
+  center=d;renderOfficialResults();
   for(const [key,value] of [["n-events",d.metrics.upcoming_matches],["n-leagues",d.metrics.leagues],
                               ["n-models",d.metrics.with_research_model],["n-prices",d.metrics.with_observed_bookmaker_quotes]]){
    el(key).textContent=Number(value).toLocaleString("fr-FR");
