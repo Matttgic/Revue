@@ -1,0 +1,128 @@
+{
+  "generated_at_utc": "2026-10-10T01:56:39.611767+00:00",
+  "status": "prospective_research_only",
+  "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
+  "outcomes_are_real": true,
+  "no_synthetic_training": true,
+  "auto_promotion": false,
+  "real_bets_enabled": false,
+  "sportsbook_roi": null,
+  "protocol": {
+    "train_first_settled": 100,
+    "holdout_new_kickoffs_after_training": 40,
+    "calibration": "ridge-logistic on pre-match log-odds",
+    "training_order": "first 100 outcomes sorted by official resolution timestamp",
+    "holdout_start": "strictly after last training result became available",
+    "reliability_bins": 5,
+    "no_historical_replay": true,
+    "note": "Exploratory diagnostic, not a deployable calibrator or statistical proof. Fixed validation rules; no automatic model selection."
+  },
+  "models": {
+    "clairvoyance_formula": {
+      "model": "clairvoyance_formula",
+      "settled_samples": 0,
+      "training_required": 100,
+      "holdout_required": 40,
+      "training_remaining": 100,
+      "raw_brier": null,
+      "raw_logloss": null,
+      "reliability_bins": [
+        {
+          "from": 0.0,
+          "to": 0.2,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.2,
+          "to": 0.4,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.4,
+          "to": 0.6,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.6,
+          "to": 0.8,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.8,
+          "to": 1.0,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        }
+      ],
+      "calibration_status": "insufficient_training",
+      "parameters": null,
+      "training_cutoff_utc": null,
+      "training_samples": 0,
+      "holdout_samples": 0,
+      "holdout_metrics": null,
+      "approved_for_betting": false
+    },
+    "revue_prudent": {
+      "model": "revue_nhl_low_sample_shrink_v1",
+      "settled_samples": 0,
+      "training_required": 100,
+      "holdout_required": 40,
+      "training_remaining": 100,
+      "raw_brier": null,
+      "raw_logloss": null,
+      "reliability_bins": [
+        {
+          "from": 0.0,
+          "to": 0.2,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.2,
+          "to": 0.4,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.4,
+          "to": 0.6,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.6,
+          "to": 0.8,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        },
+        {
+          "from": 0.8,
+          "to": 1.0,
+          "count": 0,
+          "predicted_mean": null,
+          "observed_rate": null
+        }
+      ],
+      "calibration_status": "insufficient_training",
+      "parameters": null,
+      "training_cutoff_utc": null,
+      "training_samples": 0,
+      "holdout_samples": 0,
+      "holdout_metrics": null,
+      "approved_for_betting": false
+    }
+  }
+}
