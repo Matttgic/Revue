@@ -24,6 +24,14 @@ def grade_brier(prob:float, result:int) -> float:
     return round((prob-result)**2,6)
 
 
+def grade_logloss(prob:float, result:int) -> float:
+    """Binary logarithmic loss on frozen pre-match probability, not market ROI."""
+    if (not isinstance(prob,(int,float)) or not math.isfinite(prob) or
+        not 0<prob<1 or result not in (0,1)):
+        raise ValueError("Probability or result invalid")
+    return -math.log(prob if result else (1-prob))
+
+
 def _new_lock(row:dict, report:dict, as_of:datetime) -> dict | None:
     kickoff=as_utc(row["start_utc"])
     if kickoff-as_of<timedelta(minutes=LOCK_MINUTES):
@@ -125,26 +133,41 @@ def summarize(ledger:dict,now:datetime) -> dict:
              isinstance(r.get("brier"),(int,float))]
     pending=[r for r in rows if r.get("status")=="pending"]
     n=len(settled)
+    reference_brier=sum(r["brier"] for r in settled)/n if n else None
+    reference_logloss=(sum(grade_logloss(r["home_win_probability"],r["result"])
+                           for r in settled)/n) if n else None
     paired_locked=sum(1 for r in rows if isinstance(r.get("research_home_win_probability"),(int,float)))
     paired=[r for r in settled if isinstance(r.get("research_brier"),(int,float))]
     paired_count=len(paired)
     ref_paired=(sum(r["brier"] for r in paired)/paired_count) if paired_count else None
     alt_paired=(sum(r["research_brier"] for r in paired)/paired_count) if paired_count else None
+    reference_logloss_paired=(sum(grade_logloss(r["home_win_probability"],r["result"])
+                                  for r in paired)/paired_count) if paired_count else None
+    research_logloss_paired=(sum(grade_logloss(r["research_home_win_probability"],r["result"])
+                                 for r in paired)/paired_count) if paired_count else None
     return {
         "generated_at_utc":now.astimezone(timezone.utc).isoformat(),
         "model":VERSION,
         "locked_events":len(rows),"pending":len(pending),"settled":n,
         "min_results_for_preliminary_assessment":100,
         "statistical_status":"preliminary_only" if n>=100 else "insufficient_sample",
-        "mean_brier":round(sum(r["brier"] for r in settled)/n,6) if n else None,
+        "mean_brier":round(reference_brier,6) if n else None,
+        "mean_logloss":round(reference_logloss,6) if n else None,
+        "coinflip_baseline_brier":0.25,
+        "coinflip_baseline_logloss":round(math.log(2),6),
+        "brier_skill_vs_coinflip":round(1-reference_brier/0.25,6) if n else None,
         "research_paired_locked":paired_locked,
         "research_paired_settled":paired_count,
         "mean_brier_reference_on_paired":round(ref_paired,6) if paired_count else None,
         "mean_brier_research":round(alt_paired,6) if paired_count else None,
+        "mean_logloss_reference_on_paired":round(reference_logloss_paired,6) if paired_count else None,
+        "mean_logloss_research":round(research_logloss_paired,6) if paired_count else None,
+        "logloss_delta_research_minus_reference":round(research_logloss_paired-reference_logloss_paired,6) if paired_count else None,
+        "research_brier_skill_vs_coinflip_paired":round(1-alt_paired/0.25,6) if paired_count else None,
         "brier_delta_research_minus_reference":round(alt_paired-ref_paired,6) if paired_count else None,
         "research_status":"experimental_not_promoted",
         "home_win_rate_observed":round(sum(r["result"] for r in settled)/n,4) if n else None,
         "home_win_probability_mean":round(sum(r["home_win_probability"] for r in settled)/n,4) if n else None,
         "roi":None,"staked_units":0,"cash_bets":0,
-        "note":"No odds, stakes or profitable-claim basis. Lower Brier is better. Research-vs-reference comparison only on same prospective events with both frozen probabilities."
+        "note":"Experimental evaluation without ROI. Lower Brier/Log Loss is better. A fixed p=0.5 baseline scores Brier 0.25 and Log Loss ln(2). Paired comparison uses only identical events with both predictions frozen before kickoff."
     }
