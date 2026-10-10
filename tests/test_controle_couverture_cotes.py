@@ -91,12 +91,12 @@ class CrossBookTests(unittest.TestCase):
     def test_require_same_totals_line_and_half_or_whole(self):
         game=event()
         for b in game["bookmakers"]:
-            b["markets"]=[totals(b,2.5 if b["bookmaker"]!="winamax_fr" else 3.5)]
+            b["markets"]=[totals(b["bookmaker"],2.5 if b["bookmaker"]!="winamax_fr" else 3.5)]
         out=analyze({"radar_6h":radar(game)},NOW)
         self.assertEqual(out["potential_snapshot_cover_count"],0)
         game=event()
         for b in game["bookmakers"]:
-            b["markets"]=[totals(b,2.25)]
+            b["markets"]=[totals(b["bookmaker"],2.25)]
         out=analyze({"radar_6h":radar(game)},NOW)
         self.assertEqual(out["potential_snapshot_cover_count"],0)
 
