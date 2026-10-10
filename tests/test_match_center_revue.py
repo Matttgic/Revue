@@ -193,6 +193,29 @@ class MatchCenterTests(unittest.TestCase):
         payload["scanner"]["odds_board"]["events"][0]["bookmakers"][0]["markets"][-1]["period_rule"]="overtime_rule_unverified"
         self.assertEqual(build(payload)["events"][0]["totals_quotes"],[])
 
+    def test_observed_scoreboards_separate_from_settled_legacy_predictions(self):
+        payload=fixture()
+        base={"league":"PL","event_id":"401","home":"Arsenal","away":"Leeds",
+              "kickoff_utc":(NOW-timedelta(hours=2)).isoformat(),
+              "observed_at_utc":NOW.isoformat(),
+              "state":"in_progress","home_score":1,"away_score":2,
+              "source":"ESPN scoreboard","prospective_bet_result":False}
+        payload["scoreboard"]={"generated_at_utc":NOW.isoformat(),
+                               "status":"observed_scoreboard_not_streaming",
+                               "events":[base]}
+        out=build(payload)
+        self.assertEqual(out["scoreboard_in_progress"],1)
+        self.assertEqual(out["official_results_count"],0)
+        self.assertEqual(out["scoreboard_observed"][0]["home_score"],1)
+        # An old scoreboard, a fake betting settlement flag and missing score are not shown.
+        for field,value in [("prospective_bet_result",True),("home_score",None),
+                            ("source","unknown")]:
+            other=copy.deepcopy(payload);other["scoreboard"]["events"][0][field]=value
+            self.assertEqual(build(other)["scoreboard_observed"],[])
+        stale=copy.deepcopy(payload)
+        stale["scoreboard"]["generated_at_utc"]=(NOW-timedelta(hours=4)).isoformat()
+        self.assertEqual(build(stale)["scoreboard_observed"],[])
+
     def test_nhl_players_are_current_club_observed_not_confirmed(self):
         payload=fixture()
         upcoming={"event_id":"2026020088","home":"BOS","away":"PHI","start_utc":KICK,
