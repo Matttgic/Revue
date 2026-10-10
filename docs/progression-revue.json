@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-10T02:46:00+00:00",
+  "updated_at_utc": "2026-10-10T03:27:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 41,
-  "previous_estimate_percent": 40,
+  "estimated_functional_coverage_percent": 50,
+  "previous_estimate_percent": 41,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
-  "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
+  "goal": "≥50% éditorial de couverture fonctionnelle, distinct de la parité du code, des prédictions et des performances réelles",
   "excluded_by_user": [
     "CFB"
   ],
@@ -15,73 +15,73 @@
       "id": "infrastructure",
       "title": "Infrastructure et automatisation",
       "weight": 10,
-      "coverage": 0.95,
+      "coverage": 0.97,
       "status": "partiel",
-      "remaining": "Alertes de pannes silencieuses, stratégie de quotas et supervision externe des scrapers"
+      "remaining": "La supervision et les flux horaires sont actifs; restent surveillance des pannes silencieuses et garanties SLA"
     },
     {
       "id": "sports_data",
       "title": "Sources et données sportives",
       "weight": 10,
-      "coverage": 0.53,
+      "coverage": 0.69,
       "status": "partiel",
-      "remaining": "Historique plurisaison authentique, blessures/compositions, scores live multisports et couverture des ligues manquantes"
+      "remaining": "Scores NHL et ESPN observés sur plusieurs sports, mais certains flux joueurs/compositions et saisons manquent"
     },
     {
       "id": "odds",
       "title": "Cotes françaises et marchés",
       "weight": 14,
-      "coverage": 0.58,
+      "coverage": 0.71,
       "status": "partiel",
-      "remaining": "Seulement 9 matchs avec cotes récentes lors du premier Match Center, marchés complémentaires, clôture et validation des règles"
+      "remaining": "Marchés H2H et totaux rapprochés depuis les cotes françaises observées; couverture incomplète et clôture/règles NHL à valider"
     },
     {
       "id": "football",
       "title": "Modèles football",
       "weight": 12,
-      "coverage": 0.22,
+      "coverage": 0.27,
       "status": "partiel",
-      "remaining": "xG/xGA autorisés, compositions, calibration avancée"
+      "remaining": "Restauration de parité prédictive sur données sportives réelles, xG sous licence et compositions à compléter; deux modèles déjà comparés"
     },
     {
       "id": "hockey",
       "title": "NHL et hockey spécialisé",
       "weight": 16,
-      "coverage": 0.3,
+      "coverage": 0.4,
       "status": "partiel",
-      "remaining": "Titulaires NHL confirmés, tirs/buteurs, calibration démontrée sur matchs futurs"
+      "remaining": "Profils buts/passes/tirs historiques par match NHL et scoreboards; titulaires/alignements et calibration restent incomplets"
     },
     {
       "id": "basketball",
       "title": "Modèles basketball",
       "weight": 10,
-      "coverage": 0.25,
+      "coverage": 0.34,
       "status": "partiel",
-      "remaining": "Backtest NBA sur saisons complètes, tempo, efficacités, rotations, blessures"
+      "remaining": "Scoreboard ESPN observé, gel des deux-issues et suivi Brier; pace/rotations/blessures et calibration restent incomplets"
     },
     {
       "id": "nfl_mlb",
       "title": "Modèles NFL et MLB",
       "weight": 10,
-      "coverage": 0.23,
+      "coverage": 0.33,
       "status": "partiel",
-      "remaining": "QB, lanceurs, météo, blessures et stabilité saisonnière"
+      "remaining": "Scoreboards publics, règles à deux issues et verrouillage pré-match; QB/lanceurs/blessures et historique à enrichir"
     },
     {
       "id": "additional_sports",
       "title": "Sports spécialisés supplémentaires",
       "weight": 8,
-      "coverage": 0.05,
+      "coverage": 0.1,
       "status": "partiel",
-      "remaining": "Flux et modèles officiels vérifiables"
+      "remaining": "Certaines compétitions sont visibles dans le calendrier et les scores ESPN; spécialistes tennis/UFC/hockey européen restent limités"
     },
     {
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.64,
+      "coverage": 0.79,
       "status": "partiel",
-      "remaining": "Accumululer 100 résultats NHL officiels par modèle + 40 rencontres futures de validation, vérifier incertitude et stabilité, cotes historiques/CLV"
+      "remaining": "36 nouveaux verrous prospectifs multisports plus rapports football/ensemble/NHL, Brier/LogLoss et contrôle strict des résultats; échantillon réglé trop faible"
     },
     {
       "id": "licensed_data",
@@ -89,7 +89,7 @@
       "weight": 2,
       "coverage": 0,
       "status": "absent",
-      "remaining": "Droit d'utiliser Opta ou substitution ouverte crédible"
+      "remaining": "Accès Opta et équivalence de features licenciées non obtenus"
     }
   ],
   "completed_this_iteration": [
@@ -132,7 +132,14 @@
     "Premier rapport : 126 rencontres/14 compétitions, 90 avec modèle, 9 avec cotes ; puis 141 rencontres/101 avec modèle après mise à jour des flux",
     "Registre NHL officiel ajouté au tableau central : 18 événements en attente, 0 score encore réglé, aucune mise réelle",
     "Workflow horaire sans nouvel appel API payant; GitHub Pages et tests de navigation JavaScript déployés avec succès",
-    "Le radar d'échec GitHub surveille aussi les actualisations du Match Center"
+    "Le radar d'échec GitHub surveille aussi les actualisations du Match Center",
+    "Prise en charge de 26 tableaux ESPN/NHL par actualisation initiale : 20 matchs terminés et 1 en cours, horodatages explicites",
+    "Match Center enrichi avec 25 rencontres disposant de cotes observées (contre 9), 25 avec totaux, et profils joueurs historiques NHL pour 18 rencontres",
+    "Comparateur 1X2 bookmaker français : meilleurs prix observés par sélection, calcul arithmétique de la marge, aucune promesse de EV ou de live",
+    "36 prévisions multisports verrouillées initialement avant match (18 NHL, 13 NFL, 3 MLB, 2 WNBA) avec règlement public et Brier/Log Loss",
+    "Tableau indépendant des performances football, Monte-Carlo/Bayes, NHL Clairvoyance et Revue multisports, sans faux ROI",
+    "Protection des règlements football et ensemble : même id, même date/heure officielle et mêmes équipes",
+    "Workflow Match Center et site mobile publiés et testés par GitHub Actions"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -152,7 +159,13 @@
     "nhl_calibration_protocol": "recherche/hockey/nhl-calibration-prospective.md",
     "match_center": "docs/match-center-latest.json",
     "match_center_interface": "docs/match-center.html",
-    "match_center_comparison": "recherche/produit/match-center-revue-vs-clairvoyance.md"
+    "match_center_comparison": "recherche/produit/match-center-revue-vs-clairvoyance.md",
+    "scoreboards": "docs/scoreboard-revue-latest.json",
+    "multisport_prospective_ledger": "docs/multisport-prospective-ledger.json",
+    "multisport_prospective_performance": "docs/multisport-prospective-performance.json",
+    "match_center_market_dashboard": "docs/match-center.html",
+    "performance_comparator": "docs/performance-comparateur.html",
+    "functionality_milestone": "recherche/produit/jalon-50-couverture-fonctionnelle.md"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -162,6 +175,9 @@
     "Research NHL shrink weights fixed a priori, not statistically calibrated; no predictive superiority established.",
     "No comparative predictive superiority can be claimed until enough prospectively settled paired games exist.",
     "Cross-source sample consistency is not proof of the absence of any source-publisher error. Prospective calibration remains unverified.",
-    "Match Center initially had observed prices for only 9 of 126 future games; it is not a full betting market feed."
+    "Match Center initially had observed prices for only 9 of 126 future games; it is not a full betting market feed.",
+    "La couverture de 50% est une estimation éditoriale de fonctionnalités, pas une reproduction mesurée de 50% du site Clairvoyance.",
+    "Les modèles ne sont pas suffisamment calibrés et la rentabilité des probabilités reste non prouvée.",
+    "Des cotes manquent encore sur la majorité des futurs événements malgré la hausse de couverture."
   ]
 }
