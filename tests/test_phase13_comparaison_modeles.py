@@ -131,6 +131,22 @@ class QualityTests(unittest.TestCase):
   self.assertEqual(report["verified_profitable_models"],0)
   self.assertIsNone(report["ROI"])
   self.assertTrue(all(x["approved_for_betting"] is False for x in report["models"].values()))
+ def test_football_versions_remain_separate_by_league(self):
+  code="revue_football_espn_shots_log_pool_v1"
+  a=fixture(1,code,p=.41,y=0,lg="PL")
+  b=fixture(2,code,p=.42,y=1,lg="SERIEA")
+  out=evaluate(led(a,b),nhl(),integrity(),BASE+timedelta(days=150))
+  self.assertIn("PL::"+code,out["models"])
+  self.assertIn("SERIEA::"+code,out["models"])
+  self.assertEqual(out["models"]["PL::"+code]["settled"],1)
+  self.assertEqual(out["models"]["SERIEA::"+code]["settled"],1)
+  self.assertEqual(out["metrics"]["distinct_settled_fixtures"],2)
+ def test_nhl_native_scalar_brier_not_confused_with_two_class_brier(self):
+  out=nhl_comparison(nhl(),datetime.now(timezone.utc))
+  self.assertEqual(out["settled"],1)
+  self.assertAlmostEqual(out["reference_score"]["brier"],
+                         2*out["native_binary_scalar_brier"],places=5)
+
  def test_bad_settlement_audit_stops_all_analysis(self):
   a=integrity();a["audit_errors"]=[{"bad":"scores"}]
   with self.assertRaisesRegex(ValueError,"Phase 12"):
