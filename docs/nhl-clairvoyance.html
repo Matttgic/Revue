@@ -80,7 +80,7 @@ footer{font-size:12px;line-height:1.8;color:#829db2;border-top:1px solid #2c4058
 <p class="lead">Formule NHL du moteur source confrontée à de véritables observations MoneyPuck (xG à 5 contre 5 et statistiques historiques des gardiens). Elo construit indépendamment dans Revue.</p></header>
 <section class="notice">
 <strong>Statut : SHADOW — expérimental, sans recommandations de paris.</strong>
-La formule mathématique Clairvoyance est vérifiée sur entrées communes ; la variante prudente est un modèle de recherche séparé. Ce n'est pas une reproduction de la base Elo ni des prédictions finales de Clairvoyance. Les gardiens affichés sont les plus utilisés sur la saison, <strong>pas les titulaires confirmés</strong>. Les petites tailles d'échantillon en début de saison rendent ces probabilités instables. Pas de cotes, pas de validation de rentabilité.
+Les nouveaux pronostics sont précédés d'un contrôle temporel croisé entre les matchs officiels NHL et le nombre de matchs des fichiers MoneyPuck. Une source non validée bloque les nouvelles prévisions. La formule mathématique Clairvoyance est vérifiée sur entrées communes ; la variante prudente est un modèle de recherche séparé. Ce n'est pas une reproduction de la base Elo ni des prédictions finales de Clairvoyance. Les gardiens affichés sont les plus utilisés sur la saison, <strong>pas les titulaires confirmés</strong>. Les petites tailles d'échantillon en début de saison rendent ces probabilités instables. Pas de cotes, pas de validation de rentabilité.
 Données provenant de <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com</a> (usage personnel non commercial avec attribution).</section>
 <section class="performance" aria-label="Validation prospective sur résultats officiels">
 <div><label>PRÉVISIONS VERROUILLÉES</label><strong id="locked">—</strong><small>20 minutes minimum avant match</small></div>
@@ -208,9 +208,11 @@ function render(){
  by("grid").replaceChildren();by("empty").hidden=visible.length!==0;
  const fresh=new Date(payload.generated_at_utc).toLocaleString("fr-FR",
   {dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
+ const auditLabel=payload.point_in_time_audit?.status==="verified_temporal_bounds"?
+  " · intégrité temporelle NHL/MoneyPuck vérifiée":" · intégrité temporelle non vérifiée";
  const updated=payload.sources?.source_updated_utc?.teams||null;
  const updatedText=updated?new Date(updated).toLocaleDateString("fr-FR",{dateStyle:"short",timeZone:"Europe/Paris"}):"inconnue";
- by("status").textContent=visible.length+" matchs · calcul "+fresh+" (Paris) · source MoneyPuck du "+updatedText+" · statut : SHADOW";
+ by("status").textContent=visible.length+" matchs · calcul "+fresh+" (Paris) · source MoneyPuck du "+updatedText+" · statut : SHADOW"+auditLabel;
  for(const g of visible){
   const card=make("article","game");
   const head=make("div","eyebrow");
@@ -267,7 +269,8 @@ async function load(){
   if(!r.ok)throw Error("Flux Clairvoyance NHL indisponible (HTTP "+r.status+")");
   const doc=await r.json();
   if(doc.status!=="experimental_not_calibrated"||doc.confirmed_starters!==false||
-    doc.bookmaker_odds_available!==false||!Array.isArray(doc.games))
+    doc.bookmaker_odds_available!==false||!Array.isArray(doc.games)||
+    doc.point_in_time_audit?.status!=="verified_temporal_bounds")
     throw Error("Le rapport ne correspond pas au format SHADOW attendu");
   payload=doc;
   const names=[...new Set(doc.games.flatMap(g=>[g.home,g.away]))].sort();
