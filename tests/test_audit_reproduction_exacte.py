@@ -264,6 +264,34 @@ class NHLSkaterStatOut(BaseModel):
             self.assertEqual(changed["field_shapes_identical"],4)
             self.assertEqual(changed["models"]["NHLGoalieStatOut"]["type_or_requiredness_mismatches"],["save_pct"])
 
+    def test_44_formula_parity_survives_unrelated_source_data_commits(self):
+        import hashlib
+        from unittest.mock import patch
+        with TemporaryDirectory() as tmp:
+            source,target=Path(tmp)/"original",Path(tmp)/"revue"
+            self.make(source,target)
+            files=("app/services/predictor.py","docs/app.html",
+                   "scripts/clairvoyance_update.py")
+            for file in files:
+                _write(source,file,"independent original source "+file)
+            hashes={file:hashlib.sha256((source/file).read_bytes()).hexdigest()
+                    for file in files}
+            prior=json.loads((target/"docs/parite-modeles-clairvoyance.json").read_text())
+            prior["reference_model_source_sha256"]=hashes
+            _write(target,"docs/parite-modeles-clairvoyance.json",json.dumps(prior))
+            # A new repo commit alone must not invalidate unchanged source.
+            with patch("outils.audit_reproduction_exacte.source_commit",return_value="new-data-only-commit"):
+                report=strict_report(source,target,NOW)
+                self.assertFalse(report["model_formulas"]["verification_is_on_current_source_commit"])
+                self.assertTrue(report["model_formulas"]["verification_is_on_current_source_code"])
+                self.assertTrue(report["model_formulas"]["reference_code_artifacts_still_identical"])
+                self.assertIsNone(report["exact_reproduction_percent"])
+            _write(source,"docs/app.html","different original source code")
+            with patch("outils.audit_reproduction_exacte.source_commit",return_value="new-data-only-commit"):
+                report=strict_report(source,target,NOW)
+                self.assertFalse(report["model_formulas"]["verification_is_on_current_source_code"])
+                self.assertFalse(report["model_formulas"]["reference_code_artifacts_still_identical"])
+
     def test_scope_excludes_cfb(self):
         with TemporaryDirectory() as tmp:
             source,target=Path(tmp)/"original",Path(tmp)/"revue"
