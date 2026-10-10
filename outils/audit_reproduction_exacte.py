@@ -202,6 +202,16 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
         real.get("original_data_sources_identical") is False and
         real.get("identical_original_clairvoyance_predictions_proven") is False
     )
+    id_path=target/"docs/parite-nhl-espn-id-map.json"
+    id_map=_json(id_path) if id_path.is_file() else {}
+    id_pairs_current=bool(
+        current_sha and id_map.get("source_commit")==current_sha and
+        id_map.get("status")=="verified_fixture_identity_pairs" and
+        type(id_map.get("matched")) is int and id_map["matched"]>0 and
+        type(id_map.get("unmatched")) is int and id_map["unmatched"]>=0 and
+        id_map["matched"]==len(id_map.get("mappings") or []) and
+        len({str(x.get("original_espn_id")) for x in id_map["mappings"]}) == id_map["matched"]
+    )
     checked = model.get("verified_formula_parity_models")
     target_count = model.get("total_target_models")
     if not (type(checked) is int and type(target_count) is int and
@@ -300,6 +310,14 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "current_nhl_full_output_dicts_equal": real["reference_vs_revue_entire_output_dict_equal"] if validated_real else 0,
             "original_proprietary_input_identity_verified": False,
             "all_original_models_catalogued": False,
+        },
+        "nhl_fixture_identity": {
+            "verified_source_revision": id_pairs_current,
+            "source_espn_id_matches": id_map.get("matched",0) if id_pairs_current else 0,
+            "revue_id_pairs_exact_team_and_utc": id_pairs_current,
+            "all_source_data_equal": False,
+            "original_goalie_odds_or_roster_equal": False,
+            "description": "NHL vs ESPN factual match identifiers only; not whole model or provider input parity.",
         },
         "static_data_contracts": {
             "declared_subset_count": len(products),
