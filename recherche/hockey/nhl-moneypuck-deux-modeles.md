@@ -46,6 +46,24 @@ Chaque match prévu est verrouillé **au moins 20 min avant le début**. Une pro
 
 Les tests unitaires couvrent la formule inchangée, la séparation des modèles, les priors absents, les valeurs invalides, les horodatages et l'immutabilité du suivi.
 
+## Résultats officiels sans recalcul des modèles
+
+Le workflow `.github/workflows/nhl-settlement-officiel.yml` interroge **toutes les quatre heures** uniquement les tableaux de scores NHL aux dates nécessaires (fuseau **America/New_York**, différent de l'UTC et de Paris), avec un plafond de 14 dates par exécution. Il ne télécharge aucun nouveau CSV MoneyPuck et **ne crée ni ne réécrit de prévision**.
+
+Seuls les événements qui correspondent **exactement** à l'identifiant, aux deux clubs et à l'heure de début verrouillés peuvent être réglés. Un score live, un match reporté, un calendrier différent, une réponse d'API mal formée ou un score contradictoire ne permettent pas un règlement supposé. Quand aucun résultat nouveau n'arrive, aucune publication Git ne doit être effectuée.
+
+Le journal conserve distinctement les anciens pronostics verrouillés sans variante : ils pourront être réglés pour le modèle Clairvoyance, mais **jamais appariés après coup** au modèle prudent.
+
+Pour interpréter les performances, nous publions également :
+
+- **Brier de référence neutre à 50 %** : 0,25 par rencontre binaire.
+- **Log Loss neutre à 50 %** : ln(2) ≈ 0,693147.
+- **Brier Skill vs référence neutre** : 1 − Brier moyen / 0,25 ; une valeur négative signifie pire que 50 %.
+- **Log Loss des deux variantes sur les mêmes événements appariés** : inférieur = meilleur.
+- Les chiffres restent **descriptifs et expérimentaux** avant au moins 100 résultats appariés et ne constituent pas une preuve de rentabilité.
+
+Site : `docs/nhl-clairvoyance.html`, onglet *Suivi / résultats NHL* avec historiques des verrouillages et scores officiels.
+
 ## Fichiers
 
 - `outils/clairvoyance_nhl_moneypuck_shadow.py` : production des prévisions de référence + recherches.
