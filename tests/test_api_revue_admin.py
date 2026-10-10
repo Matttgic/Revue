@@ -57,8 +57,8 @@ class AdminHttpTests(unittest.TestCase):
         self.assertEqual(r.json(),[])
         self.assertIn("not original",r.headers["x-revue-parity"].lower())
         self.assertEqual(self.client.get("/admin/logs?limit=501").status_code,422)
-        self.assertEqual(self.client.post("/admin/pipeline").status_code,405)
-        self.assertEqual(self.client.post("/admin/scrape/nhl").status_code,405)
+        self.assertEqual(self.client.post("/admin/pipeline").status_code,404)
+        self.assertEqual(self.client.post("/admin/scrape/nhl").status_code,404)
 
     def test_real_revue_history_filter_and_pagination(self):
         r=self.client.get("/revue/workflows")
