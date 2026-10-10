@@ -16,7 +16,7 @@ def _num(v):
     return type(v) in (int,float) and math.isfinite(v)
 
 def report(formulas:dict,forensics:dict,elo:dict,inputs:dict,prospective:dict,
-           now:datetime)->dict:
+           now:datetime,goalie_public:dict|None=None)->dict:
     if now.tzinfo is None:raise ValueError("Timezone aware audit clock required")
     now=now.astimezone(timezone.utc)
     target=formulas.get("total_target_models")
@@ -54,7 +54,19 @@ def report(formulas:dict,forensics:dict,elo:dict,inputs:dict,prospective:dict,
     prospect_sufficient=(type(sample) is int and sample>=100 and
         prospective.get("models",{}).get("monte_carlo",{}).get("brier") is not None and
         prospective.get("models",{}).get("ensemble",{}).get("brier") is not None)
+    goalie_public=goalie_public if isinstance(goalie_public,dict) else {}
+    goalie_match=(goalie_public.get("version")=="revue_nhl_public_espn_goalie_parity_v1"
+                  and goalie_public.get("status")=="public_goalie_observation_comparison_not_prediction_parity"
+                  and type(goalie_public.get("matched_unique_games")) is int
+                  and goalie_public["matched_unique_games"]>=10
+                  and goalie_public.get("unmatched_games")==0
+                  and type(goalie_public.get("comparable_goalie_sides")) is int
+                  and goalie_public["comparable_goalie_sides"]>=20
+                  and goalie_public.get("matching_names")==goalie_public["comparable_goalie_sides"]
+                  and goalie_public.get("original_sql_goalie_rows_verified") is False
+                  and goalie_public.get("original_prediction_parity_verified") is False)
     gates={
+        "public_nhl_goalie_names_cross_source_identity":bool(goalie_match),
         "public_formula_subset_same_input_parity":bool(formula_ok),
         "public_nhl_fixture_and_xg_alignment":bool(xg_ok),
         "source_elo_update_algorithm":bool(elo_math),
@@ -66,6 +78,8 @@ def report(formulas:dict,forensics:dict,elo:dict,inputs:dict,prospective:dict,
     }
     missing=[k for k,v in gates.items() if not v]
     blockers={
+        "public_nhl_goalie_names_cross_source_identity":
+            "Public original NHL schedule must match Revue ESPN goalie names by both teams and kickoff; source timestamps may differ.",
         "original_elo_sql_state_and_settlement_history":
             "Original Elo depends on settled source moneyline picks. Private SQL, first ratings, selection and DB ordering are absent.",
         "same_as_original_licensed_or_private_inputs":
@@ -98,6 +112,14 @@ def report(formulas:dict,forensics:dict,elo:dict,inputs:dict,prospective:dict,
             "targeted_formula_total":target if formula_ok else None,
             "identical_public_5v5_xg_nhl_games":same_xg if xg_ok else None,
             "identical_public_kickoff_and_team_games":fixtures if xg_ok else None,
+            "public_original_nhl_goalie_matched_games":
+                goalie_public.get("matched_unique_games") if goalie_match else None,
+            "public_original_nhl_goalie_names_equal":
+                goalie_public.get("matching_names") if goalie_match else None,
+            "public_original_nhl_goalie_statuses_equal":
+                goalie_public.get("matching_statuses") if goalie_match else None,
+            "public_original_nhl_goalie_status_changes":
+                goalie_public.get("different_statuses") if goalie_match else None,
             "published_nhl_moneyline_comparisons":money.get("comparisons") if xg_ok else None,
             "published_nhl_moneyline_mean_gap_pp":gap if xg_ok else None,
             "eligible_revue_moneyline_source_elo_updates":
@@ -125,7 +147,8 @@ def main():
                   read("clairvoyance-elo-source-audit.json"),
                   read("parite-donnees-clairvoyance.json"),
                   read("nhl-frontend-prospective-performance.json"),
-                  datetime.now(timezone.utc))
+                  datetime.now(timezone.utc),
+                  read("parite-nhl-gardiens-publics.json"))
     (root/"phase1-nhl-fidelity.json").write_text(
         json.dumps(result,indent=2,ensure_ascii=False,allow_nan=False)+"\n",
         encoding="utf8")
