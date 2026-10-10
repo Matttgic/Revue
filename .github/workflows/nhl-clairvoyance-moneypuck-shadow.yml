@@ -7,8 +7,10 @@ on:
     paths:
       - 'outils/clairvoyance_nhl_moneypuck_shadow.py'
       - 'outils/nhl_shadow_tracker.py'
+      - 'outils/nhl_moneypuck_prudent.py'
       - 'tests/test_clairvoyance_nhl_moneypuck_shadow.py'
       - 'tests/test_nhl_shadow_tracker.py'
+      - 'tests/test_nhl_moneypuck_prudent.py'
       - '.github/workflows/nhl-clairvoyance-moneypuck-shadow.yml'
 
 permissions:
@@ -32,6 +34,8 @@ jobs:
           python -m unittest discover -s tests -p 'test_clairvoyance_nhl_moneypuck_shadow.py' -v
           python -m unittest discover -s tests -p 'test_clairvoyance_model_reproduction.py' -v
           python -m unittest discover -s tests -p 'test_nhl_shadow_tracker.py' -v
+          python -m unittest discover -s tests -p 'test_nhl_moneypuck_prudent.py' -v
+          python -m outils.verifier_integrite_moneypuck
       - name: Calculate strictly future NHL shadow predictions with official archived data
         run: |
           test -s docs/moneypuck-nhl-latest.json
