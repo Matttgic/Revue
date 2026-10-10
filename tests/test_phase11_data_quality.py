@@ -110,4 +110,30 @@ class SourceQualityTests(unittest.TestCase):
   self.assertEqual(doc["metrics"]["with_verified_espn_goalie_observation"],0)
   self.assertIsNone(next(x for x in doc["events"] if x["league"]=="NHL")["observed_nhl_goalies"])
 
+ def test_official_mlb_pitcher_attachment_fails_closed(self):
+  from outils.match_center_revue import official_mlb_probable_pitchers
+  model={"league":"MLB","event_id":"401999992","home":"Dodgers","away":"Brewers",
+         "start_utc":KICK}
+  source={"status":"official_MLB_probable_pitchers_observed_not_confirmed",
+          "generated_at_utc":GENERATED,"model_recomputed":False,
+          "confirmed_starting_pitchers":0,"real_bets_enabled":False,
+          "rows":[{"event_id":"401999992","home":"Dodgers","away":"Brewers",
+            "start_utc":KICK,"observed_at_utc":GENERATED,
+            "home_pitcher":{"name":"Pitcher A","mlb_person_id":123,
+                "status":"probable_unconfirmed","source":"MLB Stats API probablePitcher"},
+            "away_pitcher":None,"pitchers_are_probable_not_confirmed":True,
+            "starting_pitchers_independently_confirmed":False,
+            "used_in_model_probabilities":False,"sportsbook_prices_verified":False}]}
+  p=official_mlb_probable_pitchers(model,source,NOW)
+  self.assertEqual(p["home"]["name"],"Pitcher A")
+  self.assertIsNone(p["away"])
+  self.assertFalse(p["confirmed_actual_starters"])
+  self.assertFalse(p["model_probabilities_recomputed"])
+  corrupt=copy.deepcopy(source);corrupt["rows"][0]["home"]="Dodgers2"
+  self.assertIsNone(official_mlb_probable_pitchers(model,corrupt,NOW))
+  corrupt=copy.deepcopy(source);corrupt["rows"].append(copy.deepcopy(corrupt["rows"][0]))
+  self.assertIsNone(official_mlb_probable_pitchers(model,corrupt,NOW))
+  corrupt=copy.deepcopy(source);corrupt["rows"][0]["starting_pitchers_independently_confirmed"]=True
+  self.assertIsNone(official_mlb_probable_pitchers(model,corrupt,NOW))
+
 if __name__=="__main__":unittest.main()
