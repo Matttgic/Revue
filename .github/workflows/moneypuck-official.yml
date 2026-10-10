@@ -6,8 +6,10 @@ on:
   push:
     paths:
       - 'outils/moneypuck_feed.py'
+      - 'outils/moneypuck_goalies_feed.py'
       - 'modeles/reproduction/clairvoyance_moneypuck_parser.py'
       - 'tests/test_moneypuck_feed.py'
+      - 'tests/test_moneypuck_goalies_feed.py'
       - '.github/workflows/moneypuck-official.yml'
 
 permissions:
@@ -32,14 +34,17 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_moneypuck_feed.py' -v
           python -m unittest discover -s tests -p 'test_moneypuck_compat.py' -v
+          python -m unittest discover -s tests -p 'test_moneypuck_goalies_feed.py' -v
           python -m unittest discover -s tests -p 'test_site_arena.py' -v
       - name: Fetch ONLY the official MoneyPuck season download CSV
-        run: python -m outils.moneypuck_feed --output docs/moneypuck-nhl-latest.json
+        run: |
+          python -m outils.moneypuck_feed --output docs/moneypuck-nhl-latest.json
+          python -m outils.moneypuck_goalies_feed --output docs/moneypuck-goalies-latest.json
       - name: Publish derived data and explicit attribution (no original CSV)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/moneypuck-nhl-latest.json
+          git add docs/moneypuck-nhl-latest.json docs/moneypuck-goalies-latest.json
           if git diff --cached --quiet; then
             echo "No derived data changes"
             exit 0
