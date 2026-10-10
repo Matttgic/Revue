@@ -7,6 +7,8 @@ on:
   push:
     paths:
       - 'outils/reglement_multisport_officiel.py'
+      - 'outils/etat_donnees_revue.py'
+      - 'tests/test_etat_donnees_revue.py'
       - 'tests/test_reglement_multisport_officiel.py'
       - '.github/workflows/donnees-prioritaires.yml'
 permissions:
@@ -27,6 +29,7 @@ jobs:
       - name: Prove official-only score settlement and immutable bets
         run: |
           python -m unittest discover -s tests -p 'test_reglement_multisport_officiel.py' -v
+          python -m unittest discover -s tests -p 'test_etat_donnees_revue.py' -v
           python -m unittest discover -s tests -p 'test_scoreboard_revue.py' -v
           python -m unittest discover -s tests -p 'test_revue_engine_v2.py' -v
           python -m unittest discover -s tests -p 'test_publier_revue_control.py' -v
@@ -56,11 +59,12 @@ jobs:
             python -m outils.picks_center_revue
             python -m outils.match_center_revue
             python -m outils.revue_match_dossiers
+            python -m outils.etat_donnees_revue
             git add docs/engine-v2-ledger.json docs/scoreboard-revue-latest.json \
               docs/paper-score-settlement-latest.json \
               docs/revue-control-ledger-latest.json docs/revue-control-state-latest.json \
               docs/picks-center-latest.json docs/match-center-latest.json \
-              docs/match-dossiers-latest.json
+              docs/match-dossiers-latest.json docs/etat-donnees-latest.json
             if git diff --cached --quiet; then
               echo 'All official scores and existing paper locks unchanged'
               exit 0
