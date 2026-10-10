@@ -1,3 +1,15 @@
+## Phase 2 — Notre propre historique multisports (démarré le 10 octobre 2026)
+
+Décision : **Revue repart de zéro pour les résultats et l'Elo ; l'ancien SQL privé de Clairvoyance n'est plus requis pour notre modèle indépendant.** [Tableau mobile de l'historique](docs/historique-phase2.html) · [prévisions gelées à l'heure réelle du premier run](docs/phase2-owned-ledger.json) · [Brier/Log Loss par modèle/ligue](docs/phase2-owned-performance.json) · [moteur & Elo indépendants](outils/phase2_historique_autonome.py) · [tests anti-fuite](tests/test_phase2_historique_autonome.py) · [automatisation](.github/workflows/phase2-historique-autonome.yml).
+
+**Première exécution réelle 2026-10-10T20:39:25Z** (22h39 Paris) : **39 rencontres verrouillées dans 8 compétitions** — NFL 13, WNBA 2, MLB 3, PL 4, LaLiga 5, Serie A 7, Bundesliga 2, Ligue 1 3. **0 résultat réglé, 0 Elo historique** à la création ; ces compteurs montent uniquement après de vrais scores officiels. Chaque pronostic est gelé avec son heure, ses probabilités et ses modèles disponibles au *même instant* : modèle de base + Elo/forme/marge + Monte-Carlo/Bayes/Elo + football avancé. Aucun ancien match n'est transformé en pick pré-match.
+
+**Elo de Revue différent de celui de Clairvoyance** : commence à **1 500**, K **24**, actualisé **une seule fois par score final ESPN vérifié depuis la création**, même si aucun pick n'existait pour ce match. Ce classement ne reconstitue pas le SQL original. Dès que chaque équipe a au moins **3 matchs finaux observés dans notre propre historique**, un nouveau modèle Elo indépendant (logistique 2 issues, **sans bonus domicile inventé**) pourra être enregistré *uniquement sur les nouveaux matchs*, sans modifier un pronostic verrouillé.
+
+Les 10 compétitions étudiées sont NBA/WNBA/NCAAB/NFL/MLB + PL/LaLiga/Serie A/Bundesliga/Ligue 1. **NHL**, **MLS** et **UCL** ont leurs suivis spécifiques / sont exclus de ce règlement multi-sport tant que les règles des prolongations, de l'overtime ou des phases finales ne sont pas comparables ; tennis/MMA/LIIGA restent dans leurs flux spécialisés. Les sports sans historique suffisant sont affichés comme indisponibles, pas simulés.
+
+Les scores finals sont **ESPN observé**, rapprochés strictement par identifiant, compétition, équipe et coup d'envoi. Les résultats non vérifiés, doublons contradictoires, scores prématurés et données publiées après match sont écartés. Une fois réglé, le Brier/log loss est descriptif uniquement ; **aucun ROI, EV positif ou rentabilité démontrée**, aucun pari automatique ni coût PulseScore supplémentaire. [État de fraîcheur de 17 couches](docs/etat-donnees.html).
+
 ## Phase 1 — fidélité du modèle NHL Clairvoyance (audit de source)
 
 **Tableau accessible : [Phase 1 NHL · calculs et différences restantes](docs/phase1-nhl.html).** Contrôle horodaté : [rapport d'acceptation](docs/phase1-nhl-fidelity.json) · [comparaison des vrais noms de gardiens publiés](docs/parite-nhl-gardiens-publics.json) · [audit de mise à jour Elo depuis les paris moneyline réglés](docs/clairvoyance-elo-source-audit.json).
