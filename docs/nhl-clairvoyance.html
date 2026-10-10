@@ -50,6 +50,20 @@ h1 span{color:#55f5de}
 .odds-observed .book{font-size:12px;color:#bcd1e0;margin-top:7px}
 .odds-observed .price{font:700 15px 'Chakra Petch',sans-serif;color:#f2dcff}
 .empty{padding:20px;border:1px dashed #39546f;color:#afc5d8}
+.cal-section{margin:35px 0;padding:22px 0;border-top:1px solid #314962;border-bottom:1px solid #314962}
+.cal-section h2{font:800 25px 'Chakra Petch',system-ui,sans-serif;color:#edffff;margin:0 0 6px}
+.cal-desc{color:#a5bed0;font-size:12px;line-height:1.7;margin:7px 0 19px}
+.cal-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px}
+.cal-model{background:linear-gradient(145deg,#111e33,#10293b);border:1px solid #35516a;padding:18px;min-width:0}
+.cal-model h3{font:800 19px 'Chakra Petch',sans-serif;color:#e8ffff;margin:0 0 10px}
+.cal-model .cal-state{font:700 11px monospace;color:#80cbca}
+.cal-meter{height:8px;background:#29465a;border-radius:4px;overflow:hidden;margin:9px 0 6px}
+.cal-meter span{display:block;height:100%;background:#55f5de;max-width:100%}
+.cal-info{color:#a3bfd0;font-size:12px;line-height:1.7;margin-top:7px}
+.cal-bins{margin-top:13px;display:grid;gap:8px}
+.cal-bin{display:grid;grid-template-columns:67px 1fr;gap:8px;align-items:center;font-size:11px;color:#a6c2d0}
+.cal-bin div{background:#21364b;height:7px}
+.cal-bin div span{display:block;height:100%;background:#55f5de}
 .results-section{margin-top:33px;padding-top:18px;border-top:1px solid #324b67}
 .results-section h2{font:800 24px 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.04em;color:#e8f9ff;margin-bottom:7px}
 .results-section .hint{color:#8baac2;font-size:12px;line-height:1.6;margin:0 0 16px}
@@ -97,6 +111,12 @@ Données provenant de <a href="https://moneypuck.com/data.htm" target="_blank" r
 <p id="status" class="status" role="status" aria-live="polite">Lecture des prédictions vérifiables…</p>
 <section class="cards" id="grid" aria-label="Prédictions expérimentales"></section>
 <p id="empty" class="empty" hidden>Aucun match prévisionnel valide disponible pour la sélection.</p>
+<section class="cal-section" aria-label="Calibration prospective des modèles NHL">
+<h2>CALIBRATION / VALIDATION</h2>
+<p class="cal-desc">Deux méthodes évaluées séparément sur des résultats officiels réellement verrouillés avant match. Chaque méthode nécessite 100 résultats d'entraînement, puis 40 nouveaux matchs pour tester la calibration. Les données utilisées pour le test ne servent jamais à l'entraînement. Aucun ajustement n'est automatiquement envoyé vers les paris.</p>
+<p id="calStatus" class="status" role="status" aria-live="polite">Lecture du protocole de validation…</p>
+<div id="calCards" class="cal-cards"></div>
+</section>
 <section class="results-section" aria-label="Historique des prédictions NHL verrouillées">
 <h2>SUIVI / RÉSULTATS NHL</h2>
 <p class="hint">Prévisions enregistrées avant match et résultats officiels. Ce tableau ne présente pas un historique de paris réellement misés. Les variantes ajoutées après le verrouillage initial ne sont jamais reconstruites rétroactivement.</p>
@@ -178,6 +198,63 @@ async function loadLedger(){
    by("resultsList").append(card);
   }
  }catch(error){by("resultsStatus").textContent="Registre indisponible : "+error.message;}
+}
+async function loadCalibration(){
+ try{
+  const r=await fetch("./nhl-calibration-latest.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("Rapport non publié");
+  const doc=await r.json();
+  if(doc.status!=="prospective_research_only"||doc.auto_promotion!==false||
+    doc.real_bets_enabled!==false||!doc.models)
+   throw Error("Format ou niveau de sécurité inattendu");
+  by("calStatus").textContent="Recherche uniquement · 100 résultats d'entraînement + 40 nouveaux matchs de validation · aucune promotion automatique";
+  by("calCards").replaceChildren();
+  for(const [id,name] of [["clairvoyance_formula","CLAIRVOYANCE"],["revue_prudent","REVUE PRUDENT"]]){
+   const v=doc.models[id];
+   if(!v)continue;
+   const root=make("article","cal-model");
+   root.append(make("h3","",name));
+   const count=Number(v.settled_samples)||0;
+   const training=count<100,ready=Number(v.holdout_samples)||0;
+   const phase=training?"PHASE 1 · ENTRAÎNEMENT":ready<40?
+       "PHASE 2 · NOUVEAUX MATCHS":"PHASE 3 · ÉVALUATION EXPÉRIMENTALE";
+   root.append(make("div","cal-state",phase));
+   const meter=make("div","cal-meter"),fill=make("span");
+   const progress=training?count:ready;
+   const required=training?100:40;
+   fill.style.width=Math.max(0,Math.min(100,100*progress/required))+"%";
+   meter.append(fill);root.append(meter);
+   root.append(make("div","cal-info",progress+" / "+required+
+    (training?" résultats pour entraîner":" nouveaux matchs pour tester")));
+   if(v.raw_brier!=null)root.append(make("div","cal-info",
+      "Brier brut : "+Number(v.raw_brier).toLocaleString("fr-FR",{maximumFractionDigits:4})+
+      " · Log Loss : "+Number(v.raw_logloss).toLocaleString("fr-FR",{maximumFractionDigits:4})));
+   if(v.holdout_metrics){
+    const h=v.holdout_metrics;
+    root.append(make("div","cal-info",
+      "Brier test : brut "+Number(h.raw_brier).toLocaleString("fr-FR",{maximumFractionDigits:4})+
+      " / ajusté "+Number(h.calibrated_brier).toLocaleString("fr-FR",{maximumFractionDigits:4})+
+      " · sélection non automatique"));
+   }
+   const bins=(v.reliability_bins||[]).filter(x=>x.count>0);
+   if(bins.length){
+    root.append(make("div","sep","FIABILITÉ OBSERVÉE · ÉCHANTILLON"));
+    const grid=make("div","cal-bins");
+    for(const b of bins){
+      const cell=make("div","cal-bin");
+      cell.append(make("span","",Math.round(b.from*100)+"–"+Math.round(b.to*100)+" %"));
+      const content=make("div"),span=make("span");
+      span.style.width=Math.max(0,Math.min(100,100*b.observed_rate))+"%";
+      content.append(span);cell.append(content);
+      grid.append(cell);
+    }
+    root.append(grid);
+    root.append(make("div","cal-info","Barres : fréquence réelle de victoire domicile dans chaque tranche de probabilité · petits échantillons à interpréter prudemment"));
+   }else root.append(make("div","cal-info","Aucun résultat officiel enregistré dans ce modèle."));
+   root.append(make("div","mini","NON VALIDÉ POUR DES MISES RÉELLES"));
+   by("calCards").append(root);
+  }
+ }catch(err){by("calStatus").textContent="Calibration indisponible : "+err.message;}
 }
 async function loadPerformance(){
  try{
@@ -286,5 +363,5 @@ document.querySelectorAll("button[data-filter]").forEach(button=>button.addEvent
  render();
 }));
 by("teamFilter").addEventListener("change",render);
-load();loadPerformance();loadOdds();loadLedger();
+load();loadPerformance();loadOdds();loadLedger();loadCalibration();
 </script></body></html>
