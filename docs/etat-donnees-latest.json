@@ -1,0 +1,132 @@
+{
+  "generated_at_utc": "2026-10-10T18:15:01.365373+00:00",
+  "status": "data_sources_audited_not_live_betting_ready",
+  "realtime_bookmaker_availability_verified": false,
+  "verified_positive_ev_opportunities": 0,
+  "uncalibrated_models_are_not_betting_advice": true,
+  "original_clairvoyance_end_to_end_parity": false,
+  "real_bets_enabled": false,
+  "paid_api_requests_for_this_audit": 0,
+  "all_essential_snapshots_fresh": true,
+  "fresh_essential_layers": 6,
+  "essential_layer_count": 6,
+  "layers": {
+    "calendrier": {
+      "file": "multisports-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T16:21:24.636871+00:00",
+      "age_hours": 1.89,
+      "max_age_hours": 8
+    },
+    "matchs": {
+      "file": "match-center-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T18:15:01.209615+00:00",
+      "age_hours": 0.0,
+      "max_age_hours": 3
+    },
+    "cotes": {
+      "file": "engine-v2-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T16:24:02.337475+00:00",
+      "age_hours": 1.85,
+      "max_age_hours": 7
+    },
+    "resultats": {
+      "file": "scoreboard-revue-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T18:14:59.983500+00:00",
+      "age_hours": 0.0,
+      "max_age_hours": 3
+    },
+    "journal": {
+      "file": "revue-control-ledger-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T18:15:01.105739+00:00",
+      "age_hours": 0.0,
+      "max_age_hours": 3
+    },
+    "selection": {
+      "file": "picks-center-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T18:15:01.155731+00:00",
+      "age_hours": 0.0,
+      "max_age_hours": 3
+    },
+    "nhl_stats": {
+      "file": "nhl-official-stats-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T11:37:38.569978+00:00",
+      "age_hours": 6.62,
+      "max_age_hours": 30
+    },
+    "nhl_moneypuck": {
+      "file": "moneypuck-nhl-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T12:59:54.828016+00:00",
+      "age_hours": 5.25,
+      "max_age_hours": 48
+    },
+    "nhl_gardiens": {
+      "file": "moneypuck-goalies-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T12:59:55.247419+00:00",
+      "age_hours": 5.25,
+      "max_age_hours": 48
+    },
+    "nhl_frontend": {
+      "file": "nhl-frontend-observed-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T17:55:33.664000+00:00",
+      "age_hours": 0.32,
+      "max_age_hours": 24
+    },
+    "reglements": {
+      "file": "paper-score-settlement-latest.json",
+      "status": "fresh",
+      "fresh": true,
+      "updated_at_utc": "2026-10-10T18:15:01.060643+00:00",
+      "age_hours": 0.0,
+      "max_age_hours": 3
+    }
+  },
+  "facts": {
+    "matchs_futurs_observes": 124,
+    "matchs_avec_cotes_historiques": 21,
+    "matchs_avec_modeles_recherche": 76,
+    "championnats_calendrier": 18,
+    "sources_sportives_ok": 18,
+    "scoreboard_matchs_finaux": 23,
+    "scoreboard_matchs_en_cours": 3,
+    "scoreboard_sources_ok": 26,
+    "scoreboard_sources_erreur": 0,
+    "simulations": 26,
+    "simulations_reglees": 9,
+    "simulations_en_attente": 7,
+    "simulations_exclues": 10,
+    "simulations_roi_fictif_pct": 45.22,
+    "selection_experimentale": 5,
+    "nhl_frontend_previsions": 15,
+    "bookmakers_fr_declares": 5,
+    "cotes_fournisseur": "active_pulsescore"
+  },
+  "remaining_blockers": [
+    "Aucun modèle de paris validé/calibré sur des résultats prospectifs suffisants.",
+    "Cotes des bookmakers seulement observées à un instant passé : disponibilité à la mise NON vérifiée.",
+    "Cotation Pinacle/échelle de marché et comparaisons EV non validées de bout en bout.",
+    "Gardiens titulaires et blessures NHL non confirmés ; variables NHL Edge originales manquantes.",
+    "Données et classements SQL privés de Clairvoyance non disponibles : reproduction exacte des picks non démontrée."
+  ],
+  "user_summary": "Les matchs, les cotes observées, les résultats et le bilan sont suivis indépendamment. Seules des validations complètes permettraient de présenter un pari jouable.",
+  "scope": "Snapshot metadata + verified paper outcomes only; not a real-time provider status check."
+}
