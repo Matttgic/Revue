@@ -1,0 +1,42 @@
+name: Revue - NBA Elo Clairvoyance sur donnees ESPN
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '18 7 * * *'
+  push:
+    paths:
+      - 'outils/nba_ratings_clairvoyance_live.py'
+      - 'tests/test_nba_ratings_clairvoyance_live.py'
+      - '.github/workflows/clairvoyance-nba-ratings.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-nba-source-ratings
+  cancel-in-progress: false
+jobs:
+  ratings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tester l'adaptateur exact Clairvoyance NBA
+        run: python -m unittest discover -s tests -p 'test_nba_ratings_clairvoyance_live.py' -v
+      - name: Produire vrais Elo avec les statistiques ESPN
+        run: python -m outils.nba_ratings_clairvoyance_live
+      - name: Publier résultats dérivés seulement
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clairvoyance-nba-ratings.json
+          if ! git diff --cached --quiet; then
+            git commit -m "data: source-faithful Clairvoyance NBA Elo from observed ESPN"
+            for i in 1 2 3 4; do
+              git pull --rebase -X theirs origin main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep "$i"
+            done
+            exit 1
+          fi
