@@ -33,9 +33,9 @@ Signatures GET présentes et vérifiées par tests de contrat :
 Endpoint propre à Revue : `GET /revue/parity` pour lire le niveau réel
 de reproduction, sans chiffre global trompeur.
 
-**Important :** quatorze signatures GET sur les vingt-quatre routes originales sont
+**Important :** seize signatures GET sur les vingt-quatre routes originales sont
 déclarées, dont trois routes de picks simulés ; `/predictions/` refuse volontairement de produire un résultat sans données équivalentes. Cela ne veut pas dire que
-14/24 routes sont **fonctionnellement identiques** : l'identité complète de
+16/24 routes sont **fonctionnellement identiques** : l'identité complète de
 toutes les réponses, la pagination, les erreurs et les données historiques
 doit être vérifiée. L'audit strict maintient donc
 `end_to_end_verified_equivalent_routes: 0`.
@@ -96,7 +96,7 @@ version ; ce n'est pas une API de résultats en continu. L'exactitude temporelle
 est préservée : les données périmées (>8 heures pour les rencontres et >2
 heures pour les scores) sont refusées, plutôt que silencieusement remplacées.
 
-## Routes administrateur et exécutions réelles (11 octobre 2026)
+## Routes administrateur et exécutions réelles (10 octobre 2026)
 
 - `GET /admin/status` et `GET /admin/logs` conservent les **signatures** de lecture de Clairvoyance. Faute de base `DailyLog` originale, les cinq scrapers originaux restent `null`, le prochain passage du scheduler `null` et les logs SQL une liste vide. Ce sont des **inconnues**, jamais de faux succès.
 - `GET /revue/workflows` expose séparément un instantané vérifié des exécutions GitHub Actions réelles du projet, avec dates, liens `github.com`, dernier succès/échec et filtres `workflow`/`limit`. Ce sont **des jobs Revue**, pas les scrapers SQL de Clairvoyance.
@@ -105,7 +105,7 @@ heures pour les scores) sont refusées, plutôt que silencieusement remplacées.
 
 ## Reste avant une reproduction complète
 
-1. La base SQL originale et ses 24 comportements API : la signature de dix routes est présente, mais l'identité de leurs résultats n'est pas prouvée ; restent notamment les statuts admin, l'historique des picks, Elo MLB et des correspondances statistiques exactes.
+1. La base SQL originale et ses 24 comportements API : seize signatures GET sont présentes, mais l'identité de leurs résultats n'est pas prouvée ; restent notamment les statuts admin, l'historique des picks, Elo MLB et des correspondances statistiques exactes.
 2. L'équivalence sur mêmes snapshots des cotes, MoneyPuck 5v5/all,
    des gardiens utilisés, des classements Elo, des blessures et des règles.
 3. Les vrais résultats de prédictions finales pour un même événement,
