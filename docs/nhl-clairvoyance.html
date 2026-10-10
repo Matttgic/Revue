@@ -50,6 +50,18 @@ h1 span{color:#55f5de}
 .odds-observed .book{font-size:12px;color:#bcd1e0;margin-top:7px}
 .odds-observed .price{font:700 15px 'Chakra Petch',sans-serif;color:#f2dcff}
 .empty{padding:20px;border:1px dashed #39546f;color:#afc5d8}
+.results-section{margin-top:33px;padding-top:18px;border-top:1px solid #324b67}
+.results-section h2{font:800 24px 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.04em;color:#e8f9ff;margin-bottom:7px}
+.results-section .hint{color:#8baac2;font-size:12px;line-height:1.6;margin:0 0 16px}
+.results-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:10px}
+.result-row{border:1px solid #354c66;background:#111f33;padding:15px;display:grid;gap:8px;font-size:12px}
+.result-head{display:flex;gap:10px;justify-content:space-between;align-items:center;color:#8dabbe;font:700 10px monospace}
+.result-head .resolved{color:#55f5de}
+.result-main{font:800 19px 'Chakra Petch',sans-serif;color:#e2f5ff}
+.result-probs{color:#a8bfce;line-height:1.7}
+.result-probs strong{color:#eefbff}
+.result-row small{color:#8ca4b8;font-size:11px}
+
 footer{font-size:12px;line-height:1.8;color:#829db2;border-top:1px solid #2c4058;margin-top:35px;padding-top:21px}
 @media(max-width:500px){.eyebrow{flex-direction:column}.cards{grid-template-columns:1fr}}
 </style></head>
@@ -85,6 +97,12 @@ Données provenant de <a href="https://moneypuck.com/data.htm" target="_blank" r
 <p id="status" class="status" role="status" aria-live="polite">Lecture des prédictions vérifiables…</p>
 <section class="cards" id="grid" aria-label="Prédictions expérimentales"></section>
 <p id="empty" class="empty" hidden>Aucun match prévisionnel valide disponible pour la sélection.</p>
+<section class="results-section" aria-label="Historique des prédictions NHL verrouillées">
+<h2>SUIVI / RÉSULTATS NHL</h2>
+<p class="hint">Prévisions enregistrées avant match et résultats officiels. Ce tableau ne présente pas un historique de paris réellement misés. Les variantes ajoutées après le verrouillage initial ne sont jamais reconstruites rétroactivement.</p>
+<p class="status" id="resultsStatus" role="status" aria-live="polite">Lecture du registre prospectif…</p>
+<div id="resultsList" class="results-list"></div>
+</section>
 <footer>
 <strong>Provenance :</strong> <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com — données statistiques NHL</a> · <a href="./moneypuck.html">Statistiques xG et GSAx observées</a> ·
 <a href="./nhl-model.html">Modèle indépendant Elo-Poisson</a> ·
@@ -126,6 +144,40 @@ async function loadOdds(){
   }
   observedOdds=fresh;render();
  }catch(error){observedOdds=new Map();}
+}
+async function loadLedger(){
+ try{
+  const r=await fetch("./nhl-shadow-ledger.json?fresh="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("Registre non publié");
+  const data=await r.json();
+  if(data.version!=="nhl_clairvoyance_moneypuck_shadow_v1"||!Array.isArray(data.events))
+   throw Error("Format du registre incompatible");
+  const settled=data.events.filter(x=>x.status==="settled").length;
+  by("resultsStatus").textContent=data.events.length+" prévisions verrouillées · "+
+   settled+" réglées · "+(data.events.length-settled)+" en attente";
+  by("resultsList").replaceChildren();
+  for(const e of [...data.events].sort((a,b)=>Date.parse(b.kickoff_utc)-Date.parse(a.kickoff_utc)).slice(0,24)){
+   const card=make("article","result-row"),head=make("div","result-head");
+   const played=e.status==="settled";
+   const d=new Date(e.kickoff_utc).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
+   head.append(make("span","",d),make("span",played?"resolved":"",played?"RÉSULTAT OFFICIEL":"EN ATTENTE"));
+   card.append(head,make("div","result-main",e.away+" @ "+e.home+
+    (played?" · "+e.away_goals+"-"+e.home_goals:"")));
+   const detail=make("div","result-probs");
+   detail.append(make("div","", "Clairvoyance : "+pct(e.home_win_probability)+" domicile"));
+   if(Number.isFinite(e.research_home_win_probability))
+    detail.append(make("div","", "Prudent : "+pct(e.research_home_win_probability)+" domicile"));
+   else detail.append(make("div","", "Prudent : non verrouillé pour ce match"));
+   if(played){
+    detail.append(make("strong","", "Vainqueur : "+(e.result===1?e.home:e.away)+
+     " · Brier "+Number(e.brier).toLocaleString("fr-FR",{maximumFractionDigits:4})));
+    if(Number.isFinite(e.research_brier))
+     detail.append(make("div","", "Brier prudent : "+Number(e.research_brier).toLocaleString("fr-FR",{maximumFractionDigits:4})));
+   }
+   card.append(detail,make("small","", "Source : NHL officiel · aucun ROI validé"));
+   by("resultsList").append(card);
+  }
+ }catch(error){by("resultsStatus").textContent="Registre indisponible : "+error.message;}
 }
 async function loadPerformance(){
  try{
@@ -231,5 +283,5 @@ document.querySelectorAll("button[data-filter]").forEach(button=>button.addEvent
  render();
 }));
 by("teamFilter").addEventListener("change",render);
-load();loadPerformance();loadOdds();
+load();loadPerformance();loadOdds();loadLedger();
 </script></body></html>
