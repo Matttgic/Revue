@@ -1,0 +1,323 @@
+{
+  "generated_at_utc": "2026-10-10T08:37:56.394469+00:00",
+  "source_repository": "Purple-Wraith/clairvoyance-backend",
+  "target_repository": "Matttgic/Revue",
+  "source_commit": "95258833b66179084f3ab946e25d794898200ec6",
+  "source_revision_status": "source_revision_recorded",
+  "scope": "exact end-to-end application behaviour (CFB intentionally excluded)",
+  "goal": "100% verified equality of interface, backend, data features, calculations, and outputs on identical time-stamped inputs",
+  "exact_reproduction_percent": null,
+  "exact_end_to_end_parity": "NOT_VERIFIED",
+  "functional_coverage_percent_is_not_reproduction": true,
+  "original_license_file": null,
+  "wholesale_source_redistribution_authorized": false,
+  "copyright_note": "No license located is not permission. Reimplement independently or obtain explicit authorization.",
+  "frontend": {
+    "reference_path": "docs/app.html",
+    "reference_size_bytes": 2671918,
+    "reference_sha256": "fc661ce48198f8d525be688fb3816538deb50b9ba73b53bdb0348a9d83cea506",
+    "reference_index_and_app_same_bytes": true,
+    "target_path": "docs/index.html",
+    "target_size_bytes": 28110,
+    "target_sha256": "4afa1ef391e3a9078a246577d1ba43918d70300c966654dfaa48fb1de3afb944",
+    "identical_html": false,
+    "pixel_accurate_visual_comparison": "NOT_PERFORMED",
+    "interactive_behaviour_parity": "NOT_VERIFIED"
+  },
+  "backend": {
+    "source_routes": [
+      {
+        "method": "GET",
+        "path": "/admin/logs",
+        "source_file": "app/routers/admin.py",
+        "original_function": "get_logs",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "POST",
+        "path": "/admin/pipeline",
+        "source_file": "app/routers/admin.py",
+        "original_function": "trigger_full_pipeline",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "POST",
+        "path": "/admin/scrape/mlb",
+        "source_file": "app/routers/admin.py",
+        "original_function": "trigger_mlb_scrape",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "POST",
+        "path": "/admin/scrape/moneypuck",
+        "source_file": "app/routers/admin.py",
+        "original_function": "trigger_moneypuck_scrape",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "POST",
+        "path": "/admin/scrape/nhl",
+        "source_file": "app/routers/admin.py",
+        "original_function": "trigger_nhl_scrape",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "POST",
+        "path": "/admin/scrape/nhl-schedule",
+        "source_file": "app/routers/admin.py",
+        "original_function": "trigger_nhl_schedule_scrape",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "POST",
+        "path": "/admin/settle",
+        "source_file": "app/routers/admin.py",
+        "original_function": "trigger_settlement",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/admin/status",
+        "source_file": "app/routers/admin.py",
+        "original_function": "get_status",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/health",
+        "source_file": "app/main.py",
+        "original_function": "health",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/mlb/elo",
+        "source_file": "app/routers/mlb.py",
+        "original_function": "get_mlb_elo",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/mlb/games/{espn_id}",
+        "source_file": "app/routers/mlb.py",
+        "original_function": "get_game",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/mlb/schedule",
+        "source_file": "app/routers/mlb.py",
+        "original_function": "get_schedule",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/nhl/goalies",
+        "source_file": "app/routers/nhl.py",
+        "original_function": "get_goalie_stats",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/nhl/moneypuck",
+        "source_file": "app/routers/nhl.py",
+        "original_function": "get_moneypuck_teams",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/nhl/moneypuck/live",
+        "source_file": "app/routers/nhl.py",
+        "original_function": "get_moneypuck_live",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/nhl/schedule",
+        "source_file": "app/routers/nhl.py",
+        "original_function": "get_nhl_schedule",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/nhl/skaters",
+        "source_file": "app/routers/nhl.py",
+        "original_function": "get_skater_stats",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/nhl/teams",
+        "source_file": "app/routers/nhl.py",
+        "original_function": "get_team_stats",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/picks/",
+        "source_file": "app/routers/picks.py",
+        "original_function": "list_picks",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "POST",
+        "path": "/picks/",
+        "source_file": "app/routers/picks.py",
+        "original_function": "create_pick",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/picks/stats",
+        "source_file": "app/routers/picks.py",
+        "original_function": "get_pick_stats",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/picks/{pick_id}",
+        "source_file": "app/routers/picks.py",
+        "original_function": "get_pick",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "PATCH",
+        "path": "/picks/{pick_id}/void",
+        "source_file": "app/routers/picks.py",
+        "original_function": "void_pick",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      },
+      {
+        "method": "GET",
+        "path": "/predictions/",
+        "source_file": "app/routers/predictions.py",
+        "original_function": "predictions",
+        "target_parity": "not_implemented_as_equivalent_http_api"
+      }
+    ],
+    "source_route_count": 24,
+    "end_to_end_verified_equivalent_routes": 0,
+    "status": "FastAPI + database behaviour not replicated as equivalent server API"
+  },
+  "model_formulas": {
+    "verified_in_declared_subset": 44,
+    "declared_subset_total": 44,
+    "reference_commit_of_verification": "9578671caed6a5dccaed8790d56d7a814a2ba842",
+    "verification_is_on_current_source_commit": false,
+    "current_real_game_same_input_outputs_equal": "NOT_VERIFIED",
+    "all_original_models_catalogued": false
+  },
+  "static_data_contracts": {
+    "declared_subset_count": 9,
+    "byte_identical_products": 0,
+    "same_real_input_semantic_parity": "NOT_VERIFIED",
+    "items": [
+      {
+        "original": "docs/data.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 998587,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/picks.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 5853529,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/live_data.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 2743,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/automation_status.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 37735,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/engine_performance.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 7472,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/sport_performance.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 25129,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/player_stats.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 15242,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/team_logos.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 126760,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      },
+      {
+        "original": "docs/soccer_fbref.json",
+        "reference_file_exists": true,
+        "reference_size_bytes": 747553,
+        "identical_path_in_revue": false,
+        "identical_bytes_confirmed": false,
+        "equivalent_semantic_content": "unverified"
+      }
+    ]
+  },
+  "prior_test_evidence": {
+    "docs/parite-modeles-clairvoyance.json": {
+      "status": "historical_or_unpinned_evidence",
+      "source_commit_of_test": "9578671caed6a5dccaed8790d56d7a814a2ba842",
+      "matches_current_source_commit": false,
+      "targeted_formula_tests": 5232
+    },
+    "docs/parite-clairvoyance-frontend.json": {
+      "status": "historical_or_unpinned_evidence",
+      "source_commit_of_test": "9578671caed6a5dccaed8790d56d7a814a2ba842",
+      "matches_current_source_commit": false,
+      "targeted_formula_tests": 4743
+    },
+    "docs/parite-clairvoyance-predictor.json": {
+      "status": "historical_or_unpinned_evidence",
+      "source_commit_of_test": "9578671caed6a5dccaed8790d56d7a814a2ba842",
+      "matches_current_source_commit": false,
+      "targeted_formula_tests": 43
+    },
+    "docs/parite-donnees-clairvoyance.json": {
+      "status": "historical_or_unpinned_evidence",
+      "source_commit_of_test": null,
+      "matches_current_source_commit": false,
+      "targeted_formula_tests": null
+    }
+  },
+  "critical_blockers": [
+    "No matching original frontend interaction/pixel rendering evidence",
+    "Source FastAPI routes, database writes and security behaviour not reproduced as exact API",
+    "Original data and injury/lineup provider snapshots not proven identical and temporally matched",
+    "Real matches have not been tested with same model inputs, market rules and output probabilities",
+    "Third-party datasets such as Opta may be subject to separate redistribution restrictions"
+  ],
+  "note": "Function-level exact checks are valuable but cannot be added to functional estimates or used as a full-app reproduction percentage."
+}
