@@ -18,7 +18,7 @@ def fixture(i,mid,p=.6,y=0,lg="NBA",settled=True):
  source=kick-timedelta(hours=2);locked=kick-timedelta(hours=1)
  resolution=kick+timedelta(hours=4)
  game=str(8000+i)
- n=3 if lg=="PL" else 2
+ n=3 if lg in {"PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS","UCL"} else 2
  probs=[p,1-p] if n==2 else [p,.22,.78-p]
  result=0 if y==0 else 1 if n==2 else y
  scores={"home":3 if y==0 else 1,"away":1 if y==0 else 3}
