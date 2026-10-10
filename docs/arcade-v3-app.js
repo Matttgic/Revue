@@ -63,6 +63,13 @@ function renderWhy(e){
       (e.hockey.goalieHome||"non vérifié")+" / "+
       (e.hockey.goalieAway||"non vérifié")+
       ", titulaires non confirmés."));
+  if(e.hockey.espnGoalieHome||e.hockey.espnGoalieAway){
+    const describe=(x)=>x?x.name+" ("+(x.status==="confirmed"?"confirmé ESPN":"probable ESPN")+")":"non renseigné";
+    block.append(h("p","","ESPN observé le "+date(e.hockey.espnObservedAt)+
+      " : domicile "+describe(e.hockey.espnGoalieHome)+
+      " · extérieur "+describe(e.hockey.espnGoalieAway)+
+      ". Informations distinctes des probabilités ci-dessus."));
+  }
   root.append(block);
  }
  if(e.historicalQuotes.length){
@@ -189,12 +196,13 @@ function bootEvents(){
 }
 document.addEventListener("DOMContentLoaded",async()=>{
  bootEvents();
- const names=["match-center-latest.json","picks-center-latest.json","nhl-frontend-observed-latest.json"];
+ const names=["match-center-latest.json","picks-center-latest.json","nhl-frontend-observed-latest.json","nhl-espn-goalies-latest.json"];
  const result=await Promise.allSettled(names.map(load));
  const inputs={
   matches:result[0].status==="fulfilled"?result[0].value:null,
   picks:result[1].status==="fulfilled"?result[1].value:null,
   nhl:result[2].status==="fulfilled"?result[2].value:null,
+  goalies:result[3].status==="fulfilled"?result[3].value:null,
  };
  if(!window.RevueArcadeV3) {
   put("home-status","Erreur moteur de présentation");
