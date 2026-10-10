@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-10T01:18:48.890Z",
+  "updated_at_utc": "2026-10-10T01:30:13.803Z",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 36,
-  "previous_estimate_percent": 35,
+  "estimated_functional_coverage_percent": 37,
+  "previous_estimate_percent": 36,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
   "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
   "excluded_by_user": [
@@ -15,9 +15,9 @@
       "id": "infrastructure",
       "title": "Infrastructure et automatisation",
       "weight": 10,
-      "coverage": 0.8,
+      "coverage": 0.86,
       "status": "partiel",
-      "remaining": "Alertes et observabilité plus complètes"
+      "remaining": "Observabilité globale plus complète, alertes de panne, contrôle des exécutions"
     },
     {
       "id": "sports_data",
@@ -79,9 +79,9 @@
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.41,
+      "coverage": 0.46,
       "status": "partiel",
-      "remaining": "100+ résultats appariés NHL, historique complet, CLV et calibration sans fuite temporelle"
+      "remaining": "≥100 résultats prospectifs appariés NHL, calibration à froid, historique des cotes et CLV"
     },
     {
       "id": "licensed_data",
@@ -108,7 +108,13 @@
     "Rapport NHL SHADOW généré avec 18 matchs et deux probabilités par rencontre",
     "Journal prospectif pour chaque probabilité, Brier comparé uniquement sur matchs appariés",
     "Tests de recherche, verrouillage immuable, et contrôle d’intégrité renforcé MoneyPuck intégrés au CI",
-    "Comparaison mobile avec étiquetage non calibré / aucune titularisation confirmée"
+    "Comparaison mobile avec étiquetage non calibré / aucune titularisation confirmée",
+    "Scoreboard NHL officiel léger interrogé automatiquement toutes les 4 h, avec dates NHL America/New_York",
+    "Réconciliation des matchs NHL par identifiant, horaire et équipes avant règlement ; aucune prévision réécrite",
+    "Tests CI officiels réussis pour l’enrichissement NHL, MoneyPuck et règlement des matchs",
+    "Historique graphique mobile des prédictions verrouillées, attente et scores officiels",
+    "Benchmark expérimental Brier et Log Loss avec référence aléatoire p=50%",
+    "Résolution des conflits GitHub Actions par calcul systématique à partir du dernier journal distant sans rebase JSON"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -119,13 +125,16 @@
     "nhl_shadow": "docs/nhl-clairvoyance-shadow-latest.json",
     "nhl_performance": "docs/nhl-shadow-performance.json",
     "money_puck_teams": "docs/moneypuck-nhl-latest.json",
-    "money_puck_goalies": "docs/moneypuck-goalies-latest.json"
+    "money_puck_goalies": "docs/moneypuck-goalies-latest.json",
+    "nhl_ledger": "docs/nhl-shadow-ledger.json",
+    "nhl_research_documentation": "recherche/hockey/nhl-moneypuck-deux-modeles.md"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
     "Monetary profitability is unverified",
     "Source code being public does not grant wholesale source redistribution rights",
     "Never report Opta or confirmed goalies unless such data is actually present",
-    "Research NHL shrink weights fixed a priori, not statistically calibrated; no predictive superiority established."
+    "Research NHL shrink weights fixed a priori, not statistically calibrated; no predictive superiority established.",
+    "No comparative predictive superiority can be claimed until enough prospectively settled paired games exist."
   ]
 }
