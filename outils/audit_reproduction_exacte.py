@@ -144,6 +144,103 @@ def current_nhl_schedule_pairs(reference: Path, mapping: dict) -> bool:
         return False
 
 
+SCHEMAS = {
+    "MLBGameOut": "app/schemas/mlb.py",
+    "NHLGameOut": "app/schemas/nhl.py",
+    "NHLTeamStatOut": "app/schemas/nhl.py",
+    "NHLGoalieStatOut": "app/schemas/nhl.py",
+    "NHLSkaterStatOut": "app/schemas/nhl.py",
+}
+
+
+def _annotation_shape(node: ast.AST) -> str:
+    """Normalize Optional[T] vs T | None without erasing requiredness."""
+    if (isinstance(node, ast.Subscript) and isinstance(node.value, ast.Name) and
+            node.value.id == "Optional"):
+        return _annotation_shape(node.slice) + "?"
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.BitOr):
+        left, right = _annotation_shape(node.left), _annotation_shape(node.right)
+        if right == "None": return left + "?"
+        if left == "None": return right + "?"
+    return ast.unparse(node)
+
+
+def _schema_class_fields(classes: dict[str, ast.ClassDef],name:str,
+                         ancestry:tuple[str,...]=()) -> dict:
+    if name in ancestry:
+        raise ValueError("Cycle in Pydantic model inheritance")
+    node=classes.get(name)
+    if node is None:
+        raise ValueError(f"Pydantic class not found: {name}")
+    values={}
+    for parent in node.bases:
+        if isinstance(parent,ast.Name) and parent.id in classes:
+            values.update(_schema_class_fields(classes,parent.id,ancestry+(name,)))
+    for entry in node.body:
+        if isinstance(entry,ast.AnnAssign) and isinstance(entry.target,ast.Name):
+            values[entry.target.id]={
+                "type":_annotation_shape(entry.annotation),
+                "required":entry.value is None,
+            }
+    return values
+
+
+def _classes_from_files(root:Path,paths:tuple[str,...]) -> dict:
+    classes={}
+    for relative in paths:
+        source=root/relative
+        if not source.is_file():
+            return {}
+        tree=ast.parse(source.read_text(encoding="utf-8"),filename=relative)
+        for node in tree.body:
+            if isinstance(node,ast.ClassDef):
+                classes[node.name]=node
+    return classes
+
+
+def compare_api_schemas(reference:Path,target:Path) -> dict:
+    """Field- and nullability-shape evidence, NOT verified matching values."""
+    source=_classes_from_files(reference,tuple(sorted(set(SCHEMAS.values()))))
+    implementation=_classes_from_files(target,("api_revue/app.py",))
+    result={}
+    for name in SCHEMAS:
+        try:
+            origin=_schema_class_fields(source,name)
+            own=_schema_class_fields(implementation,name)
+            missing=sorted(set(origin)-set(own))
+            extra=sorted(set(own)-set(origin))
+            mismatched=sorted(k for k in set(origin)&set(own) if origin[k]!=own[k])
+            exact=bool(origin and own and not (missing or extra or mismatched))
+            result[name]={
+                "field_shapes_equal":exact,
+                "reference_field_count":len(origin),
+                "implemented_field_count":len(own),
+                "missing_fields":missing,
+                "extra_fields":extra,
+                "type_or_requiredness_mismatches":mismatched,
+            }
+        except ValueError:
+            result[name]={
+                "field_shapes_equal":False,
+                "reference_field_count":None,
+                "implemented_field_count":None,
+                "missing_fields":[],
+                "extra_fields":[],
+                "type_or_requiredness_mismatches":[],
+                "status":"source_or_target_schema_unavailable",
+            }
+    matching=sum(bool(x["field_shapes_equal"]) for x in result.values())
+    return {
+        "reference_schemas_compared":len(SCHEMAS),
+        "field_shapes_identical":matching,
+        "all_targeted_field_shapes_identical":matching==len(SCHEMAS),
+        "original_database_identity_equal":False,
+        "live_response_values_equal":"NOT_VERIFIED",
+        "nullable_and_required_field_shapes_only":True,
+        "models":result,
+    }
+
+
 def route_inventory(root: Path) -> list[dict]:
     found = []
     for relative in ROUTE_SOURCES:
@@ -199,6 +296,7 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
     if not (target / "docs/index.html").is_file():
         raise FileNotFoundError("Revue frontend missing")
     routes = route_inventory(reference)
+    response_schemas = compare_api_schemas(reference,target)
     source_route_keys={r["method"]+" "+r["path"] for r in routes}
     own_declared=own_http_route_signatures(target)
     matching_routes=sorted(source_route_keys.intersection(own_declared))
@@ -350,6 +448,7 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "original_goalie_odds_or_roster_equal": False,
             "description": "NHL vs ESPN factual match identifiers only; not whole model or provider input parity.",
         },
+        "http_response_schema_field_parity": response_schemas,
         "static_data_contracts": {
             "declared_subset_count": len(products),
             "byte_identical_products": sum(x["identical_bytes_confirmed"] for x in products),
