@@ -45,7 +45,7 @@ def compute(models:dict,now:datetime,key:str="",scanner=scan,max_calls:int=MAX_C
     board=empty
     if key and valid:
         odds,stats=scanner(key,models,now,max_calls=max_calls,
-                           days_horizon=HORIZON_HOURS)
+                           days_horizon=HORIZON_HOURS,balanced=True)
         if type(stats.get("requests")) is not int or not 0<=stats["requests"]<=max_calls:
             raise ValueError("Provider exceeded mini scan budget")
         board=build_board(models,odds,now)
@@ -73,6 +73,8 @@ def compute(models:dict,now:datetime,key:str="",scanner=scan,max_calls:int=MAX_C
         "observations":board["events"],
         "diagnostics":{
             "sport_groups_attempted":stats.get("sports",[]),
+            "calls_by_sport":stats.get("calls_by_sport",{}),
+            "allocation_mode":stats.get("allocation_mode","sport_balanced"),
             "matched_events":stats.get("matched_events",0),
             "matched_leagues":stats.get("matched_leagues",{}),
             "truncated":stats.get("truncated",False),
