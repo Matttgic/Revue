@@ -36,7 +36,7 @@ def original_functions(root:Path):
     if len(methods)!=len(NAMES):
         raise AssertionError("Source changed; expected 6 reference functions, found "+str([x.name for x in methods]))
     code=ast.fix_missing_locations(ast.Module(body=methods,type_ignores=[]))
-    env={"os":os,"NOW_MT":datetime(2026,10,10),"TODAY_ISO":"2026-10-10",
+    env={"os":os,"datetime":datetime,"NOW_MT":datetime(2026,10,10),"TODAY_ISO":"2026-10-10",
          "log":lambda *args,**kwargs:None, **CONSTANTS}
     exec(compile(code,str(ref),"exec"),env)
     return env
