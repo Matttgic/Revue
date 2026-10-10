@@ -32,7 +32,7 @@ jobs:
               f"/nhl/schedule?game_date={local_day}",
               "/nhl/teams","/nhl/goalies?min_games=1",
               "/nhl/skaters?team=ANA","/nhl/moneypuck?situation=all",
-              "/nhl/moneypuck/live",
+              "/nhl/moneypuck/live","/mlb/elo",
           )
           for route in routes:
               try:
@@ -57,6 +57,12 @@ jobs:
                   if local_day=="2026-10-10":
                       assert any(str(row["espn_id"])=="401892469" for row in data)
                   print("Real ESPN identifiers verified:",len(data))
+              elif route=="/mlb/elo":
+                  assert isinstance(data,list) and len(data)>=25
+                  assert all(set(row)=={"team","rating","games_played","last_game_date"} for row in data)
+                  assert all(1300 < row["rating"] < 1700 and row["games_played"]>0 for row in data)
+                  assert len({row["team"] for row in data}) == len(data)
+                  print("Verified source-scoped MLB Elo teams:",len(data))
               elif route=="/nhl/teams":
                   assert isinstance(data,list) and len(data)>=25
                   assert all(type(r.get("wins")) is int and r.get("team_id") for r in data)
