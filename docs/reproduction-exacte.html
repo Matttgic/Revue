@@ -47,6 +47,10 @@ footer a{color:#55f5de}
 <article class="panel"><label>PARITÉ GLOBALE EXACTE</label><strong id="global">NON VÉRIFIÉE</strong><small>Ce statut ne peut devenir validé que par des tests complets : interface, backend, données et sorties.</small></article>
 </div>
 <p class="sub" id="revision">Lecture de l'empreinte GitHub de la référence…</p>
+<h2>Interface / structure à rapprocher</h2>
+<p class="gap" id="domStatus">Analyse des éléments statiques de la page Clairvoyance…</p>
+<p class="gap">Ce relevé identifie les blocs HTML déclarés dans les fichiers. Il ne mesure ni les pixels, ni les interactions générées par JavaScript : le but n'est pas de rajouter artificiellement des identifiants.</p>
+<div class="table-scroll"><table><thead><tr><th>Premiers blocs statiques non alignés</th><th>Preuve</th></tr></thead><tbody id="domTable"></tbody></table></div>
 <h2>Backend / routes à reproduire</h2><p class="gap">Chaque ligne vient du code source de la version originale. Le statut exige un serveur et une réponse réellement compatibles : un fichier JSON ou un bouton portant le même nom ne suffit pas.</p>
 <div class="table-scroll"><table><thead><tr><th>Verbe</th><th>Route originale</th><th>Fonction</th><th>Statut de parité</th></tr></thead><tbody id="routeTable"></tbody></table></div>
 <h2>Données / formats originaux</h2><p class="gap">Échantillon de neuf contrats de fichiers, hors CFB. Les fichiers protégés ne sont pas copiés ; même nom de fichier ne signifie pas mêmes données ni mêmes conditions de collecte.</p>
@@ -79,6 +83,17 @@ async function load(){
   by("revision").textContent="Commit source : "+String(report.source_commit||"inconnu").slice(0,16)+
    " · dernière lecture "+new Date(report.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+
    " · "+(current?"formules vérifiées sur cette version":"tests de formules sur un commit antérieur");
+  const dom=report.frontend.static_dom_inventory;
+  if(dom){
+   by("domStatus").textContent=dom.source_static_ids+" identifiants HTML dans la page source · "+
+     dom.target_static_ids_all_pages+" dans toutes les pages Revue · "+
+     dom.same_static_ids+" correspondance(s) de noms · "+
+     dom.original_static_ids_not_present_in_revue+" identifiants source non présents.";
+   const body=by("domTable");body.replaceChildren();
+   for(const id of (dom.first_unmatched_source_ids||[]).slice(0,24)){
+    const tr=document.createElement("tr");cell(tr,id);cell(tr,"BLOC SOURCE ABSENT / NON ALIGNE","status");body.append(tr);
+   }
+  }
   const routes=by("routeTable");routes.replaceChildren();
   for(const r of report.backend.source_routes){
    const tr=document.createElement("tr");
