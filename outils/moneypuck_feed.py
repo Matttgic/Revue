@@ -9,16 +9,18 @@ The output is a small attributed, derived research snapshot; not a prediction.
 from __future__ import annotations
 
 import argparse
+import csv
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
+import io
 import json
 import math
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from modeles.reproduction.clairvoyance_moneypuck_parser import read_team_csv
+from modeles.reproduction.clairvoyance_moneypuck_parser import read_team_csv, numeric
 
 SOURCE_PAGE = "https://moneypuck.com/data.htm"
 BASE = "https://moneypuck.com/moneypuck/playerData/seasonSummary"
@@ -84,6 +86,14 @@ def derive_rows(content: str, year: int) -> list[dict]:
         set(content.splitlines()[0].lstrip("\ufeff").split(",")) if content else set()
     ):
         raise ValueError("Expected MoneyPuck team CSV columns missing")
+    # The source CSV iceTime is measured in SECONDS, while the reference
+    # Clairvoyance normalizer mistakenly treats it as minutes. Keep that
+    # normalizer unchanged for exact formula parity, and correct units HERE.
+    raw_by_key: dict[tuple[str, str], dict] = {}
+    for raw in csv.DictReader(io.StringIO(content)):
+        team_key = str(raw.get("team") or raw.get("Team") or "").strip().upper()
+        situation_key = str(raw.get("situation") or "all").strip()
+        raw_by_key[(team_key, situation_key)] = raw
     output: dict[tuple[str, str], dict] = {}
     for row in read_team_csv(content):
         team = row["team"]
@@ -99,13 +109,34 @@ def derive_rows(content: str, year: int) -> list[dict]:
         gp = row.get("games_played")
         if gp is not None and gp <= 0:
             continue
+        original_row = raw_by_key.get((team, situation)) or {}
+        ice_seconds = numeric(original_row.get("iceTime"))
+        if ice_seconds is None or not math.isfinite(ice_seconds) or ice_seconds <= 0:
+            continue
+
+        def per_60(metric: str) -> float | None:
+            count = numeric(original_row.get(metric))
+            if count is None or not math.isfinite(count) or count < 0:
+                return None
+            return round(count * 3600 / ice_seconds, 4)
+
+        xg_for_60 = per_60("xGoalsFor")
+        xg_against_60 = per_60("xGoalsAgainst")
+        shots_for_60 = per_60("shotsOnGoalFor")
+        shots_against_60 = per_60("shotsOnGoalAgainst")
+        # Fail closed on implausible per-60 units (column semantics changed).
+        if (xg_for_60 is None or xg_against_60 is None or
+            shots_for_60 is None or shots_against_60 is None or
+            max(xg_for_60, xg_against_60) > 20 or
+            max(shots_for_60, shots_against_60) > 120):
+            continue
         output[(team, situation)] = {
             "team": team, "situation": situation, "season": season_label(year),
             "games_played": gp, "xg_share": share,
-            "xg_for_60": row["x_goals_for_60"],
-            "xg_against_60": row["x_goals_against_60"],
-            "shots_for_60": row["shots_for_60"],
-            "shots_against_60": row["shots_against_60"],
+            "xg_for_60": xg_for_60,
+            "xg_against_60": xg_against_60,
+            "shots_for_60": shots_for_60,
+            "shots_against_60": shots_against_60,
             "save_pct": _clean_fraction(row["save_pct"]),
             "pdo": row["pdo"],
         }
@@ -152,6 +183,7 @@ def create_snapshot(now: datetime, fetcher=fetch_csv) -> dict:
         "source": "MoneyPuck.com", "source_page": SOURCE_PAGE,
         "licence_scope": "Personal non-commercial use; source attribution required",
         "data_type": "official regular-season team-level CSV; derived metrics",
+        "unit_note": "MoneyPuck iceTime is seconds; per-60 rates = count * 3600 / iceTime (seconds). Reference Clairvoyance parser remains unchanged.",
         "is_live": False,
         "current_season": season_label(year),
         "status": status, "seasons": seasons,
