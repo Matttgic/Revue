@@ -43,6 +43,10 @@ h1 span{color:#55f5de}
 .row strong{color:#e6eff5;text-align:right}
 .sep{padding-top:13px;margin-top:7px;color:#77d5cd;font:700 10px monospace;letter-spacing:.11em}
 .mini{font-size:11px;line-height:1.5;color:#819bb2;margin:10px 0 0}
+.odds-observed{margin-top:12px;padding:13px;border:1px solid #5f5870;background:#1d1e36}
+.odds-observed .title{font:700 10px monospace;color:#d6c9ff;letter-spacing:.1em}
+.odds-observed .book{font-size:12px;color:#bcd1e0;margin-top:7px}
+.odds-observed .price{font:700 15px 'Chakra Petch',sans-serif;color:#f2dcff}
 .empty{padding:20px;border:1px dashed #39546f;color:#afc5d8}
 footer{font-size:12px;line-height:1.8;color:#829db2;border-top:1px solid #2c4058;margin-top:35px;padding-top:21px}
 @media(max-width:500px){.eyebrow{flex-direction:column}.cards{grid-template-columns:1fr}}
@@ -91,7 +95,35 @@ Horaires Europe/Paris. Aucun tarif bookmaker ni résultat futur supposé.
 const by=id=>document.getElementById(id);
 const make=(tag,cls,content)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(content!==undefined)e.textContent=content;return e};
 const pct=n=>Number.isFinite(Number(n))?(100*Number(n)).toLocaleString("fr-FR",{minimumFractionDigits:1,maximumFractionDigits:1})+" %":"—";
-let payload=null,filter="upcoming";
+let payload=null,filter="upcoming",observedOdds=new Map();
+async function loadOdds(){
+ try{
+  const r=await fetch("./engine-v2-latest.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("board not available");
+  const d=await r.json();
+  if(d.odds_board?.status!=="available"||!Array.isArray(d.odds_board?.events))return;
+  const fresh=new Map();
+  for(const ev of d.odds_board.events){
+   if(ev.league!=="NHL"||!ev.event_id||!ev.start_utc)continue;
+   const quotes=[];
+   for(const book of ev.bookmakers||[]){
+    for(const market of book.markets||[]){
+     if(market.market!=="h2h"||!["overtime_rule_unverified","game_result"].includes(market.period_rule))continue;
+     const options=market.outcomes||[];
+     const home=options.find(x=>x.selection==="home");
+     const away=options.find(x=>x.selection==="away");
+     if(!home||!away||!Number.isFinite(home.price)||!Number.isFinite(away.price))continue;
+     if(!market.quote_at||Date.parse(market.quote_at)>Date.now()||Date.parse(market.quote_at)>=Date.parse(ev.start_utc))continue;
+     quotes.push({book:book.bookmaker,home:home.price,away:away.price,
+                  at:market.quote_at,period_rule:market.period_rule});
+    }
+   }
+   if(quotes.length)fresh.set(String(ev.event_id),{
+    home:ev.home,away:ev.away,start_utc:ev.start_utc,quotes});
+  }
+  observedOdds=fresh;render();
+ }catch(error){observedOdds=new Map();}
+}
 async function loadPerformance(){
  try{
   const r=await fetch("./nhl-shadow-performance.json?t="+Date.now(),{cache:"no-store"});
@@ -142,7 +174,22 @@ function render(){
   for(const [name,gk] of [[g.home,g.historical_goalie_proxy?.home],[g.away,g.historical_goalie_proxy?.away]]){
    line(card,name,gk?gk.name+" · "+gk.games+" matchs · "+pct(gk.save_pct):"Non disponible");
   }
-  card.append(make("p","mini","Elo : proxy Revue, pas base Clairvoyance · Sans cote bookmaker · Ne pas traiter la probabilité comme une value vérifiée."));
+  const observed=observedOdds.get(String(g.event_id));
+  if(observed&&observed.home===g.home&&observed.away===g.away&&
+     observed.start_utc===g.start_utc){
+   const box=make("div","odds-observed");
+   box.append(make("div","title","COTES FRANÇAISES OBSERVÉES · NON LIVE"));
+   for(const q of observed.quotes){
+    const at=new Date(q.at).toLocaleString("fr-FR",
+      {dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
+    const name=q.book.replace("_fr","");
+    box.append(make("div","book",name+" · "+at+" · "+g.home+" : "+q.home.toFixed(2)+
+      " / "+g.away+" : "+q.away.toFixed(2)));
+   }
+   box.append(make("p","mini","Règlement du marché et prolongations non certifiés : AUCUN calcul EV ni comparaison directe possible. Prix ancien, disponibilité actuelle inconnue."));
+   card.append(box);
+  }
+  card.append(make("p","mini","Elo : proxy Revue, pas base Clairvoyance · Les cotes ne prouvent pas une value · Modèle non calibré."));
   by("grid").append(card);
  }
 }
@@ -168,5 +215,5 @@ document.querySelectorAll("button[data-filter]").forEach(button=>button.addEvent
  render();
 }));
 by("teamFilter").addEventListener("change",render);
-load();loadPerformance();
+load();loadPerformance();loadOdds();
 </script></body></html>
