@@ -107,12 +107,95 @@ function safeGoalies(doc,now){
        typeof r[k].name==="string"&&r[k].name.length>0&&
        ["confirmed","projected"].includes(r[k].status)))));
 }
+function safeRadar(doc,now){
+ return !!(doc?.version==="revue_pulsescore_six_hour_radar_v1"&&
+    doc.status==="observed"&&doc.provider==="PulseScore"&&
+    doc.horizon_hours===6&&Number.isInteger(doc.request_cap)&&
+    doc.request_cap>0&&doc.request_cap<=8&&
+    Number.isInteger(doc.requests_used)&&
+    doc.requests_used>=0&&doc.requests_used<=doc.request_cap&&
+    doc.market_prices_are_live===false&&
+    doc.positive_ev_verified===false&&
+    doc.model_is_calibrated===false&&
+    doc.real_bets_enabled===false&&
+    doc.new_paper_bets_created===false&&
+    doc.existing_paper_ledger_modified===false&&
+    age(doc.generated_at_utc,now,4)&&
+    age(doc.source_model_generated_at_utc,ms(doc.generated_at_utc),6)&&
+    Array.isArray(doc.observations)&&
+    doc.matches_observed===doc.observations.length);
+}
+function radarComparisons(doc,now){
+ const out=new Map();
+ if(!safeRadar(doc,now))return out;
+ const books=new Set(["betclic_fr","winamax_fr","unibet_fr","netbet_fr","pmu_fr"]);
+ const selections=new Set(["home","away","draw","over","under"]);
+ const seenEvents=new Set();
+ for(const game of doc.observations){
+   if(!game||game.league==="CFB"||!game.league||!game.event_id||
+      !future(game.start_utc,now))continue;
+   const eventKey=game.league+":"+game.event_id;
+   if(seenEvents.has(eventKey)){out.delete(eventKey);continue;}
+   seenEvents.add(eventKey);
+   const groups=new Map();
+   for(const book of game.bookmakers||[]){
+     if(!books.has(book.bookmaker))continue;
+     for(const market of book.markets||[]){
+       if(!["h2h","totals"].includes(market.market))continue;
+       if(game.league==="NHL"&&market.period_rule!=="including_ot_confirmed")
+         continue;
+       if(!age(market.quote_at,now,2)||ms(market.quote_at)>ms(game.start_utc)-20*60000)
+         continue;
+       for(const selection of market.outcomes||[]){
+         if(!selections.has(selection.selection)||!finite(selection.price,1.01,100))
+           continue;
+         const line=market.market==="totals"?selection.line:null;
+         if(market.market==="totals"&&!finite(line,.5,60))continue;
+         if(market.market==="h2h"&&line!=null)continue;
+         if(market.market==="totals"&&!["over","under"].includes(selection.selection))
+           continue;
+         if(market.market==="h2h"&&!["home","away","draw"].includes(selection.selection))
+           continue;
+         const key=market.market+"|"+selection.selection+"|"+(line==null?"":line);
+         if(!groups.has(key))groups.set(key,new Map());
+         const peers=groups.get(key);
+         if(peers.has(book.bookmaker)){peers.set(book.bookmaker,null);continue;}
+         peers.set(book.bookmaker,{
+           book:book.bookmaker,price:selection.price,quote_at:market.quote_at,
+         });
+       }
+     }
+   }
+   const comparisons=[];
+   for(const [key,group] of groups){
+      const observed=[...group.values()].filter(Boolean);
+      if(observed.length<2)continue;
+      observed.sort((a,b)=>b.price-a.price);
+      const [market,side,line]=key.split("|");
+      const top=observed[0],bottom=observed[observed.length-1];
+      comparisons.push({
+       market,side,line:line===""?null:Number(line),
+       topBook:top.book,topPrice:top.price,lowPrice:bottom.price,
+       differencePercent:Math.round((top.price/bottom.price-1)*1000)/10,
+       bookCount:observed.length,
+       observedAt:top.quote_at,
+       comparableVerified:true,
+       impliedValueVerified:false,
+      });
+   }
+   comparisons.sort((a,b)=>b.differencePercent-a.differencePercent);
+   out.set(eventKey,{home:game.home,away:game.away,start:game.start_utc,
+      compared:comparisons.slice(0,5)});
+ }
+ return out;
+}
 function build(sources,now){
  const gamesOk=sourceMatch(sources.matches,now);
  const picksOk=sourcePicks(sources.picks);
  const nhlOk=safeNhl(sources.nhl,now);
  const journal=paper(sources.picks);
  const quotes=originalResearch(sources.picks,now);
+ const radar=radarComparisons(sources.radar,now);
  const goalieRows=new Map();
  if(safeGoalies(sources.goalies,now))for(const r of sources.goalies.rows){
    if(!future(r.start_utc,now)||
@@ -136,6 +219,10 @@ function build(sources,now){
   const h=g.league==="NHL"?hockey.get(String(g.event_id)):null;
   if(h&&(h.home!==g.home||h.away!==g.away||ms(h.start_utc)!==ms(g.start_utc)))continue;
   const q=quotes.get(key)||[];
+  const observedRadar=radar.get(key);
+  const comparisons=(observedRadar&&observedRadar.home===g.home&&
+     observedRadar.away===g.away&&ms(observedRadar.start)===ms(g.start))?
+     observedRadar.compared:[];
   const espn=goalieRows.get(String(g.event_id));
   const goalie=(espn&&espn.home===g.home&&espn.away===g.away&&
                ms(espn.start_utc)===ms(g.start_utc))?espn:null;
@@ -149,6 +236,7 @@ function build(sources,now){
     "NHL : ESPN distingue les gardiens confirmés/probables, mais les blessures et données NHL Edge restent non vérifiées.":
     "NHL : gardien titulaire, blessures et données NHL Edge non vérifiés.");
   if(q.length)why.push("Une cote historique existe mais ne constitue pas une offre actuelle.");
+  if(comparisons.length)why.push("PulseScore : écarts entre bookmakers FR observés, sans EV ni disponibilité en temps réel vérifiées.");
   events.push({
     key,league:g.league,sport:g.sport||g.league,id:String(g.event_id),
     home:String(g.home),away:String(g.away),start:g.start_utc,
@@ -165,6 +253,7 @@ function build(sources,now){
       inputsComplete:false,
     }:null,
     historicalQuotes:q.slice(0,2),
+    recentCrossBookPrices:comparisons,
     why,
     verdict:"AUCUN PARI RECOMMANDÉ",
     actionable:false,
@@ -181,6 +270,7 @@ function build(sources,now){
    research:picksOk?"archived_paper_only":"unverified",
    nhl:nhlOk?"partial_research":"missing_or_stale",
    espnGoalies:safeGoalies(sources.goalies,now)?"observed_status_separate":"missing_or_stale",
+   radar:safeRadar(sources.radar,now)?"bounded_six_hour_observations":"missing_or_stale",
   },
   matchUpdated:gamesOk?sources.matches.generated_at_utc:null,
   paper:journal,
@@ -188,5 +278,5 @@ function build(sources,now){
   hiddenCFB:true,
  };
 }
-return {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies,originalResearch};
+return {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies,safeRadar,radarComparisons,originalResearch};
 });
