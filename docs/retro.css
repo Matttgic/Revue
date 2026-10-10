@@ -122,3 +122,28 @@ body.retro .rv-top-tag{font-size:9px;color:var(--arc-violet);letter-spacing:.16e
 @media(max-width:760px){body.retro .rv-top-inner{min-height:64px;padding:0 16px}body.retro .rv-nav{display:none}.arc-main{padding:24px 14px 115px!important}.arc-hero{grid-template-columns:1fr;padding:30px 24px 8px;min-height:0}.arc-hero h1{font-size:clamp(48px,12vw,75px)}.arc-machine{height:220px}.arc-console{transform:scale(.74) rotateY(-16deg) rotateX(12deg) rotateZ(-6deg);animation:none}.arc-orbit{bottom:-35px}.arc-grid{height:80px;margin:5px auto -10px}.arc-section{margin:29px 0 18px}.arc-lab-grid{grid-template-columns:1fr}.arc-bottom-nav{position:fixed;z-index:60;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding:8px max(8px,env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-right));background:rgba(10,13,28,.96);border-top:1px solid #605d83;backdrop-filter:blur(20px)}.arc-bottom-nav a{color:#bcc0d9;font:700 10px 'Chakra Petch',sans-serif;text-align:center;text-decoration:none;padding:9px 2px;display:flex;flex-direction:column;align-items:center;gap:5px;border-radius:9px}.arc-bottom-nav a[aria-current=page]{color:#07111a;background:var(--arc-cyan)}.arc-nav-icon{font-size:18px;line-height:1}.arc-result,.arc-result-head{grid-template-columns:minmax(0,1.5fr) minmax(56px,.75fr) minmax(58px,.6fr)}.arc-result>*:nth-child(3),.arc-result>*:nth-child(4),.arc-result-head>*:nth-child(3),.arc-result-head>*:nth-child(4){display:none}}
 @media(max-width:460px){.arc-kpis{gap:8px}.arc-kpi{padding:13px}.arc-kpi .value{font-size:clamp(25px,8vw,34px)}.arc-kpi .hint{font-size:10px}.arc-machine{height:180px}.arc-console{scale:.82}.arc-intro h1{font-size:40px}.arc-pick{padding:16px}.arc-surface{padding:17px}.arc-live{font-size:10px}}
 @media(prefers-reduced-motion:reduce){body.retro *,body.retro *::before,body.retro *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.arc-console{transform:rotateY(-14deg) rotateX(10deg) rotateZ(-6deg)}}
+
+
+/* Arcade V3 information architecture. Existing history/Lab pages remain
+   accessible from the Bilan links and the Lab footer, not primary navigation. */
+body.retro[data-page="arcade-v3"] .rv-nav a:nth-child(n+4),
+body.retro[data-page="play"] .rv-nav a:nth-child(n+4),
+body.retro[data-page="bilan"] .rv-nav a:nth-child(n+4),
+body.retro[data-page="historique"] .rv-nav a:nth-child(n+4),
+body.retro[data-page="lab"] .rv-nav a:nth-child(n+4),
+body.retro[data-page="arcade-v3"] .arc-bottom-nav a:nth-child(n+4),
+body.retro[data-page="play"] .arc-bottom-nav a:nth-child(n+4),
+body.retro[data-page="bilan"] .arc-bottom-nav a:nth-child(n+4),
+body.retro[data-page="historique"] .arc-bottom-nav a:nth-child(n+4),
+body.retro[data-page="lab"] .arc-bottom-nav a:nth-child(n+4) {
+  display:none;
+}
+@media(max-width:760px){
+ body.retro[data-page="arcade-v3"] .arc-bottom-nav,
+ body.retro[data-page="play"] .arc-bottom-nav,
+ body.retro[data-page="bilan"] .arc-bottom-nav,
+ body.retro[data-page="historique"] .arc-bottom-nav,
+ body.retro[data-page="lab"] .arc-bottom-nav{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+ }
+}
