@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","command-center.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -114,6 +114,21 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_all_in_one_command_center_is_connected_and_honest(self):
+        page=(DOCS/"command-center.html").read_text(encoding="utf-8")
+        home=(DOCS/"index.html").read_text(encoding="utf-8")
+        self.assertIn("command-center.html",home)
+        self.assertIn("CENTRE DE CONTRÔLE",home)
+        for key in ("match-center-latest.json","engine-v2-latest.json",
+                    "health-latest.json","engine-v2-ledger.json",
+                    "/revue/control","/revue/ledger","EXPORT CSV",
+                    "timeZone:\"Europe/Paris\"",
+                    "real_bets_enabled","paper_only","AUCUNE value démontrée",
+                    "API de validation indisponible"):
+            with self.subTest(fragment=key):self.assertIn(key,page)
+        self.assertNotIn("localStorage",page)
+        self.assertNotIn("document.write",page)
 
     def test_research_forecast_page_displays_no_unproven_original_picks(self):
         frontend=(DOCS/"index.html").read_text(encoding="utf-8")

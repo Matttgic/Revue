@@ -1,3 +1,10 @@
+## Control Center : interface principale
+
+- **Page mobile** : [docs/command-center.html](docs/command-center.html). Quatre onglets : matchs à venir, cotes historiques observées, journal multisport des simulations et état des sources. Recherche, filtres par sport, CSV des simulations et actualisation des fichiers existants.
+- **API** : `GET /revue/control` résume la fraîcheur des fichiers (sans prétendre au statut réel des fournisseurs). `GET /revue/ledger` relit le registre papier, classe les entrées incertaines hors P&L et calcule ROI / unités fictives **uniquement sur les résultats vérifiables**.
+- Sans API Vercel disponible, l'interface affiche le journal brut en mode non vérifié **sans calculer de rendement**. Aucun pari réel, aucune clé API exposée, aucun nouveau coût de requête sportive.
+- Vérification CI : `tests/test_revue_operational.py` + `tests/test_site_arena.py`.
+
 # Revue — Reproduction des modèles Clairvoyance
 
 > **Mission prioritaire : reproduire fidèlement les modèles du dépôt [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend), et non inventer des modèles de remplacement.**

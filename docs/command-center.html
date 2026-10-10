@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060c18">
+<meta name="description" content="REVUE Control Center : matchs sportifs, prix observés, journal de simulations et état des sources.">
+<title>REVUE — Control Center</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main.control{max-width:1270px!important;margin:0 auto!important;padding:24px 17px 90px!important}
+main .eyebrow{color:#5cf2e0;font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.19em}
+.control-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end;margin:15px 0 20px}
+.control h1{font:800 clamp(37px,7vw,76px)/.98 'Chakra Petch',sans-serif;letter-spacing:-.065em;margin:9px 0 10px;color:#effbff}
+.control h1 span{background:linear-gradient(95deg,#55f5de,#a4b3ff);color:transparent;-webkit-background-clip:text;background-clip:text}
+.control .lede{max-width:770px;font-size:13px;line-height:1.7;color:#afc5da;margin:0}
+.signal{border:1px solid #31475e;background:#102035;padding:11px 14px;color:#a7c7d7;font:11px/1.6 monospace;max-width:270px}
+.quick-links{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0 22px}
+.quick-links a{color:#b7e9e6;font:700 10px 'Chakra Petch',sans-serif;text-decoration:none;border:1px solid #2c5162;padding:10px 12px}
+.warning{background:linear-gradient(90deg,rgba(65,44,32,.6),#121e31);border-left:3px solid #f1b57a;padding:11px 16px;color:#e5cbb2;font-size:11px;line-height:1.75;margin:18px 0}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.kpi{padding:19px 16px;background:linear-gradient(145deg,#16293f,#101c30);border:1px solid #36536c;position:relative;min-width:0}
+.kpi:before{content:"";position:absolute;top:0;left:0;width:35%;height:2px;background:#55f5de}
+.kpi small{display:block;font:700 10px/1.5 'Chakra Petch',sans-serif;letter-spacing:.1em;color:#95b6ca;min-height:30px}
+.kpi strong{display:block;font:800 clamp(23px,3.4vw,39px) 'Chakra Petch',sans-serif;color:#e7fcfc;margin:6px 0}
+.kpi span{font:11px/1.45 'DM Sans',sans-serif;color:#9aadc3}
+.view-toolbar{margin:26px 0 0;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-bottom:1px solid #304c65;padding-bottom:12px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs button{background:transparent;color:#adc3d7;border:1px solid transparent;padding:12px 15px;font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.07em;cursor:pointer}
+.tabs button[aria-selected="true"]{background:#173a4a;border-color:#4f9b9f;color:#66f7e4}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tools select,.tools input{min-height:39px;background:#0d1c30;border:1px solid #385c73;border-radius:0;color:#dceffb;padding:8px 10px;max-width:100%;font:12px 'DM Sans',sans-serif}
+.tools input{width:190px}
+.tools button,.export{min-height:39px;padding:9px 13px;background:#203548;border:1px solid #3a6980;color:#e6fcff;font:700 11px 'Chakra Petch',sans-serif;cursor:pointer}
+.tools button:disabled{opacity:.4;cursor:not-allowed}
+.section-meta{color:#9ab5cc;font:11px/1.7 'DM Sans',sans-serif;margin:15px 0}
+.card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.event-card{background:linear-gradient(142deg,#152942,#0d1a2c);border:1px solid #324c66;padding:17px;min-width:0}
+.event-card .small-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;color:#70e9d9;font:700 10px/1.4 monospace}
+.event-card h3{font:800 19px/1.25 'Chakra Petch',sans-serif;color:#edffff;margin:13px 0 6px;overflow-wrap:anywhere}
+.event-card .date{font:11px/1.6 'DM Sans',sans-serif;color:#afc0d1}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin:11px 0}
+.pills span{font:10px/1.4 monospace;background:#20364c;border:1px solid #314b64;color:#b4cede;padding:6px 8px;overflow-wrap:anywhere}
+.prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:13px 0}
+.price{background:#213b50;padding:9px;min-width:0}
+.price small{font:10px/1.4 'DM Sans',sans-serif;color:#a4c7d7;display:block}
+.price strong{font:800 21px 'Chakra Petch',sans-serif;color:#d6fbf2}
+.price span{display:block;color:#8fadbd;font:9px/1.3 'DM Sans',sans-serif;overflow-wrap:anywhere}
+.card-foot{margin-top:12px;padding-top:10px;border-top:1px solid #334f66;color:#99b5c7;font:10px/1.65 'DM Sans',sans-serif}
+.card-foot strong{color:#6ce9d8}
+.paper-row{display:grid;grid-template-columns:minmax(0,1.5fr) 125px 125px 110px;gap:14px;align-items:center;background:#111f32;border:1px solid #2c4963;margin-bottom:8px;padding:14px 16px}
+.paper-row h3{font:800 15px 'Chakra Petch',sans-serif;margin:6px 0;color:#edfbff;overflow-wrap:anywhere}
+.paper-row small{font:10px monospace;color:#8ea9bd}
+.paper-row .price-figure{font:800 22px 'Chakra Petch',sans-serif;color:#d5fefa}
+.paper-row .sub{display:block;font:10px/1.5 'DM Sans',sans-serif;color:#9bb6c9;overflow-wrap:anywhere}
+.tag{font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.06em;color:#c8d9e8}
+.tag.won{color:#62eabb}.tag.lost{color:#ffadad}.tag.pending{color:#ebc987}.tag.unverified{color:#d7a9fa}
+.source-row{display:grid;grid-template-columns:1fr auto;gap:14px;padding:16px 18px;margin-bottom:8px;border:1px solid #2e506b;background:#15283b}
+.source-row h3{margin:0 0 5px;font:700 15px 'Chakra Petch',sans-serif;color:#deffff}
+.source-row p{margin:0;color:#96b4c8;font-size:11px}
+.source-row .tag{padding-top:4px}
+.empty{border:1px dashed #47657d;padding:25px;color:#a8c5d4;font-size:13px}
+.note{border-left:2px solid #a997ff;padding:11px 15px;color:#adbfd2;font:12px/1.7 'DM Sans',sans-serif;margin-top:22px}
+#load-status{font:11px/1.7 monospace;color:#a6c5d1;margin:10px 0}
+#results{min-height:70px}
+@media(max-width:1050px){.card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:730px){.control-head{grid-template-columns:1fr}.signal{max-width:none}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.card-grid{grid-template-columns:1fr}.paper-row{grid-template-columns:1fr 1fr;gap:12px}.tools{width:100%}.tools input{flex:1;min-width:120px}.tabs button{padding:10px 11px}}
+@media(max-width:390px){.paper-row{grid-template-columns:1fr 1fr}.kpi{padding:15px 11px}.kpi strong{font-size:25px}}
+</style></head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand" aria-label="Revue accueil"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./command-center.html" aria-current="page">CONTRÔLE</a>
+<a href="./match-center.html">MATCHS</a><a href="./engine-v2.html">SCANNER</a>
+<a href="./predictions-revue.html">PRÉVISIONS</a></nav>
+<span class="rv-top-tag">REVUE / 01</span></div></div>
+<main class="control">
+<div class="control-head"><div>
+<div class="eyebrow">REVUE / MISSION CONTROL · VERSION PERSONNELLE</div>
+<h1>UN SEUL ÉCRAN.<br><span>TOUS LES SIGNAUX.</span></h1>
+<p class="lede">Calendrier multisport, comparaison de prix observés, pistes de recherche, simulations horodatées et fiabilité des données. Les modèles restent expérimentaux : aucune performance future ni value validée n'est annoncée.</p>
+</div><div class="signal" id="source-signal" role="status">Chargement des derniers instantanés…</div></div>
+<div class="quick-links"><a href="./match-center.html">MATCH CENTER COMPLET ↗</a><a href="./predictions-revue.html">PRÉVISIONS NHL/MLB ↗</a><a href="./reproduction-exacte.html">PARITÉ CLAIRVOYANCE ↗</a></div>
+<div class="warning">Prix historiques horodatés, pas de cotes live garanties. ROI et mises présentés en unités fictives exclusivement. Les sélections du scanner sont des signaux expérimentaux non calibrés, pas des recommandations de jeu.</div>
+<section class="kpis" aria-label="Chiffres vérifiés ou signalés comme observés">
+<div class="kpi"><small>RENCONTRES À VENIR</small><strong id="k-upcoming">—</strong><span>Dernier Match Center observé</span></div>
+<div class="kpi"><small>PRIX OBSERVÉS</small><strong id="k-quoted">—</strong><span>Matchs avec cotes historiques</span></div>
+<div class="kpi"><small>SIMULATIONS ENREGISTRÉES</small><strong id="k-paper">—</strong><span>Journal indépendant Revue</span></div>
+<div class="kpi"><small>ROI SIMULÉ · RÉGLÉ</small><strong id="k-roi">—</strong><span>Unités fictives, échantillon limité</span></div>
+</section>
+<div class="view-toolbar">
+<div class="tabs" role="tablist" aria-label="Sections du centre de contrôle">
+<button role="tab" data-tab="matches" aria-controls="results" aria-selected="true">MATCHS</button>
+<button role="tab" data-tab="radar" aria-controls="results" aria-selected="false">COTES</button>
+<button role="tab" data-tab="ledger" aria-controls="results" aria-selected="false">JOURNAL</button>
+<button role="tab" data-tab="health" aria-controls="results" aria-selected="false">SOURCES</button>
+</div>
+<div class="tools">
+<label class="eyebrow" for="sport">SPORT</label>
+<select id="sport" aria-label="Filtrer par sport"><option value="">Tous les sports</option></select>
+<input id="search" aria-label="Rechercher une équipe" placeholder="Équipe ou rencontre…" type="search">
+<button id="time-toggle" type="button" aria-pressed="true">À VENIR</button>
+<button id="export" type="button" disabled>EXPORT CSV</button>
+<button id="refresh" type="button">ACTUALISER</button>
+</div></div>
+<p id="load-status" role="status" aria-live="polite">Lecture des fichiers…</p>
+<p class="section-meta" id="section-note">Données observées ; pas de synchronisation avec un compte bookmaker.</p>
+<div id="results" role="tabpanel" aria-label="Résultats filtrés"></div>
+<div class="note">L'API indépendante <a href="https://revue-api-tawny.vercel.app/docs">Revue FastAPI</a> fournit un journal simulé contrôlé et les horodatages d'état. Le site peut afficher d'anciens instantanés : vérifie toujours la date avant toute interprétation. CFB est volontairement exclu.</div>
+</main>
+<script>
+"use strict";
+const API="https://revue-api-tawny.vercel.app";
+const $=id=>document.getElementById(id);
+const node=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=String(value);return n;};
+const fmtTime=value=>{const date=new Date(value);return Number.isFinite(date.valueOf())?date.toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"}):"Heure non vérifiable";};
+const fixed=(n,d=2)=>Number.isFinite(n)?n.toLocaleString("fr-FR",{minimumFractionDigits:d,maximumFractionDigits:d}):"—";
+const pct=n=>Number.isFinite(n)?fixed(n*100,1)+" %":"—";
+const age=value=>{const ms=Date.now()-new Date(value).valueOf();return Number.isFinite(ms)?(ms>=0?Math.round(ms/60000)+" min":"date future"):"horodatage manquant";};
+const leagueNames={PL:"Premier League",LIGUE1:"Ligue 1",LALIGA:"Liga",SERIEA:"Serie A",BUNDESLIGA:"Bundesliga"};
+let data={matches:null,scanner:null,health:null,ops:null,journal:null,errors:[]};
+let tab="matches",onlyFuture=true;
+
+async function json(url){
+ const res=await fetch(url,{cache:"no-store"});
+ if(!res.ok)throw Error("HTTP "+res.status);
+ return res.json();
+}
+async function safe(name,url){
+ try{return await json(url);}catch(err){data.errors.push(name+": "+err.message);return null;}
+}
+function isFuture(row){return new Date(row.start_utc).valueOf()>Date.now();}
+function eligibleLeague(x){return typeof x==="string" && x && x.toUpperCase()!=="CFB";}
+function oddsOf(m){
+ if(m?.price_comparison?.highest_observed_prices) return m.price_comparison.highest_observed_prices;
+ return {};
+}
+function priceSlot(label,obj){
+ const cell=node("div","price");
+ cell.append(node("small","",label),node("strong","",Number.isFinite(obj?.price)?fixed(obj.price):"—"),
+   node("span","",obj?.bookmaker?obj.bookmaker.replace("_fr",""):"non cotée"));
+ return cell;
+}
+function cardFoot(card,text){
+ card.append(node("div","card-foot",text));
+}
+function matchesAll(){return Array.isArray(data.matches?.events)?data.matches.events.filter(m=>eligibleLeague(m.league)):[];}
+function radarAll(){return Array.isArray(data.scanner?.candidates)?data.scanner.candidates.filter(m=>eligibleLeague(m.league)):[];}
+function ledgerAll(){return Array.isArray(data.journal?.records)?data.journal.records.filter(r=>eligibleLeague(r.league)):[];}
+function currentItems(){return tab==="matches"?matchesAll():tab==="radar"?radarAll():tab==="ledger"?ledgerAll():[];}
+function visibleItems(){
+ let records=currentItems();
+ const sport=$("sport").value,query=$("search").value.trim().toLowerCase();
+ records=records.filter(x=>(!sport||x.league===sport)&&(!query||[x.home,x.away,x.event_id,x.outcome]
+    .some(v=>String(v||"").toLowerCase().includes(query))));
+ if(onlyFuture&&tab!=="ledger")records=records.filter(isFuture);
+ if(tab==="ledger")records.sort((a,b)=>new Date(b.locked_at_utc)-new Date(a.locked_at_utc));
+ else records.sort((a,b)=>new Date(a.start_utc)-new Date(b.start_utc));
+ return records;
+}
+function setSportOptions(){
+ const sport=$("sport"), selected=sport.value;
+ const options=[...new Set(currentItems().map(x=>x.league))].sort();
+ sport.replaceChildren(new Option("Tous les sports",""));
+ for(const code of options)sport.add(new Option(leagueNames[code]||code,code));
+ if(options.includes(selected))sport.value=selected;
+}
+function matchCard(row){
+ const card=node("article","event-card"),h=node("div","small-head");
+ h.append(node("span","",leagueNames[row.league]||row.league),node("span","",row.status||"observé"));
+ card.append(h,node("h3","",row.away+"  @  "+row.home),node("div","date",fmtTime(row.start_utc)));
+ const prices=oddsOf(row),grid=node("div","prices");
+ grid.append(priceSlot("1 · DOMICILE",prices.home),priceSlot("N · NUL",prices.draw),priceSlot("2 · EXTÉRIEUR",prices.away));
+ card.append(grid);
+ const models=Array.isArray(row.research)?row.research.length:0;
+ const stamps=Object.values(prices).filter(v=>v&&v.quote_at_utc).map(v=>v.quote_at_utc);
+ const last=stamps.length?stamps.sort().at(-1):null;
+ cardFoot(card,models+" modèles expérimentaux · cotes "+(last?"observées "+fmtTime(last)+" ("+age(last)+")":"non disponibles")+" · aucun pari recommandé");
+ return card;
+}
+function radarCard(row){
+ const card=node("article","event-card"),h=node("div","small-head");
+ h.append(node("span","",leagueNames[row.league]||row.league),node("span","",row.market==="h2h"?"1X2 / ML":row.market||"Marché"));
+ card.append(h,node("h3","",row.away+"  @  "+row.home));
+ card.append(node("div","date",fmtTime(row.start_utc)));
+ const market=node("div","pills");
+ market.append(node("span","",row.outcome||row.side||"Selection"),
+  node("span","",row.bookmaker||"bookmaker inconnu"),
+  node("span","",row.line==null?"Sans ligne":"Ligne "+row.line));
+ card.append(market);
+ const grid=node("div","prices");
+ grid.append(priceSlot("COTE DÉCIMALE",{price:row.bookmaker_price,bookmaker:row.bookmaker}),
+   priceSlot("PROBA MODÈLE",{price:null}),priceSlot("BASE SHARP",{price:null}));
+ card.append(grid);
+ cardFoot(card,"Probabilité modèle indicative : "+pct(row.p_model)+" · cote observée "+fmtTime(row.quote_at)+
+   " ("+age(row.quote_at)+") · AUCUNE value démontrée.");
+ return card;
+}
+function labelStatus(value){
+ return {won:"GAGNÉ (FICTIF)",lost:"PERDU (FICTIF)",push:"REMBOURSÉ",pending:"EN ATTENTE",
+ unverified:"EXCLU / NON VÉRIFIÉ",void:"ANNULÉ"}[value]||"NON CLASSÉ";
+}
+function paperRow(row){
+ const card=node("article","paper-row"),title=node("div");
+ title.append(node("small","",row.league+" / "+row.id+" · "+fmtTime(row.start_utc)),
+  node("h3","",row.away+" @ "+row.home),
+  node("span","sub",(row.outcome||row.side)+" · "+(row.market||"marché")+" · "+row.bookmaker));
+ const odds=node("div");odds.append(node("small","","COTE OBSERVÉE"),node("div","price-figure",fixed(row.decimal_odds)));
+ const status=node("div");status.append(node("small","","STATUT"),node("div","tag "+row.status,labelStatus(row.status)));
+ const result=node("div");result.append(node("small","","P&L FICTIF"),
+  node("div","price-figure",row.paper_profit_units===null?"—":(row.paper_profit_units>0?"+":"")+fixed(row.paper_profit_units)+" u."),
+  node("span","sub",row.exclusion_reason||"Mise fictive : "+fixed(row.paper_stake_units)+" u."));
+ card.append(title,odds,status,result);
+ return card;
+}
+function healthRows(){
+ const root=$("results"),sources=data.ops?.sources;
+ const items=sources?Object.entries(sources):[
+    ["match_center",{state:data.matches?"observed":"unavailable",generated_at_utc:data.matches?.generated_at_utc}],
+    ["scanner",{state:data.scanner?"observed":"unavailable",generated_at_utc:data.scanner?.generated_at_utc}],
+    ["health",{state:data.health?"observed":"unavailable",generated_at_utc:data.health?.generated_at_utc}]
+ ];
+ for(const [name,src] of items){
+  const card=node("article","source-row"),info=node("div");
+  info.append(node("h3","",name.toUpperCase().replaceAll("_"," ")),
+   node("p","",src.generated_at_utc?"Dernier instantané "+fmtTime(src.generated_at_utc)+" · "+age(src.generated_at_utc):"Aucun instantané vérifiable"));
+  card.append(info,node("span","tag",src.state==="fresh"?"RÉCENT":src.state==="stale"?"PÉRIMÉ":src.state==="observed"?"OBSERVÉ":"INDISPONIBLE"));
+  root.append(card);
+ }
+ const health=data.health;
+ if(health){
+  root.append(node("div","note","Dernier état enregistré : "+(health.status||"inconnu")+" · "+
+     (Array.isArray(health.warnings)&&health.warnings.length?health.warnings.join(" · "):"Pas d'avertissement dans ce rapport")+
+     ". Cet écran ne teste pas directement la disponibilité des API sportives."));
+ }
+}
+function render(){
+ setSportOptions();
+ const root=$("results");root.replaceChildren();
+ $("time-toggle").disabled=tab==="ledger"||tab==="health";
+ $("export").disabled=tab!=="ledger"||!data.journal?.records?.length;
+ $("sport").disabled=tab==="health";
+ $("search").disabled=tab==="health";
+ if(tab==="health"){ $("section-note").textContent="Sources horodatées du dépôt / backend. Récent ne signifie pas service live.";healthRows();return;}
+ const items=visibleItems();
+ const titles={matches:"rencontres",radar:"signaux de recherche",ledger:"simulations"};
+ const suffix=tab==="radar"?" · modèles non calibrés, aucune EV vérifiée.":tab==="ledger"?
+    " · seules les simulations admissibles et réglées comptent dans le ROI fictif.":" · cotes à l'heure du dernier relevé, pas des prix live.";
+ $("section-note").textContent=items.length+" "+titles[tab]+" affiché(e)s"+suffix;
+ if(!items.length){root.append(node("div","empty","Aucune donnée correspondant aux filtres. Essaie « Tous » ou une autre équipe."));return;}
+ if(tab==="ledger"){for(const item of items.slice(0,500))root.append(paperRow(item));}
+ else{
+  const grid=node("div","card-grid");
+  for(const item of items.slice(0,120))grid.append(tab==="matches"?matchCard(item):radarCard(item));
+  root.append(grid);
+  if(items.length>120)root.append(node("div","note","Affichage limité aux 120 premières rencontres."));
+ }
+}
+function activate(value){
+ tab=value;
+ for(const b of document.querySelectorAll("[data-tab]"))b.setAttribute("aria-selected",String(b.dataset.tab===value));
+ $("sport").value="";$("search").value="";
+ render();
+}
+function setNumbers(){
+ const all=matchesAll(),future=all.filter(isFuture);
+ $("k-upcoming").textContent=data.matches?String(future.length):"—";
+ $("k-quoted").textContent=data.matches?String(all.filter(x=>Array.isArray(x.quotes)&&x.quotes.length>0).length):"—";
+ $("k-paper").textContent=data.journal?String(data.journal.summary.total):"—";
+ $("k-roi").textContent=Number.isFinite(data.journal?.summary?.paper_roi_pct)?
+   fixed(data.journal.summary.paper_roi_pct,1)+" %":"N.C.";
+ const m=data.matches,eng=data.scanner;
+ const snapshots=[m?.generated_at_utc,eng?.generated_at_utc].filter(Boolean);
+ const last=snapshots.sort().at(-1);
+ $("source-signal").textContent=last?"DERNIER RAPPORT "+fmtTime(last)+" · "+age(last)+" · DONNÉES OBSERVÉES":"SOURCES NON ACCESSIBLES";
+}
+function rawFallback(doc){
+ const items=Array.isArray(doc?.bets)?doc.bets.filter(x=>eligibleLeague(x.league)):[];
+ return {
+  paper_only:true,real_bets_enabled:false,
+  summary:{total:items.length,paper_roi_pct:null},
+  records:items.map(x=>({
+   id:x.id,league:x.league,event_id:String(x.event_id||""),
+   home:x.home,away:x.away,start_utc:x.start_utc,
+   locked_at_utc:x.locked_at,quote_at_utc:x.quote_at,
+   market:x.market,side:x.side,outcome:x.outcome,bookmaker:x.bookmaker,
+   decimal_odds:x.bookmaker_price,paper_stake_units:x.paper_stake_units,
+   status:"unverified",exclusion_reason:"API de validation indisponible : enregistrement brut non évalué",
+   paper_profit_units:null,is_real_bet:false
+  }))
+ };
+}
+async function refresh(){
+ const stamp="?t="+Date.now();
+ data.errors=[];$("load-status").textContent="Mise à jour des instantanés…";
+ const [match,engine,health,control,journal]=await Promise.all([
+  safe("Match Center","./match-center-latest.json"+stamp),
+  safe("Cotes","./engine-v2-latest.json"+stamp),
+  safe("Santé","./health-latest.json"+stamp),
+  safe("API état",API+"/revue/control"),
+  safe("API journal",API+"/revue/ledger")
+ ]);
+ data.matches=match?.real_bets_enabled===false&&Array.isArray(match.events)?match:null;
+ data.scanner=engine?.paper?.paper_only===true&&Array.isArray(engine.candidates)?engine:null;
+ data.health=health&&typeof health==="object"?health:null;
+ data.ops=control?.not_live_provider_health===true&&control?.real_bets_enabled===false?control:null;
+ data.journal=journal?.paper_only===true&&journal?.real_bets_enabled===false&&Array.isArray(journal.records)?journal:null;
+ if(!data.journal){
+  const fallback=await safe("Journal brut","./engine-v2-ledger.json"+stamp);
+  if(fallback)data.journal=rawFallback(fallback);
+ }
+ setNumbers();render();
+ const usedFallback=data.journal?.records?.some(x=>x.exclusion_reason?.startsWith("API de validation"));
+ $("load-status").textContent=
+   (data.errors.length?data.errors.join(" ; ")+" · ":"")+
+   (usedFallback?"Journal brut non noté (API inaccessible). ":"")+
+   "Dernière lecture locale : "+fmtTime(new Date().toISOString())+
+   ". Actualiser relit les fichiers ; aucune nouvelle cote n'est collectée.";
+}
+for(const b of document.querySelectorAll("[data-tab]"))b.addEventListener("click",()=>activate(b.dataset.tab));
+$("sport").addEventListener("change",render);
+$("search").addEventListener("input",render);
+$("time-toggle").addEventListener("click",()=>{
+ onlyFuture=!onlyFuture;
+ $("time-toggle").textContent=onlyFuture?"À VENIR":"TOUS";
+ $("time-toggle").setAttribute("aria-pressed",String(onlyFuture));render();
+});
+$("refresh").addEventListener("click",refresh);
+$("export").addEventListener("click",()=>{
+ if(tab!=="ledger")return;
+ const rows=visibleItems();
+ if(!rows.length)return;
+ const keys=["id","league","event_id","home","away","start_utc","market","outcome",
+             "line","bookmaker","decimal_odds","paper_stake_units","status","paper_profit_units","exclusion_reason"];
+ const q=x=>'"'+String(x??"").replaceAll('"','""')+'"';
+ const csv="\uFEFF"+[keys.join(";"),...rows.map(r=>keys.map(k=>q(r[k])).join(";"))].join("\r\n");
+ const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));
+ const link=document.createElement("a");link.href=url;link.download="revue-journal-simulations.csv";
+ document.body.append(link);link.click();link.remove();
+ URL.revokeObjectURL(url);
+});
+refresh();
+</script></body></html>
