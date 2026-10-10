@@ -1,0 +1,88 @@
+{
+  "updated_at_utc": "2026-10-10T01:10:00+00:00",
+  "scope": "MoneyPuck official-data NHL integration workstream only; not full Revue or entire Clairvoyance repo",
+  "measurement_method": "Editorial milestone checklist, all equally weighted; code completion not statistical prediction accuracy",
+  "milestones": [
+    {
+      "id": "rights",
+      "title": "MoneyPuck source terms and visible attribution",
+      "status": "complete"
+    },
+    {
+      "id": "parser",
+      "title": "MoneyPuck normalizer function parity checked against Clairvoyance",
+      "status": "complete"
+    },
+    {
+      "id": "teams",
+      "title": "Official non-commercial NHL teams CSV current+previous season",
+      "status": "complete"
+    },
+    {
+      "id": "units",
+      "title": "CSV iceTime seconds-to-per-60 conversion corrected and tested",
+      "status": "complete"
+    },
+    {
+      "id": "goalies",
+      "title": "Official NHL goalies data with observed GSAx, no starter claims",
+      "status": "complete"
+    },
+    {
+      "id": "interface",
+      "title": "Gaming mobile MoneyPuck xG and GSAx dashboard",
+      "status": "complete"
+    },
+    {
+      "id": "formula",
+      "title": "Clairvoyance NHL backend formula with actual MoneyPuck and independently estimated Elo SHADOW",
+      "status": "complete"
+    },
+    {
+      "id": "scheduling",
+      "title": "Automatic collection, forecasts and Pages republish verified by Actions",
+      "status": "complete"
+    },
+    {
+      "id": "prospective",
+      "title": "Immutable pre-match prediction locks and tested final-score settlement engine",
+      "status": "complete"
+    },
+    {
+      "id": "starters",
+      "title": "Independent genuinely confirmed starting-goalie records with verified pre-kickoff timestamp",
+      "status": "pending"
+    },
+    {
+      "id": "odds",
+      "title": "Verify French NHL h2h overtime settlement and current bookmaker price before EV",
+      "status": "pending"
+    },
+    {
+      "id": "validation",
+      "title": "At least 100 official settled prematch results, calibration and head-to-head baseline",
+      "status": "pending"
+    }
+  ],
+  "completed_milestones": 9,
+  "total_milestones": 12,
+  "technical_milestones_percent": 75,
+  "targeted_clairvoyance_formula_parity": {
+    "verified": 44,
+    "total": 44,
+    "percent": 100,
+    "scope_note": "44 selected functions against original source on controlled inputs, not end-to-end forecasts"
+  },
+  "prospective_validation": {
+    "locked": 18,
+    "settled": 0,
+    "target_settled": 100,
+    "reliable_brier": null
+  },
+  "not_proved": [
+    "Full Clairvoyance live prediction equivalence",
+    "MoneyPuck starter status",
+    "French NHL market settlement equality",
+    "Monetary profitability"
+  ]
+}
