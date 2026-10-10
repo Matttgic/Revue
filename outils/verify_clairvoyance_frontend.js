@@ -21,6 +21,7 @@ const {verifyHockeyHelpers} = require("./verify_clairvoyance_hockey_helpers.js")
 const {verifyHockeyMarket} = require("./verify_clairvoyance_hockey_market.js");
 const {verifySoccerForm} = require("./verify_clairvoyance_soccer_form.js");
 const {verifySoccerFBref} = require("./verify_clairvoyance_soccer_fbref.js");
+const {verifyNHLGoalieForm} = require("./verify_clairvoyance_nhl_goalie_form.js");
 
 function original(source, name) {
   const match = new RegExp("^function\\s+" + name + "\\s*\\(", "m").exec(source);
@@ -63,7 +64,8 @@ const counts = { frontend_nba_bayes: 0, frontend_nfl_bayes: 0,
                  frontend_hockey_novig:0,frontend_hockey_alpha:0,
                  frontend_hockey_blend_core:0,
                  frontend_soccer_form_raw:0,frontend_soccer_form:0,
-                 frontend_soccer_xg_cl_domestic:0,frontend_soccer_xg_fbref:0 };
+                 frontend_soccer_xg_cl_domestic:0,frontend_soccer_xg_fbref:0,
+                 frontend_nhl_goalie_update:0,frontend_nhl_form:0 };
 function compare(label, name, target, actual) {
   const left = JSON.stringify(target), right = JSON.stringify(actual);
   assert.equal(right, left, "Parity difference on " + label + ": " + right + " vs " + left);
@@ -380,6 +382,7 @@ function verify(source) {
   verifyHockeyMarket(source,compare);
   verifySoccerForm(source,compare);
   verifySoccerFBref(source,compare);
+  verifyNHLGoalieForm(source,compare);
   return checks;
 }
 
