@@ -104,6 +104,7 @@ let report=null,active=null,tab="odds";
 const valid=x=>x?.status==="source_audited_static_match_dossiers_not_live" &&
  x.real_bets_enabled===false && x.original_clairvoyance_equivalence_verified===false &&
  x.bookmaker_prices_are_live===false && x.historical_data_not_point_in_time_forecasts===true &&
+ x.games.every(g=>g.no_real_betting===true) &&
  Array.isArray(x.games);
 function current(){return report?.games.find(g=>g.key===active)||null;}
 function detailLink(game){

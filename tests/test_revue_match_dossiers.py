@@ -36,7 +36,7 @@ def base():
       {"id":"303","league":"PL","start":t(10),"home":"Leeds","away":"Arsenal",
        "home_score":5,"away_score":0,"complete":True},
     ]}}}
-    paper={"version":1,"events":[{"key":"PL:4123","league":"PL","event_id":"4123",
+    paper={"version":"revue_multisport_pre_match_v1","events":[{"key":"PL:4123","league":"PL","event_id":"4123",
            "home":"Arsenal","away":"Leeds","kickoff_utc":t(4),
            "locked_at_utc":t(-1),"status":"pending","result":None,"score":None,
            "real_bet":False,"staked_units":0,

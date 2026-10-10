@@ -182,7 +182,7 @@ def compile_dossiers(center,history,ledger,asof):
     timestamp=instant(center.get("generated_at_utc"))
     if timestamp>asof+timedelta(minutes=2):
         raise ValueError("Future Match Center snapshot")
-    if (ledger.get("version")!=1 or not isinstance(ledger.get("events"),list)):
+    if (ledger.get("version")!="revue_multisport_pre_match_v1" or not isinstance(ledger.get("events"),list)):
         raise ValueError("Unsupported prospective ledger")
     hist,n_finals=history_index(history,asof)
     locked={}
