@@ -105,6 +105,30 @@ async def get_goalie(id): pass
             self.assertEqual(item["equivalent_semantic_content"],"unverified")
             self.assertIsNone(result["exact_reproduction_percent"])
 
+    def test_real_game_parity_requires_same_current_commit_and_disclaims_input_identity(self):
+        from unittest.mock import patch
+        with TemporaryDirectory() as tmp:
+            source,target=Path(tmp)/"original",Path(tmp)/"revue"
+            self.make(source,target)
+            fixture={
+                "reference_commit":"observed-ref",
+                "real_nhl_fixtures_compared":18,
+                "reference_vs_revue_entire_output_dict_equal":18,
+                "original_data_sources_identical":False,
+                "identical_original_clairvoyance_predictions_proven":False,
+            }
+            _write(target,"docs/parite-clairvoyance-nhl-observe.json",json.dumps(fixture))
+            with patch("outils.audit_reproduction_exacte.source_commit",return_value="different"):
+                out=strict_report(source,target,NOW)
+                self.assertEqual(out["model_formulas"]["current_nhl_real_fixtures_tested"],0)
+            with patch("outils.audit_reproduction_exacte.source_commit",return_value="observed-ref"):
+                out=strict_report(source,target,NOW)
+                self.assertEqual(out["model_formulas"]["current_nhl_real_fixtures_tested"],18)
+                self.assertEqual(out["model_formulas"]["current_nhl_full_output_dicts_equal"],18)
+                self.assertFalse(out["model_formulas"]["original_proprietary_input_identity_verified"])
+                self.assertIsNone(out["exact_reproduction_percent"])
+                self.assertEqual(out["exact_end_to_end_parity"],"NOT_VERIFIED")
+
     def test_scope_excludes_cfb(self):
         with TemporaryDirectory() as tmp:
             source,target=Path(tmp)/"original",Path(tmp)/"revue"
