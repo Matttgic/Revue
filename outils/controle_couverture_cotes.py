@@ -55,7 +55,7 @@ def source_rows(source:dict,now:datetime)->tuple[list[dict],str]:
     if (source.get("mode")=="PAPER_ONLY"
         and source.get("odds_status")=="active_pulsescore"
         and isinstance(board.get("events"),list)
-        and source.get("engine")=="REVUE_ENGINE_V2"
+        and source.get("engine")=="Revue Engine V2 — indépendant / expérimental"
         and board.get("events_count")==len(board["events"])):
         return board["events"],"validated_snapshot_full"
     return [],"invalid_provenance"
