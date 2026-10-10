@@ -36,21 +36,26 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_nhl_settlement_officiel.py' -v
           python -m unittest discover -s tests -p 'test_nhl_shadow_tracker.py' -v
-      - name: Settle only existing locked predictions using official NHL scores
-        run: |
-          test -s docs/nhl-shadow-ledger.json
-          python -m outils.nhl_settlement_officiel
-      - name: Publish only prospectively graded outcomes
+      - name: Verify prospective ledger exists
+        run: test -s docs/nhl-shadow-ledger.json
+      - name: Grade only genuine completed matches on the newest ledger
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
-          if git diff --cached --quiet; then
-            echo "No completed game to grade"
-            exit 0
-          fi
-          git commit -m "data(nhl): settle locked forecasts with official NHL final scores"
-          # If another workflow updated the ledger concurrently, do not clobber
-          # its locks. The next scheduled settlement retries on fresh checkout.
-          git pull --rebase origin main
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            # The scorer never generates new probabilities. It does nothing
+            # when the official games are not yet final or are already graded.
+            python -m outils.nhl_settlement_officiel
+            git add docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
+            if git diff --cached --quiet; then
+              echo "No newly settled official result"
+              exit 0
+            fi
+            git commit -m "data(nhl): settle locked forecasts with official NHL final scores"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Concurrent result publication detected; retrying from fresh ledger"
+            sleep "$attempt"
+          done
+          exit 1
