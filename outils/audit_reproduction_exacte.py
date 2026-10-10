@@ -339,6 +339,18 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
     id_path=target/"docs/parite-nhl-espn-id-map.json"
     id_map=_json(id_path) if id_path.is_file() else {}
     id_pairs_current=current_nhl_schedule_pairs(reference,id_map)
+    elo_path=target/"docs/parite-elo-mlb-source.json"
+    elo_audit=_json(elo_path) if elo_path.is_file() else {}
+    current_elo_sha=sha256(reference/"app/services/elo.py")
+    elo_verified=bool(
+        current_elo_sha and
+        elo_audit.get("reference_elo_source_sha256")==current_elo_sha and
+        elo_audit.get("status")=="verified_elo_rule_on_revue_espn_history" and
+        type(elo_audit.get("historical_mlb_final_games_checked")) is int and
+        elo_audit["historical_mlb_final_games_checked"]>=20 and
+        elo_audit.get("exact_update_equal_to_original")==elo_audit["historical_mlb_final_games_checked"] and
+        elo_audit.get("original_clairvoyance_sql_rating_parity")=="NOT_VERIFIED"
+    )
     checked = model.get("verified_formula_parity_models")
     target_count = model.get("total_target_models")
     if not (type(checked) is int and type(target_count) is int and
@@ -437,6 +449,16 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "current_nhl_full_output_dicts_equal": real["reference_vs_revue_entire_output_dict_equal"] if validated_real else 0,
             "original_proprietary_input_identity_verified": False,
             "all_original_models_catalogued": False,
+        },
+        "mlb_elo_source_replay": {
+            "source_formula_unchanged_since_test":elo_verified,
+            "replayed_espn_final_games":elo_audit["historical_mlb_final_games_checked"] if elo_verified else 0,
+            "exact_update_results":elo_audit["exact_update_equal_to_original"] if elo_verified else 0,
+            "mlb_teams_in_history":elo_audit.get("teams",0) if elo_verified else 0,
+            "original_database_elo_ratings_equal":False,
+            "original_complete_training_history_equal":False,
+            "evidence_file":"docs/parite-elo-mlb-source.json",
+            "note":"Exact original Elo arithmetic on Revue history, not original SQL values, source data, or betting model parity.",
         },
         "nhl_fixture_identity": {
             "verified_source_revision": bool(id_map.get("source_commit")==current_sha and id_pairs_current),
