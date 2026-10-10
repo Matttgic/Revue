@@ -1,0 +1,43 @@
+name: Revue - Sorties reelles Clairvoyance
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '42 5,11,17,23 * * *'
+  push:
+    paths:
+      - 'outils/clairvoyance_real_output_gap.py'
+      - 'tests/test_clairvoyance_real_output_gap.py'
+      - '.github/workflows/clairvoyance-real-output-gap.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-original-output-gap
+  cancel-in-progress: false
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests for timestamped original-vs-Revue matching
+        run: python -m unittest discover -s tests -p 'test_clairvoyance_real_output_gap.py' -v
+      - name: Compare 9 reference sports and published NHL pick probabilities
+        run: python -m outils.clairvoyance_real_output_gap
+      - name: Commit ONLY derived diagnostic, not upstream source or original picks
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.clairvoyance_real_output_gap
+            git add docs/clairvoyance-real-output-gap.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(parity): compare public source fixtures and real published model outputs'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
