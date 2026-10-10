@@ -20,12 +20,18 @@ def validate(teams, goalies):
     ):
         records = doc.get("seasons", {})
         statuses = doc.get(status_key, {})
+        if not isinstance(records, dict) or not records or not any(isinstance(rows, list) and rows for rows in records.values()):
+            problems.append(f"{kind}: no valid season observations")
+        if doc.get("current_season") not in records:
+            problems.append(f"{kind}: missing current season key")
         if set(records) != set(statuses):
             problems.append(f"{kind}: inconsistent season keys")
         for season, rows in records.items():
             state = statuses.get(season, {})
             if state.get(count_key) != len(rows):
                 problems.append(f"{kind}/{season}: reported row count differs")
+            if state.get("status") not in ("available", "unavailable"):
+                problems.append(f"{kind}/{season}: unknown source status")
             if (state.get("status") == "available") != bool(rows):
                 problems.append(f"{kind}/{season}: availability differs")
             seen = set()
@@ -39,11 +45,18 @@ def validate(teams, goalies):
                 if kind == "teams":
                     if row.get("situation") not in ("all", "5on5"):
                         problems.append(f"{kind}/{season}: unexpected situation")
+                    for field in ("xg_for_60", "xg_against_60", "shots_for_60", "shots_against_60"):
+                        value = row.get(field)
+                        if not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 120:
+                            problems.append(f"{kind}/{season}: invalid {field}")
                     for field in ("xg_share", "save_pct"):
                         value = row.get(field)
                         if value is not None and (not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 1):
                             problems.append(f"{kind}/{season}: invalid {field}")
                 else:
+                    value = row.get("save_pct")
+                    if value is not None and (not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 <= value <= 1):
+                        problems.append(f"{kind}/{season}: invalid save_pct")
                     if row.get("starter_status") != "unknown":
                         problems.append(f"{kind}/{season}: misleading starter status")
                     x, g, s = (row.get(k) for k in ("xg_against", "goals_against", "gsax"))
