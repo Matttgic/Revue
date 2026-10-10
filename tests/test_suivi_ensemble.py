@@ -27,7 +27,8 @@ def new_model():
 
 def results(h=21,a=16,complete=True):
     return {"leagues":{"NFL":{"events":[{
-        "id":"ID1","complete":complete,"home_score":h,"away_score":a
+        "id":"ID1","start":iso(KICK),"home":"Home","away":"Away",
+        "complete":complete,"home_score":h,"away_score":a
     }]}}}
 
 class ProspectiveEnsembleTests(unittest.TestCase):
@@ -108,6 +109,17 @@ class ProspectiveEnsembleTests(unittest.TestCase):
         led,info=step(ledger,production(),new_model(),results(),KICK+timedelta(hours=1))
         self.assertEqual(info["graded"],0)
         self.assertEqual(led["events"]["NFL:ID1"]["status"],"invalid_chronology")
+
+    def test_scoreboard_identity_mismatch_cannot_grade(self):
+        for field,value in (("away","Another"),("home","Stranger"),
+                            ("start",iso(KICK+timedelta(hours=1)))):
+            with self.subTest(field=field):
+                led,_=step({"events":{}},production(),new_model(),results(),NOW)
+                hist=results()
+                hist["leagues"]["NFL"]["events"][0][field]=value
+                led,info=step(led,production(),new_model(),hist,KICK+timedelta(hours=2))
+                self.assertEqual(info["graded"],0)
+                self.assertEqual(led["events"]["NFL:ID1"]["status"],"pending")
 
     def test_cannot_auto_promote(self):
         ledger,_=step({"events":{}},production(),new_model(),results(),NOW)
