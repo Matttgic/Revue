@@ -1,0 +1,52 @@
+name: Revue - Clairvoyance NHL MoneyPuck Shadow
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 07,17 * * *'
+  push:
+    paths:
+      - 'outils/clairvoyance_nhl_moneypuck_shadow.py'
+      - 'tests/test_clairvoyance_nhl_moneypuck_shadow.py'
+      - '.github/workflows/nhl-clairvoyance-moneypuck-shadow.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: revue-nhl-clairvoyance-shadow
+  cancel-in-progress: false
+
+jobs:
+  source-backed-shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test original formula and strict no-leakage source bridge
+        run: |
+          python -m unittest discover -s tests -p 'test_clairvoyance_nhl_moneypuck_shadow.py' -v
+          python -m unittest discover -s tests -p 'test_clairvoyance_model_reproduction.py' -v
+      - name: Calculate strictly future NHL shadow predictions with official archived data
+        run: |
+          test -s docs/moneypuck-nhl-latest.json
+          test -s docs/moneypuck-goalies-latest.json
+          python -m outils.clairvoyance_nhl_moneypuck_shadow --days 3
+      - name: Publish attributed predictions only (never original third-party CSV)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/nhl-clairvoyance-shadow-latest.json
+          if git diff --cached --quiet; then
+            echo "No changed shadow model output"
+            exit 0
+          fi
+          git commit -m "data(nhl): refresh MoneyPuck-backed Clairvoyance formula SHADOW"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
