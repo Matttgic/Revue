@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -130,6 +130,23 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_individual_mma_tennis_liiga_and_no_unknown_player_predictions(self):
+        import json
+        ui=(DOCS/"individual-hub.html").read_text(encoding="utf-8")
+        self.assertIn("individual-hub.html",(DOCS/"index.html").read_text(encoding="utf-8"))
+        for k in ("individual-latest.json","individual-prospective-performance.json",
+                  "individual-prospective-ledger.json","real_bets","mean_brier",
+                  "TBD","source","Europe/Paris"):
+            with self.subTest(key=k):self.assertIn(k,ui)
+        self.assertNotIn("innerHTML",ui)
+        source=json.loads((DOCS/"individual-latest.json").read_text(encoding="utf-8"))
+        for league in ("ATP","WTA","TENNIS"):
+            for game in source["competitions"][league]["games"]:
+                self.assertNotEqual(game["home"].upper().strip(),"TBD")
+                self.assertNotEqual(game["away"].upper().strip(),"TBD")
+        ledger=json.loads((DOCS/"individual-prospective-ledger.json").read_text(encoding="utf-8"))
+        self.assertTrue(all(g["real_bet"] is False and g["stake_units"]==0 for g in ledger["events"]))
 
     def test_original_style_picks_workflow_is_operational_from_verified_data(self):
         import json

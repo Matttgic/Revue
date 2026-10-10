@@ -1,0 +1,180 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080f22">
+<meta name="description" content="Revue Individual Sports Arena: vrais matchs ATP WTA UFC Liiga, modèles disponibles ou insuffisants, journal de prévisions verrouillées.">
+<title>REVUE — Tennis, MMA & Liiga</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1230px!important;padding:34px 17px 80px!important;margin:auto!important}
+.eyebrow{color:#61eed9;font:800 11px 'Chakra Petch',sans-serif;letter-spacing:.2em}
+h1{font:800 clamp(40px,7vw,76px)/.95 'Chakra Petch',sans-serif;letter-spacing:-.065em;margin:13px 0 17px;color:#eefaff}
+h1 span{color:#66eedb}.lead{font:13px/1.8 'DM Sans',sans-serif;color:#a9c5d9;max-width:800px}
+.alert{border-left:3px solid #f2bc77;background:#222638;color:#ead3b2;padding:15px 17px;margin:22px 0;font:12px/1.75 'DM Sans',sans-serif}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:26px 0}
+.stat{border:1px solid #395973;background:linear-gradient(145deg,#172b45,#0e1d35);padding:18px;min-width:0}
+.stat small{color:#9dbace;display:block;font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.09em}
+.stat strong{display:block;color:#67eddb;font:800 clamp(25px,4vw,39px) 'Chakra Petch',sans-serif;margin:9px 0}
+.stat p{margin:0;font:10px/1.6 'DM Sans',sans-serif;color:#a4b7ce}
+.menu{display:flex;flex-wrap:wrap;gap:7px;margin:22px 0}
+.menu button{cursor:pointer;background:#172e42;color:#b5ccdf;border:1px solid #3b596c;padding:12px 19px;min-height:44px;font:800 12px 'Chakra Petch',sans-serif}
+.menu button[aria-selected=true]{background:#1b5a55;color:#e7fffb;border-color:#69e4d2}
+#status{font:11px/1.8 monospace;color:#a5d8d8;padding:12px;background:#152b3c;border-left:2px solid #67eedb;margin:10px 0}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.card{border:1px solid #35536b;background:linear-gradient(145deg,#182b45,#0d1d32);padding:19px;min-width:0}
+.card small{color:#93c3d1;font:10px/1.7 monospace}
+.card h2{font:800 clamp(18px,2.6vw,27px)/1.25 'Chakra Petch',sans-serif;color:#e9fdff;margin:12px 0}
+.card .tag{color:#d9bfd6;font:800 11px 'Chakra Petch',sans-serif;letter-spacing:.07em}
+.card .prob{font:800 clamp(26px,3.4vw,43px) 'Chakra Petch',sans-serif;color:#72f4e1;margin:12px 0 5px}
+.card p{font:11px/1.8 'DM Sans',sans-serif;color:#a5bfd4}
+.ribbon{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.ribbon span{display:inline-block;border:1px solid #406076;padding:5px 8px;font:700 10px 'Chakra Petch',sans-serif;color:#b0d6e5}
+.ribbon span.warn{border-color:#806c4a;color:#f0cc8e}
+.empty{border:1px dashed #42657a;padding:27px;color:#b1c9d5;font:12px/1.8 'DM Sans',sans-serif}
+.bench{padding:19px;border:1px solid #365b69;background:#16293d;margin:22px 0}
+.bench h2{font:800 23px 'Chakra Petch',sans-serif;color:#edfcff;margin:4px 0 13px}
+.bench p{font:12px/1.8 'DM Sans',sans-serif;color:#a8c6d7}
+.bench table{width:100%;border-collapse:collapse;font:12px 'DM Sans',sans-serif}
+.bench td,.bench th{padding:12px 8px;border-bottom:1px solid #35566c;text-align:left}
+.bench th{font:800 10px 'Chakra Petch',sans-serif;color:#7fdccc}
+.bench td{color:#d6f1fa}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0}
+.links a{text-decoration:none;border:1px solid #3f6878;color:#69f0df;padding:12px;font:800 11px 'Chakra Petch',sans-serif}
+@media(max-width:760px){.cards{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head><body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation">
+<a href="./index.html">QG</a><a href="./match-center.html">MATCHS</a>
+<a href="./individual-hub.html" aria-current="page">TENNIS / MMA / LIIGA</a>
+<a href="./picks-center.html">SÉLECTIONS</a><a href="./avancement.html">AVANCEMENT</a></nav>
+<span class="rv-top-tag">SPORTS / EXPERIMENTAL</span></div></div>
+<main>
+<div class="eyebrow">REVUE / NOUVELLES DISCIPLINES</div>
+<h1>INDIVIDUAL <span>SPORTS.</span><br>HOCKEY EURO.</h1>
+<p class="lead">Rencontres réellement identifiées via ESPN (tennis et UFC) et Liiga.fi (hockey finlandais). Les probabilités sont présentées uniquement lorsque le modèle dispose de données historiques suffisantes ; les noms de joueurs « TBD » ne sont jamais traités comme de vrais adversaires.</p>
+<div class="alert">Aucune cote bookmaker, aucun pari réel, aucune EV validée. Un favori estimé n'est pas une recommandation. Le suivi enregistre une probabilité figée AVANT le match, et un résultat seulement après confirmation explicite de la source. Les résultats de saisons passées ne sont pas reconstitués comme des prédictions pré-match.</div>
+<div class="stats">
+<article class="stat"><small>MATCHS NOMINATIFS</small><strong id="matches">—</strong><p>Dans le dernier flux observé</p></article>
+<article class="stat"><small>AVEC PROBABILITÉ</small><strong id="models">—</strong><p>Modèles expérimentaux</p></article>
+<article class="stat"><small>PRÉVISIONS VERROUILLÉES</small><strong id="locked">—</strong><p>Avant le début uniquement</p></article>
+<article class="stat"><small>RÉSULTATS ÉVALUÉS</small><strong id="settled">—</strong><p>Brier et Log Loss vérifiables</p></article>
+</div>
+<div class="menu" role="tablist" aria-label="Choisir la compétition">
+<button role="tab" type="button" data-league="ATP" aria-selected="true">ATP</button>
+<button role="tab" type="button" data-league="WTA" aria-selected="false">WTA</button>
+<button role="tab" type="button" data-league="UFC" aria-selected="false">UFC</button>
+<button role="tab" type="button" data-league="LIIGA" aria-selected="false">LIIGA</button>
+<button role="tab" type="button" data-league="TENNIS" aria-selected="false">TENNIS INDÉTERMINÉ</button>
+</div>
+<p id="status" aria-live="polite" role="status">Vérification des derniers résultats…</p>
+<section id="cards" class="cards" role="tabpanel"></section>
+<section class="bench">
+<h2>SUIVI PROSPECTIF AUTOMATISÉ</h2>
+<p>Un match évalué doit correspondre à un identifiant, deux adversaires et une date identiques, avec résultat final explicite. Le score Brier mesure l'écart entre probabilité et issue ; plus bas est meilleur. Aucun ROI possible ici, car aucun pari ni prix enregistré.</p>
+<table><thead><tr><th>COMPÉTITION</th><th>FIGÉS</th><th>RÉGLÉS</th><th>BRIER</th><th>LOG LOSS</th></tr></thead>
+<tbody id="stats"></tbody></table>
+<p id="tracking-note">Chargement du journal prospectif…</p>
+</section>
+<div class="links">
+<a href="./individual-latest.json">FLUX DES MATCHS JSON ↗</a>
+<a href="./individual-prospective-performance.json">PERFORMANCE JSON ↗</a>
+<a href="./match-center.html">MATCH CENTER MULTISPORTS ↗</a>
+<a href="./reproduction-exacte.html">AUDIT CLAIRVOYANCE ↗</a>
+</div>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const node=(tag,cl,t)=>{const e=document.createElement(tag);if(cl)e.className=cl;if(t!==undefined)e.textContent=String(t);return e;};
+const when=t=>new Date(t).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+const percent=x=>Number.isFinite(x)?(100*x).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
+const decimal=x=>Number.isFinite(x)?x.toLocaleString("fr-FR",{maximumFractionDigits:4}):"—";
+let feed=null,tracker=null,ledger=null,selected="ATP";
+const isName=x=>typeof x==="string"&&!!x.trim()&&x.toUpperCase().trim()!=="TBD"&&!["TBA","BYE","QUALIFIER","UNKNOWN","TBC"].includes(x.toUpperCase().trim());
+function tag(root,text,warn=false){root.append(node("span",warn?"warn":"",text));}
+function show(){
+ const content=$("cards");content.replaceChildren();
+ if(!feed)return;
+ const item=feed.competitions[selected];
+ const lst=(item?.games||[]).filter(g=>isName(g.home)&&isName(g.away)&&g.home.toUpperCase()!==g.away.toUpperCase());
+ const freeze=new Map((ledger?.events||[]).filter(g=>g.league===selected).map(g=>[g.event_id,g]));
+ if(!lst.length){
+  content.append(node("div","empty", selected==="TENNIS"?"Aucune rencontre au circuit identifié insuffisant ; aucune attribution ATP/WTA devinée.":
+    "Aucun match avec deux adversaires connus sur ce créneau. Les tableaux « TBD » et les matchs déjà commencés ne sont pas affichés comme des prévisions."));
+  return;
+ }
+ for(const g of lst.slice(0,100)){
+  const card=node("article","card");
+  card.append(node("small","",when(g.start_utc)+" · "+selected+" · ID "+g.event_id),
+              node("h2","",g.home+" — "+g.away));
+  const ribbon=node("div","ribbon");
+  tag(ribbon,g.status==="prototype_non_calibre"?"MODÈLE DISPONIBLE":"HISTORIQUE INSUFFISANT",g.status!=="prototype_non_calibre");
+  if(freeze.has(g.event_id))tag(ribbon,"PRÉVISION VERROUILLÉE");
+  tag(ribbon,"AUCUNE COTE");
+  card.append(ribbon);
+  const p=g.probabilities;
+  if(p&&Number.isFinite(p.home_win)&&Number.isFinite(p.away_win)){
+   card.append(node("div","prob",percent(p.home_win)+" / "+percent(p.away_win)));
+   card.append(node("div","tag","PROB. "+g.home.toUpperCase()+" / "+g.away.toUpperCase()));
+   if(Number.isFinite(p.over_5_5))card.append(node("p","", "Plus de 5,5 buts (hypothèse score Liiga) : "+percent(p.over_5_5)));
+  }else card.append(node("p","", "Probabilité non calculée : historique exploitable insuffisant. Aucune chance 50/50 inventée."));
+  if(g.training_games)card.append(node("p","",
+     "Matchs historiques analysés : "+g.home+" "+g.training_games.home+" · "+
+     g.away+" "+g.training_games.away));
+  if(g.expected_score)card.append(node("p","",
+     "Projection buts (non calibrée) : "+g.expected_score.home+" - "+g.expected_score.away));
+  const previous=freeze.get(g.event_id);
+  if(previous)card.append(node("p","", "Figé le "+when(previous.locked_at_utc)+
+      " · "+(previous.status==="settled"?"RÉSULTAT VÉRIFIÉ":"EN ATTENTE")+" · aucune mise réelle"));
+  content.append(card);
+ }
+}
+function refresh(){
+ for(const b of document.querySelectorAll("[data-league]"))
+  b.setAttribute("aria-selected",String(b.dataset.league===selected));
+ show();
+}
+document.querySelectorAll("[data-league]").forEach(b=>b.addEventListener("click",()=>{
+ selected=b.dataset.league;refresh();
+}));
+async function get(file){const r=await fetch("./"+file+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error(file+": HTTP "+r.status);return r.json();}
+(async()=>{
+ try{
+  const data=await get("individual-latest.json");
+  if(data.status!=="prototype_non_calibre"||!data.competitions)throw Error("Flux source non vérifié");
+  feed=data;
+  const valid=Object.values(data.competitions).flatMap(c=>(c.games||[]).filter(g=>isName(g.home)&&isName(g.away)&&g.home.toUpperCase()!==g.away.toUpperCase()));
+  $("matches").textContent=valid.length;
+  $("models").textContent=valid.filter(g=>g.probabilities&&Number.isFinite(g.probabilities.home_win)).length;
+  $("status").textContent="Dernière publication : "+when(data.generated_at_utc)+
+   " · sources ESPN / Liiga.fi · fenêtre de "+data.days+" jours · aucune cote ni EV";
+  const age=Date.now()-Date.parse(data.generated_at_utc);
+  if(age>30*3600000)$("status").textContent+=" · ATTENTION : source ancienne";
+  refresh();
+ }catch(e){$("status").textContent="Flux indisponible : "+e.message;}
+ try{
+  const [p,l]=await Promise.all([
+   get("individual-prospective-performance.json"),
+   get("individual-prospective-ledger.json")]);
+  if(p.version!=="revue_individual_pre_match_v1"||
+     p.status!=="independent_individual_prospective_unscaled_research"||
+     p.real_bets!==0||p.roi!==null||
+     l.version!=="revue_individual_pre_match_v1"||!Array.isArray(l.events)||
+     l.events.some(e=>e.real_bet!==false||e.stake_units!==0))
+   throw Error("Version ou provenance de suivi incompatible");
+  tracker=p;ledger=l;
+  $("locked").textContent=p.total_locked;$("settled").textContent=p.settled;
+  const table=$("stats");table.replaceChildren();
+  for(const league of ["ATP","WTA","UFC","LIIGA"]){
+   const info=p.leagues[league];if(!info)continue;
+   const row=node("tr");for(const v of [league,info.locked,info.settled,
+     decimal(info.mean_brier),decimal(info.mean_log_loss)])row.append(node("td","",v));
+   table.append(row);
+  }
+  $("tracking-note").textContent="Évaluation actualisée "+when(p.generated_at_utc)+
+   " · "+p.total_locked+" prévisions figées / "+p.settled+
+   " réglées · aucun pari réel. Échantillon potentiellement insuffisant pour conclure.";
+  refresh();
+ }catch(e){$("tracking-note").textContent="Suivi pré-match indisponible : "+e.message;}
+})();
+</script></body></html>
