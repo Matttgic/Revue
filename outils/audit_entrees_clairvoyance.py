@@ -65,7 +65,7 @@ def check(root:Path,now:datetime)->dict:
                 and nhl_parser.get("exact_equality_tests_passed",0)>=200),
             "parser_equality_checks":nhl_parser.get("exact_equality_tests_passed",0),
             "data_use_terms":"Non-commercial + attribution, otherwise ask MoneyPuck for permission",
-            "source":"Original references MoneyPuck 5on5; Revue has no independently verified matching game-time feed",
+            "source":"Clairvoyance backend selects MoneyPuck situation=all; the initial Revue NHL shadow used 5on5. Original game-time SQL/model inputs remain unverified",
             "warning":"A NHL simulation or skater table is not a matched MoneyPuck dataset"},
         "nhl_goalies":{
             "status":"unverified_live_inputs",

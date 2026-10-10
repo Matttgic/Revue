@@ -1,0 +1,54 @@
+name: Revue - Phase 5 Sources multisports
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '10 1,7,13,19 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Clairvoyance NBA advanced real input ratings'
+      - 'Revue - NHL official stats'
+      - 'Revue - NHL backend source-style audits'
+      - 'Revue - MLB source Elo gap'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/phase5_donnees_multisports.py'
+      - 'tests/test_phase5_donnees_multisports.py'
+      - 'docs/phase5-donnees.html'
+      - '.github/workflows/phase5-donnees-multisports.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-phase5-source-gate
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test sources without invented xG, current NBA or source SQL
+        run: |
+          python -m unittest discover -s tests -p 'test_phase5_donnees_multisports.py' -v
+          python -m unittest discover -s tests -p 'test_audit_entrees_clairvoyance.py' -v
+      - name: Build verified four-sport input report
+        run: python -m outils.phase5_donnees_multisports
+      - name: Commit derived metadata only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.phase5_donnees_multisports
+            git add docs/phase5-sources-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(phase5): refresh four-sport observed input readiness'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
