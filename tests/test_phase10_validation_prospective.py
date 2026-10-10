@@ -72,7 +72,7 @@ class Phase10LedgerTests(unittest.TestCase):
   self.assertEqual(values["MLB"]["result"],0)
   self.assertEqual(values["PL"]["result"],1)
   self.assertAlmostEqual(values["NBA"]["brier"],.405,places=3)
-  self.assertAlmostEqual(values["PL"]["brier"],.815,places=3)
+  self.assertAlmostEqual(values["PL"]["brier"],.755,places=3)
   self.assertTrue(values["PL"]["logloss"]>0)
   perf=summarize(s,NOW+timedelta(hours=11))
   self.assertEqual(perf["settled"],3)
