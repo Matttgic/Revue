@@ -1,0 +1,61 @@
+name: Revue - Parité temporelle Clairvoyance
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 7 * * *'
+  push:
+    paths:
+      - 'modeles/reproduction/clairvoyance_lock_timing.py'
+      - 'outils/verifier_parite_timing_clairvoyance.py'
+      - 'tests/test_clairvoyance_lock_timing.py'
+      - '.github/workflows/parite-clairvoyance-timing.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-source-lock-timing
+  cancel-in-progress: false
+jobs:
+  compare-original:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout independent Revue implementation
+        uses: actions/checkout@v4
+        with:
+          path: revue
+      - name: Checkout reference for read-only runtime comparisons
+        uses: actions/checkout@v4
+        with:
+          repository: Purple-Wraith/clairvoyance-backend
+          path: clairvoyance_reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute independent safety and boundary tests
+        working-directory: revue
+        run: python -m unittest discover -s tests -p 'test_clairvoyance_lock_timing.py' -v
+      - name: Replay synthetic cases on original and Revue implementations
+        working-directory: revue
+        run: >-
+          python -m outils.verifier_parite_timing_clairvoyance
+          --reference ../clairvoyance_reference
+          --output docs/parite-clairvoyance-timing.json
+      - name: Publish verification metadata only (no source code or original picks)
+        working-directory: revue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/parite-clairvoyance-timing.json
+          if ! git diff --cached --quiet; then
+            git commit -m "parity(timing): verify Clairvoyance pre-start classifier"
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase -X theirs origin main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              sleep $((attempt * 2))
+            done
+            echo "Could not publish without replacing concurrent work" >&2
+            exit 1
+          fi
