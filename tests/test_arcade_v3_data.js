@@ -118,8 +118,9 @@ test("ESPN confirmed/projected goalie information stays separate from probabilit
  assert.ok(joined.every(x=>x.hockey.inputsComplete===false));
  assert.ok(joined.every(x=>x.hockey.espnInformationNotIncludedInProbabilities===true));
  assert.ok(joined.every(x=>x.actionable===false));
- assert.ok(joined.some(x=>(x.hockey.espnGoalieHome?.status==="confirmed"||
-                          x.hockey.espnGoalieAway?.status==="confirmed")));
+ // ESPN can legitimately report only projected goalies; never invent a confirmation.
+ assert.ok(joined.every(x=>[x.hockey.espnGoalieHome,x.hockey.espnGoalieAway]
+   .every(g=>g===null||["confirmed","projected"].includes(g.status))));
  const tampered=structuredClone(G);
  tampered.used_in_prediction_model=true;
  assert.equal(safeGoalies(tampered,T),false);
