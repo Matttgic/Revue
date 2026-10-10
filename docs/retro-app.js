@@ -114,6 +114,16 @@ function createMatch(g){
      " · domicile : "+describe(evidence.home)+" · extérieur : "+describe(evidence.away)+
      ". ESPN n'atteste pas ici la présence effective sur la glace. Probabilités inchangées."));
  }
+ if(g.league==="MLB"&&g.observed_mlb_probable_pitchers&&
+    g.observed_mlb_probable_pitchers.model_probabilities_recomputed===false&&
+    g.observed_mlb_probable_pitchers.confirmed_actual_starters===false){
+   const report=g.observed_mlb_probable_pitchers;
+   const describe=x=>x&&x.status==="probable_unconfirmed"&&typeof x.name==="string"?
+     x.name+" (probable MLB)":"non renseigné";
+   card.append(el("p","arc-help","Lanceurs probables · domicile : "+describe(report.home)+
+     " · extérieur : "+describe(report.away)+" · relevé "+fmtTime(report.observed_at_utc)+
+     ". Titulaires non confirmés et probabilités inchangées."));
+ }
  const bottom=el("div","arc-pick-bottom");
  bottom.append(label("PAS DE PARI VALIDÉ","off"));
  const link=el("a","arc-btn","Voir la rencontre ↗");link.href=matchUrl(g);bottom.append(link);
