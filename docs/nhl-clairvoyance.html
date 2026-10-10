@@ -17,12 +17,12 @@ h1 span{color:#55f5de}
 .notice strong{color:#e6f7fe}
 .notice a,footer a{color:#55f5de}
 .status{margin:17px 0;color:#a6c5d8;font-size:12px}
-.performance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:22px 0}
+.performance{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:22px 0}
 .performance>div{padding:14px 16px;border:1px solid #324b67;background:#0e2034}
 .performance label{color:#8baac2;font:700 10px monospace}
 .performance strong{display:block;color:#e5f8ff;font:800 27px 'Chakra Petch',system-ui,sans-serif;margin:5px 0}
 .performance small{font-size:10px;color:#8da9bc}
-@media(max-width:600px){.performance{grid-template-columns:1fr 1fr}.performance>div:last-child{grid-column:span 2}}
+@media(max-width:600px){.performance{grid-template-columns:1fr 1fr}}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
 .tabs select,.tabs button{background:#12253b;border:1px solid #3d5f75;color:#d0e6f4;padding:12px 14px;min-height:44px;cursor:pointer}
 .tabs button[aria-pressed=true]{background:#55f5de;color:#051b23;border-color:#55f5de;font-weight:800}
@@ -43,6 +43,8 @@ h1 span{color:#55f5de}
 .row strong{color:#e6eff5;text-align:right}
 .sep{padding-top:13px;margin-top:7px;color:#77d5cd;font:700 10px monospace;letter-spacing:.11em}
 .mini{font-size:11px;line-height:1.5;color:#819bb2;margin:10px 0 0}
+ .research{margin-top:14px;padding:12px 14px;border:1px solid #4a6178;background:#132b3c;color:#b4d5e1;font-size:12px;line-height:1.55}
+.research strong{color:#a5f0e5}
 .odds-observed{margin-top:12px;padding:13px;border:1px solid #5f5870;background:#1d1e36}
 .odds-observed .title{font:700 10px monospace;color:#d6c9ff;letter-spacing:.1em}
 .odds-observed .book{font-size:12px;color:#bcd1e0;margin-top:7px}
@@ -66,12 +68,13 @@ footer{font-size:12px;line-height:1.8;color:#829db2;border-top:1px solid #2c4058
 <p class="lead">Formule NHL du moteur source confrontée à de véritables observations MoneyPuck (xG à 5 contre 5 et statistiques historiques des gardiens). Elo construit indépendamment dans Revue.</p></header>
 <section class="notice">
 <strong>Statut : SHADOW — expérimental, sans recommandations de paris.</strong>
-La formule mathématique est vérifiée sur entrées communes ; ce n'est pas une reproduction de la base Elo ni des prédictions finales de Clairvoyance. Les gardiens affichés sont les plus utilisés sur la saison, <strong>pas les titulaires confirmés</strong>. Les petites tailles d'échantillon en début de saison rendent ces probabilités instables. Pas de cotes, pas de validation de rentabilité.
+La formule mathématique Clairvoyance est vérifiée sur entrées communes ; la variante prudente est un modèle de recherche séparé. Ce n'est pas une reproduction de la base Elo ni des prédictions finales de Clairvoyance. Les gardiens affichés sont les plus utilisés sur la saison, <strong>pas les titulaires confirmés</strong>. Les petites tailles d'échantillon en début de saison rendent ces probabilités instables. Pas de cotes, pas de validation de rentabilité.
 Données provenant de <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com</a> (usage personnel non commercial avec attribution).</section>
 <section class="performance" aria-label="Validation prospective sur résultats officiels">
 <div><label>PRÉVISIONS VERROUILLÉES</label><strong id="locked">—</strong><small>20 minutes minimum avant match</small></div>
 <div><label>RÉSULTATS RÉGLÉS</label><strong id="settled">—</strong><small>Score NHL officiel</small></div>
-<div><label>SCORE DE BRIER</label><strong id="brier">—</strong><small>Évaluation hors échantillon</small></div>
+<div><label>BRIER · CLAIRVOYANCE</label><strong id="brier">—</strong><small>Évaluation hors échantillon</small></div>
+<div><label>BRIER · PRUDENT</label><strong id="brierAlt">—</strong><small id="paired">Comparaison future sur mêmes matchs</small></div>
 </section>
 <div class="tabs">
 <button data-filter="upcoming" aria-pressed="true">À venir</button>
@@ -133,7 +136,9 @@ async function loadPerformance(){
   by("locked").textContent=String(d.locked_events);
   by("settled").textContent=String(d.settled);
   by("brier").textContent=d.mean_brier===null?"En attente":Number(d.mean_brier).toLocaleString("fr-FR",{maximumFractionDigits:4});
- }catch(err){by("locked").textContent="—";by("settled").textContent="—";by("brier").textContent="—";}
+  by("brierAlt").textContent=d.mean_brier_research==null?"En attente":Number(d.mean_brier_research).toLocaleString("fr-FR",{maximumFractionDigits:4});
+  by("paired").textContent=String(d.research_paired_settled||0)+" matchs comparés (plus petit = mieux)";
+ }catch(err){by("locked").textContent="—";by("settled").textContent="—";by("brier").textContent="—";by("brierAlt").textContent="—";by("paired").textContent="Comparaison indisponible";}
 }
 function line(root,title,value){
  const e=make("div","row");e.append(make("span","",title),make("strong","",value));root.append(e);
@@ -163,6 +168,14 @@ function render(){
     make("strong","",pct(p)));group.append(node);
   }
   card.append(group);
+  const alt=g.research_low_sample_shrink;
+  if(alt?.model_id==="revue_nhl_low_sample_shrink_v1"&&Number.isFinite(alt.home_win)){
+   const section=make("div","research");
+   section.append(make("strong","","VARIANTE PRUDENTE · MODÈLE DISTINCT, NON CALIBRÉ"));
+   section.append(make("div","",g.home+" "+pct(alt.home_win)+" · "+g.away+" "+pct(alt.away_win)));
+   section.append(make("div","", "xG ajustés : "+g.home+" "+alt.xg_shrunk_pct?.home+" % / "+g.away+" "+alt.xg_shrunk_pct?.away+" % · échantillon réduit corrigé"));
+   card.append(section);
+  }
   const bar=make("div","track"),h=make("span"),a=make("span","away");
   h.style.width=Math.max(0,Math.min(100,g.home_win*100))+"%";
   a.style.width=Math.max(0,Math.min(100,g.away_win*100))+"%";
