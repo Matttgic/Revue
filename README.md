@@ -1,3 +1,17 @@
+## Phase 1 — fidélité du modèle NHL Clairvoyance (audit de source)
+
+**Tableau accessible : [Phase 1 NHL · calculs et différences restantes](docs/phase1-nhl.html).** Contrôle horodaté : [rapport d'acceptation](docs/phase1-nhl-fidelity.json) · [comparaison des vrais noms de gardiens publiés](docs/parite-nhl-gardiens-publics.json) · [audit de mise à jour Elo depuis les paris moneyline réglés](docs/clairvoyance-elo-source-audit.json).
+
+**Réalisé et prouvé sur les sources publiques** :
+- 44/44 formules ciblées Clairvoyance vérifiées sur mêmes entrées ; 17/17 mêmes rencontres NHL et xG MoneyPuck 5v5 publics (ne prouve pas les features SQL).
+- Nouvelle comparaison **original `docs/nhl_schedule.json` vs Revue ESPN**, rapprochée par deux équipes et coup d'envoi : **15/15 rencontres, 30/30 noms de gardiens identiques**, **28/30 statuts identiques** sur des instantanés non simultanés. Deux gardiens étaient « probable » dans l'ancien relevé source, puis « confirmé » dans le relevé Revue plus récent. Cela *n'assure pas* que ces gardiens ont réellement débuté.
+- Logique de classement Elo originale isolée : valeur initiale 1500, **K=32**, mises à jour seulement lors du **règlement d'un pick moneyline**, et non à chaque match NHL. Tests avec arrondis et absence de fuite temporelle. Dans le journal vérifié Revue courant, **0 pari NHL moneyline vérifié** autorise une mise à jour : aucune valeur Elo SQL n'est donc inventée.
+- **4 contrôles d'acceptation sur 9** satisfaits. L'audit de parité des sorties NHL observe encore **12,71 points de pourcentage d'écart moyen sur huit moneylines** ; deux jeux de données publics identiques ne garantissent pas le même Elo, le même gardien sélectionné par SQL ou le même modèle publié.
+
+**Pas encore reproduit exactement :** l'Elo historique *privé* de Clairvoyance et son ordre de règlements SQL, ses entrées propriétaires/point-in-time, l'identité démontrée du modèle Python backend avec celui des « Best Bets » publiés, la parité des probabilités publiées, puis au moins 100 résultats NHL prospectifs pour évaluer la qualité. La base SQL n'apparaît pas dans les exports publics inspectés. **Phase 1 non terminée à 100 %**, même si les calculs et comparaisons accessibles sans autorisation sont en place. Aucune prédiction ni mise rétrospective n'est fabriquée.
+
+**Code et CI :** [comparaison des gardiens](outils/parite_nhl_gardiens_publics.py) · [replay Elo source](outils/clairvoyance_elo_settlement_replay.py) · [critères de validation](outils/verifier_phase1_nhl.py) · [tests Elo](tests/test_clairvoyance_elo_settlement_replay.py) · [tests noms/stats](tests/test_parite_nhl_gardiens_publics.py) · [workflow automatique](.github/workflows/phase1-nhl-fidelity.yml). Aucun coût PulseScore supplémentaire.
+
 ## Mesure prospective des modèles et contrôle des cotes (10 octobre 2026)
 
 Deux mécanismes **sans aucun crédit sportif payant supplémentaire** sont opérationnels dans [Revue](docs/index.html) :
