@@ -47,6 +47,19 @@ sans appel API premium additionnel. La génération n'interroge que les derniers
 instantanés déjà présents dans le dépôt ; par conséquent un prix ancien ne
 devient jamais un cours en direct.
 
+## Résultats réels et historique prudent
+
+Le Match Center consomme aussi le registre immuable
+`docs/nhl-shadow-ledger.json`. Le module de résultats n'accepte que les
+matchs officiellement réglés : prévision verrouillée au moins 20 minutes avant
+la rencontre, résultat NHL concordant et règlement déclaré après le début du
+match. Toute rencontre au score incohérent, antidatée ou dont la date de
+résolution se situe dans le futur est exclue.
+
+Ce panneau affiche le score et les probabilités NHL originales figées de Revue.
+Il montre le nombre d'événements encore **en attente**, sans inventer des
+résultats d'autres sports. Aucune ligne n'est présentée comme un pari misé.
+
 ## Comparaison qualitative avec le dépôt source
 
 Le dépôt public `Purple-Wraith/clairvoyance-backend` comprend une application
