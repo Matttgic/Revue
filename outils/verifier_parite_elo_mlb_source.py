@@ -11,6 +11,7 @@ import argparse
 import ast
 from datetime import datetime,timezone
 import json
+import hashlib
 from pathlib import Path
 import subprocess
 
@@ -67,6 +68,7 @@ def compare_original(reference:Path,history:dict,as_of:datetime)->dict:
         "generated_at_utc":datetime.now(timezone.utc).isoformat(),
         "status":"verified_elo_rule_on_revue_espn_history",
         "reference_commit":commit,
+        "reference_elo_source_sha256":hashlib.sha256((reference/"app/services/elo.py").read_bytes()).hexdigest(),
         "historical_mlb_final_games_checked":checked,
         "elo_expected_probability_checks":checked*2,
         "exact_update_equal_to_original":checked,
