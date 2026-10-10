@@ -7,6 +7,8 @@ on:
       - 'modeles/reproduction/clairvoyance_nba_source.py'
       - 'outils/verifier_parite_nba_source.py'
       - 'outils/verifier_parite_clairvoyance.py'
+      - 'outils/verifier_parite_predictor_nhl_observe.py'
+      - 'tests/test_parite_predictor_nhl_observe.py'
       - 'tests/test_clairvoyance_model_reproduction.py'
       - 'outils/catalogue_parite_modeles.py'
       - 'modeles/reproduction/frontend_clairvoyance.js'
@@ -70,6 +72,11 @@ jobs:
       - name: Verify real parity against original reference (read only AST)
         working-directory: revue
         run: python -m outils.verifier_parite_clairvoyance --reference ../clairvoyance_reference --output docs/parite-clairvoyance-predictor.json
+      - name: Compare original NHL predictor with observed Revue fixture inputs (not original data)
+        working-directory: revue
+        run: |
+          python -m unittest discover -s tests -p 'test_parite_predictor_nhl_observe.py' -v
+          python -m outils.verifier_parite_predictor_nhl_observe --reference ../clairvoyance_reference --output docs/parite-clairvoyance-nhl-observe.json
       - name: Comparer quatre fonctions NBA au code Clairvoyance d'origine
         working-directory: revue
         run: python -m outils.verifier_parite_nba_source --reference ../clairvoyance_reference --output docs/parite-clairvoyance-nba-source.json
@@ -90,7 +97,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/parite-clairvoyance-predictor.json docs/parite-clairvoyance-frontend.json docs/parite-modeles-clairvoyance.json docs/parite-clairvoyance-nba-source.json
+          git add docs/parite-clairvoyance-predictor.json docs/parite-clairvoyance-frontend.json docs/parite-modeles-clairvoyance.json docs/parite-clairvoyance-nba-source.json docs/parite-clairvoyance-nhl-observe.json
           if ! git diff --cached --quiet; then
             git commit -m "parity: verify original Clairvoyance backend MLB and NHL models"
             # Data-refresh workflows may push at the same time. Retry the
