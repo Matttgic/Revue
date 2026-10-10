@@ -75,9 +75,9 @@ def goalie_evidence(center,goalies,now):
      for side in ("home","away"):
       g=obs.get(side+"_goalie")
       if g is None:continue
-      if not isinstance(g,dict) or not isinstance(g.get("name"),str) or
-         not g["name"].strip() or g.get("status") not in ("confirmed","projected") or
-         g.get("source")!="ESPN probableStartingGoalie":
+      if (not isinstance(g,dict) or not isinstance(g.get("name"),str) or
+          not g["name"].strip() or g.get("status") not in ("confirmed","projected") or
+          g.get("source")!="ESPN probableStartingGoalie"):
        fixture_ok=False;break
       if g["name"].strip() in names:fixture_ok=False;break
       names.add(g["name"].strip())
