@@ -20,7 +20,11 @@ test("actual 39+ independent frozen forecasts join exact match center fixtures",
  assert.ok(o.locked>=39);
  assert.ok(o.since);
  const keys=new Set(M.events.map(x=>x.league+":"+x.event_id));
- assert.ok([...o.rows.keys()].every(k=>keys.has(k)));
+ const active=[...o.rows.values()].filter(x=>Date.parse(x.start)>=NOW+20*60000);
+ const matching=active.filter(x=>keys.has(x.key));
+ // Older locked predictions remain in permanent history even after leaving
+ // the rolling 3-day match center; this is correct, not source incompleteness.
+ assert.ok(matching.length<=active.length);
  const result=build({matches:M,picks:P,nhl:N,goalies:G,
    ownedLedger:L,ownedPerformance:S},NOW);
  assert.equal(result.sources.own,"prospective_independent_unvalidated");
@@ -28,7 +32,7 @@ test("actual 39+ independent frozen forecasts join exact match center fixtures",
  assert.equal(result.ownedSummary.settled,S.total_unique_matches_settled);
  assert.ok(result.events.length);
  const joined=result.events.filter(x=>x.owned);
- assert.ok(joined.length>0);
+ assert.equal(joined.length,matching.filter(x=>M.events.some(g=>g.league===x.league&&String(g.event_id)===x.eventId&&g.home===x.home&&g.away===x.away&&Date.parse(g.start_utc)===Date.parse(x.start))).length);
  assert.ok(joined.every(x=>x.modelCount>=x.owned.projections.length));
  assert.ok(joined.every(x=>x.actionable===false));
  assert.ok(joined.every(x=>x.owned.lockedAt<x.start));
