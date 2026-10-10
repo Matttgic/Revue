@@ -51,6 +51,38 @@ class ProspectiveLedgerTests(unittest.TestCase):
                             NOW+timedelta(hours=10))
         self.assertEqual(again["events"][0],row)
 
+    def test_research_candidate_locked_immutably_and_graded_paired(self):
+        document=pred()
+        document["games"][0]["research_low_sample_shrink"]={
+            "model_id":"revue_nhl_low_sample_shrink_v1",
+            "home_win":0.55,"calibrated":False,"shadow_only":True,
+        }
+        lock=update_ledger(None,document,[],NOW)
+        initial=copy.deepcopy(lock["events"][0])
+        self.assertEqual(initial["research_home_win_probability"],0.55)
+        document["games"][0]["research_low_sample_shrink"]["home_win"]=0.99
+        later=update_ledger(lock,document,[],NOW+timedelta(hours=1))
+        self.assertEqual(later["events"][0],initial)
+        graded=update_ledger(later,document,[finish(NOW)],NOW+timedelta(hours=9))
+        row=graded["events"][0]
+        self.assertAlmostEqual(row["brier"],(1-.65)**2)
+        self.assertAlmostEqual(row["research_brier"],(1-.55)**2)
+        scores=summarize(graded,NOW+timedelta(hours=9))
+        self.assertEqual(scores["research_paired_settled"],1)
+        self.assertAlmostEqual(scores["mean_brier_research"],.2025)
+        self.assertAlmostEqual(scores["mean_brier_reference_on_paired"],.1225)
+        self.assertAlmostEqual(scores["brier_delta_research_minus_reference"],.08)
+        self.assertEqual(scores["research_status"],"experimental_not_promoted")
+
+    def test_fake_research_model_is_not_accepted(self):
+        document=pred()
+        document["games"][0]["research_low_sample_shrink"]={
+            "model_id":"unverified_model","home_win":.99,
+            "calibrated":False,"shadow_only":True
+        }
+        data=update_ledger(None,document,[],NOW)
+        self.assertIsNone(data["events"][0]["research_home_win_probability"])
+
     def test_never_create_backdated_lock(self):
         late=pred(kick=NOW+timedelta(minutes=15))
         self.assertEqual(update_ledger(None,late,[],NOW)["events"],[])
