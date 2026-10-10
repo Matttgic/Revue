@@ -16,6 +16,8 @@ on:
       - 'outils/phase10_validation_prospective.py'
       - 'outils/phase12_official_finals.py'
       - 'outils/phase12_audit.py'
+      - 'outils/phase13_comparaison_modeles.py'
+      - 'tests/test_phase13_comparaison_modeles.py'
       - 'tests/test_phase12_audit.py'
       - 'tests/test_phase12_site.py'
       - 'tests/test_phase12_official_finals.py'
@@ -53,6 +55,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_phase10_validation_prospective.py' -v
           python -m unittest discover -s tests -p 'test_phase12_official_finals.py' -v
           python -m unittest discover -s tests -p 'test_phase12_audit.py' -v
+          python -m unittest discover -s tests -p 'test_phase13_comparaison_modeles.py' -v
           python -m unittest discover -s tests -p 'test_phase12_site.py' -v
           python -m unittest discover -s tests -p 'test_phase10_modeles_site.py' -v
           python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
@@ -79,10 +82,12 @@ jobs:
             python -m outils.phase12_official_finals
             python -m outils.phase10_validation_prospective
             python -m outils.phase12_audit
+            python -m outils.phase13_comparaison_modeles
             python -m outils.revue_match_dossiers
             git add docs/match-center-latest.json docs/multisport-prospective-ledger.json docs/multisport-prospective-performance.json docs/match-dossiers-latest.json
             git add docs/phase10-modeles-multisports-latest.json docs/phase10-modeles-prospectif-ledger.json docs/phase10-modeles-performance.json
             git add docs/phase12-official-finals-latest.json docs/phase12-reconciliation-latest.json docs/phase12-result-integrity-latest.json
+            git add docs/phase13-modeles-evaluation-latest.json
             if test -f docs/scoreboard-revue-latest.json; then git add docs/scoreboard-revue-latest.json; fi
             if git diff --cached --quiet; then
               echo "No match-center change"
