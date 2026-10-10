@@ -219,6 +219,9 @@ def build(season:str)->dict:
                 loaded[kind]=f.result()
             except (OSError,HTTPError,URLError,TimeoutError,ValueError) as exc:
                 print(f"{kind} unavailable: {type(exc).__name__}: {str(exc)[:80]}")
+    # Public schema diagnostics (field names only; never log player records).
+    if loaded.get("skater_shots"):
+        print("NHL SHOTTYPE COLUMN NAMES:",sorted(loaded["skater_shots"][0].keys()))
     report=clean(loaded,season,observed)
     print("Official NHL observed:",len(report["teams"]),"teams,",
           len(report["goalies"]),"goalies,",len(report["skaters"]),"skaters;",
