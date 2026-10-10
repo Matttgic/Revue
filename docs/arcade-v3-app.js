@@ -43,7 +43,7 @@ function renderWhy(e){
  root.append(explanation);
  const title=h("h4","","Modèles disponibles");
  root.append(title);
- if(!e.models.length&&!e.hockey)root.append(h("p","","Aucune probabilité exploitable pour cette rencontre."));
+ if(!e.models.length&&!e.hockey&&!e.owned)root.append(h("p","","Aucune probabilité exploitable pour cette rencontre."));
  for(const m of e.models){
   const block=h("div","arc-v3-model");
   block.append(h("strong","",m.name+" · non calibré"));
