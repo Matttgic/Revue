@@ -1,0 +1,47 @@
+name: Revue - Export Control Center statique
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 0,6,12,18 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Engine V2 (simulation)'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/publier_revue_control.py'
+      - 'api_revue/operational.py'
+      - 'tests/test_publier_revue_control.py'
+      - '.github/workflows/revue-control-export.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-control-export
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test the paper validator and publisher
+        run: python -m unittest discover -s tests -p 'test_publier_revue_control.py' -v
+      - name: Publish strictly derived static JSON
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.publier_revue_control
+            git add docs/revue-control-ledger-latest.json docs/revue-control-state-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(revue): export validated Control Center static snapshots'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
