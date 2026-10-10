@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","play.html","bilan.html","historique.html","lab.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","play.html","bilan.html","historique.html","lab.html","euro-hockey.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -334,6 +334,31 @@ class ArenaTests(unittest.TestCase):
         for fragment in ("picks-center-latest.json","match-center-latest.json",
                          "no-store","safePicks","verified_real_ev","paper_profit_units"):
             with self.subTest(js=fragment):self.assertIn(fragment,js)
+
+    def test_europe_hockey_reference_models_and_locked_predictions_are_source_gated(self):
+        import json
+        page=(DOCS/"euro-hockey.html").read_text(encoding="utf-8")
+        lab=(DOCS/"lab.html").read_text(encoding="utf-8")
+        play=(DOCS/"play.html").read_text(encoding="utf-8")
+        self.assertIn("euro-hockey.html",lab)
+        self.assertIn("euro-hockey.html",play)
+        for fragment in ("euro-hockey-latest.json","euro-hockey-prospective-ledger.json",
+                         "euro-hockey-prospective-performance.json",
+                         "original_source_output_equivalence_verified",
+                         "fr_bookmaker_odds_verified","real_bets_enabled",
+                         "prefers-reduced-motion","Monte-Carlo"):
+            with self.subTest(fragment=fragment):
+                if fragment=="prefers-reduced-motion":
+                    self.assertIn(fragment,(DOCS/"retro.css").read_text(encoding="utf-8"))
+                else:self.assertIn(fragment,page)
+        self.assertNotIn("innerHTML",page)
+        d=json.loads((DOCS/"euro-hockey-latest.json").read_text(encoding="utf-8"))
+        self.assertFalse(d["real_bets_enabled"])
+        self.assertFalse(d["fr_bookmaker_odds_verified"])
+        self.assertFalse(d["original_source_output_equivalence_verified"])
+        self.assertEqual(d["total_games"],sum(len(v["games"]) for v in d["competitions"].values()))
+        journal=json.loads((DOCS/"euro-hockey-prospective-ledger.json").read_text(encoding="utf-8"))
+        self.assertTrue(all(r["real_bet"] is False and r["units"]==0 for r in journal["records"]))
 
     def test_arcade_navigation_has_only_five_primary_destinations(self):
         import re

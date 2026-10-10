@@ -68,7 +68,7 @@ const card=g=>{
  const a=e("article","arc-surface eu-card"),left=e("div"),right=e("div");
  left.append(e("div","arc-eyebrow",g.league+" · "+fmtTime(g.kickoff_utc)),
   e("h3","",g.home+" — "+g.away),
-  e("p","arc-help",g.home_gp+" matchs domicile / "+g.away_gp+" matchs extérieur dans les données de la saison. Modèle non calibré."));
+  e("p","arc-help",g.home_gp+" matchs joués par "+g.away_gp+" matchs extérieur dans les données de la saison. Modèle non calibré."));
  const tags=e("div","eu-meta");
  tags.append(e("span","arc-chip arc-chip--off","PAS DE COTE FR"),
   e("span","arc-chip","MONTE-CARLO + ENSEMBLE"));
@@ -88,7 +88,7 @@ const render=()=>{
  const source=report?.competitions[current],all=source?.games||[];
  const future=all.filter(g=>Date.parse(g.kickoff_utc)>Date.now()+20*60000);
  $("league-count").textContent=future.length+" match(s) futurs";
- if(!source||source.status!=="ok")root.append(e("div","arc-placeholder","Source indisponible ou périmée : "+(source?.status||"sans données")));
+ if(!source||source.status!=="ok"||Date.now()-Date.parse(source.source_generated_utc)>36*3600000)root.append(e("div","arc-placeholder","Source indisponible ou périmée : "+(source?.status||"sans données")));
  else if(!future.length)root.append(e("div","arc-placeholder","Aucune rencontre avec une prévision vérifiable dans cette fenêtre de 72 heures."));
  else for(const g of future.slice(0,40))root.append(card(g));
 };
