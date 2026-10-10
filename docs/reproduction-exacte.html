@@ -77,7 +77,7 @@ async function load(){
   const report=await response.json();
   if(report.exact_reproduction_percent!==null||report.exact_end_to_end_parity!=="NOT_VERIFIED")
     throw Error("Rapport inattendu");
-  const current=report.model_formulas.verification_is_on_current_source_commit;
+  const current=report.model_formulas.verification_is_on_current_source_code??report.model_formulas.verification_is_on_current_source_commit;
   by("formula").textContent=report.model_formulas.verified_in_declared_subset+"/"+
      report.model_formulas.declared_subset_total+(current?"":" · HIST.");
   by("routes").textContent=report.backend.end_to_end_verified_equivalent_routes+
@@ -95,7 +95,7 @@ async function load(){
     "REVALIDATION";
   by("revision").textContent="Commit source : "+String(report.source_commit||"inconnu").slice(0,16)+
    " · dernière lecture "+new Date(report.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+
-   " · "+(current?"formules vérifiées sur cette version":"tests de formules sur un commit antérieur");
+   " · "+(current?"code des formules source inchangé et vérifié":"code des formules source à revalider");
   const dom=report.frontend.static_dom_inventory;
   if(dom){
    by("domStatus").textContent=dom.source_static_ids+" identifiants HTML dans la page source · "+
