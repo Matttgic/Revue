@@ -12,6 +12,7 @@ import argparse
 import asyncio
 from datetime import datetime,timezone
 import json
+import hashlib
 import math
 from pathlib import Path
 import subprocess
@@ -69,6 +70,7 @@ def validate_rows(report:dict) -> list[dict]:
 def compare(source:Path,report:dict) -> dict:
     rows=validate_rows(report)
     functions=reference_functions(source)
+    digest=hashlib.sha256((source/"app/services/predictor.py").read_bytes()).hexdigest()
     commit=subprocess.run(["git","-C",str(source),"rev-parse","HEAD"],
         capture_output=True,text=True,check=True).stdout.strip()
     checked=[]
@@ -99,6 +101,7 @@ def compare(source:Path,report:dict) -> dict:
         "generated_at_utc":datetime.now(timezone.utc).isoformat(),
         "reference":"Purple-Wraith/clairvoyance-backend",
         "reference_commit":commit,
+        "reference_predictor_sha256":digest,
         "report_input_generated_at_utc":report["generated_at_utc"],
         "status":"exact_model_output_parity_on_same_revue_observed_inputs",
         "input_origin":"Revue observed NHL Web API Elo proxy and MoneyPuck seasonal aggregates",
