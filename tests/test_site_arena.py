@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","play.html","bilan.html","historique.html","lab.html","euro-hockey.html","clairvoyance-comparateur.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","play.html","bilan.html","historique.html","lab.html","euro-hockey.html","clairvoyance-comparateur.html","clairvoyance-nhl-forensics.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -403,6 +403,33 @@ class ArenaTests(unittest.TestCase):
                              risk["pre_start_recorded"]+risk["locked_after_start_included"]+
                              risk["unknown_lock_timing_included"])
             self.assertTrue(risk["may_not_be_claimed_as_reproducible_roi"])
+
+    def test_nhl_source_input_diagnostic_is_reachable_and_does_not_present_bets(self):
+        import json
+        screen=(DOCS/"clairvoyance-nhl-forensics.html").read_text(encoding="utf-8")
+        lab=(DOCS/"lab.html").read_text(encoding="utf-8")
+        original=(DOCS/"clairvoyance-comparateur.html").read_text(encoding="utf-8")
+        self.assertIn("./clairvoyance-nhl-forensics.html",lab)
+        self.assertIn("./clairvoyance-nhl-forensics.html",original)
+        for name in ("clairvoyance-nhl-forensics.json","clairvoyance-nhl-scenarios.json",
+                     "actual_original_hidden_elo_or_starters_verified",
+                     "original_published_model_family_verified",
+                     "live_french_odds_verified","nhl-evidence","nhl-factors",
+                     "nhl-table","real_bets_enabled"):
+            with self.subTest(fragment=name):self.assertIn(name,screen)
+        self.assertNotIn("innerHTML",screen)
+        f=json.loads((DOCS/"clairvoyance-nhl-forensics.json").read_text(encoding="utf-8"))
+        s=json.loads((DOCS/"clairvoyance-nhl-scenarios.json").read_text(encoding="utf-8"))
+        self.assertFalse(f["real_bet"])
+        self.assertFalse(f["exact_prediction_replication_verified"])
+        self.assertFalse(s["real_bets_enabled"])
+        self.assertFalse(s["actual_original_hidden_elo_or_starters_verified"])
+        if f["status"]=="nhl_forensics_verified_observation_alignment":
+            self.assertEqual(f["model_summary"]["all"]["comparisons"],len(f["match_diagnostics"]))
+            self.assertLessEqual(f["input_summary"]["identical_5v5_xg_both_teams"],
+                                 f["input_summary"]["same_event_and_kickoff_nhl"])
+        if s["status"]=="same_real_observed_nhl_features_hypothetical_scenarios":
+            self.assertEqual(s["matched_scenarios"],len(s["games"]))
 
     def test_arcade_navigation_has_only_five_primary_destinations(self):
         import re
