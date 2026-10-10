@@ -4,6 +4,14 @@ on:
   push:
     paths:
       - 'docs/index.html'
+      - 'docs/pourquoi.html'
+      - 'docs/play.html'
+      - 'docs/bilan.html'
+      - 'docs/lab.html'
+      - 'docs/historique.html'
+      - 'docs/phase8-ui.css'
+      - 'docs/phase8-lab.js'
+      - 'tests/test_phase8_site.py'
       - 'docs/arcade-v3.css'
       - 'docs/arcade-v3-data.js'
       - 'docs/arcade-v3-app.js'
@@ -41,6 +49,8 @@ jobs:
         run: node --test tests/test_arcade_v3_phase3.js
       - name: Guard fixture identity and period-rule odds comparisons
         run: node --test tests/test_arcade_v3_phase3_guardrails.js
+      - name: Check phase 8 navigation and deep-linked model explanations
+        run: python -m unittest discover -s tests -p 'test_phase8_site.py' -v
       - name: Verify mobile structure, links, asset syntax and source provenance
         run: python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
       - name: Verify existing Arena routes still conform to contract

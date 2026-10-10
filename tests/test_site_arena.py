@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","play.html","bilan.html","historique.html","lab.html","etat-donnees.html","radar-6h.html","couvertures-mathematiques.html","phase1-nhl.html","historique-phase2.html","euro-hockey.html","clairvoyance-comparateur.html","clairvoyance-nhl-forensics.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","play.html","pourquoi.html","bilan.html","historique.html","lab.html","etat-donnees.html","radar-6h.html","couvertures-mathematiques.html","phase1-nhl.html","historique-phase2.html","euro-hockey.html","clairvoyance-comparateur.html","clairvoyance-nhl-forensics.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -436,10 +436,10 @@ class ArenaTests(unittest.TestCase):
         if s["status"]=="same_real_observed_nhl_features_hypothetical_scenarios":
             self.assertEqual(s["matched_scenarios"],len(s["games"]))
 
-    def test_arcade_navigation_has_only_five_primary_destinations(self):
+    def test_arcade_navigation_has_three_primary_destinations(self):
         import re
-        expected=["index.html","play.html","bilan.html","historique.html","lab.html"]
-        for filename in expected:
+        expected=["play.html","pourquoi.html","bilan.html"]
+        for filename in ("index.html","play.html","pourquoi.html","bilan.html","historique.html","lab.html"):
             page=(DOCS/filename).read_text(encoding="utf-8")
             self.assertIn("retro-app.js?v=1",page)
             self.assertIn("retro.css?v=1",page)
@@ -449,6 +449,7 @@ class ArenaTests(unittest.TestCase):
             links=re.findall(r'href="\./([^"]+)"',nav.group(1))
             self.assertEqual(links,expected,filename)
             self.assertIn('data-page=',page)
+            self.assertIn('phase8-ui.css?v=1',page)
         lab=(DOCS/"lab.html").read_text(encoding="utf-8")
         for old in ("command-center.html","match-dossier.html","operations.html",
                     "individual-hub.html","reproduction-exacte.html"):
