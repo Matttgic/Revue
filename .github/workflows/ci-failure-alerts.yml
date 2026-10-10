@@ -3,6 +3,8 @@ name: Revue - Surveillance CI et alertes
 on:
   workflow_run:
     workflows:
+      - "Revue - API Clairvoyance contrats"
+      - "Revue - Test API Vercel public"
       - "Revue - Parité exacte Clairvoyance"
       - "Revue - Parité exacte modèles Clairvoyance"
       - "Revue - Match Center unifié"
