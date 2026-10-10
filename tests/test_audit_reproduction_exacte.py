@@ -164,6 +164,26 @@ def build():
             self.assertEqual(out["backend"]["end_to_end_verified_equivalent_routes"],0)
             self.assertIsNone(out["exact_reproduction_percent"])
 
+    def test_nhl_espn_identity_pairs_need_same_reference_commit(self):
+        from unittest.mock import patch
+        with TemporaryDirectory() as tmp:
+            source,target=Path(tmp)/"original",Path(tmp)/"revue"
+            self.make(source,target)
+            _write(target,"docs/parite-nhl-espn-id-map.json",json.dumps({
+                "source_commit":"source-v1",
+                "status":"verified_fixture_identity_pairs",
+                "matched":1,"unmatched":0,
+                "mappings":[{"nhl_game_id":"2026020070","original_espn_id":"401892469"}],
+            }))
+            with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v1"):
+                report=strict_report(source,target,NOW)
+                self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],1)
+                self.assertFalse(report["nhl_fixture_identity"]["all_source_data_equal"])
+                self.assertIsNone(report["exact_reproduction_percent"])
+            with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v2"):
+                report=strict_report(source,target,NOW)
+                self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],0)
+
     def test_scope_excludes_cfb(self):
         with TemporaryDirectory() as tmp:
             source,target=Path(tmp)/"original",Path(tmp)/"revue"
