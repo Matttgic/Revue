@@ -22,6 +22,9 @@ Signatures GET présentes et vérifiées par tests de contrat :
   Revue, champs source, dates des fixtures. Pas de lanceur ou cotes inventés.
 - `GET /mlb/games/{espn_id}` : détail sur les seuls matchs ESPN présents
   dans les snapshots Revue.
+- `GET /nhl/teams`, `GET /nhl/goalies?min_games=1`, `GET /nhl/skaters?team=ANA` : statistiques saisonnières NHL officielles avec les champs indisponibles laissés à `null` ; aucune composition annoncée.
+- `GET /nhl/moneypuck?situation=all` : statistiques MoneyPuck de saison en snapshot horodaté, pas du direct.
+- `GET /nhl/moneypuck/live` : nouvelle récupération directe de fichiers CSV MoneyPuck équipes et gardiens ; vérifiée avec HTTP 200 en production. Pas un flux de matchs et pas encore identique aux filtres/champs Clairvoyance ; aucun titulaire confirmé.
 - `GET /predictions/?game_date=YYYY-MM-DD` : signature prévue mais
   intentionnellement **HTTP 503**, car les inputs Elo, gardiens et marchés
   de la base originale ne sont pas identiques et ne doivent pas être simulés.
@@ -29,9 +32,9 @@ Signatures GET présentes et vérifiées par tests de contrat :
 Endpoint propre à Revue : `GET /revue/parity` pour lire le niveau réel
 de reproduction, sans chiffre global trompeur.
 
-**Important :** cinq chemins de l'API originale sur vingt-quatre sont
-déclarés, et quatre servent des réponses utiles. Cela ne veut pas dire que
-5/24 routes sont **fonctionnellement identiques** : l'identité complète de
+**Important :** dix signatures GET sur les vingt-quatre routes originales sont
+déclarées ; une, `/predictions/`, refuse volontairement de produire un résultat sans données équivalentes. Cela ne veut pas dire que
+10/24 routes sont **fonctionnellement identiques** : l'identité complète de
 toutes les réponses, la pagination, les erreurs et les données historiques
 doit être vérifiée. L'audit strict maintient donc
 `end_to_end_verified_equivalent_routes: 0`.
@@ -73,8 +76,7 @@ heures pour les scores) sont refusées, plutôt que silencieusement remplacées.
 
 ## Reste avant une reproduction complète
 
-1. La base SQL originale et ses 24 comportements API, dont listes NHL
-   de joueurs/gardiens, statuts admin et historique des picks.
+1. La base SQL originale et ses 24 comportements API : la signature de dix routes est présente, mais l'identité de leurs résultats n'est pas prouvée ; restent notamment les statuts admin, l'historique des picks, Elo MLB et des correspondances statistiques exactes.
 2. L'équivalence sur mêmes snapshots des cotes, MoneyPuck 5v5/all,
    des gardiens utilisés, des classements Elo, des blessures et des règles.
 3. Les vrais résultats de prédictions finales pour un même événement,
