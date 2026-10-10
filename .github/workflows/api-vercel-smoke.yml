@@ -24,8 +24,10 @@ jobs:
           from urllib.error import HTTPError,URLError
           import json
           from datetime import datetime,timezone
+          from zoneinfo import ZoneInfo
           base="https://revue-api-tawny.vercel.app"
-          for route in ("/health","/revue/parity","/nhl/schedule?game_date=2026-10-10"):
+          local_day=datetime.now(ZoneInfo("Europe/Paris")).date().isoformat()
+          for route in ("/health","/revue/parity",f"/nhl/schedule?game_date={local_day}"):
               try:
                   with urlopen(base+route,timeout=15) as resp:
                       status=resp.status
@@ -44,4 +46,9 @@ jobs:
               else:
                   assert isinstance(data,list)
                   assert all(r.get("espn_id") and r.get("home_moneyline") is None for r in data)
+                  # NHL IDs are 2026...; Clairvoyance source uses ESPN 401...
+                  assert all(str(row["espn_id"]).startswith("401") for row in data)
+                  if local_day=="2026-10-10":
+                      assert any(str(row["espn_id"])=="401892469" for row in data)
+                  print("Real ESPN identifiers verified:",len(data))
           PY
