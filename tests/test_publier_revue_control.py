@@ -59,6 +59,13 @@ class ExportTests(unittest.TestCase):
         source_graded=[r for r in raw["bets"] if r["status"] in {"won","lost","push"}]
         output,_=generate(root,datetime.now(timezone.utc))
         converted={r["id"]:r for r in output["records"]}
+        from api_revue.operational import _score
+        from api_revue.fixtures import timestamp
+        for item in source_graded:
+            valid_score=_score(item.get("score"))
+            valid_datetime=(timestamp(item.get("settled_at")) >= timestamp(item.get("start_utc")))
+            self.assertTrue(valid_score,("invalid_score",item["id"],item.get("score")))
+            self.assertTrue(valid_datetime,("invalid_settlement_time",item["id"]))
         rejected=[(r["id"],converted[r["id"]]["exclusion_reason"]) for r in source_graded
                   if converted[r["id"]]["status"] not in {"won","lost","push"}]
         self.assertFalse(rejected,"Source-graded paper records should keep their validated status: "+str(rejected))
