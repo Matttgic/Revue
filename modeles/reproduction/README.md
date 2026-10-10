@@ -29,7 +29,7 @@ La reproduction des **données réelles et de leurs droits d'utilisation**, des 
 
 Les modèles reconstruits sont regroupés dans `modeles/reproduction/` ; les fonctions JS proviennent de `docs/app.html`, les préparations NBA et les prédicteurs NHL/MLB du backend Python. [Rapport JavaScript](../../docs/parite-clairvoyance-frontend.json) · [parité NBA Python](../../docs/parite-clairvoyance-nba-source.json) · [parité prédicteurs](../../docs/parite-clairvoyance-predictor.json).
 
-**Source réelle NBA :** [30 classements ESPN injectés dans les calculs originaux de force et Elo](../../docs/clairvoyance-nba-ratings.json), sans SRS Basketball-Reference. La parité sur données réelles complètes, notamment la calibration des sorties et les données de santé, **reste non démontrée**.
+**Source réelle NBA :** [30 équipes provenant de statistiques avancées ESPN de la saison régulière 2025–2026](../../docs/clairvoyance-nba-advanced-ratings.json), converties en ORTG, DRTG et rythme par une implémentation [vérifiée sur 460 cas par rapport aux fonctions originales](../../docs/parite-clairvoyance-espn-nba.json). L'API avancée ESPN pour la saison 2026–2027 renvoie actuellement une erreur serveur : aucun match de présaison ne doit être traité comme un vrai résultat NBA de saison régulière. Les statistiques avancées Basketball-Reference et la parité des probabilités finales **restent non démontrées**.
 
 Le chiffre historique de « 35 % de couverture fonctionnelle Revue » comprenait le design du site, les cotes et des **modèles inventés** : il **ne mesure pas** la fidélité de reproduction et ne doit plus être présenté comme tel.
 
