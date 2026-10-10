@@ -1,0 +1,47 @@
+name: Revue - Match Center unifié
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '05 * * * *'
+  push:
+    paths:
+      - 'outils/match_center_revue.py'
+      - 'tests/test_match_center_revue.py'
+      - '.github/workflows/match-center-revue.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-match-center-hourly
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test model/market joins, missing data and regulatory filters
+        run: python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
+      - name: Recompute upcoming board against newest saved real feeds
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.match_center_revue
+            git add docs/match-center-latest.json
+            if git diff --cached --quiet; then
+              echo "No match-center change"
+              exit 0
+            fi
+            git commit -m "data(match-center): publish strictly observed Revue fixtures and prices"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Concurrent branch update: rebuild from current source JSON"
+            sleep "$attempt"
+          done
+          exit 1
