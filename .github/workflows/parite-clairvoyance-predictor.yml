@@ -75,6 +75,15 @@ jobs:
           git add docs/parite-clairvoyance-predictor.json docs/parite-clairvoyance-frontend.json docs/parite-modeles-clairvoyance.json
           if ! git diff --cached --quiet; then
             git commit -m "parity: verify original Clairvoyance backend MLB and NHL models"
-            git pull --rebase -X theirs origin main
-            git push origin HEAD:main
+            # Data-refresh workflows may push at the same time. Retry the
+            # non-force update; never overwrite concurrent commits.
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase -X theirs origin main
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              sleep $((attempt * 2))
+            done
+            echo "Parity metadata could not be pushed after safe retries" >&2
+            exit 1
           fi
