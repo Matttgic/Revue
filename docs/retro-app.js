@@ -103,6 +103,17 @@ function createMatch(g){
  head.append(el("span","",g.league),el("span","",fmtTime(g.start_utc)));
  card.append(head,el("h3","",g.away+" — "+g.home));
  card.append(el("p","arc-help","Rencontre à suivre · "+g.research.length+" modèle(s) de recherche · aucune sélection validée"));
+ if(g.league==="NHL"&&g.observed_nhl_goalies&&
+    g.observed_nhl_goalies.model_probabilities_recomputed===false&&
+    g.observed_nhl_goalies.actually_started_verified===false){
+   const evidence=g.observed_nhl_goalies;
+   const describe=x=>x&&["confirmed","projected"].includes(x.status)&&
+     typeof x.name==="string"?x.name+" ("+(x.status==="confirmed"?
+     "confirmé par ESPN":"pressenti par ESPN")+")":"non renseigné";
+   card.append(el("p","arc-help","Gardiens observés le "+fmtTime(evidence.observed_at_utc)+
+     " · domicile : "+describe(evidence.home)+" · extérieur : "+describe(evidence.away)+
+     ". ESPN n'atteste pas ici la présence effective sur la glace. Probabilités inchangées."));
+ }
  const bottom=el("div","arc-pick-bottom");
  bottom.append(label("PAS DE PARI VALIDÉ","off"));
  const link=el("a","arc-btn","Voir la rencontre ↗");link.href=matchUrl(g);bottom.append(link);

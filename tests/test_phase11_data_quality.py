@@ -5,7 +5,7 @@ from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from outils.phase11_data_quality import evaluate,goalie_evidence,quarantined,INPUT_FILES
 from outils.match_center_revue import official_goalie_observation,collect_center
-from tests.test_match_center_revue import fixture,NOW,GENERATED,KICK
+from test_match_center_revue import fixture,NOW,GENERATED,KICK
 
 ROOT=Path(__file__).resolve().parents[1]/"docs"
 
