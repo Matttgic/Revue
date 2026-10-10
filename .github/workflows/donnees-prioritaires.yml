@@ -1,0 +1,73 @@
+name: Revue - Donnees prioritaires et reglements
+on:
+  workflow_dispatch:
+  schedule:
+    # Score-only hourly checks: no paid odds API requests.
+    - cron: '42 * * * *'
+  push:
+    paths:
+      - 'outils/reglement_multisport_officiel.py'
+      - 'tests/test_reglement_multisport_officiel.py'
+      - '.github/workflows/donnees-prioritaires.yml'
+permissions:
+  contents: write
+# The paid odds scanner also owns engine-v2-ledger.json: NEVER edit concurrently.
+concurrency:
+  group: revue-engine-v2-paper
+  cancel-in-progress: false
+jobs:
+  hourly-results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove official-only score settlement and immutable bets
+        run: |
+          python -m unittest discover -s tests -p 'test_reglement_multisport_officiel.py' -v
+          python -m unittest discover -s tests -p 'test_scoreboard_revue.py' -v
+          python -m unittest discover -s tests -p 'test_revue_engine_v2.py' -v
+          python -m unittest discover -s tests -p 'test_publier_revue_control.py' -v
+          python -m unittest discover -s tests -p 'test_picks_center_revue.py' -v
+      - name: Refresh public ESPN/NHL scoreboards; grade only verified paper locks
+        env:
+          ODDS_API_KEY: ''
+          PULSESCORE_API_KEY: ''
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.scoreboard_revue
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('docs/scoreboard-revue-latest.json').read_text())
+          assert d['status']=='observed_scoreboard_not_streaming'
+          assert d['scores_are_live_stream'] is False and d['pricing_used'] is False
+          assert d['requests']['ok']>0, "No verified public scoreboard response; retain historical state"
+          print('Observed scoreboards:',d['requests']['ok'],'/',d['requests']['total'])
+          PY
+            python -m outils.reglement_multisport_officiel
+            python -m outils.publier_revue_control
+            python -m outils.picks_center_revue
+            python -m outils.match_center_revue
+            python -m outils.revue_match_dossiers
+            git add docs/engine-v2-ledger.json docs/scoreboard-revue-latest.json \
+              docs/paper-score-settlement-latest.json \
+              docs/revue-control-ledger-latest.json docs/revue-control-state-latest.json \
+              docs/picks-center-latest.json docs/match-center-latest.json \
+              docs/match-dossiers-latest.json
+            if git diff --cached --quiet; then
+              echo 'All official scores and existing paper locks unchanged'
+              exit 0
+            fi
+            git commit -m 'data(revue): refresh observed scores, settle paper picks and propagate to Arcade'
+            if git push origin HEAD:main; then exit 0; fi
+            echo 'Concurrent data update; re-check newest immutable pre-match ledger'
+            sleep "$attempt"
+          done
+          exit 1
