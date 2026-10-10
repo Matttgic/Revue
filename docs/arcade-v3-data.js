@@ -221,7 +221,7 @@ function build(sources,now){
   const q=quotes.get(key)||[];
   const observedRadar=radar.get(key);
   const comparisons=(observedRadar&&observedRadar.home===g.home&&
-     observedRadar.away===g.away&&ms(observedRadar.start)===ms(g.start))?
+     observedRadar.away===g.away&&ms(observedRadar.start)===ms(g.start_utc))?
      observedRadar.compared:[];
   const espn=goalieRows.get(String(g.event_id));
   const goalie=(espn&&espn.home===g.home&&espn.away===g.away&&
