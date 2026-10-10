@@ -1,0 +1,65 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0a1023">
+<title>Phase 6 — Prédictions Clairvoyance / Revue</title><link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+.p6{max-width:1090px;margin:auto;padding:28px 16px 100px}.p6hero{border:1px solid #416d84;border-radius:17px;background:linear-gradient(120deg,#133d48,#191e3e 75%,#301c46);padding:27px}
+.p6hero h1{font:900 clamp(30px,7vw,60px)/1.07 'Chakra Petch',sans-serif;letter-spacing:-.05em;margin:15px 0}.p6hero em{font-style:normal;color:#83eddb}
+.p6hero p,.p6note,.p6record p{color:#bfccdc;font-size:12px;line-height:1.75}
+.p6score{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:18px 0}.p6score article,.p6record{border:1px solid #41566c;background:#17283d;border-radius:13px;padding:17px}
+.p6score strong{font:900 27px 'Chakra Petch',sans-serif;color:#81e9d8;display:block;margin:7px 0}.p6score small{color:#b9cddb;font-size:11px}
+.p6note{border:1px solid #796474;border-radius:10px;background:#252537;padding:15px}
+.p6section{font:800 25px 'Chakra Petch',sans-serif;margin:28px 0 13px}.p6records{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.p6record h3{font:800 19px 'Chakra Petch',sans-serif}.p6record strong{color:#8aeddc}.p6record small{color:#bcd1dc}
+.p6tag{color:#8aefd8;font:800 11px 'Chakra Petch',sans-serif}.p6link{color:#85edd6}
+@media(max-width:700px){.p6score{grid-template-columns:repeat(2,minmax(0,1fr))}.p6records{grid-template-columns:1fr}}
+</style></head><body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html">REVUE.</a><nav class="rv-nav"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav></div></div>
+<main class="p6"><header class="p6hero"><small>PHASE 06 / SORTIES OBSERVÉES</small><h1>PRÉDICTIONS <em>VS RÉALITÉ.</em></h1>
+<p>Première publication publique observée avant coup d'envoi et probabilité Revue sur le même match. Les comparaisons sont descriptives, pas la preuve d'un modèle original identique.</p><a href="./lab.html" class="arc-btn">RETOUR AU LAB ↗</a></header>
+<section class="p6score"><article><small>Sorties originales publiées</small><strong id="p6-public">—</strong><small>Dernier instantané</small></article>
+<article><small>Prévisions figées</small><strong id="p6-locked">—</strong><small>Vérifiées pré-match</small></article>
+<article><small>Comparaisons Revue</small><strong id="p6-compared">—</strong><small>Même match, côté, instant valide</small></article>
+<article><small>Parité SQL originale prouvée</small><strong id="p6-sql">—</strong><small>Données sources indisponibles</small></article></section>
+<p class="p6note" role="status" id="p6-status" aria-live="polite">Chargement du journal prospectif…</p>
+<h2 class="p6section">Couverture par sport</h2><div class="p6score" id="p6-sports"></div>
+<h2 class="p6section">Dernières prévisions figées</h2><div class="p6records" id="p6-records"></div>
+<h2 class="p6section">Limites des comparaisons</h2><p class="p6note">Le fichier source public n'est pas une preuve de l'heure de verrouillage interne de Clairvoyance. Les règles de prolongation, la base de données et les variables des modèles déployés sont inconnues. Les modèles Revue non calibrés restent expérimentaux. Une sortie source manquante est affichée comme absente, jamais reconstituée. CFB exclu.</p>
+<p><a class="p6link" href="./phase6-predictions-latest.json">Voir le rapport JSON ↗</a> · <a class="p6link" href="./phase4-parite.html">Diagnostic précédent ↗</a></p>
+<footer class="arc-footer">RECHERCHE · 0 MISE RÉELLE · 0 EV CERTIFIÉE</footer></main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const node=(tag,txt)=>{const el=document.createElement(tag);if(txt!==undefined)el.textContent=String(txt);return el;};
+const pct=n=>typeof n==="number"&&Number.isFinite(n)?(n*100).toLocaleString("fr-FR",{maximumFractionDigits:2})+" %":"—";
+function valid(o){return o?.version==="revue_phase6_pregame_source_predictions_v1"&&o.status==="prospective_public_forecast_comparison_not_original_model_parity"&&o.strict_original_prediction_parity_verified===false&&o.same_inputs_and_sql_verified===false&&o.source_output_observed_time_not_original_lock_proof===true&&o.real_bets_enabled===false&&o.paid_api_calls===0&&o.CFB_excluded===true&&o.by_sport&&Array.isArray(o.latest_locked);}
+document.addEventListener("DOMContentLoaded",async()=>{
+ try{
+  const response=await fetch("./phase6-predictions-latest.json",{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);
+  const data=await response.json();if(!valid(data))throw Error("Rapport non certifié");
+  $("p6-public").textContent=data.source_document_candidate_count;
+  $("p6-locked").textContent=data.prospective_predictions_locked;
+  $("p6-compared").textContent=data.observed_output_comparisons;
+  $("p6-sql").textContent="NON";
+  $("p6-status").textContent="Dernier contrôle : "+new Date(data.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})+". Chaque sélection est enregistrée à sa première observation admissible. Les prix réels, le modèle SQL et le verrouillage interne Clairvoyance ne sont pas certifiés.";
+  const sports=$("p6-sports");sports.replaceChildren();
+  for(const label of ["NHL","NBA","MLB","FOOTBALL"]){
+    const value=data.by_sport[label];
+    const card=node("article");
+    card.append(node("small",label+" · SOURCE"),
+                node("strong",value.source_selections_in_latest_document),
+                node("small",value.prospective_locked+" figées · "+value.with_revue_comparison+" comparées"));
+    sports.append(card);
+  }
+  const root=$("p6-records");root.replaceChildren();
+  for(const r of data.latest_locked){
+    const card=node("article");card.className="p6record";
+    const tag=node("span",r.league+" · "+r.market);tag.className="p6tag";
+    card.append(tag,node("h3",r.away+" @ "+r.home),
+      node("p","Sélection : "+r.side+" · Source : "+pct(r.original_probability)+" · Revue : "+pct(r.revue_probability)),
+      node("p",r.revue_probability===null?"Pas de prévision Revue strictement comparable.":"Écart descriptif : "+r.probability_delta_revue_minus_source_pp+" points."),
+      node("small","Observation figée "+new Date(r.locked_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})));
+    root.append(card);
+  }
+  if(!data.latest_locked.length)root.append(node("p","Aucune prévision pré-match publique encore figée. Les prochains instantanés seront suivis sans importer d'anciens paris."));
+ }catch(e){$("p6-status").textContent="Rapport indisponible : "+e.message;}
+});
+</script></body></html>

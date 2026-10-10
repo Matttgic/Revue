@@ -1,0 +1,46 @@
+name: Revue - Phase 6 Original Predictions
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 * * * *'
+  push:
+    paths:
+      - 'outils/phase6_comparaison_pregame.py'
+      - 'tests/test_phase6_comparaison_pregame.py'
+      - 'docs/phase6-predictions.html'
+      - '.github/workflows/phase6-predictions.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-phase6-source-lock
+  cancel-in-progress: false
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test prospective-first original snapshot locking
+        run: |
+          python -m unittest discover -s tests -p 'test_phase6_comparaison_pregame.py' -v
+          python -m unittest discover -s tests -p 'test_phase4_parite_reelle.py' -v
+      - name: Pin a public original source commit and freeze pregame outputs
+        run: python -m outils.phase6_comparaison_pregame
+      - name: Write the append-only observed forecasts with push retry
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.phase6_comparaison_pregame
+            git add docs/phase6-pregame-ledger.json docs/phase6-predictions-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(phase6): lock first observed original pregame forecast without backfill'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
