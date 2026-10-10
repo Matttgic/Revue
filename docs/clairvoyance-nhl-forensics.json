@@ -1,0 +1,516 @@
+{
+  "version": "nhl_input_gap_forensics_v1",
+  "status": "nhl_forensics_verified_observation_alignment",
+  "generated_at_utc": "2026-10-10T16:54:26.874104+00:00",
+  "reference_repository": "Purple-Wraith/clairvoyance-backend",
+  "source_diagnostic": "docs/clairvoyance-real-output-gap.json",
+  "source_input_guard": "aligned_observation_snapshots",
+  "real_bet": false,
+  "betting_recommendations_verified": false,
+  "live_french_odds_verified": false,
+  "exact_prediction_replication_verified": false,
+  "same_underlying_model_features_verified": false,
+  "backend_predictor_is_the_published_best_bet_model_verified": false,
+  "input_summary": {
+    "same_event_and_kickoff_nhl": 17,
+    "identical_5v5_xg_both_teams": 17,
+    "different_5v5_xg": 0,
+    "missing_5v5_xg": 0,
+    "ambiguous_reference_event_ids": 0,
+    "published_pick_xg_notes_usable": 8,
+    "published_pick_xg_notes_equal_reference_input": 8
+  },
+  "model_summary": {
+    "all": {
+      "comparisons": 17,
+      "mean_absolute_gap_pp": 10.55,
+      "max_absolute_gap_pp": 27.8,
+      "gaps_at_least_10pp": 7
+    },
+    "moneyline": {
+      "comparisons": 8,
+      "mean_absolute_gap_pp": 12.71,
+      "max_absolute_gap_pp": 27.8,
+      "gaps_at_least_10pp": 4
+    },
+    "totals": {
+      "comparisons": 9,
+      "mean_absolute_gap_pp": 8.63,
+      "max_absolute_gap_pp": 22.61,
+      "gaps_at_least_10pp": 3
+    },
+    "identical_xg_but_moneyline_gap_over_5pp": 7,
+    "repeated_reference_probability_clusters": [
+      {
+        "market": "full_game_total",
+        "side": "under",
+        "original_probability": 0.56,
+        "distinct_games": 9,
+        "event_ids": [
+          "2026020070",
+          "2026020071",
+          "2026020072",
+          "2026020073",
+          "2026020074",
+          "2026020075",
+          "2026020076",
+          "2026020077",
+          "2026020078"
+        ],
+        "hypothesis": "Same published numeric probability repeated across different matches; investigate placeholder, rule or model override before treating this as dynamic."
+      }
+    ]
+  },
+  "match_diagnostics": [
+    {
+      "event_id": "2026020077",
+      "key": "NHL:2026020077",
+      "home": "PIT",
+      "away": "DAL",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 53.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 53.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "home",
+      "line": null,
+      "reference_probability": 0.52,
+      "revue_probability": 0.242,
+      "probability_gap_pp": -27.8,
+      "absolute_gap_pp": 27.8,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020071",
+      "key": "NHL:2026020071",
+      "home": "NJD",
+      "away": "VAN",
+      "kickoff_utc": "2026-10-10T19:30:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 58.0,
+        "away": 39.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 58.0,
+        "away": 39.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "away",
+      "line": null,
+      "reference_probability": 0.372,
+      "revue_probability": 0.111,
+      "probability_gap_pp": -26.1,
+      "absolute_gap_pp": 26.1,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020072",
+      "key": "NHL:2026020072",
+      "home": "SJS",
+      "away": "EDM",
+      "kickoff_utc": "2026-10-10T20:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 34.0,
+        "away": 56.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 34.0,
+        "away": 56.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 6.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.3339,
+      "probability_gap_pp": -22.61,
+      "absolute_gap_pp": 22.61,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020078",
+      "key": "NHL:2026020078",
+      "home": "CHI",
+      "away": "CAR",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 38.0,
+        "away": 59.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 38.0,
+        "away": 59.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 5.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.4065,
+      "probability_gap_pp": -15.35,
+      "absolute_gap_pp": 15.35,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020080",
+      "key": "NHL:2026020080",
+      "home": "COL",
+      "away": "TOR",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 56.0,
+        "away": 42.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 56.0,
+        "away": 42.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "away",
+      "line": null,
+      "reference_probability": 0.399,
+      "revue_probability": 0.26,
+      "probability_gap_pp": -13.9,
+      "absolute_gap_pp": 13.9,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020076",
+      "key": "NHL:2026020076",
+      "home": "OTT",
+      "away": "NSH",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 49.0,
+        "away": 39.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 49.0,
+        "away": 39.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 5.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.4396,
+      "probability_gap_pp": -12.04,
+      "absolute_gap_pp": 12.04,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020075",
+      "key": "NHL:2026020075",
+      "home": "MTL",
+      "away": "DET",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 55.0,
+        "away": 60.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 55.0,
+        "away": 60.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "away",
+      "line": null,
+      "reference_probability": 0.492,
+      "revue_probability": 0.381,
+      "probability_gap_pp": -11.1,
+      "absolute_gap_pp": 11.1,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020078",
+      "key": "NHL:2026020078",
+      "home": "CHI",
+      "away": "CAR",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 38.0,
+        "away": 59.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 38.0,
+        "away": 59.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "home",
+      "line": null,
+      "reference_probability": 0.422,
+      "revue_probability": 0.329,
+      "probability_gap_pp": -9.3,
+      "absolute_gap_pp": 9.3,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020071",
+      "key": "NHL:2026020071",
+      "home": "NJD",
+      "away": "VAN",
+      "kickoff_utc": "2026-10-10T19:30:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 58.0,
+        "away": 39.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 58.0,
+        "away": 39.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 6.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.4754,
+      "probability_gap_pp": -8.46,
+      "absolute_gap_pp": 8.46,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020075",
+      "key": "NHL:2026020075",
+      "home": "MTL",
+      "away": "DET",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 55.0,
+        "away": 60.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 55.0,
+        "away": 60.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 6.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.4878,
+      "probability_gap_pp": -7.22,
+      "absolute_gap_pp": 7.22,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020073",
+      "key": "NHL:2026020073",
+      "home": "FLA",
+      "away": "MIN",
+      "kickoff_utc": "2026-10-10T22:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 65.0,
+        "away": 47.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 65.0,
+        "away": 47.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "home",
+      "line": null,
+      "reference_probability": 0.61,
+      "revue_probability": 0.543,
+      "probability_gap_pp": -6.7,
+      "absolute_gap_pp": 6.7,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020081",
+      "key": "NHL:2026020081",
+      "home": "NYI",
+      "away": "TBL",
+      "kickoff_utc": "2026-10-10T23:30:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 48.0,
+        "away": 60.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 48.0,
+        "away": 60.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "home",
+      "line": null,
+      "reference_probability": 0.474,
+      "revue_probability": 0.534,
+      "probability_gap_pp": 6.0,
+      "absolute_gap_pp": 6.0,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020077",
+      "key": "NHL:2026020077",
+      "home": "PIT",
+      "away": "DAL",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 53.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 53.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 6.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.6068,
+      "probability_gap_pp": 4.68,
+      "absolute_gap_pp": 4.68,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020070",
+      "key": "NHL:2026020070",
+      "home": "BOS",
+      "away": "PHI",
+      "kickoff_utc": "2026-10-10T17:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 32.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 32.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 5.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.5195,
+      "probability_gap_pp": -4.05,
+      "absolute_gap_pp": 4.05,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020074",
+      "key": "NHL:2026020074",
+      "home": "BUF",
+      "away": "UTA",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 61.0,
+        "away": 57.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 61.0,
+        "away": 57.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 6.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.5401,
+      "probability_gap_pp": -1.99,
+      "absolute_gap_pp": 1.99,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020073",
+      "key": "NHL:2026020073",
+      "home": "FLA",
+      "away": "MIN",
+      "kickoff_utc": "2026-10-10T22:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 65.0,
+        "away": 47.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 65.0,
+        "away": 47.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "full_game_total",
+      "side": "under",
+      "line": 5.5,
+      "reference_probability": 0.56,
+      "revue_probability": 0.5473,
+      "probability_gap_pp": -1.27,
+      "absolute_gap_pp": 1.27,
+      "identical_underlying_features_verified": false
+    },
+    {
+      "event_id": "2026020070",
+      "key": "NHL:2026020070",
+      "home": "BOS",
+      "away": "PHI",
+      "kickoff_utc": "2026-10-10T17:00:00+00:00",
+      "reference_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 32.0
+      },
+      "revue_5v5_xg_pct": {
+        "home": 51.0,
+        "away": 32.0
+      },
+      "xg_identity": "same_xg_both_teams",
+      "market": "moneyline_including_overtime",
+      "side": "home",
+      "line": null,
+      "reference_probability": 0.644,
+      "revue_probability": 0.652,
+      "probability_gap_pp": 0.8,
+      "absolute_gap_pp": 0.8,
+      "identical_underlying_features_verified": false
+    }
+  ],
+  "investigation_queue": [
+    {
+      "priority": 1,
+      "category": "same_xg_different_moneyline_output",
+      "count": 7,
+      "top_event_ids": [
+        "2026020077",
+        "2026020071",
+        "2026020080",
+        "2026020075",
+        "2026020078",
+        "2026020073",
+        "2026020081"
+      ],
+      "description": "Same public 5v5 xG for both sides, yet moneyline p differs by >=5 percentage points. Audit Elo, goalie proxies, model family and snapshots separately; causality not established."
+    },
+    {
+      "priority": 2,
+      "category": "repeated_total_probability",
+      "count": 1,
+      "top_event_ids": [
+        "2026020070",
+        "2026020071",
+        "2026020072",
+        "2026020073",
+        "2026020074",
+        "2026020075",
+        "2026020076",
+        "2026020077",
+        "2026020078"
+      ],
+      "description": "Repeated totals across games; inspect original market-selection or fallback behavior, do not retroactively optimize Revue against published picks."
+    },
+    {
+      "priority": 3,
+      "category": "temporal_and_premium_inputs",
+      "count": 17,
+      "top_event_ids": [],
+      "description": "Obtain temporally aligned goalie/lineup/Elo snapshots before claiming model output equality; raw SQL/premium inputs not public."
+    }
+  ],
+  "limitations": "Same public 5v5 MoneyPuck xG input ≠ same Elo, goaltender, injuries, model stage or observation-time configuration. Repeated published probabilities require investigation but are not by themselves proof of a bug."
+}
