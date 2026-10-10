@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-10-10T16:57:22.156131+00:00",
+  "updated_at_utc": "2026-10-10T17:16:40.205+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
   "estimated_functional_coverage_percent": 62,
@@ -178,7 +178,8 @@
     "Original-vs-Revue NHL source-feature forensics: verified event+kickoff+timestamp guard and exact public MoneyPuck 5v5 xG equality on 17 of 17 comparable NHL fixtures.",
     "Separated 8 comparable NHL moneyline outputs (mean absolute 12.71 percentage points gap) from 9 unders (all identical reference 56% probability, suspected shared fallback or post-processing, not assumed source bug).",
     "Recalculated local NHL backend formula on exact observed Revue Elo and historical goalie proxy inputs for 8 matched games; tested neutral Elo (9.28 pp aggregate gap) and equal goalie proxies (9.34 pp), with explicit non-causality and no hidden original Elo claim.",
-    "Published mobile retro-arcade NHL forensic dashboard with per-game gaps, documented counterfactuals, real source timestamps, fail-closed provenance guards and source-only CI; reachable from Lab and original-vs-Revue comparator."
+    "Published mobile retro-arcade NHL forensic dashboard with per-game gaps, documented counterfactuals, real source timestamps, fail-closed provenance guards and source-only CI; reachable from Lab and original-vs-Revue comparator.",
+    "New recurring strict Clairvoyance/Revue NBA, NHL, MLB fixture identity gate: 28 overlapping fixtures verified by original event ID, actual canonical teams and UTC kickoff (17 NHL, 11 NBA, 0 MLB on current source horizon). Result is fixture parity, NOT source-vs-Revue prediction probability equality."
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -224,7 +225,8 @@
     "european_hockey_frozen_picks": "docs/euro-hockey-prospective-ledger.json",
     "reference_real_outputs": "docs/clairvoyance-real-output-gap.json",
     "clairvoyance_nhl_forensics": "docs/clairvoyance-nhl-forensics.json",
-    "clairvoyance_nhl_scenarios": "docs/clairvoyance-nhl-scenarios.json"
+    "clairvoyance_nhl_scenarios": "docs/clairvoyance-nhl-scenarios.json",
+    "original_fixture_reconciliation": "docs/clairvoyance-fixture-reconciliation.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -368,5 +370,17 @@
     "original_hidden_model_parameters_verified": false,
     "original_prediction_output_parity_verified": false,
     "original_data_licence_granted": false
+  },
+  "latest_cross_league_fixtures_evidence": {
+    "checked_at_utc": "2026-10-10T17:16:40.205Z",
+    "source": "Public Clairvoyance docs/data.json vs Revue match-center-latest.json",
+    "verified_nhl_fixture_ids_and_kickoff": 17,
+    "verified_nba_fixture_ids_and_kickoff": 11,
+    "verified_mlb_fixture_ids_and_kickoff": 0,
+    "strict_total_verified": 28,
+    "source_stale": false,
+    "model_probabilities_identical_confirmed": 0,
+    "original_us_bookmaker_odds_copied": false,
+    "report": "docs/clairvoyance-fixture-reconciliation.json"
   }
 }
