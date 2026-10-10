@@ -15,6 +15,7 @@ from pydantic import BaseModel
 
 from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_rows
 from api_revue.mlb_elo import mlb_elo_from_file
+from api_revue.research_predictions import predictions_from_files
 from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
 
 
@@ -205,6 +206,20 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
         if not match:
             raise HTTPException(status_code=404,detail="Game not found")
         return match
+
+    @app.get("/revue/predictions")
+    def revue_research_predictions(response:Response,
+                                   game_date:date=Query(default_factory=date.today)):
+        # A dedicated Revue endpoint; original /predictions/ remains safely
+        # unavailable without original Elo DB/provider snapshots.
+        response.headers["Cache-Control"]="no-store"
+        response.headers["X-Revue-Parity"]="research only: original formula, non-identical provider inputs"
+        try:
+            return predictions_from_files(directory,game_date,now())
+        except ValueError as exc:
+            raise HTTPException(status_code=422,detail=str(exc)) from exc
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
 
     @app.get("/predictions/")
     def predictions(game_date:date=Query(default_factory=date.today)):
