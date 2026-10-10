@@ -25,7 +25,11 @@ La reproduction des **données réelles et de leurs droits d'utilisation**, des 
 
 ## Mesure de progression
 
-[Catalogue des 13 fonctions de référence ciblées](../../docs/parite-modeles-clairvoyance.json) : **2/13 ≈ 15 % de parité mathématique vérifiée sur ce périmètre strict**, et non 15 % de tout le dépôt. Les 11 autres fonctions proviennent du moteur `docs/app.html` et restent à reproduire.
+[Catalogue strict des fonctions de référence](../../docs/parite-modeles-clairvoyance.json) : **43 fonctions sur 44 (98 %) reproduites et confrontées à l'original sur des entrées de test identiques**, à la date du dernier rapport (5 220 comparaisons). Cela mesure **ce catalogue restreint**, et non 98 % du dépôt entier. Les textes explicatifs du générateur NBA ne sont volontairement pas copiés et ne sont pas compris dans les comparaisons numériques. La fonction `_generateNHLPropsLive` originale est actuellement une fonction vide : sa parité ne prouve pas l'existence d'un modèle NHL props actif. La seule entrée en attente du catalogue est `injuryImplication`, fonction essentiellement textuelle.
+
+Les modèles reconstruits sont regroupés dans `modeles/reproduction/` ; les fonctions JS proviennent de `docs/app.html`, les préparations NBA et les prédicteurs NHL/MLB du backend Python. [Rapport JavaScript](../../docs/parite-clairvoyance-frontend.json) · [parité NBA Python](../../docs/parite-clairvoyance-nba-source.json) · [parité prédicteurs](../../docs/parite-clairvoyance-predictor.json).
+
+**Source réelle NBA :** [30 classements ESPN injectés dans les calculs originaux de force et Elo](../../docs/clairvoyance-nba-ratings.json), sans SRS Basketball-Reference. La parité sur données réelles complètes, notamment la calibration des sorties et les données de santé, **reste non démontrée**.
 
 Le chiffre historique de « 35 % de couverture fonctionnelle Revue » comprenait le design du site, les cotes et des **modèles inventés** : il **ne mesure pas** la fidélité de reproduction et ne doit plus être présenté comme tel.
 
@@ -35,6 +39,6 @@ L'accès public à un dépôt GitHub permet d'en lire le code, mais ne confère 
 
 ## Reste à reproduire
 
-Les principales fonctions identifiées sont `nhlMC`, `nhlEns`, `nbaMC`, `nbaGetBayes`, `nbaEns`, `nflMC`, `_nflBayes`, `nflEns`, `_socXG`, `_soccerMC`, et `_socMarketBlend` dans `docs/app.html`.
+Les fonctions mathématiques principales identifiées ci-dessus ont été vérifiées sur entrées synthétiques, mais la **chaîne complète** reste à reproduire : accès licite aux mêmes données, agrégation des blessures et compositions, historiques exacts, vérification des marchés et résultats identiques sur vrais matchs. La fonction textuelle `injuryImplication` reste volontairement non copiée. Il existe des fonctions de modèle supplémentaires hors du catalogue de 44, qui devront être auditées progressivement.
 
 Ne PAS remplacer ces fonctions par un Monte-Carlo ou Bayes librement paramétré et annoncer une reproduction : chaque implémentation doit être comparée avec sa fonction homologue de Clairvoyance.
