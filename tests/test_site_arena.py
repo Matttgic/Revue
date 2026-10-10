@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","command-center.html","operations.html","model-input-lab.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -114,6 +114,29 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_game_dossier_deep_links_and_data_provenance(self):
+        import json
+        text=(DOCS/"match-dossier.html").read_text(encoding="utf-8")
+        home=(DOCS/"index.html").read_text(encoding="utf-8")
+        match=(DOCS/"match-center.html").read_text(encoding="utf-8")
+        command=(DOCS/"command-center.html").read_text(encoding="utf-8")
+        self.assertIn("match-dossier.html",home)
+        self.assertIn("match-dossier.html?league=",match)
+        self.assertIn("match-dossier.html?league=",command)
+        for literal in ("match-dossiers-latest.json","original_clairvoyance_equivalence_verified",
+                        "historical_data_not_point_in_time_forecasts",
+                        "source_match_center_at_utc","locked_forecast",
+                        "historical_player_profiles","market_groups","timeZone:\\"Europe/Paris\\"",
+                        "no_real_betting"):
+            with self.subTest(fragment=literal):self.assertIn(literal,text)
+        self.assertNotIn("innerHTML",text)
+        d=json.loads((DOCS/"match-dossiers-latest.json").read_text(encoding="utf-8"))
+        self.assertEqual(d["count"],len(d["games"]))
+        self.assertEqual(d["validated_value_bets"],0)
+        self.assertFalse(d["bookmaker_prices_are_live"])
+        self.assertFalse(d["real_bets_enabled"])
+        self.assertNotIn("CFB",set(g["league"] for g in d["games"]))
 
     def test_nhl_mlb_model_input_comparator_has_verified_experimental_sources(self):
         import json

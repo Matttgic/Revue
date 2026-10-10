@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Revue Match Dossier : fiche approfondie du match, cotes françaises horodatées, formes historiques et modèles de recherche">
+<title>REVUE — Dossier de match</title><link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1360px!important;margin:0 auto!important;padding:28px 18px 85px!important}
+.eyebrow{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.18em;color:#62efdc}
+.hero{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;border-bottom:1px solid #30485b;padding-bottom:20px}
+h1{margin:12px 0 10px;font:800 clamp(37px,5.8vw,65px)/.96 'Chakra Petch',sans-serif;letter-spacing:-.06em;color:#f5fdff}
+h1 span{color:#59efd8}.hero p{max-width:780px;color:#a7bed3;font:12px/1.8 'DM Sans',sans-serif;margin:0}
+.breadcrumb{display:flex;gap:9px;flex-wrap:wrap}.breadcrumb a{padding:10px;border:1px solid #365769;font:700 10px 'Chakra Petch',sans-serif;color:#8aeee3;text-decoration:none}
+.banner{margin:18px 0 21px;border-left:3px solid #d5a879;background:#212435;padding:12px 16px;font:11px/1.75 'DM Sans',sans-serif;color:#e9ceb2}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:20px}
+.stat{background:linear-gradient(135deg,#192d42,#101e32);border:1px solid #35556d;padding:14px 16px}
+.stat small{display:block;font:700 10px 'Chakra Petch',sans-serif;color:#90b2c6;letter-spacing:.09em}.stat strong{display:block;font:800 28px 'Chakra Petch',sans-serif;color:#67f1dd;margin-top:7px}
+.workspace{display:grid;grid-template-columns:minmax(270px,340px) minmax(0,1fr);gap:15px;align-items:start}
+.panel{border:1px solid #2c4964;background:#0e1e32}
+.panel-heading{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 14px;border-bottom:1px solid #2f485e;background:#162b40}
+.panel-heading strong{font:800 13px 'Chakra Petch',sans-serif;color:#deffff}
+.panel-heading small{font:10px monospace;color:#90adbc}
+.filters{display:flex;gap:8px;padding:12px;flex-wrap:wrap}
+.filters input,.filters select{min-height:42px;background:#0b1b2d;color:#dcf0f8;border:1px solid #33526b;padding:9px 11px;font:12px 'DM Sans',sans-serif;min-width:0}
+.filters input{flex:1 1 150px}.filters select{flex:1 1 120px}
+.list{max-height:810px;overflow:auto;padding:6px;scrollbar-color:#396479 #152b42}
+.pick{width:100%;display:block;text-align:left;border:1px solid transparent;border-bottom-color:#263f57;background:transparent;color:#dbeef8;padding:13px;cursor:pointer}
+.pick[aria-selected=true]{background:#163d49;border-color:#54cabf}
+.pick .meta{display:flex;justify-content:space-between;gap:8px;color:#83adbc;font:10px/1.4 monospace}
+.pick strong{display:block;font:800 14px 'Chakra Petch',sans-serif;margin:6px 0;color:#dff8ff;overflow-wrap:anywhere}
+.pick .sub{font:10px/1.5 'DM Sans',sans-serif;color:#96b4c8}
+.details{min-width:0}.summary{border:1px solid #34566d;background:linear-gradient(130deg,#172b43,#0c182b);padding:21px;margin-bottom:13px}
+.summary .label{color:#66ebd8;font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.14em}
+.summary h2{font:800 clamp(21px,3.2vw,37px)/1.25 'Chakra Petch',sans-serif;margin:12px 0;color:#f3fdff;overflow-wrap:anywhere}
+.summary .more{font:11px/1.75 'DM Sans',sans-serif;color:#91b0c9}
+.tabs{display:flex;gap:5px;flex-wrap:wrap;margin:14px 0}
+.tabs button{padding:11px 14px;background:#132a3e;color:#a9c7db;border:1px solid #31566e;font:700 11px 'Chakra Petch',sans-serif;cursor:pointer}
+.tabs button[aria-selected=true]{background:#215c57;color:#e8fffb;border-color:#69dfd3}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.data{border:1px solid #31546b;background:linear-gradient(140deg,#15283e,#101c2f);padding:16px;min-width:0}
+.data h3{font:800 15px 'Chakra Petch',sans-serif;color:#e9faff;margin:0 0 9px;overflow-wrap:anywhere}
+.data p{margin:4px 0;color:#9db9ca;font-size:11px;line-height:1.7}
+.data small{font:10px monospace;color:#80acbc}
+.rows{width:100%;border-collapse:collapse;font-size:11px}
+.rows th,.rows td{text-align:left;border-bottom:1px solid #30485a;padding:8px 6px;overflow-wrap:anywhere}
+.rows th{color:#90b3c9;font:700 10px 'Chakra Petch',sans-serif}
+.rows td{color:#dcf1f8}
+.bets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.price{border:1px solid #3a536d;padding:12px;background:#20374b}
+.price span{font:10px 'DM Sans',sans-serif;color:#a7c6d9}
+.price strong{display:block;color:#5aefd9;font:800 23px 'Chakra Petch',sans-serif;margin:7px 0}
+.price small{display:block;font:10px/1.4 monospace;color:#8bafc0}
+.note{background:#17263a;border-left:2px solid #9a92ea;padding:13px 15px;color:#b3c3d7;font-size:12px;line-height:1.75;margin:14px 0}
+.empty{border:1px dashed #3d6079;padding:25px;color:#98b6cd;font-size:12px}
+.badge{display:inline-block;border:1px solid #385b70;padding:4px 7px;color:#a4b9d0;font:10px monospace}
+#status{font:11px/1.7 monospace;color:#9cc4cb;padding:10px 0}
+@media(max-width:870px){.workspace{grid-template-columns:1fr}.list{max-height:260px}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:570px){.cards{grid-template-columns:1fr}.summary{padding:16px}main{padding:20px 12px 75px!important}}
+</style></head>
+<body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation"><a href="./index.html">QG</a><a href="./command-center.html">CONTRÔLE</a>
+<a href="./match-center.html">MATCHS</a><a href="./match-dossier.html" aria-current="page">DOSSIERS</a>
+<a href="./performance-comparateur.html">PERFORMANCE</a></nav><span class="rv-top-tag">MATCH / 360</span></div></div>
+<main>
+<div class="hero"><div><div class="eyebrow">REVUE / INTELLIGENCE PAR RENCONTRE</div><h1>CHAQUE MATCH.<br><span>TOUS LES DÉTAILS.</span></h1>
+<p>Historique des équipes, modèles expérimentaux, cotes françaises par bookmaker, gardiens et joueurs NHL historiques, prévisions verrouillées. Les sources sont croisées par compétition, événement, clubs et heure de début.</p></div>
+<div class="breadcrumb"><a href="./match-center.html">MATCH CENTER ↗</a><a href="./reproduction-exacte.html">PARITÉ SOURCE ↗</a></div></div>
+<div class="banner">Les cotes présentées sont des observations anciennes, non des prix live. Le résultat d'un match, l'historique affiché et les modèles ne constituent pas une preuve de rentabilité. Les règles des marchés non vérifiées ne sont jamais fusionnées pour calculer une « meilleure cote ».</div>
+<div class="stats">
+<div class="stat"><small>DOSSIERS DISPONIBLES</small><strong id="n-games">—</strong></div>
+<div class="stat"><small>AVEC COTES OBSERVÉES</small><strong id="n-odds">—</strong></div>
+<div class="stat"><small>AVEC HISTORIQUE ÉQUIPE</small><strong id="n-form">—</strong></div>
+<div class="stat"><small>PRÉVISIONS GELÉES</small><strong id="n-locked">—</strong></div>
+</div>
+<div class="workspace">
+<section class="panel" aria-label="Sélectionner une rencontre">
+<div class="panel-heading"><strong>RENCONTRES OBSERVÉES</strong><small id="n-results">—</small></div>
+<div class="filters"><input id="query" type="search" placeholder="Équipe, ligue, ID…" aria-label="Rechercher une rencontre">
+<select id="league" aria-label="Compétition"><option value="">TOUTES LIGUES</option></select>
+<select id="window" aria-label="Date"><option value="all">TOUTES DATES</option><option value="future">À VENIR</option><option value="past">DÉJÀ DÉBUTÉES</option></select></div>
+<div class="list" id="matches" role="listbox" aria-label="Liste des matchs"></div>
+</section>
+<section class="details" aria-label="Détails sélectionnés">
+<div class="summary" id="intro"><p class="note">Sélectionnez une rencontre pour afficher les informations vérifiées.</p></div>
+<div class="tabs" role="tablist" aria-label="Catégories de détail">
+<button type="button" data-tab="odds" role="tab" aria-selected="true">COTES</button>
+<button type="button" data-tab="models" role="tab" aria-selected="false">MODÈLES</button>
+<button type="button" data-tab="history" role="tab" aria-selected="false">FORME</button>
+<button type="button" data-tab="players" role="tab" aria-selected="false">JOUEURS</button>
+</div>
+<div id="content" role="tabpanel"></div>
+</section></div>
+<p id="status" role="status" aria-live="polite">Chargement du rapport source…</p>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const make=(tag,cls,text)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=String(text);return el;};
+const when=s=>{const d=new Date(s);return Number.isFinite(d.valueOf())?d.toLocaleString("fr-FR",{timeZone:"Europe/Paris",day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):"non vérifiable";};
+const odds=n=>Number.isFinite(n)?n.toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2}):"—";
+const pct=n=>Number.isFinite(n)&&n>=0&&n<=1?(100*n).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
+let report=null,active=null,tab="odds";
+const valid=x=>x?.status==="source_audited_static_match_dossiers_not_live" &&
+ x.real_bets_enabled===false && x.original_clairvoyance_equivalence_verified===false &&
+ x.bookmaker_prices_are_live===false && x.historical_data_not_point_in_time_forecasts===true &&
+ Array.isArray(x.games);
+function current(){return report?.games.find(g=>g.key===active)||null;}
+function detailLink(game){
+ const u=new URL(location.href);u.searchParams.set("league",game.league);u.searchParams.set("id",game.event_id);
+ return u.pathname+u.search;
+}
+function elementNote(value){return make("p","note",value);}
+function panel(heading){const e=make("article","data");e.append(make("h3","",heading));return e;}
+function table(columns,rows){
+ const t=make("table","rows"),thead=make("thead"),tr=make("tr");
+ for(const c of columns)tr.append(make("th","",c));thead.append(tr);t.append(thead);
+ const b=make("tbody");
+ for(const cells of rows){const r=make("tr");for(const cell of cells)r.append(make("td","",cell));b.append(r);}
+ t.append(b);return t;
+}
+function pricesView(g,root){
+ const d=g.historical_odds;
+ root.append(elementNote("Cotes décimales françaises au dernier relevé horodaté. Les meilleures cotes ci-dessous ne réunissent QUE des marchés/règles vérifiés comparables. Aucun calcul d'EV ni promesse d'arbitrage."));
+ if(!d.observations.length)root.append(make("div","empty","Aucune cote française historisée pour ce match."));
+ for(const item of d.market_groups){
+  const card=panel((item.market==="h2h"?"VAINQUEUR · ":"TOTAL · ") +item.rule+
+     (item.line===null?"":" · LIGNE "+item.line)+" · "+item.books_compared+" BOOKS");
+  const grid=make("div","bets");
+  for(const outcome of item.outcomes){
+   const q=item.best_observed_prices[outcome];
+   const cell=make("div","price");
+   cell.append(make("span","",outcome.toUpperCase()),make("strong","",odds(q?.price)),
+       make("small","",(q?.bookmaker||"—")+" · "+when(q?.quote_at_utc)));
+   grid.append(cell);
+  }
+  card.append(grid);root.append(card);
+ }
+ const raw=panel("OBSERVATIONS BRUTES · "+d.observations.length+" COTATIONS");
+ raw.append(table(["BOOK","MARCHÉ / RÈGLE","COTE / LIGNE","DATE"],d.observations.slice(0,120).map(q=>[
+  q.bookmaker.replace("_fr",""),q.market.toUpperCase()+" · "+q.rule+(q.rule_verified?"":" · NON VÉRIFIÉ"),
+  (q.line==null?"":q.line+" · ")+Object.entries(q.outcomes).map(([name,value])=>name+" "+odds(value)).join(" / "),
+  when(q.quote_at_utc)
+ ])));
+ root.append(raw);
+ if(d.invalid_quote_count)root.append(elementNote(d.invalid_quote_count+" enregistrement(s) de cote exclu(s) pour validité, doublon ou heure non admissible."));
+}
+function modelsView(g,root){
+ root.append(elementNote("Les modèles affichés sont expérimentaux et non calibrés ; leurs probabilités peuvent concerner des règlements différents des marchés cotés. Ne pas déduire de value ou de recommandation."));
+ for(const m of g.research_models){
+  const box=panel(m.label||m.id||"Modèle");
+  const values=Object.entries(m.probabilities||{}).filter(([,v])=>Number.isFinite(v)&&v>=0&&v<=1);
+  box.append(table(["PRÉVISION","PROBABILITÉ"],values.map(([k,v])=>[k.replaceAll("_"," ").toUpperCase(),pct(v)])));
+  box.append(make("p","", "Observation source : "+when(m.source_generated_utc)+" · calibration "+(m.calibrated?"rapportée":"non démontrée")));
+  root.append(box);
+ }
+ if(!g.research_models.length)root.append(make("div","empty","Aucun modèle de recherche associé à cette rencontre."));
+ const p=g.locked_forecast;
+ if(p){
+  const box=panel("PRÉVISIONS VERROUILLÉES · "+p.status.toUpperCase());
+  box.append(make("p","", "Enregistrées "+when(p.locked_at_utc)+" avant le coup d'envoi ; strictement fictives."));
+  box.append(table(["MODÈLE","DOMICILE"],Object.entries(p.models||{}).map(([id,model])=>[id,pct(model.p_home)])));
+  if(p.status==="settled"&&p.score_if_settled)box.append(make("p","", "Résultat enregistré : "+JSON.stringify(p.score_if_settled)));
+  root.append(box);
+ }else root.append(elementNote("Aucune prévision pré-match formellement verrouillée ne peut être rattachée à l'identité exacte de ce match."));
+}
+function formView(g,root){
+ root.append(elementNote("Historique descriptif ESPN disponible aujourd'hui. Ce n'est PAS un ensemble de données conservé avec preuve de disponibilité avant le match, donc il ne peut servir à reconstituer rétroactivement une vraie prédiction."));
+ for(const team of [g.home_history,g.away_history]){
+  const card=panel(team.team+" · "+team.games+" RÉSULTATS CONNUS");
+  card.append(make("p","",team.wins+" V / "+team.draws+" N / "+team.losses+" D · "+team.scored+" marqués / "+team.conceded+" encaissés"));
+  if(team.recent.length)card.append(table(["DATE","ADVERSAIRE","SCORE","BILAN"],team.recent.map(r=>[
+     when(r.start_utc),r.opponent,r.team_score+"–"+r.opponent_score,r.outcome
+  ])));
+  else card.append(make("p","", "Aucun résultat historique correspondant dans l'archive actuelle."));
+  root.append(card);
+ }
+}
+function playersView(g,root){
+ root.append(elementNote("Profils NHL statistiques historiques ; alignements du jour NON confirmés. Ne constituent ni statistiques de joueurs actuels garanties ni recommandations de paris."));
+ const profiles=g.historical_player_profiles;
+ if(!profiles.length){root.append(make("div","empty","Aucun profil joueur vérifiable rattaché à ce match."));return;}
+ for(const player of profiles.slice(0,30)){
+  const p=panel(player.name+" · "+player.team);
+  p.append(make("small","",player.games_current+" matchs en base saison · TITULARISATION NON CONFIRMÉE"));
+  const vals=Object.entries(player.probabilities||{}).filter(([,v])=>Number.isFinite(v)&&v>=0&&v<=1);
+  p.append(table(["ISSUE","PROBABILITÉ EXPÉRIMENTALE"],vals.map(([key,val])=>[key.replaceAll("_"," "),pct(val)])));
+  root.append(p);
+ }
+}
+function renderDetail(){
+ const g=current(),root=$("content");root.replaceChildren();
+ const intro=$("intro");intro.replaceChildren();
+ if(!g){intro.append(elementNote("Sélectionnez un match depuis la liste."));return;}
+ intro.append(make("div","label",g.league+" · "+g.sport+" · ID "+g.event_id),
+              make("h2","",g.away+"  @  "+g.home),
+              make("div","more","Début "+when(g.start_utc)+" · heure française · dernier Match Center "+when(g.source_match_center_at_utc)),
+              make("p","more",g.research_models.length+" modèles de recherche · "+
+              g.historical_odds.observations.length+" prix observés · "+
+              (g.locked_forecast?"prévision verrouillée disponible":"aucune prévision verrouillée vérifiée")));
+ const content=make("div","cards");root.append(content);
+ if(tab==="odds")pricesView(g,content);
+ else if(tab==="models")modelsView(g,content);
+ else if(tab==="history")formView(g,content);
+ else playersView(g,content);
+}
+function filter(){
+ if(!report)return[];
+ const q=$("query").value.trim().toLowerCase(),league=$("league").value,w=$("window").value;
+ return report.games.filter(g=>(!league||g.league===league)&&
+   (w==="all"||(w==="future"?new Date(g.start_utc)>new Date():new Date(g.start_utc)<=new Date()))&&
+   (!q||[g.home,g.away,g.league,g.event_id].some(v=>String(v).toLowerCase().includes(q))));
+}
+function renderList(){
+ if(!report)return;
+ const rows=filter(),root=$("matches");root.replaceChildren();
+ $("n-results").textContent=rows.length+" / "+report.count;
+ if(!rows.length){root.append(make("div","empty","Aucun match selon ces critères."));return;}
+ for(const g of rows){
+  const b=make("button","pick");
+  b.type="button";b.setAttribute("role","option");
+  b.setAttribute("aria-selected",String(g.key===active));
+  const head=make("div","meta");
+  head.append(make("span","",g.league),make("span","",when(g.start_utc)));
+  b.append(head,make("strong","",g.away+" @ "+g.home),
+    make("div","sub",g.historical_odds.observations.length+" cotations · "+g.research_models.length+" modèles"+
+      (g.locked_forecast?" · VERROUILLÉ":"")));
+  b.addEventListener("click",()=>select(g));
+  root.append(b);
+ }
+}
+function select(g,update=true){
+ active=g.key;
+ if(update)history.replaceState(null,"",detailLink(g));
+ renderList();renderDetail();
+ if(window.innerWidth<870)$("intro").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function readDeepLink(){
+ if(!report)return;
+ const u=new URL(location.href),league=u.searchParams.get("league"),id=u.searchParams.get("id");
+ const target=report.games.find(g=>g.league===league&&g.event_id===id);
+ if(target){active=target.key;$("league").value="";$("window").value="all";}
+ else active=report.games.find(g=>new Date(g.start_utc)>new Date())?.key || report.games[0]?.key;
+ renderList();renderDetail();
+}
+window.addEventListener("popstate",readDeepLink);
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{
+ tab=b.dataset.tab;
+ for(const bt of document.querySelectorAll("[data-tab]"))
+  bt.setAttribute("aria-selected",String(bt===b));
+ renderDetail();
+}));
+for(const k of ["query","league","window"])
+ $(k).addEventListener(k==="query"?"input":"change",renderList);
+(async()=>{
+ try{
+  const res=await fetch("./match-dossiers-latest.json?t="+Date.now(),{cache:"no-store"});
+  if(!res.ok)throw Error("Rapport HTTP "+res.status);
+  const d=await res.json();
+  if(!valid(d))throw Error("Provenance ou intégrité du rapport non validée");
+  report=d;
+  $("n-games").textContent=d.count;
+  $("n-odds").textContent=d.with_observed_prices;
+  $("n-form").textContent=d.with_descriptive_team_history;
+  $("n-locked").textContent=d.with_locked_forecasts;
+  const labels=[...new Set(d.games.map(g=>g.league))].sort();
+  for(const league of labels)$("league").add(new Option(league,league));
+  $("status").textContent="Généré "+when(d.generated_at_utc)+" · "+d.historical_finals_in_available_archive+
+   " résultats historiques ESPN archivés · source non temps réel · aucun pari réel.";
+  readDeepLink();
+ }catch(err){$("status").textContent="Dossiers indisponibles : "+err.message;$("content").append(make("div","empty","Source absente ou non validée."));}
+})();
+</script></body></html>
