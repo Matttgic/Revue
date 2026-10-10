@@ -183,10 +183,47 @@ def observed_totals(market: dict) -> dict | None:
             if set(values)=={"over","under"}][:12] or None
 
 
+def validated_scoreboard(doc: dict | None, now: datetime) -> list[dict]:
+    """Independent game scores, never a backfilled pre-game forecast."""
+    if not isinstance(doc,dict) or doc.get("status")!="observed_scoreboard_not_streaming":
+        return []
+    try:
+        at=instant(doc["generated_at_utc"])
+    except (ValueError,KeyError,TypeError):
+        return []
+    if not now-timedelta(hours=2) <= at <= now:
+        return []
+    rows=[]
+    seen=set()
+    for event in doc.get("events") or []:
+        try:
+            key=game_key(event["league"],event["event_id"])
+            kickoff=instant(event["kickoff_utc"])
+            observed=instant(event["observed_at_utc"])
+            if (key in seen or
+                not now-timedelta(hours=40)<=kickoff<=now+timedelta(hours=8) or
+                observed>now or observed!=at or
+                event.get("prospective_bet_result") is not False or
+                event.get("source") not in ("ESPN scoreboard","NHL official scoreboard") or
+                event.get("state") not in ("final","in_progress")):
+                continue
+            h,a=event.get("home_score"),event.get("away_score")
+            if type(h) is not int or type(a) is not int or not 0<=h<=500 or not 0<=a<=500:
+                continue
+            seen.add(key)
+            rows.append({k:event[k] for k in (
+                "league","event_id","home","away","kickoff_utc","state",
+                "home_score","away_score","observed_at_utc","source")})
+        except (KeyError,TypeError,ValueError):
+            continue
+    return sorted(rows,key=lambda e:(e["kickoff_utc"],e["league"]),reverse=True)
+
+
 def collect_center(multisports: dict, scanner: dict, advanced: dict,
                    nhl: dict, ensemble: dict, now: datetime,
                    ledger: dict | None = None,
-                   players: dict | None = None) -> dict:
+                   players: dict | None = None,
+                   scoreboard: dict | None = None) -> dict:
     if now.tzinfo is None:
         raise ValueError("now timezone required")
     now = now.astimezone(timezone.utc)
@@ -367,6 +404,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
         row["research"].sort(key=lambda r:r["id"])
     leagues = sorted({e["league"] for e in output})
     results, pending_results = actual_nhl_results(ledger, now)
+    observed_scores = validated_scoreboard(scoreboard, now)
     return {
         "generated_at_utc": now.isoformat(),
         "status":"experimental_revue_match_center",
@@ -384,6 +422,9 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
         },
         "leagues":leagues, "events":output, "rejections":rejected,
         "official_results":results, "official_results_count":len(results),
+        "scoreboard_observed":observed_scores,
+        "scoreboard_finals":sum(e["state"]=="final" for e in observed_scores),
+        "scoreboard_in_progress":sum(e["state"]=="in_progress" for e in observed_scores),
         "prospective_nhl_pending":pending_results,
         "note":"All research probabilities uncalibrated. Market prices are historic observations, not live/bookable. NHL OT rules may be unverified. Do not compute EV, recommend bets or claim profitability.",
     }
@@ -407,7 +448,9 @@ def main() -> None:
     data={k:json.loads((root/v).read_text(encoding="utf-8")) for k,v in mapping.items()}
     ledger_path=Path(args.ledger)
     ledger=json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else None
-    result=collect_center(**data,now=datetime.now(timezone.utc),ledger=ledger)
+    score_path=root/"scoreboard-revue-latest.json"
+    scores=json.loads(score_path.read_text(encoding="utf-8")) if score_path.exists() else None
+    result=collect_center(**data,now=datetime.now(timezone.utc),ledger=ledger,scoreboard=scores)
     out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+"\n",encoding="utf-8")
     print("Revue Match Center:",result["metrics"])
