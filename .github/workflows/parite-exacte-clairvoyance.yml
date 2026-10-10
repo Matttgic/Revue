@@ -1,0 +1,59 @@
+name: Revue - Parité exacte Clairvoyance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 7 * * *'
+  push:
+    paths:
+      - 'outils/audit_reproduction_exacte.py'
+      - 'tests/test_audit_reproduction_exacte.py'
+      - '.github/workflows/parite-exacte-clairvoyance.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: revue-exact-source-audit
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test that exact parity cannot be fabricated
+        run: python -m unittest discover -s tests -p 'test_audit_reproduction_exacte.py' -v
+      - name: Fetch source privately for read-only equality examination
+        run: |
+          git clone -q --depth=1 --filter=blob:none --single-branch \
+            https://github.com/Purple-Wraith/clairvoyance-backend.git "$RUNNER_TEMP/clairvoyance-original"
+          git -C "$RUNNER_TEMP/clairvoyance-original" rev-parse HEAD
+      - name: Verify current exactness and publish only audit summary
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m unittest discover -s tests -p 'test_audit_reproduction_exacte.py' -q
+            python -m outils.audit_reproduction_exacte \
+              --source "$RUNNER_TEMP/clairvoyance-original" \
+              --target . --output docs/reproduction-exacte-audit.json
+            git add docs/reproduction-exacte-audit.json
+            if git diff --cached --quiet; then
+              echo 'No substantive exact-parity change'
+              exit 0
+            fi
+            git commit -m "audit(parity): update source-pinned exact Clairvoyance reproduction truth"
+            if git push origin HEAD:main; then exit 0; fi
+            echo 'Concurrent update; rebuilding comparison'
+            sleep "$attempt"
+          done
+          exit 1
