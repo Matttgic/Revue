@@ -28,7 +28,7 @@ def docs(games,created=None):
             "status":"prototype_non_calibre",
             "competitions":{
              lg:{"games":[g for g in games if g["league"]==lg]}
-             for lg in set(g["league"] for g in games),
+             for lg in set(g["league"] for g in games)
             }}
 
 def challenger(league,event,kind="ensemble",when=None):
