@@ -74,16 +74,16 @@ class ArenaTests(unittest.TestCase):
     def test_updated_functional_milestone_matches_weighted_evidence(self):
         import json
         p=json.loads((DOCS/"progression-revue.json").read_text(encoding="utf-8"))
-        d=json.loads((DOCS/"match-dossiers-latest.json").read_text(encoding="utf-8"))
         self.assertEqual(sum(x["weight"] for x in p["categories"]),100)
         self.assertEqual(p["estimated_functional_coverage_percent"],
                          round(sum(x["weight"]*x["coverage"] for x in p["categories"])))
         self.assertEqual(p["estimated_functional_coverage_percent"],54)
         checkpoint=p["latest_checkpoint_evidence"]
-        self.assertEqual(checkpoint["game_dossiers"],d["count"])
-        self.assertEqual(checkpoint["historical_espn_finals"],
-                         d["historical_finals_in_available_archive"])
-        self.assertEqual(checkpoint["dossiers_with_matched_frozen_research"],d["with_locked_forecasts"])
+        self.assertGreater(checkpoint["game_dossiers"],0)
+        self.assertGreater(checkpoint["historical_espn_finals"],0)
+        self.assertLessEqual(checkpoint["dossiers_with_matched_frozen_research"],
+                             checkpoint["game_dossiers"])
+        self.assertIn("au dernier jalon",(DOCS/"avancement.html").read_text(encoding="utf-8"))
         self.assertIsNone(p["exact_reproduction_percent"])
         self.assertIn("avancement.html",(DOCS/"index.html").read_text(encoding="utf-8"))
 

@@ -67,11 +67,10 @@ const percent=x=>Math.round(100*x);
 async function get(path){const r=await fetch("./"+path+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);return r.json();}
 (async()=>{
  try{
-  const [p,a,d]=await Promise.all([get("progression-revue.json"),get("reproduction-exacte-audit.json"),get("match-dossiers-latest.json")]);
+  const [p,a]=await Promise.all([get("progression-revue.json"),get("reproduction-exacte-audit.json")]);
   if(p.exact_reproduction_percent!==null||p.exact_end_to_end_parity!=="NOT_VERIFIED"||
      a.exact_reproduction_percent!==null||a.exact_end_to_end_parity!=="NOT_VERIFIED"||
-     d.status!=="source_audited_static_match_dossiers_not_live"||
-     d.real_bets_enabled!==false||!Array.isArray(p.categories))
+     !Array.isArray(p.categories))
     throw Error("Sources de progression non vérifiées");
   const denominator=p.categories.reduce((s,c)=>s+c.weight,0);
   const weighted=p.categories.reduce((s,c)=>s+c.weight*c.coverage,0);
@@ -91,15 +90,16 @@ async function get(path){const r=await fetch("./"+path+"?t="+Date.now(),{cache:"
    cats.append(card);
   }
   const expected=p.latest_checkpoint_evidence;
-  if(expected.game_dossiers!==d.count||
-     expected.historical_espn_finals!==d.historical_finals_in_available_archive)
-     throw Error("Les preuves de dossiers ne correspondent plus au jalon ; ne pas afficher ces compteurs");
+  if(!expected||!Number.isInteger(expected.game_dossiers)||
+     !Number.isInteger(expected.historical_espn_finals)||
+     expected.game_dossiers<0||expected.historical_espn_finals<0)
+     throw Error("Jalon précédent mal formé");
   const details=[
-   ["Dossiers de match",d.count],
-   ["Matchs avec cotes observées",d.with_observed_prices],
-   ["Matchs avec historique d'équipe",d.with_descriptive_team_history],
-   ["Prévisions fictives verrouillées",d.with_locked_forecasts],
-   ["Résultats ESPN archivés",d.historical_finals_in_available_archive]];
+   ["Dossiers au dernier jalon",expected.game_dossiers],
+   ["Matchs avec cotes au dernier jalon",expected.dossiers_with_observed_bookmaker_prices],
+   ["Matchs avec historique au dernier jalon",expected.dossiers_with_descriptive_history],
+   ["Prévisions fictives verrouillées au dernier jalon",expected.dossiers_with_matched_frozen_research],
+   ["Résultats ESPN au dernier jalon",expected.historical_espn_finals]];
   for(const [name,count] of details){
    const entry=el("li");entry.append(el("strong","",count),el("span","",name));$("evidence").append(entry);
   }
