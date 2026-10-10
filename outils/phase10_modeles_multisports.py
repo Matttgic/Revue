@@ -184,6 +184,21 @@ def football_candidate(e,base,advanced,now):
      a.get("xg_used") is not False or a.get("espn_stats_used") is not True or
      a.get("status")!="shadow_non_calibre"):
   return [],"football_model_inputs_missing"
+ # ESPN-derived per-team shot samples can predate the aggregate report.
+ # They must ALSO be observed before the candidate was generated, with
+ # no post-kickoff or future timestamp leakage.
+ observed=a.get("espn_features_published_at")
+ if not isinstance(observed,dict) or not observed.get("home") or not observed.get("away"):
+  return [],"football_missing_source_feature_times"
+ try:
+  cutoff=instant(advanced["generated_at_utc"])
+  kick=instant(e["start_utc"])
+  if any(instant(observed[side])>now or
+         instant(observed[side])>cutoff or
+         instant(observed[side])>kick-LEAD for side in ("home","away")):
+   return [],"football_features_not_point_in_time"
+ except (ValueError,TypeError,KeyError):
+  return [],"football_source_feature_time_invalid"
  train_b=b.get("training_games") or {};train_a=a.get("training_games") or {}
  if not all(sane(g.get(x)) and g[x]>=3 for g in (train_b,train_a) for x in ("home","away")):
   return [],"football_training_sample_too_small"

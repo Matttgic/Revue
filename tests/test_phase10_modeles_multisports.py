@@ -45,7 +45,8 @@ def sample():
            "competitions":{"PL":{"games":[{**fb,"status":"shadow_non_calibre",
              "probabilities":{"home_win_90":.38,"draw_90":.31,"away_win_90":.31,"over_2_5":.57},
              "training_games":{"home":6,"away":5},
-             "xg_used":False,"espn_stats_used":True}]}}}
+             "xg_used":False,"espn_stats_used":True,
+             "espn_features_published_at":{"home":OBS,"away":OBS}}]}}}
  return center,baseline,nba,rates,mlb,advanced
 
 class ModelTests(unittest.TestCase):
