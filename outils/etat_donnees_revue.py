@@ -17,6 +17,7 @@ FILES = {
     "calendrier":"multisports-latest.json",
     "matchs":"match-center-latest.json",
     "cotes":"engine-v2-latest.json",
+    "radar_6h":"pulsescore-radar-latest.json",
     "resultats":"scoreboard-revue-latest.json",
     "journal":"revue-control-ledger-latest.json",
     "selection":"picks-center-latest.json",
@@ -29,7 +30,7 @@ FILES = {
     "reglements":"paper-score-settlement-latest.json",
 }
 AGE_LIMIT_HOURS = {
-    "calendrier":8,"matchs":3,"cotes":7,"resultats":3,
+    "calendrier":8,"matchs":3,"cotes":7,"radar_6h":4,"resultats":3,
     "journal":3,"selection":3,"nhl_stats":30,
     "nhl_moneypuck":48,"nhl_gardiens":48,"nhl_frontend":24,
     "nhl_espgardiens":8,"nhl_modeles_suivis":12,
@@ -41,6 +42,7 @@ EXPECTED_STATUS = {
     "resultats":"observed_scoreboard_not_streaming",
     "selection":"revue_independent_picks_hub_static_research_paper_only",
     "nhl_stats":"verified_nhl_official_stats_snapshot",
+    "radar_6h":"observed",
     "nhl_frontend":"prospective_research_partial_input_frontend_not_parity",
     "nhl_espgardiens":"espn_probable_goalies_observed_not_part_of_model",
     "nhl_modeles_suivis":"prospective_partial_input_nhl_comparison_no_bets",
@@ -75,6 +77,19 @@ def layer(name,doc,now):
         valid=(doc.get("mode")=="PAPER_ONLY" and
                doc.get("odds_status") in EXPECTED_ODDS and
                isinstance(doc.get("odds_board"),dict))
+    if name=="radar_6h":
+        valid=(valid and doc.get("version")=="revue_pulsescore_six_hour_radar_v1"
+               and doc.get("provider")=="PulseScore"
+               and doc.get("horizon_hours")==6
+               and type(doc.get("request_cap")) is int
+               and 1<=doc["request_cap"]<=8
+               and type(doc.get("requests_used")) is int
+               and 0<=doc["requests_used"]<=doc["request_cap"]
+               and doc.get("market_prices_are_live") is False
+               and doc.get("positive_ev_verified") is False
+               and doc.get("real_bets_enabled") is False
+               and doc.get("existing_paper_ledger_modified") is False
+               and isinstance(doc.get("observations"),list))
     if name=="journal":
         valid=(doc.get("paper_only") is True and doc.get("real_bets_enabled") is False
                and isinstance(doc.get("summary"),dict))
@@ -113,6 +128,7 @@ def report(documents:dict,now:datetime)->dict:
     picks=d("selection") or {}
     goalie_reports=d("nhl_espgardiens") or {}
     comparison=d("nhl_modeles_suivis") or {}
+    radar=d("radar_6h") or {}
     data={
         "matchs_futurs_observes":int(matches.get("metrics",{}).get("upcoming_matches") or 0),
         "matchs_avec_cotes_historiques":int(matches.get("metrics",{}).get("with_observed_bookmaker_quotes") or 0),
@@ -135,6 +151,9 @@ def report(documents:dict,now:datetime)->dict:
         "nhl_modeles_pronostics_verrouilles":int(comparison.get("locked_games") or 0),
         "nhl_modeles_resultats_verifies":int(comparison.get("settled_games") or 0),
         "bookmakers_fr_declares":len(odds.get("bookmakers_fr") or []),
+        "radar_6h_matched":int(radar.get("matches_observed") or 0),
+        "radar_6h_calls_used":int(radar.get("requests_used") or 0),
+        "radar_6h_calls_cap":int(radar.get("request_cap") or 0),
         "cotes_fournisseur":odds.get("odds_status") or "unknown",
     }
     essential=("calendrier","matchs","cotes","resultats","journal","selection")
