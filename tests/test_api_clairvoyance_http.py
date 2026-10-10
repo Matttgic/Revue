@@ -30,6 +30,16 @@ class SourceRouteTests(unittest.TestCase):
                        "away":"White Sox","start_utc":START.isoformat()}]}
             },
         })
+        self.write("parite-nhl-espn-id-map.json",{
+            "generated_at_utc":NOW.isoformat(),
+            "status":"verified_fixture_identity_pairs",
+            "matched":1,"unmatched":0,
+            "mappings":[{
+                "nhl_game_id":"2026020070",
+                "original_espn_id":"401892469",
+                "home":"BOS","away":"PHI","start_utc":START.isoformat(),
+            }],
+        })
         self.write("scoreboard-revue-latest.json",{
             "generated_at_utc":NOW.isoformat(),
             "status":"observed_scoreboard_not_streaming","events":[],
@@ -55,8 +65,15 @@ class SourceRouteTests(unittest.TestCase):
             "home_team","away_team","home_score","away_score","home_moneyline",
             "away_moneyline","over_under",
         })
-        self.assertEqual(result[0]["espn_id"],"2026020070")
+        self.assertEqual(result[0]["espn_id"],"401892469")
+        self.assertEqual(result[0]["id"],401892469)
         self.assertIsNone(result[0]["home_score"])
+
+    def test_missing_original_espn_mapping_is_503_not_a_fabricated_id(self):
+        (self.root/"parite-nhl-espn-id-map.json").unlink()
+        response=self.client.get("/nhl/schedule",params={"game_date":START.date().isoformat()})
+        self.assertEqual(response.status_code,503)
+        self.assertIn("parite-nhl-espn-id-map.json",response.json()["detail"])
 
     def test_mlb_schedule_and_exact_espn_id_lookup(self):
         game=self.client.get("/mlb/schedule",params={"game_date":START.date().isoformat()})
