@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-10T03:27:00+00:00",
+  "updated_at_utc": "2026-10-10T08:41:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
   "estimated_functional_coverage_percent": 50,
   "previous_estimate_percent": 41,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
-  "goal": "≥50% éditorial de couverture fonctionnelle, distinct de la parité du code, des prédictions et des performances réelles",
+  "goal": "Reproduction fidèle et vérifiable à 100 % de Clairvoyance (hors CFB) : interface, API, acquisition de données, calculs et prédictions sur entrées identiques",
   "excluded_by_user": [
     "CFB"
   ],
@@ -139,7 +139,10 @@
     "36 prévisions multisports verrouillées initialement avant match (18 NHL, 13 NFL, 3 MLB, 2 WNBA) avec règlement public et Brier/Log Loss",
     "Tableau indépendant des performances football, Monte-Carlo/Bayes, NHL Clairvoyance et Revue multisports, sans faux ROI",
     "Protection des règlements football et ensemble : même id, même date/heure officielle et mêmes équipes",
-    "Workflow Match Center et site mobile publiés et testés par GitHub Actions"
+    "Workflow Match Center et site mobile publiés et testés par GitHub Actions",
+    "Audit indépendant de reproduction exacte : empreintes sources, routes backend, contrats JSON et version originale vérifiée automatiquement.",
+    "44/44 formules ciblées revalidées sur le commit original 95258833 avec 5232 égalités; pas de revendication de parité d'application.",
+    "Passage du suivi de 50 % fonctionnel à un rapport de parité bout en bout explicitement NON VÉRIFIÉE."
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -176,8 +179,17 @@
     "No comparative predictive superiority can be claimed until enough prospectively settled paired games exist.",
     "Cross-source sample consistency is not proof of the absence of any source-publisher error. Prospective calibration remains unverified.",
     "Match Center initially had observed prices for only 9 of 126 future games; it is not a full betting market feed.",
-    "La couverture de 50% est une estimation éditoriale de fonctionnalités, pas une reproduction mesurée de 50% du site Clairvoyance.",
     "Les modèles ne sont pas suffisamment calibrés et la rentabilité des probabilités reste non prouvée.",
-    "Des cotes manquent encore sur la majorité des futurs événements malgré la hausse de couverture."
-  ]
+    "Des cotes manquent encore sur la majorité des futurs événements malgré la hausse de couverture.",
+    "50 % est une couverture fonctionnelle éditoriale, absolument pas une mesure de reproduction exacte. L'identité bout en bout n'est pas encore démontrée.",
+    "24 routes FastAPI de la source actuelle, 0 équivalence HTTP complète validée; frontend de référence de 2 671 918 octets non reproduit à l'identique.",
+    "44 fonctions ciblées revalidées contre le commit 95258833 ; la parité sur des données de matchs identiques reste indémontrée.",
+    "Aucune licence du dépôt Clairvoyance identifiée : pas de copie des fichiers originaux ni de redistribution de données sous licence."
+  ],
+  "exact_reproduction_percent": null,
+  "exact_end_to_end_parity": "NOT_VERIFIED",
+  "exact_reproduction_report": "docs/reproduction-exacte-audit.json",
+  "exact_reproduction_dashboard": "docs/reproduction-exacte.html",
+  "estimated_functional_coverage_is_not_reproduction": true,
+  "original_source_commit_last_audited": "95258833b66179084f3ab946e25d794898200ec6"
 }
