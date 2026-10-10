@@ -2,9 +2,10 @@
 
 > **Mission prioritaire : reproduire fidèlement les modèles du dépôt [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend), et non inventer des modèles de remplacement.**
 
-- **Parité mathématique :** les [13 premières fonctions modèles de référence ont passé les comparaisons avec Clairvoyance (13/13 = 100 % sur ce premier sous-ensemble)](docs/parite-modeles-clairvoyance.json). **Cela n'équivaut pas à reproduire 100 % du dépôt original**, qui comprend d'autres modèles et données.
-- **Résultat contrôlé :** [161 comparaisons exactes, dont 43 dans le backend Python](docs/parite-modeles-clairvoyance.json), les autres avec le véritable moteur JavaScript. La parité sur des données de match réelles et la reproduction des autres fonctions de l'application ne sont pas encore vérifiées.
+- **Parité des fonctions ciblées :** [43 sur 44, soit 98 % du catalogue vérifié](docs/parite-modeles-clairvoyance.json), **pas 98 % du dépôt complet**, ni une équivalence des prédictions sur données réelles.
+- **Tests face au code original :** [5 220 comparaisons identiques](docs/parite-modeles-clairvoyance.json) pour les calculs Python et JavaScript sélectionnés, avec entrées de test communes (les formulations textuelles des props ne sont pas copiées). [Rapport frontend](docs/parite-clairvoyance-frontend.json) · [rapport NBA](docs/parite-clairvoyance-nba-source.json). La chaîne complète d’acquisition, les données Opta autorisées et les prédictions en conditions réelles ne sont pas encore identiques.
 - **Méthode et statut exact des modèles :** [documentation reproduction](modeles/reproduction/README.md) · [tableau de bord gaming parité](docs/parite-clairvoyance.html) · [tests automatisés à la source](.github/workflows/parite-clairvoyance-predictor.yml).
+- **NBA sur données réelles :** [30 équipes calculées avec la formule Elo/strength source et ESPN](docs/clairvoyance-nba-ratings.json). Les statistiques avancées Basketball-Reference et la composition des effectifs ne sont pas incluses ; les données de début de saison peuvent inclure la présaison.
 - **CFB exclu** à la demande de l'utilisateur.
 - Les modèles exploratoires Elo, Poisson, MC et Bayes écrits précédemment dans `modeles/simulations/` sont **des expériences distinctes** et ne sont **jamais comptabilisés comme des reproductions**. Les anciennes estimations de 30–35 % mélangeaient fonctionnalités du site et innovations et ne mesuraient pas la fidélité.
 
