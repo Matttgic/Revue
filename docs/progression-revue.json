@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T21:57:00+00:00",
+  "updated_at_utc": "2026-10-10T01:18:48.890Z",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 35,
-  "previous_estimate_percent": 33,
+  "estimated_functional_coverage_percent": 36,
+  "previous_estimate_percent": 35,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
   "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
   "excluded_by_user": [
@@ -47,9 +47,9 @@
       "id": "hockey",
       "title": "NHL et hockey spécialisé",
       "weight": 16,
-      "coverage": 0.2,
+      "coverage": 0.27,
       "status": "partiel",
-      "remaining": "Gardiens confirmés, MoneyPuck, marché tirs et simulation calibrée"
+      "remaining": "Gardiens titulaires vérifiés, calibration NHL, tirs/buteurs et validation prospective suffisante"
     },
     {
       "id": "basketball",
@@ -79,9 +79,9 @@
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.4,
+      "coverage": 0.41,
       "status": "partiel",
-      "remaining": "Cotes historiques, validation prospective sur ≥150 résultats et CLV"
+      "remaining": "100+ résultats appariés NHL, historique complet, CLV et calibration sans fuite temporelle"
     },
     {
       "id": "licensed_data",
@@ -102,19 +102,30 @@
     "Mobile gaming research dashboard, with historical scores and prospective scorecards",
     "Official ESPN 2025-26 standings: all 30 NBA teams, previous-season strength and point differentials",
     "12 of 13 upcoming NBA games now have prior-strength SHADOW predictions; unmatched preseason visitor excluded",
-    "17 ensemble paired predictions frozen before kickoff for prospective Brier comparison"
+    "17 ensemble paired predictions frozen before kickoff for prospective Brier comparison",
+    "Source MoneyPuck officielle : 2 saisons x 32 équipes, indicateurs xG et gardiens GSAx publiés et datés",
+    "Source-parity NHL Clairvoyance inchangée; variante indépendante low-sample shrink (xG saison N-1 + gardien) opérationnelle",
+    "Rapport NHL SHADOW généré avec 18 matchs et deux probabilités par rencontre",
+    "Journal prospectif pour chaque probabilité, Brier comparé uniquement sur matchs appariés",
+    "Tests de recherche, verrouillage immuable, et contrôle d’intégrité renforcé MoneyPuck intégrés au CI",
+    "Comparaison mobile avec étiquetage non calibré / aucune titularisation confirmée"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
     "prospective": "docs/ensemble-mc-bayes-performance.json",
     "functions": "docs/clairvoyance-code-audit.json",
     "nba_prior": "docs/nba-prior-shadow.json",
-    "nba_previous_season": "docs/nba-prior-standings.json"
+    "nba_previous_season": "docs/nba-prior-standings.json",
+    "nhl_shadow": "docs/nhl-clairvoyance-shadow-latest.json",
+    "nhl_performance": "docs/nhl-shadow-performance.json",
+    "money_puck_teams": "docs/moneypuck-nhl-latest.json",
+    "money_puck_goalies": "docs/moneypuck-goalies-latest.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
     "Monetary profitability is unverified",
     "Source code being public does not grant wholesale source redistribution rights",
-    "Never report Opta or confirmed goalies unless such data is actually present"
+    "Never report Opta or confirmed goalies unless such data is actually present",
+    "Research NHL shrink weights fixed a priori, not statistically calibrated; no predictive superiority established."
   ]
 }
