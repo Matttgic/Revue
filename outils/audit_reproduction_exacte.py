@@ -36,6 +36,7 @@ EVIDENCE_REPORTS = (
     "docs/parite-modeles-clairvoyance.json",
     "docs/parite-clairvoyance-frontend.json",
     "docs/parite-clairvoyance-predictor.json",
+    "docs/parite-clairvoyance-nhl-observe.json",
     "docs/parite-donnees-clairvoyance.json",
 )
 
@@ -140,6 +141,17 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "targeted_formula_tests": obj.get("exact_equality_tests_passed"),
         }
     model = _json(target / "docs/parite-modeles-clairvoyance.json")
+    real_path = target / "docs/parite-clairvoyance-nhl-observe.json"
+    real = _json(real_path) if real_path.is_file() else {}
+    validated_real = bool(
+        current_sha and real.get("reference_commit") == current_sha and
+        type(real.get("real_nhl_fixtures_compared")) is int and
+        real["real_nhl_fixtures_compared"] > 0 and
+        real.get("reference_vs_revue_entire_output_dict_equal") ==
+          real["real_nhl_fixtures_compared"] and
+        real.get("original_data_sources_identical") is False and
+        real.get("identical_original_clairvoyance_predictions_proven") is False
+    )
     checked = model.get("verified_formula_parity_models")
     target_count = model.get("total_target_models")
     if not (type(checked) is int and type(target_count) is int and
@@ -216,7 +228,10 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
                 bool(current_sha and
                      model.get("original_source_commit") == current_sha),
             "current_real_game_same_input_outputs_equal":
-                "NOT_VERIFIED",
+                "VERIFIED_ON_REVUE_INPUTS_ONLY" if validated_real else "NOT_VERIFIED",
+            "current_nhl_real_fixtures_tested": real["real_nhl_fixtures_compared"] if validated_real else 0,
+            "current_nhl_full_output_dicts_equal": real["reference_vs_revue_entire_output_dict_equal"] if validated_real else 0,
+            "original_proprietary_input_identity_verified": False,
             "all_original_models_catalogued": False,
         },
         "static_data_contracts": {
