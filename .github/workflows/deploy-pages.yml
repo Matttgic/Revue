@@ -66,6 +66,8 @@ jobs:
           python -m unittest discover -s tests -p 'test_phase2_site.py' -v
           python -m unittest discover -s tests -p 'test_phase8_site.py' -v
           python -m unittest discover -s tests -p 'test_phase9_acceptation.py' -v
+          python -m unittest discover -s tests -p 'test_phase10_modeles_site.py' -v
+          node --check docs/phase10-modeles.js
           python -m outils.phase9_acceptation_production
           python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
           node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js
@@ -93,6 +95,8 @@ jobs:
             '/phase8-ui.css':b'phase8-why-hero',
             '/arcade-v3-data.js':b'RevueArcadeV3',
             '/phase9-production.html':b'p9-status',
+            '/phase10-modeles.html':b'm10-matches',
+            '/phase10-modeles.js':b'revue_phase10_multisport_model_candidates_v1',
             '/phase9-readiness-latest.json':b'revue_phase9_release_gate_v1',
           }
           for path,marker in checks.items():

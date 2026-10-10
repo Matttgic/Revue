@@ -16,6 +16,7 @@ on:
       - 'outils/phase10_validation_prospective.py'
       - 'tests/test_phase10_modeles_multisports.py'
       - 'tests/test_phase10_validation_prospective.py'
+      - 'tests/test_phase10_modeles_site.py'
       - 'outils/scoreboard_revue.py'
       - 'outils/prospectif_multisports_revue.py'
       - 'outils/revue_match_dossiers.py'
@@ -45,6 +46,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_phase10_modeles_multisports.py' -v
           python -m unittest discover -s tests -p 'test_phase10_validation_prospective.py' -v
+          python -m unittest discover -s tests -p 'test_phase10_modeles_site.py' -v
           python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
           python -m unittest discover -s tests -p 'test_scoreboard_revue.py' -v
           python -m unittest discover -s tests -p 'test_prospectif_multisports_revue.py' -v
