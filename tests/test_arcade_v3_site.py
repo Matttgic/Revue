@@ -1,0 +1,75 @@
+"""Regression tests for the single-screen, source-gated Revue Arcade V3."""
+import json
+import re
+import subprocess
+import unittest
+from html.parser import HTMLParser
+from pathlib import Path
+
+ROOT=Path(__file__).resolve().parents[1]
+DOCS=ROOT/"docs"
+HTML=(DOCS/"index.html").read_text(encoding="utf8")
+CSS=(DOCS/"arcade-v3.css").read_text(encoding="utf8")
+JS=(DOCS/"arcade-v3-app.js").read_text(encoding="utf8")
+CORE=(DOCS/"arcade-v3-data.js").read_text(encoding="utf8")
+
+class Links(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.anchors=set()
+        self.refs=[]
+    def handle_starttag(self,tag,attrs):
+        a=dict(attrs)
+        if "id" in a:self.anchors.add(a["id"])
+        for key in ("href","src"):
+            if a.get(key):self.refs.append(a[key])
+
+class ArcadeV3Tests(unittest.TestCase):
+    def test_public_home_has_three_clear_tasks(self):
+        page=Links();page.feed(HTML)
+        for key in ("home-jouer","home-pourquoi","home-bilan",
+                    "home-picks","home-recent","home-profit","home-roi",
+                    "home-settled","home-active","v3-explain",
+                    "v3-sports","v3-search"):
+            self.assertIn(key,page.anchors)
+        for anchor in ("#home-jouer","#home-pourquoi","#home-bilan"):
+            self.assertIn(anchor,page.refs)
+        for script in ("./arcade-v3-data.js?v=1","./arcade-v3-app.js?v=1"):
+            self.assertIn(script,page.refs)
+        for link in ("./play.html","./bilan.html","./historique.html","./lab.html"):
+            self.assertIn(link,page.refs)
+        self.assertNotIn("parite-clairvoyance.html",HTML)
+        self.assertNotIn("reproduction-exacte.html",HTML)
+        self.assertNotIn("localStorage",HTML)
+
+    def test_mobile_accessibility_and_historic_disclosure(self):
+        self.assertIn("aria-pressed",HTML)
+        self.assertIn("aria-live",HTML)
+        self.assertIn("aria-label",HTML)
+        self.assertIn("prefers-reduced-motion",CSS)
+        self.assertIn("grid-template-columns:repeat(3",CSS)
+        self.assertIn("data-page=\"arcade-v3\"",HTML)
+        self.assertIn("cotes actuellement jouables",HTML)
+        self.assertIn("simulations fictives",HTML)
+        self.assertIn("paper_profit_units",CORE)
+        self.assertIn("validated_value_bets===0",CORE)
+        self.assertIn("available_as_real_market!==false",CORE)
+        self.assertIn("model_is_calibrated!==false",CORE)
+        self.assertIn("source_equivalent_predictions===false",CORE)
+        self.assertIn("document.createElement",JS)
+        self.assertNotIn("innerHTML",JS)
+        self.assertNotIn("Math.random",JS)
+
+    def test_node_scripts_parse_and_static_data_available(self):
+        for file in ("arcade-v3-data.js","arcade-v3-app.js"):
+            proc=subprocess.run(["node","--check",str(DOCS/file)],capture_output=True,text=True)
+            self.assertEqual(proc.returncode,0,proc.stderr)
+        m=json.loads((DOCS/"match-center-latest.json").read_text(encoding="utf8"))
+        p=json.loads((DOCS/"picks-center-latest.json").read_text(encoding="utf8"))
+        self.assertEqual(m["validated_value_bets"],0)
+        self.assertFalse(m["bookmaker_prices_are_live"])
+        self.assertFalse(p["real_bets_enabled"])
+        self.assertFalse(p["verified_real_ev"])
+        self.assertEqual(p["paper_summary"]["total"],len(p["paper_records"]))
+
+if __name__=="__main__":unittest.main()
