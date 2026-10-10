@@ -178,6 +178,39 @@ class MatchCenterTests(unittest.TestCase):
             mutated["ledger"]["events"][0][key]=value
             self.assertEqual(build(mutated)["official_results_count"],0)
 
+    def test_totals_include_only_complete_observed_lines(self):
+        payload=fixture()
+        market=payload["scanner"]["odds_board"]["events"][0]["bookmakers"][0]["markets"]
+        market.append({"market":"totals","period_rule":"90min","quote_at":QUOTE,
+                      "outcomes":[{"selection":"over","line":2.5,"price":1.98},
+                                  {"selection":"under","line":2.5,"price":1.82},
+                                  {"selection":"over","line":3.5,"price":3.9}]})
+        row=build(payload)["events"][0]
+        self.assertEqual(len(row["totals_quotes"]),1)
+        self.assertEqual(row["totals_quotes"][0]["lines"],[{"line":2.5,"over":1.98,"under":1.82}])
+        self.assertEqual(row["market_status"],"observed_price_not_live")
+        self.assertIsNone(row["ev"])
+        payload["scanner"]["odds_board"]["events"][0]["bookmakers"][0]["markets"][-1]["period_rule"]="overtime_rule_unverified"
+        self.assertEqual(build(payload)["events"][0]["totals_quotes"],[])
+
+    def test_nhl_players_are_current_club_observed_not_confirmed(self):
+        payload=fixture()
+        upcoming={"event_id":"2026020088","home":"BOS","away":"PHI","start_utc":KICK,
+                  "probabilities":{"home_win":.52,"away_win":.48}}
+        payload["multisports"]["competitions"]["NHL"]={"sport":"Hockey","games":[upcoming]}
+        p={"player_id":"123","name":"Joueur A","team":"BOS","current_team_observed":True,
+           "availability":"NON_VERIFIEE","season_games_current":5,
+           "metrics":{"but":.3,"passe":.2,"point":.4,"tir_cadre_2_plus":.55,"tir_cadre_3_plus":.24}}
+        payload["players"]={"generated_at_utc":GENERATED,
+                             "status":"profils_experimentaux_non_calibres",
+                             "teams":{"BOS":[p,{**p,"player_id":"bad","availability":"CONFIRMED"}]}}
+        doc=build(payload)
+        event=next(x for x in doc["events"] if x["league"]=="NHL")
+        self.assertEqual(len(event["player_profiles"]),1)
+        self.assertEqual(event["player_profiles"][0]["lineup_status"],"not_confirmed")
+        self.assertTrue(event["player_profiles"][0]["research_only"])
+        self.assertEqual(doc["metrics"]["with_nhl_player_profiles"],1)
+
     def test_unauthorized_bookmaker_not_published(self):
         payload=fixture()
         payload["scanner"]["odds_board"]["events"][0]["bookmakers"][0]["bookmaker"]="pinnacle"
