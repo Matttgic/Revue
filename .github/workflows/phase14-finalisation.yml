@@ -41,6 +41,7 @@ jobs:
           node-version: '22'
       - name: Three-screen source and accounting acceptance
         run: |
+          python -m outils.phase14_reception
           python -m unittest discover -s tests -p 'test_phase14_reception.py' -v
           python -m unittest discover -s tests -p 'test_phase8_site.py' -v
           python -m unittest discover -s tests -p 'test_phase13_site.py' -v

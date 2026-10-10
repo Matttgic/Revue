@@ -63,6 +63,7 @@ jobs:
           node-version: '22'
       - name: Vérifier navigation et exclusion CFB avant la publication
         run: |
+          python -m outils.phase14_reception
           python -m unittest discover -s tests -p 'test_site_arena.py' -v
           python -m unittest discover -s tests -p 'test_phase1_nhl_site.py' -v
           python -m unittest discover -s tests -p 'test_phase2_site.py' -v
