@@ -128,3 +128,98 @@ def moneypuck(root:Path,now:datetime,situation:str)->list[dict]:
     if len(out)<25:
         raise SourceUnavailable("Insufficient verified MoneyPuck teams for season")
     return sorted(out,key=lambda x:(-x["x_goals_pct"],x["team"]))
+
+
+def live_moneypuck_snapshot(now:datetime, *, fetcher=None)->dict:
+    """Fetch authoritative current MoneyPuck regular-season CSVs on demand.
+
+    Independent parser, not a copy of Clairvoyance source. No silent stale
+    snapshot fallback; 'live' describes fresh HTTP fetch, not in-game odds.
+    The original route's playoff-team filter and full raw field set differ.
+    """
+    import csv
+    import io
+    from urllib.request import Request,urlopen
+    year=now.year if now.month>=8 else now.year-1
+    base=f"https://moneypuck.com/moneypuck/playerData/seasonSummary/{year}/regular"
+    if fetcher is None:
+        def fetcher(url):
+            request=Request(url,headers={"User-Agent":"Revue-Data-Research/1.0","Accept":"text/csv"})
+            with urlopen(request,timeout=15) as response:
+                if response.status!=200:
+                    raise SourceUnavailable("MoneyPuck upstream unavailable")
+                return response.read().decode("utf-8-sig")
+    try:
+        team_csv=fetcher(base+"/teams.csv")
+        goalie_csv=fetcher(base+"/goalies.csv")
+        teams_rows=list(csv.DictReader(io.StringIO(team_csv)))
+        goalie_rows=list(csv.DictReader(io.StringIO(goalie_csv)))
+    except (OSError,UnicodeError,ValueError,TimeoutError) as exc:
+        raise SourceUnavailable("Fresh MoneyPuck team/goalie CSV fetch failed") from exc
+    if not teams_rows or not goalie_rows:
+        raise SourceUnavailable("MoneyPuck supplied no current team/goalie records")
+    def num(row,field):
+        value=row.get(field)
+        if value is None or value=="":
+            return None
+        try:
+            x=float(value)
+            return x if math.isfinite(x) else None
+        except (TypeError,ValueError):
+            return None
+    teams={}
+    for row in teams_rows:
+        team=row.get("team")
+        situation=row.get("situation")
+        if not (isinstance(team,str) and len(team)==3 and team.isalpha() and
+                situation in ("all","5on5")):
+            continue
+        dest=teams.setdefault(team,{})
+        gp=num(row,"games_played")
+        if situation=="all":
+            dest.update({
+                "games_played":int(gp) if gp is not None and gp>=0 else None,
+                "goals_for_pg":round(num(row,"goalsFor")/gp,2)
+                    if gp and num(row,"goalsFor") is not None else None,
+                "goals_against_pg":round(num(row,"goalsAgainst")/gp,2)
+                    if gp and num(row,"goalsAgainst") is not None else None,
+                "sog_pg":None,"opp_sog_pg":None,
+            })
+        else:
+            share=num(row,"xGoalsPercentage")
+            if share is None:
+                share=num(row,"xGoalsForPercentage")
+            dest.update({
+                "xgf_pct":round(share*100,1) if share is not None and 0<=share<=1 else None,
+                "corsi_pct":None,"fenwick_pct":None,
+            })
+    goalies=[]
+    for row in goalie_rows:
+        if row.get("situation")!="all":
+            continue
+        team=row.get("team")
+        name=row.get("name")
+        if not (team in teams and isinstance(name,str) and name.strip()):
+            continue
+        xg=num(row,"xGoals")
+        conceded=num(row,"goals")
+        seconds=num(row,"icetime")
+        games=num(row,"games_played")
+        goalies.append({
+            "name":name,"team":team,
+            "games_played":int(games) if games is not None and games>=0 else None,
+            "ice_hours":round(seconds/3600,1) if seconds is not None and seconds>=0 else None,
+            "x_goals_against":xg,
+            "goals_against":conceded,
+            "gsax":round(xg-conceded,2) if xg is not None and conceded is not None else None,
+        })
+    if len(teams)<20 or len(goalies)<20:
+        raise SourceUnavailable("Current MoneyPuck CSV coverage is insufficient; no fake live values")
+    goalies.sort(key=lambda x:-(x["ice_hours"] or 0))
+    return {
+        "teams":teams,"goalies":goalies,"source":"moneypuck.com",
+        "revue_observed_at_utc":now.isoformat(),
+        "revue_reproduction_status":"partial_original_live_route_semantics_not_verified",
+        "revue_season":f"{year}-{year+1}",
+        "confirmed_starting_goalies":False,
+    }
