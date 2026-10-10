@@ -72,6 +72,21 @@ function renderWhy(e){
   }
   root.append(block);
  }
+ if(e.recentObservedPriceExamples?.length){
+  const observation=h("div","arc-v3-price");
+  observation.append(h("strong","","Cotes PulseScore observées · pas de disponibilité en temps réel"));
+  for(const q of e.recentObservedPriceExamples){
+    const side=q.market==="h2h"?
+      (q.side==="home"?"Domicile":q.side==="away"?"Extérieur":"Nul"):
+      (q.side==="over"?"Plus de ":"Moins de ")+q.line;
+    observation.append(h("p","",
+      side+" · "+q.book.replace("_fr","")+" @ "+f(q.price)+
+      " · relevé "+date(q.observedAt)+
+      (!q.comparableMarketRule?" · RÈGLEMENT / PROLONGATION NON VÉRIFIÉ":"")));
+  }
+  observation.append(h("small","","Prix déjà observés, non garantis toujours proposés. Aucune valeur positive validée."));
+  root.append(observation);
+ }
  if(e.recentCrossBookPrices?.length){
   const panel=h("div","arc-v3-model");
   panel.append(h("strong","","PulseScore · différences observées (PAS une EV)"));
@@ -109,6 +124,8 @@ function createCard(e){
   " modèle(s) expérimental(aux) · "+
   (e.recentCrossBookPrices?.length?
     e.recentCrossBookPrices.length+" écarts de cotes PulseScore observés":
+    e.recentObservedPriceExamples?.length?
+    "cotes PulseScore observées (non garanties)":
     e.historicalQuotes.length?"prix historiques disponibles":"aucune cote vérifiée"));
  c.append(info);
  const bottom=h("div","arc-v3-game-bottom");
