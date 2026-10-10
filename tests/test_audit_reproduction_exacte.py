@@ -202,6 +202,68 @@ def build():
                 report=strict_report(source,target,NOW)
                 self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],0)
 
+    def test_original_pydantic_schema_field_shapes_against_independent_implementation(self):
+        from outils.audit_reproduction_exacte import compare_api_schemas
+        with TemporaryDirectory() as tmp:
+            source,target=Path(tmp)/"original",Path(tmp)/"revue"
+            _write(source,"app/schemas/mlb.py",'''
+class MLBGameOut(BaseModel):
+    id: int
+    home_score: Optional[int]
+    espn_id: str
+    game_date: Optional[date]
+''')
+            _write(source,"app/schemas/nhl.py",'''
+class NHLGameOut(BaseModel):
+    id: int
+    home_score: Optional[int]
+class NHLTeamStatOut(BaseModel):
+    team_id: int
+class NHLGoalieStatOut(BaseModel):
+    player_id: int
+    save_pct: Optional[float]
+class NHLSkaterStatOut(BaseModel):
+    player_id: int
+''')
+            _write(target,"api_revue/app.py",'''
+class NHLGameOut(BaseModel):
+    id: int
+    home_score: int | None
+class MLBGameOut(NHLGameOut):
+    espn_id: str
+    game_date: date | None
+class NHLTeamStatOut(BaseModel):
+    team_id: int
+class NHLGoalieStatOut(BaseModel):
+    player_id: int
+    save_pct: float | None
+class NHLSkaterStatOut(BaseModel):
+    player_id: int
+''')
+            result=compare_api_schemas(source,target)
+            self.assertEqual(result["field_shapes_identical"],5)
+            self.assertTrue(result["all_targeted_field_shapes_identical"])
+            self.assertFalse(result["original_database_identity_equal"])
+            self.assertEqual(result["live_response_values_equal"],"NOT_VERIFIED")
+            _write(target,"api_revue/app.py",'''
+class NHLGameOut(BaseModel):
+    id: int
+    home_score: int | None
+class MLBGameOut(NHLGameOut):
+    espn_id: str
+    game_date: date | None
+class NHLTeamStatOut(BaseModel):
+    team_id: int
+class NHLGoalieStatOut(BaseModel):
+    player_id: int
+    save_pct: float
+class NHLSkaterStatOut(BaseModel):
+    player_id: int
+''')
+            changed=compare_api_schemas(source,target)
+            self.assertEqual(changed["field_shapes_identical"],4)
+            self.assertEqual(changed["models"]["NHLGoalieStatOut"]["type_or_requiredness_mismatches"],["save_pct"])
+
     def test_scope_excludes_cfb(self):
         with TemporaryDirectory() as tmp:
             source,target=Path(tmp)/"original",Path(tmp)/"revue"
