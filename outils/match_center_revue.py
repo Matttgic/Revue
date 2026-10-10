@@ -121,9 +121,72 @@ def actual_nhl_results(ledger: dict | None, now: datetime) -> tuple[list[dict], 
     return out[:25], pending
 
 
+def nhl_players_for_fixture(data: dict | None, home: str, away: str,
+                            now: datetime, kickoff: datetime) -> list[dict]:
+    """Historical NHL scorer/shooter profiles; NEVER a confirmed lineup."""
+    if not isinstance(data, dict) or not model_snapshot(data, now, kickoff):
+        return []
+    if data.get("status") != "profils_experimentaux_non_calibres":
+        return []
+    teams = data.get("teams") or {}
+    if not isinstance(teams, dict):
+        return []
+    result = []
+    for code in (home, away):
+        count = 0
+        for p in teams.get(code) or []:
+            if count >= 5:
+                break
+            if (not isinstance(p, dict) or p.get("team") != code or
+                p.get("availability") != "NON_VERIFIEE" or
+                p.get("current_team_observed") is not True):
+                continue
+            metrics = p.get("metrics") or {}
+            if not all(probability(metrics.get(k)) for k in ("but", "passe", "point", "tir_cadre_2_plus", "tir_cadre_3_plus")):
+                continue
+            if not (isinstance(p.get("name"), str) and p["name"] and
+                    isinstance(p.get("player_id"), str) and p["player_id"]):
+                continue
+            result.append({
+                "player_id":p["player_id"],"name":p["name"],"team":code,
+                "lineup_status":"not_confirmed",
+                "season_games_current":int(p.get("season_games_current") or 0),
+                "season_games_previous":int(p.get("season_games_previous") or 0),
+                "probabilities":{k:metrics[k] for k in
+                    ("but","passe","point","tir_cadre_2_plus","tir_cadre_3_plus")},
+                "research_only":True,
+            })
+            count += 1
+    return result
+
+
+def observed_totals(market: dict) -> dict | None:
+    """Accept paired O/U prices at the SAME line, never guess settlement."""
+    if market.get("market") != "totals":
+        return None
+    outcomes = market.get("outcomes") or []
+    if not isinstance(outcomes, list):
+        return None
+    by_line: dict[float, dict] = {}
+    for item in outcomes:
+        if not isinstance(item, dict):
+            continue
+        line, price, selection = item.get("line"), item.get("price"), item.get("selection")
+        if (selection not in ("over","under") or
+            not isinstance(line, (float, int)) or isinstance(line, bool) or
+            not math.isfinite(line) or not .5 <= line <= 30 or
+            not isinstance(price,(float,int)) or isinstance(price,bool) or
+            not math.isfinite(price) or not 1 < price <= 10000):
+            continue
+        by_line.setdefault(float(line),{})[selection] = round(float(price),3)
+    return [{"line":line,**values} for line,values in sorted(by_line.items())
+            if set(values)=={"over","under"}][:12] or None
+
+
 def collect_center(multisports: dict, scanner: dict, advanced: dict,
                    nhl: dict, ensemble: dict, now: datetime,
-                   ledger: dict | None = None) -> dict:
+                   ledger: dict | None = None,
+                   players: dict | None = None) -> dict:
     if now.tzinfo is None:
         raise ValueError("now timezone required")
     now = now.astimezone(timezone.utc)
@@ -155,7 +218,8 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                     "start_utc": start.isoformat(),
                     "start_paris": start.astimezone(PARIS).isoformat(),
                     "local_day": start.astimezone(PARIS).date().isoformat(),
-                    "research": [], "quotes": [], "market_status": "no_verified_quote",
+                    "research": [], "quotes": [], "totals_quotes": [],
+                    "player_profiles": [], "market_status": "no_verified_quote",
                     "status": "upcoming",
                 }
                 p = valid_predictions(raw.get("probabilities"))
@@ -218,6 +282,11 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
             add_model(g, league, ensemble, "revue_ensemble_mc_bayes_elo",
                       "Revue Monte-Carlo / Bayes / Elo", g.get("probabilities"))
 
+    for row in events.values():
+        if row["league"] == "NHL":
+            row["player_profiles"]=nhl_players_for_fixture(
+                players, row["home"], row["away"], now, instant(row["start_utc"]))
+
     scanner_report = scanner.get("odds_board") or {}
     if scanner.get("mode") == "PAPER_ONLY":
         for fixture in scanner_report.get("events") or []:
@@ -236,7 +305,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                 if not isinstance(b, str) or not b.endswith("_fr"):
                     continue
                 for market in book.get("markets") or []:
-                    if market.get("market") != "h2h":
+                    if market.get("market") not in ("h2h", "totals"):
                         continue
                     try:
                         quote_at = instant(market["quote_at"])
@@ -247,6 +316,23 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                         rejected["odds_invalid_or_stale"] += 1
                         continue
                     rule = market.get("period_rule")
+                    if market["market"] == "totals":
+                        # For soccer, 90-minute totals and their 90-minute
+                        # probabilities can be compared descriptively.
+                        # NHL overtime rules remain explicitly NOT VERIFIED.
+                        is_soccer=league in ("PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS","UCL")
+                        if (is_soccer and rule != "90min") or (not is_soccer and
+                            rule not in ("game_result","overtime_rule_unverified")):
+                            continue
+                        paired=observed_totals(market)
+                        if paired:
+                            row["totals_quotes"].append({
+                                "bookmaker":b,"market":"totals","rule":rule,
+                                "quote_at_utc":quote_at.isoformat(),
+                                "rule_verified": rule in ("90min","game_result"),
+                                "lines":paired,
+                            })
+                        continue
                     expected = ("home", "draw", "away") if league in (
                         "PL", "LALIGA", "SERIEA", "BUNDESLIGA", "LIGUE1", "MLS", "UCL") else ("home", "away")
                     if rule not in ("90min", "game_result", "overtime_rule_unverified"):
@@ -269,7 +355,8 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                         "rule_verified":rule in ("90min", "game_result"),
                     })
             row["quotes"].sort(key=lambda x:(x["bookmaker"],x["quote_at_utc"]))
-            if row["quotes"]:
+            row["totals_quotes"].sort(key=lambda x:(x["bookmaker"],x["quote_at_utc"]))
+            if row["quotes"] or row["totals_quotes"]:
                 row["market_status"] = "observed_price_not_live"
 
     output = sorted(events.values(), key=lambda r:(r["start_utc"],r["league"],r["event_id"]))
@@ -289,7 +376,9 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
         "validated_value_bets":0, "real_bets_enabled":False,
         "metrics":{
             "upcoming_matches":len(output),
-            "with_observed_bookmaker_quotes":sum(bool(e["quotes"]) for e in output),
+            "with_observed_bookmaker_quotes":sum(bool(e["quotes"] or e["totals_quotes"]) for e in output),
+            "with_observed_totals":sum(bool(e["totals_quotes"]) for e in output),
+            "with_nhl_player_profiles":sum(bool(e["player_profiles"]) for e in output),
             "with_research_model":sum(bool(e["research"]) for e in output),
             "leagues":len(leagues),
         },
@@ -313,6 +402,7 @@ def main() -> None:
         "advanced":"football-advanced-shadow.json",
         "nhl":"nhl-clairvoyance-shadow-latest.json",
         "ensemble":"ensemble-mc-bayes-latest.json",
+        "players":"nhl-players-latest.json",
     }
     data={k:json.loads((root/v).read_text(encoding="utf-8")) for k,v in mapping.items()}
     ledger_path=Path(args.ledger)
