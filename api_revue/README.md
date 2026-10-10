@@ -33,9 +33,9 @@ Signatures GET présentes et vérifiées par tests de contrat :
 Endpoint propre à Revue : `GET /revue/parity` pour lire le niveau réel
 de reproduction, sans chiffre global trompeur.
 
-**Important :** dix signatures GET sur les vingt-quatre routes originales sont
-déclarées ; une, `/predictions/`, refuse volontairement de produire un résultat sans données équivalentes. Cela ne veut pas dire que
-10/24 routes sont **fonctionnellement identiques** : l'identité complète de
+**Important :** quatorze signatures GET sur les vingt-quatre routes originales sont
+déclarées, dont trois routes de picks simulés ; `/predictions/` refuse volontairement de produire un résultat sans données équivalentes. Cela ne veut pas dire que
+14/24 routes sont **fonctionnellement identiques** : l'identité complète de
 toutes les réponses, la pagination, les erreurs et les données historiques
 doit être vérifiée. L'audit strict maintient donc
 `end_to_end_verified_equivalent_routes: 0`.
