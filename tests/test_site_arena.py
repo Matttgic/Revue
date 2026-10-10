@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -130,6 +130,28 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_original_style_picks_workflow_is_operational_from_verified_data(self):
+        import json
+        html=(DOCS/"picks-center.html").read_text(encoding="utf-8")
+        home=(DOCS/"index.html").read_text(encoding="utf-8")
+        command=(DOCS/"command-center.html").read_text(encoding="utf-8")
+        self.assertIn("picks-center.html",home)
+        self.assertIn("picks-center.html",command)
+        for k in ("picks-center-latest.json","research_model_calibrated",
+                  "real_bets_enabled","live_bookmaker_prices","original_clairvoyance_sql_parity",
+                  "paper_roi_percent","paper_records","research_selections","bookmakers",
+                  "localStorage","settled","unverified","EXPORTER MON JOURNAL",
+                  "timeZone:\\\"Europe/Paris\\\""):
+            with self.subTest(key=k):self.assertIn(k,html)
+        self.assertNotIn("innerHTML",html)
+        doc=json.loads((DOCS/"picks-center-latest.json").read_text(encoding="utf-8"))
+        self.assertFalse(doc["real_bets_enabled"])
+        self.assertFalse(doc["verified_real_ev"])
+        self.assertFalse(doc["live_bookmaker_prices"])
+        self.assertEqual(doc["unique_research_selections"],len(doc["research_selections"]))
+        self.assertEqual(doc["paper_summary"]["total"],len(doc["paper_records"]))
+        self.assertNotIn("CFB",set(x["league"] for x in doc["research_selections"]))
 
     def test_game_dossier_deep_links_and_data_provenance(self):
         import json

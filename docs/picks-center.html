@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07101c">
+<meta name="description" content="REVUE Picks Center: radar expérimental de sélections, comparaison des cotes françaises, suivi fictif, résultats et exclusions vérifiables">
+<title>REVUE — Picks Center</title><link rel="stylesheet" href="./theme.css?v=2">
+<style>
+:root{--pick-bg:#0d1a2b;--pick-border:#314d66;--pick-light:#dff9ff;--pick-sage:#59edda;--pick-dim:#96b7cc}
+main{max-width:1260px!important;margin:auto!important;padding:32px 17px 85px!important}
+h1,h2,h3,button,.eyebrow{font-family:'Chakra Petch',sans-serif}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--pick-sage)}
+.hero{display:flex;align-items:end;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--pick-border);padding:18px 0 29px}
+h1{color:var(--pick-light);font-size:clamp(44px,7vw,86px);line-height:.88;font-weight:800;letter-spacing:-.065em;margin:15px 0}
+h1 span{color:var(--pick-sage)}
+.hero p{max-width:800px;font-size:13px;line-height:1.8;color:#aecbd7}
+.meta-link{display:inline-block;padding:12px 15px;text-decoration:none;color:var(--pick-sage);border:1px solid #3d6578;font:800 10px 'Chakra Petch',sans-serif;letter-spacing:.07em}
+.warning{background:#1d2a3b;border-left:3px solid #e0ac70;color:#eacdb1;font:12px/1.7 'DM Sans',sans-serif;padding:14px 16px;margin:21px 0}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:23px 0}
+.kpi{border:1px solid #34516b;background:linear-gradient(145deg,#152a40,#0b1c2f);padding:15px;min-width:0}
+.kpi small{display:block;color:#8caebe;font:800 10px/1.5 'Chakra Petch',sans-serif;letter-spacing:.1em}
+.kpi strong{display:block;font:800 clamp(23px,3.5vw,40px) 'Chakra Petch',sans-serif;color:var(--pick-sage);margin:9px 0}
+.kpi span{font:10px/1.5 'DM Sans',sans-serif;color:#8db3ca}
+.shell{display:grid;grid-template-columns:1fr;gap:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button,.toolbar select,.toolbar input{min-height:44px;background:#10253c;color:#c2deeb;border:1px solid #38526a;font-size:12px}
+.tabs button{padding:10px 18px;cursor:pointer;letter-spacing:.07em;font-weight:800}
+.tabs button[aria-selected=true]{background:#195451;color:#f0fffb;border-color:#61e9d8}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:17px 0}
+.toolbar select,.toolbar input{font-family:'DM Sans',sans-serif;padding:10px 12px}
+.toolbar input{flex:1 1 200px;max-width:380px}
+.toolbar select{max-width:240px;min-width:150px}
+.caption{color:#97b8ca;font-size:11px;line-height:1.7;margin:13px 0}
+#status{font:11px/1.7 monospace;color:#abd2d8;background:#12283c;padding:13px;border-left:2px solid #8f7be7}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pick{border:1px solid #345571;background:linear-gradient(155deg,#182d45,#0c192c);padding:19px;min-width:0;position:relative}
+.pick:before{position:absolute;content:"";width:53px;height:3px;background:var(--pick-sage);top:0;left:0}
+.pick .match-head{display:flex;justify-content:space-between;gap:12px;color:#91b6cb;font:700 10px/1.6 monospace}
+.pick h3{font-size:clamp(18px,2vw,25px);color:var(--pick-light);line-height:1.25;margin:12px 0 5px;overflow-wrap:anywhere}
+.pick .selection{font:800 15px 'Chakra Petch',sans-serif;color:#bcabea;margin:8px 0}
+.pick .labels{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.label{border:1px solid #35566b;color:#a8cadd;font:700 9px 'Chakra Petch',sans-serif;letter-spacing:.08em;padding:5px 7px}
+.label.green{border-color:#357166;color:#5af0d9}
+.label.amber{border-color:#756347;color:#e2bc87}
+.pricebox{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:14px 0}
+.pricebox>div{background:#20394e;padding:12px}
+.pricebox small{display:block;color:#93b7c9;font:11px 'DM Sans',sans-serif}
+.pricebox strong{display:block;color:#69f6e2;font:800 28px 'Chakra Petch',sans-serif;margin:7px 0}
+.pick .foot{color:#93afc2;font:11px/1.75 'DM Sans',sans-serif;overflow-wrap:anywhere}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions button,.actions a{display:inline-flex;justify-content:center;align-items:center;min-height:40px;border:1px solid #476379;padding:10px 14px;background:#193247;color:#d8f2ff;text-decoration:none;cursor:pointer;font:800 10px 'Chakra Petch',sans-serif;letter-spacing:.04em}
+.actions button[aria-pressed=true]{background:#1f514f;color:#65efdf;border-color:#65efdf}
+.book-list[hidden]{display:none}
+.book-list{border:1px solid #416278;background:#0e2031;margin-top:10px;padding:8px}
+.book-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #29475b;padding:8px 6px;color:#b1d0e2;font:11px 'DM Sans',sans-serif}
+.book-row:last-child{border-bottom:0}
+.book-row strong{font:800 17px 'Chakra Petch',sans-serif;color:#72f6e0}
+.empty{padding:30px;border:1px dashed #547189;color:#b3ccdc;font:12px/1.9 'DM Sans',sans-serif}
+.section-title{font:800 21px 'Chakra Petch',sans-serif;color:#edfdff;margin:28px 0 15px}
+.performance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:20px 0}
+.perf{border:1px solid #31526a;background:#12283b;padding:16px;color:#b5d0e0}
+.perf small{font:700 11px 'Chakra Petch',sans-serif}
+.perf strong{display:block;color:#65ebdc;font:800 25px 'Chakra Petch',sans-serif;margin:9px 0}
+.export{color:#6ef5e0;border:1px solid #466379;background:#182c42;padding:12px;cursor:pointer;font:700 11px 'Chakra Petch',sans-serif}
+#journal{display:grid;gap:8px}
+.journal-row{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(65px,1fr));align-items:center;gap:10px;padding:14px;border:1px solid #32546d;background:#13283e}
+.journal-row .j-title{font:800 14px 'Chakra Petch',sans-serif;color:#e4faff;overflow-wrap:anywhere}
+.journal-row .j-time{display:block;font:10px/1.6 monospace;color:#87b2c6;margin-top:5px}
+.journal-row .j-status{font:800 12px 'Chakra Petch',sans-serif;color:#d9be95}
+.journal-row .j-status.won{color:#5af1da}.journal-row .j-status.lost{color:#ffb1a5}
+.journal-row .value{color:#cce9f2;font:700 12px 'Chakra Petch',sans-serif}
+.details-note{color:#aac6d9;font:11px/1.7 'DM Sans',sans-serif}
+@media(max-width:950px){.kpis{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:1fr}.journal-row{grid-template-columns:minmax(0,1.8fr) 1fr 1fr}.journal-row .j-status{grid-column:1/-1}}
+@media(max-width:575px){.kpis{grid-template-columns:repeat(2,1fr)}.performance{grid-template-columns:1fr 1fr}.toolbar select{flex:1 1 120px;min-width:0}.journal-row{grid-template-columns:1fr 1fr}.journal-row .j-title{grid-column:1/-1}}
+</style></head>
+<body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./picks-center.html" aria-current="page">SÉLECTIONS</a>
+<a href="./match-center.html">MATCHS</a><a href="./match-dossier.html">DOSSIERS</a>
+<a href="./performance-comparateur.html">PERFORMANCE</a></nav>
+<span class="rv-top-tag">RESEARCH / PAPER ONLY</span></div></div>
+<main>
+<section class="hero"><div>
+<div class="eyebrow">REVUE / RECONSTRUCTION DES PARCOURS CLAIRVOYANCE</div>
+<h1>PICKS <span>CENTER.</span></h1>
+<p>Un seul endroit pour examiner les sélections expérimentales, retrouver la meilleure <em>cote observée</em> parmi les bookmakers français, suivre tes simulations et consulter les règlements vérifiés. Aucun pari n'est placé.</p>
+</div><a class="meta-link" href="./reproduction-exacte.html">PARITÉ SOURCE ↗</a></section>
+<div class="warning">Recherche personnelle uniquement. Les modèles ne sont pas calibrés, les cotes sont des instantanés historiques et non des offres disponibles aujourd'hui. Le rendement papier est calculé uniquement à partir de simulations réglées et verrouillées avant le coup d'envoi. Les cas exclus ne sont jamais comptés comme gagnants.</div>
+<section class="kpis" aria-label="Résumé vérifié">
+<article class="kpi"><small>SÉLECTIONS DISTINCTES</small><strong id="n-candidates">—</strong><span>Sources groupées par marché exact</span></article>
+<article class="kpi"><small>ENCORE À VENIR</small><strong id="n-upcoming">—</strong><span>Au dernier relevé ; jamais des cotes live</span></article>
+<article class="kpi"><small>SIMULATIONS RÉGLÉES</small><strong id="n-settled">—</strong><span>Avant coup d'envoi uniquement</span></article>
+<article class="kpi"><small>ROI FICTIF</small><strong id="n-roi">—</strong><span id="n-roi-desc">Trop peu de résultats pour conclure</span></article>
+<article class="kpi"><small>EXCLUES / INCERTAINES</small><strong id="n-excluded">—</strong><span>Aucun règlement inventé</span></article>
+</section>
+<div class="shell">
+<div class="tabs" role="tablist" aria-label="Parcours de sélection">
+<button type="button" role="tab" data-view="radar" aria-selected="true">RADAR DES PRIX</button>
+<button type="button" role="tab" data-view="history" aria-selected="false">SUIVI & RÉSULTATS</button>
+<button type="button" role="tab" data-view="watchlist" aria-selected="false">MA LISTE LOCALE</button>
+<button type="button" role="tab" data-view="excluded" aria-selected="false">EXCLUSIONS</button>
+</div>
+<div class="toolbar">
+<input type="search" id="search" placeholder="Équipe, sélection, bookmaker…" aria-label="Rechercher">
+<select id="sport" aria-label="Compétition"><option value="">TOUTES LES LIGUES</option></select>
+<select id="when" aria-label="Filtre temporel"><option value="all">TOUTES DATES</option><option value="upcoming">À VENIR</option><option value="previous">DÉJÀ DÉBUTÉES</option></select>
+<select id="state" aria-label="État simulation" hidden>
+<option value="all">TOUS LES STATUTS</option><option value="pending">EN ATTENTE</option>
+<option value="won">GAGNÉS</option><option value="lost">PERDUS</option>
+<option value="push">REMBOURSÉS</option><option value="unverified">NON VÉRIFIÉS</option></select>
+</div>
+<p id="status" role="status" aria-live="polite">Chargement de l'instantané des sélections…</p>
+<div id="root" role="tabpanel"></div>
+<section id="performance"></section>
+</div>
+<p class="details-note">« Ajouter à ma liste » enregistre une référence uniquement dans ce navigateur ; cela ne crée pas de pari ni de suivi synchronisé. Pour consulter un autre appareil, exporte la liste. Aucun montant réel n'est conservé.</p>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const make=(tag,cls,value)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=String(value);return e;};
+const date=s=>new Date(s).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+const price=v=>Number.isFinite(v)?v.toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2}):"—";
+const units=v=>Number.isFinite(v)?(v>0?"+":"")+v.toLocaleString("fr-FR",{maximumFractionDigits:2})+" u":"—";
+const percent=v=>Number.isFinite(v)?v.toLocaleString("fr-FR",{maximumFractionDigits:2})+" %":"—";
+const dateTime=s=>Date.parse(s);
+let feed=null,view="radar",watch=new Set();
+const storeName="revue-research-watchlist-v1";
+try{const saved=JSON.parse(localStorage.getItem(storeName)||"[]");if(Array.isArray(saved))watch=new Set(saved.filter(v=>typeof v==="string").slice(0,500));}catch(e){}
+function persist(){try{localStorage.setItem(storeName,JSON.stringify([...watch]));}catch(e){}}
+function valid(d){return d?.status==="revue_independent_picks_hub_static_research_paper_only"&&
+ d.research_model_calibrated===false&&d.verified_real_ev===false&&d.live_bookmaker_prices===false&&
+ d.real_bets_enabled===false&&d.original_clairvoyance_sql_parity===false&&
+ Array.isArray(d.research_selections)&&Array.isArray(d.paper_records)&&
+ d.research_selections.length===d.unique_research_selections;}
+function text(v){return v==null?"—":String(v);}
+function lookup(){return new Map((feed?.research_selections||[]).map(x=>[x.key,x]));}
+function reviewTime(r){return dateTime(r.start_utc)>Date.now()+1200000&&
+  Date.now()-dateTime(feed.source_engine_generated_at_utc)<=10800000;}
+function label(g){return g.selection_label+(g.line===null?"": " "+g.line);}
+function matchLink(league,event){return "./match-dossier.html?league="+encodeURIComponent(league)+"&id="+encodeURIComponent(event);}
+function save(g){
+ if(watch.has(g.key))watch.delete(g.key);else watch.add(g.key);
+ persist();render();
+}
+function singleGroup(g){
+ const card=make("article","pick");
+ const first=make("div","match-head");
+ first.append(make("span","",g.league+" · "+g.market.toUpperCase()),make("span","",date(g.start_utc)));
+ card.append(first,make("h3","",g.away+" @ "+g.home),make("div","selection",label(g)));
+ const isUpcoming=reviewTime(g),markers=make("div","labels");
+ markers.append(make("span","label "+(isUpcoming?"green":"amber"),isUpcoming?"MATCH À VENIR / PRIX HISTORIQUE":"ARCHIVE / PRIX NON ACTUEL"));
+ markers.append(make("span","label",g.books_count+" BOOKMAKER(S)"));
+ markers.append(make("span","label amber","MODÈLE NON CALIBRÉ"));
+ card.append(markers);
+ const box=make("div","pricebox");
+ const best=make("div");best.append(make("small","","MEILLEURE COTE OBSERVÉE"),
+   make("strong","",price(g.best_observed_price.decimal_odds)),
+   make("small","",g.best_observed_price.bookmaker.replace("_fr","").toUpperCase()));
+ const last=make("div");last.append(make("small","","RELEVÉ BOOKMAKER"),
+   make("strong","",date(g.best_observed_price.quote_at_utc).split(" ").slice(-1)[0]||"—"),
+   make("small","",date(g.best_observed_price.quote_at_utc)));
+ box.append(best,last);card.append(box);
+ card.append(make("p","foot","Sélection purement expérimentale. Comparaison du même match, marché, côté et ligne. Aucune EV démontrée, aucune mise réelle."));
+ const actions=make("div","actions");
+ const watchButton=make("button","",watch.has(g.key)?"✓ MA LISTE":"＋ SUIVRE LOCALEMENT");
+ watchButton.type="button";watchButton.setAttribute("aria-pressed",String(watch.has(g.key)));
+ watchButton.addEventListener("click",()=>save(g));
+ const compare=make("button","","COMPARER LES COTES ▾");compare.type="button";
+ const details=make("div","book-list");details.hidden=true;
+ for(const row of g.bookmakers){
+  const line=make("div","book-row");
+  line.append(make("span","",row.bookmaker.replace("_fr","").toUpperCase()+" · "+date(row.quote_at_utc)),
+    make("strong","",price(row.decimal_odds)));
+  details.append(line);
+ }
+ compare.addEventListener("click",()=>{details.hidden=!details.hidden;compare.textContent=details.hidden?"COMPARER LES COTES ▾":"FERMER COMPARAISON ▴";});
+ const open=make("a","","DOSSIER MATCH ↗");open.href=matchLink(g.league,g.event_id);
+ actions.append(watchButton,compare,open);
+ card.append(actions,details);return card;
+}
+function journalRow(r){
+ const card=make("article","journal-row");
+ const title=make("div");
+ title.append(make("div","j-title",r.away+" @ "+r.home),
+  make("span","j-time",r.league+" · "+date(r.start_utc)+" · "+r.outcome+
+   (r.line==null?"":" "+r.line)));
+ card.append(title);
+ const status=make("span","j-status "+r.status,
+  ({won:"GAGNÉ",lost:"PERDU",push:"REMBOURSÉ",pending:"EN ATTENTE",
+  unverified:"NON VÉRIFIÉ"})[r.status]||r.status);
+ card.append(status);
+ card.append(make("span","value",r.bookmaker?.replace("_fr","")+" @"+price(r.decimal_odds)));
+ card.append(make("span","value",r.paper_stake_units+" u"));
+ card.append(make("span","value",r.paper_profit_units==null?"—":units(r.paper_profit_units)));
+ if(r.exclusion_reason)card.append(make("span","details-note",r.exclusion_reason));
+ return card;
+}
+function matchesQuery(row){
+ const q=$("search").value.trim().toLocaleLowerCase("fr");
+ const league=$("sport").value;
+ if(league&&row.league!==league)return false;
+ if(q&&![row.away,row.home,row.league,row.bookmaker||"",row.selection_label||"",row.outcome||"",JSON.stringify(row.bookmakers||[])].some(x=>String(x).toLocaleLowerCase("fr").includes(q)))return false;
+ const mode=$("when").value,up=dateTime(row.start_utc)>Date.now();
+ if(mode==="upcoming"&&!up||mode==="previous"&&up)return false;
+ return true;
+}
+function renderSelection(items){
+ const root=$("root");root.replaceChildren();
+ const filtered=items.filter(matchesQuery);
+ if(!filtered.length){root.append(make("div","empty","Aucune sélection dans cette vue. Les choix sont retirés du radar à l'heure du match, et les anciens prix restent consultables dans les archives."));return;}
+ const list=make("div","cards");for(const item of filtered)list.append(singleGroup(item));root.append(list);
+}
+function renderHistory(excluded=false){
+ const root=$("root");root.replaceChildren();
+ const mode=$("state").value;
+ const records=feed.paper_records.filter(r=>matchesQuery(r)&&
+  (excluded?r.status==="unverified":r.status!=="unverified")&&
+  (mode==="all"||r.status===mode));
+ if(!records.length){root.append(make("div","empty",excluded?"Aucun cas exclu selon ces filtres.":"Aucun pari fictif vérifié ne correspond aux filtres."));return;}
+ const list=make("div","",undefined);list.id="journal";
+ for(const r of records)list.append(journalRow(r));root.append(list);
+}
+function renderPerformance(){
+ const root=$("performance");root.replaceChildren();
+ if(view!=="history")return;
+ root.append(make("h2","section-title","PERFORMANCE FICTIVE PAR COMPÉTITION"));
+ root.append(make("p","caption","ROI sur les seules simulations pré-match réglées et vérifiées. L'échantillon de deux règlements initiaux ne démontre aucune stratégie rentable."));
+ const list=make("div","performance");
+ for(const [league,x] of Object.entries(feed.performance_by_league||{})){
+  const c=make("article","perf");
+  c.append(make("small","",league),
+    make("strong","",x.roi_percent==null?"EN ATTENTE":percent(x.roi_percent)),
+    make("div","details-note",x.settled+" réglées / "+x.total+" suivies · "+units(x.profit_units)));
+  list.append(c);
+ }
+ root.append(list);
+ const csv=make("button","export","EXPORTER MON JOURNAL FICTIF CSV");
+ csv.type="button";csv.addEventListener("click",()=>{
+  const keys=["id","league","event_id","home","away","start_utc","outcome","bookmaker","decimal_odds","status","paper_stake_units","paper_profit_units","exclusion_reason"];
+  const esc=value=>'"'+String(value??"").replaceAll('"','""')+'"';
+  const content=[keys.join(";"),...feed.paper_records.map(r=>keys.map(k=>esc(r[k])).join(";"))].join("\n");
+  const blob=new Blob(["\uFEFF"+content],{type:"text/csv;charset=utf-8"});
+  const url=URL.createObjectURL(blob),a=make("a");a.href=url;a.download="revue-picks-suivi-fictif.csv";a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),10000);
+ });
+ root.append(csv);
+}
+function render(){
+ if(!feed)return;
+ for(const b of document.querySelectorAll("[data-view]"))
+  b.setAttribute("aria-selected",String(b.dataset.view===view));
+ const historic=view==="history"||view==="excluded";
+ $("state").hidden=!historic;
+ $("when").disabled=historic?false:false;
+ if(view==="radar")renderSelection(feed.research_selections);
+ if(view==="watchlist"){
+  const items=feed.research_selections.filter(r=>watch.has(r.key));
+  renderSelection(items);
+  if(!items.length)$("root").replaceChildren(make("div","empty","Aucun match suivi localement. Ajoute une sélection depuis le radar ; elle reste uniquement sur ce navigateur Android et n'est ni une mise ni un verrou de prédiction."));
+ }
+ if(view==="history"||view==="excluded")renderHistory(view==="excluded");
+ renderPerformance();
+}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{
+ view=b.dataset.view;render();
+}));
+for(const key of ["search","sport","when","state"])
+ $(key).addEventListener(key==="search"?"input":"change",render);
+(async()=>{
+ try{
+  const res=await fetch("./picks-center-latest.json?t="+Date.now(),{cache:"no-store"});
+  if(!res.ok)throw Error("HTTP "+res.status);
+  const data=await res.json();
+  if(!valid(data))throw Error("Provenance ou format non vérifié");
+  feed=data;
+  $("n-candidates").textContent=data.unique_research_selections;
+  $("n-upcoming").textContent=data.upcoming_research_selections;
+  $("n-settled").textContent=data.paper_summary.settled;
+  $("n-excluded").textContent=data.paper_summary.excluded;
+  $("n-roi").textContent=data.paper_summary.paper_roi_percent==null?"—":percent(data.paper_summary.paper_roi_percent);
+  $("n-roi-desc").textContent=data.paper_summary.settled+
+    " réglées, "+units(data.paper_summary.paper_profit_units)+" · échantillon faible";
+  const names=[...new Set([...data.research_selections.map(r=>r.league),
+    ...data.paper_records.map(r=>r.league)])].sort();
+  for(const label of names)$("sport").add(new Option(label,label));
+  $("status").textContent="Moteur observé le "+date(data.source_engine_generated_at_utc)+
+   " · journal vérifié le "+date(data.source_ledger_generated_at_utc)+
+   " · export "+date(data.generated_at_utc)+" · "+
+   data.source_candidate_count+" cotations-candidates ramenées à "+
+   data.unique_research_selections+" sélections distinctes ·"+
+   " les prix ne sont pas live, et le modèle ne valide aucune EV.";
+  render();
+ }catch(err){$("status").textContent="Données des sélections indisponibles : "+err.message;}
+})();
+</script></body></html>
