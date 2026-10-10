@@ -13,7 +13,7 @@ def sample(team="NYR", value="0.55", games="3", situation="5on5"):
     return ("team,situation,games_played,iceTime,goalsFor,goalsAgainst,"
             "shotsOnGoalFor,shotsOnGoalAgainst,xGoalsFor,xGoalsAgainst,"
             "xGoalsPercentage,corsiPercentage,fenwickPercentage\n"
-            f"{team},{situation},{games},180,11,7,101,89,9.8,7.9,{value},0.52,0.50\n")
+            f"{team},{situation},{games},10800,11,7,101,89,9.8,7.9,{value},0.52,0.50\n")
 
 
 class OfficialMoneyPuckFeedTests(unittest.TestCase):
@@ -34,6 +34,7 @@ class OfficialMoneyPuckFeedTests(unittest.TestCase):
         self.assertEqual((row["team"], row["season"]), ("NYR", "2026-2027"))
         self.assertEqual(row["xg_share"], 0.55)
         self.assertAlmostEqual(row["xg_for_60"], 3.2667)
+        self.assertAlmostEqual(row["shots_for_60"], 33.6667)
         self.assertEqual(row["games_played"], 3)
         self.assertAlmostEqual(row["save_pct"], round(1 - 7/89, 4))
 
@@ -60,6 +61,7 @@ class OfficialMoneyPuckFeedTests(unittest.TestCase):
                             "Fri, 09 Oct 2026 02:00:00 GMT")
         doc = create_snapshot(now, fetch)
         self.assertEqual(doc["current_season"], "2026-2027")
+        self.assertIn("seconds", doc["unit_note"])
         self.assertFalse(doc["seasons"]["2026-2027"])
         self.assertEqual(doc["status"]["2026-2027"]["status"], "unavailable")
         self.assertEqual(doc["seasons"]["2025-2026"][0]["season"], "2025-2026")
