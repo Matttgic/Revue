@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b19">
+<title>État des données · Revue Arcade</title>
+<meta name="description" content="État des flux sportifs, cotes observées, matchs, résultats et limites réelles de Revue.">
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+main{max-width:980px!important;margin:auto!important;padding:30px 16px 75px!important}
+h1{font:900 clamp(36px,6vw,64px)/1 'Chakra Petch',sans-serif;margin:14px 0}
+h1 span{color:#76f5de}
+.intro{font-size:13px;line-height:1.75;color:#bed4e5;max-width:720px}
+.figures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:25px 0}
+.figure{border:1px solid #36556a;padding:18px;border-radius:12px;background:#10263c}
+.figure small{display:block;font-size:11px;color:#9eb7ce}
+.figure strong{font:800 clamp(21px,4vw,35px) 'Chakra Petch',sans-serif;color:#7af0df;display:block;margin:9px 0}
+.section{margin:31px 0}
+.section h2{font:800 clamp(19px,3.5vw,28px) 'Chakra Petch',sans-serif}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.source{border:1px solid #334d67;background:#13223a;padding:13px 16px;border-radius:11px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.source strong{font:700 13px 'Chakra Petch',sans-serif}
+.source small{display:block;font-size:11px;color:#a4bcd1;margin-top:5px}
+.state{font:800 11px 'Chakra Petch',sans-serif;padding:6px 8px;border-radius:7px;white-space:nowrap;color:#ffcc99;background:#382f34}
+.state.ok{color:#85efd9;background:#173d43}
+.warn{border-left:3px solid #ffc780;background:#272a3a;padding:15px;color:#e4d9c8;font-size:12px;line-height:1.75}
+ul{color:#c9d7e6;font-size:13px;line-height:1.75;padding-left:21px}
+li{margin-bottom:10px}
+#status{font-size:12px;color:#a9c8db}
+@media(max-width:660px){.grid{grid-template-columns:1fr}.figures{grid-template-columns:1fr 1fr}.figures .figure:last-child{grid-column:span 2}}
+</style></head><body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a>
+<a href="./historique.html">HISTORIQUE</a><a href="./lab.html">LAB</a></nav>
+</div></div>
+<main>
+<span class="arc-eyebrow">REVUE / SOURCE CONTROL</span>
+<h1>LES <span>DONNÉES.</span></h1>
+<p class="intro">Pas de pourcentage de projet inventé. Chaque bloc affiche sa dernière observation et sa fraîcheur. Les cotes sont des captures historiques, pas des prix garantis actuellement disponibles.</p>
+<p id="status" role="status">Lecture de l'état des sources…</p>
+<div class="figures">
+<div class="figure"><small>Sources essentielles à jour</small><strong id="fresh">—</strong></div>
+<div class="figure"><small>Matchs futurs observés</small><strong id="matches">—</strong></div>
+<div class="figure"><small>Simulations réglées</small><strong id="settled">—</strong></div>
+<div class="figure"><small>Matchs avec anciens prix</small><strong id="quotes">—</strong></div>
+<div class="figure"><small>Sources de scores OK</small><strong id="score">—</strong></div>
+<div class="figure"><small>Paris réellement validés</small><strong>0</strong></div>
+</div>
+<div class="warn"><strong>Statut : recherche seulement.</strong> Ni les probabilités non calibrées ni les cotes anciennes ne permettent de garantir un avantage. Aucun pari réel n'est passé par Revue.</div>
+<section class="section"><h2>Actualisation de chaque source</h2>
+<div id="layers" class="grid" aria-live="polite"></div></section>
+<section class="section"><h2>Ce qui reste à obtenir ou à vérifier</h2>
+<ul id="blockers" aria-live="polite"></ul></section>
+<p><a href="./index.html" class="arc-btn">← RETOUR AU TABLEAU DE BORD</a>
+<a href="./lab.html" class="arc-btn">OUTILS TECHNIQUES ↗</a></p>
+<footer class="arc-footer"><span>REVUE ARCADE · TRANSPARENCE DES SOURCES</span><a href="./etat-donnees-latest.json">ÉTAT JSON COMPLET ↗</a></footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const n=(tag,text,cls)=>{const x=document.createElement(tag);if(text!==undefined)x.textContent=String(text);if(cls)x.className=cls;return x};
+(async()=>{
+try{
+ const res=await fetch("./etat-donnees-latest.json",{cache:"no-store"});
+ if(!res.ok)throw Error("Audit non encore publié");
+ const d=await res.json();
+ if(d.status!=="data_sources_audited_not_live_betting_ready"||
+    d.realtime_bookmaker_availability_verified!==false||
+    d.real_bets_enabled!==false||d.verified_positive_ev_opportunities!==0||
+    !d.layers||!d.facts)throw Error("État des sources non vérifié");
+ const diff=Date.now()-Date.parse(d.generated_at_utc);
+ if(!Number.isFinite(diff)||diff< -120000||diff>6*3600000)
+    throw Error("Le dernier contrôle est ancien : réactualisation requise");
+ $("status").textContent="Dernière vérification : "+new Date(d.generated_at_utc)
+    .toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})+
+    " · aucune nouvelle requête de cotes payantes";
+ $("fresh").textContent=d.fresh_essential_layers+" / "+d.essential_layer_count;
+ $("matches").textContent=d.facts.matchs_futurs_observes;
+ $("settled").textContent=d.facts.simulations_reglees;
+ $("quotes").textContent=d.facts.matchs_avec_cotes_historiques;
+ $("score").textContent=d.facts.scoreboard_sources_ok;
+ const names={calendrier:"Calendriers",matchs:"Match Center",cotes:"Cotes observées",
+ resultats:"Scores officiels",journal:"Journal fictif",selection:"Radar expérimental",
+ nhl_stats:"NHL officiel",nhl_moneypuck:"MoneyPuck équipes",
+ nhl_gardiens:"MoneyPuck gardiens",nhl_frontend:"NHL Monte-Carlo",reglements:"Règlements"};
+ for(const [key,info] of Object.entries(d.layers)){
+   const wrap=n("article",undefined,"source");
+   const desc=n("div");
+   desc.append(n("strong",names[key]||key));
+   desc.append(n("small",info.age_hours!=null?
+    "Observé il y a "+info.age_hours.toLocaleString("fr-FR",{maximumFractionDigits:1})+" h":
+    "Observation indisponible"));
+   const tag=n("span",info.fresh?"À JOUR":info.status.toUpperCase(),"state"+(info.fresh?" ok":""));
+   wrap.append(desc,tag);$("layers").append(wrap);
+ }
+ for(const problem of d.remaining_blockers)$("blockers").append(n("li",problem));
+}catch(err){
+ $("status").textContent="Contrôle indisponible ou périmé : "+err.message;
+ ["fresh","matches","settled","quotes","score"].forEach(id=>$(id).textContent="—");
+}
+})();
+</script>
+</body></html>
