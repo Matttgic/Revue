@@ -12,7 +12,7 @@ DOCS=ROOT/"docs"
 PAGES=(
     "index.html","match-center.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
-    "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html",
+    "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
 
 class Page(HTMLParser):
@@ -70,6 +70,19 @@ class ArenaTests(unittest.TestCase):
                         check=subprocess.run([node,"--check",str(script)],
                             capture_output=True,text=True,timeout=12)
                         self.assertEqual(check.returncode,0,check.stderr)
+
+    def test_exact_replication_report_never_uses_functional_coverage_as_exactness(self):
+        import json
+        audit=json.loads((DOCS/"reproduction-exacte-audit.json").read_text(encoding="utf-8"))
+        progress=json.loads((DOCS/"progression-revue.json").read_text(encoding="utf-8"))
+        self.assertIsNone(audit["exact_reproduction_percent"])
+        self.assertEqual(audit["exact_end_to_end_parity"],"NOT_VERIFIED")
+        self.assertTrue(audit["functional_coverage_percent_is_not_reproduction"])
+        self.assertEqual(progress["exact_end_to_end_parity"],"NOT_VERIFIED")
+        self.assertIsNone(progress["exact_reproduction_percent"])
+        self.assertGreater(audit["backend"]["source_route_count"],0)
+        self.assertIn("reproduction-exacte-audit.json",
+                      (DOCS/"reproduction-exacte.html").read_text(encoding="utf-8"))
 
     def test_main_page_uses_strict_reproduction_not_35_percent(self):
         front=(DOCS/"index.html").read_text(encoding="utf-8")
