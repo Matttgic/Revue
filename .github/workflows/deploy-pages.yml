@@ -65,6 +65,8 @@ jobs:
           python -m unittest discover -s tests -p 'test_phase1_nhl_site.py' -v
           python -m unittest discover -s tests -p 'test_phase2_site.py' -v
           python -m unittest discover -s tests -p 'test_phase8_site.py' -v
+          python -m unittest discover -s tests -p 'test_phase9_acceptation.py' -v
+          python -m outils.phase9_acceptation_production
           python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
           node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js
       - uses: actions/configure-pages@v5
@@ -90,6 +92,8 @@ jobs:
             '/bilan.html':b'bilan-profit',
             '/phase8-ui.css':b'phase8-why-hero',
             '/arcade-v3-data.js':b'RevueArcadeV3',
+            '/phase9-production.html':b'p9-status',
+            '/phase9-readiness-latest.json':b'revue_phase9_release_gate_v1',
           }
           for path,marker in checks.items():
               last_error=None
