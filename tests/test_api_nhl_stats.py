@@ -117,17 +117,18 @@ class NHLAdvancedRoutes(unittest.TestCase):
         self.assertEqual(self.client.get("/nhl/moneypuck").status_code,503)
 
     def test_fresh_moneypuck_live_source_and_no_phantom_fields(self):
+        codes=["A"+chr(65+i//26)+chr(65+i%26) for i in range(25)]
         header="team,situation,games_played,goalsFor,goalsAgainst,xGoalsPercentage,name,icetime,xGoals,goals"
-        teamrows=[f"T{i:02d},all,3,9,8,, ,,, " for i in range(1,26)]
-        teamrows += [f"T{i:02d},5on5,3,,,0.53, ,,, " for i in range(1,26)]
-        goalie=[f"T{i:02d},all,3,,,,Goalie{i},3600,3.2,2" for i in range(1,26)]
+        teamrows=[f"{team},all,3,9,8,, ,,, " for team in codes]
+        teamrows += [f"{team},5on5,3,,,0.53, ,,, " for team in codes]
+        goalie=[f"{team},all,3,,,,Goalie{i},3600,3.2,2" for i,team in enumerate(codes)]
         def fetch(url):
             return header+"\n"+"\n".join(goalie if url.endswith("goalies.csv") else teamrows)
         data=live_moneypuck_snapshot(NOW,fetcher=fetch)
         self.assertEqual(len(data["teams"]),25)
         self.assertEqual(len(data["goalies"]),25)
-        self.assertEqual(data["teams"]["T01"]["goals_for_pg"],3)
-        self.assertEqual(data["teams"]["T01"]["xgf_pct"],53)
+        self.assertEqual(data["teams"]["AAA"]["goals_for_pg"],3)
+        self.assertEqual(data["teams"]["AAA"]["xgf_pct"],53)
         self.assertEqual(data["goalies"][0]["gsax"],1.2)
         self.assertFalse(data["confirmed_starting_goalies"])
         self.assertIn("partial",data["revue_reproduction_status"])
