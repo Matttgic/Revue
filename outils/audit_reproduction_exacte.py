@@ -327,8 +327,18 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
     model = _json(target / "docs/parite-modeles-clairvoyance.json")
     real_path = target / "docs/parite-clairvoyance-nhl-observe.json"
     real = _json(real_path) if real_path.is_file() else {}
+    current_predictor_digest = sha256(reference / "app/services/predictor.py")
+    # A data-only commit does not invalidate a model source comparison.
+    # Older evidence without a source-file digest is valid only at the exact
+    # original commit it examined. Future evidence must pin the predictor hash.
+    nhl_prediction_code_unchanged = bool(
+        (current_predictor_digest and
+         real.get("reference_predictor_sha256") == current_predictor_digest) or
+        (not real.get("reference_predictor_sha256") and current_sha and
+         real.get("reference_commit") == current_sha)
+    )
     validated_real = bool(
-        current_sha and real.get("reference_commit") == current_sha and
+        nhl_prediction_code_unchanged and
         type(real.get("real_nhl_fixtures_compared")) is int and
         real["real_nhl_fixtures_compared"] > 0 and
         real.get("reference_vs_revue_entire_output_dict_equal") ==
@@ -451,6 +461,8 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "verification_is_on_current_source_commit":
                 bool(current_sha and
                      model.get("original_source_commit") == current_sha),
+            "reference_predictor_sha256_matches": nhl_prediction_code_unchanged,
+            "reference_predictor_sha256_of_current_checkout": current_predictor_digest,
             "current_real_game_same_input_outputs_equal":
                 "VERIFIED_ON_REVUE_INPUTS_ONLY" if validated_real else "NOT_VERIFIED",
             "current_nhl_real_fixtures_tested": real["real_nhl_fixtures_compared"] if validated_real else 0,
