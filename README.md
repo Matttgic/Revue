@@ -1,3 +1,12 @@
+## Bloc données NHL : gardiens ESPN + modèles verrouillés (10/10/2026)
+
+**Intégrations fonctionnelles livrées :** [gardiens ESPN observés](docs/nhl-espn-goalies-latest.json) · [outil de jointure strict](outils/nhl_espn_goalies.py) · [tests hors réseau](tests/test_nhl_espn_goalies.py) · [CI](.github/workflows/nhl-espn-goalies.yml) ; [prévisions NHL pré-match verrouillées](docs/nhl-frontend-prospective-ledger.json) · [Brier/LogLoss comparés](docs/nhl-frontend-prospective-performance.json) · [code du suivi](outils/nhl_frontend_tracker.py) · [tests anti-fuite](tests/test_nhl_frontend_tracker.py) · [CI](.github/workflows/nhl-frontend-prospective.yml).
+
+- Dernière vérification : 15 matchs NHL joints à ESPN par identités d'équipes **et horaire** ; **11 statuts de gardiens « confirmed » et 19 « projected »**, relevés ESPN à cet instant, et non garanties de titulaires ayant finalement joué.
+- **15 couples de probabilités Monte-Carlo / Ensemble verrouillés avant le coup d'envoi**, 0 résultat encore réglé lors de la première publication. Les scores officiels NHL seuls règleront les entrées à mesure ; les Brier/LogLoss sont strictement nuls/absents avant résultat, jamais inventés.
+- Les annonces de gardiens sont montrées séparément et **ne modifient aucune probabilité déjà verrouillée**. Aucune donnée de blessure/Edge reconstruite arbitrairement ; aucune cote de bookmaker en direct garantie, aucun pari et aucune preuve de rentabilité.
+- [Tableau de fraîcheur des 13 couches de données](docs/etat-donnees.html). Les 6 sources essentielles avaient toutes passé le dernier contrôle ; ce n'est pas une preuve d'équivalence complète avec le modèle original. **Couverture fonctionnelle globale toujours estimée à 62 %**, aucune réévaluation de ce pourcentage à ce stade.
+
 # Revue Arcade V3 — à jouer, pourquoi, bilan
 
 **Interface par défaut : [ouvrir Revue Arcade](docs/index.html).** Trois étapes sans onglets inutiles : rencontres futures vérifiées et filtrables, explications par match de l'abstention ou des modèles disponibles, puis bilan fictif fondé uniquement sur les résultats pré-match réglés. Les pages détaillées restent accessibles depuis le bas de l'accueil et le Lab.
