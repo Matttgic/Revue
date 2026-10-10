@@ -1,0 +1,403 @@
+{
+  "version": "revue_nhl_backend_input_sensitivity_v1",
+  "status": "same_real_observed_nhl_features_hypothetical_scenarios",
+  "generated_at_utc": "2026-10-10T16:57:22.156131+00:00",
+  "source_forensics": "docs/clairvoyance-nhl-forensics.json",
+  "scenarios": {
+    "observed_revue_inputs": "Recalculated from observed Revue Elo + source-confirmed 5v5 xG + Revue historical goalie proxies",
+    "equal_elo_1500": "Hypothetical: replace both Revue Elo ratings with 1500; original hidden Elo NOT known",
+    "equal_goalies_091": "Hypothetical: equalize both historical goalie proxies to 0.91; real starters NOT known",
+    "neutral_xg_50_50": "Hypothetical: neutralize observed xG to 50/50",
+    "equal_elo_equal_goalies": "Hypothetical combined neutral Elo and goalie"
+  },
+  "matched_scenarios": 8,
+  "mean_abs_gap_published_vs_observed_revue_pp": 12.71,
+  "mean_abs_gap_with_equal_elo_pp": 9.28,
+  "mean_abs_gap_with_equal_goalies_pp": 9.34,
+  "mean_abs_gap_with_neutral_xg_pp": 12.44,
+  "games_where_equal_elo_reduces_gap": 5,
+  "games_where_equal_goalies_reduces_gap": 3,
+  "games": [
+    {
+      "event_id": "2026020077",
+      "league": "NHL",
+      "home": "PIT",
+      "away": "DAL",
+      "side": "home",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "published_probability": 0.52,
+      "recomputed_revue_probability": 0.242,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1496.91,
+        "away": 1546.84
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.8592,
+        "away_save_pct": 0.9672
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.242,
+          "absolute_gap_to_published_pp": 27.8,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.314,
+          "absolute_gap_to_published_pp": 20.6,
+          "change_from_observed_revue_pp": 7.2
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.458,
+          "absolute_gap_to_published_pp": 6.2,
+          "change_from_observed_revue_pp": 21.6
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.248,
+          "absolute_gap_to_published_pp": 27.2,
+          "change_from_observed_revue_pp": 0.6
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.53,
+          "absolute_gap_to_published_pp": 1.0,
+          "change_from_observed_revue_pp": 28.8
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    },
+    {
+      "event_id": "2026020071",
+      "league": "NHL",
+      "home": "NJD",
+      "away": "VAN",
+      "side": "away",
+      "kickoff_utc": "2026-10-10T19:30:00+00:00",
+      "published_probability": 0.372,
+      "recomputed_revue_probability": 0.111,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1491.31,
+        "away": 1401.58
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.875,
+        "away_save_pct": 0.7885
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.111,
+          "absolute_gap_to_published_pp": 26.1,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.234,
+          "absolute_gap_to_published_pp": 13.8,
+          "change_from_observed_revue_pp": 12.3
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.284,
+          "absolute_gap_to_published_pp": 8.8,
+          "change_from_observed_revue_pp": 17.3
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.168,
+          "absolute_gap_to_published_pp": 20.4,
+          "change_from_observed_revue_pp": 5.7
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.407,
+          "absolute_gap_to_published_pp": 3.5,
+          "change_from_observed_revue_pp": 29.6
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    },
+    {
+      "event_id": "2026020080",
+      "league": "NHL",
+      "home": "COL",
+      "away": "TOR",
+      "side": "away",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "published_probability": 0.399,
+      "recomputed_revue_probability": 0.26,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1571.64,
+        "away": 1431.37
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.8947,
+        "away_save_pct": 0.9062
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.26,
+          "absolute_gap_to_published_pp": 13.9,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.445,
+          "absolute_gap_to_published_pp": 4.6,
+          "change_from_observed_revue_pp": 18.5
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.237,
+          "absolute_gap_to_published_pp": 16.2,
+          "change_from_observed_revue_pp": -2.3
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.302,
+          "absolute_gap_to_published_pp": 9.7,
+          "change_from_observed_revue_pp": 4.2
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.422,
+          "absolute_gap_to_published_pp": 2.3,
+          "change_from_observed_revue_pp": 16.2
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    },
+    {
+      "event_id": "2026020075",
+      "league": "NHL",
+      "home": "MTL",
+      "away": "DET",
+      "side": "away",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "published_probability": 0.492,
+      "recomputed_revue_probability": 0.381,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1533.75,
+        "away": 1455.74
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.8571,
+        "away_save_pct": 0.8621
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.381,
+          "absolute_gap_to_published_pp": 11.1,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.489,
+          "absolute_gap_to_published_pp": 0.3,
+          "change_from_observed_revue_pp": 10.8
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.371,
+          "absolute_gap_to_published_pp": 12.1,
+          "change_from_observed_revue_pp": -1.0
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.366,
+          "absolute_gap_to_published_pp": 12.6,
+          "change_from_observed_revue_pp": -1.5
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.479,
+          "absolute_gap_to_published_pp": 1.3,
+          "change_from_observed_revue_pp": 9.8
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    },
+    {
+      "event_id": "2026020078",
+      "league": "NHL",
+      "home": "CHI",
+      "away": "CAR",
+      "side": "home",
+      "kickoff_utc": "2026-10-10T23:00:00+00:00",
+      "published_probability": 0.422,
+      "recomputed_revue_probability": 0.329,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1410.6,
+        "away": 1574.21
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.8913,
+        "away_save_pct": 0.8507
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.329,
+          "absolute_gap_to_published_pp": 9.3,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.554,
+          "absolute_gap_to_published_pp": 13.2,
+          "change_from_observed_revue_pp": 22.5
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.247,
+          "absolute_gap_to_published_pp": 17.5,
+          "change_from_observed_revue_pp": -8.2
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.392,
+          "absolute_gap_to_published_pp": 3.0,
+          "change_from_observed_revue_pp": 6.3
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.473,
+          "absolute_gap_to_published_pp": 5.1,
+          "change_from_observed_revue_pp": 14.4
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    },
+    {
+      "event_id": "2026020073",
+      "league": "NHL",
+      "home": "FLA",
+      "away": "MIN",
+      "side": "home",
+      "kickoff_utc": "2026-10-10T22:00:00+00:00",
+      "published_probability": 0.61,
+      "recomputed_revue_probability": 0.543,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1495.02,
+        "away": 1527.48
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.9273,
+        "away_save_pct": 0.9273
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.543,
+          "absolute_gap_to_published_pp": 6.7,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.59,
+          "absolute_gap_to_published_pp": 2.0,
+          "change_from_observed_revue_pp": 4.7
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.543,
+          "absolute_gap_to_published_pp": 6.7,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.489,
+          "absolute_gap_to_published_pp": 12.1,
+          "change_from_observed_revue_pp": -5.4
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.59,
+          "absolute_gap_to_published_pp": 2.0,
+          "change_from_observed_revue_pp": 4.7
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    },
+    {
+      "event_id": "2026020081",
+      "league": "NHL",
+      "home": "NYI",
+      "away": "TBL",
+      "side": "home",
+      "kickoff_utc": "2026-10-10T23:30:00+00:00",
+      "published_probability": 0.474,
+      "recomputed_revue_probability": 0.534,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1492.9,
+        "away": 1559.7
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.9651,
+        "away_save_pct": 0.9
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.534,
+          "absolute_gap_to_published_pp": 6.0,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.63,
+          "absolute_gap_to_published_pp": 15.6,
+          "change_from_observed_revue_pp": 9.6
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.404,
+          "absolute_gap_to_published_pp": 7.0,
+          "change_from_observed_revue_pp": -13.0
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.57,
+          "absolute_gap_to_published_pp": 9.6,
+          "change_from_observed_revue_pp": 3.6
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.5,
+          "absolute_gap_to_published_pp": 2.6,
+          "change_from_observed_revue_pp": -3.4
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    },
+    {
+      "event_id": "2026020070",
+      "league": "NHL",
+      "home": "BOS",
+      "away": "PHI",
+      "side": "home",
+      "kickoff_utc": "2026-10-10T17:00:00+00:00",
+      "published_probability": 0.644,
+      "recomputed_revue_probability": 0.652,
+      "source_5v5_xg_inputs_equal": true,
+      "elo_proxy": {
+        "home": 1528.27,
+        "away": 1493.44
+      },
+      "historical_goalie_proxy_not_confirmed_starter": {
+        "home_save_pct": 0.9322,
+        "away_save_pct": 0.9273
+      },
+      "counterfactuals": {
+        "observed_revue_inputs": {
+          "model_probability": 0.652,
+          "absolute_gap_to_published_pp": 0.8,
+          "change_from_observed_revue_pp": 0.0
+        },
+        "equal_elo_1500": {
+          "model_probability": 0.603,
+          "absolute_gap_to_published_pp": 4.1,
+          "change_from_observed_revue_pp": -4.9
+        },
+        "equal_goalies_091": {
+          "model_probability": 0.642,
+          "absolute_gap_to_published_pp": 0.2,
+          "change_from_observed_revue_pp": -1.0
+        },
+        "neutral_xg_50_50": {
+          "model_probability": 0.595,
+          "absolute_gap_to_published_pp": 4.9,
+          "change_from_observed_revue_pp": -5.7
+        },
+        "equal_elo_equal_goalies": {
+          "model_probability": 0.593,
+          "absolute_gap_to_published_pp": 5.1,
+          "change_from_observed_revue_pp": -5.9
+        }
+      },
+      "not_identified_as_causal_explanation": true
+    }
+  ],
+  "real_bets_enabled": false,
+  "calibration_or_betting_recommendations": false,
+  "actual_original_hidden_elo_or_starters_verified": false,
+  "original_published_model_family_verified": false,
+  "note": "Never interpret lower hypothetical gap as evidence that the original used neutral Elo/goalies. Published bestBets can run a distinct frontend ensemble. This only diagnoses sensitivity with same Revue formula and real observed feature values."
+}
