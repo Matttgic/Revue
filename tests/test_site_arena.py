@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","match-center.html","predictions-revue.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -137,6 +137,21 @@ class ArenaTests(unittest.TestCase):
                 self.assertIn(data,ui)
                 self.assertTrue((DOCS/data).is_file())
         self.assertIn("Aucune mise réelle",ui)
+
+    def test_nhl_source_input_gap_is_diagnostic_only(self):
+        import json
+        report=json.loads((DOCS/"nhl-source-input-delta.json").read_text(encoding="utf-8"))
+        front=(DOCS/"index.html").read_text(encoding="utf-8")
+        page=(DOCS/"nhl-source-input-gap.html").read_text(encoding="utf-8")
+        exact=(DOCS/"reproduction-exacte.html").read_text(encoding="utf-8")
+        self.assertIn("nhl-source-input-gap.html",front)
+        self.assertIn("nhl-source-input-gap.html",exact)
+        self.assertIn("nhl-source-input-delta.json",page)
+        self.assertIn("original_inputs_identical",page)
+        self.assertFalse(report["real_bets_enabled"])
+        self.assertFalse(report["original_inputs_identical"])
+        self.assertFalse(report["end_to_end_parity_verified"])
+        self.assertEqual(report["games_comparable"],len(report["games"]))
 
     def test_match_center_is_discoverable_and_reports_only_source_observations(self):
         import json

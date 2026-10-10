@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#060a14">
+<meta name="description" content="Écarts de variables NHL : xG 5v5/all, gardiens NHL Edge/MoneyPuck et probabilités expérimentales.">
+<title>REVUE — Audit des entrées NHL</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1100px!important;margin:auto!important;padding:34px 17px 75px!important}
+h1{font:800 clamp(34px,7vw,62px)/1.05 'Chakra Petch',sans-serif;letter-spacing:-.05em;margin:15px 0}
+h1 span{color:#55f5de}.eyebrow{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.18em;color:#55f5de}
+.lead{max-width:840px;color:#aac1d7;font-size:13px;line-height:1.8}
+.notice{margin:22px 0;padding:15px 18px;color:#e9caa3;border-left:3px solid #dfab73;background:#1b2535;font-size:12px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0}
+.metric{padding:19px;background:linear-gradient(130deg,#182b46,#101c30);border:1px solid #35536c}
+.metric small{font:700 10px/1.5 'Chakra Petch',sans-serif;color:#94b6cf;letter-spacing:.1em}
+.metric strong{display:block;font:800 30px 'Chakra Petch',sans-serif;color:#55f5de;margin-top:12px}
+.section-title{font:700 22px 'Chakra Petch',sans-serif;margin:32px 0 12px}
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:17px 0}
+select{padding:12px!important;font-size:12px!important}
+.rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.game{padding:18px;background:linear-gradient(135deg,#142b42,#101a2b);border:1px solid #38546f;min-width:0}
+.game h3{font:800 22px 'Chakra Petch',sans-serif;margin:7px 0 15px}
+.game .id{font:700 10px monospace;color:#8dc1d1}
+.probs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.probs div{background:#203c51;padding:10px}
+.probs small{font:10px/1.4 'DM Sans',sans-serif;color:#abc1d0}
+.probs strong{display:block;font:800 19px 'Chakra Petch',sans-serif;color:#e6faff;margin-top:5px}
+.delta{color:#55f5de;font:700 13px 'Chakra Petch',sans-serif;margin:15px 0 0}
+.muted{font:11px/1.65 'DM Sans',sans-serif;color:#adc0d4}
+.status{padding:12px;background:#11273a;border:1px solid #2d576b;color:#a9d2dc;font:12px/1.6 monospace}
+.links{display:flex;flex-wrap:wrap;gap:14px;margin-top:25px;font-size:12px}
+@media(max-width:850px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.rows{grid-template-columns:1fr}}
+@media(max-width:430px){.probs strong{font-size:16px}.metric strong{font-size:26px}}
+</style></head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./match-center.html">MATCHS</a><a href="./predictions-revue.html">PRÉVISIONS</a><a href="./reproduction-exacte.html">PARITÉ EXACTE</a></nav>
+<span class="rv-top-tag">NHL // INPUT AUDIT</span></div></div>
+<main>
+<span class="eyebrow">REVUE / SOURCE DIFFERENCE ANALYSIS</span>
+<h1>MÊME FORMULE.<br><span>ENTRÉES DIFFÉRENTES.</span></h1>
+<p class="lead">Analyse des 5v5 contre toutes situations pour les xG MoneyPuck, et des gardiens historiques MoneyPuck contre le gardien ayant joué le plus de matchs dans les statistiques NHL officielles. Les probabilités sont des calculs Revue, pas les prédictions exactes publiées par Clairvoyance.</p>
+<div class="notice">Diagnostic de sensibilité uniquement. Les Elo SQL originaux, les saisons par défaut, les choix de gardiens et la normalisation exacte des xG de Clairvoyance ne sont pas prouvés identiques. Aucune cote, aucun pari conseillé. Les statistiques officielles des gardiens peuvent être plus récentes que les prévisions gelées.</div>
+<div class="metrics">
+<div class="metric"><small>MATCHS COMPARABLES</small><strong id="n-games">—</strong></div>
+<div class="metric"><small>GARDIENS NON AMBIGUS</small><strong id="n-goalies">—</strong></div>
+<div class="metric"><small>ÉCART MOYEN ABSOLU · XG SEUL</small><strong id="n-xg">—</strong></div>
+<div class="metric"><small>ÉCART MOYEN ABSOLU · COMBINÉ</small><strong id="n-both">—</strong></div>
+</div>
+<p class="status" role="status" id="status" aria-live="polite">Chargement du rapport horodaté…</p>
+<div class="toolbar">
+<label for="filter" class="eyebrow">AFFICHER LES RENCONTRES</label>
+<select id="filter"><option value="all">Toutes</option><option value="complete">Gardiens disponibles</option><option value="missing">Gardiens non vérifiables</option></select>
+</div>
+<h2 class="section-title">Impact sur les probabilités</h2>
+<div class="rows" id="games"></div>
+<div class="links">
+<a href="./nhl-source-input-delta.json">RAPPORT JSON</a>
+<a href="./reproduction-exacte.html">AUDIT DE REPRODUCTION EXACTE</a>
+<a href="./predictions-revue.html">PRÉVISIONS EXPÉRIMENTALES</a>
+</div>
+<p class="muted">Mise à jour automatique quotidienne via GitHub Actions. Ces comparaisons restent des observations archivées à la date de l'audit et ne sont pas une source live de paris.</p>
+</main>
+<script>
+"use strict";
+const get=id=>document.getElementById(id);
+const el=(tag,cls,value)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=String(value);return e;};
+const pct=n=>Number.isFinite(n)?(100*n).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
+const pp=n=>Number.isFinite(n)?(n>0?"+":"")+n.toLocaleString("fr-FR",{maximumFractionDigits:2})+" pt":"INDISPONIBLE";
+let report=null;
+function render(){
+ const root=get("games");root.replaceChildren();
+ if(!report)return;
+ const filter=get("filter").value;
+ const rows=report.games.filter(g=>filter==="all"||
+    (filter==="complete"&&g.combined_change_pp!==null)||
+    (filter==="missing"&&g.combined_change_pp===null));
+ if(!rows.length){root.append(el("p","status","Aucune rencontre dans cette sélection."));return;}
+ for(const g of rows){
+  const card=el("article","game");
+  card.append(el("small","id","NHL "+g.event_id+" · "+
+   new Date(g.start_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})));
+  card.append(el("h3","",g.away+" @ "+g.home));
+  const cells=el("div","probs");
+  const values=[["5v5 / MONEYPUCK",g.recomputed_frozen_inputs_probability],
+                ["XG ALL SEUL",g.all_xg_only_home_probability],
+                ["ALL + NHL EDGE",g.all_xg_and_official_goalie_home_probability]];
+  for(const [label,value] of values){
+   const cell=el("div");cell.append(el("small","",label),el("strong","",pct(value)));cells.append(cell);
+  }
+  card.append(cells);
+  card.append(el("p","delta","VARIATION COMBINÉE : "+pp(g.combined_change_pp)));
+  const h=g.official_goalie_selection.home,a=g.official_goalie_selection.away;
+  const goalie= (x)=>x.status==="unique_most_games"?(x.name+" / "+x.games+" matchs"):"NON DÉTERMINABLE";
+  card.append(el("p","muted",
+    "Gardiens statistiques : "+g.home+" "+goalie(h)+" · "+g.away+" "+goalie(a)));
+  root.append(card);
+ }
+}
+get("filter").addEventListener("change",render);
+(async()=>{
+ try{
+  const resp=await fetch("./nhl-source-input-delta.json?t="+Date.now(),{cache:"no-store"});
+  if(!resp.ok)throw Error("Rapport indisponible");
+  const doc=await resp.json();
+  if(doc.status!=="diagnostic_not_original_source_parity"||
+     doc.real_bets_enabled!==false||doc.original_inputs_identical!==false||
+     !Array.isArray(doc.games))throw Error("Provenance du rapport non valide");
+  report=doc;
+  get("n-games").textContent=String(doc.games_comparable);
+  get("n-goalies").textContent=String(doc.games_with_unique_nhl_official_goalie);
+  get("n-xg").textContent=pp(doc.mean_abs_delta_xg_only_pp);
+  get("n-both").textContent=pp(doc.mean_abs_delta_combined_pp);
+  get("status").textContent="Relevé : "+
+    new Date(doc.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+
+    " · matchs historiques du rapport · parité originale NON vérifiée.";
+  render();
+ }catch(err){get("status").textContent="Impossible de vérifier le rapport : "+err.message;}
+})();
+</script></body></html>

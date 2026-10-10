@@ -9,6 +9,8 @@
 - La correspondance mathématique NHL a été conservée sur **18/18 jeux d'entrées réelles** grâce à la comparaison des empreintes de l'original `app/services/predictor.py`, malgré les changements de commits de données.
 - Les **44/44 fonctions ciblées** sont désormais épinglées aux empreintes SHA-256 des trois fichiers réellement testés (`predictor.py`, `docs/app.html` et `scripts/clairvoyance_update.py`). Les mises à jour de données du dépôt source ne font plus apparaître artificiellement ces tests comme périmés ; une modification du code source invalide bien la vérification. [Audit JSON](docs/reproduction-exacte-audit.json) · [workflow de reproduction](.github/workflows/parite-clairvoyance-predictor.yml).
 
+- **Audit des entrées NHL vers Clairvoyance (source 2026-10-10)** : [interface mobile](docs/nhl-source-input-gap.html) · [écarts mesurés JSON](docs/nhl-source-input-delta.json) · [moteur d'audit](outils/nhl_source_input_gap.py) · [tests](tests/test_nhl_source_input_gap.py). Comparaison des situations xG 5v5/all et des gardiens MoneyPuck/NHL Edge sur un échantillon pré-match, en gardant les Elo Revue identiques. Rapport descriptif horodaté, distinct des prévisions gelées ; la parité avec les inputs SQL originaux reste non démontrée.
+
 ## Priorité absolue — identité vérifiable avec Clairvoyance
 
 **Le but n'est plus « 50 % de fonctionnalités similaires » mais une reproduction exacte, comportement par comportement et sur la même version du code original, hors CFB.**
