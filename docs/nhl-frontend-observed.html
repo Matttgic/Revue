@@ -6,6 +6,7 @@
 <title>NHL · Monte-Carlo & Ensemble | Revue</title>
 <link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
 <script defer src="./retro-app.js?v=1"></script>
+<script defer src="./nhl-frontend-performance.js?v=1"></script>
 <style>
 .rv-main{max-width:1120px;margin:auto;padding:30px 17px 90px}
 .hero h1{font:900 clamp(36px,8vw,66px)/1.05 'Chakra Petch',sans-serif;letter-spacing:-.055em;margin:12px 0}
@@ -50,6 +51,7 @@
 </div>
 <p id="status" role="status" aria-live="polite">Lecture des sources horodatées…</p>
 <div id="games" class="grid"></div>
+<section data-nhl-performance class="arc-section arc-surface" aria-label="Suivi prospectif des modèles NHL"><p class="arc-help">Vérification des résultats NHL officiels…</p></section>
 <p class="detail">La probabilité « victoire domicile » englobe la prolongation selon les hypothèses du moteur. Le modèle partiel utilise des moyennes de buts par match comme proxy du taux par 60 minutes, le xGF/60 MoneyPuck comme proxy xGF5 et des paramètres neutres pour les variables inconnues. Le total 5,5 éventuellement calculé est une <strong>ligne de référence du modèle</strong>, pas une cote proposée chez un bookmaker.</p>
 <div class="footerlinks">
 <a href="./nhl-frontend-observed-latest.json">RAPPORT DES MODÈLES ↗</a>
