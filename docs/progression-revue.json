@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-10-10T12:12:00+00:00",
+  "updated_at_utc": "2026-10-10T13:37:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 50,
-  "previous_estimate_percent": 41,
-  "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
+  "estimated_functional_coverage_percent": 54,
+  "previous_estimate_percent": 50,
+  "estimate_method": "Editorial dated weighted functional-coverage checklist (weights sum 100), recomputed from displayed categories. Subjective, not verified end-to-end reproduction, model forecast parity, profitability or SLA.",
   "goal": "Reproduction fidèle et vérifiable à 100 % de Clairvoyance (hors CFB) : interface, API, acquisition de données, calculs et prédictions sur entrées identiques",
   "excluded_by_user": [
     "CFB"
@@ -15,57 +15,57 @@
       "id": "infrastructure",
       "title": "Infrastructure et automatisation",
       "weight": 10,
-      "coverage": 0.97,
+      "coverage": 0.98,
       "status": "partiel",
-      "remaining": "La supervision et les flux horaires sont actifs; restent surveillance des pannes silencieuses et garanties SLA"
+      "remaining": "Automatisations et supervision CI en place ; santé externe et SLA non garantis."
     },
     {
       "id": "sports_data",
       "title": "Sources et données sportives",
       "weight": 10,
-      "coverage": 0.69,
+      "coverage": 0.77,
       "status": "partiel",
-      "remaining": "Scores NHL et ESPN observés sur plusieurs sports, mais certains flux joueurs/compositions et saisons manquent"
+      "remaining": "Dossiers de matchs + historique ESPN regroupés par équipe ; compositions et saisons incomplètes."
     },
     {
       "id": "odds",
       "title": "Cotes françaises et marchés",
       "weight": 14,
-      "coverage": 0.71,
+      "coverage": 0.76,
       "status": "partiel",
-      "remaining": "Marchés H2H et totaux rapprochés depuis les cotes françaises observées; couverture incomplète et clôture/règles NHL à valider"
+      "remaining": "Cotations françaises datées, regroupées par marché et règle vérifiée ; couverture et prix de clôture incomplets."
     },
     {
       "id": "football",
       "title": "Modèles football",
       "weight": 12,
-      "coverage": 0.27,
+      "coverage": 0.29,
       "status": "partiel",
-      "remaining": "Restauration de parité prédictive sur données sportives réelles, xG sous licence et compositions à compléter; deux modèles déjà comparés"
+      "remaining": "Résultats historiques ESPN et modèles visibles ensemble ; entrée xG licenciée et parité source incomplètes."
     },
     {
       "id": "hockey",
       "title": "NHL et hockey spécialisé",
       "weight": 16,
-      "coverage": 0.4,
+      "coverage": 0.46,
       "status": "partiel",
-      "remaining": "Profils buts/passes/tirs historiques par match NHL et scoreboards; titulaires/alignements et calibration restent incomplets"
+      "remaining": "NHL/MoneyPuck, joueurs historiques, comparaison de l'échelle xG et verrouillage pré-match ; titulaires non confirmés."
     },
     {
       "id": "basketball",
       "title": "Modèles basketball",
       "weight": 10,
-      "coverage": 0.34,
+      "coverage": 0.36,
       "status": "partiel",
-      "remaining": "Scoreboard ESPN observé, gel des deux-issues et suivi Brier; pace/rotations/blessures et calibration restent incomplets"
+      "remaining": "Historiques NBA/WNBA, modèles et scores visibles ; rotations et étalonnage insuffisants."
     },
     {
       "id": "nfl_mlb",
       "title": "Modèles NFL et MLB",
       "weight": 10,
-      "coverage": 0.33,
+      "coverage": 0.4,
       "status": "partiel",
-      "remaining": "Scoreboards publics, règles à deux issues et verrouillage pré-match; QB/lanceurs/blessures et historique à enrichir"
+      "remaining": "Historique NFL/MLB, rejeu Elo ESPN MLB, étude du repli Elo à 1500 ; QB, pitchers, SQL d'origine absents."
     },
     {
       "id": "additional_sports",
@@ -73,15 +73,15 @@
       "weight": 8,
       "coverage": 0.1,
       "status": "partiel",
-      "remaining": "Certaines compétitions sont visibles dans le calendrier et les scores ESPN; spécialistes tennis/UFC/hockey européen restent limités"
+      "remaining": "Couverture calendrier sur UFC/LIIGA, mais modèles spécialisés très partiels."
     },
     {
       "id": "validation",
       "title": "Backtest prospectif, CLV et calibration",
       "weight": 8,
-      "coverage": 0.79,
+      "coverage": 0.84,
       "status": "partiel",
-      "remaining": "36 nouveaux verrous prospectifs multisports plus rapports football/ensemble/NHL, Brier/LogLoss et contrôle strict des résultats; échantillon réglé trop faible"
+      "remaining": "Identité événement-clubs-heure, contrôles temporels, séparation des règles, résultats papiers et tests automatiques."
     },
     {
       "id": "licensed_data",
@@ -89,7 +89,7 @@
       "weight": 2,
       "coverage": 0,
       "status": "absent",
-      "remaining": "Accès Opta et équivalence de features licenciées non obtenus"
+      "remaining": "Aucun accès aux données premium licenciées ou SQL original."
     }
   ],
   "completed_this_iteration": [
@@ -153,7 +153,13 @@
     "Interface gaming mobile docs/predictions-revue.html publiée sur GitHub Pages, filtres de date UTC et probabilités en Europe/Paris",
     "Audit de la parité de 44 fonctions désormais épinglé aux SHA-256 de 3 fichiers originaux précis, indépendamment des commits de données",
     "Égalité des prédictions NHL sur mêmes entrées Revue : 18/18 révalidés contre empreinte originale du predictor.py inchangée",
-    "Tests API, protection anti-fuite temporelle, vérification distante de Vercel, analyse JS des pages et déploiement Pages réussis"
+    "Tests API, protection anti-fuite temporelle, vérification distante de Vercel, analyse JS des pages et déploiement Pages réussis",
+    "GitHub Actions supervision: 80 authenticated public run records from 11 workflows, with separate source-SQL unknowns.",
+    "Independent NHL MoneyPuck input scale audit 0-1 vs 0-100 and MLB Elo fallback audit; both visibly labelled sensitivity studies.",
+    "Read-only original admin GET status/log signatures with SQL and original scheduler uncertainty surfaced.",
+    "117 source-verified Revue game dossiers from current snapshot, 19 with observed FR odds, 907 ESPN historical finals, 82 matches with descriptive team history, 36 strictly linked frozen paper forecasts.",
+    "Mobile 360-degree game dossier searchable by league/date/club, historical H2H/totals bookmaker tables, model probabilities, team results, NHL historical player profiles and shareable game deep links.",
+    "Two additional own read-only /revue/games API routes, verified schema/provenance and freshness checks."
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -186,7 +192,11 @@
     "strict_api_field_parity": "docs/reproduction-exacte-audit.json#http_response_schema_field_parity",
     "prospective_formula_ui": "docs/predictions-revue.html",
     "prospective_formula_api": "https://revue-api-tawny.vercel.app/revue/predictions",
-    "source_model_fingerprints": "docs/parite-modeles-clairvoyance.json"
+    "source_model_fingerprints": "docs/parite-modeles-clairvoyance.json",
+    "match_dossiers": "docs/match-dossiers-latest.json",
+    "workflow_runs": "docs/github-workflows-latest.json",
+    "nhl_xg_scale_diagnostic": "docs/nhl-source-input-delta.json",
+    "mlb_elo_diagnostic": "docs/mlb-source-elo-gap.json"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -206,12 +216,25 @@
     "10/24 = 41,7 % de couverture en signatures HTTP uniquement, pas en fonctions équivalentes ; 0 route démontrée strictement identique sur données, erreurs et identité SQL.",
     "Les tirages NHL et contrats 5/5 ne rendent pas la reproduction exacte globale calculable : backend original, données et frontend restent partiels.",
     "Le nouveau service /revue/predictions est une recherche Revue; les inputs SQL, gardiens et marchés de Clairvoyance ne sont pas identiques et /predictions/ original répond volontairement 503.",
-    "Les 44 fonctions ciblées validées, le 18/18 NHL et les 12 modèles du jour ne mesurent PAS le pourcentage de reproduction complète du site original."
+    "Les 44 fonctions ciblées validées, le 18/18 NHL et les 12 modèles du jour ne mesurent PAS le pourcentage de reproduction complète du site original.",
+    "The new 54% coverage is a dated editorial functional estimate, not exact Clairvoyance reproduction; historical original data cannot be recreated from missing SQL."
   ],
   "exact_reproduction_percent": null,
   "exact_end_to_end_parity": "NOT_VERIFIED",
   "exact_reproduction_report": "docs/reproduction-exacte-audit.json",
   "exact_reproduction_dashboard": "docs/reproduction-exacte.html",
   "estimated_functional_coverage_is_not_reproduction": true,
-  "original_source_commit_last_audited": "95258833b66179084f3ab946e25d794898200ec6"
+  "original_source_commit_last_audited": "95258833b66179084f3ab946e25d794898200ec6",
+  "latest_checkpoint_evidence": {
+    "observed_at_utc": "2026-10-10T13:36:50+00:00",
+    "source": "docs/match-dossiers-latest.json",
+    "game_dossiers": 117,
+    "historical_espn_finals": 907,
+    "dossiers_with_descriptive_history": 82,
+    "dossiers_with_observed_bookmaker_prices": 19,
+    "dossiers_with_matched_frozen_research": 36,
+    "declared_original_api_signatures": 16,
+    "original_api_routes": 24,
+    "end_to_end_source_equivalent_routes_verified": 0
+  }
 }

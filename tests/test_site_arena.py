@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -70,6 +70,22 @@ class ArenaTests(unittest.TestCase):
                         check=subprocess.run([node,"--check",str(script)],
                             capture_output=True,text=True,timeout=12)
                         self.assertEqual(check.returncode,0,check.stderr)
+
+    def test_updated_functional_milestone_matches_weighted_evidence(self):
+        import json
+        p=json.loads((DOCS/"progression-revue.json").read_text(encoding="utf-8"))
+        d=json.loads((DOCS/"match-dossiers-latest.json").read_text(encoding="utf-8"))
+        self.assertEqual(sum(x["weight"] for x in p["categories"]),100)
+        self.assertEqual(p["estimated_functional_coverage_percent"],
+                         round(sum(x["weight"]*x["coverage"] for x in p["categories"])))
+        self.assertEqual(p["estimated_functional_coverage_percent"],54)
+        checkpoint=p["latest_checkpoint_evidence"]
+        self.assertEqual(checkpoint["game_dossiers"],d["count"])
+        self.assertEqual(checkpoint["historical_espn_finals"],
+                         d["historical_finals_in_available_archive"])
+        self.assertEqual(checkpoint["dossiers_with_matched_frozen_research"],d["with_locked_forecasts"])
+        self.assertIsNone(p["exact_reproduction_percent"])
+        self.assertIn("avancement.html",(DOCS/"index.html").read_text(encoding="utf-8"))
 
     def test_exact_replication_report_never_uses_functional_coverage_as_exactness(self):
         import json
