@@ -74,6 +74,23 @@ class PaperPickHttpTests(unittest.TestCase):
         self.assertEqual(self.client.post("/picks/", json={}).status_code, 405)
         self.assertEqual(self.client.patch("/picks/1/void").status_code, 404)  # no write route registered
 
+    def test_pick_openapi_contract_validates_source_fields(self):
+        schema = self.client.get("/openapi.json").json()
+        pick = schema["components"]["schemas"]["PaperPickOut"]
+        self.assertEqual(set(pick["properties"]), {
+            "id", "sport", "espn_game_id", "game_date", "bet_type",
+            "selection", "odds", "amount", "over_under", "status",
+            "home_team", "away_team", "home_score", "away_score",
+            "notes", "settled_at", "created_at"
+        })
+        self.assertEqual(set(pick["required"]), set(pick["properties"]))
+        self.assertEqual(schema["paths"]["/picks/"]["get"]["responses"]["200"]
+                         ["content"]["application/json"]["schema"]["items"]
+                         ["$ref"], "#/components/schemas/PaperPickOut")
+        self.assertEqual(schema["paths"]["/picks/{pick_id}"]["get"]["responses"]["200"]
+                         ["content"]["application/json"]["schema"]["$ref"],
+                         "#/components/schemas/PaperPickOut")
+
     def test_stats_same_field_shape_and_paper_payout(self):
         res = self.client.get("/picks/stats")
         self.assertEqual(res.status_code, 200, res.text)

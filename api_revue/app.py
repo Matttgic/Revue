@@ -20,6 +20,28 @@ from api_revue.research_predictions import predictions_from_files
 from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
 
 
+class PaperPickOut(BaseModel):
+    # Matches app/schemas/picks.py PickOut FIELD NAMES and nullability.
+    # Values originate from a DIFFERENT, simulated Revue ledger.
+    id: int
+    sport: str
+    espn_game_id: str | None
+    game_date: date | None
+    bet_type: str
+    selection: str
+    odds: int
+    amount: float
+    over_under: float | None
+    status: str
+    home_team: str | None
+    away_team: str | None
+    home_score: int | None
+    away_score: int | None
+    notes: str | None
+    settled_at: datetime | None
+    created_at: datetime
+
+
 class NHLGameOut(BaseModel):
     id: int
     espn_id: str
@@ -230,7 +252,7 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
         except SourceUnavailable as exc:
             raise HTTPException(status_code=503,detail=str(exc)) from exc
 
-    @app.get("/picks/")
+    @app.get("/picks/",response_model=list[PaperPickOut])
     def picks_list(response:Response,status:str|None=None,
                    sport:str|None=None,game_date:date|None=None):
         rows=read_paper_picks(response)
@@ -245,7 +267,7 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
         rows=read_paper_picks(response)
         return paper_pick_stats(rows,sport=sport,bet_type=bet_type)
 
-    @app.get("/picks/{pick_id}")
+    @app.get("/picks/{pick_id}",response_model=PaperPickOut)
     def pick_detail(pick_id:int,response:Response):
         rows=read_paper_picks(response)
         for row in rows:
