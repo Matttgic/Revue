@@ -16,6 +16,7 @@ import json
 from pathlib import Path
 
 from modeles.reproduction.clairvoyance_predictor import Game as PredictorGame, nhl
+from outils.nhl_moneypuck_prudent import prudent_forecast
 from modeles.simulations.nhl_independant import (
     Game, PARIS, _update_elo, download_season, is_final_before,
     prev_season, season_code,
@@ -86,6 +87,14 @@ def predict_shadow(prior:list[Game],current:list[Game],teams:dict,goalies:dict,
     team_stats={r["team"]:r for r in teams["seasons"][key]
                 if r.get("situation")=="5on5" and r.get("xg_share") is not None}
     goalies_current=goalies["seasons"][key]
+    preceding=f"{int(key[:4])-1}-{int(key[:4])}"
+    prior_meta=teams.get("status",{}).get(preceding,{})
+    prior_rows=[]
+    if prior_meta.get("status")=="available" and preceding in teams.get("seasons",{}):
+        prior_updated=prior_meta.get("source_updated_utc")
+        if prior_updated is None or as_utc(prior_updated)<=as_of:
+            prior_rows=teams["seasons"][preceding]
+    prior_stats={r["team"]:r for r in prior_rows if r.get("situation")=="5on5"}
     elo=_elo_from_scores(prior,current,as_of)
     rows=[]
     seen=set()
@@ -118,6 +127,11 @@ def predict_shadow(prior:list[Game],current:list[Game],teams:dict,goalies:dict,
             home_xgoals_pct=hxg,away_xgoals_pct=axg,
             home_goalie_sv_pct=hg,away_goalie_sv_pct=ag,
         )
+        # Independent research variant; original source formula remains untouched.
+        prudent=prudent_forecast(event.id,event.home,event.away,
+                elo[event.home],elo[event.away],home_stats,away_stats,
+                prior_stats.get(event.home),prior_stats.get(event.away),
+                home_goalie,away_goalie)
         # MoneyPuck current season may have very few games: record sample sizes.
         rows.append({
             "event_id":event.id,"home":event.home,"away":event.away,
@@ -140,6 +154,7 @@ def predict_shadow(prior:list[Game],current:list[Game],teams:dict,goalies:dict,
                           "save_pct":ag} if away_goalie else None),
                 "selection_rule":"Most games played, not projected/confirmed starters",
             },
+            "research_low_sample_shrink":prudent,
             "market_odds":None,"betting_recommendation":None,
             "shadow_only":True,
         })
@@ -149,6 +164,7 @@ def predict_shadow(prior:list[Game],current:list[Game],teams:dict,goalies:dict,
         "season":season_code(for_date),
         "model":"Clairvoyance backend NHL formula / Revue observed data (SHADOW)",
         "parity_scope":"Formula only; NHL Elo history and MoneyPuck inputs differ from original database",
+        "research_model":"revue_nhl_low_sample_shrink_v1 (separate experimental candidate)",
         "status":"experimental_not_calibrated",
         "confirmed_starters":False,
         "bookmaker_odds_available":False,
@@ -163,7 +179,7 @@ def predict_shadow(prior:list[Game],current:list[Game],teams:dict,goalies:dict,
             "source_usage":"personal non-commercial with attribution",
         },
         "games":rows,
-        "warning":"Real observed stats, but team/goalie source samples can be tiny. No confirmed starter, calibrated probabilities, or live betting edges."
+        "warning":"Real observed stats, but team/goalie source samples can be tiny. Research shrink model is NOT original Clairvoyance and neither model is calibrated. No confirmed starter, calibrated probabilities, or live betting edges."
     }
 
 
