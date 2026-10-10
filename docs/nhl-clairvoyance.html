@@ -73,7 +73,7 @@ Données provenant de <a href="https://moneypuck.com/data.htm" target="_blank" r
 <section class="performance" aria-label="Validation prospective sur résultats officiels">
 <div><label>PRÉVISIONS VERROUILLÉES</label><strong id="locked">—</strong><small>20 minutes minimum avant match</small></div>
 <div><label>RÉSULTATS RÉGLÉS</label><strong id="settled">—</strong><small>Score NHL officiel</small></div>
-<div><label>BRIER · CLAIRVOYANCE</label><strong id="brier">—</strong><small>Évaluation hors échantillon</small></div>
+<div><label>BRIER · CLAIRVOYANCE</label><strong id="brier">—</strong><small id="brierRefMeta">Évaluation hors échantillon</small></div>
 <div><label>BRIER · PRUDENT</label><strong id="brierAlt">—</strong><small id="paired">Comparaison future sur mêmes matchs</small></div>
 </section>
 <div class="tabs">
@@ -135,10 +135,13 @@ async function loadPerformance(){
   if(d.model!=="nhl_clairvoyance_moneypuck_shadow_v1")throw Error("rapport inattendu");
   by("locked").textContent=String(d.locked_events);
   by("settled").textContent=String(d.settled);
-  by("brier").textContent=d.mean_brier===null?"En attente":Number(d.mean_brier).toLocaleString("fr-FR",{maximumFractionDigits:4});
+  const pairedCount=Number(d.research_paired_settled||0);
+  const refBrier=pairedCount>0?d.mean_brier_reference_on_paired:d.mean_brier;
+  by("brier").textContent=refBrier==null?"En attente":Number(refBrier).toLocaleString("fr-FR",{maximumFractionDigits:4});
+  by("brierRefMeta").textContent=pairedCount>0?"Mêmes "+pairedCount+" matchs que variante":"Score sur "+String(d.settled||0)+" matchs";
   by("brierAlt").textContent=d.mean_brier_research==null?"En attente":Number(d.mean_brier_research).toLocaleString("fr-FR",{maximumFractionDigits:4});
   by("paired").textContent=String(d.research_paired_settled||0)+" matchs comparés (plus petit = mieux)";
- }catch(err){by("locked").textContent="—";by("settled").textContent="—";by("brier").textContent="—";by("brierAlt").textContent="—";by("paired").textContent="Comparaison indisponible";}
+ }catch(err){by("locked").textContent="—";by("settled").textContent="—";by("brier").textContent="—";by("brierAlt").textContent="—";by("paired").textContent="Comparaison indisponible";by("brierRefMeta").textContent="Évaluation indisponible";}
 }
 function line(root,title,value){
  const e=make("div","row");e.append(make("span","",title),make("strong","",value));root.append(e);
