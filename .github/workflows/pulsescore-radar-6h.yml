@@ -1,0 +1,53 @@
+name: Revue - Radar PulseScore 6h
+on:
+  workflow_dispatch:
+  # Four mini-scans daily, between the full 32-call scans at 00/06/12/18 UTC.
+  schedule:
+    - cron: '30 3,9,15,21 * * *'
+  push:
+    paths:
+      - 'outils/pulsescore_radar_six_heures.py'
+      - 'tests/test_pulsescore_radar_six_heures.py'
+      - '.github/workflows/pulsescore-radar-6h.yml'
+permissions:
+  contents: write
+concurrency:
+  # Do not simultaneously charge quota against the existing full odds scanner.
+  group: revue-engine-v2-paper
+  cancel-in-progress: false
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Assert request cap and canonical market provenance without paid API calls
+        run: |
+          python -m unittest discover -s tests -p 'test_pulsescore_radar_six_heures.py' -v
+          python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
+          python -m unittest discover -s tests -p 'test_tableau_cotes.py' -v
+      - name: Small additional PulseScore scan, without altering full scan or paper ledger
+        if: github.event_name != 'push'
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+          ODDS_API_KEY: ''
+        run: |
+          python -m outils.pulsescore_radar_six_heures --max-calls 8
+          cp docs/pulsescore-radar-latest.json /tmp/revue-pulsescore-six-hour-observation.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # The authenticated provider is called ONCE, even if a push conflicts.
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/revue-pulsescore-six-hour-observation.json docs/pulsescore-radar-latest.json
+            git add docs/pulsescore-radar-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(pulsescore): publish bounded six-hour observed sportsbook radar'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
