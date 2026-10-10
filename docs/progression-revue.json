@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-10T02:02:00+00:00",
+  "updated_at_utc": "2026-10-10T02:46:00+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
-  "estimated_functional_coverage_percent": 40,
-  "previous_estimate_percent": 39,
+  "estimated_functional_coverage_percent": 41,
+  "previous_estimate_percent": 40,
   "estimate_method": "Editorial weighted functional checklist; weighted average of estimates, NOT automatic measurement, NOT prediction agreement or earnings",
   "goal": "Comparable independently implemented functions with legally usable data and prospective statistical validation",
   "excluded_by_user": [
@@ -15,25 +15,25 @@
       "id": "infrastructure",
       "title": "Infrastructure et automatisation",
       "weight": 10,
-      "coverage": 0.93,
+      "coverage": 0.95,
       "status": "partiel",
-      "remaining": "Supervision globale des délais et pannes silencieuses, vérification proactive des quotas API et notification externe optionnelle"
+      "remaining": "Alertes de pannes silencieuses, stratégie de quotas et supervision externe des scrapers"
     },
     {
       "id": "sports_data",
       "title": "Sources et données sportives",
       "weight": 10,
-      "coverage": 0.5,
+      "coverage": 0.53,
       "status": "partiel",
-      "remaining": "Historique saisons entières, disponibilités joueurs"
+      "remaining": "Historique plurisaison authentique, blessures/compositions, scores live multisports et couverture des ligues manquantes"
     },
     {
       "id": "odds",
       "title": "Cotes françaises et marchés",
       "weight": 14,
-      "coverage": 0.55,
+      "coverage": 0.58,
       "status": "partiel",
-      "remaining": "Marchés supplémentaires, vérification du règlement et cotes de clôture"
+      "remaining": "Seulement 9 matchs avec cotes récentes lors du premier Match Center, marchés complémentaires, clôture et validation des règles"
     },
     {
       "id": "football",
@@ -125,7 +125,14 @@
     "Régression logistique régularisée sur logit, entraînée sans aucun résultat de test; évaluation Brier/Log Loss et baseline issue de l'entraînement",
     "Rejet de résultats de règlement futurs, antérieurs au match et de scores officiels incohérents",
     "Rapport NHL calibration généré sur GitHub sans inventer de résultats; 0 événements disponibles au premier lancement",
-    "Tableau mobile de progression et diagrammes de calibration prédit vs observé par tranche, sans activation de mises"
+    "Tableau mobile de progression et diagrammes de calibration prédit vs observé par tranche, sans activation de mises",
+    "Comparaison fonctionnelle avec Clairvoyance : tableau central de rencontres, historique, tarifs observés et modèles, sans copier le frontend original",
+    "Match Center multisports mobile gaming : filtres aujourd'hui/demain/72h, compétition, équipe, modèle et prix authentiquement observé",
+    "Jointure stricte modèle/bookmaker par compétition, ID, adversaires et coup d'envoi UTC; aucune cote, EV ou victoire inventée",
+    "Premier rapport : 126 rencontres/14 compétitions, 90 avec modèle, 9 avec cotes ; puis 141 rencontres/101 avec modèle après mise à jour des flux",
+    "Registre NHL officiel ajouté au tableau central : 18 événements en attente, 0 score encore réglé, aucune mise réelle",
+    "Workflow horaire sans nouvel appel API payant; GitHub Pages et tests de navigation JavaScript déployés avec succès",
+    "Le radar d'échec GitHub surveille aussi les actualisations du Match Center"
   ],
   "published_reports": {
     "ensemble": "docs/ensemble-mc-bayes-latest.json",
@@ -142,7 +149,10 @@
     "workflow_alerts": ".github/workflows/ci-failure-alerts.yml",
     "nhl_temporal_audit": "docs/nhl-clairvoyance-shadow-latest.json#point_in_time_audit",
     "nhl_calibration": "docs/nhl-calibration-latest.json",
-    "nhl_calibration_protocol": "recherche/hockey/nhl-calibration-prospective.md"
+    "nhl_calibration_protocol": "recherche/hockey/nhl-calibration-prospective.md",
+    "match_center": "docs/match-center-latest.json",
+    "match_center_interface": "docs/match-center.html",
+    "match_center_comparison": "recherche/produit/match-center-revue-vs-clairvoyance.md"
   },
   "warnings": [
     "Functional percentage is approximate and is not a mathematically established replication percentage",
@@ -151,6 +161,7 @@
     "Never report Opta or confirmed goalies unless such data is actually present",
     "Research NHL shrink weights fixed a priori, not statistically calibrated; no predictive superiority established.",
     "No comparative predictive superiority can be claimed until enough prospectively settled paired games exist.",
-    "Cross-source sample consistency is not proof of the absence of any source-publisher error. Prospective calibration remains unverified."
+    "Cross-source sample consistency is not proof of the absence of any source-publisher error. Prospective calibration remains unverified.",
+    "Match Center initially had observed prices for only 9 of 126 future games; it is not a full betting market feed."
   ]
 }
