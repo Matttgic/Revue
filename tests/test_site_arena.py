@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","play.html","bilan.html","historique.html","lab.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
@@ -89,7 +89,7 @@ class ArenaTests(unittest.TestCase):
         self.assertFalse(ind["profit_roi_established"])
         self.assertIn("SHL",ind["confirmed_incomplete_sports"])
         self.assertIsNone(p["exact_reproduction_percent"])
-        self.assertIn("avancement.html",(DOCS/"index.html").read_text(encoding="utf-8"))
+        self.assertIn("avancement.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
 
     def test_exact_replication_report_never_uses_functional_coverage_as_exactness(self):
         import json
@@ -104,10 +104,13 @@ class ArenaTests(unittest.TestCase):
         self.assertIn("reproduction-exacte-audit.json",
                       (DOCS/"reproduction-exacte.html").read_text(encoding="utf-8"))
 
-    def test_main_page_uses_strict_reproduction_not_35_percent(self):
+    def test_main_page_separates_technical_parity_in_lab_without_fake_percent(self):
         front=(DOCS/"index.html").read_text(encoding="utf-8")
-        self.assertIn("parite-modeles-clairvoyance.json",front)
-        self.assertIn("parite-clairvoyance.html",front)
+        lab=(DOCS/"lab.html").read_text(encoding="utf-8")
+        self.assertIn("./lab.html",front)
+        self.assertIn("parite-clairvoyance.html",lab)
+        self.assertIn("reproduction-exacte.html",lab)
+        self.assertIn("aucune",lab.lower())
         self.assertNotIn('jsonFile("progression-revue.json")',front)
 
     def test_progress_is_exact_source_model_parity(self):
@@ -120,8 +123,8 @@ class ArenaTests(unittest.TestCase):
                          d["verified_formula_parity_models"])
         self.assertIn("CFB",d["excluded"])
         self.assertIsNone(d["overall_repository_reproduction_percent"])
-        self.assertIn("parite-modeles-clairvoyance.json",
-                      (DOCS/"index.html").read_text(encoding="utf-8"))
+        self.assertIn("parite-clairvoyance.html",
+                      (DOCS/"lab.html").read_text(encoding="utf-8"))
 
     def test_all_internal_links_exist(self):
         for name in PAGES:
@@ -138,7 +141,7 @@ class ArenaTests(unittest.TestCase):
     def test_individual_mma_tennis_liiga_and_no_unknown_player_predictions(self):
         import json
         ui=(DOCS/"individual-hub.html").read_text(encoding="utf-8")
-        self.assertIn("individual-hub.html",(DOCS/"index.html").read_text(encoding="utf-8"))
+        self.assertIn("individual-hub.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
         for k in ("individual-latest.json","individual-prospective-performance.json",
                   "individual-prospective-ledger.json","real_bets","mean_brier",
                   "TBD","source","Europe/Paris"):
@@ -157,7 +160,8 @@ class ArenaTests(unittest.TestCase):
         html=(DOCS/"picks-center.html").read_text(encoding="utf-8")
         home=(DOCS/"index.html").read_text(encoding="utf-8")
         command=(DOCS/"command-center.html").read_text(encoding="utf-8")
-        self.assertIn("picks-center.html",home)
+        self.assertIn("picks-center.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
+        self.assertIn("./play.html",home)
         self.assertIn("picks-center.html",command)
         for k in ("picks-center-latest.json","research_model_calibrated",
                   "real_bets_enabled","live_bookmaker_prices","original_clairvoyance_sql_parity",
@@ -180,7 +184,7 @@ class ArenaTests(unittest.TestCase):
         home=(DOCS/"index.html").read_text(encoding="utf-8")
         match=(DOCS/"match-center.html").read_text(encoding="utf-8")
         command=(DOCS/"command-center.html").read_text(encoding="utf-8")
-        self.assertIn("match-dossier.html",home)
+        self.assertIn("match-dossier.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
         self.assertIn("match-dossier.html?league=",match)
         self.assertIn("match-dossier.html?league=",command)
         for literal in ("match-dossiers-latest.json","original_clairvoyance_equivalence_verified",
@@ -202,7 +206,7 @@ class ArenaTests(unittest.TestCase):
         ui=(DOCS/"model-input-lab.html").read_text(encoding="utf-8")
         home=(DOCS/"index.html").read_text(encoding="utf-8")
         exact=(DOCS/"reproduction-exacte.html").read_text(encoding="utf-8")
-        self.assertIn("model-input-lab.html",home)
+        self.assertIn("model-input-lab.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
         self.assertIn("model-input-lab.html",exact)
         for snippet in ("nhl-source-input-delta.json","mlb-source-elo-gap.json",
                         "original_database_raw_value_equality_verified",
@@ -223,7 +227,7 @@ class ArenaTests(unittest.TestCase):
         home=(DOCS/"index.html").read_text(encoding="utf-8")
         command=(DOCS/"command-center.html").read_text(encoding="utf-8")
         d=json.loads((DOCS/"github-workflows-latest.json").read_text(encoding="utf-8"))
-        self.assertIn("operations.html",home)
+        self.assertIn("operations.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
         self.assertIn("operations.html",command)
         self.assertIn("github-workflows-latest.json",page)
         self.assertIn("not_original_clairvoyance_daily_logs",page)
@@ -236,8 +240,8 @@ class ArenaTests(unittest.TestCase):
     def test_all_in_one_command_center_is_connected_and_honest(self):
         page=(DOCS/"command-center.html").read_text(encoding="utf-8")
         home=(DOCS/"index.html").read_text(encoding="utf-8")
-        self.assertIn("command-center.html",home)
-        self.assertIn("CENTRE DE CONTRÔLE",home)
+        self.assertIn("command-center.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
+        self.assertIn("Centre de contrôle",(DOCS/"lab.html").read_text(encoding="utf-8"))
         for key in ("match-center-latest.json","engine-v2-latest.json",
                     "health-latest.json","engine-v2-ledger.json",
                     "revue-control-ledger-latest.json","revue-control-state-latest.json",
@@ -260,7 +264,7 @@ class ArenaTests(unittest.TestCase):
     def test_research_forecast_page_displays_no_unproven_original_picks(self):
         frontend=(DOCS/"index.html").read_text(encoding="utf-8")
         page=(DOCS/"predictions-revue.html").read_text(encoding="utf-8")
-        self.assertIn("predictions-revue.html",frontend)
+        self.assertIn("predictions-revue.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
         self.assertIn("/revue/predictions",page)
         self.assertIn("source_input_parity_with_original",page)
         self.assertIn("pick_recommendation_verified",page)
@@ -270,7 +274,7 @@ class ArenaTests(unittest.TestCase):
     def test_performance_dashboard_has_genuine_report_sources(self):
         ui=(DOCS/"performance-comparateur.html").read_text(encoding="utf-8")
         front=(DOCS/"index.html").read_text(encoding="utf-8")
-        self.assertIn("performance-comparateur.html",front)
+        self.assertIn("performance-comparateur.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
         for data in ("football-shadow-performance.json",
                      "ensemble-mc-bayes-performance.json",
                      "nhl-shadow-performance.json",
@@ -286,7 +290,7 @@ class ArenaTests(unittest.TestCase):
         front=(DOCS/"index.html").read_text(encoding="utf-8")
         page=(DOCS/"nhl-source-input-gap.html").read_text(encoding="utf-8")
         exact=(DOCS/"reproduction-exacte.html").read_text(encoding="utf-8")
-        self.assertIn("nhl-source-input-gap.html",front)
+        self.assertIn("nhl-source-input-gap.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
         self.assertIn("nhl-source-input-gap.html",exact)
         self.assertIn("nhl-source-input-delta.json",page)
         self.assertIn("original_inputs_identical",page)
@@ -300,8 +304,8 @@ class ArenaTests(unittest.TestCase):
         landing=(DOCS/"index.html").read_text(encoding="utf-8")
         center=(DOCS/"match-center.html").read_text(encoding="utf-8")
         report=json.loads((DOCS/"match-center-latest.json").read_text(encoding="utf-8"))
-        self.assertIn("match-center.html",landing)
-        self.assertIn("match-center-latest.json",landing)
+        self.assertIn("match-center.html",(DOCS/"lab.html").read_text(encoding="utf-8"))
+        self.assertIn("match-center-latest.json",(DOCS/"retro-app.js").read_text(encoding="utf-8"))
         self.assertIn("match-center-latest.json",center)
         self.assertIn("bookmaker_prices_are_live",center)
         self.assertIn("Ni prix en direct",center)
@@ -318,10 +322,52 @@ class ArenaTests(unittest.TestCase):
 
     def test_front_page_gaming_visuals_and_real_telemetry(self):
         text=(DOCS/"index.html").read_text(encoding="utf-8")
-        for fragment in ("EVERY","SIGNAL MONITOR","holo","module",
-                         "multisports-latest.json","engine-v2-latest.json",
-                         "no-store","aria-label"):
+        css=(DOCS/"retro.css").read_text(encoding="utf-8")
+        js=(DOCS/"retro-app.js").read_text(encoding="utf-8")
+        for fragment in ("GAME","arc-machine","arc-console","home-picks",
+                         "home-recent","home-profit","home-roi","aria-label",
+                         'href="./play.html"','href="./bilan.html"'):
+            with self.subTest(fragment=fragment):self.assertIn(fragment,text)
+        for fragment in ("perspective:800px","transform-style:preserve-3d",
+                         "prefers-reduced-motion:reduce","arc-bottom-nav"):
+            with self.subTest(css=fragment):self.assertIn(fragment,css)
+        for fragment in ("picks-center-latest.json","match-center-latest.json",
+                         "no-store","safePicks","verified_real_ev","paper_profit_units"):
+            with self.subTest(js=fragment):self.assertIn(fragment,js)
+
+    def test_arcade_navigation_has_only_five_primary_destinations(self):
+        import re
+        expected=["index.html","play.html","bilan.html","historique.html","lab.html"]
+        for filename in expected:
+            page=(DOCS/filename).read_text(encoding="utf-8")
+            self.assertIn("retro-app.js?v=1",page)
+            self.assertIn("retro.css?v=1",page)
+            self.assertIn('class="arc-bottom-nav"',page)
+            nav=re.search(r'<nav class="rv-nav"[^>]*>(.*?)</nav>',page,re.S)
+            self.assertIsNotNone(nav,filename)
+            links=re.findall(r'href="\./([^"]+)"',nav.group(1))
+            self.assertEqual(links,expected,filename)
+            self.assertIn('data-page=',page)
+        lab=(DOCS/"lab.html").read_text(encoding="utf-8")
+        for old in ("command-center.html","match-dossier.html","operations.html",
+                    "individual-hub.html","reproduction-exacte.html"):
+            self.assertIn(old,lab)
+        home=(DOCS/"index.html").read_text(encoding="utf-8")
+        self.assertNotIn('href="./operations.html"',home)
+        self.assertNotIn('href="./parite-clairvoyance.html"',home)
+
+    def test_retro_data_remains_paper_and_no_fake_recommendation(self):
+        text=(DOCS/"retro-app.js").read_text(encoding="utf-8")
+        for fragment in ("research_model_calibrated===false",
+                         "verified_real_ev===false",
+                         "live_bookmaker_prices===false",
+                         "actualUpcoming","sourceFresh",
+                         "Aucun pari recommandé","Aucun pari validé",
+                         "settled_stake_units","paper_profit_units",
+                         "roi:stake>0?net/stake*100:null"):
             self.assertIn(fragment,text)
+        self.assertNotIn("Math.random",text)
+
 
     def test_cfb_not_in_live_model_feeds(self):
         model=(ROOT/"modeles/simulations/multisports_independant.py").read_text(encoding="utf-8")
