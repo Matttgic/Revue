@@ -3,6 +3,12 @@
 > **Mission prioritaire : reproduire fidèlement les modèles du dépôt [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend), et non inventer des modèles de remplacement.**
 
 
+### Prévisions pré-match et contrôles de source (10 octobre 2026)
+
+- **[Écran mobile des prévisions NHL / MLB](docs/predictions-revue.html)** · [API Vercel correspondante](https://revue-api-tawny.vercel.app/revue/predictions) · [tests HTTP](tests/test_api_revue_research_predictions.py). Le service utilise la **formule backend reproduite**, des rencontres NHL appariées à leurs vrais ID ESPN et des Elo MLB calculés à partir de l'historique officiel Revue. Il ne publie que des rencontres à venir, avec zéro cote ou pari inventé. Les entrées originales Clairvoyance et leurs prédictions publiées ne sont **pas** prouvées identiques.
+- La correspondance mathématique NHL a été conservée sur **18/18 jeux d'entrées réelles** grâce à la comparaison des empreintes de l'original `app/services/predictor.py`, malgré les changements de commits de données.
+- Les **44/44 fonctions ciblées** sont désormais épinglées aux empreintes SHA-256 des trois fichiers réellement testés (`predictor.py`, `docs/app.html` et `scripts/clairvoyance_update.py`). Les mises à jour de données du dépôt source ne font plus apparaître artificiellement ces tests comme périmés ; une modification du code source invalide bien la vérification. [Audit JSON](docs/reproduction-exacte-audit.json) · [workflow de reproduction](.github/workflows/parite-clairvoyance-predictor.yml).
+
 ## Priorité absolue — identité vérifiable avec Clairvoyance
 
 **Le but n'est plus « 50 % de fonctionnalités similaires » mais une reproduction exacte, comportement par comportement et sur la même version du code original, hors CFB.**
