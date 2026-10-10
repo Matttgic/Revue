@@ -72,6 +72,21 @@ function renderWhy(e){
   }
   root.append(block);
  }
+ if(e.recentCrossBookPrices?.length){
+  const panel=h("div","arc-v3-model");
+  panel.append(h("strong","","PulseScore · différences observées (PAS une EV)"));
+  for(const c of e.recentCrossBookPrices.slice(0,4)){
+    const descr=c.market==="h2h"?
+      (c.side==="home"?"Victoire domicile":c.side==="away"?"Victoire extérieur":"Match nul"):
+      ((c.side==="over"?"Plus de ":"Moins de ")+c.line);
+    panel.append(h("p","",descr+" · "+c.topBook.replace("_fr","")+
+      " "+f(c.topPrice)+" contre "+f(c.lowPrice)+
+      " (écart relatif "+f(c.differencePercent)+" %) · "+
+      c.bookCount+" bookmakers · relevé "+date(c.observedAt)));
+  }
+  panel.append(h("small","","Prix historiques authentifiés, susceptibles de changer. Écart de cotes ≠ avantage ni disponibilité à la mise."));
+  root.append(panel);
+ }
  if(e.historicalQuotes.length){
   const hist=h("div","arc-v3-price");
   hist.append(h("strong","","Prix historiques (PAS de cote actuelle)"));
@@ -92,7 +107,9 @@ function createCard(e){
  c.append(a,h("h3","",e.away+" — "+e.home));
  const info=h("p","arc-v3-game-info",e.modelCount+
   " modèle(s) expérimental(aux) · "+
-  (e.historicalQuotes.length?"prix historiques disponibles":"aucune cote vérifiée"));
+  (e.recentCrossBookPrices?.length?
+    e.recentCrossBookPrices.length+" écarts de cotes PulseScore observés":
+    e.historicalQuotes.length?"prix historiques disponibles":"aucune cote vérifiée"));
  c.append(info);
  const bottom=h("div","arc-v3-game-bottom");
  add(bottom,h("span","arc-v3-status","À ANALYSER · NON VALIDÉ"));
@@ -196,13 +213,14 @@ function bootEvents(){
 }
 document.addEventListener("DOMContentLoaded",async()=>{
  bootEvents();
- const names=["match-center-latest.json","picks-center-latest.json","nhl-frontend-observed-latest.json","nhl-espn-goalies-latest.json"];
+ const names=["match-center-latest.json","picks-center-latest.json","nhl-frontend-observed-latest.json","nhl-espn-goalies-latest.json","pulsescore-radar-latest.json"];
  const result=await Promise.allSettled(names.map(load));
  const inputs={
   matches:result[0].status==="fulfilled"?result[0].value:null,
   picks:result[1].status==="fulfilled"?result[1].value:null,
   nhl:result[2].status==="fulfilled"?result[2].value:null,
   goalies:result[3].status==="fulfilled"?result[3].value:null,
+  radar:result[4].status==="fulfilled"?result[4].value:null,
  };
  if(!window.RevueArcadeV3) {
   put("home-status","Erreur moteur de présentation");
