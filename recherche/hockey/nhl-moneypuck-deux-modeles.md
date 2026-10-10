@@ -46,6 +46,18 @@ Chaque match prévu est verrouillé **au moins 20 min avant le début**. Une pro
 
 Les tests unitaires couvrent la formule inchangée, la séparation des modèles, les priors absents, les valeurs invalides, les horodatages et l'immutabilité du suivi.
 
+## Garde-fou essentiel : zéro donnée postérieure au match
+
+Avant toute publication NHL, `outils/nhl_point_in_time_audit.py` recoupe les fichiers MoneyPuck officiels et les rencontres officiellement **terminées avant l'horodatage de la source**, non pas seulement avant la date de consultation :
+
+- Comparaison des matchs déclarés `games_played` de chaque équipe en situation **5 contre 5** avec le maximum de rencontres officiellement terminées dans l'API NHL à cette date.
+- Contrôle indépendant du nombre de matchs observés pour chaque gardien : il ne peut dépasser le nombre de rencontres officielles disponibles pour son club.
+- Refus d'une source antidatée, datée dans le futur, trop ancienne (plus de 7 jours), de mauvaise saison, d'une équipe dupliquée, ou de joueurs annoncés à tort titulaires.
+- L'heure de prévision est prise **après** les lectures du calendrier NHL : aucune partie terminée pendant un téléchargement ne peut être importée dans l'Elo tout en prétendant que la prédiction était antérieure à ce téléchargement.
+- Le journal prospectif `docs/nhl-shadow-ledger.json` refuse les **nouveaux** pronostics si le rapport ne contient pas un audit vérifié et correspondant exactement à l'horodatage de prévision et aux dates sources. Les anciens pronostics verrouillés restent intacts et peuvent être réglés normalement.
+
+Le dernier rapport expose `point_in_time_audit` avec les effectifs vérifiés et la concordance des volumes officiels. Les **statistiques historiques de saison complète téléchargées aujourd'hui ne peuvent pas servir à simuler honnêtement des prédictions de la saison passée** : pour cela, il faudrait les captures originales datées de chaque époque. Le système ne constitue **pas encore** un backtest rétrospectif complet ni une preuve de calibration.
+
 ## Résultats officiels sans recalcul des modèles
 
 Le workflow `.github/workflows/nhl-settlement-officiel.yml` interroge **toutes les quatre heures** uniquement les tableaux de scores NHL aux dates nécessaires (fuseau **America/New_York**, différent de l'UTC et de Paris), avec un plafond de 14 dates par exécution. Il ne télécharge aucun nouveau CSV MoneyPuck et **ne crée ni ne réécrit de prévision**.
