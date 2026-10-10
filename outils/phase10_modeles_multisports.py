@@ -198,10 +198,12 @@ def football_candidate(e,base,advanced,now):
  pred={"home_win_90":p1,"draw_90":p2,"away_win_90":round(1-p1-p2,6)}
  if probability(pb.get("over_2_5")) and probability(pa.get("over_2_5")):
   pred["over_2_5"]=round(.45*pb["over_2_5"]+.55*pa["over_2_5"],6)
- return [candidate(e,"revue_football_espn_shots_log_pool_v1",None,
+ result=candidate(e,"revue_football_espn_shots_log_pool_v1",pred,
    "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
    {"multisports":base["generated_at_utc"],"espn_shots_shadow":advanced["generated_at_utc"]},
-   "3way") | {"probabilities":pred,"model_disagreement_tv":round(distance,5)}],"football_correlated_research_pool"
+   "3way")
+ result["model_disagreement_tv"]=round(distance,5)
+ return [result],"football_correlated_research_pool"
 
 def build(center,base,nba,ratings,mlb,advanced,now):
  if now.tzinfo is None:raise ValueError("Timezone-aware UTC required")
