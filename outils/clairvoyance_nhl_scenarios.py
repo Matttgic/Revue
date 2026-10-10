@@ -126,8 +126,17 @@ def main():
     args=p.parse_args()
     root=Path(args.docs)
     def read(name):return json.loads((root/name).read_text(encoding="utf8"))
-    data=investigate(read("clairvoyance-nhl-forensics.json"),
-        read("nhl-clairvoyance-shadow-latest.json"))
+    f=read("clairvoyance-nhl-forensics.json")
+    if f.get("status")!="nhl_forensics_verified_observation_alignment":
+        data={"version":VERSION,"status":"awaiting_aligned_original_and_revue_inputs",
+              "generated_at_utc":datetime.now(timezone.utc).isoformat(),
+              "matched_scenarios":0,"games":[],
+              "input_status":f.get("source_input_guard"),
+              "real_bets_enabled":False,
+              "calibration_or_betting_recommendations":False,
+              "actual_original_hidden_elo_or_starters_verified":False}
+    else:
+        data=investigate(f,read("nhl-clairvoyance-shadow-latest.json"))
     out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(data,ensure_ascii=False,indent=2,allow_nan=False)+"\n",encoding="utf8")
     print(data["status"],data["matched_scenarios"],"games / 0 real bets")

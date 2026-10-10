@@ -11,6 +11,8 @@ on:
     paths:
       - 'outils/clairvoyance_nhl_forensics.py'
       - 'tests/test_clairvoyance_nhl_forensics.py'
+      - 'outils/clairvoyance_nhl_scenarios.py'
+      - 'tests/test_clairvoyance_nhl_scenarios.py'
       - '.github/workflows/clairvoyance-nhl-forensics.yml'
 permissions:
   contents: write
@@ -29,8 +31,12 @@ jobs:
           python-version: '3.12'
       - name: Tests unitaires - xG source, chronologie, doublons, probabilités répétées
         run: python -m unittest discover -s tests -p 'test_clairvoyance_nhl_forensics.py' -v
+      - name: Vérifier aussi la sensibilité des entrées Elo et gardiens sur formule originale reconstruite
+        run: python -m unittest discover -s tests -p 'test_clairvoyance_nhl_scenarios.py' -v
       - name: Vérifier les entrées MoneyPuck 5v5 et écarts sur vrais matchs NHL
-        run: python -m outils.clairvoyance_nhl_forensics
+        run: |
+          python -m outils.clairvoyance_nhl_forensics
+          python -m outils.clairvoyance_nhl_scenarios
       - name: Enregistrer seulement diagnostic dérivé - jamais code ni historique original
         run: |
           git config user.name 'github-actions[bot]'
@@ -39,7 +45,8 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             python -m outils.clairvoyance_nhl_forensics
-            git add docs/clairvoyance-nhl-forensics.json
+            python -m outils.clairvoyance_nhl_scenarios
+            git add docs/clairvoyance-nhl-forensics.json docs/clairvoyance-nhl-scenarios.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'data(parity): publish NHL real-input xG, market and default-probability gap forensics'
             if git push origin HEAD:main; then exit 0; fi

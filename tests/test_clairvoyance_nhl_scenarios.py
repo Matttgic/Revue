@@ -65,5 +65,6 @@ class SensitivityTests(unittest.TestCase):
     def test_model_formula_declares_no_recommendations_in_scenario(self):
         f,s=samples();r=investigate(f,s)
         self.assertIs(r["calibration_or_betting_recommendations"],False)
-        self.assertIsNone(r["mean_abs_gap_published_vs_observed_revue_pp"] if r["matched_scenarios"]==0 else None)
+        self.assertGreater(r["matched_scenarios"],0)
+        self.assertIsInstance(r["mean_abs_gap_published_vs_observed_revue_pp"],float)
 if __name__=="__main__":unittest.main()
