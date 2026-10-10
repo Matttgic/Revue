@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-10T03:24:13.672573+00:00",
+  "generated_at_utc": "2026-10-10T11:20:30.418762+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -165,7 +165,7 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 2,
-            "away": 1
+            "away": 2
           },
           "probabilities": null,
           "odds": null
@@ -262,18 +262,18 @@
           "status": "shadow_non_calibre",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 10,
-            "away": 10
+            "home": 11,
+            "away": 11
           },
           "probabilities": {
-            "home_win": 0.45811,
-            "away_win": 0.54189
+            "home_win": 0.44986,
+            "away_win": 0.55014
           },
           "odds": null,
-          "expected_margin_home": -1.399,
+          "expected_margin_home": -0.648,
           "components": {
-            "elo_probability": 0.4632,
-            "margin_probability": 0.4494,
+            "elo_probability": 0.4342,
+            "margin_probability": 0.4765,
             "last_games_form": 5
           }
         },
@@ -286,34 +286,34 @@
           "status": "shadow_non_calibre",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 10,
-            "away": 12
+            "home": 11,
+            "away": 13
           },
           "probabilities": {
-            "home_win": 0.51652,
-            "away_win": 0.48348
+            "home_win": 0.49534,
+            "away_win": 0.50466
           },
           "odds": null,
-          "expected_margin_home": 0.57,
+          "expected_margin_home": 0.519,
           "components": {
-            "elo_probability": 0.5141,
-            "margin_probability": 0.5207,
+            "elo_probability": 0.4816,
+            "margin_probability": 0.5188,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 9,
+        "n": 10,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.19123,
-          "logloss_binary": 0.57388
+          "brier_binary": 0.19878,
+          "logloss_binary": 0.58917
         },
         "baseline": {
-          "brier_binary": 0.18398,
-          "logloss_binary": 0.55866
+          "brier_binary": 0.19193,
+          "logloss_binary": 0.57481
         },
-        "brier_delta_candidate_minus_baseline": 0.00725,
+        "brier_delta_candidate_minus_baseline": 0.00685,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
