@@ -96,6 +96,13 @@ version ; ce n'est pas une API de résultats en continu. L'exactitude temporelle
 est préservée : les données périmées (>8 heures pour les rencontres et >2
 heures pour les scores) sont refusées, plutôt que silencieusement remplacées.
 
+## Routes administrateur et exécutions réelles (11 octobre 2026)
+
+- `GET /admin/status` et `GET /admin/logs` conservent les **signatures** de lecture de Clairvoyance. Faute de base `DailyLog` originale, les cinq scrapers originaux restent `null`, le prochain passage du scheduler `null` et les logs SQL une liste vide. Ce sont des **inconnues**, jamais de faux succès.
+- `GET /revue/workflows` expose séparément un instantané vérifié des exécutions GitHub Actions réelles du projet, avec dates, liens `github.com`, dernier succès/échec et filtres `workflow`/`limit`. Ce sont **des jobs Revue**, pas les scrapers SQL de Clairvoyance.
+- Source statique et historique réel sur Pages : `docs/github-workflows-latest.json`, généré par `outils/github_actions_monitor.py`; observabilité en HTML `docs/operations.html`.
+- La couverture des routes **déclarées** atteint 16/24, soit 66,7 %. Aucune équivalence complète de bout en bout n'est encore établie. L'API Vercel peut être en retard tant que la limitation du compte bloque son redéploiement.
+
 ## Reste avant une reproduction complète
 
 1. La base SQL originale et ses 24 comportements API : la signature de dix routes est présente, mais l'identité de leurs résultats n'est pas prouvée ; restent notamment les statuts admin, l'historique des picks, Elo MLB et des correspondances statistiques exactes.

@@ -17,6 +17,7 @@ from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_row
 from api_revue.mlb_elo import mlb_elo_from_file
 from api_revue.paper_picks import paper_picks, paper_pick_stats
 from api_revue.operational import ledger_data, control_status
+from api_revue.admin_readonly import source_admin_status,source_admin_logs,revue_workflows
 from api_revue.research_predictions import predictions_from_files
 from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
 
@@ -285,6 +286,30 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
             status_code=503,
             detail="Source-parity prediction unavailable: original Elo, goalie, market and time-stamped data inputs are not proven identical.",
         )
+
+    @app.get("/admin/status")
+    def admin_status(response:Response):
+        response.headers["X-Revue-Parity"]="partial: NOT original SQL logs; original scraper success and next scheduler run unknown"
+        response.headers["Cache-Control"]="no-store"
+        return source_admin_status(directory,now())
+
+    @app.get("/admin/logs")
+    def admin_logs(response:Response,limit:int=Query(default=50,ge=1,le=500),
+                   scraper:str|None=Query(default=None)):
+        response.headers["X-Revue-Parity"]="partial: not original DailyLog SQL; empty original-log result, use /revue/workflows"
+        response.headers["Cache-Control"]="no-store"
+        return source_admin_logs(limit,scraper)
+
+    @app.get("/revue/workflows")
+    def revue_github_workflows(response:Response,
+                              workflow:str|None=Query(default=None),
+                              limit:int=Query(default=50,ge=1,le=500)):
+        response.headers["X-Revue-Parity"]="Revue verified public GitHub runs only, not original SQL or live feed"
+        response.headers["Cache-Control"]="no-store"
+        try:
+            return revue_workflows(directory,now(),workflow=workflow,limit=limit)
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
 
     @app.get("/revue/ledger")
     def revue_multisport_paper_ledger(response:Response):
