@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","play.html","bilan.html","historique.html","lab.html","etat-donnees.html","radar-6h.html","couvertures-mathematiques.html","phase1-nhl.html","euro-hockey.html","clairvoyance-comparateur.html","clairvoyance-nhl-forensics.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
+    "index.html","play.html","bilan.html","historique.html","lab.html","etat-donnees.html","radar-6h.html","couvertures-mathematiques.html","phase1-nhl.html","historique-phase2.html","euro-hockey.html","clairvoyance-comparateur.html","clairvoyance-nhl-forensics.html","individual-hub.html","picks-center.html","avancement.html","command-center.html","operations.html","model-input-lab.html","match-dossier.html","match-center.html","predictions-revue.html","nhl-source-input-gap.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html","reproduction-exacte.html",
 )
