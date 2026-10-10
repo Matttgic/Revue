@@ -3,7 +3,7 @@ from datetime import datetime,timedelta,timezone
 import copy
 import unittest
 from modeles.simulations.nhl_independant import Game
-from outils.nhl_shadow_tracker import update_ledger,summarize,grade_brier
+from outils.nhl_shadow_tracker import update_ledger,summarize,grade_brier,grade_logloss
 
 NOW=datetime(2026,10,10,6,tzinfo=timezone.utc)
 KICK=NOW+timedelta(hours=8)
@@ -73,6 +73,10 @@ class ProspectiveLedgerTests(unittest.TestCase):
         self.assertAlmostEqual(scores["mean_brier_research"],.2025)
         self.assertAlmostEqual(scores["mean_brier_reference_on_paired"],.1225)
         self.assertAlmostEqual(scores["brier_delta_research_minus_reference"],.08)
+        self.assertAlmostEqual(scores["mean_logloss_reference_on_paired"],-__import__("math").log(.65),places=6)
+        self.assertAlmostEqual(scores["mean_logloss_research"],-__import__("math").log(.55),places=6)
+        self.assertAlmostEqual(scores["coinflip_baseline_brier"],.25)
+        self.assertAlmostEqual(scores["research_brier_skill_vs_coinflip_paired"],1-.2025/.25,places=6)
         self.assertEqual(scores["research_status"],"experimental_not_promoted")
 
     def test_fake_research_model_is_not_accepted(self):
@@ -129,8 +133,19 @@ class ProspectiveLedgerTests(unittest.TestCase):
         self.assertEqual(perf["settled"],0)
         self.assertEqual(perf["research_paired_locked"],0)
         self.assertIsNone(perf["mean_brier"])
+        self.assertIsNone(perf["mean_logloss"])
+        self.assertIsNone(perf["brier_skill_vs_coinflip"])
+        self.assertAlmostEqual(perf["coinflip_baseline_logloss"],.693147,places=6)
         self.assertEqual(perf["statistical_status"],"insufficient_sample")
         self.assertEqual(perf["cash_bets"],0)
+
+    def test_logloss_rejects_extreme_or_malformed_predictions(self):
+        import math
+        self.assertAlmostEqual(grade_logloss(.7,1),-math.log(.7))
+        self.assertAlmostEqual(grade_logloss(.7,0),-math.log(.3))
+        for bad in (0,1,float("nan"),float("inf"),-1,1.2):
+            with self.subTest(bad=bad),self.assertRaises(ValueError):
+                grade_logloss(bad,1)
 
     def test_grade_brier_binary(self):
         self.assertAlmostEqual(grade_brier(0.7,1),0.09)
