@@ -87,7 +87,7 @@ const node=(tag,text,cls)=>{const v=document.createElement(tag);if(text!==undefi
 const number=x=>typeof x==="number"&&Number.isFinite(x)?x.toLocaleString("fr-FR",{maximumFractionDigits:4}):"—";
 const percent=x=>typeof x==="number"&&Number.isFinite(x)?(x*100).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %":"—";
 const displayDate=x=>new Date(x).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
-const modelNames={baseline:"Elo / score de base",advanced_team:"Elo et marge récente",montecarlo_bayes:"Monte-Carlo, Bayes et Elo",football_advanced:"Football avancé"};
+const modelNames={baseline:"Elo / score de base",advanced_team:"Elo et marge récente",montecarlo_bayes:"Monte-Carlo, Bayes et Elo",football_advanced:"Football avancé",own_elo:"Notre Elo indépendant (K=24)"};
 let stored=[],ledger;
 function showMatches(){
  const target=$("matches");target.replaceChildren();
