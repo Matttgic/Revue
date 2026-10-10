@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#060a14">
+<meta name="description" content="MoneyPuck NHL — statistiques xG publiques autorisées en usage personnel non commercial, provenance et saisons séparées.">
+<title>Revue Arena | MoneyPuck NHL Data Lab</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+*{box-sizing:border-box}
+main{max-width:1220px;margin:0 auto;padding:35px 18px 80px}
+header{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;margin:0 0 28px;border-bottom:1px solid #283954;padding-bottom:28px}
+.kicker{color:#55f5de;font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.22em;text-transform:uppercase}
+h1{margin:12px 0 7px;font:700 clamp(2.45rem,6vw,4.5rem)/1 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.055em}
+h1 span{color:#55f5de}p{color:#b0c2d2}
+.lead{max-width:710px;margin:6px 0;font-size:14px;line-height:1.6}
+.live-status{border:1px solid #395171;color:#a2bdd2;background:#0f1e32;padding:10px 13px;font:700 11px monospace;white-space:nowrap}
+.notice{border:1px solid rgba(85,245,222,.23);background:linear-gradient(135deg,#0e2435,#151c34);padding:18px 20px;margin:24px 0;line-height:1.65;color:#bbcbd9;font-size:13px}
+.notice strong{color:#e5faf8}
+.notice a{color:#55f5de}
+.control{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin:26px 0 18px}
+.control label{display:flex;flex-direction:column;gap:7px;color:#a9c0d4;font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.control select,.control input{background:#0b1729;border:1px solid #3d5570;color:#edfaff;min-height:44px;padding:10px 12px;border-radius:3px;font:600 13px system-ui,sans-serif}
+.control input{min-width:190px}
+.toggle{display:flex;gap:6px;align-items:center;padding-bottom:1px}
+.toggle button{border:1px solid #3d5570;color:#acc5d6;background:#101e31;min-height:44px;padding:10px 14px;font-weight:800;cursor:pointer}
+.toggle button[aria-pressed=true]{background:#55f5de;color:#071d2a;border-color:#55f5de}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.stats>div{background:#111d32;border:1px solid #334760;flex:1 1 140px;padding:15px 17px}
+.stats b{display:block;color:#eaffff;font:700 24px 'Chakra Petch',sans-serif;margin-top:6px}
+.stats span{font:700 10px monospace;letter-spacing:.13em;color:#91aec3}
+#status{color:#90b7c9;font:600 12px/1.6 system-ui,sans-serif;min-height:26px;margin:14px 0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:11px}
+.team{background:linear-gradient(146deg,#12223b,#0b1629);border:1px solid #314863;position:relative;padding:19px;min-height:185px;overflow:hidden}
+.team::before{content:"";position:absolute;top:0;left:0;width:80px;height:3px;background:#55f5de}
+.team-head{display:flex;align-items:baseline;justify-content:space-between}
+.rank{color:#6b8ca6;font:700 10px monospace}
+.team h2{color:#ecf9ff;font:700 24px 'Chakra Petch',sans-serif;margin:9px 0}
+.xg{color:#55f5de;font:700 37px/1 'Chakra Petch',sans-serif}
+.xg small{font-size:14px}
+.track{height:7px;background:#293b50;margin-top:12px}
+.track>span{display:block;height:100%;background:linear-gradient(90deg,#3faac4,#55f5de)}
+.detail{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:16px}
+.detail>div{border-top:1px solid #2b3c53;padding-top:9px}
+.detail span{display:block;color:#7d9db4;font:700 10px monospace}
+.detail strong{color:#e0edf4;font:700 14px 'Chakra Petch',sans-serif}
+.empty{border:1px dashed #395171;background:#0a1729;padding:24px;color:#a5c5d7}
+footer{margin-top:39px;padding-top:19px;border-top:1px solid #29394b;font-size:12px;line-height:1.7;color:#829db1}
+footer a{color:#55f5de}
+@media(max-width:650px){header{grid-template-columns:1fr}.live-status{white-space:normal}.control label,.control select{width:100%}.control input{width:100%}.control{gap:13px}.toggle{width:100%}.toggle button{flex:1}}
+</style>
+</head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./engine-v2.html">SCANNER</a><a href="./multisports.html">MODÈLES</a>
+<a href="./nhl-joueurs.html" aria-current="page">NHL</a><a href="./football-avance.html">FOOTBALL</a><a href="./qualite-modeles.html">AUDIT</a>
+</nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span>
+</div></div>
+<main>
+<header>
+<div><span class="kicker">Revue / NHL intelligence / Données vérifiables</span>
+<h1>MONEY<span>PUCK</span> LAB</h1>
+<p class="lead">Statistiques d'équipes NHL : part de buts attendus (xG%), buts attendus par 60 minutes et volume de tirs, issus des CSV officiels.</p></div>
+<div class="live-status">OBSERVATIONS HISTORIQUES · NON LIVE</div>
+</header>
+<div class="notice"><strong>Source : <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com</a>.</strong>
+Données utilisées uniquement à des fins personnelles, non commerciales, avec attribution. Les saisons sont séparées et datées. Les indicateurs présentés ne sont ni des prévisions de match, ni des cotes bookmaker, ni des recommandations de pari. Aucune donnée propriétaire Opta, aucun scraping hors des téléchargements autorisés.</div>
+<div class="control">
+<label>Saison<select id="season" aria-label="Choisir la saison"><option>Chargement…</option></select></label>
+<label>Filtrer<input id="search" type="search" maxlength="12" placeholder="Code équipe (BOS, NYR…)" aria-label="Filtrer une équipe"></label>
+<div class="toggle" role="group" aria-label="Situation">
+<button data-situation="5on5" aria-pressed="true">5 contre 5</button>
+<button data-situation="all" aria-pressed="false">Toutes</button>
+</div>
+</div>
+<div class="stats">
+<div><span>ÉQUIPES MESURÉES</span><b id="total">—</b></div>
+<div><span>SAISON AFFICHÉE</span><b id="seasonLabel">—</b></div>
+<div><span>MISE À JOUR DE LA COLLECTE</span><b id="fresh">—</b></div>
+</div>
+<p id="status" role="status" aria-live="polite">Lecture de la dernière publication…</p>
+<section id="cards" class="cards" aria-label="Statistiques des équipes"></section>
+<p id="empty" class="empty" hidden>Aucune statistique vérifiée disponible pour ces critères. Les données de la nouvelle saison ne sont peut-être pas encore publiées.</p>
+<footer>Source et droits : <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com — données publiques (usage non commercial avec attribution)</a>.
+Les données sont rafraîchies par GitHub Actions à partir du seul CSV officiel « Season Level / Team Level ».
+Horodatage de collecte distinct de la date de mise à jour de la source.
+<a href="https://github.com/Matttgic/Revue/blob/main/outils/moneypuck_feed.py">Inspecter le collecteur</a> ·
+<a href="https://github.com/Matttgic/Revue/actions/workflows/moneypuck-official.yml">Vérifier les actualisations</a> ·
+<a href="./nhl-model.html">Modèle NHL expérimental</a>.</footer>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const elem=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=value;return n};
+const fmt=n=>Number.isFinite(n)?Number(n).toLocaleString("fr-FR",{maximumFractionDigits:2}):"—";
+let report=null,situation="5on5";
+function render(){
+ if(!report)return;
+ const season=$("season").value;
+ const rows=((report.seasons||{})[season]||[]).filter(r=>r.situation===situation);
+ const filter=$("search").value.trim().toUpperCase();
+ const ranked=rows.filter(r=>r.team.includes(filter)).sort((a,b)=>b.xg_share-a.xg_share);
+ $("cards").replaceChildren();
+ $("total").textContent=String(new Set(rows.map(r=>r.team)).size);
+ $("seasonLabel").textContent=season;
+ $("empty").hidden=ranked.length>0;
+ const info=(report.status||{})[season]||{};
+ const sourceDate=info.source_updated_utc?new Date(info.source_updated_utc).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"}):"non communiquée";
+ $("status").textContent=info.status==="available"?
+   "Source : MoneyPuck.com · Date source : "+sourceDate+" · "+ranked.length+" équipes visibles · observations non live":
+   "Aucun CSV officiel exploitable pour "+season+" ; aucune donnée de saison précédente n'est présentée comme actuelle.";
+ for(let i=0;i<ranked.length;i++){
+  const r=ranked[i],card=elem("article","team");
+  const head=elem("div","team-head");
+  head.append(elem("span","rank","RANG xG · #"+(i+1)),elem("span","rank",r.games_played===null?"Matchs : n/d":"Matchs : "+r.games_played));
+  card.append(head,elem("h2","",r.team));
+  card.append(elem("div","xg",fmt(r.xg_share*100)+" %"));
+  const track=elem("div","track"),fill=elem("span");
+  fill.style.width=Math.min(100,Math.max(0,r.xg_share*100))+"%";track.append(fill);card.append(track);
+  const detail=elem("div","detail");
+  for(const pair of [
+   ["xG créés / 60",fmt(r.xg_for_60)],["xG concédés / 60",fmt(r.xg_against_60)],
+   ["Tirs / 60",fmt(r.shots_for_60)],["Tirs concédés / 60",fmt(r.shots_against_60)]
+  ]){
+   const cell=elem("div","");cell.append(elem("span","",pair[0]),elem("strong","",pair[1]));detail.append(cell);
+  }
+  card.append(detail);$("cards").append(card);
+ }
+}
+async function load(){
+ try{
+  const response=await fetch("./moneypuck-nhl-latest.json?rev="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("Données MoneyPuck non encore publiées (HTTP "+response.status+")");
+  const payload=await response.json();
+  if(!payload.seasons||!payload.status||!payload.generated_at_utc||payload.source!=="MoneyPuck.com")
+   throw Error("Format de source invalide");
+  report=payload;
+  const seasons=Object.keys(payload.seasons).sort().reverse();
+  $("season").replaceChildren();
+  for(const year of seasons){const option=elem("option","",year);option.value=year;$("season").append(option);}
+  $("season").value=payload.current_season;
+  $("fresh").textContent=new Date(payload.generated_at_utc).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",timeZone:"Europe/Paris"});
+  render();
+ }catch(err){
+  $("status").textContent=err.message;
+  $("empty").hidden=false;
+ }
+}
+for(const button of document.querySelectorAll("button[data-situation]")){
+ button.addEventListener("click",()=>{
+  situation=button.dataset.situation;
+  document.querySelectorAll("button[data-situation]").forEach(other=>other.setAttribute("aria-pressed",String(other===button)));
+  render();
+ });
+}
+$("season").addEventListener("change",render);
+$("search").addEventListener("input",render);
+load();
+</script>
+</body>
+</html>
