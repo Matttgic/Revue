@@ -47,6 +47,7 @@ h1 em{font-style:normal;color:#62e9d5}
 <div class="meter"><small>ÉCART MOYEN · 0–1</small><strong id="m-gap">—</strong></div>
 </div>
 <p id="status" role="status" aria-live="polite">Lecture du dernier rapport…</p>
+<p id="parity" class="hint" aria-live="polite">Contrôle de correspondance avec le code backend original en attente…</p>
 <section id="matches" aria-label="Comparaison des rencontres"></section>
 <p class="hint">Ligne 1 : prévision Revue gelée en 5v5. Ligne 2 : calcul source-style avec le ratio xG brut entre 0 et 1. Ligne 3 : sensibilité si les mêmes xG étaient enregistrés en pourcentage 0–100. Les deux dernières lignes ne sont pas des prévisions verrouillées, ni une estimation de la probabilité publiée par Clairvoyance.</p>
 <div class="links"><a href="./nhl-backend-source-style-latest.json">RAPPORT JSON</a><a href="./nhl-source-input-gap.html">AUDIT DES SOURCES</a><a href="./nhl-clairvoyance.html">BILAN NHL</a></div>
@@ -71,6 +72,22 @@ $("m-goalies").textContent=data.complete_goalie_comparisons;
 $("m-gap").textContent=typeof data.mean_abs_raw_fraction_vs_frozen_pp==="number"
  ?data.mean_abs_raw_fraction_vs_frozen_pp.toLocaleString("fr-FR")+" pt":"—";
 $("status").textContent="Dernière analyse : "+new Date(data.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+" (Paris). Config source publique ≠ saison analysée. Le rapport n'est pas un flux live.";
+try{
+ const responseParity=await fetch("./parite-nhl-source-style.json",{cache:"no-store"});
+ if(!responseParity.ok)throw Error("Aucun rapport vérifié");
+ const check=await responseParity.json();
+ if(check.status!=="source_style_backend_outputs_identical_on_tested_real_inputs"||
+ check.source_sql_elo_or_input_parity_verified!==false||
+ check.original_published_best_bets_parity_verified!==false||
+ check.frozen_predictions_changed!==false||
+ check.input_report_generated_at_utc!==data.generated_at_utc)
+ throw Error("Rapport nouveau ou parité non confirmée");
+ $("parity").textContent="Vérification du calcul backend original : "+check.complete_result_dicts_identical+
+ " / "+check.complete_result_dicts_identical+" sorties identiques sur "+check.source_style_real_nhl_games_checked+
+ " rencontres avec les mêmes entrées Revue. Les données SQL d'origine restent indisponibles.";
+}catch(error){
+ $("parity").textContent="Parité des sorties backend non prouvée pour ce rapport : "+error.message;
+}
 const root=$("matches");
 if(!data.games.length)root.append(el("p","Aucun match comparable avant le prochain coup d'envoi. Les données manquantes ne sont pas remplacées."));
 for(const g of data.games){
