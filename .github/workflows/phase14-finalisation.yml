@@ -1,0 +1,67 @@
+name: Revue - Phase 14 Finalisation Produit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '10 0,6,12,18 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Match Center unifié'
+      - 'Revue - Phase 11 Data Integrity'
+      - 'Revue - Phase 9 Production Acceptance'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/phase14_reception.py'
+      - 'tests/test_phase14_reception.py'
+      - 'tests/test_phase14_site.py'
+      - 'docs/index.html'
+      - 'docs/play.html'
+      - 'docs/pourquoi.html'
+      - 'docs/bilan.html'
+      - 'docs/phase14-ui.js'
+      - 'docs/phase14-ui.css'
+      - '.github/workflows/phase14-finalisation.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-phase14-finalisation
+  cancel-in-progress: false
+jobs:
+  finalisation:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Three-screen source and accounting acceptance
+        run: |
+          python -m unittest discover -s tests -p 'test_phase14_reception.py' -v
+          python -m unittest discover -s tests -p 'test_phase8_site.py' -v
+          python -m unittest discover -s tests -p 'test_phase13_site.py' -v
+          node --check docs/phase14-ui.js
+          node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js
+      - name: Offline source-of-truth product snapshot
+        run: |
+          python -m outils.phase14_reception
+          python -m unittest discover -s tests -p 'test_phase14_site.py' -v
+      - name: Push current product release status
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.phase14_reception
+            git add docs/phase14-readiness-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'qa(phase14): update truthful product status across three public screens'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1

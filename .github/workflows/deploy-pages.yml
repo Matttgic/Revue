@@ -30,6 +30,7 @@ on:
       - 'Revue - Phase 7 PulseScore quote integrity and paper audit'
       - 'Revue - Phase 9 Production Acceptance'
       - 'Revue - Phase 11 Data Integrity'
+      - 'Revue - Phase 14 Finalisation Produit'
       - 'Revue - Phase 6 Original Predictions'
     types: [completed]
   push:
@@ -73,7 +74,11 @@ jobs:
           python -m unittest discover -s tests -p 'test_phase11_site.py' -v
           python -m unittest discover -s tests -p 'test_phase12_site.py' -v
           python -m unittest discover -s tests -p 'test_phase13_site.py' -v
+          python -m unittest discover -s tests -p 'test_phase14_reception.py' -v
+          python -m outils.phase14_reception
+          python -m unittest discover -s tests -p 'test_phase14_site.py' -v
           node --check docs/phase13-modeles.js
+          node --check docs/phase14-ui.js
           node --check docs/phase12-results.js
           node --check docs/phase10-modeles.js
           python -m outils.phase9_acceptation_production
@@ -107,6 +112,9 @@ jobs:
             '/phase11-donnees.html':b'p11-quarantine',
             '/phase12-resultats.html':b's12-state',
             '/phase13-modeles.html':b'p13-models',
+            '/phase14-ui.js':b'revue_phase14_public_contract_v1',
+            '/phase14-ui.css':b'p14-brief',
+            '/phase14-readiness-latest.json':b'revue_phase14_public_contract_v1',
             '/phase13-modeles.js':b'revue_phase13_model_evaluation_v1',
             '/phase13-modeles-evaluation-latest.json':b'revue_phase13_model_evaluation_v1',
             '/phase12-results.js':b'revue_phase12_settlement_audit_v1',
