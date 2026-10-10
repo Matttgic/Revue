@@ -181,13 +181,13 @@ def clean(loaded:dict[str,list[dict]], season:str,generated:datetime) -> dict:
     for row in cleaned["skaters"]:
         r=shot_types.get(row["player_id"],{})
         for field,aliases in (
-            ("shots_wrist",("wristShots","shotsWrist")),
-            ("shots_snap",("snapShots","shotsSnap")),
-            ("shots_slap",("slapShots","shotsSlap")),
-            ("shots_backhand",("backhandShots","shotsBackhand")),
-            ("shots_tip",("tipShots","shotsTip")),
-            ("shots_deflected",("deflectedShots","shotsDeflected")),
-            ("shots_wrap_around",("wrapAroundShots","shotsWrapAround")),
+            ("shots_wrist",("shotsOnNetWrist","wristShots","shotsWrist")),
+            ("shots_snap",("shotsOnNetSnap","snapShots","shotsSnap")),
+            ("shots_slap",("shotsOnNetSlap","slapShots","shotsSlap")),
+            ("shots_backhand",("shotsOnNetBackhand","backhandShots","shotsBackhand")),
+            ("shots_tip",("shotsOnNetTipIn","tipShots","shotsTip")),
+            ("shots_deflected",("shotsOnNetDeflected","deflectedShots","shotsDeflected")),
+            ("shots_wrap_around",("shotsOnNetWrapAround","wrapAroundShots","shotsWrapAround")),
         ):
             for alias in aliases:
                 v=positive_number(r.get(alias))
