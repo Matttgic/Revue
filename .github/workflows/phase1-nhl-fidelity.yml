@@ -15,6 +15,7 @@ on:
       - 'outils/verifier_phase1_nhl.py'
       - 'outils/parite_nhl_gardiens_publics.py'
       - 'tests/test_parite_nhl_gardiens_publics.py'
+      - 'tests/test_phase1_nhl_site.py'
       - 'tests/test_clairvoyance_elo_settlement_replay.py'
       - 'tests/test_verifier_phase1_nhl.py'
       - '.github/workflows/phase1-nhl-fidelity.yml'
@@ -38,6 +39,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_clairvoyance_elo_settlement_replay.py' -v
           python -m unittest discover -s tests -p 'test_parite_nhl_gardiens_publics.py' -v
           python -m unittest discover -s tests -p 'test_verifier_phase1_nhl.py' -v
+          python -m unittest discover -s tests -p 'test_phase1_nhl_site.py' -v
           python -m unittest discover -s tests -p 'test_clairvoyance_model_reproduction.py' -v
           python -m unittest discover -s tests -p 'test_nhl_source_input_gap.py' -v
       - name: Produce auditable immutable Phase 1 acceptance evidence
