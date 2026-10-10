@@ -3,6 +3,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '05 * * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Multisports Independent'
+      - 'Revue - Engine V2 (simulation)'
+      - 'Revue - NHL frontend MC et Ensemble observes'
+    types: [completed]
   push:
     paths:
       - 'outils/match_center_revue.py'
@@ -21,6 +27,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 7
     steps:
