@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060a14">
+<title>REVUE — Performance des modèles</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1170px;margin:auto;padding:28px 16px 70px}
+h1,h2,h3{font-family:'Chakra Petch',sans-serif;letter-spacing:-.045em}
+h1{font-size:clamp(35px,7vw,64px);line-height:1;margin:13px 0}
+h1 span{color:#55f5de}
+section{margin:28px 0}
+.intro{max-width:750px;font:13px/1.8 'DM Sans',sans-serif;color:#aac0d3}
+.kicker{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.17em;color:#55f5de}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:25px 0}
+.kpi{background:#111d31;border:1px solid #2e465f;padding:18px}
+.kpi strong{display:block;font:800 33px 'Chakra Petch',sans-serif;margin:9px 0}
+.kpi small{color:#93b4c6;font:11px/1.5 'DM Sans',sans-serif}
+.kpi label{font:700 10px 'Chakra Petch',sans-serif;color:#6fe9dd}
+.block-title{font-size:23px;border-bottom:1px solid #2c465d;padding-bottom:12px}
+.models{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.model{background:linear-gradient(140deg,#14253c,#0a1728);border:1px solid #314d66;padding:18px}
+.model h3{color:#ecfcff;font-size:20px;margin:0 0 8px}
+.description{font:12px/1.6 'DM Sans',sans-serif;color:#9db7c7}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:18px 0}
+.num{background:#1a3046;padding:12px 9px}
+.num strong{font:800 25px 'Chakra Petch',sans-serif;display:block;color:#55f5de}
+.num small{font:10px 'DM Sans',sans-serif;color:#b0c0d0}
+.models p{margin:12px 0 0}
+.notice{border-left:2px solid #ffbe74;color:#b8c9d9;background:#1d2234;padding:15px;font:12px/1.7 'DM Sans',sans-serif}
+.meta{font:11px/1.6 'DM Sans',sans-serif;color:#a0b7c9}
+.metric-error{color:#e8c190}
+.grid-table{width:100%;border-collapse:collapse;font-size:12px}
+.grid-table th,.grid-table td{padding:12px 10px;text-align:left;border-bottom:1px solid #314960}
+.grid-table th{font:700 10px 'Chakra Petch',sans-serif;color:#7de8df}
+.grid-table td{color:#c8daec}
+.footer{margin-top:37px;font:11px/1.8 'DM Sans',sans-serif;color:#91abbf}
+.footer a{color:#55f5de}
+@media(max-width:740px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.models{grid-template-columns:1fr}.grid-table th,.grid-table td{padding:10px 5px;font-size:10px}}
+</style></head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./match-center.html">MATCHS</a><a href="./engine-v2.html">COTES</a><a href="./multisports.html">MODÈLES</a><a href="./performance-comparateur.html" aria-current="page">PERFORMANCE</a></nav>
+</div></div>
+<main>
+<p class="kicker">REVUE // BACKTEST & VALIDATION</p>
+<h1>LES MODÈLES.<br><span>LES PREUVES.</span></h1>
+<p class="intro">Classement expérimental des performances réellement enregistrées avant les matchs. Les chiffres ne sont jamais agrégés entre sports ou échantillons incompatibles. Des tests de reproduction de formules ne démontrent pas qu'un modèle sait battre les bookmakers.</p>
+<section class="metrics" aria-label="Bilan de suivi">
+<article class="kpi"><label>FOOTBALL · PAIRES</label><strong id="football">—</strong><small>Rencontres réglées sur les deux modèles</small></article>
+<article class="kpi"><label>MC / BAYES · PAIRES</label><strong id="ensemble">—</strong><small>Comparaison prospective identique</small></article>
+<article class="kpi"><label>NHL · OFFICIEL</label><strong id="nhl">—</strong><small>Prévisions de formule Clairvoyance réglées</small></article>
+<article class="kpi"><label>MULTISPORT · INDÉPENDANT</label><strong id="multi">—</strong><small>Prévisions réellement verrouillées</small></article>
+</section>
+<p class="notice">IMPORTANT : une seule victoire ou défaite ne constitue pas une validation statistique. Les analyses des quatre registres sont séparées. Les probabilités ne sont pas calibrées. Aucun modèle n'est promu automatiquement et aucun retour sur mise n'est revendiqué.</p>
+<section><h2 class="block-title">Comparaisons prospectives</h2><div id="models" class="models" role="status" aria-live="polite"></div></section>
+<section><h2 class="block-title">Avancement par sport</h2>
+<div style="overflow-x:auto"><table class="grid-table"><thead><tr><th>Ligue</th><th>Prévisions figées</th><th>Réglées</th><th>En attente</th></tr></thead><tbody id="leagues"></tbody></table></div>
+<p id="ledgerStatus" class="meta">Lecture du registre multisports…</p></section>
+<footer class="footer">Provenance : <a href="./football-shadow-performance.json">audit football</a> · <a href="./ensemble-mc-bayes-performance.json">ensemble indépendant</a> · <a href="./nhl-shadow-performance.json">NHL officiel</a> · <a href="./multisport-prospective-performance.json">registre multisports</a>. <a href="./nhl-clairvoyance.html">Calibration NHL</a>. Les rapports reposent sur des observations horodatées du dépôt Revue, pas sur une simulation de paris effectivement misés.</footer>
+</main>
+<script>
+"use strict";
+const by=id=>document.getElementById(id);
+const tag=(name,cls,label)=>{const e=document.createElement(name);if(cls)e.className=cls;if(label!==undefined)e.textContent=label;return e;};
+const f=n=>n===null||n===undefined||!Number.isFinite(Number(n))?"En attente":Number(n).toLocaleString("fr-FR",{maximumFractionDigits:4});
+async function fetchReport(path){
+ const response=await fetch("./"+path+"?fresh="+Date.now(),{cache:"no-store"});
+ if(!response.ok)throw Error("Rapport "+path+" indisponible");
+ return response.json();
+}
+function modelCard(name,description,locked,settled,base,candidate,notes){
+ const article=tag("article","model");
+ article.append(tag("h3","",name),tag("div","description",description));
+ const stats=tag("div","stats");
+ for(const [label,value] of [["Verrouillées",locked],["Réglées",settled],["Brier modèle",candidate]]){
+   const block=tag("div","num");block.append(tag("strong","",f(value)),tag("small","",label));stats.append(block);
+ }
+ article.append(stats);
+ article.append(tag("p","description",notes));
+ if(base!=null&&candidate!=null)article.append(tag("p","meta",
+   "Brier référence "+f(base)+" · Brier challenger "+f(candidate)+" · même échantillon uniquement"));
+ return article;
+}
+async function load(){
+ const names=[
+  "football-shadow-performance.json",
+  "ensemble-mc-bayes-performance.json",
+  "nhl-shadow-performance.json",
+  "multisport-prospective-performance.json"
+ ];
+ const reports=await Promise.allSettled(names.map(fetchReport));
+ const [foot,ensemble,nhl,multi]=reports.map(x=>x.status==="fulfilled"?x.value:null);
+ const panel=by("models");panel.replaceChildren();
+ const ff=foot?.performance?.ALL,ee=ensemble?.summary?.ALL;
+ by("football").textContent=f(ff?.n_settled);
+ by("ensemble").textContent=f(ee?.settled);
+ by("nhl").textContent=f(nhl?.settled);
+ by("multi").textContent=f(multi?.total_locked);
+ panel.append(modelCard("FOOTBALL / AVANCÉ",
+  "Baseline + ESPN avancé, 1X2 en 90 minutes (mêmes rencontres).",
+  ff?.n_recorded??null,ff?.n_settled??null,
+  ff?.scores?.baseline_metrics?.brier,ff?.scores?.shadow_metrics?.brier,
+  "Le bilan repose sur "+(ff?.n_settled??0)+" match(s) ; aucun xG sous licence Opta utilisé."));
+ panel.append(modelCard("MC / BAYES / ELO",
+  "Monte-Carlo, Bayes et Elo, contre modèle baseline, sur scores enregistrés avant match.",
+  ee?.recorded??null,ee?.settled??null,ee?.baseline?.brier,
+  ee?.ensemble?.brier,
+  "Les sports et les scores du modèle original ne sont pas mélangés à la série NHL."));
+ panel.append(modelCard("NHL / CLAIRVOYANCE",
+  "Reproduction mathématique de la formule ciblée avec entrées Revue, et variante prudente.",
+  nhl?.locked_events??null,nhl?.settled??null,nhl?.mean_brier_reference_on_paired,
+  nhl?.mean_brier,
+  "La variante prudente ne sera comparée que sur "+(nhl?.research_paired_settled??0)+" rencontre(s) appariée(s) officiellement réglée(s)."));
+ panel.append(modelCard("MULTISPORTS / SURVEILLANCE",
+  "Comparaison de probabilités de recherche (NHL, NFL, NBA/WNBA, MLB) et scores officiels.",
+  multi?.total_locked??null,multi?.settled??null,null,null,
+  "Les Brier individuels par modèle ne sont pas comparables si les rencontres évaluées diffèrent."));
+ const body=by("leagues");body.replaceChildren();
+ for(const [league,row] of Object.entries(multi?.by_league||{})){
+  const tr=tag("tr");for(const val of [league,row.locked,row.settled,row.locked-row.settled])
+    tr.append(tag("td","",String(val)));
+  body.append(tr);
+ }
+ by("ledgerStatus").textContent=multi?"Suivi multisports : "+multi.pending+" en attente, "+multi.settled+
+ " réglées. Aucune mise réelle.":"Registre multisports indisponible.";
+ if(reports.some(x=>x.status!=="fulfilled"))panel.prepend(tag("div","notice","Certains rapports ne sont pas accessibles actuellement ; les chiffres manquants ne sont pas estimés."));
+}
+load();
+</script>
+</body></html>
