@@ -122,7 +122,7 @@ class NHLAdvancedRoutes(unittest.TestCase):
         teamrows += [f"T{i:02d},5on5,3,,,0.53, ,,, " for i in range(1,26)]
         goalie=[f"T{i:02d},all,3,,,,Goalie{i},3600,3.2,2" for i in range(1,26)]
         def fetch(url):
-            return header+"\\n"+"\\n".join(goalie if url.endswith("goalies.csv") else teamrows)
+            return header+"\n"+"\n".join(goalie if url.endswith("goalies.csv") else teamrows)
         data=live_moneypuck_snapshot(NOW,fetcher=fetch)
         self.assertEqual(len(data["teams"]),25)
         self.assertEqual(len(data["goalies"]),25)
