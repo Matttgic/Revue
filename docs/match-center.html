@@ -139,7 +139,7 @@ function showDetails(e,root){
   root.append(block);
  }
  root.append(create("h3","","COTES FRANÇAISES · OBSERVATIONS, PAS LIVE"));
- if(!e.quotes.length)root.append(create("p","hint","Aucune cote 1X2/H2H récente et rapprochée avec certitude de ce match. Les autres marchés sont consultables dans le scanner."));
+ if(!e.quotes.length)root.append(create("p","hint","Aucune cote 1X2/H2H récente et rapprochée avec certitude de ce match."));
  for(const q of e.quotes){
   const block=create("div","odds-line");
   block.append(create("div","book",q.bookmaker.replace(/_fr$/,"").toUpperCase()+" · "+frDate(q.quote_at_utc)));
@@ -149,6 +149,33 @@ function showDetails(e,root){
   probs.append(pill(e.away+" "+fmtOdds(q.outcomes.away)));
   block.append(probs);block.append(create("div","rule",q.rule_verified?"Règlement : "+q.rule+" · cote non live":"Règlement des prolongations non vérifié · aucune EV calculable"));
   root.append(block);
+ }
+ root.append(create("h3","","TOTAL POINTS / BUTS · PRIX OBSERVÉS"));
+ if(!e.totals_quotes?.length)root.append(create("p","hint","Aucune ligne de total avec ses deux prix vérifiés pour cette rencontre."));
+ for(const q of e.totals_quotes||[]){
+   const block=create("div","odds-line");
+   block.append(create("div","book",q.bookmaker.replace(/_fr$/,"").toUpperCase()+" · "+frDate(q.quote_at_utc)));
+   const lines=create("div","probs");
+   for(const line of q.lines.slice(0,10)){
+     lines.append(pill("+"+line.line+" "+fmtOdds(line.over)));
+     lines.append(pill("−"+line.line+" "+fmtOdds(line.under)));
+   }
+   block.append(lines);block.append(create("div","rule",q.rule_verified?"Règle : "+q.rule+" · prix historique":"Prolongation / règlement NON VÉRIFIÉ, pas d'EV"));
+   root.append(block);
+ }
+ if(e.player_profiles?.length){
+   root.append(create("h3","","JOUEURS NHL · HISTORIQUE NON CONFIRMÉ"));
+   root.append(create("p","hint","Joueurs observés dans ce club, pas une composition annoncée. Les pourcentages ne tiennent pas compte de la disponibilité du jour."));
+   for(const player of e.player_profiles.slice(0,10)){
+     const block=create("div","model");block.append(create("div","model-name",player.name+" · "+player.team));
+     const v=player.probabilities,pills=create("div","probs");
+     pills.append(pill("But "+pct(v.but)),pill("Passe "+pct(v.passe)),
+       pill("Point "+pct(v.point)),pill("2+ tirs "+pct(v.tir_cadre_2_plus)),
+       pill("3+ tirs "+pct(v.tir_cadre_3_plus)));
+     block.append(pills);
+     block.append(create("p","hint",player.season_games_current+" matchs cette saison · alignement non vérifié"));
+     root.append(block);
+   }
  }
  root.append(create("p","hint","Les probabilités des modèles peuvent porter sur un règlement différent des cotes. Revue ne calcule donc pas d'EV ni de recommandation à partir de cette juxtaposition."));
 }
@@ -160,8 +187,8 @@ function matchCard(e){
  const teams=create("div","teams");teams.append(create("strong","",e.away),create("span","versus","VS"),create("strong","",e.home));article.append(teams);
  const tags=create("div","tags");
  tags.append(create("span","tag",e.research.length+" MODÈLE(S)"));
- tags.append(create("span","tag "+(e.quotes.length?"prices":"missing"),
-  e.quotes.length?e.quotes.length+" COTE(S) HORODATÉE(S)":"COTES INDISPONIBLES"));
+ tags.append(create("span","tag "+((e.quotes.length||e.totals_quotes?.length)?"prices":"missing"),
+  (e.quotes.length||e.totals_quotes?.length)?(e.quotes.length+(e.totals_quotes?.length||0))+" MARCHÉ(S) HORODATÉ(S)":"COTES INDISPONIBLES"));
  article.append(tags);
  const detail=create("div","details");detail.hidden=true;showDetails(e,detail);
  const button=create("button","more","EXPLORER MATCH ET MODÈLES  ＋");button.type="button";button.setAttribute("aria-expanded","false");
@@ -200,7 +227,7 @@ function render(){
  if(range==="tomorrow")rows=rows.filter(e=>e.local_day===tomorrow);
  if(league!=="all")rows=rows.filter(e=>e.league===league);
  if(el("withModel").checked)rows=rows.filter(e=>e.research.length>0);
- if(el("withOdds").checked)rows=rows.filter(e=>e.quotes.length>0);
+ if(el("withOdds").checked)rows=rows.filter(e=>e.quotes.length>0||e.totals_quotes?.length>0);
  if(q)rows=rows.filter(e=>(e.league+" "+e.sport+" "+e.home+" "+e.away).toLocaleLowerCase("fr").includes(q));
  const root=el("schedule");root.replaceChildren();
  if(!rows.length){root.append(create("div","empty","Aucun match à venir ne correspond aux filtres. Essaye « 72 HEURES » ou retire le filtre des cotes."));return;}
