@@ -110,6 +110,10 @@ def main() -> None:
     ledger = json.loads(ledger_path.read_text(encoding="utf-8"))
     now = datetime.now(timezone.utc)
     updated, performance, days = run(ledger, now)
+    if updated["events"] == ledger.get("events", []):
+        print(f"NHL score check: {len(days)} day(s), no newly settled results; "
+              "preserving the published immutable ledger and report.")
+        return
     # Only publish after all requested scoreboards pass schema/mapping checks.
     payloads = ((ledger_path, updated), (Path(args.performance), performance))
     for path, data in payloads:
