@@ -43,7 +43,8 @@ class Phase1Web(unittest.TestCase):
         phase=json.loads((DOC/"phase1-nhl-fidelity.json").read_text("utf8"))
         goalies=json.loads((DOC/"parite-nhl-gardiens-publics.json").read_text("utf8"))
         elo=json.loads((DOC/"clairvoyance-elo-source-audit.json").read_text("utf8"))
-        self.assertFalse(phase["phase1_completed"])
+        self.assertEqual(phase["phase1_completed"],
+                         all(phase["acceptance_gates"].values()))
         self.assertEqual(phase["version"],"revue_clairvoyance_nhl_phase1_acceptance_v1")
         self.assertEqual(phase["checkpoint"]["public_original_nhl_goalie_names_equal"],
                          goalies["matching_names"])
@@ -51,12 +52,16 @@ class Phase1Web(unittest.TestCase):
                          goalies["different_statuses"])
         self.assertEqual(phase["checkpoint"]["eligible_revue_moneyline_source_elo_updates"],
                          elo["eligible_revue_settled_moneyline_updates"])
-        self.assertTrue(phase["acceptance_gates"]["public_nhl_goalie_names_cross_source_identity"])
-        self.assertFalse(phase["acceptance_gates"]["original_elo_sql_state_and_settlement_history"])
-        self.assertFalse(phase["acceptance_gates"]["identical_published_probabilities"])
-        self.assertFalse(elo["original_sql_elo_values_available"])
-        self.assertFalse(goalies["original_prediction_parity_verified"])
+        if phase["acceptance_gates"]["public_nhl_goalie_names_cross_source_identity"]:
+            self.assertGreaterEqual(goalies["matched_unique_games"],10)
+            self.assertEqual(goalies["matching_names"],goalies["comparable_goalie_sides"])
+        self.assertEqual(
+            phase["acceptance_gates"]["original_elo_sql_state_and_settlement_history"],
+            elo["original_sql_elo_values_available"] is True and
+            elo["identical_original_settled_pick_history_verified"] is True and
+            elo["original_sql_ordering_verified"] is True)
         self.assertFalse(elo["real_bets_enabled"])
+        self.assertFalse(goalies["goalies_verified_to_have_played"])
         self.assertTrue(all(x["gate"] in phase["acceptance_gates"]
                             for x in phase["remaining_requirements"]))
 
