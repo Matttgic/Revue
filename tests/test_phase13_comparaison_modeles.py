@@ -57,7 +57,7 @@ class QualityTests(unittest.TestCase):
  def test_no_outcomes_means_no_model_champion(self):
   real=led(fixture(0,VERSIONS[0],settled=False),
            fixture(0,VERSIONS[1],settled=False))
-  out=evaluate(real,nhl(),integrity(),BASE+timedelta(days=1))
+  out=evaluate(real,nhl(),integrity(),BASE+timedelta(days=150))
   self.assertEqual(out["metrics"]["settled"],0)
   self.assertEqual(out["calibrated_models_approved"],0)
   self.assertEqual(out["verified_profitable_models"],0)
