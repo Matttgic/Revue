@@ -1,0 +1,52 @@
+name: Revue - Surveillance CI et alertes
+
+on:
+  workflow_run:
+    workflows:
+      - "Revue - MoneyPuck official NHL data"
+      - "Revue - Clairvoyance NHL MoneyPuck Shadow"
+      - "Revue - NHL official results only"
+      - "Revue - Health diagnostics"
+      - "Revue - Publier site mobile"
+      - "Revue - Engine V2 (simulation)"
+      - "Revue - Multisports Independent"
+      - "Revue - First PulseScore Real Scan"
+    types: [completed]
+  # Test this alert workflow on installation/code changes without creating
+  # artificial failure Issues.
+  push:
+    paths:
+      - ".github/workflows/ci-failure-alerts.yml"
+      - ".github/scripts/ci-alert.cjs"
+      - "tests/test_ci_alert.cjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: revue-ci-alerts
+  cancel-in-progress: false
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test alert deduplication, recovery and source validation
+        run: node --test tests/test_ci_alert.cjs
+      - name: Create or resolve a GitHub Issue from a completed workflow
+        if: github.event_name == 'workflow_run'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const {monitor} = require('./.github/scripts/ci-alert.cjs');
+            await monitor({github, context, core});
