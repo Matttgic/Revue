@@ -1,0 +1,69 @@
+name: Revue - Phase 2 Historique Autonome
+on:
+  workflow_dispatch:
+  schedule:
+    # No paid odds API; records our own forward-only model locks and final scores.
+    - cron: '10 0,4,8,12,16,20 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Multisports Independent'
+      - 'Revue - Donnees prioritaires et reglements'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/phase2_historique_autonome.py'
+      - 'tests/test_phase2_historique_autonome.py'
+      - '.github/workflows/phase2-historique-autonome.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-phase2-owned-history
+  cancel-in-progress: false
+jobs:
+  new-owned-history:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove all-sports chronological anti-backfill + immutable locks
+        run: |
+          python -m unittest discover -s tests -p 'test_phase2_historique_autonome.py' -v
+          python -m unittest discover -s tests -p 'test_equipes_avance_multisports.py' -v
+          python -m unittest discover -s tests -p 'test_suivi_football_avance.py' -v
+          python -m unittest discover -s tests -p 'test_suivi_ensemble.py' -v
+      - name: Start Revue-only history now; never reconstruct older forecasts
+        env:
+          PULSESCORE_API_KEY: ''
+          ODDS_API_KEY: ''
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.phase2_historique_autonome
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('docs/phase2-owned-performance.json').read_text())
+          assert p['version']=='revue_phase2_owned_performance_v1'
+          assert p['real_bets_enabled'] is False
+          assert p['identical_original_clairvoyance_sql_history'] is False
+          assert p['replayed_old_results'] is False
+          assert p['odds_queried'] is False
+          print('New Revue history:',p['since_utc'],
+                'locks:',p['total_unique_matches_locked'],
+                'settled:',p['total_unique_matches_settled'],
+                'official own Elo:',p['total_independent_elo_finals'])
+          PY
+            git add docs/phase2-owned-ledger.json docs/phase2-owned-performance.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(phase2): append Revue-only immutable multi-league predictions and official future Elo results'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
