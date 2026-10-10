@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_rows
-from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck
+from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
 
 
 class NHLGameOut(BaseModel):
@@ -156,6 +156,15 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
             return read_nhl_data(season_moneypuck,situation.lower())
         except ValueError as exc:
             raise HTTPException(status_code=422,detail=str(exc)) from exc
+
+    @app.get("/nhl/moneypuck/live")
+    def nhl_moneypuck_live(response:Response):
+        response.headers["Cache-Control"]="no-store"
+        response.headers["X-Revue-Parity"]="partial: live MoneyPuck direct CSV; not original source filtering"
+        try:
+            return live_moneypuck_snapshot(now())
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
 
     @app.get("/mlb/schedule",response_model=list[MLBGameOut])
     def mlb_schedule(game_date:date=Query(default_factory=date.today)):
