@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080f21"><title>REVUE — Reproduction exacte de Clairvoyance</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+main{max-width:1150px;margin:auto;padding:28px 16px 80px}
+h1,h2,h3{font-family:'Chakra Petch',system-ui,sans-serif}
+h1{font-size:clamp(32px,6vw,64px);line-height:1.04;letter-spacing:-.055em;margin:9px 0 18px}
+h1 em{color:#55f5de;font-style:normal}
+p{line-height:1.75;color:#9fb5cb}
+.kicker{color:#55f5de;font:700 12px 'Chakra Petch',monospace;letter-spacing:.17em}
+.notice{border-left:3px solid #cca979;background:#202635;padding:16px 18px;color:#f2dcc5;margin:25px 0;font-size:13px}
+.panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:28px 0}
+.panel{background:linear-gradient(140deg,#13243a,#101827);border:1px solid #344a64;padding:20px}
+.panel strong{display:block;margin:13px 0 8px;color:#ecfdff;font:800 32px 'Chakra Petch',system-ui}
+.panel small{font-size:11px;line-height:1.6;color:#91b2c9}
+.panel label{font:700 11px 'Chakra Petch',system-ui;color:#59e7d7;letter-spacing:.09em}
+h2{margin:35px 0 10px;font-size:25px;letter-spacing:-.035em;color:#f1fcff}
+.gap{font:12px/1.7 'DM Sans',sans-serif;color:#acbfd0;max-width:790px}
+.table-scroll{max-width:100%;overflow-x:auto;border:1px solid #354961}
+table{width:100%;border-collapse:collapse;min-width:610px}
+th{color:#6df9e7;font:700 11px 'Chakra Petch',monospace;letter-spacing:.05em;text-align:left;background:#14243b}
+td{font-size:12px;color:#d0deed}
+th,td{border-bottom:1px solid #293f56;padding:11px 14px}
+td small{color:#91a8bb}
+.status{font:700 11px 'Chakra Petch',monospace;color:#eaba89}
+.sub{font:11px/1.7 monospace;color:#7eb0be;word-break:break-word}
+ol{color:#aaccdf;line-height:1.9;font-size:13px}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}
+.links a{padding:11px 14px;color:#61efdc;border:1px solid #3e596d;text-decoration:none;font:700 11px 'Chakra Petch',sans-serif}
+footer{margin-top:40px;border-top:1px solid #2f4359;padding-top:20px;color:#9ab2c8;font:12px/1.7 'DM Sans',sans-serif}
+footer a{color:#55f5de}
+@media(max-width:700px){.panels{grid-template-columns:1fr}.panel strong{font-size:26px}}
+</style></head><body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner"><a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./match-center.html">MATCHS</a><a href="./parite-clairvoyance.html">MODÈLES</a><a href="./reproduction-exacte.html" aria-current="page">PARITÉ EXACTE</a></nav>
+<span class="rv-top-tag">AUDIT STRICT</span></div></div>
+<main><p class="kicker">REVUE // CLAIRVOYANCE</p><h1>REPRODUCTION <em>EXACTE.</em><br>PAS UNE SIMULATION.</h1>
+<p>Notre objectif est de retrouver les mêmes comportements, calculs et résultats que la version précise de Clairvoyance examinée, à données et heures identiques. Les fonctions supplémentaires propres à Revue ne comptent pas.</p>
+<div class="notice">Le score historique « 50 % » mesurait la couverture de fonctionnalités de Revue. Il ne mesure PAS sa fidélité au site d'origine. Nous ne disposons pas encore d'un pourcentage global d'équivalence vérifiable, donc aucun nouveau pourcentage n'est inventé.</div>
+<div class="panels">
+<article class="panel"><label>FORMULES TESTÉES · CATALOGUE CIBLÉ</label><strong id="formula">…</strong><small>Comparées à l'original sur entrées communes. Revalidation nécessaire si la version source change.</small></article>
+<article class="panel"><label>ROUTES API D'ORIGINE</label><strong id="routes">…</strong><small>Routes recensées dans Clairvoyance, équivalence de bout en bout encore non prouvée.</small></article>
+<article class="panel"><label>PARITÉ GLOBALE EXACTE</label><strong id="global">NON VÉRIFIÉE</strong><small>Ce statut ne peut devenir validé que par des tests complets : interface, backend, données et sorties.</small></article>
+</div>
+<p class="sub" id="revision">Lecture de l'empreinte GitHub de la référence…</p>
+<h2>Backend / routes à reproduire</h2><p class="gap">Chaque ligne vient du code source de la version originale. Le statut exige un serveur et une réponse réellement compatibles : un fichier JSON ou un bouton portant le même nom ne suffit pas.</p>
+<div class="table-scroll"><table><thead><tr><th>Verbe</th><th>Route originale</th><th>Fonction</th><th>Statut de parité</th></tr></thead><tbody id="routeTable"></tbody></table></div>
+<h2>Données / formats originaux</h2><p class="gap">Échantillon de neuf contrats de fichiers, hors CFB. Les fichiers protégés ne sont pas copiés ; même nom de fichier ne signifie pas mêmes données ni mêmes conditions de collecte.</p>
+<div class="table-scroll"><table><thead><tr><th>Fichier Clairvoyance</th><th>Taille référence</th><th>Identité des données</th></tr></thead><tbody id="dataTable"></tbody></table></div>
+<h2>Conditions pour atteindre l'identité</h2>
+<ol id="blockers"><li>Vérification sur la version courante de Clairvoyance</li><li>Reproduction indépendante des calculs et des contrats d'API</li><li>Mêmes données publiques/licites au même instant</li><li>Comparaison automatisée des réponses sur des matchs réels</li><li>Comparaison de la navigation, des comportements et du rendu sur mobile</li></ol>
+<div class="links"><a href="./parite-clairvoyance.html">VOIR LES TESTS DE FORMULES ↗</a><a href="./match-center.html">VOIR L'APPLICATION REVUE ↗</a><a href="https://github.com/Purple-Wraith/clairvoyance-backend">RÉFÉRENCE ORIGINALE ↗</a></div>
+<footer>Source : <a href="./reproduction-exacte-audit.json">audit reproductible JSON</a>. Version originale vérifiée dans une copie temporaire GitHub Actions. Aucun fichier du site de référence ni jeu de données sous licence redistribué dans Revue.</footer>
+</main>
+<script>
+"use strict";
+const by=id=>document.getElementById(id);
+const cell=(row,text,cls)=>{const td=document.createElement("td");if(cls)td.className=cls;td.textContent=text;row.append(td)};
+async function load(){
+ try{
+  const response=await fetch("./reproduction-exacte-audit.json?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("rapport de conformité indisponible");
+  const report=await response.json();
+  if(report.exact_reproduction_percent!==null||report.exact_end_to_end_parity!=="NOT_VERIFIED")
+    throw Error("Rapport inattendu");
+  const current=report.model_formulas.verification_is_on_current_source_commit;
+  by("formula").textContent=report.model_formulas.verified_in_declared_subset+"/"+
+     report.model_formulas.declared_subset_total+(current?"":" · HIST.");
+  by("routes").textContent=report.backend.end_to_end_verified_equivalent_routes+
+    "/"+report.backend.source_route_count;
+  by("global").textContent="NON VÉRIFIÉE";
+  by("revision").textContent="Commit source : "+String(report.source_commit||"inconnu").slice(0,16)+
+   " · dernière lecture "+new Date(report.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+
+   " · "+(current?"formules vérifiées sur cette version":"tests de formules sur un commit antérieur");
+  const routes=by("routeTable");routes.replaceChildren();
+  for(const r of report.backend.source_routes){
+   const tr=document.createElement("tr");
+   cell(tr,r.method);cell(tr,r.path);cell(tr,r.original_function);
+   cell(tr,"NON VALIDÉ","status");routes.append(tr);
+  }
+  const data=by("dataTable");data.replaceChildren();
+  for(const p of report.static_data_contracts.items){
+   const tr=document.createElement("tr");
+   cell(tr,p.original);
+   cell(tr,p.reference_size_bytes==null?"non trouvé":Number(p.reference_size_bytes).toLocaleString("fr-FR")+" octets");
+   cell(tr,p.identical_bytes_confirmed?"IDENTITÉ DES OCTETS":"NON DÉMONTRÉE","status");
+   data.append(tr);
+  }
+  const list=by("blockers");list.replaceChildren();
+  for(const name of report.critical_blockers){const li=document.createElement("li");li.textContent=name;list.append(li);}
+ }catch(err){by("revision").textContent="Audit indisponible : "+err.message;}
+}
+load();
+</script></body></html>
