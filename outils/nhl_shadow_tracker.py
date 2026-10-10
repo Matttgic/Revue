@@ -34,7 +34,7 @@ def _new_lock(row:dict, report:dict, as_of:datetime) -> dict | None:
     times=src.get("source_updated_utc") or {}
     snapshots=src.get("source_snapshot_utc") or {}
     original=as_utc(report["generated_at_utc"])
-    if any(as_utc(t)>as_of for t in [original,*times.values(),*snapshots.values()]):
+    if original>as_of or any(as_utc(t)>as_of for t in [*times.values(),*snapshots.values()]):
         return None
     probability=row.get("home_win")
     if (not isinstance(probability,(int,float)) or
