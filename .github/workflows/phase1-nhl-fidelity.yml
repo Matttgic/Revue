@@ -1,0 +1,57 @@
+name: Revue - Phase 1 fidelite NHL
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6,18 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Donnees prioritaires et reglements'
+      - 'Revue - Source input NHL gap study'
+      - 'Revue - NHL Monte Carlo Ensemble prospective'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/clairvoyance_elo_settlement_replay.py'
+      - 'outils/verifier_phase1_nhl.py'
+      - 'tests/test_clairvoyance_elo_settlement_replay.py'
+      - 'tests/test_verifier_phase1_nhl.py'
+      - '.github/workflows/phase1-nhl-fidelity.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-nhl-phase1-fidelity
+  cancel-in-progress: false
+jobs:
+  source-gated:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Strict source-inspired ELO settlement rule tests
+        run: |
+          python -m unittest discover -s tests -p 'test_clairvoyance_elo_settlement_replay.py' -v
+          python -m unittest discover -s tests -p 'test_verifier_phase1_nhl.py' -v
+          python -m unittest discover -s tests -p 'test_clairvoyance_model_reproduction.py' -v
+          python -m unittest discover -s tests -p 'test_nhl_source_input_gap.py' -v
+      - name: Produce auditable immutable Phase 1 acceptance evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m unittest discover -s tests -p 'test_clairvoyance_elo_settlement_replay.py'
+            python -m unittest discover -s tests -p 'test_verifier_phase1_nhl.py'
+            python -m outils.clairvoyance_elo_settlement_replay
+            python -m outils.verifier_phase1_nhl
+            git add docs/clairvoyance-elo-source-audit.json docs/phase1-nhl-fidelity.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'audit(phase1): record source Elo settlement replay and explicit SQL parity blockers'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
