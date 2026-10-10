@@ -9,6 +9,7 @@ on:
       - "tests/test_api_mlb_elo.py"
       - "tests/test_api_revue_research_predictions.py"
       - "tests/test_api_paper_picks.py"
+      - "tests/test_revue_operational.py"
       - ".github/workflows/clairvoyance-api-contracts.yml"
   workflow_dispatch:
 permissions:
@@ -36,6 +37,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_api_revue_research_predictions.py' -v
       - name: Validate read-only source-shaped paper pick routes and ROI units
         run: python -m unittest discover -s tests -p "test_api_paper_picks.py" -v
+      - name: Validate operational snapshot health and multisport paper ledger
+        run: python -m unittest discover -s tests -p "test_revue_operational.py" -v
       - name: Ensure FastAPI boot and documented original route signatures
         run: |
           python - <<'PY'
@@ -46,7 +49,8 @@ jobs:
                   ("get","/nhl/teams"),("get","/nhl/goalies"),
                   ("get","/nhl/skaters"),("get","/nhl/moneypuck"),
                   ("get","/nhl/moneypuck/live"),("get","/mlb/elo"),
-                  ("get","/picks/"),("get","/picks/stats"),("get","/picks/{pick_id}")}
+                  ("get","/picks/"),("get","/picks/stats"),("get","/picks/{pick_id}"),
+                  ("get","/revue/control"),("get","/revue/ledger")}
           assert target <= exposed, (target - exposed)
           assert ("post","/picks/") not in exposed
           assert ("patch","/picks/{pick_id}/void") not in exposed

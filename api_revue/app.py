@@ -16,6 +16,7 @@ from pydantic import BaseModel
 from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_rows
 from api_revue.mlb_elo import mlb_elo_from_file
 from api_revue.paper_picks import paper_picks, paper_pick_stats
+from api_revue.operational import ledger_data, control_status
 from api_revue.research_predictions import predictions_from_files
 from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
 
@@ -284,6 +285,24 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
             status_code=503,
             detail="Source-parity prediction unavailable: original Elo, goalie, market and time-stamped data inputs are not proven identical.",
         )
+
+    @app.get("/revue/ledger")
+    def revue_multisport_paper_ledger(response:Response):
+        response.headers["Cache-Control"]="no-store"
+        response.headers["X-Revue-Parity"]="Revue paper only: verified fake stakes, NOT original SQL"
+        try:
+            return ledger_data(directory)
+        except (SourceUnavailable,ValueError,TypeError) as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
+
+    @app.get("/revue/control")
+    def revue_operational_control(response:Response):
+        response.headers["Cache-Control"]="no-store"
+        response.headers["X-Revue-Parity"]="Revue cached files, NOT live provider health"
+        try:
+            return control_status(directory,now())
+        except (SourceUnavailable,ValueError,TypeError) as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
 
     @app.get("/revue/parity")
     def source_parity():
