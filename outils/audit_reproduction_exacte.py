@@ -88,6 +88,26 @@ def static_dom(root: Path, pages: tuple[str, ...]) -> StaticIds:
     return parser
 
 
+def own_http_route_signatures(root: Path) -> list[str]:
+    """Inspect declared FastAPI routes in Revue without executing code."""
+    path=root/"api_revue/app.py"
+    if not path.is_file():
+        return []
+    source=ast.parse(path.read_text(encoding="utf-8"),filename=str(path))
+    result=set()
+    for node in ast.walk(source):
+        if not isinstance(node,(ast.FunctionDef,ast.AsyncFunctionDef)):
+            continue
+        for d in node.decorator_list:
+            if (isinstance(d,ast.Call) and isinstance(d.func,ast.Attribute) and
+                isinstance(d.func.value,ast.Name) and d.func.value.id=="app" and
+                d.func.attr.lower() in ("get","post","patch","put","delete") and
+                d.args and isinstance(d.args[0],ast.Constant) and
+                isinstance(d.args[0].value,str)):
+                result.add(d.func.attr.upper()+" "+d.args[0].value)
+    return sorted(result)
+
+
 def route_inventory(root: Path) -> list[dict]:
     found = []
     for relative in ROUTE_SOURCES:
@@ -143,6 +163,9 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
     if not (target / "docs/index.html").is_file():
         raise FileNotFoundError("Revue frontend missing")
     routes = route_inventory(reference)
+    source_route_keys={r["method"]+" "+r["path"] for r in routes}
+    own_declared=own_http_route_signatures(target)
+    matching_routes=sorted(source_route_keys.intersection(own_declared))
     current_sha = source_commit(reference)
     if not current_sha:
         # A source snapshot without its commit is useful for inspection only,
@@ -256,6 +279,10 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
         "backend": {
             "source_routes": all_routes,
             "source_route_count": len(all_routes),
+            "source_signatures_declared_in_revue": len(matching_routes),
+            "declared_matching_signatures": matching_routes,
+            "declared_but_unverified_not_full_parity": True,
+            "serving_api_host": "https://revue-api-tawny.vercel.app",
             "end_to_end_verified_equivalent_routes": 0,
             "status": "FastAPI + database behaviour not replicated as equivalent server API",
         },
