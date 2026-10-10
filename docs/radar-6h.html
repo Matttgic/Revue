@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b19">
+<title>Radar PulseScore · Cotes observées | Revue Arcade</title>
+<meta name="description" content="Cotes de bookmakers français réellement observées dans les six prochaines heures, horodatées et sans affirmation de valeur ou disponibilité en direct.">
+<link rel="stylesheet" href="./theme.css?v=2">
+<link rel="stylesheet" href="./retro.css?v=1">
+<style>
+main{max-width:1120px!important;margin:0 auto!important;padding:27px 16px 90px!important}
+header h1{font:900 clamp(37px,7vw,65px)/1 'Chakra Petch',sans-serif;letter-spacing:-.055em;margin:13px 0}
+header h1 em{font-style:normal;color:#69efdc}
+p{line-height:1.65}
+.lead{color:#aecada;font-size:13px;max-width:840px}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:23px 0}
+.metric{padding:16px;border:1px solid #426177;background:#152d44;border-radius:12px}
+.metric small{display:block;font:700 10px 'Chakra Petch',sans-serif;color:#b5ccdf}
+.metric strong{display:block;font:800 clamp(22px,5vw,34px) 'Chakra Petch',sans-serif;color:#75f3df;margin:9px 0 2px}
+.warning{border-left:4px solid #e5b17b;background:#272637;padding:15px;color:#f1dfc9;font-size:12px;margin:18px 0}
+#status{color:#aed3db;font-size:12px}
+.search{padding:13px;background:#15293d;border:1px solid #4e6b85;border-radius:9px;color:#f3fafc;min-width:200px;max-width:380px;width:100%;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.event{border:1px solid #3a596d;padding:17px;border-radius:14px;background:linear-gradient(130deg,#172c42,#111b30);min-width:0}
+.event h2{font:800 21px 'Chakra Petch',sans-serif;margin:11px 0}
+.mini{color:#add0db;font-size:11px}
+.book{border-top:1px solid #3a576d;padding:12px 0}
+.book strong{color:#78f0da;font:800 12px 'Chakra Petch',sans-serif}
+.quote{display:flex;justify-content:space-between;gap:9px;padding:6px 0;font-size:12px;color:#c7d7e4}
+.quote .price{color:#e3fefa;font:800 13px 'Chakra Petch',sans-serif}
+details{border:1px solid #3f586d;border-radius:9px;margin:9px 0;padding:10px 12px}
+summary{cursor:pointer;color:#a8f6e4;font:700 12px 'Chakra Petch',sans-serif}
+.note{font-size:11px;color:#c1b6c0}
+.bad{font-size:10px;color:#f1c39e;display:block;margin-top:5px}
+footer{display:flex;gap:15px;flex-wrap:wrap;margin-top:30px}
+@media(max-width:750px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.metric:last-child{grid-column:span 2}}
+</style></head>
+<body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a class="rv-brand" href="./index.html"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav></div></div>
+<main>
+<header><span class="arc-eyebrow">REVUE / RADAR FR / 6 HEURES</span>
+<h1>COTES <em>OBSERVÉES.</em></h1>
+<p class="lead">Le radar récupère les marchés disponibles dans PulseScore pour les rencontres qui arrivent dans six heures, dans la limite de huit appels par passage. Chaque observation porte son heure réelle de collecte ; aucun prix n'est garanti au moment de miser.</p></header>
+<div class="warning"><strong>Important :</strong> ces cotes ne sont pas nécessairement toujours proposées. Une différence entre bookmakers n'est pas une EV vérifiée. Les marchés NHL dont la règle de prolongation est incertaine sont signalés et ne doivent pas être assimilés à une prévision 2 issues.</div>
+<div class="metrics">
+<div class="metric"><small>Rencontres observées</small><strong id="match-count">—</strong></div>
+<div class="metric"><small>Lignes de marchés</small><strong id="market-count">—</strong></div>
+<div class="metric"><small>Appels PulseScore</small><strong id="call-count">—</strong></div>
+</div>
+<p id="status" role="status" aria-live="polite">Lecture des dernières observations vérifiées…</p>
+<label for="lookup" class="arc-eyebrow">RECHERCHE ÉQUIPE / LIGUE</label>
+<input class="search" type="search" id="lookup" placeholder="Équipe ou ligue…" autocomplete="off">
+<div id="games" class="grid"></div>
+<footer><a href="./index.html" class="arc-btn">← ACCUEIL ARCADE</a>
+<a href="./pulsescore-radar-latest.json" class="arc-btn">DONNÉES BRUTES ↗</a>
+<a href="./etat-donnees.html" class="arc-btn">FIABILITÉ DES SOURCES ↗</a></footer>
+</main>
+<script>
+"use strict";
+const $=x=>document.getElementById(x);
+const elem=(type,txt,cls)=>{const n=document.createElement(type);if(txt!==undefined)n.textContent=String(txt);if(cls)n.className=cls;return n};
+const time=s=>new Date(s).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
+const decimal=n=>Number(n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:3});
+const books=new Set(["betclic_fr","winamax_fr","netbet_fr","unibet_fr","pmu_fr"]);
+const label=(m,o)=>{
+  const name=m.market==="h2h"?
+    (o.selection==="home"?"Domicile":o.selection==="away"?"Extérieur":"Nul"):
+    (o.selection==="over"?"Plus de ":"Moins de ")+o.line;
+  return name;
+};
+let rows=[];
+function draw(){
+ const term=$("lookup").value.toLowerCase().trim();
+ const container=$("games");container.replaceChildren();
+ const shown=rows.filter(x=>(x.league+" "+x.home+" "+x.away).toLowerCase().includes(term));
+ for(const g of shown){
+  const card=elem("article",undefined,"event");
+  card.append(elem("span",g.league+" · "+time(g.start_utc),"arc-eyebrow"));
+  card.append(elem("h2",g.away+" — "+g.home));
+  for(const book of g.bookmakers){
+    if(!books.has(book.bookmaker))continue;
+    const section=elem("div",undefined,"book");
+    section.append(elem("strong",book.bookmaker.replace("_fr","").toUpperCase()));
+    const markets=(book.markets||[]).filter(m=>
+      ["h2h","totals"].includes(m.market)&&Array.isArray(m.outcomes));
+    const highlights=markets.filter(m=>m.market==="h2h").slice(0,1);
+    if(!highlights.length){
+      const totals=markets.filter(m=>m.market==="totals").sort((a,b)=>{
+        const rank=x=>Math.min(...x.outcomes.map(o=>Math.abs(Number(o.line)-(g.league==="NHL"?5.5:2.5))));
+        return rank(a)-rank(b);
+      });
+      highlights.push(...totals.slice(0,1));
+    }
+    for(const m of highlights){
+      for(const o of m.outcomes.slice(0,3)){
+        const line=elem("div",undefined,"quote");
+        line.append(elem("span",label(m,o)),elem("strong","@ "+decimal(o.price),"price"));
+        section.append(line);
+      }
+      if(g.league==="NHL"&&m.period_rule!=="including_ot_confirmed")
+        section.append(elem("span","Règlement des prolongations non vérifié","bad"));
+    }
+    const more=elem("details");const head=elem("summary","Voir tous les marchés observés ("+markets.length+")");
+    more.append(head);
+    for(const m of markets){
+      const mk=elem("div",undefined,"quote");
+      mk.append(elem("strong",m.market==="h2h"?"Vainqueur":"Total","mini"),
+        elem("small",time(m.quote_at)+" · "+m.period_rule,"mini"));
+      more.append(mk);
+      for(const o of m.outcomes){
+        const row=elem("div",undefined,"quote");
+        row.append(elem("span",label(m,o)),elem("strong","@ "+decimal(o.price),"price"));
+        more.append(row);
+      }
+    }
+    section.append(more);
+    card.append(section);
+  }
+  card.append(elem("p","Observation : pas une proposition de pari, ni une disponibilité confirmée.","note"));
+  container.append(card);
+ }
+ if(!shown.length)container.append(elem("p","Aucune rencontre correspondant à ce filtre ou aucun relevé récent disponible.","lead"));
+}
+(async()=>{
+ try{
+  const resp=await fetch("./pulsescore-radar-latest.json",{cache:"no-store"});
+  if(!resp.ok)throw Error("pas de relevé publié");
+  const d=await resp.json();
+  const age=Date.now()-Date.parse(d.generated_at_utc);
+  if(d.version!=="revue_pulsescore_six_hour_radar_v1"||d.status!=="observed"||
+     d.provider!=="PulseScore"||d.market_prices_are_live!==false||
+     d.real_bets_enabled!==false||d.positive_ev_verified!==false||
+     d.new_paper_bets_created!==false||d.existing_paper_ledger_modified!==false||
+     !Number.isInteger(d.request_cap)||d.request_cap>8||
+     !Number.isInteger(d.requests_used)||d.requests_used>d.request_cap||
+     !Array.isArray(d.observations)||!Number.isFinite(age)||age < -120000||
+     age>4*3600000)throw Error("relevé incomplet, invalide ou périmé");
+  const now=Date.now();
+  rows=d.observations.filter(x=>Date.parse(x.start_utc)>now+20*60000&&
+    x.league!=="CFB"&&Array.isArray(x.bookmakers)&&
+    x.bookmakers.every(b=>b.markets.every(m=>
+      Date.parse(m.quote_at)<=now+120000 &&
+      Date.parse(m.quote_at)<=Date.parse(x.start_utc)-20*60000)));
+  $("match-count").textContent=d.matches_observed;
+  $("market-count").textContent=d.market_rows_observed;
+  $("call-count").textContent=d.requests_used+" / "+d.request_cap;
+  $("status").textContent="Relevé PulseScore du "+time(d.generated_at_utc)+
+    " · "+rows.length+" matchs encore à venir. Cotes déjà observées uniquement.";
+  draw();
+ }catch(error){$("status").textContent="Radar indisponible : "+error.message;
+   $("games").append(elem("p","Les cotes précédentes ne sont pas affichées comme actuelles.","lead"));}
+})();
+$("lookup").addEventListener("input",draw);
+</script></body></html>
