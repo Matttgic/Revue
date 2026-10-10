@@ -29,7 +29,7 @@ def _valid_probability(p: object) -> bool:
     return isinstance(p, (int, float)) and not isinstance(p, bool) and math.isfinite(p) and 0 < p < 1
 
 
-def _observations(events: list[dict], probability_field: str) -> list[dict]:
+def _observations(events: list[dict], probability_field: str, now: datetime) -> list[dict]:
     rows = []
     for event in events:
         if event.get("status") != "settled" or event.get(probability_field) is None:
@@ -41,8 +41,13 @@ def _observations(events: list[dict], probability_field: str) -> list[dict]:
         kickoff = as_utc(event["kickoff_utc"])
         locked = as_utc(event["locked_at_utc"])
         settled = as_utc(event["resolved_at_utc"])
-        if not (locked <= kickoff - timedelta(minutes=20) < settled):
-            raise ValueError("A settled forecast is not verifiably pre-kickoff")
+        if not (locked <= kickoff - timedelta(minutes=20) and kickoff < settled <= now):
+            raise ValueError("A settled forecast is not verifiably pre-kickoff and settled by now")
+        home_goals, away_goals = event.get("home_goals"), event.get("away_goals")
+        if (type(home_goals) is not int or type(away_goals) is not int or
+            home_goals < 0 or away_goals < 0 or home_goals == away_goals or
+            y != int(home_goals > away_goals)):
+            raise ValueError("Official final goals disagree with recorded winner")
         rows.append({"id": str(event["event_id"]), "p": float(p), "y": y,
                      "kickoff": kickoff, "settled": settled})
     # Training may use outcomes only when they became available, NOT the game date.
@@ -208,8 +213,8 @@ def build_report(ledger: dict, now: datetime) -> dict:
     if len(ids) != len(set(ids)):
         raise ValueError("Duplicate NHL ledger event ID")
     studies = {
-        "clairvoyance_formula": _study(_observations(events, "home_win_probability"), "clairvoyance_formula"),
-        "revue_prudent": _study(_observations(events, "research_home_win_probability"), RESEARCH_MODEL),
+        "clairvoyance_formula": _study(_observations(events, "home_win_probability", now), "clairvoyance_formula"),
+        "revue_prudent": _study(_observations(events, "research_home_win_probability", now), RESEARCH_MODEL),
     }
     return {
         "generated_at_utc": now.astimezone(timezone.utc).isoformat(),
