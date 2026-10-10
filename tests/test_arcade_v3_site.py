@@ -123,7 +123,7 @@ class ArcadeV3Tests(unittest.TestCase):
         self.assertIn("./phase3-bilan.js?v=1",bilan)
         self.assertIn("./arcade-v3-data.js?v=1",bilan)
         self.assertIn("window.RevueArcadeV3.ownedSnapshot",view)
-        self.assertIn("models_calibrated!==false",view)
+        self.assertIn("report.models_calibrated!==false",core)
         self.assertIn("roi_computed",core)
         self.assertIn("phase2-owned-ledger.json",app)
         self.assertIn("phase2-owned-performance.json",app)
