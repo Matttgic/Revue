@@ -183,6 +183,42 @@ def observed_totals(market: dict) -> dict | None:
             if set(values)=={"over","under"}][:12] or None
 
 
+def h2h_market_comparison(quotes: list[dict], league: str) -> dict | None:
+    """Price comparison only, NOT estimated EV or a calibrated probability."""
+    expected={"home","draw","away"} if league in (
+        "PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS","UCL") else {"home","away"}
+    # Never compare NHL prices with provider-specific UNKNOWN OT rules.
+    clean=[q for q in quotes if q.get("rule_verified") is True and
+           set((q.get("outcomes") or {}).keys())==expected]
+    if not clean:
+        return None
+    groups={}
+    for q in clean:
+        groups.setdefault(q["rule"],[]).append(q)
+    best_group=max(groups.values(),key=len)
+    if not best_group:
+        return None
+    best={}
+    for outcome in sorted(expected):
+        ordered=sorted(best_group,key=lambda q:(-q["outcomes"][outcome],q["bookmaker"]))
+        best[outcome]={
+            "bookmaker":ordered[0]["bookmaker"],
+            "price":ordered[0]["outcomes"][outcome],
+            "quote_at_utc":ordered[0]["quote_at_utc"],
+        }
+    margins=[(sum(1/q["outcomes"][k] for k in expected)-1,q["bookmaker"])
+             for q in best_group]
+    low,book=min(margins)
+    return {
+        "market":"h2h","rule":best_group[0]["rule"],
+        "books_compared":len(best_group),
+        "highest_observed_prices":best,
+        "lowest_bookmaker_overround":round(low,6),
+        "lowest_overround_bookmaker":book,
+        "no_ev_claim":True,"no_guaranteed_arbitrage":True,
+    }
+
+
 def validated_scoreboard(doc: dict | None, now: datetime) -> list[dict]:
     """Independent game scores, never a backfilled pre-game forecast."""
     if not isinstance(doc,dict) or doc.get("status")!="observed_scoreboard_not_streaming":
@@ -398,6 +434,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
 
     output = sorted(events.values(), key=lambda r:(r["start_utc"],r["league"],r["event_id"]))
     for row in output:
+        row["price_comparison"] = h2h_market_comparison(row["quotes"], row["league"])
         row["recommendation"] = None
         row["ev"] = None
         row["qualified_for_real_betting"] = False
@@ -417,6 +454,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
             "with_observed_bookmaker_quotes":sum(bool(e["quotes"] or e["totals_quotes"]) for e in output),
             "with_observed_totals":sum(bool(e["totals_quotes"]) for e in output),
             "with_nhl_player_profiles":sum(bool(e["player_profiles"]) for e in output),
+            "with_comparable_market_prices":sum(e["price_comparison"] is not None for e in output),
             "with_research_model":sum(bool(e["research"]) for e in output),
             "leagues":len(leagues),
         },
