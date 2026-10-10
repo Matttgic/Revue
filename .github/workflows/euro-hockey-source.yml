@@ -1,0 +1,43 @@
+name: Revue - Hockey européen source
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 4,10,16,22 * * *'
+  push:
+    paths:
+      - 'outils/euro_hockey_reference_feed.js'
+      - 'tests/test_euro_hockey_reference_feed.cjs'
+      - '.github/workflows/euro-hockey-source.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-euro-hockey-source
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test independent European hockey modelling and frozen pre-match results
+        run: node --test tests/test_euro_hockey_reference_feed.cjs
+      - name: Import reduced public reference observations without source code or odds
+        run: node outils/euro_hockey_reference_feed.js docs
+      - name: Publish only derived audited sports research (never original raw files)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            node outils/euro_hockey_reference_feed.js docs
+            git add docs/euro-hockey-latest.json docs/euro-hockey-prospective-ledger.json docs/euro-hockey-prospective-performance.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(euro-hockey): update public fixtures and prospectively locked model estimates'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
