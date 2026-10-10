@@ -78,8 +78,52 @@ def model_snapshot(doc: dict, now: datetime, kickoff: datetime) -> bool:
         return False
 
 
+def actual_nhl_results(ledger: dict | None, now: datetime) -> tuple[list[dict], int]:
+    """Only genuinely resolved prospective NHL locks; no backfilled outcomes."""
+    if not ledger or ledger.get("version") != "nhl_clairvoyance_moneypuck_shadow_v1":
+        return [], 0
+    out, pending = [], 0
+    for row in ledger.get("events") or []:
+        if row.get("status") == "pending":
+            pending += 1
+            continue
+        if row.get("status") != "settled":
+            continue
+        try:
+            kickoff = instant(row["kickoff_utc"])
+            locked = instant(row["locked_at_utc"])
+            graded = instant(row["resolved_at_utc"])
+            home_goals, away_goals = row["home_goals"], row["away_goals"]
+            y = row["result"]
+            p = row["home_win_probability"]
+            if (not locked <= kickoff - timedelta(minutes=20) or
+                not kickoff < graded <= now or
+                type(home_goals) is not int or type(away_goals) is not int or
+                home_goals == away_goals or
+                not 0 <= home_goals <= 99 or not 0 <= away_goals <= 99 or
+                type(y) is not int or y != int(home_goals > away_goals) or
+                not probability(p)):
+                continue
+            out.append({
+                "league":"NHL","event_id":str(row["event_id"]),
+                "home":row["home"],"away":row["away"],
+                "kickoff_utc":kickoff.isoformat(),"resolved_at_utc":graded.isoformat(),
+                "home_goals":home_goals,"away_goals":away_goals,
+                "winner":row["home"] if y else row["away"],
+                "clairvoyance_home_win":round(float(p),6),
+                "research_home_win":round(float(row["research_home_win_probability"]),6)
+                   if probability(row.get("research_home_win_probability")) else None,
+                "official_result":True,"real_bet":False,"staked_units":0,
+            })
+        except (KeyError, ValueError, TypeError):
+            continue
+    out.sort(key=lambda x:(x["kickoff_utc"],x["event_id"]), reverse=True)
+    return out[:25], pending
+
+
 def collect_center(multisports: dict, scanner: dict, advanced: dict,
-                   nhl: dict, ensemble: dict, now: datetime) -> dict:
+                   nhl: dict, ensemble: dict, now: datetime,
+                   ledger: dict | None = None) -> dict:
     if now.tzinfo is None:
         raise ValueError("now timezone required")
     now = now.astimezone(timezone.utc)
@@ -235,6 +279,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
         row["qualified_for_real_betting"] = False
         row["research"].sort(key=lambda r:r["id"])
     leagues = sorted({e["league"] for e in output})
+    results, pending_results = actual_nhl_results(ledger, now)
     return {
         "generated_at_utc": now.isoformat(),
         "status":"experimental_revue_match_center",
@@ -249,6 +294,8 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
             "leagues":len(leagues),
         },
         "leagues":leagues, "events":output, "rejections":rejected,
+        "official_results":results, "official_results_count":len(results),
+        "prospective_nhl_pending":pending_results,
         "note":"All research probabilities uncalibrated. Market prices are historic observations, not live/bookable. NHL OT rules may be unverified. Do not compute EV, recommend bets or claim profitability.",
     }
 
@@ -257,6 +304,7 @@ def main() -> None:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--input",default="docs")
     p.add_argument("--output",default="docs/match-center-latest.json")
+    p.add_argument("--ledger",default="docs/nhl-shadow-ledger.json")
     args=p.parse_args()
     root=Path(args.input)
     mapping={
@@ -267,7 +315,9 @@ def main() -> None:
         "ensemble":"ensemble-mc-bayes-latest.json",
     }
     data={k:json.loads((root/v).read_text(encoding="utf-8")) for k,v in mapping.items()}
-    result=collect_center(**data,now=datetime.now(timezone.utc))
+    ledger_path=Path(args.ledger)
+    ledger=json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else None
+    result=collect_center(**data,now=datetime.now(timezone.utc),ledger=ledger)
     out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+"\n",encoding="utf-8")
     print("Revue Match Center:",result["metrics"])
