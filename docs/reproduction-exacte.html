@@ -43,6 +43,7 @@ footer a{color:#55f5de}
 <div class="panels">
 <article class="panel"><label>FORMULES TESTÉES · CATALOGUE CIBLÉ</label><strong id="formula">…</strong><small>Comparées à l'original sur entrées communes. Revalidation nécessaire si la version source change.</small></article>
 <article class="panel"><label>ROUTES API D'ORIGINE</label><strong id="routes">…</strong><small>Routes recensées dans Clairvoyance, équivalence de bout en bout encore non prouvée.</small></article>
+<article class="panel"><label>MLB · MISES À JOUR ELO</label><strong id="eloMLB">—</strong><small>Égalité avec la formule source, recalculée sur des matchs ESPN terminés de Revue. Base SQL d'origine non vérifiée.</small></article>
 <article class="panel"><label>NHL · MÊMES ENTRÉES REVUE</label><strong id="nhlReal">…</strong><small>Égalité intégrale sur des rencontres réelles, sans prétendre que Clairvoyance disposait des mêmes statistiques.</small></article>
 <article class="panel"><label>ROUTES API IMPLÉMENTÉES (SIGNATURE)</label><strong id="apiPresent">—</strong><small>Mêmes chemins HTTP déclarés, sans garantie de réponses identiques. Le serveur Vercel est disponible séparément.</small></article>
 <article class="panel"><label>SCHÉMAS DES RÉPONSES NHL / MLB</label><strong id="apiSchemas">—</strong><small>Correspondance exacte des noms, types et champs optionnels de cinq schémas ; l'identité des valeurs reste non vérifiée.</small></article>
@@ -88,6 +89,10 @@ async function load(){
   const tested=report.model_formulas.current_nhl_real_fixtures_tested||0;
   const equal=report.model_formulas.current_nhl_full_output_dicts_equal||0;
   by("nhlReal").textContent=tested?equal+"/"+tested:"NON VÉRIFIÉ";
+  const elo=report.mlb_elo_source_replay||{};
+  by("eloMLB").textContent=elo.source_formula_unchanged_since_test?
+    String(elo.exact_update_results)+"/"+String(elo.replayed_espn_final_games):
+    "REVALIDATION";
   by("revision").textContent="Commit source : "+String(report.source_commit||"inconnu").slice(0,16)+
    " · dernière lecture "+new Date(report.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+
    " · "+(current?"formules vérifiées sur cette version":"tests de formules sur un commit antérieur");
