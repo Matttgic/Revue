@@ -15,8 +15,10 @@ SOURCE_DEFAULTS={"NHL_SEASON":"20252026","NHL_GAME_TYPE":3}
 DISCLAIMER=("Research sensitivity only. Revue Elo is NOT original SQL. "
     "The public source config defaults to 2025-26 playoffs; this run uses "
     "2026-27 regular season. Source default does not prove deployment config. "
-    "MoneyPuck raw xGoalsPercentage scale in original storage remains "
-    "unverified. NHL official goalie stats can postdate the frozen forecast.")
+    "MoneyPuck original scraper never rescales xGoalsPercentage; if input "
+    "is 0..1, source formula divides xG difference by 100 again. Exact "
+    "original stored values remain unverified. NHL official goalie stats "
+    "can postdate the frozen forecast.")
 
 
 def dt(v):
@@ -132,13 +134,28 @@ def analyze(teams,mp_goalies,official,shadow,now):
         complete=h["status"]==a["status"]=="unique_most_games"
         g_only=p(old_xg["home"],old_xg["away"],h["save_pct"],a["save_pct"]) if complete else None
         both=p(home_all,away_all,h["save_pct"],a["save_pct"]) if complete else None
+        # The public scraper stores the unscaled numeric CSV value; the public
+        # predictor divides the xGoals% difference by 100. Revue's shadow
+        # instead supplied 0..100 percentages. If CSV values were fractions,
+        # the original formula's xG contribution would be 100 times smaller.
+        # This is a counterfactual INPUT SCALE scenario: the exact raw CSV,
+        # source SQL, source season and original Elo are not verified equal.
+        fraction_only=p(all_stats[home],all_stats[away],old_h,old_a)
+        fraction_both=(p(all_stats[home],all_stats[away],
+                         h["save_pct"],a["save_pct"]) if complete else None)
         output.append({
             "event_id":ident,"home":home,"away":away,"start_utc":start.isoformat(),
             "frozen_published_home_probability":entry["home_win"],
             "recomputed_frozen_inputs_probability":baseline,
             "all_xg_only_home_probability":all_only,
+            "all_xg_raw_fraction_only_home_probability":fraction_only,
             "official_goalie_only_home_probability":g_only,
             "all_xg_and_official_goalie_home_probability":both,
+            "all_xg_raw_fraction_and_official_goalie_home_probability":fraction_both,
+            "raw_fraction_vs_pct_points_scale_change_pp":
+                round(100*(fraction_only-all_only),2),
+            "raw_fraction_vs_pct_points_scale_change_with_official_goalie_pp":
+                round(100*(fraction_both-both),2) if complete else None,
             "xg_only_change_pp":round(100*(all_only-baseline),2),
             "goalie_only_change_pp":round(100*(g_only-baseline),2) if complete else None,
             "combined_change_pp":round(100*(both-baseline),2) if complete else None,
@@ -149,6 +166,10 @@ def analyze(teams,mp_goalies,official,shadow,now):
         })
     shifts=[abs(x["combined_change_pp"]) for x in output if x["combined_change_pp"] is not None]
     xs=[abs(x["xg_only_change_pp"]) for x in output]
+    scales=[abs(x["raw_fraction_vs_pct_points_scale_change_pp"]) for x in output]
+    scales_both=[abs(x["raw_fraction_vs_pct_points_scale_change_with_official_goalie_pp"])
+                 for x in output
+                 if x["raw_fraction_vs_pct_points_scale_change_with_official_goalie_pp"] is not None]
     return {
         "generated_at_utc":now.isoformat(),
         "status":"diagnostic_not_original_source_parity",
@@ -166,6 +187,18 @@ def analyze(teams,mp_goalies,official,shadow,now):
         "different_all_vs_5on5_team_rates":sum(all_stats[t]!=five[t] for t in all_stats.keys()&five.keys()),
         "mean_abs_delta_xg_only_pp":round(sum(xs)/len(xs),2) if xs else None,
         "mean_abs_delta_combined_pp":round(sum(shifts)/len(shifts),2) if shifts else None,
+        "mean_abs_delta_source_xg_input_scale_pp":round(sum(scales)/len(scales),2) if scales else None,
+        "mean_abs_delta_source_scale_with_official_goalie_pp":
+            round(sum(scales_both)/len(scales_both),2) if scales_both else None,
+        "raw_moneypuck_fraction_scenario":{
+            "assumed_raw_input_unit":"fraction_0_to_1",
+            "contrasted_input_unit":"percentage_points_0_to_100",
+            "original_scraper_numeric_normalization":"none",
+            "original_predictor_divisor":100,
+            "original_database_raw_value_equality_verified":False,
+            "original_deployment_config_verified":False,
+            "not_source_parity_and_not_a_new_pick":True
+        },
         "skipped":skipped,"real_bets_enabled":False,
         "original_inputs_identical":False,"end_to_end_parity_verified":False,
         "disclaimer":DISCLAIMER,"games":output

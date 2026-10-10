@@ -11,7 +11,7 @@ h1{font:800 clamp(34px,7vw,62px)/1.05 'Chakra Petch',sans-serif;letter-spacing:-
 h1 span{color:#55f5de}.eyebrow{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.18em;color:#55f5de}
 .lead{max-width:840px;color:#aac1d7;font-size:13px;line-height:1.8}
 .notice{margin:22px 0;padding:15px 18px;color:#e9caa3;border-left:3px solid #dfab73;background:#1b2535;font-size:12px}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0}
+.metrics{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:24px 0}
 .metric{padding:19px;background:linear-gradient(130deg,#182b46,#101c30);border:1px solid #35536c}
 .metric small{font:700 10px/1.5 'Chakra Petch',sans-serif;color:#94b6cf;letter-spacing:.1em}
 .metric strong{display:block;font:800 30px 'Chakra Petch',sans-serif;color:#55f5de;margin-top:12px}
@@ -49,6 +49,7 @@ select{padding:12px!important;font-size:12px!important}
 <div class="metric"><small>GARDIENS NON AMBIGUS</small><strong id="n-goalies">—</strong></div>
 <div class="metric"><small>ÉCART MOYEN ABSOLU · XG SEUL</small><strong id="n-xg">—</strong></div>
 <div class="metric"><small>ÉCART MOYEN ABSOLU · COMBINÉ</small><strong id="n-both">—</strong></div>
+<div class="metric"><small>ÉCART D'ÉCHELLE XG (0–1 VS 0–100)</small><strong id="n-scale">—</strong></div>
 </div>
 <p class="status" role="status" id="status" aria-live="polite">Chargement du rapport horodaté…</p>
 <div class="toolbar">
@@ -87,12 +88,16 @@ function render(){
   const cells=el("div","probs");
   const values=[["5v5 / MONEYPUCK",g.recomputed_frozen_inputs_probability],
                 ["XG ALL SEUL",g.all_xg_only_home_probability],
-                ["ALL + NHL EDGE",g.all_xg_and_official_goalie_home_probability]];
+                ["ALL + NHL EDGE (0–100)",g.all_xg_and_official_goalie_home_probability],
+                ["ALL + NHL EDGE (0–1)",g.all_xg_raw_fraction_and_official_goalie_home_probability]];
   for(const [label,value] of values){
    const cell=el("div");cell.append(el("small","",label),el("strong","",pct(value)));cells.append(cell);
   }
   card.append(cells);
   card.append(el("p","delta","VARIATION COMBINÉE : "+pp(g.combined_change_pp)));
+  card.append(el("p","muted","IMPACT ÉCHELLE XG À GARDIENS IDENTIQUES : "+
+    pp(g.raw_fraction_vs_pct_points_scale_change_pp)+
+    " · cas d'école, pas de parité originale démontrée."));
   const h=g.official_goalie_selection.home,a=g.official_goalie_selection.away;
   const goalie= (x)=>x.status==="unique_most_games"?(x.name+" / "+x.games+" matchs"):"NON DÉTERMINABLE";
   card.append(el("p","muted",
@@ -114,6 +119,11 @@ get("filter").addEventListener("change",render);
   get("n-goalies").textContent=String(doc.games_with_unique_nhl_official_goalie);
   get("n-xg").textContent=pp(doc.mean_abs_delta_xg_only_pp);
   get("n-both").textContent=pp(doc.mean_abs_delta_combined_pp);
+  const scale=doc.raw_moneypuck_fraction_scenario;
+  if(scale?.original_database_raw_value_equality_verified!==false ||
+     scale?.not_source_parity_and_not_a_new_pick!==true)
+     throw Error("Provenance scénario brut absente");
+  get("n-scale").textContent=pp(doc.mean_abs_delta_source_xg_input_scale_pp);
   get("status").textContent="Relevé : "+
     new Date(doc.generated_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris"})+
     " · matchs historiques du rapport · parité originale NON vérifiée.";
