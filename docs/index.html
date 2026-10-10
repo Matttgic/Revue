@@ -1,52 +1,119 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080b19"><meta name="description" content="Revue Arcade : quoi étudier aujourd'hui et bilan réel des simulations vérifiées"><title>Accueil — REVUE ARCADE</title><link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1"><script defer src="./retro-app.js?v=1"></script></head>
- <body class="retro" data-page="home"><div class="rv-topbar"><div class="rv-top-inner">
- <a href="./index.html" class="rv-brand" aria-label="Accueil Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
- <nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html" aria-current="page">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./historique.html">HISTORIQUE</a><a href="./lab.html">LAB</a></nav>
- <span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i> ARCADE / V2</span>
- </div></div>
- <nav class="arc-bottom-nav" aria-label="Navigation mobile"><a href="./index.html" aria-current="page"><span class="arc-nav-icon" aria-hidden="true">⌂</span>ACCUEIL</a><a href="./play.html"><span class="arc-nav-icon" aria-hidden="true">▷</span>À JOUER</a><a href="./bilan.html"><span class="arc-nav-icon" aria-hidden="true">▤</span>BILAN</a><a href="./historique.html"><span class="arc-nav-icon" aria-hidden="true">◷</span>HISTO</a><a href="./lab.html"><span class="arc-nav-icon" aria-hidden="true">⚙</span>LAB</a></nav><main class="arc-main">
-<section class="arc-hero" aria-labelledby="arc-title">
- <div class="arc-hero-copy">
-  <div class="arc-eyebrow">01 / TON COCKPIT SPORTIF</div>
-  <h1 id="arc-title">GAME <span class="arc-gradient">ON.</span><br>STAY <span class="arc-highlight">SHARP.</span></h1>
-  <p class="arc-subtitle">Des matchs à suivre. Un bilan compréhensible. Toutes les analyses compliquées rangées dans le Lab.</p>
-  <div class="arc-buttons">
-   <a class="arc-btn arc-btn--primary" href="./play.html">▷ VOIR À JOUER</a>
-   <a class="arc-btn" href="./bilan.html">▤ MON BILAN</a>
-  </div>
-  <p class="arc-help">Mode personnel · simulations uniquement · les cotes ne sont pas en direct.</p>
- </div>
- <div class="arc-machine" aria-hidden="true">
-  <div class="arc-pixel arc-pixel--a"></div><div class="arc-pixel arc-pixel--b"></div><div class="arc-pixel arc-pixel--c"></div>
-  <div class="arc-orbit"></div>
-  <div class="arc-console"><div class="arc-console-screen"><div class="arc-screen-text">REVUE<small>INSERT DATA · NOT COINS</small></div></div><div class="arc-dpad"></div><div class="arc-pad-buttons"><i></i><i></i></div></div>
-  <div class="arc-grid"></div>
- </div>
-</section>
-<div class="arc-strip"><span class="arc-live"><i class="arc-dot arc-dot--off"></i><span id="home-status">Vérification des recommandations…</span></span><span id="home-when">Dernier calendrier en cours de lecture…</span></div>
-<div class="arc-kpis" aria-label="Indicateurs principaux">
- <article class="arc-kpi arc-kpi--mint"><div class="caption">Paris validés aujourd'hui</div><strong id="home-active" class="value">—</strong><div class="hint">Pas de conseils inventés</div></article>
- <article class="arc-kpi"><div class="caption">Profit fictif</div><strong id="home-profit" class="value">—</strong><div class="hint">Simulations réglées seulement</div></article>
- <article class="arc-kpi arc-kpi--pink"><div class="caption">ROI fictif</div><strong id="home-roi" class="value">—</strong><div class="hint">Échantillon limité</div></article>
- <article class="arc-kpi"><div class="caption">Résultats réglés</div><strong id="home-settled" class="value">—</strong><div id="home-scope" class="hint">Bilan fictif en cours…</div></article>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b19">
+<meta name="description" content="REVUE ARCADE : quoi analyser aujourd'hui, pourquoi un pari est refusé et le bilan de simulations vérifiées.">
+<title>REVUE ARCADE · À jouer, pourquoi, bilan</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<link rel="stylesheet" href="./retro.css?v=1">
+<link rel="stylesheet" href="./arcade-v3.css?v=1">
+<script defer src="./retro-app.js?v=1"></script>
+<script defer src="./arcade-v3-data.js?v=1"></script>
+<script defer src="./arcade-v3-app.js?v=1"></script>
+</head>
+<body class="retro" data-page="arcade-v3">
+<div class="rv-topbar"><div class="rv-top-inner">
+<a href="./index.html" class="rv-brand" aria-label="Revue Arcade, accueil"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html" aria-current="page">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./historique.html">HISTORIQUE</a><a href="./lab.html">LAB</a></nav>
+<span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i> ARCADE / V3</span>
+</div></div>
+<nav class="arc-bottom-nav" aria-label="Navigation mobile principale">
+<a href="./index.html" aria-current="page"><span class="arc-nav-icon" aria-hidden="true">⌂</span>ACCUEIL</a>
+<a href="./play.html"><span class="arc-nav-icon" aria-hidden="true">▷</span>À JOUER</a>
+<a href="./bilan.html"><span class="arc-nav-icon" aria-hidden="true">▤</span>BILAN</a>
+<a href="./historique.html"><span class="arc-nav-icon" aria-hidden="true">◷</span>HISTO</a>
+<a href="./lab.html"><span class="arc-nav-icon" aria-hidden="true">⚙</span>LAB</a>
+</nav>
+<main class="arc-main">
+<header class="arc-v3-header">
+<div>
+<span class="arc-eyebrow">REVUE ARCADE / TON TABLEAU DE BORD</span>
+<h1>GAME <span>ON.</span></h1>
+<p>Un seul endroit pour savoir <strong>quels matchs étudier</strong>, comprendre <strong>pourquoi un pari est refusé</strong> et voir le <strong>bilan réel des simulations fictives</strong>.</p>
+<div class="arc-v3-hero-actions">
+<a class="arc-btn arc-btn--primary" href="#home-jouer">▷ MATCHS DU JOUR</a>
+<a class="arc-btn" href="#home-bilan">▤ VOIR LE BILAN</a>
 </div>
-<section class="arc-section" aria-labelledby="home-pick-title">
- <div class="arc-section-head"><h2 id="home-pick-title">▷ <span class="arc-gradient">Quoi jouer aujourd'hui ?</span></h2><a href="./play.html">VOIR TOUT ↗</a></div>
- <div class="arc-signal" role="note"><strong>Pas de sélection garantie.</strong> Seuls des matchs et des cotes historiques peuvent être étudiés. L'absence de pari recommandé est une vraie réponse.</div>
- <div id="home-picks" class="arc-list" style="margin-top:13px" aria-live="polite"><div class="arc-placeholder">Lecture des données du radar…</div></div>
-</section>
-<div class="arc-grid-2">
- <section class="arc-surface" aria-labelledby="home-sport-title">
-  <div class="arc-section-head"><h2 id="home-sport-title">◈ Matchs à surveiller</h2><a href="./play.html">MATCHS ↗</a></div>
-  <p class="arc-subtitle">Des rencontres à analyser, pas des paris validés.</p>
-  <div id="home-matches" class="arc-list" aria-live="polite">Chargement des matchs…</div>
- </section>
- <section class="arc-surface" aria-labelledby="home-results-title">
-  <div class="arc-section-head"><h2 id="home-results-title">▤ Derniers résultats</h2><a href="./historique.html">HISTORIQUE ↗</a></div>
-  <p class="arc-subtitle">Simulation, jamais argent réel. Aucun retour présenté sans règlement vérifié.</p>
-  <div id="home-recent" class="arc-list" aria-live="polite">Chargement du journal…</div>
- </section>
 </div>
-<div class="arc-section">
- <div class="arc-signal arc-signal--good">Tu veux explorer les modèles NHL, tennis, les sources, les audits et la reproduction de Clairvoyance ? Tout est désormais dans <a href="./lab.html"><strong>Lab ↗</strong></a>, sans encombrer l'accueil.</div>
-</div><footer class="arc-footer"><span>REVUE ARCADE · RECHERCHE PERSONNELLE · AUCUN PARI AUTOMATIQUE</span><a href="./lab.html">TOUS LES OUTILS DANS LAB ↗</a></footer></main></body></html>
+<div class="arc-machine" aria-hidden="true">
+<div class="arc-pixel arc-pixel--a"></div><div class="arc-pixel arc-pixel--b"></div><div class="arc-pixel arc-pixel--c"></div>
+<div class="arc-orbit"></div><div class="arc-console"><div class="arc-console-screen"><div class="arc-screen-text">REVUE<small>GAME DATA · NO GUESS</small></div></div><div class="arc-dpad"></div><div class="arc-pad-buttons"><i></i><i></i></div></div><div class="arc-grid"></div>
+</div>
+</header>
+<nav class="arc-v3-sticky" aria-label="Les trois étapes de Revue">
+<a href="#home-jouer">01 · À JOUER</a>
+<a href="#home-pourquoi">02 · POURQUOI</a>
+<a href="#home-bilan">03 · BILAN</a>
+</nav>
+<p class="arc-v3-info" id="v3-data-status" role="status" aria-live="polite">Vérification des données réelles et des résultats fictifs…</p>
+
+<section class="arc-v3-section" id="home-jouer" aria-labelledby="v3-playing">
+<div class="arc-v3-headline">
+<h2 id="v3-playing">01 / <span>À JOUER ?</span></h2>
+<small id="home-when">Lecture des horaires…</small>
+</div>
+<div class="arc-v3-nope" role="status">
+<div><strong id="home-status">Aucun pari certifié à ce stade</strong>
+<small>Revue ne recommande pas une mise sans données actualisées, modèle suffisamment validé et cote réelle comparable.</small></div>
+</div>
+<div class="arc-v3-stats" aria-label="État du radar">
+<div class="arc-v3-stat"><div class="caption">Paris validés</div><strong id="home-active" class="value">0</strong><div class="hint">Pas d'opportunité inventée</div></div>
+<div class="arc-v3-stat"><div class="caption">Critère principal</div><strong class="value">EV</strong><div class="hint">Cote actuelle + probabilité validée</div></div>
+<div class="arc-v3-stat"><div class="caption">En cas de doute</div><strong class="value">SKIP</strong><div class="hint">Aucune mise automatique</div></div>
+</div>
+<div class="arc-v3-headline">
+<h2>Matchs <span>à analyser</span></h2>
+<small id="v3-count">Chargement du calendrier…</small>
+</div>
+<div class="arc-v3-filters">
+<label for="v3-search" class="arc-visually-hidden">Chercher une équipe ou une ligue</label>
+<input id="v3-search" type="search" class="arc-v3-search" placeholder="Chercher une équipe ou une ligue" autocomplete="off">
+<div class="arc-v3-sports" id="v3-sports" role="group" aria-label="Filtrer par sport">
+<button type="button" data-sport="all" aria-pressed="true">TOUS</button>
+<button type="button" data-sport="football" aria-pressed="false">FOOT</button>
+<button type="button" data-sport="hockey" aria-pressed="false">HOCKEY</button>
+<button type="button" data-sport="tennis" aria-pressed="false">TENNIS</button>
+<button type="button" data-sport="other" aria-pressed="false">AUTRES</button>
+</div>
+</div>
+<div id="home-picks" class="arc-v3-card-grid" aria-live="polite">
+<div class="arc-v3-empty">Lecture du calendrier vérifié…</div>
+</div>
+<p class="arc-help">Un match « à analyser » n'est pas un pari recommandé. Les prix historiques, lorsqu'ils existent, ne sont jamais présentés comme des cotes actuellement jouables.</p>
+<div class="arc-v3-extra"><a href="./play.html">RADAR COMPLET ↗</a><a href="./match-center.html">TOUS LES MATCHS ↗</a></div>
+</section>
+
+<section class="arc-v3-section" id="home-pourquoi" aria-labelledby="v3-why">
+<div class="arc-v3-headline">
+<h2 id="v3-why">02 / <span>POURQUOI ?</span></h2><small>Une justification claire pour chaque rencontre</small>
+</div>
+<p id="v3-why-summary" class="arc-v3-info">Les raisons sont calculées à partir des sources vérifiées, pas d'un score de confiance inventé.</p>
+<div id="v3-explain" class="arc-v3-why-panel" aria-live="polite">
+<h3>Sélectionne un match</h3><p>Les modèles disponibles et les raisons d'abstention apparaissent ici.</p>
+</div>
+</section>
+
+<section class="arc-v3-section" id="home-bilan" aria-labelledby="v3-bilan">
+<div class="arc-v3-headline"><h2 id="v3-bilan">03 / <span>BILAN.</span></h2>
+<a href="./bilan.html" class="arc-btn">BILAN DÉTAILLÉ ↗</a></div>
+<div class="arc-v3-info">Uniquement les <strong>simulations fictives</strong> enregistrées avant le début des matchs, puis vérifiées et réglées. Ces unités ne correspondent ni à un solde bancaire, ni à des gains réels.</div>
+<div class="arc-v3-stats" aria-label="Résultats fictifs vérifiés">
+<article class="arc-v3-stat"><div class="caption">Profit fictif</div><strong id="home-profit" class="value">—</strong><div class="hint">Après règlement</div></article>
+<article class="arc-v3-stat"><div class="caption">ROI fictif</div><strong id="home-roi" class="value">—</strong><div class="hint">Seulement sur mises réglées</div></article>
+<article class="arc-v3-stat"><div class="caption">Paris réglés</div><strong id="home-settled" class="value">—</strong><div class="hint">Résultats vérifiés</div></article>
+<article class="arc-v3-stat"><div class="caption">Winrate</div><strong id="v3-winrate" class="value">—</strong><div class="hint">Gagnés / réglés</div></article>
+<article class="arc-v3-stat"><div class="caption">En attente</div><strong id="v3-pending" class="value">—</strong><div class="hint">Non inclus dans le ROI</div></article>
+</div>
+<p class="arc-v3-paper-note" id="v3-paper-detail">Vérification du journal pré-match…</p>
+<div class="arc-v3-headline"><h2>Derniers <span>résultats</span></h2>
+<a href="./historique.html">HISTORIQUE COMPLET ↗</a></div>
+<div id="home-recent" class="arc-v3-results" aria-live="polite"><div class="arc-v3-empty">Chargement des résultats vérifiés…</div></div>
+<div class="arc-v3-extra"><a href="./bilan.html">COURBE ET DÉTAILS ↗</a><a href="./historique.html">EXPORT DU JOURNAL ↗</a></div>
+</section>
+<footer class="arc-footer">
+<span>REVUE ARCADE · DONNÉES HORODATÉES · AUCUN PARI AUTOMATIQUE</span>
+<a href="./lab.html">LAB · MODÈLES ET AUDITS ↗</a>
+</footer>
+</main>
+</body></html>
