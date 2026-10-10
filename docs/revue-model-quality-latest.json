@@ -1,0 +1,79 @@
+{
+  "version": "revue_prospective_paper_calibration_v1",
+  "generated_at_utc": "2026-10-10T19:47:01.859231+00:00",
+  "status": "prospective_probabilities_descriptive_not_calibrated",
+  "source": "immutable engine-v2-ledger.json only",
+  "predictions_published_before_start_only": true,
+  "real_bets_enabled": false,
+  "odds_api_requests": 0,
+  "fitted_or_recalibrated_model": false,
+  "claim_model_profitable": false,
+  "verified_positive_ev": false,
+  "bookmaker_baseline_includes_vig": true,
+  "selection_outcome_semantics": "won=1, lost=0; push/unknown excluded; evaluate each selected event vs its complement",
+  "min_independent_fixtures_for_preliminary_evaluation": 100,
+  "total": {
+    "count": 6,
+    "distinct_events": 6,
+    "wins": 4,
+    "observed_frequency": 0.666667,
+    "mean_model_probability": 0.4574,
+    "mean_bookmaker_implied_probability": 0.371091,
+    "brier_model": 0.287104,
+    "brier_bookmaker_raw": 0.308496,
+    "log_loss_model": 0.768462,
+    "log_loss_bookmaker_raw": 0.815293,
+    "brier_delta_model_minus_bookmaker": -0.021393,
+    "status": "insufficient_sample",
+    "independent_fixture_count_warning": null
+  },
+  "by_sport": {
+    "BUNDESLIGA": {
+      "count": 3,
+      "distinct_events": 3,
+      "wins": 1,
+      "observed_frequency": 0.333333,
+      "mean_model_probability": 0.461967,
+      "mean_bookmaker_implied_probability": 0.357663,
+      "brier_model": 0.269189,
+      "brier_bookmaker_raw": 0.23545,
+      "log_loss_model": 0.731664,
+      "log_loss_bookmaker_raw": 0.665471,
+      "brier_delta_model_minus_bookmaker": 0.033739,
+      "status": "insufficient_sample"
+    },
+    "PL": {
+      "count": 2,
+      "distinct_events": 2,
+      "wins": 2,
+      "observed_frequency": 1.0,
+      "mean_model_probability": 0.4865,
+      "mean_bookmaker_implied_probability": 0.416523,
+      "brier_model": 0.268723,
+      "brier_bookmaker_raw": 0.341464,
+      "log_loss_model": 0.731283,
+      "log_loss_bookmaker_raw": 0.878757,
+      "brier_delta_model_minus_bookmaker": -0.07274,
+      "status": "insufficient_sample"
+    },
+    "SERIEA": {
+      "count": 1,
+      "distinct_events": 1,
+      "wins": 1,
+      "observed_frequency": 1.0,
+      "mean_model_probability": 0.3855,
+      "mean_bookmaker_implied_probability": 0.320513,
+      "brier_model": 0.37761,
+      "brier_bookmaker_raw": 0.461703,
+      "log_loss_model": 0.953214,
+      "log_loss_bookmaker_raw": 1.137833,
+      "brier_delta_model_minus_bookmaker": -0.084093,
+      "status": "insufficient_sample"
+    }
+  },
+  "excluded": {
+    "unsafe_or_ambiguous": 13,
+    "pending": 7
+  },
+  "note": "A descriptive evaluation on prospective, locked, graded simulations. Low Brier/LogLoss is better, but 1/price includes vig. Small, correlated samples cannot demonstrate betting advantage."
+}
