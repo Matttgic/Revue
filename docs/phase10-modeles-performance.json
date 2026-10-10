@@ -1,0 +1,94 @@
+{
+  "version": "revue_phase10_forward_ledger_v1",
+  "generated_at_utc": "2026-10-10T22:19:23.384272+00:00",
+  "status": "forward_locked_only_no_retroactive_predictions",
+  "started_at_utc": "2026-10-10T22:19:23.384272+00:00",
+  "total_locked": 65,
+  "pending": 65,
+  "settled": 0,
+  "by_league": {
+    "LALIGA": {
+      "locked": 5,
+      "settled": 0
+    },
+    "LIGUE1": {
+      "locked": 3,
+      "settled": 0
+    },
+    "MLB": {
+      "locked": 3,
+      "settled": 0
+    },
+    "MLS": {
+      "locked": 13,
+      "settled": 0
+    },
+    "NBA": {
+      "locked": 30,
+      "settled": 0
+    },
+    "PL": {
+      "locked": 4,
+      "settled": 0
+    },
+    "SERIEA": {
+      "locked": 7,
+      "settled": 0
+    }
+  },
+  "models": {
+    "revue_nba_espn_previous_standings_prior_v1": {
+      "locked": 10,
+      "settled": 0,
+      "mean_brier_multiclass_unscaled": null,
+      "mean_logloss": null,
+      "minimum_100_settled_reached": false,
+      "calibrated": false,
+      "profitable": false
+    },
+    "revue_nba_prior_elo_regressed_v1": {
+      "locked": 10,
+      "settled": 0,
+      "mean_brier_multiclass_unscaled": null,
+      "mean_logloss": null,
+      "minimum_100_settled_reached": false,
+      "calibrated": false,
+      "profitable": false
+    },
+    "revue_nba_prior_consensus_v1": {
+      "locked": 10,
+      "settled": 0,
+      "mean_brier_multiclass_unscaled": null,
+      "mean_logloss": null,
+      "minimum_100_settled_reached": false,
+      "calibrated": false,
+      "profitable": false
+    },
+    "revue_mlb_espn_history_elo_v1": {
+      "locked": 3,
+      "settled": 0,
+      "mean_brier_multiclass_unscaled": null,
+      "mean_logloss": null,
+      "minimum_100_settled_reached": false,
+      "calibrated": false,
+      "profitable": false
+    },
+    "revue_football_espn_shots_log_pool_v1": {
+      "locked": 32,
+      "settled": 0,
+      "mean_brier_multiclass_unscaled": null,
+      "mean_logloss": null,
+      "minimum_100_settled_reached": false,
+      "calibrated": false,
+      "profitable": false
+    }
+  },
+  "real_bets_enabled": false,
+  "roi": null,
+  "no_historical_backfill": true,
+  "bookmaker_prices_verified": false,
+  "original_source_sql_equivalence": false,
+  "calibration_achieved": false,
+  "settlement_restriction": "Only ESPN final in NBA, MLB and 90min domestic football; MLS/UCL intentionally not settled without stage/rules verification.",
+  "note": "Brier and logloss on prospective locks only. Correlated NBA models are not independent; cross-model comparison requires SAME match cohort. No price profit or guarantee."
+}
