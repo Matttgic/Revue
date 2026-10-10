@@ -11,7 +11,7 @@ ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
     "index.html","engine-v2.html","multisports.html",
-    "nhl-joueurs.html","nhl-model.html","moneypuck.html","football-avance.html",
+    "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html",
 )
 
