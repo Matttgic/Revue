@@ -116,4 +116,40 @@ class Phase6Tests(unittest.TestCase):
         self.assertEqual(r["by_sport"]["FOOTBALL"]["source_selections_in_latest_document"],0)
         self.assertEqual(r["by_sport"]["NBA"]["source_selections_in_latest_document"],0)
         self.assertEqual(r["by_sport"]["MLB"]["source_selections_in_latest_document"],0)
+
+class NHLMarketCases(unittest.TestCase):
+    def test_exact_total_line_compares_only_to_same_line(self):
+        s,soc,own=examples()
+        s["bestBets"]=[{"sport":"NHL","game":"PHI @ BOS","pick":"UNDER 5.5",
+                        "prob":56.0,"date":"2026-10-10"}]
+        total={"status":"prototype_non_calibre",
+               "generated_at_utc":"2026-10-10T20:50:00Z",
+               "games":[{"event_id":"2026020080","home":"BOS","away":"PHI",
+                         "start_utc":"2026-10-11T01:00:00Z",
+                         "probabilities":{"over_5_5":.49}}]}
+        locked,r=build(s,soc,own,{},SHA,NOW,total)
+        self.assertEqual(r["observed_output_comparisons"],1)
+        val=next(iter(locked["entries"].values()))
+        self.assertEqual(val["market"],"nhl_total_unverified_period")
+        self.assertEqual(val["line"],5.5)
+        self.assertEqual(val["revue_probability"],.51)
+        self.assertFalse(val["same_market_rules_verified"])
+        total["games"][0]["probabilities"]={"over_6_5":.49}
+        _,r=build(s,soc,own,{},SHA,NOW,total)
+        self.assertEqual(r["observed_output_comparisons"],0)
+        self.assertEqual(r["prospective_predictions_locked"],1)
+
+    def test_puckline_frozen_but_does_not_invent_counterpart(self):
+        s,soc,own=examples()
+        s["bestBets"]=[{"sport":"NHL","game":"PHI @ BOS",
+                        "pick":"PHI +1.5 (-192.0)",
+                        "prob":65.8,"date":"2026-10-10"}]
+        locked,r=build(s,soc,own,{},SHA,NOW)
+        self.assertEqual(r["prospective_predictions_locked"],1)
+        self.assertEqual(r["observed_output_comparisons"],0)
+        val=next(iter(locked["entries"].values()))
+        self.assertEqual(val["line"],1.5)
+        self.assertEqual(val["status"],"revue_puckline_model_unavailable")
+        self.assertIsNone(val["revue_probability"])
+
 if __name__=="__main__":unittest.main()

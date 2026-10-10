@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
     const card=node("article");card.className="p6record";
     const tag=node("span",r.league+" · "+r.market);tag.className="p6tag";
     card.append(tag,node("h3",r.away+" @ "+r.home),
-      node("p","Sélection : "+r.side+" · Source : "+pct(r.original_probability)+" · Revue : "+pct(r.revue_probability)),
+      node("p","Sélection : "+r.side+(r.line==null?"":" "+r.line)+" · Source : "+pct(r.original_probability)+" · Revue : "+pct(r.revue_probability)),
       node("p",r.revue_probability===null?"Pas de prévision Revue strictement comparable.":"Écart descriptif : "+r.probability_delta_revue_minus_source_pp+" points."),
       node("small","Observation figée "+new Date(r.locked_at_utc).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"})));
     root.append(card);

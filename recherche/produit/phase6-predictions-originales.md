@@ -39,3 +39,5 @@ nécessaires à la comparaison). Chaque heure, sans appel API payant.
 déployées, des règles de marché, et des prévisions finales sur entrées
 identiques. Git/GitHub conserve l'historique des commits : ce mécanisme
 n'empêche pas un administrateur de réécrire l'historique Git.
+
+**Extension NHL :** les totaux UNDER/OVER sont rapprochés uniquement si la ligne exacte existe dans le modèle Poisson indépendant de Revue, sur la même rencontre et avant match. Les handicaps +1,5 sont enregistrés sans comparaison lorsque le modèle correspondant manque. Les règles de prolongation restent non vérifiées.

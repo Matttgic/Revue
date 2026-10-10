@@ -84,17 +84,30 @@ def side_from_pick(row,fixture):
         if (home!=fixture["home"].upper() or away!=fixture["away"].upper()):
             return None,"source_abbreviation_mismatch"
         spec=re.fullmatch(r"([A-Z0-9]{2,7}) ML(?: [+-]?\d+(?:\.\d+)?)?",pick)
-        if not spec:return None,"unsupported_source_market"
-        team=spec.group(1)
-        if team not in (home,away):return None,"wrong_source_selection_team"
-        return ("home" if team==home else "away"),None
+        if spec:
+            team=spec.group(1)
+            if team not in (home,away):return None,"wrong_source_selection_team"
+            return ("home" if team==home else "away",None),None
+        if league=="NHL":
+            total=re.fullmatch(r"(UNDER|OVER) (\d+(?:\.\d+)?)",pick)
+            if total:
+                line=float(total.group(2))
+                if not 0<line<30 or abs(2*line-round(2*line))>1e-9:
+                    return None,"invalid_total_line"
+                return (total.group(1).lower(),line),None
+            spread=re.fullmatch(r"([A-Z0-9]{2,7}) ([+-]1\.5) \([+-]?\d+(?:\.\d+)?\)",pick)
+            if spread:
+                team=spread.group(1)
+                if team not in (home,away):return None,"wrong_source_selection_team"
+                return ("home" if team==home else "away",float(spread.group(2))),None
+        return None,"unsupported_source_market"
     # Do NOT infer 90m vs incl OT, or 1X2 from generic football moneyline.
     if league in FOOTBALL_LEAGUES:
         spec=re.fullmatch(r"(HOME|DRAW|AWAY) 1X2 90M",pick)
         if not spec:return None,"source_soccer_period_unsupported"
         if home!=fixture["home"].upper() or away!=fixture["away"].upper():
             return None,"source_soccer_identity_mismatch"
-        return spec.group(1).lower(),None
+        return (spec.group(1).lower(),None),None
     return None,"unsupported_sport"
 
 
@@ -108,14 +121,19 @@ def source_selection(bet,fixture):
     raw=bet.get("prob")
     if type(raw) not in (int,float) or not math.isfinite(raw) or not .01<raw<100:
         return None,"invalid_original_probability"
-    side,reason=side_from_pick(bet,fixture)
+    side_line,reason=side_from_pick(bet,fixture)
     if reason:return None,reason
-    return {"side":side,"original_probability":round(raw/100,5),
-            "market":"1x2_90min" if fixture["league"] in FOOTBALL_LEAGUES
-                     else "two_way_moneyline_unverified_period" },None
+    side,line=side_line
+    league=fixture["league"]
+    if league in FOOTBALL_LEAGUES:market="1x2_90min"
+    elif line is not None and side in ("over","under"):market="nhl_total_unverified_period"
+    elif line is not None:market="nhl_puckline_unverified_period"
+    else:market="two_way_moneyline_unverified_period"
+    return {"side":side,"line":line,"original_probability":round(raw/100,5),
+            "market":market},None
 
 
-def counterpart(fixture,selection,revue_bykey,kick,now):
+def counterpart(fixture,selection,revue_bykey,kick,now,nhl_totals=None):
     own=revue_bykey.get(fixture["key"])
     if own is None:return None,None,None,"no_revue_fixture"
     if (str(own.get("home","")).casefold()!=fixture["home"].casefold() or
@@ -126,6 +144,33 @@ def counterpart(fixture,selection,revue_bykey,kick,now):
         return None,None,None,"revue_missing_kickoff"
     if abs((revt-kick).total_seconds())>300:
         return None,None,None,"revue_kickoff_differs"
+    if selection["market"]=="nhl_puckline_unverified_period":
+        return None,None,None,"revue_puckline_model_unavailable"
+    if selection["market"]=="nhl_total_unverified_period":
+        if not isinstance(nhl_totals,dict) or nhl_totals.get("status")!="prototype_non_calibre":
+            return None,None,None,"nhl_totals_source_missing"
+        try:
+            totals_at=utc(nhl_totals["generated_at_utc"])
+            if totals_at>now+timedelta(minutes=2) or totals_at>kick-MIN_LEAD:
+                return None,None,totals_at.isoformat(),"nhl_totals_observed_too_late"
+        except (ValueError,KeyError,TypeError):
+            return None,None,None,"nhl_totals_timestamp_invalid"
+        matches=[g for g in nhl_totals.get("games") or []
+                 if str(g.get("event_id"))==fixture["id"]]
+        if len(matches)!=1:
+            return None,None,None,"nhl_totals_fixture_missing_or_ambiguous"
+        game=matches[0]
+        try:
+            if (game.get("home")!=fixture["home"] or game.get("away")!=fixture["away"] or
+                abs((utc(game["start_utc"])-kick).total_seconds())>300):
+                return None,None,None,"nhl_totals_identity_mismatch"
+            raw=(game.get("probabilities") or {}).get(
+                "over_"+str(selection["line"]).replace(".","_"))
+            over=pvalue(raw)
+            value=over if selection["side"]=="over" else 1-over
+            return round(value,5),"revue_nhl_independent_poisson",totals_at.isoformat(),"descriptive_difference_only"
+        except (KeyError,TypeError,ValueError):
+            return None,None,None,"nhl_totals_exact_line_unavailable"
     models=own.get("research") or []
     league=fixture["league"]
     prefer={
@@ -178,7 +223,7 @@ def verify_ledger(ledger,now):
     return ledger
 
 
-def build(data,soccer,revue,existing,source_commit,now):
+def build(data,soccer,revue,existing,source_commit,now,nhl_totals=None):
     if now.tzinfo is None:raise ValueError("Timezone-aware clock required")
     now=now.astimezone(timezone.utc)
     if not re.fullmatch(r"[0-9a-f]{40}",source_commit):
@@ -234,18 +279,21 @@ def build(data,soccer,revue,existing,source_commit,now):
         selection,why=source_selection(row,fixture)
         if why:reasons[why]+=1;continue
         key=fixture["key"]+":"+selection["market"]+":"+selection["side"]
+        if selection["line"] is not None:key+=":"+str(selection["line"])
         if key in seen:
             reasons["duplicate_in_original_snapshot"]+=1;continue
         seen.add(key)
         if key in entries:
             reasons["already_frozen"]+=1;continue
-        ours,model,model_ts,status=counterpart(fixture,selection,revue_bykey,kick,now)
+        ours,model,model_ts,status=counterpart(
+            fixture,selection,revue_bykey,kick,now,nhl_totals)
         delta=round((ours-selection["original_probability"])*100,2) if ours is not None else None
         freeze={
             "id":key,"league":league,"sport":sport,
             "event_id":fixture["id"],"home":fixture["home"],"away":fixture["away"],
             "kickoff_utc":fixture["kickoff_utc"],
             "market":selection["market"],"side":selection["side"],
+            "line":selection["line"],
             "original_probability":selection["original_probability"],
             "revue_probability":ours,
             "probability_delta_revue_minus_source_pp":delta,
@@ -319,6 +367,7 @@ def main():
     a.add_argument("--source-soccer")
     a.add_argument("--source-commit")
     a.add_argument("--revue",default="docs/match-center-latest.json")
+    a.add_argument("--nhl-totals",default="docs/nhl-model-latest.json")
     a.add_argument("--ledger",default="docs/phase6-pregame-ledger.json")
     a.add_argument("--report",default="docs/phase6-predictions-latest.json")
     options=a.parse_args()
@@ -335,7 +384,8 @@ def main():
     oldpath=Path(options.ledger)
     old=json.loads(oldpath.read_text(encoding="utf-8")) if oldpath.is_file() else {}
     revue=json.loads(Path(options.revue).read_text(encoding="utf-8"))
-    ledger,report=build(src,soc,revue,old,sha,datetime.now(timezone.utc))
+    totals=json.loads(Path(options.nhl_totals).read_text(encoding="utf-8"))
+    ledger,report=build(src,soc,revue,old,sha,datetime.now(timezone.utc),totals)
     for name,obj in ((options.ledger,ledger),(options.report,report)):
         p=Path(name);p.parent.mkdir(parents=True,exist_ok=True)
         p.write_text(json.dumps(obj,indent=2,ensure_ascii=False,allow_nan=False)+"\n",
