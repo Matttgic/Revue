@@ -63,6 +63,7 @@ def reconcile(ledger:dict,baseline:dict,shadow:dict,history:dict,now:datetime):
                 b_kickoff=utc(b.get("start_utc"))
                 if (kickoff is None or b_kickoff!=kickoff or
                     now>=kickoff-SAFE_BUFFER or
+                    s.get("home")!=b.get("home") or s.get("away")!=b.get("away") or
                     not (a_created<kickoff and b_created<kickoff)):
                     continue
                 pa=probabilities(s.get("probabilities"))
@@ -100,7 +101,12 @@ def reconcile(ledger:dict,baseline:dict,shadow:dict,history:dict,now:datetime):
             continue
         if kickoff>=now:continue
         e=verified.get((item.get("league"),item.get("id")))
-        if not e:continue
+        # A numeric provider ID alone is not enough to prove fixture identity.
+        # Reject schedule amendments or mis-mapped home/away participants.
+        if (not e or utc(e.get("start"))!=kickoff or
+            e.get("home")!=item.get("home") or
+            e.get("away")!=item.get("away")):
+            continue
         try:
             h,a=float(e["home_score"]),float(e["away_score"])
         except (ValueError,TypeError):
