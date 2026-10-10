@@ -121,7 +121,7 @@ class ArcadeV3Tests(unittest.TestCase):
         self.assertIn("./historique-phase2.html",page.refs)
         self.assertIn('id="phase3-owned-models"',bilan)
         self.assertIn("./phase3-bilan.js?v=1",bilan)
-        self.assertIn("./arcade-v3-data.js?v=1",bilan)
+        self.assertIn("./arcade-v3-data.js?v=3",bilan)
         self.assertIn("window.RevueArcadeV3.ownedSnapshot",view)
         self.assertIn("report.models_calibrated!==false",core)
         self.assertIn("roi_computed",core)
