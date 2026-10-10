@@ -36,6 +36,13 @@ function nbaGetBayes(abbr, { teams = {}, standings = {}, ratings = {}, ledger = 
   return { m: al / (al + bl) };
 }
 
+/** Identical NBA Elo win-probability transform from the original frontend.
+ * No new strength ratings, market assumptions or extra home advantage.
+ */
+function nbaEloWinProbability(eloHome,eloAway) {
+  return 1/(1+Math.pow(10,(eloAway-eloHome)/400));
+}
+
 function nflBayes(abbr, standings = {}) {
   const s = standings?.[abbr];
   const w = parseFloat(s?.wins) || 0;
@@ -332,6 +339,6 @@ function nbaEnsemble(homeAbbr,awayAbbr,espnGame,
   return{p,mc:mc.hwP,bay,elo:eloP,mcD:mc,injH,injA,mkt,capped};
 }
 
-module.exports = { nbaGetBayes, nflBayes, soccerMarketBlend, soccerMonteCarlo,
+module.exports = { nbaGetBayes, nbaEloWinProbability, nflBayes, soccerMarketBlend, soccerMonteCarlo,
                    nbaMonteCarlo, nbaEnsemble, nflWeatherImpact, nflMonteCarlo,
                    nflEnsemble, ml2decimal, footballCal };
