@@ -46,6 +46,13 @@ h1 span{color:#55f5de}p{color:#b0c2d2}
 .detail span{display:block;color:#7d9db4;font:700 10px monospace}
 .detail strong{color:#e0edf4;font:700 14px 'Chakra Petch',sans-serif}
 .empty{border:1px dashed #395171;background:#0a1729;padding:24px;color:#a5c5d7}
+.sec-title{font:700 24px 'Chakra Petch',system-ui,sans-serif;color:#dffcf9;margin:42px 0 7px}
+.goal-card{border:1px solid #3c4a6b;background:#151c34;padding:16px}
+.goal-card h3{font:700 20px 'Chakra Petch',sans-serif;margin:6px 0 3px;color:#e6f5ff}
+.goal-card .gsa{font:700 28px 'Chakra Petch',sans-serif;color:#55f5de;margin-top:8px}
+.goal-card .gsa.negative{color:#efaba9}
+.goal-card p{font-size:12px;margin:6px 0;color:#a6bdd1}
+.goal-card .sub{font:700 10px monospace;color:#83a6c2;letter-spacing:.09em}
 footer{margin-top:39px;padding-top:19px;border-top:1px solid #29394b;font-size:12px;line-height:1.7;color:#829db1}
 footer a{color:#55f5de}
 @media(max-width:650px){header{grid-template-columns:1fr}.live-status{white-space:normal}.control label,.control select{width:100%}.control input{width:100%}.control{gap:13px}.toggle{width:100%}.toggle button{flex:1}}
@@ -84,6 +91,10 @@ Données utilisées uniquement à des fins personnelles, non commerciales, avec 
 <p id="status" role="status" aria-live="polite">Lecture de la dernière publication…</p>
 <section id="cards" class="cards" aria-label="Statistiques des équipes"></section>
 <p id="empty" class="empty" hidden>Aucune statistique vérifiée disponible pour ces critères. Les données de la nouvelle saison ne sont peut-être pas encore publiées.</p>
+<h2 class="sec-title">GARDIENS / GSAx OBSERVÉS</h2>
+<p class="lead">Buts sauvés au-dessus des attentes (xG encaissés − buts réellement encaissés). Classement purement historique, particulièrement instable en début de saison. <strong>Le titulaire du prochain match n'est PAS confirmé.</strong></p>
+<p id="goalieStatus" role="status" aria-live="polite">Lecture des gardiens MoneyPuck…</p>
+<section id="goalies" class="cards" aria-label="Statistiques des gardiens"></section>
 <footer>Source et droits : <a href="https://moneypuck.com/data.htm" target="_blank" rel="noopener noreferrer">MoneyPuck.com — données publiques (usage non commercial avec attribution)</a>.
 Les données sont rafraîchies par GitHub Actions à partir du seul CSV officiel « Season Level / Team Level ».
 Horodatage de collecte distinct de la date de mise à jour de la source.
@@ -96,7 +107,7 @@ Horodatage de collecte distinct de la date de mise à jour de la source.
 const $=id=>document.getElementById(id);
 const elem=(tag,cls,value)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=value;return n};
 const fmt=n=>Number.isFinite(n)?Number(n).toLocaleString("fr-FR",{maximumFractionDigits:2}):"—";
-let report=null,situation="5on5";
+let report=null,goalieReport=null,situation="5on5";
 function render(){
  if(!report)return;
  const season=$("season").value;
@@ -129,6 +140,37 @@ function render(){
   }
   card.append(detail);$("cards").append(card);
  }
+ renderGoalies();
+}
+function renderGoalies(){
+ $("goalies").replaceChildren();
+ if(!goalieReport){$("goalieStatus").textContent="Gardiens : publication officielle pas encore disponible.";return;}
+ const season=$("season").value;
+ const search=$("search").value.trim().toUpperCase();
+ const rows=(goalieReport.seasons?.[season]||[]).filter(g=>g.team.includes(search));
+ if(!rows.length){$("goalieStatus").textContent="Aucun gardien MoneyPuck exploitable pour ces critères et cette saison.";return;}
+ $("goalieStatus").textContent=rows.length+" gardiens observés · "+season+" · source : MoneyPuck.com (non live, aucun titulaire confirmé)";
+ for(const g of rows.slice(0,30)){
+  const card=elem("article","goal-card");
+  card.append(elem("div","sub",g.team+" · "+g.games_played+" matchs observés"));
+  card.append(elem("h3","",g.name));
+  const number=elem("div","gsa",(g.gsax>0?"+":"")+fmt(g.gsax)+" GSAx");
+  if(g.gsax<0)number.classList.add("negative");
+  card.append(number,elem("p","",fmt(g.gsax_per_60)+" GSAx/60 · "+fmt(g.ice_hours)+" h de glace"));
+  card.append(elem("div","sub","GARDIEN TITULAIRE : NON CONFIRMÉ"));
+  $("goalies").append(card);
+ }
+}
+async function loadGoalies(){
+ try{
+  const r=await fetch("./moneypuck-goalies-latest.json?rev="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw Error("HTTP "+r.status);
+  const data=await r.json();
+  if(data.source!=="MoneyPuck.com"||data.confirmed_starters!==false||!data.seasons)
+   throw Error("Format des gardiens invalide");
+  goalieReport=data;
+ }catch(err){goalieReport=null;}
+ renderGoalies();
 }
 async function load(){
  try{
@@ -144,6 +186,7 @@ async function load(){
   $("season").value=payload.current_season;
   $("fresh").textContent=new Date(payload.generated_at_utc).toLocaleDateString("fr-FR",{day:"2-digit",month:"short",timeZone:"Europe/Paris"});
   render();
+  loadGoalies();
  }catch(err){
   $("status").textContent=err.message;
   $("empty").hidden=false;
