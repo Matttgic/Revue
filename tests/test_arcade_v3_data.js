@@ -9,7 +9,7 @@ const loaded=name=>JSON.parse(fs.readFileSync(path.join(ROOT,name),"utf8"));
 const P=loaded("picks-center-latest.json");
 const M=loaded("match-center-latest.json");
 const N=loaded("nhl-frontend-observed-latest.json");
-const T=Date.parse("2026-10-10T17:57:00Z");
+const T=Math.max(Date.parse(M.generated_at_utc),Date.parse(N.generated_at_utc),Date.parse(P.generated_at_utc))+120000;
 const clone=x=>structuredClone(x);
 
 test("real-source snapshot: safe research and verified fictional profit, not real advice",()=>{
@@ -22,13 +22,13 @@ test("real-source snapshot: safe research and verified fictional profit, not rea
  assert.equal(m.sources.nhl,"partial_research");
  assert.ok(m.events.length>0);
  assert.ok(m.paper.settled>0);
- assert.equal(m.paper.settled,3);
- assert.equal(m.paper.won,1);
- assert.equal(m.paper.lost,2);
- assert.equal(m.paper.profit,-.83);
- assert.equal(m.paper.roi,-27.67);
- assert.equal(m.paper.pending,13);
- assert.equal(m.paper.excluded,10);
+ assert.equal(m.paper.settled,P.paper_summary.settled);
+ assert.equal(m.paper.won,P.paper_summary.wins);
+ assert.equal(m.paper.lost,P.paper_summary.losses);
+ assert.equal(m.paper.profit,P.paper_summary.paper_profit_units);
+ assert.equal(m.paper.roi,P.paper_summary.paper_roi_percent);
+ assert.equal(m.paper.pending,P.paper_summary.pending);
+ assert.equal(m.paper.excluded,P.paper_summary.excluded);
  assert.ok(m.events.every(x=>x.actionable===false&&x.verdict==="AUCUN PARI RECOMMANDÉ"));
  assert.ok(m.events.every(x=>x.league!=="CFB"&&x.why.length>=2));
  assert.ok(m.events.every(x=>new Date(x.start).getTime()>T));
@@ -47,7 +47,7 @@ test("reject stale and future calendar, preserve independently valid paper ledge
  assert.equal(snapshot.events.length,0);
  assert.equal(snapshot.sources.matches,"missing_or_stale");
  assert.ok(snapshot.paper);
- assert.equal(snapshot.paper.settled,3);
+ assert.equal(snapshot.paper.settled,P.paper_summary.settled);
  assert.equal(snapshot.sources.nhl,"partial_research");
 });
 test("reject forged real bets and live odds without showing fictional stats",()=>{
