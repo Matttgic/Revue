@@ -52,8 +52,13 @@ def _iso(value: object) -> str:
 def _score(value: object) -> bool:
     return (
         isinstance(value, dict)
-        and type(value.get("home")) is int and type(value.get("away")) is int
-        and 0 <= value["home"] <= 500 and 0 <= value["away"] <= 500
+        and all(
+            type(value.get(side)) in (int, float)
+            and math.isfinite(value[side])
+            and 0 <= value[side] <= 500
+            and float(value[side]).is_integer()
+            for side in ("home", "away")
+        )
     )
 
 
@@ -133,7 +138,8 @@ def ledger_data(root: Path) -> dict:
             "decimal_odds": price, "paper_stake_units": stake,
             "status": status, "original_status": raw_status,
             "exclusion_reason": reason,
-            "score": bet.get("score") if status in GRADED else None,
+            "score": {side: int(bet["score"][side]) for side in ("home", "away")}
+                if status in GRADED else None,
             "paper_profit_units": profit, "is_real_bet": False,
             "verified_pre_match": safe_chronology,
         })
