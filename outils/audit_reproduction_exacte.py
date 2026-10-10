@@ -369,6 +369,17 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
           elo_audit.get("historical_mlb_final_games_checked") and
         elo_audit.get("predictions_are_historical_equality_tests_not_pregame_bets") is True
     )
+    target_code_hashes=model.get("reference_model_source_sha256") or {}
+    reference_model_sources=(
+        "app/services/predictor.py",
+        "docs/app.html",
+        "scripts/clairvoyance_update.py",
+    )
+    model_source_code_verified=bool(
+        set(target_code_hashes)==set(reference_model_sources) and
+        all(target_code_hashes.get(path)==sha256(reference/path)
+            for path in reference_model_sources)
+    )
     checked = model.get("verified_formula_parity_models")
     target_count = model.get("total_target_models")
     if not (type(checked) is int and type(target_count) is int and
@@ -461,6 +472,13 @@ def strict_report(reference: Path, target: Path, generated: datetime) -> dict:
             "verification_is_on_current_source_commit":
                 bool(current_sha and
                      model.get("original_source_commit") == current_sha),
+            "reference_code_artifacts_still_identical":model_source_code_verified,
+            "verification_is_on_current_source_code":bool(
+                model_source_code_verified or
+                (current_sha and model.get("original_source_commit")==current_sha)
+            ),
+            "verified_artifacts":list(reference_model_sources)
+                if model_source_code_verified else [],
             "reference_predictor_sha256_matches": nhl_prediction_code_unchanged,
             "reference_predictor_sha256_of_current_checkout": current_predictor_digest,
             "current_real_game_same_input_outputs_equal":
