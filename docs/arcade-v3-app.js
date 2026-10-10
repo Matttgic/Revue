@@ -254,7 +254,7 @@ function renderState(){
    "Prévisions figées depuis "+date(owned.since)+
    " · aucun modèle calibré, aucun ROI réel · "+owned.locked+" matchs enregistrés.":
    "Historique indépendant indisponible ou non actualisé : aucune statistique extrapolée.");
- drawEvents();drawPaper();
+ drawEvents();if($("home-recent"))drawPaper();
 }
 function bootEvents(){
  const input=$("v3-search");
@@ -271,6 +271,12 @@ function bootEvents(){
  });
 }
 document.addEventListener("DOMContentLoaded",async()=>{
+ if(document.body.dataset.page==="pourquoi"){
+  const params=new URLSearchParams(window.location.search);
+  const league=params.get("league"),id=params.get("id");
+  if(league&&id&&/^[A-Z0-9_]{2,20}$/.test(league)&&/^[A-Za-z0-9:_-]{1,50}$/.test(id))
+   selected=league+":"+id;
+ }
  bootEvents();
  const names=["match-center-latest.json","picks-center-latest.json","nhl-frontend-observed-latest.json","nhl-espn-goalies-latest.json","pulsescore-radar-latest.json","phase2-owned-ledger.json","phase2-owned-performance.json"];
  const result=await Promise.allSettled(names.map(load));

@@ -93,6 +93,7 @@ function createResearch(g){
  const odds=el("div");odds.append(el("div","arc-odds",price(g.best_observed_price.decimal_odds)),el("small","arc-muted","Cote OBSERVÉE · "+String(g.best_observed_price.bookmaker).replace("_fr","")));
  bot.append(odds,label("NON VALIDÉ","off"));card.append(bot);
  card.append(el("p","arc-help","Relevé le "+fmtTime(g.best_observed_price.quote_at_utc)+". Modèle expérimental non calibré. Cette cote peut ne plus être disponible."));
+ const why=el("a","arc-btn","POURQUOI ? ↗");why.href="./pourquoi.html?league="+encodeURIComponent(g.league)+"&id="+encodeURIComponent(g.event_id);card.append(why);
  const link=el("a","arc-btn","Fiche match ↗");link.href=matchUrl(g);card.append(link);
  return card;
 }
@@ -105,6 +106,7 @@ function createMatch(g){
  const bottom=el("div","arc-pick-bottom");
  bottom.append(label("PAS DE PARI VALIDÉ","off"));
  const link=el("a","arc-btn","Voir la rencontre ↗");link.href=matchUrl(g);bottom.append(link);
+ const why=el("a","arc-btn","POURQUOI ? ↗");why.href="./pourquoi.html?league="+encodeURIComponent(g.league)+"&id="+encodeURIComponent(g.event_id);bottom.append(why);
  card.append(bottom);return card;
 }
 function empty(labelText,msg){
@@ -299,7 +301,7 @@ function setupTilt(){
 document.addEventListener("DOMContentLoaded",async()=>{
  setupEvents();setupTilt();
  const route=document.body.dataset.page;
- if(route==="arcade-v3")return; // V3 owns its data gates and UI; never boot two competing dashboards
+ if(route==="arcade-v3"||route==="pourquoi")return; // V3 owns its data gates and UI; never boot two competing dashboards
  if(route==="lab"){put("lab-status","Laboratoire de recherche · réservé aux outils techniques, sans mise réelle");return;}
  await bootData();
  if(route==="home")renderHome();
