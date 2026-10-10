@@ -1,0 +1,53 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1127"><title>Phase 7 — Cotes & bilan | REVUE</title>
+<link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1">
+<style>
+.p7{max-width:1080px;margin:auto;padding:31px 16px 110px}.p7hero{padding:27px;border-radius:18px;background:linear-gradient(120deg,#154b46,#131f37 70%,#302249);border:1px solid #43767a}
+.p7hero h1{font:900 clamp(31px,7vw,62px)/1.04 'Chakra Petch',sans-serif;letter-spacing:-.05em;margin:14px 0}
+.p7hero em{font-style:normal;color:#79efcf}.p7hero p,.p7note,.p7box p{font-size:13px;line-height:1.75;color:#c5d3df}
+.p7metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0}
+.p7metrics article,.p7box{border-radius:13px;background:#172940;border:1px solid #446078;padding:18px}
+.p7metrics small,.p7box small{color:#b5cbda;font-size:11px}.p7metrics strong{display:block;color:#91f2d6;font:900 31px 'Chakra Petch',sans-serif;margin:5px 0}
+.p7grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.p7box h2{font:800 22px 'Chakra Petch',sans-serif}
+.p7note{border:1px solid #817078;background:#292837;border-radius:10px;padding:16px}.p7link{color:#80eed5}.p7box li{font-size:12px;color:#bdd3de;line-height:1.9}
+.p7title{font:800 23px 'Chakra Petch',sans-serif;margin:28px 0 8px}
+@media(max-width:750px){.p7metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.p7grid{grid-template-columns:1fr}}
+</style></head><body class="retro" data-page="lab">
+<div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html">REVUE.</a><nav class="rv-nav"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav></div></div>
+<main class="p7"><header class="p7hero"><small>PHASE 07 / MARCHÉS FRANÇAIS</small><h1>COTES <em>& BILAN.</em></h1>
+<p>Chaque cote est un instantané observé ; chaque résultat provient du registre de simulations. Une différence de probabilité n'est pas une EV garantie.</p><a href="./lab.html" class="arc-btn">RETOUR AU LAB ↗</a></header>
+<div class="p7metrics"><article><small>Lignes PulseScore archivées</small><strong id="m-rows">—</strong></article>
+<article><small>Sorties source avec prix historique</small><strong id="m-joins">—</strong></article>
+<article><small>Prix jouables vérifiés</small><strong id="m-live">—</strong></article>
+<article><small>Signaux EV+ validés</small><strong id="m-ev">—</strong></article></div>
+<p id="p7-status" class="p7note" role="status" aria-live="polite">Chargement de l'audit…</p>
+<h2 class="p7title">Prix observés et qualité des marchés</h2><div class="p7grid">
+<article class="p7box"><h2>Bookmakers observés</h2><p id="p7-books">—</p><p id="p7-period">—</p><small>Un bookmaker configuré n'a pas nécessairement de cote observée. Le marché NHL « avec prolongation » doit être prouvé par le fournisseur.</small></article>
+<article class="p7box"><h2>Contrôles de synchronisation</h2><ul id="p7-issues"></ul><small>Aucune offre n'est considérée disponible aujourd'hui simplement parce qu'elle existe dans une archive.</small></article></div>
+<h2 class="p7title">Bilan des simulations indépendantes</h2><div class="p7metrics"><article><small>Paris papier réglés</small><strong id="p7-settled">—</strong></article>
+<article><small>Gagnés / perdus</small><strong id="p7-wl">—</strong></article>
+<article><small>Profit papier en unités</small><strong id="p7-units">—</strong></article>
+<article><small>ROI papier (réglés)</small><strong id="p7-roi">—</strong></article></div>
+<p class="p7note" id="p7-warning">Les performances sont purement fictives, avec mise unité uniforme de simulation. Elles ne démontrent pas de rentabilité ni de gains personnels.</p>
+<p><a class="p7link" href="./phase7-prices-performance-latest.json">Preuves JSON ↗</a> · <a class="p7link" href="./phase6-predictions.html">Sorties originales phase 6 ↗</a> · <a class="p7link" href="./picks-center.html">Historique papier ↗</a></p>
+<footer class="arc-footer">0 PARI RÉEL · 0 EV CERTIFIÉE · CFB EXCLU · AUCUN APPEL PULSESCORE SUPPLÉMENTAIRE</footer></main>
+<script>
+"use strict";const $=id=>document.getElementById(id);
+function check(x){return x?.version==="revue_phase7_price_integrity_v1"&&x.status==="observed_quote_provenance_and_separate_paper_audit_only"&&x.verified_live_quotes===false&&x.verified_positive_EV_opportunities===0&&x.profitable_strategy_proven===false&&x.real_bets_enabled===false&&x.CFB_excluded===true&&x.no_paid_api_requests===true&&x.quote_sources&&x.paper_performance&&x.phase6_join;}
+document.addEventListener("DOMContentLoaded",async()=>{try{
+ const resp=await fetch("./phase7-prices-performance-latest.json",{cache:"no-store"});if(!resp.ok)throw Error("HTTP "+resp.status);
+ const d=await resp.json();if(!check(d))throw Error("Contrôles du rapport non validés");
+ const q=d.quote_sources,j=d.phase6_join,p=d.paper_performance;
+ $("m-rows").textContent=q.market_rows;$("m-joins").textContent=j.source_selections_with_exact_archived_prices;
+ $("m-live").textContent=j.verified_bookable_market_prices;$("m-ev").textContent=j.verified_positive_ev;
+ $("p7-books").textContent=q.bookmakers_observed.join(" · ")||"Aucun";
+ $("p7-period").textContent="Bookmakers sans observations : "+(q.bookmakers_without_quotes.join(" · ")||"aucun");
+ const problems=$("p7-issues");problems.replaceChildren();for(const [type,count] of Object.entries(j.statuses||{})){
+ const li=document.createElement("li");li.textContent=count+" × "+type.replaceAll("_"," ");problems.append(li);}
+ $("p7-settled").textContent=p.settled+" / "+p.total;$("p7-wl").textContent=p.wins+" / "+p.losses;
+ $("p7-units").textContent=(p.net_paper_units>0?"+":"")+p.net_paper_units.toLocaleString("fr-FR");
+ $("p7-roi").textContent=p.paper_roi_settled_only_pct===null?"—":(p.paper_roi_settled_only_pct>0?"+":"")+p.paper_roi_settled_only_pct.toLocaleString("fr-FR")+" %";
+ $("p7-status").textContent="Audit du "+new Date(d.generated_at_utc).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"})+" · dernières cotes observées le "+new Date(q.observed_at_utc).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"})+" — aucun prix certifié jouable.";
+ $("p7-warning").textContent=p.pending+" simulations en attente, "+p.excluded_unverified+" marchés exclus, "+p.settled+" résultats réglés. ROI calculé uniquement sur les "+p.settled_stakes_units+" unités virtuelles réglées. Échantillon insuffisant pour prouver la rentabilité ; aucun gain réel.";
+ }catch(e){$("p7-status").textContent="Rapport indisponible : "+e.message;}
+});
+</script></body></html>

@@ -1,0 +1,45 @@
+name: Revue - Phase 7 PulseScore quote integrity and paper audit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 0,3,6,9,12,15,18,21 * * *'
+  push:
+    paths:
+      - 'outils/phase7_cotes_et_bilan.py'
+      - 'tests/test_phase7_cotes_et_bilan.py'
+      - '.github/workflows/phase7-cotes-et-bilan.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-phase7-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regression tests no stale price or false paper PnL
+        run: |
+          python -m unittest discover -s tests -p 'test_phase7_cotes_et_bilan.py' -v
+          python -m unittest discover -s tests -p 'test_picks_center_revue.py' -v
+      - name: Audit cached PulseScore plus locked source and independent paper ledger
+        run: python -m outils.phase7_cotes_et_bilan
+      - name: Publish new derived report only, never rescan paid API
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.phase7_cotes_et_bilan
+            git add docs/phase7-prices-performance-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(phase7): validate cached quote provenance and independent paper results'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
