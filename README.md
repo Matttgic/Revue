@@ -1,4 +1,12 @@
-## Control Center : interface principale
+# Revue Arcade V3 — à jouer, pourquoi, bilan
+
+**Interface par défaut : [ouvrir Revue Arcade](docs/index.html).** Trois étapes sans onglets inutiles : rencontres futures vérifiées et filtrables, explications par match de l'abstention ou des modèles disponibles, puis bilan fictif fondé uniquement sur les résultats pré-match réglés. Les pages détaillées restent accessibles depuis le bas de l'accueil et le Lab.
+
+**Preuve de fonctionnement :** [contrôle qualité automatisé](docs/arcade-v3-qa.json) · [moteur de présentation source-gated](docs/arcade-v3-data.js) · [tests sur instantanés sportifs réels](tests/test_arcade_v3_data.js) · [tests de pages, JS et sécurité](tests/test_arcade_v3_site.py) · [workflow](.github/workflows/arcade-v3-tests.yml).
+
+Le site bloque les sources expirées, les statuts non vérifiés, les cotes historiques présentées comme actuelles, les EV non démontrées et les recommandations fabriquées. Les 26 simulations historiques de l'instantané disponible ne sont pas des mises réelles ; seules les 3 réglées servent au ROI fictif. **Aucune promesse de rentabilité, aucune parité complète avec Clairvoyance. Couverture fonctionnelle estimée inchangée à 62 %.** Le statut Vercel peut être en erreur pour limite de fréquence des builds, indépendamment de la réussite des tests GitHub.
+
+## Control Center : ancien outil technique (accessible via Lab)
 
 - **Page mobile** : [docs/command-center.html](docs/command-center.html). Quatre onglets : matchs à venir, cotes historiques observées, journal multisport des simulations et état des sources. Recherche, filtres par sport, CSV des simulations et actualisation des fichiers existants.
 - **API** : `GET /revue/control` résume la fraîcheur des fichiers (sans prétendre au statut réel des fournisseurs). `GET /revue/ledger` relit le registre papier, classe les entrées incertaines hors P&L et calcule ROI / unités fictives **uniquement sur les résultats vérifiables**.
