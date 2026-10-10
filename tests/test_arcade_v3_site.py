@@ -12,6 +12,7 @@ HTML=(DOCS/"index.html").read_text(encoding="utf8")
 CSS=(DOCS/"arcade-v3.css").read_text(encoding="utf8")
 JS=(DOCS/"arcade-v3-app.js").read_text(encoding="utf8")
 CORE=(DOCS/"arcade-v3-data.js").read_text(encoding="utf8")
+RADAR=(DOCS/"radar-6h.html").read_text(encoding="utf8")
 
 class Links(HTMLParser):
     def __init__(self):
@@ -59,6 +60,28 @@ class ArcadeV3Tests(unittest.TestCase):
         self.assertIn("document.createElement",JS)
         self.assertNotIn("innerHTML",JS)
         self.assertNotIn("Math.random",JS)
+
+    def test_six_hour_radar_has_readable_verified_real_snapshots_only(self):
+        page=Links();page.feed(RADAR)
+        for key in ("match-count","market-count","call-count","status","lookup","games"):
+            self.assertIn(key,page.anchors)
+        for link in ("./index.html","./pulsescore-radar-latest.json",
+                     "./etat-donnees.html"):
+            self.assertIn(link,page.refs)
+        self.assertIn("market_prices_are_live!==false",RADAR)
+        self.assertIn("positive_ev_verified!==false",RADAR)
+        self.assertIn("Règlement des prolongations non vérifié",RADAR)
+        self.assertIn("new_paper_bets_created!==false",RADAR)
+        self.assertNotIn("innerHTML",RADAR)
+        self.assertIn("COTES PULSESCORE 6H",HTML)
+        with (DOCS/"pulsescore-radar-latest.json").open(encoding="utf8") as f:
+            data=json.load(f)
+        self.assertEqual(data["version"],"revue_pulsescore_six_hour_radar_v1")
+        self.assertLessEqual(data["requests_used"],8)
+        self.assertFalse(data["real_bets_enabled"])
+        self.assertFalse(data["positive_ev_verified"])
+        self.assertFalse(data["existing_paper_ledger_modified"])
+        self.assertEqual(data["matches_observed"],len(data["observations"]))
 
     def test_node_scripts_parse_and_static_data_available(self):
         for file in ("arcade-v3-data.js","arcade-v3-app.js"):
