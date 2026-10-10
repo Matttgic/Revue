@@ -30,13 +30,13 @@ def odds():
 class RadarTests(unittest.TestCase):
     def test_observed_quote_exact_source_and_strict_cap(self):
         captured=[]
-        def fake(key,models_,now_,max_calls,days_horizon):
-            captured.append((key,max_calls,days_horizon))
+        def fake(key,models_,now_,max_calls,days_horizon,balanced):
+            captured.append((key,max_calls,days_horizon,balanced))
             return odds(),{"requests":5,"matched_events":1,"matched_leagues":{"PL":1},
                            "sports":["soccer"],"errors":{},"truncated":False}
         m=models();unchanged=deepcopy(m)
         result=compute(m,NOW,key="secret-key",scanner=fake)
-        self.assertEqual(captured,[("secret-key",8,6)])
+        self.assertEqual(captured,[("secret-key",8,6,True)])
         self.assertEqual(result["version"],VERSION)
         self.assertEqual(result["status"],"observed")
         self.assertEqual(result["matches_observed"],1)
