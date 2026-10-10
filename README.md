@@ -1,3 +1,12 @@
+## PulseScore Pro — radar 6 h et cotes FR observées (10 octobre 2026)
+
+**Fonctionnel sur GitHub :** [radar mobile rétro](docs/radar-6h.html) · [relevé authentifié et horodaté](docs/pulsescore-radar-latest.json) · [scanner 8 appels](outils/pulsescore_radar_six_heures.py) · [tests anti-surconsommation](tests/test_pulsescore_radar_six_heures.py) · [planification](.github/workflows/pulsescore-radar-6h.yml). [L'accueil À jouer → Pourquoi](docs/index.html) affiche les prix observés sur les matchs appariés, et uniquement les écarts comparables quand plusieurs bookmakers donnent **la même sélection, le même marché et la même ligne**.
+
+- **Première exécution effective PulseScore vérifiée : 8 appels / 8, 12 matchs rapprochés, 264 lignes de marchés** (NHL et MLS). Les marchés NHL avec règle de prolongation incertaine sont **visibles comme observation**, mais exclus du calcul d'écarts comparables ; aucune prétendue EV vérifiée.
+- Le scanner principal est maintenu **4 fois/jour, maximum 32 appels** ; le complément recherche les événements des **6 prochaines heures** en quatre passages supplémentaires de **8 appels maximum**. **Plafond nominal en mois de 31 jours = (4×32 + 4×8)×31 = 4 960 requêtes**, *sans compter* le premier scan déclenché manuellement, les relances, les contrôles API indépendants ou toute utilisation externe de PulseScore. Les scans abandonnent leurs appels si le modèle est périmé ou si aucune clé n'est disponible.
+- Les résultats sont publiés séparément du scanner complet et **n'effacent pas son tableau**. Aucune création de pari papier/argent et aucune écriture dans le journal historique. Les prix authentifiés sont des instantanés, **pas** des disponibilités bookmaker au moment de miser. La clé PulseScore reste dans les GitHub Actions Secrets.
+- Le projet reprend indépendamment les méthodes du code Clairvoyance **sans** prétendre disposer de son Elo SQL privé, de son abonnement aux flux complets ni de sa calibration finale. La couverture fonctionnelle générale reste estimée à **62 %**, pas un score de parité des picks.
+
 ## Bloc données NHL : gardiens ESPN + modèles verrouillés (10/10/2026)
 
 **Intégrations fonctionnelles livrées :** [gardiens ESPN observés](docs/nhl-espn-goalies-latest.json) · [outil de jointure strict](outils/nhl_espn_goalies.py) · [tests hors réseau](tests/test_nhl_espn_goalies.py) · [CI](.github/workflows/nhl-espn-goalies.yml) ; [prévisions NHL pré-match verrouillées](docs/nhl-frontend-prospective-ledger.json) · [Brier/LogLoss comparés](docs/nhl-frontend-prospective-performance.json) · [code du suivi](outils/nhl_frontend_tracker.py) · [tests anti-fuite](tests/test_nhl_frontend_tracker.py) · [CI](.github/workflows/nhl-frontend-prospective.yml).
@@ -5,7 +14,7 @@
 - Dernière vérification : 15 matchs NHL joints à ESPN par identités d'équipes **et horaire** ; **11 statuts de gardiens « confirmed » et 19 « projected »**, relevés ESPN à cet instant, et non garanties de titulaires ayant finalement joué.
 - **15 couples de probabilités Monte-Carlo / Ensemble verrouillés avant le coup d'envoi**, 0 résultat encore réglé lors de la première publication. Les scores officiels NHL seuls règleront les entrées à mesure ; les Brier/LogLoss sont strictement nuls/absents avant résultat, jamais inventés.
 - Les annonces de gardiens sont montrées séparément et **ne modifient aucune probabilité déjà verrouillée**. Aucune donnée de blessure/Edge reconstruite arbitrairement ; aucune cote de bookmaker en direct garantie, aucun pari et aucune preuve de rentabilité.
-- [Tableau de fraîcheur des 13 couches de données](docs/etat-donnees.html). Les 6 sources essentielles avaient toutes passé le dernier contrôle ; ce n'est pas une preuve d'équivalence complète avec le modèle original. **Couverture fonctionnelle globale toujours estimée à 62 %**, aucune réévaluation de ce pourcentage à ce stade.
+- [Tableau de fraîcheur des 14 couches de données](docs/etat-donnees.html). Les 6 sources essentielles avaient toutes passé le dernier contrôle ; ce n'est pas une preuve d'équivalence complète avec le modèle original. **Couverture fonctionnelle globale toujours estimée à 62 %**, aucune réévaluation de ce pourcentage à ce stade.
 
 # Revue Arcade V3 — à jouer, pourquoi, bilan
 
@@ -13,7 +22,7 @@
 
 **Preuve de fonctionnement :** [contrôle qualité automatisé](docs/arcade-v3-qa.json) · [moteur de présentation source-gated](docs/arcade-v3-data.js) · [tests sur instantanés sportifs réels](tests/test_arcade_v3_data.js) · [tests de pages, JS et sécurité](tests/test_arcade_v3_site.py) · [workflow](.github/workflows/arcade-v3-tests.yml).
 
-Le site bloque les sources expirées, les statuts non vérifiés, les cotes historiques présentées comme actuelles, les EV non démontrées et les recommandations fabriquées. Les 26 simulations historiques de l'instantané disponible ne sont pas des mises réelles ; seules les 3 réglées servent au ROI fictif. **Aucune promesse de rentabilité, aucune parité complète avec Clairvoyance. Couverture fonctionnelle estimée inchangée à 62 %.** Le statut Vercel peut être en erreur pour limite de fréquence des builds, indépendamment de la réussite des tests GitHub.
+Le site bloque les sources expirées, les statuts non vérifiés, les cotes historiques présentées comme actuelles, les EV non démontrées et les recommandations fabriquées. Les simulations historiques ne sont pas des mises réelles ; seules les entrées effectivement réglées et vérifiables à la date du rapport entrent dans le ROI fictif, dont le nombre évolue automatiquement. **Aucune promesse de rentabilité, aucune parité complète avec Clairvoyance. Couverture fonctionnelle estimée inchangée à 62 %.** Le statut Vercel peut être en erreur pour limite de fréquence des builds, indépendamment de la réussite des tests GitHub.
 
 ## Control Center : ancien outil technique (accessible via Lab)
 
