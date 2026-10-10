@@ -12,11 +12,11 @@ def audit():
 class ReproductionOnlyProgressTests(unittest.TestCase):
     def test_two_original_models_are_verified(self):
         p=generate(data(),audit(),NOW)
-        self.assertEqual(p["total_target_models"],29)
+        self.assertEqual(p["total_target_models"],44)
         self.assertEqual(p["verified_formula_parity_models"],2)
-        self.assertEqual(p["formula_parity_percent"],7)
+        self.assertEqual(p["formula_parity_percent"],5)
         self.assertIsNone(p["overall_repository_reproduction_percent"])
-        self.assertEqual(p["remaining_unverified"],27)
+        self.assertEqual(p["remaining_unverified"],42)
         self.assertIn("CFB",p["excluded"])
     def test_three_js_functions_count_after_true_source_parity(self):
         js={"status":"frontend_function_output_parity_verified",
@@ -26,8 +26,8 @@ class ReproductionOnlyProgressTests(unittest.TestCase):
                                 "frontend_soccer_market_blend"]}
         p=generate(data(),audit(),NOW,js)
         self.assertEqual(p["verified_formula_parity_models"],5)
-        self.assertEqual(p["formula_parity_percent"],17)
-        self.assertEqual(p["remaining_unverified"],24)
+        self.assertEqual(p["formula_parity_percent"],11)
+        self.assertEqual(p["remaining_unverified"],39)
         self.assertEqual(p["exact_equality_tests_passed"],71)
 
     def test_source_commit_mismatch_cannot_boost_progress(self):
@@ -38,7 +38,31 @@ class ReproductionOnlyProgressTests(unittest.TestCase):
                                 "frontend_soccer_market_blend"]}
         p=generate(data(),audit(),NOW,js)
         self.assertEqual(p["verified_formula_parity_models"],2)
-        self.assertEqual(p["formula_parity_percent"],7)
+        self.assertEqual(p["formula_parity_percent"],5)
+
+    def test_four_nba_source_parities_count_only_with_proof(self):
+        nba={"status":"nba_preprocessing_exact_parity_verified",
+             "reference_commit":"nbasourcecommit",
+             "exact_equality_tests_passed":446,
+             "verified_modules":["backend_nba_season","backend_nba_stats_selection",
+                                 "backend_nba_team_ratings","backend_nba_player_tiers"]}
+        p=generate(data(),audit(),NOW,nba_parity=nba)
+        self.assertEqual(p["total_target_models"],44)
+        self.assertEqual(p["verified_formula_parity_models"],6)
+        self.assertEqual(p["formula_parity_percent"],14)
+        self.assertEqual(p["exact_equality_tests_passed"],489)
+        self.assertEqual(p["phases"]["nba_source_preprocessing_4"]["verified"],4)
+        self.assertEqual(p["phases"]["next_original_models_11"]["verified"],0)
+        latest=[x for x in p["models"] if x["id"]=="backend_nba_team_ratings"][0]
+        self.assertEqual(latest["verified_source_commit"],"nbasourcecommit")
+
+    def test_nba_report_needs_real_checks(self):
+        nba={"status":"nba_preprocessing_exact_parity_verified",
+             "reference_commit":"nbasourcecommit",
+             "exact_equality_tests_passed":3,
+             "verified_modules":["backend_nba_team_ratings"]}
+        p=generate(data(),audit(),NOW,nba_parity=nba)
+        self.assertEqual(p["verified_formula_parity_models"],2)
 
     def test_original_models_never_count(self):
         p=generate({"status":"experimental_no_bets","verified_modules":["backend_mlb_elo"],"exact_equality_tests_passed":999},audit(),NOW)
