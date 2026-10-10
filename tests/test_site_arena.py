@@ -10,7 +10,7 @@ import tempfile
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/"docs"
 PAGES=(
-    "index.html","match-center.html","engine-v2.html","multisports.html",
+    "index.html","match-center.html","performance-comparateur.html","engine-v2.html","multisports.html",
     "nhl-joueurs.html","nhl-model.html","moneypuck.html","nhl-clairvoyance.html","football-avance.html",
     "qualite-modeles.html","ensemble-mc-bayes.html","parite-clairvoyance.html",
 )
@@ -101,6 +101,19 @@ class ArenaTests(unittest.TestCase):
                     file=(DOCS/url.path).resolve()
                     self.assertTrue(file.is_relative_to(DOCS.resolve()))
                     self.assertTrue(file.is_file(),href)
+
+    def test_performance_dashboard_has_genuine_report_sources(self):
+        ui=(DOCS/"performance-comparateur.html").read_text(encoding="utf-8")
+        front=(DOCS/"index.html").read_text(encoding="utf-8")
+        self.assertIn("performance-comparateur.html",front)
+        for data in ("football-shadow-performance.json",
+                     "ensemble-mc-bayes-performance.json",
+                     "nhl-shadow-performance.json",
+                     "multisport-prospective-performance.json"):
+            with self.subTest(source=data):
+                self.assertIn(data,ui)
+                self.assertTrue((DOCS/data).is_file())
+        self.assertIn("Aucune mise réelle",ui)
 
     def test_match_center_is_discoverable_and_reports_only_source_observations(self):
         import json
