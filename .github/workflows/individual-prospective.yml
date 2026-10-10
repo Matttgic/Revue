@@ -1,0 +1,48 @@
+name: Revue - Suivi individuel officiel
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 */4 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Multisports Independent'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/individual_prospective_revue.py'
+      - 'tests/test_individual_prospective_revue.py'
+      - '.github/workflows/individual-prospective.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-individual-prospective
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests hors ligne et vérification de la chronologie
+        run: |
+          python -m unittest discover -s tests -p 'test_sports_individuels_et_liiga.py' -v
+          python -m unittest discover -s tests -p 'test_individual_prospective_revue.py' -v
+      - name: Règlement sans invention de résultat, avec relecture du cache source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.individual_prospective_revue
+            git add docs/individual-prospective-ledger.json docs/individual-prospective-performance.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(individual): official pregame outcome evaluation only'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
