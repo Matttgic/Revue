@@ -6,6 +6,7 @@ on:
       - "requirements-api.txt"
       - "tests/test_api_clairvoyance_*.py"
       - "tests/test_api_nhl_stats.py"
+      - "tests/test_api_mlb_elo.py"
       - ".github/workflows/clairvoyance-api-contracts.yml"
   workflow_dispatch:
 permissions:
@@ -25,6 +26,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_api_clairvoyance_fixtures.py' -v
       - name: Exercise original NHL/MLB source-compatible HTTP field contracts
         run: python -m unittest discover -s tests -p 'test_api_clairvoyance_http.py' -v
+      - name: Validate MLB reference Elo math and actual HTTP /mlb/elo route
+        run: python -m unittest discover -s tests -p 'test_api_mlb_elo.py' -v
       - name: Verify official NHL teams, goalie, skater, MoneyPuck API contracts
         run: python -m unittest discover -s tests -p 'test_api_nhl_stats.py' -v
       - name: Ensure FastAPI boot and documented original route signatures
@@ -36,7 +39,7 @@ jobs:
                   ("get","/mlb/games/{espn_id}"),("get","/predictions/"),
                   ("get","/nhl/teams"),("get","/nhl/goalies"),
                   ("get","/nhl/skaters"),("get","/nhl/moneypuck"),
-                  ("get","/nhl/moneypuck/live")}
+                  ("get","/nhl/moneypuck/live"),("get","/mlb/elo")}
           assert target <= exposed, (target - exposed)
           print("HTTP routes exposed:",len(exposed),"read-only; no betting endpoints")
           PY
