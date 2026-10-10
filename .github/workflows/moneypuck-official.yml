@@ -32,6 +32,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_moneypuck_feed.py' -v
           python -m unittest discover -s tests -p 'test_moneypuck_compat.py' -v
+          python -m unittest discover -s tests -p 'test_site_arena.py' -v
       - name: Fetch ONLY the official MoneyPuck season download CSV
         run: python -m outils.moneypuck_feed --output docs/moneypuck-nhl-latest.json
       - name: Publish derived data and explicit attribution (no original CSV)
