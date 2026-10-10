@@ -30,7 +30,9 @@ jobs:
           python -m unittest discover -s tests -p 'test_pulsescore_v2.py' -v
           python -m unittest discover -s tests -p 'test_tableau_cotes.py' -v
       - name: Small additional PulseScore scan, without altering full scan or paper ledger
-        if: github.event_name != 'push'
+        if: >-
+          github.event_name != 'push' ||
+          github.event.head_commit.message == 'ci(pulsescore): first bounded real radar scan'
         env:
           PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
           ODDS_API_KEY: ''
