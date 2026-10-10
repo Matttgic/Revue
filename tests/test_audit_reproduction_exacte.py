@@ -144,6 +144,26 @@ async def get_goalie(id): pass
             self.assertEqual(dom["first_unmatched_source_ids"],["bets"])
             self.assertEqual(result["frontend"]["pixel_accurate_visual_comparison"],"NOT_PERFORMED")
 
+    def test_declared_api_routes_cannot_be_called_full_behavioral_parity(self):
+        with TemporaryDirectory() as tmp:
+            source,target=Path(tmp)/"original",Path(tmp)/"revue"
+            self.make(source,target)
+            _write(target,"api_revue/app.py",'''
+def build():
+    @app.get("/health")
+    def healthy(): pass
+    @app.get("/nhl/schedule")
+    def nhl(): pass
+    @app.post("/admin/pipeline")
+    def bad_non_readonly(): pass
+''')
+            out=strict_report(source,target,NOW)
+            self.assertEqual(out["backend"]["source_signatures_declared_in_revue"],2)
+            self.assertEqual(out["backend"]["declared_matching_signatures"],
+                             ["GET /health","GET /nhl/schedule"])
+            self.assertEqual(out["backend"]["end_to_end_verified_equivalent_routes"],0)
+            self.assertIsNone(out["exact_reproduction_percent"])
+
     def test_scope_excludes_cfb(self):
         with TemporaryDirectory() as tmp:
             source,target=Path(tmp)/"original",Path(tmp)/"revue"
