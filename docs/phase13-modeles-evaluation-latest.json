@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-10-10T23:22:05.718347+00:00",
+  "generated_at_utc": "2026-10-10T23:22:56.784304+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -29,11 +29,11 @@
     "paired_observation_overlap_not_independent": 0
   },
   "models": {
-    "revue_football_espn_shots_log_pool_v1": {
-      "league": "SERIEA",
+    "LALIGA::revue_football_espn_shots_log_pool_v1": {
+      "league": "LALIGA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "settled": 0,
-      "frozen_locked": 7,
+      "frozen_locked": 5,
       "raw": {
         "n": 0,
         "brier": null,
@@ -69,7 +69,47 @@
       "approved_for_betting": false,
       "automatic_champion": false
     },
-    "revue_mlb_espn_history_elo_v1": {
+    "LIGUE1::revue_football_espn_shots_log_pool_v1": {
+      "league": "LIGUE1",
+      "model_id": "revue_football_espn_shots_log_pool_v1",
+      "settled": 0,
+      "frozen_locked": 3,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "MLB::revue_mlb_espn_history_elo_v1": {
       "league": "MLB",
       "model_id": "revue_mlb_espn_history_elo_v1",
       "settled": 0,
@@ -109,7 +149,47 @@
       "approved_for_betting": false,
       "automatic_champion": false
     },
-    "revue_nba_espn_previous_standings_prior_v1": {
+    "MLS::revue_football_espn_shots_log_pool_v1": {
+      "league": "MLS",
+      "model_id": "revue_football_espn_shots_log_pool_v1",
+      "settled": 0,
+      "frozen_locked": 13,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "NBA::revue_nba_espn_previous_standings_prior_v1": {
       "league": "NBA",
       "model_id": "revue_nba_espn_previous_standings_prior_v1",
       "settled": 0,
@@ -149,7 +229,7 @@
       "approved_for_betting": false,
       "automatic_champion": false
     },
-    "revue_nba_prior_consensus_v1": {
+    "NBA::revue_nba_prior_consensus_v1": {
       "league": "NBA",
       "model_id": "revue_nba_prior_consensus_v1",
       "settled": 0,
@@ -189,11 +269,91 @@
       "approved_for_betting": false,
       "automatic_champion": false
     },
-    "revue_nba_prior_elo_regressed_v1": {
+    "NBA::revue_nba_prior_elo_regressed_v1": {
       "league": "NBA",
       "model_id": "revue_nba_prior_elo_regressed_v1",
       "settled": 0,
       "frozen_locked": 10,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "PL::revue_football_espn_shots_log_pool_v1": {
+      "league": "PL",
+      "model_id": "revue_football_espn_shots_log_pool_v1",
+      "settled": 0,
+      "frozen_locked": 4,
+      "raw": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "uniform_reference_same_matches": {
+        "n": 0,
+        "brier": null,
+        "logloss": null
+      },
+      "reliability": [],
+      "calibration": {
+        "training_required": 100,
+        "holdout_required": 40,
+        "training_n": 0,
+        "holdout_n": 0,
+        "training_cutoff_utc": null,
+        "frozen_temperature": null,
+        "temperature_candidates": [
+          0.65,
+          0.8,
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          2.5
+        ],
+        "holdout": null,
+        "status": "insufficient_training"
+      },
+      "preliminary_assessment_at_100": false,
+      "independent_holdout_complete": false,
+      "approved_for_betting": false,
+      "automatic_champion": false
+    },
+    "SERIEA::revue_football_espn_shots_log_pool_v1": {
+      "league": "SERIEA",
+      "model_id": "revue_football_espn_shots_log_pool_v1",
+      "settled": 0,
+      "frozen_locked": 7,
       "raw": {
         "n": 0,
         "brier": null,
@@ -327,6 +487,7 @@
       },
       "comparison_validated": false
     },
+    "native_binary_scalar_brier": 0.121104,
     "separate_official_NHL_source": true,
     "original_sql_parity_proven": false,
     "automatically_deployed": false
