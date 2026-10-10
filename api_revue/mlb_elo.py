@@ -63,8 +63,12 @@ def replay_mlb_elo(history:dict,as_of:datetime)->dict:
         if event.get("complete") is not True or kickoff>=as_of:
             continue
         hs,aws=event.get("home_score"),event.get("away_score")
-        if (type(hs) is not int or type(aws) is not int or
-            not 0<=hs<=100 or not 0<=aws<=100):
+        # ESPN history normalizes integral scores to JSON floats (e.g. 3.0).
+        # Accept only nonnegative finite whole values, never fractional goals.
+        if (type(hs) not in (int,float) or type(aws) not in (int,float) or
+            not math.isfinite(hs) or not math.isfinite(aws) or
+            not 0<=hs<=100 or not 0<=aws<=100 or
+            not float(hs).is_integer() or not float(aws).is_integer()):
             raise SourceUnavailable("Malformed official final MLB score")
         if hs==aws:
             # MLB has no tied final scores under normal rules. Exclude rather
