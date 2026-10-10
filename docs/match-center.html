@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060a14">
+<meta name="description" content="Revue Match Center : rencontres multisports, probabilités expérimentales et cotes françaises réellement observées.">
+<title>REVUE // Match Center</title>
+<link rel="stylesheet" href="./theme.css?v=2">
+<style>
+:root{--face:#e9f7ff;--deep:#091426;--line:#2a425a;--calm:#a7b8c9;--teal:#55f5de;--violet:#ae8aff}
+*,*::before,*::after{box-sizing:border-box}
+body{background:#060a14;color:var(--face);margin:0;min-width:320px}
+main{max-width:1240px;margin:auto;padding:34px 18px 85px}
+.head{border-bottom:1px solid var(--line);padding:24px 0 30px;display:flex;justify-content:space-between;align-items:end;gap:20px}
+.eyebrow,.mono{font:700 11px/1.5 'Chakra Petch',monospace;letter-spacing:.16em;color:var(--teal)}
+h1{font:800 clamp(2.5rem,7vw,5.1rem)/.92 'Chakra Petch',sans-serif;letter-spacing:-.065em;margin:12px 0 14px}
+h1 em{font-style:normal;color:var(--teal)}
+.subtitle{max-width:650px;color:#adbed0;font-size:13px;line-height:1.75;margin:0}
+.ghost-link{padding:12px 15px;color:var(--teal);border:1px solid var(--line);font:700 11px 'Chakra Petch',sans-serif;text-decoration:none;white-space:nowrap}
+.signal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:25px 0}
+.signal article{border:1px solid #304660;background:linear-gradient(140deg,#142238,#0b1828);padding:17px 15px;min-height:90px}
+.signal .label{color:#90a9bf;font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.12em}
+.signal strong{display:block;margin:7px 0 2px;font:800 32px 'Chakra Petch',sans-serif}
+.signal small{color:#7ba0b8;font-size:10px}
+.toolbar{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin:25px 0 13px}
+.tabs,.sport-filters{display:flex;gap:5px;flex-wrap:wrap}
+.toolbar button,.sport-filters button{border:1px solid #284359;color:#c0d5e6;background:#102036;padding:10px 14px;cursor:pointer;font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.08em;min-height:41px}
+.toolbar button[aria-pressed=true],.sport-filters button[aria-pressed=true]{background:#23545a;border-color:#5de8d6;color:#e9fffd}
+input[type=search]{border:1px solid #34485c;background:#111d30;color:#fff;border-radius:0;padding:12px 14px;min-width:160px;width:100%;outline-color:#55f5de;font:13px 'DM Sans',sans-serif}
+.only{color:#a8c4d5;font-size:11px;white-space:nowrap;display:flex;align-items:center;gap:7px}
+.only input{accent-color:#55f5de}
+.sport-filters{margin-bottom:22px}
+.status{border-left:2px solid #9d88ff;padding:11px 13px;margin:15px 0 24px;font:12px/1.6 monospace;color:#a9b6cb;background:#131c2b}
+.day{margin-top:30px}
+.day-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.day-head h2{margin:0;color:#ddfaff;font:700 17px 'Chakra Petch',sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.day-head span{flex:1;height:1px;background:#2f485c}
+.day-head small{color:#789db6;font:11px monospace}
+.event-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.match{border:1px solid #2e4862;background:linear-gradient(140deg,#101f34,#0d1729);padding:17px;min-width:0;position:relative}
+.match:before{content:"";height:2px;width:64px;position:absolute;left:0;top:0;background:#55f5de}
+.match-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font:700 10px 'Chakra Petch',monospace;letter-spacing:.12em;color:#88c4e3}
+.match-head time{color:#a2b4c7}
+.teams{display:flex;justify-content:space-between;align-items:center;gap:7px;margin:17px 0 13px}
+.teams strong{font:800 clamp(16px,2vw,23px) 'Chakra Petch',sans-serif;letter-spacing:-.04em;overflow-wrap:anywhere;flex:1}
+.teams strong:last-child{text-align:right}
+.versus{color:#6886a3;font:700 11px monospace}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.tag{font:700 9px 'Chakra Petch',sans-serif;letter-spacing:.09em;color:#b0c5d8;border:1px solid #314b60;padding:5px 7px}
+.tag.prices{color:#55f5de;border-color:#29665e}
+.tag.missing{color:#efb28b;border-color:#614632}
+.more{width:100%;background:#16293b;border:1px solid #3c5269;color:#d4f0ff;cursor:pointer;padding:10px 14px;text-align:left;font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.08em}
+.more:hover{border-color:#55f5de}
+.more[aria-expanded=true]{background:#244658}
+.details[hidden]{display:none}
+.details{border-top:1px solid #36516b;margin:16px 0 0;padding-top:14px}
+.details h3{font:800 12px 'Chakra Petch',sans-serif;color:#a78dff;letter-spacing:.1em;margin:12px 0 8px}
+.model{background:#15273e;border-left:2px solid #9a80ff;padding:12px;margin-bottom:8px}
+.model-name{font:700 12px 'Chakra Petch',sans-serif;color:#f2eaff}
+.probs,.odds-line{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px}
+.pill{color:#d8eeff;font:11px 'DM Sans',sans-serif;background:#1b3048;border:1px solid #39516a;padding:6px 9px}
+.odds-line{background:#14293b;border:1px solid #314e64;padding:12px;display:block}
+.odds-line .book{font:800 12px 'Chakra Petch',sans-serif;color:#55f5de;margin-bottom:8px}
+.odds-line .rule{color:#839eb4;font:10px/1.5 monospace}
+.hint{color:#91a8bd;font:11px/1.6 'DM Sans',sans-serif;margin:8px 0}
+.empty{border:1px dashed #42617b;padding:30px;text-align:center;color:#a1bcd0}
+.foot{margin-top:55px;padding:26px 0;border-top:1px solid #32465a;font:11px/1.7 'DM Sans',sans-serif;color:#8faabe}
+.foot a{color:#55f5de}
+@media(max-width:1000px){.toolbar{grid-template-columns:1fr 1fr}.toolbar .only{grid-column:1/-1}}
+@media(max-width:720px){.head{display:block}.ghost-link{display:inline-block;margin-top:20px}.signal{grid-template-columns:1fr 1fr}.toolbar{display:flex;flex-direction:column;align-items:stretch}.event-grid{grid-template-columns:1fr}.teams strong{font-size:19px}main{padding:23px 13px 70px}}
+</style>
+</head>
+<body class="rv-subpage">
+<div class="rv-topbar"><div class="rv-top-inner"><a href="./index.html" class="rv-brand"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+<nav class="rv-nav" aria-label="Navigation principale">
+<a href="./index.html">QG</a><a href="./match-center.html" aria-current="page">MATCHS</a><a href="./engine-v2.html">COTES</a><a href="./multisports.html">MODÈLES</a><a href="./qualite-modeles.html">AUDIT</a></nav><span class="rv-top-tag">SHADOW MODE</span></div></div>
+<main>
+<header class="head"><div><span class="eyebrow">REVUE // MATCH CENTER V1.0</span><h1>TOUS LES <em>MATCHS.</em><br>UN SEUL QG.</h1>
+<p class="subtitle">Calendrier et modèles indépendants réunis. Cotes décimales françaises uniquement lorsqu'elles ont réellement été observées. Ni prix en direct, ni sélection de pari validée.</p></div><a class="ghost-link" href="./engine-v2.html">ANALYSER LES COTES ↗</a></header>
+<section class="signal" aria-label="Couverture du calendrier"><article><span class="label">01 / RENCONTRES</span><strong id="n-events">—</strong><small>À venir · 72 h</small></article>
+<article><span class="label">02 / LIGUES</span><strong id="n-leagues">—</strong><small>Hors CFB</small></article>
+<article><span class="label">03 / AVEC MODÈLES</span><strong id="n-models">—</strong><small>Probabilités expérimentales</small></article>
+<article><span class="label">04 / AVEC COTES</span><strong id="n-prices">—</strong><small>Photos horodatées des prix</small></article></section>
+<section class="toolbar" aria-label="Filtrer les rencontres"><div class="tabs">
+<button type="button" data-range="today" aria-pressed="true">AUJOURD'HUI</button>
+<button type="button" data-range="tomorrow" aria-pressed="false">DEMAIN</button>
+<button type="button" data-range="all" aria-pressed="false">72 HEURES</button></div>
+<input id="search" type="search" aria-label="Rechercher équipe ou ligue" placeholder="Rechercher une équipe, une ligue…">
+<label class="only"><input type="checkbox" id="withOdds"> Avec cotes observées seulement</label></section>
+<nav class="sport-filters" id="leagueFilters" aria-label="Filtrer par compétition"></nav>
+<p class="status" id="status" role="status" aria-live="polite">Chargement des rencontres et des cotes observées…</p>
+<div id="schedule"></div>
+<footer class="foot">Sources propres à Revue : données ESPN / NHL, calculs indépendants et tarifs reçus des API autorisées. Les probabilités affichées ne sont pas calibrées, et une cote peut avoir expiré. Un pari peut être perdant, même si la probabilité estimée paraît élevée. <a href="./qualite-modeles.html">Voir les contrôles</a> · <a href="https://github.com/Matttgic/Revue">Code et méthodologie</a>.</footer>
+</main>
+<script>
+"use strict";
+const el=id=>document.getElementById(id);
+const create=(tag,cl,text)=>{const node=document.createElement(tag);if(cl)node.className=cl;if(text!==undefined)node.textContent=text;return node;};
+let center=null,range="today",league="all";
+function localDay(d){return new Intl.DateTimeFormat("sv-SE",{timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit"}).format(d);}
+function frDate(s){return new Date(s).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});}
+function frTime(s){return new Date(s).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit",timeZone:"Europe/Paris"});}
+function pct(n){return (n*100).toLocaleString("fr-FR",{maximumFractionDigits:1})+" %";}
+function fmtOdds(n){return Number(n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function pill(text){return create("span","pill",text);}
+function showDetails(e,root){
+ root.append(create("h3","","MODÈLES DE RECHERCHE · NON CALIBRÉS"));
+ if(!e.research.length)root.append(create("p","hint","Aucune probabilité suffisamment documentée pour ce match."));
+ for(const m of e.research){
+  const block=create("div","model");
+  block.append(create("div","model-name",m.label));
+  const probs=create("div","probs");
+  const p=m.probabilities;
+  if(p.home_win_90!=null){
+   probs.append(pill(e.home+" "+pct(p.home_win_90)));
+   probs.append(pill("Nul "+pct(p.draw_90)));
+   probs.append(pill(e.away+" "+pct(p.away_win_90)));
+  }else{
+   probs.append(pill(e.home+" "+pct(p.home_win)));
+   probs.append(pill(e.away+" "+pct(p.away_win)));
+  }
+  if(p.over_2_5!=null)probs.append(pill("Plus de 2,5 "+pct(p.over_2_5)));
+  block.append(probs);block.append(create("p","hint","Calcul : "+frDate(m.source_generated_utc)+" · non calibré, aucune value confirmée"));
+  root.append(block);
+ }
+ root.append(create("h3","","COTES FRANÇAISES · OBSERVATIONS, PAS LIVE"));
+ if(!e.quotes.length)root.append(create("p","hint","Aucune cote 1X2/H2H récente et rapprochée avec certitude de ce match. Les autres marchés sont consultables dans le scanner."));
+ for(const q of e.quotes){
+  const block=create("div","odds-line");
+  block.append(create("div","book",q.bookmaker.replace(/_fr$/,"").toUpperCase()+" · "+frDate(q.quote_at_utc)));
+  const probs=create("div","probs");
+  probs.append(pill(e.home+" "+fmtOdds(q.outcomes.home)));
+  if(q.outcomes.draw!=null)probs.append(pill("Nul "+fmtOdds(q.outcomes.draw)));
+  probs.append(pill(e.away+" "+fmtOdds(q.outcomes.away)));
+  block.append(probs);block.append(create("div","rule",q.rule_verified?"Règlement : "+q.rule+" · cote non live":"Règlement des prolongations non vérifié · aucune EV calculable"));
+  root.append(block);
+ }
+ root.append(create("p","hint","Les probabilités des modèles peuvent porter sur un règlement différent des cotes. Revue ne calcule donc pas d'EV ni de recommandation à partir de cette juxtaposition."));
+}
+function matchCard(e){
+ const article=create("article","match");
+ const head=create("div","match-head");
+ head.append(create("span","",e.league+" / "+e.sport));
+ const t=create("time","",frTime(e.start_utc)+" · PARIS");t.dateTime=e.start_utc;head.append(t);article.append(head);
+ const teams=create("div","teams");teams.append(create("strong","",e.away),create("span","versus","VS"),create("strong","",e.home));article.append(teams);
+ const tags=create("div","tags");
+ tags.append(create("span","tag",e.research.length+" MODÈLE(S)"));
+ tags.append(create("span","tag "+(e.quotes.length?"prices":"missing"),
+  e.quotes.length?e.quotes.length+" COTE(S) HORODATÉE(S)":"COTES INDISPONIBLES"));
+ article.append(tags);
+ const detail=create("div","details");detail.hidden=true;showDetails(e,detail);
+ const button=create("button","more","EXPLORER MATCH ET MODÈLES  ＋");button.type="button";button.setAttribute("aria-expanded","false");
+ button.addEventListener("click",()=>{
+  detail.hidden=!detail.hidden;button.setAttribute("aria-expanded",String(!detail.hidden));
+  button.textContent=detail.hidden?"EXPLORER MATCH ET MODÈLES  ＋":"FERMER L'ANALYSE  −";
+ });
+ article.append(button,detail);return article;
+}
+function render(){
+ if(!center)return;
+ const now=new Date(),today=localDay(now),tomorrow=localDay(new Date(now.getTime()+86400000));
+ const q=el("search").value.trim().toLocaleLowerCase("fr");
+ let rows=center.events.filter(e=>new Date(e.start_utc)>now);
+ if(range==="today")rows=rows.filter(e=>e.local_day===today);
+ if(range==="tomorrow")rows=rows.filter(e=>e.local_day===tomorrow);
+ if(league!=="all")rows=rows.filter(e=>e.league===league);
+ if(el("withOdds").checked)rows=rows.filter(e=>e.quotes.length>0);
+ if(q)rows=rows.filter(e=>(e.league+" "+e.sport+" "+e.home+" "+e.away).toLocaleLowerCase("fr").includes(q));
+ const root=el("schedule");root.replaceChildren();
+ if(!rows.length){root.append(create("div","empty","Aucun match à venir ne correspond aux filtres. Essaye « 72 HEURES » ou retire le filtre des cotes."));return;}
+ const days=[...new Set(rows.map(e=>e.local_day))];
+ for(const day of days){
+  const section=create("section","day");
+  const head=create("div","day-head");
+  const label=new Date(day+"T12:00:00Z").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",timeZone:"Europe/Paris"});
+  head.append(create("h2","",label),create("span"),create("small","",rows.filter(e=>e.local_day===day).length+" MATCHS"));section.append(head);
+  const grid=create("div","event-grid");
+  for(const e of rows.filter(e=>e.local_day===day))grid.append(matchCard(e));
+  section.append(grid);root.append(section);
+ }
+}
+async function load(){
+ try{
+  const response=await fetch("./match-center-latest.json?t="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("rapport indisponible");
+  const d=await response.json();
+  if(d.status!=="experimental_revue_match_center"||d.real_bets_enabled!==false||
+     d.live_scores!==false||d.bookmaker_prices_are_live!==false||!Array.isArray(d.events))
+    throw Error("Format inattendu");
+  center=d;
+  for(const [key,value] of [["n-events",d.metrics.upcoming_matches],["n-leagues",d.metrics.leagues],
+                              ["n-models",d.metrics.with_research_model],["n-prices",d.metrics.with_observed_bookmaker_quotes]]){
+   el(key).textContent=Number(value).toLocaleString("fr-FR");
+  }
+  const buttons=el("leagueFilters");buttons.replaceChildren();
+  for(const name of ["all",...d.leagues]){
+   const button=create("button","",name==="all"?"TOUS LES SPORTS":name);
+   button.type="button";button.setAttribute("aria-pressed",String(name===league));
+   button.addEventListener("click",()=>{league=name;
+      for(const b of buttons.querySelectorAll("button"))b.setAttribute("aria-pressed",String(b===button));
+      render();});
+   buttons.append(button);
+  }
+  const age=Math.max(0,(Date.now()-Date.parse(d.generated_at_utc))/3600000);
+  el("status").textContent="Données générées "+frDate(d.generated_at_utc)+" (Paris) · "+(age>3?"Rapport ancien ("+Math.round(age)+" h) — nouvelles rencontres/cotes possiblement manquantes":"Dernière publication disponible")+
+  " · Sans scores live · Aucun pick EV validé";
+  render();
+ }catch(err){el("status").textContent="Centre des matchs indisponible : "+err.message;}
+}
+document.querySelectorAll("[data-range]").forEach(button=>button.addEventListener("click",()=>{
+ range=button.dataset.range;
+ document.querySelectorAll("[data-range]").forEach(other=>other.setAttribute("aria-pressed",String(other===button)));
+ render();
+}));
+el("search").addEventListener("input",render);
+el("withOdds").addEventListener("change",render);
+load();
+</script></body></html>
