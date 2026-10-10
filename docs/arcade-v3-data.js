@@ -94,12 +94,34 @@ function sourceModels(event){
     probabilities:Object.fromEntries(Object.entries(m.probabilities)
       .filter(([k,v])=>finite(v,0,1)).slice(0,7))})).slice(0,3):[];
 }
+function safeGoalies(doc,now){
+ return !!(doc?.status==="espn_probable_goalies_observed_not_part_of_model"&&
+   doc.source==="ESPN NHL scoreboard, separate from official NHL IDs"&&
+   doc.used_in_prediction_model===false&&doc.real_bets_enabled===false&&
+   doc.injuries_verified===false&&Array.isArray(doc.rows)&&
+   age(doc.generated_at_utc,now,8)&&
+   doc.rows.every(r=>r.used_in_model_probabilities===false&&
+     r.sportsbook_prices_verified===false&&
+     ["home_goalie","away_goalie"].every(k=>
+       r[k]===null||(typeof r[k]==="object"&&
+       typeof r[k].name==="string"&&r[k].name.length>0&&
+       ["confirmed","projected"].includes(r[k].status)))));
+}
 function build(sources,now){
  const gamesOk=sourceMatch(sources.matches,now);
  const picksOk=sourcePicks(sources.picks);
  const nhlOk=safeNhl(sources.nhl,now);
  const journal=paper(sources.picks);
  const quotes=originalResearch(sources.picks,now);
+ const goalieRows=new Map();
+ if(safeGoalies(sources.goalies,now))for(const r of sources.goalies.rows){
+   if(!future(r.start_utc,now)||
+      ms(r.observed_at_utc)>now+120000||
+      ms(r.observed_at_utc)>ms(r.start_utc)-20*60000)continue;
+   const key=String(r.event_id);
+   if(goalieRows.has(key))goalieRows.set(key,null);
+   else goalieRows.set(key,r);
+ }
  const hockey=new Map(nhlOk?sources.nhl.games.filter(g=>future(g.start_utc,now)&&
    g.source_equivalent_predictions===false&&g.bookmaker_quotes_available===false&&
    g.starting_goalies_verified===false&&g.injuries_verified===false&&
@@ -114,13 +136,18 @@ function build(sources,now){
   const h=g.league==="NHL"?hockey.get(String(g.event_id)):null;
   if(h&&(h.home!==g.home||h.away!==g.away||ms(h.start_utc)!==ms(g.start_utc)))continue;
   const q=quotes.get(key)||[];
+  const espn=goalieRows.get(String(g.event_id));
+  const goalie=(espn&&espn.home===g.home&&espn.away===g.away&&
+               ms(espn.start_utc)===ms(g.start_utc))?espn:null;
   const srcModels=sourceModels(g);
   const why=[
     "Aucune cote française actuelle confirmée pour une comparaison EV.",
     "Aucun modèle calibré et validé pour recommander une mise.",
   ];
   if(!srcModels.length&&!h)why.push("Probabilités indisponibles sur ce match.");
-  if(h)why.push("NHL : gardien titulaire, blessures et données NHL Edge non vérifiés.");
+  if(h)why.push(goalie?
+    "NHL : ESPN distingue les gardiens confirmés/probables, mais les blessures et données NHL Edge restent non vérifiées.":
+    "NHL : gardien titulaire, blessures et données NHL Edge non vérifiés.");
   if(q.length)why.push("Une cote historique existe mais ne constitue pas une offre actuelle.");
   events.push({
     key,league:g.league,sport:g.sport||g.league,id:String(g.event_id),
@@ -131,6 +158,10 @@ function build(sources,now){
       drawCount:h.research.simulation_draws,
       goalieHome:h.observed?.home?.goalie_name||null,
       goalieAway:h.observed?.away?.goalie_name||null,
+      espnGoalieHome:goalie?.home_goalie||null,
+      espnGoalieAway:goalie?.away_goalie||null,
+      espnObservedAt:goalie?.observed_at_utc||null,
+      espnInformationNotIncludedInProbabilities:true,
       inputsComplete:false,
     }:null,
     historicalQuotes:q.slice(0,2),
@@ -149,6 +180,7 @@ function build(sources,now){
    matches:gamesOk?"fresh":"missing_or_stale",
    research:picksOk?"archived_paper_only":"unverified",
    nhl:nhlOk?"partial_research":"missing_or_stale",
+   espnGoalies:safeGoalies(sources.goalies,now)?"observed_status_separate":"missing_or_stale",
   },
   matchUpdated:gamesOk?sources.matches.generated_at_utc:null,
   paper:journal,
@@ -156,5 +188,5 @@ function build(sources,now){
   hiddenCFB:true,
  };
 }
-return {build,paper,sourcePicks,sourceMatch,safeNhl,originalResearch};
+return {build,paper,sourcePicks,sourceMatch,safeNhl,safeGoalies,originalResearch};
 });
