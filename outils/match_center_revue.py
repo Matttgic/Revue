@@ -255,12 +255,59 @@ def validated_scoreboard(doc: dict | None, now: datetime) -> list[dict]:
     return sorted(rows,key=lambda e:(e["kickoff_utc"],e["league"]),reverse=True)
 
 
+def official_goalie_observation(event: dict, source: dict | None, now: datetime) -> dict | None:
+    """Only timestamp- and NHL-id-matched ESPN observations; no starter assumption."""
+    if event.get("league")!="NHL" or not isinstance(source,dict):
+        return None
+    if (source.get("status")!="espn_probable_goalies_observed_not_part_of_model" or
+        source.get("used_in_prediction_model") is not False or
+        source.get("real_bets_enabled") is not False or
+        source.get("confirmed_is_not_a_guarantee_of_start") is not True or
+        not isinstance(source.get("rows"),list)):
+        return None
+    try:
+        if not model_snapshot(source,now,instant(event["start_utc"])):
+            return None
+        rows=[g for g in source["rows"] if isinstance(g,dict) and
+              str(g.get("event_id"))==str(event["event_id"])]
+        if len(rows)!=1:return None
+        g=rows[0];observed=instant(g["observed_at_utc"])
+        if (g.get("home")!=event["home"] or g.get("away")!=event["away"] or
+            instant(g["start_utc"])!=instant(event["start_utc"]) or
+            not now-timedelta(hours=12)<=observed<=now or
+            observed>=instant(event["start_utc"]) or
+            g.get("used_in_model_probabilities") is not False or
+            g.get("injuries_verified") is not False or
+            g.get("sportsbook_prices_verified") is not False):
+            return None
+        evidence={};names=set()
+        for side in ("home","away"):
+            x=g.get(side+"_goalie")
+            if x is None:evidence[side]=None;continue
+            if (not isinstance(x,dict) or
+                x.get("source")!="ESPN probableStartingGoalie" or
+                x.get("status") not in ("confirmed","projected") or
+                not isinstance(x.get("name"),str) or not x["name"].strip() or
+                x["name"].strip() in names):
+                return None
+            names.add(x["name"].strip())
+            evidence[side]={"name":x["name"].strip(),"status":x["status"]}
+        return {"observed_at_utc":observed.isoformat(),
+                "home":evidence["home"],"away":evidence["away"],
+                "both_provider_confirmed":all(x and x["status"]=="confirmed" for x in evidence.values()),
+                "model_probabilities_recomputed":False,
+                "actually_started_verified":False}
+    except (ValueError,KeyError,TypeError):
+        return None
+
+
 def collect_center(multisports: dict, scanner: dict, advanced: dict,
                    nhl: dict, ensemble: dict, now: datetime,
                    ledger: dict | None = None,
                    players: dict | None = None,
                    scoreboard: dict | None = None,
-                   model_candidates: dict | None = None) -> dict:
+                   model_candidates: dict | None = None,
+                   goalie_observations: dict | None = None) -> dict:
     if now.tzinfo is None:
         raise ValueError("now timezone required")
     now = now.astimezone(timezone.utc)
@@ -412,6 +459,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
 
     for row in events.values():
         if row["league"] == "NHL":
+            row["observed_nhl_goalies"]=official_goalie_observation(row,goalie_observations,now)
             row["player_profiles"]=nhl_players_for_fixture(
                 players, row["home"], row["away"], now, instant(row["start_utc"]))
 
@@ -512,6 +560,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
             "with_comparable_market_prices":sum(e["price_comparison"] is not None for e in output),
             "with_research_model":sum(bool(e["research"]) for e in output),
             "with_phase10_research":sum(any(x["id"] in allowed for x in e["research"]) for e in output),
+            "with_verified_espn_goalie_observation":sum(e.get("observed_nhl_goalies") is not None for e in output),
             "leagues":len(leagues),
         },
         "leagues":leagues, "events":output, "rejections":rejected,
@@ -540,6 +589,12 @@ def main() -> None:
         "players":"nhl-players-latest.json",
     }
     data={k:json.loads((root/v).read_text(encoding="utf-8")) for k,v in mapping.items()}
+    goalie_path=root/"nhl-espn-goalies-latest.json"
+    if goalie_path.is_file():
+        try:
+            data["goalie_observations"]=json.loads(goalie_path.read_text(encoding="utf-8"))
+        except (ValueError,OSError):
+            data["goalie_observations"]=None
     candidate_path=root/"phase10-modeles-multisports-latest.json"
     if candidate_path.is_file():
         try:
