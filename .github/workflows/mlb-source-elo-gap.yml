@@ -1,0 +1,43 @@
+name: Revue - MLB source Elo sensitivity
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '50 12 * * *'
+  push:
+    paths:
+      - 'outils/mlb_source_elo_gap.py'
+      - 'tests/test_mlb_source_elo_gap.py'
+      - '.github/workflows/mlb-source-elo-gap.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-source-elo-sensitivity
+  cancel-in-progress: false
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test source formula and strict time filters
+        run: |
+          python -m unittest discover -s tests -p 'test_mlb_source_elo_gap.py' -v
+          python -m unittest discover -s tests -p 'test_api_mlb_elo.py' -v
+      - name: Update scenario without odds API or betting activity
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.mlb_source_elo_gap
+            git add docs/mlb-source-elo-gap.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(mlb): measure sensitivity to missing original SQL Elo inputs'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
