@@ -259,7 +259,8 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
                    nhl: dict, ensemble: dict, now: datetime,
                    ledger: dict | None = None,
                    players: dict | None = None,
-                   scoreboard: dict | None = None) -> dict:
+                   scoreboard: dict | None = None,
+                   model_candidates: dict | None = None) -> dict:
     if now.tzinfo is None:
         raise ValueError("now timezone required")
     now = now.astimezone(timezone.utc)
@@ -354,6 +355,60 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
         for g in group.get("games") or []:
             add_model(g, league, ensemble, "revue_ensemble_mc_bayes_elo",
                       "Revue Monte-Carlo / Bayes / Elo", g.get("probabilities"))
+
+    # Frozen, experimental external research: strict canonical fixture and
+    # timestamp matching, no price, ROI, or original SQL parity claims.
+    allowed={
+      "revue_nba_espn_previous_standings_prior_v1",
+      "revue_nba_prior_elo_regressed_v1","revue_nba_prior_consensus_v1",
+      "revue_mlb_espn_history_elo_v1","revue_football_espn_shots_log_pool_v1",
+    }
+    valid_report=(
+      isinstance(model_candidates,dict)
+      and model_candidates.get("version")=="revue_phase10_multisport_model_candidates_v1"
+      and model_candidates.get("status")=="shadow_research_only_unvalidated"
+      and model_candidates.get("real_bets_enabled") is False
+      and model_candidates.get("calibrated") is False
+      and model_candidates.get("prices_are_currently_bookable") is False
+      and model_candidates.get("verified_positive_EV")==0
+      and model_candidates.get("no_historical_backfill") is True
+      and isinstance(model_candidates.get("models"),list))
+    if valid_report:
+        for cand in model_candidates["models"]:
+            if not isinstance(cand,dict):
+                continue
+            mid=cand.get("model_id");league=cand.get("league")
+            if (mid not in allowed or
+                (league=="NBA" and not mid.startswith("revue_nba_")) or
+                (league=="MLB" and mid!="revue_mlb_espn_history_elo_v1") or
+                (league not in ("NBA","MLB") and mid!="revue_football_espn_shots_log_pool_v1") or
+                cand.get("status")!="shadow_research_only_unvalidated" or
+                cand.get("calibrated") is not False or
+                cand.get("source_sql_parity") is not False or
+                cand.get("bookable_price_verified") is not False or
+                cand.get("EV") is not None or
+                cand.get("betting_recommendation") is not None):
+                continue
+            row=events.get(game_key(league,cand.get("event_id")))
+            if row is None:continue
+            if not compatible(row,cand):
+                rejected["fixture_mismatch"]+=1
+                continue
+            try:
+                created=instant(model_candidates["generated_at_utc"])
+                kickoff=instant(row["start_utc"])
+                observations=cand.get("inputs_observed_utc")
+                if (not model_snapshot(model_candidates,now,kickoff) or
+                    created>kickoff-timedelta(minutes=20) or
+                    not isinstance(observations,dict) or not observations or
+                    not all(instant(value)<=created for value in observations.values())):
+                    rejected["source_future_or_stale"]+=1
+                    continue
+            except (ValueError,TypeError,KeyError):
+                rejected["source_future_or_stale"]+=1
+                continue
+            add_model(cand,league,model_candidates,mid,
+                      "Revue ESPN · "+league+" · recherche",cand.get("probabilities"))
 
     for row in events.values():
         if row["league"] == "NHL":
@@ -456,6 +511,7 @@ def collect_center(multisports: dict, scanner: dict, advanced: dict,
             "with_nhl_player_profiles":sum(bool(e["player_profiles"]) for e in output),
             "with_comparable_market_prices":sum(e["price_comparison"] is not None for e in output),
             "with_research_model":sum(bool(e["research"]) for e in output),
+            "with_phase10_research":sum(any(x["id"] in allowed for x in e["research"]) for e in output),
             "leagues":len(leagues),
         },
         "leagues":leagues, "events":output, "rejections":rejected,
@@ -484,6 +540,12 @@ def main() -> None:
         "players":"nhl-players-latest.json",
     }
     data={k:json.loads((root/v).read_text(encoding="utf-8")) for k,v in mapping.items()}
+    candidate_path=root/"phase10-modeles-multisports-latest.json"
+    if candidate_path.is_file():
+        try:
+            data["model_candidates"]=json.loads(candidate_path.read_text(encoding="utf-8"))
+        except (ValueError,OSError):
+            data["model_candidates"]=None
     ledger_path=Path(args.ledger)
     ledger=json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else None
     score_path=root/"scoreboard-revue-latest.json"
