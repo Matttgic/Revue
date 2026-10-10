@@ -37,7 +37,7 @@ class NHLAdvancedRoutes(unittest.TestCase):
             } for i in range(1,29)],
             "goalies":[{
                 "id":8478024,"player_id":8478024,"player_name":"Goalie 1",
-                "team_abbrev":"T01","season":"20262027","game_type_id":2,
+                "team_abbrev":"ANA","season":"20262027","game_type_id":2,
                 "games_played":3,"overall_save_pct":.924,"goals_against_avg":2.1,
                 "saves_even_strength":78,"save_pct_even_strength":.92,
                 "saves_power_play":9,"save_pct_power_play":1.0,
@@ -45,7 +45,7 @@ class NHLAdvancedRoutes(unittest.TestCase):
             }],
             "skaters":[{
                 "id":12345,"player_id":12345,"player_name":"Skater 1",
-                "team_abbrev":"T01","season":"20262027","game_type_id":2,
+                "team_abbrev":"ANA","season":"20262027","game_type_id":2,
                 "shots_wrist":None,"shots_snap":None,"shots_slap":None,
                 "shots_backhand":None,"shots_tip":None,
                 "shots_deflected":None,"shots_wrap_around":None,
@@ -85,7 +85,7 @@ class NHLAdvancedRoutes(unittest.TestCase):
         self.assertNotIn("confirmed_starter",r.json()[0])
         self.assertEqual(self.client.get("/nhl/goalies",params={"min_games":4}).json(),[])
         self.assertEqual(self.client.get("/nhl/goalies",params={"min_games":0}).status_code,422)
-        r=self.client.get("/nhl/skaters",params={"team":"t01"})
+        r=self.client.get("/nhl/skaters",params={"team":"ana"})
         self.assertEqual(r.status_code,200,r.text)
         self.assertEqual(r.json()[0]["player_id"],12345)
         self.assertIsNone(r.json()[0]["avg_speed"])
