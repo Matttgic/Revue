@@ -1,0 +1,48 @@
+name: Revue - NHL frontend MC et Ensemble observes
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '45 13,18 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Clairvoyance NHL MoneyPuck Shadow'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/nhl_frontend_observed.js'
+      - 'tests/test_nhl_frontend_observed.js'
+      - 'docs/nhl-frontend-observed.html'
+      - '.github/workflows/nhl-frontend-observed.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-nhl-frontend-observed
+  cancel-in-progress: false
+jobs:
+  simulate:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify deterministic models and no-leakage / no-bet contract
+        run: node --test tests/test_nhl_frontend_observed.js
+      - name: Build read-only prospective MC and Ensemble with latest safe observations
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            node --test tests/test_nhl_frontend_observed.js
+            node outils/nhl_frontend_observed.js docs docs/nhl-frontend-observed-latest.json
+            git add docs/nhl-frontend-observed-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data(nhl): generate prospective observed MC+Ensemble research, without bets'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
