@@ -14,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from api_revue.fixtures import SourceUnavailable,fixtures_from_files,fixture_rows
+from api_revue.mlb_elo import mlb_elo_from_file
 from api_revue.nhl_stats import teams as official_teams, goalies as official_goalies, skaters as official_skaters, moneypuck as season_moneypuck, live_moneypuck_snapshot
 
 
@@ -169,6 +170,16 @@ def create_app(*, root: Path | None = None, clock=None) -> FastAPI:
     @app.get("/mlb/schedule",response_model=list[MLBGameOut])
     def mlb_schedule(game_date:date=Query(default_factory=date.today)):
         return read_schedule("MLB",game_date)
+
+    @app.get("/mlb/elo")
+    def mlb_elo(response:Response):
+        response.headers["X-Revue-Parity"]="partial: same public Elo update formula, different historical database"
+        response.headers["Cache-Control"]="no-store"
+        try:
+            result=mlb_elo_from_file(directory,now())
+            return result["rows"]
+        except SourceUnavailable as exc:
+            raise HTTPException(status_code=503,detail=str(exc)) from exc
 
     @app.get("/mlb/games/{espn_id}",response_model=MLBGameOut)
     def mlb_game(espn_id:str):
