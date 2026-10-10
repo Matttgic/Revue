@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-10T22:24:53.619644+00:00",
+  "generated_at_utc": "2026-10-10T22:42:27.250935+00:00",
   "status": "experimental_revue_match_center",
   "source": "Revue first-party independently generated fixture/model/quote snapshots",
   "timezone": "Europe/Paris",
@@ -9,13 +9,14 @@
   "validated_value_bets": 0,
   "real_bets_enabled": false,
   "metrics": {
-    "upcoming_matches": 107,
+    "upcoming_matches": 106,
     "with_observed_bookmaker_quotes": 33,
     "with_observed_totals": 29,
     "with_nhl_player_profiles": 14,
     "with_comparable_market_prices": 23,
-    "with_research_model": 76,
-    "with_phase10_research": 45,
+    "with_research_model": 74,
+    "with_phase10_research": 43,
+    "with_verified_espn_goalie_observation": 12,
     "leagues": 13
   },
   "leagues": [
@@ -35,28 +36,6 @@
   ],
   "events": [
     {
-      "key": "NBA:401902645",
-      "league": "NBA",
-      "sport": "Basket",
-      "event_id": "401902645",
-      "home": "Raptors",
-      "away": "Clippers",
-      "start_utc": "2026-10-10T22:30:00+00:00",
-      "start_paris": "2026-10-11T00:30:00+02:00",
-      "local_day": "2026-10-11",
-      "research": [],
-      "quotes": [],
-      "totals_quotes": [],
-      "player_profiles": [],
-      "market_status": "no_verified_quote",
-      "status": "upcoming",
-      "model_status": "historique_insuffisant",
-      "price_comparison": null,
-      "recommendation": null,
-      "ev": null,
-      "qualified_for_real_betting": false
-    },
-    {
       "key": "NBA:401898396",
       "league": "NBA",
       "sport": "Basket",
@@ -66,38 +45,7 @@
       "start_utc": "2026-10-10T23:00:00+00:00",
       "start_paris": "2026-10-11T01:00:00+02:00",
       "local_day": "2026-10-11",
-      "research": [
-        {
-          "id": "revue_nba_espn_previous_standings_prior_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.4098,
-            "away_win": 0.5902
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
-        },
-        {
-          "id": "revue_nba_prior_consensus_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.392991,
-            "away_win": 0.607009
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
-        },
-        {
-          "id": "revue_nba_prior_elo_regressed_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.372447,
-            "away_win": 0.627553
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
-        }
-      ],
+      "research": [],
       "quotes": [],
       "totals_quotes": [],
       "player_profiles": [],
@@ -119,38 +67,7 @@
       "start_utc": "2026-10-10T23:00:00+00:00",
       "start_paris": "2026-10-11T01:00:00+02:00",
       "local_day": "2026-10-11",
-      "research": [
-        {
-          "id": "revue_nba_espn_previous_standings_prior_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.279,
-            "away_win": 0.721
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
-        },
-        {
-          "id": "revue_nba_prior_consensus_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.276251,
-            "away_win": 0.723749
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
-        },
-        {
-          "id": "revue_nba_prior_elo_regressed_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.27289,
-            "away_win": 0.72711
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
-        }
-      ],
+      "research": [],
       "quotes": [],
       "totals_quotes": [],
       "player_profiles": [],
@@ -616,6 +533,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Colten Ellis",
+          "status": "confirmed"
+        },
+        "away": {
+          "name": "Karel Vejmelka",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -1155,6 +1086,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Jacob Fowler",
+          "status": "confirmed"
+        },
+        "away": {
+          "name": "Daniil Tarasov",
+          "status": "confirmed"
+        },
+        "both_provider_confirmed": true,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -1694,6 +1639,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Linus Ullmark",
+          "status": "projected"
+        },
+        "away": {
+          "name": "Juuse Saros",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -2233,6 +2192,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Arturs Silovs",
+          "status": "confirmed"
+        },
+        "away": {
+          "name": "Jake Oettinger",
+          "status": "confirmed"
+        },
+        "both_provider_confirmed": true,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -2772,6 +2745,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Spencer Knight",
+          "status": "confirmed"
+        },
+        "away": {
+          "name": "Brandon Bussi",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -3311,6 +3298,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Jordan Binnington",
+          "status": "confirmed"
+        },
+        "away": {
+          "name": "Jet Greaves",
+          "status": "confirmed"
+        },
+        "both_provider_confirmed": true,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -3850,6 +3851,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Mackenzie Blackwood",
+          "status": "confirmed"
+        },
+        "away": {
+          "name": "Anthony Stolarz",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -3888,7 +3903,7 @@
             "over_2_5": 0.663971
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -4042,7 +4057,7 @@
             "over_2_5": 0.693364
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -4456,7 +4471,7 @@
             "over_2_5": 0.785203
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -4870,7 +4885,7 @@
             "over_2_5": 0.637763
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -5284,7 +5299,7 @@
             "over_2_5": 0.607416
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -5684,7 +5699,7 @@
             "over_2_5": 0.701277
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -6098,7 +6113,7 @@
             "over_2_5": 0.490292
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -6578,6 +6593,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Ilya Sorokin",
+          "status": "confirmed"
+        },
+        "away": {
+          "name": "Andrei Vasilevskiy",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -6612,7 +6641,7 @@
             "away_win": 0.402
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -7046,7 +7075,7 @@
             "away_win": 0.44531
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -7056,7 +7085,7 @@
             "away_win": 0.45719
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -7066,7 +7095,7 @@
             "away_win": 0.471711
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -7099,7 +7128,7 @@
             "away_win": 0.3579
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -7109,7 +7138,7 @@
             "away_win": 0.348474
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -7119,7 +7148,7 @@
             "away_win": 0.336953
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -7276,7 +7305,7 @@
             "over_2_5": 0.586588
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -7676,7 +7705,7 @@
             "over_2_5": 0.732432
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -8090,7 +8119,7 @@
             "over_2_5": 0.518589
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -8476,7 +8505,7 @@
             "away_win": 0.29905
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -8486,7 +8515,7 @@
             "away_win": 0.308312
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -8496,7 +8525,7 @@
             "away_win": 0.319632
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -8543,7 +8572,7 @@
             "over_2_5": 0.540961
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -9444,6 +9473,7 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": null,
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -9903,6 +9933,20 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Carter Hart",
+          "status": "projected"
+        },
+        "away": {
+          "name": "Darcy Kuemper",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -9941,7 +9985,7 @@
             "over_2_5": 0.520066
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -9986,7 +10030,7 @@
             "away_win": 0.55712
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -9996,7 +10040,7 @@
             "away_win": 0.56378
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -10006,7 +10050,7 @@
             "away_win": 0.571921
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -10521,7 +10565,7 @@
             "away_win": 0.28055
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -10531,7 +10575,7 @@
             "away_win": 0.292009
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -10541,7 +10585,7 @@
             "away_win": 0.306014
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -10632,7 +10676,7 @@
             "over_2_5": 0.606775
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -10735,7 +10779,7 @@
             "over_2_5": 0.558896
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11069,7 +11113,7 @@
             "over_2_5": 0.532281
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11128,7 +11172,7 @@
             "over_2_5": 0.361723
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11187,7 +11231,7 @@
             "over_2_5": 0.474895
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11246,7 +11290,7 @@
             "over_2_5": 0.439793
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11305,7 +11349,7 @@
             "over_2_5": 0.603319
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11692,7 +11736,7 @@
             "over_2_5": 0.546509
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11751,7 +11795,7 @@
             "over_2_5": 0.681558
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11845,7 +11889,7 @@
             "over_2_5": 0.539009
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11904,7 +11948,7 @@
             "over_2_5": 0.609724
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -11963,7 +12007,7 @@
             "over_2_5": 0.486009
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -13442,7 +13486,7 @@
             "over_2_5": 0.558539
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -13501,7 +13545,7 @@
             "over_2_5": 0.361136
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -13560,7 +13604,7 @@
             "over_2_5": 0.63413
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -14222,6 +14266,7 @@
       "market_status": "no_verified_quote",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": null,
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -14440,6 +14485,20 @@
       "market_status": "no_verified_quote",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Dylan Garand",
+          "status": "projected"
+        },
+        "away": {
+          "name": "Leevi Merilainen",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -14464,7 +14523,7 @@
             "away_win": 0.42368
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -14474,7 +14533,7 @@
             "away_win": 0.412009
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -14484,7 +14543,7 @@
             "away_win": 0.397745
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -14531,7 +14590,7 @@
             "over_2_5": 0.729733
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -14576,7 +14635,7 @@
             "away_win": 0.33733
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -14586,7 +14645,7 @@
             "away_win": 0.32221
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -14596,7 +14655,7 @@
             "away_win": 0.30373
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -14823,6 +14882,20 @@
       "market_status": "no_verified_quote",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Joseph Woll",
+          "status": "projected"
+        },
+        "away": {
+          "name": "Pyotr Kochetkov",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -14857,7 +14930,7 @@
             "away_win": 0.38
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -14943,7 +15016,7 @@
             "away_win": 0.32661
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -14953,7 +15026,7 @@
             "away_win": 0.319242
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -14963,7 +15036,7 @@
             "away_win": 0.310237
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         }
       ],
       "quotes": [],
@@ -15010,7 +15083,7 @@
             "over_2_5": 0.545869
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -15249,6 +15322,20 @@
       "market_status": "no_verified_quote",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
+      "observed_nhl_goalies": {
+        "observed_at_utc": "2026-10-10T22:28:15.812474+00:00",
+        "home": {
+          "name": "Ukko-Pekka Luukkonen",
+          "status": "projected"
+        },
+        "away": {
+          "name": "Jacob Markstrom",
+          "status": "projected"
+        },
+        "both_provider_confirmed": false,
+        "model_probabilities_recomputed": false,
+        "actually_started_verified": false
+      },
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -15287,7 +15374,7 @@
             "over_2_5": 0.595879
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -15346,7 +15433,7 @@
             "over_2_5": 0.568715
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -15405,7 +15492,7 @@
             "over_2_5": 0.527516
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -15482,7 +15569,7 @@
             "away_win": 0.38
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-10T22:24:53.577048+00:00"
+          "source_generated_utc": "2026-10-10T22:42:27.206757+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -15541,7 +15628,7 @@
       "state": "in_progress",
       "home_score": 0,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -15550,10 +15637,10 @@
       "home": "SJS",
       "away": "EDM",
       "kickoff_utc": "2026-10-10T20:00:00+00:00",
-      "state": "in_progress",
+      "state": "final",
       "home_score": 1,
       "away_score": 3,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -15565,7 +15652,7 @@
       "state": "final",
       "home_score": 4,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -15577,7 +15664,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15589,7 +15676,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15601,7 +15688,7 @@
       "state": "final",
       "home_score": 5,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15613,7 +15700,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15625,7 +15712,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15637,7 +15724,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15649,7 +15736,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15661,7 +15748,7 @@
       "state": "final",
       "home_score": 5,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -15673,7 +15760,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15685,7 +15772,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15697,7 +15784,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15709,7 +15796,7 @@
       "state": "final",
       "home_score": 6,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15721,7 +15808,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15733,7 +15820,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15745,7 +15832,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15757,7 +15844,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15769,7 +15856,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15781,7 +15868,7 @@
       "state": "final",
       "home_score": 5,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15793,7 +15880,7 @@
       "state": "final",
       "home_score": 0,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15805,7 +15892,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 3,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15817,7 +15904,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15829,7 +15916,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 4,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15841,7 +15928,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 0,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15853,7 +15940,7 @@
       "state": "final",
       "home_score": 0,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15865,7 +15952,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15877,7 +15964,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -15889,7 +15976,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 5,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -15901,7 +15988,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 2,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -15913,7 +16000,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 1,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -15925,12 +16012,12 @@
       "state": "final",
       "home_score": 3,
       "away_score": 6,
-      "observed_at_utc": "2026-10-10T22:24:52.155057+00:00",
+      "observed_at_utc": "2026-10-10T22:42:26.456228+00:00",
       "source": "NHL official scoreboard"
     }
   ],
-  "scoreboard_finals": 31,
-  "scoreboard_in_progress": 2,
+  "scoreboard_finals": 32,
+  "scoreboard_in_progress": 1,
   "prospective_nhl_pending": 17,
   "note": "All research probabilities uncalibrated. Market prices are historic observations, not live/bookable. NHL OT rules may be unverified. Do not compute EV, recommend bets or claim profitability."
 }
