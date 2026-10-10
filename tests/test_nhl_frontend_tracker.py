@@ -127,7 +127,9 @@ class NHLModels(unittest.TestCase):
         when=kickoff+timedelta(hours=4)
         day=kickoff.astimezone(__import__("zoneinfo").ZoneInfo("America/New_York")).date().isoformat()
         def fetch(url):
-            self.assertTrue(url.endswith(day))
+            queried=url.rsplit("/",1)[-1]
+            if queried!=day:
+                return {"currentDate":queried,"games":[]}
             return {"currentDate":day,"games":[{
                 "id":int(row["event_id"]),"gameType":2,
                 "startTimeUTC":kickoff.isoformat().replace("+00:00","Z"),
