@@ -1,0 +1,20 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080b19"><meta name="description" content="Revue Arcade : journal complet des simulations fictives et exclusions en CSV"><title>Historique — REVUE ARCADE</title><link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1"><script defer src="./retro-app.js?v=1"></script></head>
+ <body class="retro" data-page="historique"><div class="rv-topbar"><div class="rv-top-inner">
+ <a href="./index.html" class="rv-brand" aria-label="Accueil Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+ <nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./historique.html" aria-current="page">HISTORIQUE</a><a href="./lab.html">LAB</a></nav>
+ <span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i> ARCADE / V2</span>
+ </div></div>
+ <nav class="arc-bottom-nav" aria-label="Navigation mobile"><a href="./index.html"><span class="arc-nav-icon" aria-hidden="true">⌂</span>ACCUEIL</a><a href="./play.html"><span class="arc-nav-icon" aria-hidden="true">▷</span>À JOUER</a><a href="./bilan.html"><span class="arc-nav-icon" aria-hidden="true">▤</span>BILAN</a><a href="./historique.html" aria-current="page"><span class="arc-nav-icon" aria-hidden="true">◷</span>HISTO</a><a href="./lab.html"><span class="arc-nav-icon" aria-hidden="true">⚙</span>LAB</a></nav><main class="arc-main">
+<header class="arc-intro"><div><span class="arc-eyebrow">04 / SAVE FILES</span><h1>HISTO<span class="arc-gradient">RIQUE.</span></h1><p>Tout ce qui a été enregistré : gagné, perdu, en attente ou exclu. Pas de suppression silencieuse des résultats gênants.</p></div><button type="button" class="arc-btn arc-btn--primary" id="history-export">↓ EXPORT CSV</button></header>
+<div class="arc-signal">Ceci est l'historique des <strong>simulations fictives Revue</strong>, pas ton relevé Winamax/Betclic. Les paris non vérifiés restent visibles mais ne participent pas au ROI.</div>
+<div class="arc-filters" style="margin-top:24px">
+ <label class="arc-visually-hidden" for="history-search">Rechercher</label><input id="history-search" class="arc-input" type="search" autocomplete="off" placeholder="Match, ligue, bookmaker…">
+ <label class="arc-visually-hidden" for="history-filter">Filtrer par statut</label>
+ <select class="arc-select" id="history-filter"><option value="all">TOUS STATUTS</option><option value="won">GAGNÉS</option><option value="lost">PERDUS</option><option value="push">REMBOURSÉS</option><option value="pending">EN ATTENTE</option><option value="unverified">EXCLUS</option></select>
+ <span class="arc-subtitle"><strong id="history-count">—</strong> entrée(s)</span>
+</div>
+<p id="history-status" class="arc-help" role="status" aria-live="polite">Lecture du journal…</p>
+<div class="arc-result-head" aria-hidden="true"><span>MATCH / DATE</span><span>STATUT</span><span>COTE</span><span>MISE</span><span>RÉSULTAT</span></div>
+<div id="history-list" class="arc-results" style="margin-top:8px" aria-live="polite"><div class="arc-placeholder">Lecture de l'historique…</div></div>
+<p class="arc-help">L'export CSV contient uniquement les simulations affichées par les filtres actuels. Les unités fictives ne sont pas des euros.</p>
+<footer class="arc-footer"><span>REVUE ARCADE · RECHERCHE PERSONNELLE · AUCUN PARI AUTOMATIQUE</span><a href="./lab.html">TOUS LES OUTILS DANS LAB ↗</a></footer></main></body></html>

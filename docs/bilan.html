@@ -1,0 +1,29 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080b19"><meta name="description" content="Revue Arcade : résultats vérifiés de simulations fictives, ROI, winrate et historique"><title>Bilan — REVUE ARCADE</title><link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1"><script defer src="./retro-app.js?v=1"></script></head>
+ <body class="retro" data-page="bilan"><div class="rv-topbar"><div class="rv-top-inner">
+ <a href="./index.html" class="rv-brand" aria-label="Accueil Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+ <nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html" aria-current="page">BILAN</a><a href="./historique.html">HISTORIQUE</a><a href="./lab.html">LAB</a></nav>
+ <span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i> ARCADE / V2</span>
+ </div></div>
+ <nav class="arc-bottom-nav" aria-label="Navigation mobile"><a href="./index.html"><span class="arc-nav-icon" aria-hidden="true">⌂</span>ACCUEIL</a><a href="./play.html"><span class="arc-nav-icon" aria-hidden="true">▷</span>À JOUER</a><a href="./bilan.html" aria-current="page"><span class="arc-nav-icon" aria-hidden="true">▤</span>BILAN</a><a href="./historique.html"><span class="arc-nav-icon" aria-hidden="true">◷</span>HISTO</a><a href="./lab.html"><span class="arc-nav-icon" aria-hidden="true">⚙</span>LAB</a></nav><main class="arc-main">
+<header class="arc-intro"><div><span class="arc-eyebrow">03 / SCOREBOARD</span><h1>TON <span class="arc-gradient">BILAN.</span></h1><p>Pas de chiffres gonflés : seules les simulations verrouillées avant match et réglées sont incluses dans le calcul.</p></div><a class="arc-btn" href="./historique.html">JOURNAL COMPLET ↗</a></header>
+<div class="arc-signal">Tous les montants ci-dessous sont en <strong>unités fictives</strong>. Ce n'est ni ta bankroll, ni ton profit financier réel. Un faible échantillon ne démontre aucune rentabilité.</div>
+<div class="arc-filters" style="margin:23px 0 17px"><label for="period-select" class="arc-eyebrow">PÉRIODE :</label><select class="arc-select" id="period-select"><option value="all">DEPUIS LE DÉBUT</option><option value="1d">DERNIÈRES 24 H</option><option value="7d">7 DERNIERS JOURS</option><option value="30d">30 DERNIERS JOURS</option></select></div>
+<div class="arc-kpis">
+ <article class="arc-kpi arc-kpi--mint"><div class="caption">Profit net fictif</div><strong id="bilan-profit" class="value">—</strong><div class="hint">Gains moins mises, sur résultats réglés</div></article>
+ <article class="arc-kpi arc-kpi--pink"><div class="caption">ROI fictif</div><strong id="bilan-roi" class="value">—</strong><div class="hint">Profit / unités fictives engagées</div></article>
+ <article class="arc-kpi"><div class="caption">Taux de réussite</div><strong id="bilan-winrate" class="value">—</strong><div class="hint">Gagnées / réglées (incl. remboursées)</div></article>
+ <article class="arc-kpi"><div class="caption">Paris fictifs réglés</div><strong id="bilan-settled" class="value">—</strong><div class="hint">Avec résultat pré-match vérifié</div></article>
+</div>
+<div class="arc-kpis" style="grid-template-columns:repeat(2,minmax(0,1fr));margin-top:11px">
+ <article class="arc-kpi"><div class="caption">En attente</div><strong id="bilan-pending" class="value">—</strong></article>
+ <article class="arc-kpi"><div class="caption">Exclus / incertains</div><strong id="bilan-excluded" class="value">—</strong></article>
+</div>
+<p id="bilan-status" class="arc-subtitle" role="status" aria-live="polite">Lecture du bilan…</p>
+<p id="bilan-note" class="arc-help"></p>
+<div class="arc-grid-2 arc-section">
+ <section class="arc-surface"><div class="arc-section-head"><h2>Courbe fictive</h2><span class="arc-chip">UNITÉS / SETTLED ONLY</span></div><svg id="equity-chart" class="arc-wide-chart" viewBox="0 0 620 210" aria-label="Évolution fictive des simulations réglées"></svg><p class="arc-help">Chaque point correspond à une simulation réglée ; courbe indicative. Aucune interpolation des paris non réglés.</p></section>
+ <section class="arc-surface"><h2>Performance par sport</h2><p class="arc-subtitle">Seulement les compétitions effectivement présentes dans le journal.</p><div id="bilan-sports" class="arc-list"></div></section>
+</div>
+<section class="arc-section"><div class="arc-section-head"><h2>Dernières simulations réglées</h2><a href="./historique.html">TOUTES ↗</a></div><div id="bilan-recent" class="arc-list"></div></section>
+<section class="arc-surface"><h2>Pourquoi aucun solde bancaire ?</h2><p class="arc-help">Revue ne connaît pas tes mises réelles, leurs remboursements ou ta bankroll. Nous n'affichons donc pas de solde artificiel. Tu peux consulter l'historique fictif et l'exporter sans le confondre avec ton argent réel.</p></section>
+<footer class="arc-footer"><span>REVUE ARCADE · RECHERCHE PERSONNELLE · AUCUN PARI AUTOMATIQUE</span><a href="./lab.html">TOUS LES OUTILS DANS LAB ↗</a></footer></main></body></html>

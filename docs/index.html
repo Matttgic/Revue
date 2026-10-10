@@ -1,383 +1,52 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#060a14">
-  <meta name="description" content="Revue Arena : laboratoire de modèles sportifs, radar de cotes françaises et performances vérifiables.">
-  <title>REVUE ARENA — Mission Control</title>
-  <link rel="stylesheet" href="./theme.css?v=2">
-  <style>
-    .rv-top-inner{max-width:1240px}
-    main.arena{max-width:1240px!important}
-    .control-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:28px 0 15px}
-    .control-heading p{margin:0;color:var(--muted);font-family:'Chakra Petch',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-    .control-heading .right{display:flex;align-items:center;gap:8px;color:var(--cyan)}
-    .control-heading .serial{color:#5c748a;font-family:monospace;font-size:10px}
-    .hero-main{position:relative;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(315px,.88fr);border:1px solid rgba(101,150,187,.3);border-radius:3px;min-height:446px;overflow:hidden;background:linear-gradient(122deg,rgba(13,27,46,.96),rgba(7,13,30,.94))}
-    .hero-main::before{content:"";position:absolute;top:0;left:0;width:170px;height:3px;background:linear-gradient(90deg,var(--cyan),transparent)}
-    .hero-main::after{content:"";pointer-events:none;position:absolute;inset:0;background:linear-gradient(120deg,transparent 54%,rgba(155,110,244,.065) 80%,transparent)}
-    .hero-copy{padding:52px 30px 46px 45px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;position:relative;z-index:1}
-    .hero-copy .overline{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.26em;color:var(--cyan);display:flex;gap:9px;align-items:center}
-    .hero-copy .overline::before{content:"";width:22px;height:2px;background:var(--cyan)}
-    h1{font:700 clamp(3.25rem,7vw,6.5rem)/.88 'Chakra Petch',system-ui,sans-serif;letter-spacing:-.067em;margin:20px 0 20px;text-transform:uppercase}
-    h1 .gradient{background:linear-gradient(105deg,#d1fdf7 4%,#55f5de 47%,#8a97ff 100%);color:transparent;-webkit-background-clip:text;background-clip:text}
-    .hero-copy .summary{font-size:14px;line-height:1.68;margin:0;max-width:500px;color:#b9cadc}
-    .hero-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:20px}
-    .hero-tags span{padding:5px 9px;border:1px solid rgba(128,168,203,.24);color:#8faec8;font-family:monospace;font-size:10px;letter-spacing:.06em}
-    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:26px}
-    .action{padding:13px 17px;min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;border:1px solid rgba(119,177,210,.3);color:var(--fg);font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.1em;text-transform:uppercase;transition:transform .2s,border-color .2s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%)}
-    .action.primary{background:var(--cyan);color:#041324;border-color:var(--cyan);font-weight:800}
-    .action:hover{transform:translateY(-2px);border-color:var(--cyan)}
-    .holo{position:relative;overflow:hidden;display:grid;place-items:center;min-height:390px;border-left:1px solid rgba(118,162,195,.17)}
-    .holo .vector{width:min(90%,410px);height:auto;overflow:visible;animation:floaty 7s ease-in-out infinite}
-    .holo::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(55,195,184,.13),transparent 65%),repeating-linear-gradient(0deg,transparent 0px,transparent 7px,rgba(77,133,175,.025) 8px,transparent 9px)}
-    .holo-badge{position:absolute;top:22px;right:23px;color:var(--cyan);font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.19em;display:flex;align-items:center;gap:9px}
-    .holo-base{position:absolute;bottom:23px;left:20px;color:#7a95b1;font:600 10px monospace;letter-spacing:.14em}
-    .section-title{display:flex;align-items:center;justify-content:space-between;margin:38px 0 17px;gap:10px}
-    .section-title h2{font:700 clamp(1.4rem,3.6vw,2rem) 'Chakra Petch',sans-serif;letter-spacing:-.025em;margin:0}
-    .section-title small{color:#698297;font-size:10px;letter-spacing:.12em;font-family:monospace}
-    .section-title h2 span{color:var(--cyan)}
-    .replication{margin:14px 0 24px;padding:17px 20px;border:1px solid rgba(85,245,222,.24);background:linear-gradient(120deg,rgba(11,34,45,.72),rgba(20,21,45,.84));}
-    .rep-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .rep-top span{font:700 12px 'Chakra Petch',sans-serif;letter-spacing:.13em;color:var(--cyan)}
-    .rep-top strong{font:700 27px 'Chakra Petch',sans-serif;color:var(--fg)}
-    .rep-bar{height:8px;border:1px solid rgba(116,168,195,.3);background:rgba(8,20,33,.8);margin:12px 0 8px;overflow:hidden}
-    .rep-bar>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#309dc1,#55f5de);transition:width .7s}
-    .rep-caption{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .meters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
-    .meter{background:linear-gradient(150deg,rgba(17,31,51,.96),rgba(9,17,34,.95));border:1px solid rgba(114,153,199,.2);padding:21px 17px 16px;position:relative;min-width:0}
-    .meter::before{content:"";position:absolute;top:0;left:0;width:40px;height:2px;background:var(--cyan);opacity:.7}
-    .meter .index{font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.16em;color:#8eaac3}
-    .meter .num{display:block;color:var(--fg);font:700 clamp(1.55rem,3.3vw,2.45rem) 'Chakra Petch',sans-serif;letter-spacing:-.06em;margin:10px 0 4px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
-    .meter .note{color:var(--muted);font-size:11px}
-    .meter .marker{position:absolute;right:13px;top:16px;color:var(--cyan);font:700 11px monospace}
-    .modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .module{display:flex;flex-direction:column;min-height:216px;padding:20px 20px 18px;border:1px solid rgba(109,155,198,.22);background:linear-gradient(145deg,rgba(16,29,49,.93),rgba(8,16,33,.96));color:var(--fg);text-decoration:none;position:relative;overflow:hidden;transition:border-color .22s,transform .22s,background .22s}
-    .module::before{content:"";position:absolute;left:0;top:0;height:3px;width:26%;background:var(--block-color,var(--cyan));opacity:.75}
-    .module::after{content:"";position:absolute;bottom:0;right:0;width:25px;height:25px;border-bottom:1px solid var(--block-color,var(--cyan));border-right:1px solid var(--block-color,var(--cyan));opacity:.4}
-    .module:hover{border-color:var(--block-color,var(--cyan));transform:translateY(-4px);background:#14233c}
-    .module .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .module .category{font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.19em;color:var(--block-color,var(--cyan));text-transform:uppercase}
-    .module .icon{width:40px;height:40px;display:grid;place-items:center;font:700 16px 'Chakra Petch',sans-serif;color:var(--block-color,var(--cyan));border:1px solid rgba(137,170,207,.22);background:rgba(9,18,35,.7)}
-    .module h3{font:700 25px/1.08 'Chakra Petch',sans-serif;letter-spacing:-.04em;margin:15px 0 8px}
-    .module p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
-    .module .launch{margin-top:auto;padding-top:18px;display:flex;justify-content:space-between;font:700 11px 'Chakra Petch',sans-serif;text-transform:uppercase;letter-spacing:.12em;color:var(--block-color,var(--cyan))}
-    .module .launch strong{font-size:17px}
-    .today-shell{border:1px solid #2f4964;background:linear-gradient(145deg,#102237,#0b1828);padding:23px;margin:29px 0}
-    .today-top{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}
-    .today-top h2{margin:0;font:800 23px 'Chakra Petch',sans-serif;letter-spacing:-.04em;color:#e8fcff}
-    .today-top a{color:#55f5de;text-decoration:none;font:700 11px 'Chakra Petch',sans-serif}
-    .today-desc{color:#8faac0;font-size:12px;margin:9px 0 16px}
-    .today-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .today-match{border:1px solid #30516b;background:#111c31;padding:16px}
-    .today-match .league{font:700 10px monospace;letter-spacing:.11em;color:#55f5de}
-    .today-match strong{display:block;font:800 18px/1.25 'Chakra Petch',sans-serif;margin:11px 0;color:#effaff}
-    .today-match small{color:#a8bed0;font:11px 'DM Sans',sans-serif}
-    .today-match a{display:block;margin-top:12px;font:700 10px 'Chakra Petch',sans-serif;letter-spacing:.1em;color:#55f5de}
-    @media(max-width:820px){.today-grid{grid-template-columns:1fr}}
-    .terminal{margin-top:26px;border:1px solid rgba(116,162,200,.25);background:rgba(5,12,25,.91);display:grid;grid-template-columns:210px 1fr}
-    .terminal .labelcol{padding:21px 19px;border-right:1px solid rgba(116,162,200,.2);color:var(--cyan);font:700 12px 'Chakra Petch',sans-serif;letter-spacing:.17em}
-    .terminal .labelcol small{display:block;color:#718da8;font:11px/1.7 monospace;margin-top:13px;letter-spacing:normal}
-    .terminal .lines{padding:17px 19px;font:12px/1.85 monospace;color:#9eb4c9;word-break:break-word}
-    .terminal .lines span{color:var(--cyan)}
-    .terminal .lines strong{color:#eaf4ff;font-weight:500}
-    .disclosure{font-size:12px;line-height:1.7;color:#88a0b8;margin:28px 0 10px;border-left:2px solid var(--orange);padding:9px 12px}
-    .bottom{border-top:1px solid rgba(114,153,199,.19);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;color:#738ca5;font:11px monospace}
-    .bottom a{color:var(--cyan)}
-    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-    @media(max-width:920px){.hero-main{grid-template-columns:1.2fr .8fr}.hero-copy{padding:35px 20px}.modules{grid-template-columns:repeat(2,minmax(0,1fr))}.meters{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:690px){.hero-main{grid-template-columns:1fr}.hero-copy{padding:34px 23px 30px}.holo{min-height:242px;border-left:0;border-top:1px solid rgba(118,162,195,.15)}.holo .vector{width:235px}.holo-badge{right:15px;top:10px}.holo-base{bottom:12px}.hero-copy h1{font-size:clamp(3.35rem,13vw,5.7rem)}.modules{grid-template-columns:1fr}.module{min-height:195px}.control-heading .serial{display:none}.terminal{grid-template-columns:1fr}.terminal .labelcol{border-right:0;border-bottom:1px solid rgba(116,162,200,.2)}.terminal .labelcol small{display:inline;margin-left:12px}}
-    @media(prefers-reduced-motion:reduce){.holo .vector{animation:none}}
-  </style>
-</head>
-<body>
-<div class="rv-topbar">
-  <div class="rv-top-inner">
-    <a href="./index.html" class="rv-brand" aria-label="Revue accueil"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
-    <nav class="rv-nav" aria-label="Navigation principale">
-      <a aria-current="page" href="./index.html">QG</a>
-      <a href="./command-center.html">CONTRÔLE</a>
-      <a href="./match-center.html">MATCHS</a>
-      <a href="./individual-hub.html">TENNIS / MMA / LIIGA</a>
-      <a href="./picks-center.html">SÉLECTIONS</a>
-      <a href="./match-dossier.html">DOSSIERS</a>
-      <a href="./engine-v2.html">SCANNER</a>
-      <a href="./operations.html">SUPERVISION</a>
-      <a href="./multisports.html">MODÈLES</a>
-      <a href="./predictions-revue.html">PRÉVISIONS</a>
-      <a href="./model-input-lab.html">MODEL LAB</a>
-      <a href="./avancement.html">AVANCEMENT</a>
-      <a href="./nhl-joueurs.html">NHL</a>
-      <a href="./performance-comparateur.html">PERFORMANCE</a>
-      <a href="./reproduction-exacte.html">PARITÉ EXACTE</a>
-      <a href="./qualite-modeles.html">AUDIT</a>
-    </nav>
-    <span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span>
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#080b19"><meta name="description" content="Revue Arcade : quoi étudier aujourd'hui et bilan réel des simulations vérifiées"><title>Accueil — REVUE ARCADE</title><link rel="stylesheet" href="./theme.css?v=2"><link rel="stylesheet" href="./retro.css?v=1"><script defer src="./retro-app.js?v=1"></script></head>
+ <body class="retro" data-page="home"><div class="rv-topbar"><div class="rv-top-inner">
+ <a href="./index.html" class="rv-brand" aria-label="Accueil Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
+ <nav class="rv-nav" aria-label="Navigation principale"><a href="./index.html" aria-current="page">ACCUEIL</a><a href="./play.html">À JOUER</a><a href="./bilan.html">BILAN</a><a href="./historique.html">HISTORIQUE</a><a href="./lab.html">LAB</a></nav>
+ <span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i> ARCADE / V2</span>
+ </div></div>
+ <nav class="arc-bottom-nav" aria-label="Navigation mobile"><a href="./index.html" aria-current="page"><span class="arc-nav-icon" aria-hidden="true">⌂</span>ACCUEIL</a><a href="./play.html"><span class="arc-nav-icon" aria-hidden="true">▷</span>À JOUER</a><a href="./bilan.html"><span class="arc-nav-icon" aria-hidden="true">▤</span>BILAN</a><a href="./historique.html"><span class="arc-nav-icon" aria-hidden="true">◷</span>HISTO</a><a href="./lab.html"><span class="arc-nav-icon" aria-hidden="true">⚙</span>LAB</a></nav><main class="arc-main">
+<section class="arc-hero" aria-labelledby="arc-title">
+ <div class="arc-hero-copy">
+  <div class="arc-eyebrow">01 / TON COCKPIT SPORTIF</div>
+  <h1 id="arc-title">GAME <span class="arc-gradient">ON.</span><br>STAY <span class="arc-highlight">SHARP.</span></h1>
+  <p class="arc-subtitle">Des matchs à suivre. Un bilan compréhensible. Toutes les analyses compliquées rangées dans le Lab.</p>
+  <div class="arc-buttons">
+   <a class="arc-btn arc-btn--primary" href="./play.html">▷ VOIR À JOUER</a>
+   <a class="arc-btn" href="./bilan.html">▤ MON BILAN</a>
   </div>
+  <p class="arc-help">Mode personnel · simulations uniquement · les cotes ne sont pas en direct.</p>
+ </div>
+ <div class="arc-machine" aria-hidden="true">
+  <div class="arc-pixel arc-pixel--a"></div><div class="arc-pixel arc-pixel--b"></div><div class="arc-pixel arc-pixel--c"></div>
+  <div class="arc-orbit"></div>
+  <div class="arc-console"><div class="arc-console-screen"><div class="arc-screen-text">REVUE<small>INSERT DATA · NOT COINS</small></div></div><div class="arc-dpad"></div><div class="arc-pad-buttons"><i></i><i></i></div></div>
+  <div class="arc-grid"></div>
+ </div>
+</section>
+<div class="arc-strip"><span class="arc-live"><i class="arc-dot arc-dot--off"></i><span id="home-status">Vérification des recommandations…</span></span><span id="home-when">Dernier calendrier en cours de lecture…</span></div>
+<div class="arc-kpis" aria-label="Indicateurs principaux">
+ <article class="arc-kpi arc-kpi--mint"><div class="caption">Paris validés aujourd'hui</div><strong id="home-active" class="value">—</strong><div class="hint">Pas de conseils inventés</div></article>
+ <article class="arc-kpi"><div class="caption">Profit fictif</div><strong id="home-profit" class="value">—</strong><div class="hint">Simulations réglées seulement</div></article>
+ <article class="arc-kpi arc-kpi--pink"><div class="caption">ROI fictif</div><strong id="home-roi" class="value">—</strong><div class="hint">Échantillon limité</div></article>
+ <article class="arc-kpi"><div class="caption">Résultats réglés</div><strong id="home-settled" class="value">—</strong><div id="home-scope" class="hint">Bilan fictif en cours…</div></article>
 </div>
-<main class="arena">
-  <div class="control-heading"><p>COMMAND CENTER <span style="color:var(--cyan)">/</span> RECHERCHE SPORTIVE</p><div class="right"><i class="rv-led" aria-hidden="true"></i><span class="serial">SYS.2026 // V02</span></div></div>
-  <section class="hero-main" aria-labelledby="hero-title">
-    <div class="hero-copy">
-      <span class="overline">BIENVENUE DANS L'ARENA</span>
-      <h1 id="hero-title">EVERY<br>MATCH.<br><span class="gradient">A SIGNAL.</span></h1>
-      <p class="summary">Objectif prioritaire : reproduire fidèlement les calculs et le fonctionnement du site Clairvoyance, avec preuves de parité sur les mêmes données. Les modèles indépendants restent distincts.</p>
-      <div class="hero-tags"><span>01 // MULTISPORT</span><span>02 // PRIX HORODATÉS</span><span>03 // SHADOW MODE</span></div>
-      <div class="actions">
-        <a class="action primary" href="./command-center.html">CENTRE DE CONTRÔLE <span aria-hidden="true">↗</span></a>
-        <a class="action" href="./reproduction-exacte.html">REPRODUCTION EXACTE <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    <div class="holo" aria-hidden="true">
-      <span class="holo-badge"><i class="rv-led"></i> SIGNAL MONITOR</span>
-      <svg class="vector" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="a" x1="70" y1="20" x2="320" y2="380"><stop stop-color="#55f5de"/><stop offset="1" stop-color="#ac88fc"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3"/></filter></defs>
-        <circle cx="200" cy="200" r="163" stroke="#34526A" stroke-dasharray="2 14" stroke-width="1.5"/>
-        <circle cx="200" cy="200" r="134" stroke="#2A4861"/>
-        <circle cx="200" cy="200" r="120" stroke="url(#a)" stroke-opacity=".9" stroke-width="1.5" stroke-dasharray="136 19 38 19 136 19 38 19 55"/>
-        <circle cx="200" cy="200" r="101" stroke="#253C59" stroke-dasharray="3 9"/>
-        <path d="M200 32V104M200 296V368M32 200H104M296 200H368" stroke="#55F5DE" stroke-opacity=".45"/>
-        <path d="M97 103L303 297M303 103L97 297" stroke="#394E75" stroke-opacity=".45" stroke-dasharray="4 10"/>
-        <path d="M200 120L270 160V240L200 280L130 240V160Z" stroke="url(#a)" stroke-width="2" fill="#0E2130" fill-opacity=".6"/>
-        <path d="M200 142L249 171V229L200 258L151 229V171Z" stroke="#557CA1" stroke-opacity=".7"/>
-        <path d="M200 164L232 182V218L200 237L168 218V182Z" fill="#55F5DE" fill-opacity=".07" stroke="#55F5DE" stroke-opacity=".45"/>
-        <path d="M180 218V182H204C225 182 224 206 204 206H180M203 206L222 226" stroke="#55F5DE" stroke-width="8" stroke-linejoin="miter"/>
-        <circle cx="200" cy="200" r="153" stroke="#55F5DE" stroke-opacity=".3" stroke-width="2" stroke-dasharray="2 16"/>
-        <circle cx="270" cy="160" r="5" fill="#55F5DE"/><circle cx="130" cy="240" r="4" fill="#AD8AFF"/>
-        <path d="M265 92H350M265 92L250 107" stroke="#55F5DE" stroke-opacity=".7"/>
-        <path d="M65 304H136L150 290" stroke="#AE8AFF" stroke-opacity=".65"/>
-        <text x="351" y="86" text-anchor="end" fill="#55F5DE" font-size="9" font-family="monospace">SCANNING</text>
-        <text x="64" y="322" fill="#AE8AFF" font-size="9" font-family="monospace">MODEL / 01</text>
-        <path d="M200 18L208 32H192Z" fill="#55F5DE"/>
-      </svg>
-      <span class="holo-base">RUNTIME // STATISTICAL NETWORK</span>
-    </div>
-  </section>
-
-  <section class="replication" aria-label="Parité des fonctions du catalogue actuel Clairvoyance">
-    <div class="rep-top"><span>// ÉGALITÉ DES FORMULES CIBLÉES — PAS DU SITE ENTIER</span><strong id="rep-value">—</strong></div>
-    <div class="rep-bar" role="progressbar" aria-label="Modèles à parité vérifiée" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="rep-progress"><span id="rep-fill"></span></div>
-    <div class="rep-caption"><span id="rep-change">Vérification de la parité des algorithmes…</span><span>Ce pourcentage ne couvre pas l'intégralité du dépôt. Parité partielle sur entrées synthétiques ; seuls certains calculs NBA sont déjà alimentés par ESPN.</span></div>
-    <a href="./reproduction-exacte.html" style="display:inline-block;margin-top:10px;font:700 11px 'Chakra Petch',sans-serif;text-decoration:none;letter-spacing:.11em">VOIR LA PARITÉ GLOBALE ET LES FONCTIONS MANQUANTES →</a>
-  </section>
-  <section aria-labelledby="stats-heading">
-    <div class="section-title"><h2 id="stats-heading"><span>//</span> TÉLÉMÉTRIE</h2><small>MESURES ISSUES DES DERNIERS RAPPORTS</small></div>
-    <div class="meters">
-      <div class="meter"><span class="index">01 / SOURCES</span><span class="marker">◈</span><strong id="meter-feeds" class="num">—</strong><span class="note">Flux de données opérationnels</span></div>
-      <div class="meter"><span class="index">02 / CALENDRIER</span><span class="marker">◇</span><strong id="meter-fixtures" class="num">—</strong><span class="note">Rencontres répertoriées</span></div>
-      <div class="meter"><span class="index">03 / PRIX</span><span class="marker">⊕</span><strong id="meter-odds" class="num">—</strong><span class="note">Écarts candidats (non validés)</span></div>
-      <div class="meter"><span class="index">04 / SIMULATIONS</span><span class="marker">⌁</span><strong id="meter-paper" class="num">—</strong><span class="note">Positions papier enregistrées</span></div>
-    </div>
-  </section>
-
-  <section class="today-shell" aria-labelledby="today-title">
-    <div class="today-top"><h2 id="today-title">// MATCHS À VENIR</h2><a href="./match-center.html">OUVRIR LE MATCH CENTER ↗</a></div>
-    <p class="today-desc" id="today-status">Chargement des rencontres disposant de données Revue…</p>
-    <div id="today-grid" class="today-grid"></div>
-  </section>
-
-  <section aria-labelledby="modules-heading">
-    <div class="section-title"><h2 id="modules-heading"><span>//</span> MODULES DE COMBAT</h2><small>SÉLECTIONNE TON ESPACE DE TRAVAIL</small></div>
-    <div class="modules">
-      <a class="module" style="--block-color:#aa8bea" href="./individual-hub.html">
-        <div class="top"><span class="category">00 / SPORT SPECIALISTS</span><span class="icon">IND</span></div>
-        <h3>Tennis, UFC &amp; Liiga</h3><p>Adversaires vérifiés, modèles selon historique disponible et suivi prospectif des prédictions avec résultats officiels.</p>
-        <span class="launch">OUVRIR LES DISCIPLINES <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#55f5de" href="./picks-center.html">
-        <div class="top"><span class="category">00 / PICKS CENTER</span><span class="icon">P</span></div>
-        <h3>Sélections &amp; suivi</h3><p>Parcours unifié : propositions, prix français réellement observés, simulation avant match, journal et résultat — sans paris réels.</p>
-        <span class="launch">OUVRIR LES SÉLECTIONS <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#f3bc77" href="./avancement.html">
-        <div class="top"><span class="category">00 / FUNCTIONAL COVERAGE</span><span class="icon">%</span></div>
-        <h3>Suivi de l'avancement</h3><p>Couverture fonctionnelle pondérée, réalisation des modules et chantiers manquants. À distinguer de l'identité exacte avec Clairvoyance.</p>
-        <span class="launch">VOIR LA PROGRESSION <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#55f5de" href="./command-center.html">
-        <div class="top"><span class="category">00 / REVUE CONTROL</span><span class="icon">R</span></div>
-        <h3>Centre de contrôle</h3><p>Matchs, cotes observées, journal fictif, filtres et fiabilité des données regroupés sur un écran mobile.</p>
-        <span class="launch">OUVRIR LE CENTRE <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#5decda" href="./match-dossier.html">
-        <div class="top"><span class="category">00A / INTELLIGENCE DE MATCH</span><span class="icon">360</span></div>
-        <h3>Dossiers de matchs</h3><p>Chaque rencontre : prix français par marché, cinq derniers résultats des équipes, modèles, suivi verrouillé et joueurs historiques.</p>
-        <span class="launch">EXPLORER 125 MATCHS <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#a4b3ff" href="./operations.html">
-        <div class="top"><span class="category">00B / OPS TELEMETRY</span><span class="icon">CI</span></div>
-        <h3>Supervision</h3><p>Exécutions réelles de GitHub Actions, dernières réussites, échecs et diagnostic de l'automatisation.</p>
-        <span class="launch">SUIVRE LES WORKFLOWS <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#55f5de" href="./match-center.html">
-        <div class="top"><span class="category">00 / MATCH CENTER</span><span class="icon">M</span></div>
-        <h3>Matchs du jour</h3><p>Calendrier central, analyses multisports et cotes françaises réellement observées, sur une seule page.</p>
-        <span class="launch">VOIR LES RENCONTRES <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#55f5de" href="./engine-v2.html">
-        <div class="top"><span class="category">01 / MARKET RADAR</span><span class="icon">⌖</span></div>
-        <h3>Scanner de cotes</h3><p>Détecter les différences de prix, lire les marchés français et suivre le registre papier.</p>
-        <span class="launch">ACCÉDER AU SCANNER <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#60e9d5" href="./predictions-revue.html">
-        <div class="top"><span class="category">02 / SOURCE-FORMULA RESEARCH</span><span class="icon">ƒ</span></div>
-        <h3>Prévisions NHL / MLB</h3><p>Les formules Clairvoyance reproduites sur des matchs réellement observés par Revue, avec les différences de données explicitement signalées.</p>
-        <span class="launch">INSPECTER LES PRÉVISIONS <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#e2acff" href="./model-input-lab.html">
-        <div class="top"><span class="category">02A / MODEL INPUT LAB</span><span class="icon">ƒ</span></div>
-        <h3>Origine des probabilités</h3><p>Deux expériences traçables : MoneyPuck NHL (0–1 contre 0–100) et Elo MLB (rejeu ESPN contre repli 1500), sans paris.</p>
-        <span class="launch">OUVRIR LES COMPARAISONS <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#ffba78" href="./nhl-source-input-gap.html">
-        <div class="top"><span class="category">02B / SOURCE FORENSICS</span><span class="icon">Δ</span></div>
-        <h3>Audit des entrées NHL</h3><p>Comparer xG 5v5 et toutes situations, gardiens officiels et variations des probabilités NHL.</p>
-        <span class="launch">EXAMINER LES ÉCARTS <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#9b94ff" href="./multisports.html">
-        <div class="top"><span class="category">02 / MATCH ENGINE</span><span class="icon">∑</span></div>
-        <h3>Prédictions multisports</h3><p>Football, basket, hockey, NFL, baseball, tennis et autres ligues alimentées.</p>
-        <span class="launch">EXPLORER LES MODÈLES <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#ffb667" href="./nhl-joueurs.html">
-        <div class="top"><span class="category">03 / PLAYER TRACKER</span><span class="icon">◎</span></div>
-        <h3>Joueurs NHL</h3><p>Profils des joueurs pour les buts, passes, points et tirs. Données non calibrées.</p>
-        <span class="launch">OUVRIR LE RADAR <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#5ed3ff" href="./football-avance.html">
-        <div class="top"><span class="category">04 / FOOTBALL LAB</span><span class="icon">△</span></div>
-        <h3>Football avancé</h3><p>Forme, Elo, Dixon-Coles, tirs ESPN et comparaison avec l'ancien modèle.</p>
-        <span class="launch">VOIR LES RECHERCHES <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#ee91d9" href="./nhl-model.html">
-        <div class="top"><span class="category">05 / HOCKEY MODEL</span><span class="icon">✦</span></div>
-        <h3>Moteur NHL</h3><p>Probabilités Elo–Poisson, scores attendus et contrôle de l'historique.</p>
-        <span class="launch">DÉCOUVRIR LE MOTEUR <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#55f5de" href="./moneypuck.html">
-        <div class="top"><span class="category">08 / NHL DATA LAB</span><span class="icon">MP</span></div>
-        <h3>MoneyPuck xG</h3><p>Statistiques NHL officielles par équipe, 5 contre 5, saison courante et précédente, avec provenance vérifiable.</p>
-        <span class="launch">EXPLORER LES DONNÉES <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#9b94ff" href="./nhl-clairvoyance.html">
-        <div class="top"><span class="category">09 / NHL CLAIRVOYANCE SHADOW</span><span class="icon">N</span></div>
-        <h3>NHL Clairvoyance</h3><p>Prévisions sur matchs NHL futurs via formule reproduite, données réelles MoneyPuck et gardiens historiques. Sans cotes.</p>
-        <span class="launch">VOIR LE MODÈLE SHADOW <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#55f5de" href="./reproduction-exacte.html">
-        <div class="top"><span class="category">08 / EXACT REPLICATION</span><span class="icon">≡</span></div>
-        <h3>Reproduction exacte</h3><p>Les 24 routes API originales, le frontend, les données et les sorties : audit strict, sans pourcentage inventé.</p>
-        <span class="launch">VOIR LA PARITÉ COMPLÈTE <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#72deac" href="./parite-clairvoyance.html">
-        <div class="top"><span class="category">07 / SOURCE REPLICATION</span><span class="icon">≡</span></div>
-        <h3>Modèles Clairvoyance</h3><p>Reproduction fidèle des fonctions originales : calculs identiques vérifiés, références GitHub et progression de la parité.</p>
-        <span class="launch">VOIR LES MODÈLES REPRODUITS <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#72deac" href="./performance-comparateur.html">
-        <div class="top"><span class="category">10 / PROSPECTIVE RESEARCH</span><span class="icon">Σ</span></div>
-        <h3>Classement des modèles</h3><p>Comparaison sur vrais résultats avant-match, Brier, Log Loss et échantillons encore trop petits.</p>
-        <span class="launch">VOIR LA PERFORMANCE <strong>↗</strong></span>
-      </a>
-      <a class="module" style="--block-color:#98c6ff" href="./qualite-modeles.html">
-        <div class="top"><span class="category">06 / MODEL AUDIT</span><span class="icon">≋</span></div>
-        <h3>Performance & tests</h3><p>Brier, log loss, contrôles chronologiques et transparence des limites.</p>
-        <span class="launch">CONSULTER LES AUDITS <strong>↗</strong></span>
-      </a>
-    </div>
-  </section>
-
-  <section class="terminal" aria-label="État des systèmes">
-    <div class="labelcol">SYSTEM STATUS<small>MONITORING / PARIS</small></div>
-    <div class="lines" id="terminal" role="status" aria-live="polite"><span>[INIT]</span> Chargement des derniers états du moteur…</div>
-  </section>
-  <p class="disclosure">* Les données ne sont pas diffusées en temps réel : elles proviennent des dernières exécutions GitHub Actions. Les modèles et différences de cotes restent expérimentaux ; aucune mise réelle n'est déclenchée et aucun gain n'est garanti.</p>
-  <footer class="bottom"><span>REVUE ARENA <span style="color:#4d6a83">//</span> ENGINEERING OVER HYPE</span><a href="https://github.com/Matttgic/Revue">CODE SOURCE ↗</a></footer>
-</main>
-<script>
-"use strict";
-const by = id => document.getElementById(id);
-const frDate = iso => new Date(iso).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short",timeZone:"Europe/Paris"});
-async function jsonFile(file){
-  const response=await fetch("./"+file+"?t="+Date.now(),{cache:"no-store"});
-  if(!response.ok)throw new Error("indisponible");
-  return response.json();
-}
-function telemetry(id,value){
-  by(id).textContent=Number.isFinite(Number(value)) && value!==null && value!==undefined
-    ? Number(value).toLocaleString("fr-FR"):"—";
-}
-async function refresh(){
-  const progress=await jsonFile("parite-modeles-clairvoyance.json").catch(()=>null);
-  if(progress&&Number.isInteger(progress.verified_formula_parity_models)&&
-      progress.total_target_models>=13){
-    const pct=Math.round(100*progress.verified_formula_parity_models/progress.total_target_models);
-    if(pct===progress.formula_parity_percent){
-      by("rep-value").textContent=pct+" %";
-      by("rep-fill").style.width=pct+"%";
-      by("rep-progress").setAttribute("aria-valuenow",String(pct));
-      by("rep-change").textContent=progress.verified_formula_parity_models+
-        " / "+progress.total_target_models+" modèles à formules identiques vérifiées sur l'original · "+
-        progress.exact_equality_tests_passed+" tests de comparaison";
-    }
-  }
-  const [models,scanner,health]=await Promise.allSettled([
-    jsonFile("multisports-latest.json"),jsonFile("engine-v2-latest.json"),
-    jsonFile("health-latest.json")
-  ]);
-  const m=models.status==="fulfilled"?models.value:null;
-  const s=scanner.status==="fulfilled"?scanner.value:null;
-  const h=health.status==="fulfilled"?health.value:null;
-  telemetry("meter-feeds",m?.overview?.feeds_ok);
-  telemetry("meter-fixtures",m?.overview?.fixtures);
-  telemetry("meter-odds",s?.candidate_count);
-  telemetry("meter-paper",s?.paper?.n_paper);
-  const consoleEl=by("terminal");consoleEl.replaceChildren();
-  const write=(tag,message)=>{
-    const div=document.createElement("div");
-    const label=document.createElement("span");label.textContent="["+tag+"] ";
-    const body=document.createElement("strong");body.textContent=message;
-    div.append(label,body);consoleEl.append(div);
-  };
-  if(s){
-    const age=(Date.now()-Date.parse(s.generated_at_utc))/3600000;
-    const stale=!Number.isFinite(age)||age>6||age<-.2;
-    write("ODDS",String(s.odds_status).startsWith("active") && !stale?"PulseScore actif au dernier scan":"Source prix non confirmée à cette heure");
-    write("SCAN",frDate(s.generated_at_utc)+" · "+String(s.coverage?.requested?.[0]?.calls??"—")+" appels lors du dernier rapport");
-  }else write("ODDS","Aucun rapport de scan disponible");
-  if(m)write("MODELS",frDate(m.generated_at_utc)+" · "+String(m.overview?.predicted??"—")+" probabilités calculées");
-  if(h)write("HEALTH","Dernier diagnostic : "+String(h.status||"non indiqué"));
-}
-async function loadTodaysBoard(){
-  const status=by("today-status"),grid=by("today-grid");
-  try{
-    const board=await jsonFile("match-center-latest.json");
-    if(board.status!=="experimental_revue_match_center" || !Array.isArray(board.events))throw Error("Rapport non vérifié");
-    // Surface real observations and usable model coverage first; never call these "best bets".
-    const upcoming=board.events.filter(g=>Date.parse(g.start_utc)>Date.now())
-      .sort((a,b)=>Number(b.quotes.length>0)-Number(a.quotes.length>0)||
-        Number(b.research.length>0)-Number(a.research.length>0)||
-        Date.parse(a.start_utc)-Date.parse(b.start_utc)).slice(0,3);
-    const age=Math.max(0,(Date.now()-Date.parse(board.generated_at_utc))/3600000);
-    status.textContent=String(board.metrics?.upcoming_matches??0)+" matchs recensés sur 72 h · "+
-       String(board.metrics?.with_observed_bookmaker_quotes??0)+" avec tarifs horodatés · "+
-       (age>3?"Données en attente de rafraîchissement":"Dernier état disponible")+" · pas de paris conseillés";
-    grid.replaceChildren();
-    if(!upcoming.length)grid.textContent="Aucun match futur n'est encore disponible dans le calendrier.";
-    for(const m of upcoming){
-      const card=document.createElement("article");card.className="today-match";
-      const eyebrow=document.createElement("div");eyebrow.className="league";
-      eyebrow.textContent=m.league+" / "+new Date(m.start_utc).toLocaleString("fr-FR",
-        {timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
-      const title=document.createElement("strong");title.textContent=m.away+" — "+m.home;
-      const desc=document.createElement("small");desc.textContent=m.research.length+" modèle(s) de recherche · "+
-          (m.quotes.length?m.quotes.length+" tarif(s) observé(s)":"aucune cote récente");
-      const link=document.createElement("a");link.href="./match-center.html";link.textContent="ANALYSE ET PRIX ↗";
-      card.append(eyebrow,title,desc,link);grid.append(card);
-    }
-  }catch(err){status.textContent="Calendrier unifié indisponible — consulter les autres modules.";grid.replaceChildren();}
-}
-refresh();loadTodaysBoard();
-</script>
-</body></html>
+<section class="arc-section" aria-labelledby="home-pick-title">
+ <div class="arc-section-head"><h2 id="home-pick-title">▷ <span class="arc-gradient">Quoi jouer aujourd'hui ?</span></h2><a href="./play.html">VOIR TOUT ↗</a></div>
+ <div class="arc-signal" role="note"><strong>Pas de sélection garantie.</strong> Seuls des matchs et des cotes historiques peuvent être étudiés. L'absence de pari recommandé est une vraie réponse.</div>
+ <div id="home-picks" class="arc-list" style="margin-top:13px" aria-live="polite"><div class="arc-placeholder">Lecture des données du radar…</div></div>
+</section>
+<div class="arc-grid-2">
+ <section class="arc-surface" aria-labelledby="home-sport-title">
+  <div class="arc-section-head"><h2 id="home-sport-title">◈ Matchs à surveiller</h2><a href="./play.html">MATCHS ↗</a></div>
+  <p class="arc-subtitle">Des rencontres à analyser, pas des paris validés.</p>
+  <div id="home-matches" class="arc-list" aria-live="polite">Chargement des matchs…</div>
+ </section>
+ <section class="arc-surface" aria-labelledby="home-results-title">
+  <div class="arc-section-head"><h2 id="home-results-title">▤ Derniers résultats</h2><a href="./historique.html">HISTORIQUE ↗</a></div>
+  <p class="arc-subtitle">Simulation, jamais argent réel. Aucun retour présenté sans règlement vérifié.</p>
+  <div id="home-recent" class="arc-list" aria-live="polite">Chargement du journal…</div>
+ </section>
+</div>
+<div class="arc-section">
+ <div class="arc-signal arc-signal--good">Tu veux explorer les modèles NHL, tennis, les sources, les audits et la reproduction de Clairvoyance ? Tout est désormais dans <a href="./lab.html"><strong>Lab ↗</strong></a>, sans encombrer l'accueil.</div>
+</div><footer class="arc-footer"><span>REVUE ARCADE · RECHERCHE PERSONNELLE · AUCUN PARI AUTOMATIQUE</span><a href="./lab.html">TOUS LES OUTILS DANS LAB ↗</a></footer></main></body></html>
