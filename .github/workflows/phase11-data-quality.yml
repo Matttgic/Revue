@@ -1,0 +1,54 @@
+name: Revue - Phase 11 Data Integrity
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 1,7,13,19 * * *'
+  workflow_run:
+    workflows:
+      - 'Revue - Match Center unifié'
+      - 'Revue - NHL ESPN gardiens observes'
+    types: [completed]
+  push:
+    paths:
+      - 'outils/phase11_data_quality.py'
+      - 'tests/test_phase11_data_quality.py'
+      - 'docs/phase11-donnees.html'
+      - '.github/workflows/phase11-data-quality.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-phase11-sources
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify ESPN lineups and quarantine paper market rules
+        run: |
+          python -m unittest discover -s tests -p 'test_phase11_data_quality.py' -v
+          python -m unittest discover -s tests -p 'test_match_center_revue.py' -v
+          python -m unittest discover -s tests -p 'test_nhl_espn_goalies.py' -v
+      - name: Re-evaluate saved observations without paid APIs
+        env:
+          ODDS_API_KEY: ''
+          PULSESCORE_API_KEY: ''
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            python -m outils.phase11_data_quality
+            git add docs/phase11-source-quality-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'audit(phase11): update bookmaker exclusion and multisport input evidence'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
