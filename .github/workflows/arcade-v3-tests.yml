@@ -10,6 +10,7 @@ on:
       - 'docs/retro.css'
       - 'docs/retro-app.js'
       - 'tests/test_arcade_v3_data.js'
+      - 'tests/test_arcade_v3_radar.js'
       - 'tests/test_arcade_v3_site.py'
       - '.github/workflows/arcade-v3-tests.yml'
 permissions:
@@ -31,6 +32,8 @@ jobs:
           python-version: '3.12'
       - name: Run behavioral checks on real historical snapshots and adversarial data
         run: node --test tests/test_arcade_v3_data.js
+      - name: Test bounded PulseScore current-odds observation overlays
+        run: node --test tests/test_arcade_v3_radar.js
       - name: Verify mobile structure, links, asset syntax and source provenance
         run: python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
       - name: Verify existing Arena routes still conform to contract
