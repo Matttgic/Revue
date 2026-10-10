@@ -240,4 +240,33 @@ class Phase2Provenance(unittest.TestCase):
         self.assertTrue(all(k.split(":")[0] in SUPPORTED for k in out["events"]))
         self.assertEqual(meta["new_independent_elo_results"],0)
 
+    def test_own_k24_elo_is_a_new_challenger_only_after_three_verified_future_results(self):
+        state,_=tick(None,docs([]),NOW)
+        for i in range(3):
+            start=NOW+timedelta(hours=1+3*i)
+            event=game("NFL",str(401700010+i),"Bears","Giants",start)
+            observed=start+timedelta(hours=2)
+            state,change=tick(state,docs([]),observed,
+                              results([score(event,observed,23,17)],observed))
+            self.assertEqual(change["new_independent_elo_results"],1)
+            self.assertEqual(change["new_prediction_locks"],0)
+        future=game("NFL","401700020","Bears","Giants",NOW+timedelta(hours=15))
+        current=NOW+timedelta(hours=9)
+        base=docs([future],current-timedelta(minutes=5))
+        next_state,meta=tick(state,base,current)
+        self.assertEqual(meta["new_prediction_locks"],1)
+        lock=next_state["events"]["NFL:401700020"]
+        self.assertIn("own_elo",lock["probabilities"])
+        owned=lock["probabilities"]["own_elo"]
+        self.assertEqual(owned["model_id"],"revue_own_future_only_elo_k24_v1")
+        self.assertEqual(owned["training_games"],{"home":3,"away":3})
+        self.assertFalse(owned["home_advantage_added"])
+        self.assertGreater(owned["probabilities"][0],.5)
+        self.assertEqual(round(sum(owned["probabilities"]),8),1)
+        self.assertEqual(next_state["elo_ratings"]["NFL"]["Bears"],1534.76)
+        new=game("NFL","401700021","Bears","Giants",NOW+timedelta(hours=16))
+        no_models=docs([new],current-timedelta(minutes=5))
+        fresh,_=tick(None,no_models,current)
+        self.assertNotIn("own_elo",fresh["events"]["NFL:401700021"]["probabilities"])
+
 if __name__=="__main__":unittest.main()
