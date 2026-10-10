@@ -90,4 +90,40 @@ jobs:
                   assert all(r.get("goals_for") is None for r in data)
               if route.startswith("/nhl/") and not route.startswith("/nhl/schedule"):
                   print("Verified NHL API rows:",len(data))
+          # The source /predictions/ remains unavailable until original
+          # bookmaker, SQL and goalie inputs can be verified. The separate
+          # Revue endpoint may serve *research-only* forecasts on active days.
+          with urlopen(base+"/openapi.json",timeout=15) as resp:
+              endpoints=json.load(resp)["paths"]
+          assert "/revue/predictions" in endpoints
+          assert "get" in endpoints["/revue/predictions"]
+          assert "/predictions/" in endpoints
+          from urllib.parse import urlencode
+          from datetime import timedelta
+          observed=0
+          today=datetime.now(timezone.utc).date()
+          for offset in (0,1,2):
+              day=(today+timedelta(days=offset)).isoformat()
+              url=base+"/revue/predictions?"+urlencode({"game_date":day})
+              try:
+                  with urlopen(url,timeout=15) as resp:
+                      assert resp.status==200
+                      result=json.load(resp)
+                  assert result["status"]=="revue_research_same_formula_not_original_source_inputs"
+                  assert result["source_input_parity_with_original"] is False
+                  assert result["not_original_predictions_endpoint"] is True
+                  assert result["real_bets_enabled"] is False
+                  assert result["count"]>0
+                  assert all(x["formula_result"]["market_home_ml"] is None
+                             and x["formula_result"]["recommendation"] is None
+                             and x["pick_recommendation_verified"] is False
+                             for x in result["predictions"])
+                  observed += result["count"]
+                  print("Research-only future verified fixtures:",day,result["count"])
+                  break
+              except HTTPError as exc:
+                  if exc.code!=503:
+                      raise
+                  print("No valid research predictions for",day,"(explicit HTTP 503)")
+          print("Prospective research route verified; currently available:",observed)
           PY
