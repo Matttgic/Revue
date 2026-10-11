@@ -123,6 +123,11 @@ class PulseScoreTests(unittest.TestCase):
 
     def test_engine_prioritizes_pulse_over_other_api(self):
         one=translate_event(event(),"betclic_fr",NOW)
+        sharp=event()
+        sharp["markets"]=[{**sharp["markets"][0],"selections":[
+            {"canonicalOutcome":"HOME","odds":1.80},{"canonicalOutcome":"DRAW","odds":3.90},
+            {"canonicalOutcome":"AWAY","odds":4.80}]}]
+        one["bookmakers"]+=translate_event(sharp,"ps3838",NOW)["bookmakers"]
         with patch("outils.collecte.pulsescore_v2.scan",return_value=(
              {"PL":[one]}, {"requests":1,"errors":{},"matched_events":1})):
             with patch("outils.suivi.revue_engine_v2.download_odds") as odds_call:

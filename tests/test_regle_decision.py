@@ -20,7 +20,8 @@ def bet(i, status="won", price=2.0, p=0.55, **kw):
          "locked_at": (START + timedelta(hours=i - 3)).isoformat(),
          "quote_at": (START + timedelta(hours=i - 3)).isoformat(),
          "bookmaker": "betclic_fr", "bookmaker_price": price, "paper_stake_units": 1.0,
-         "p_model": p, "market_rule_verified": True, "score": {"home": 1, "away": 0},
+         "p_model": 0.5, "p_sharp_no_vig": p, "selection_rule": "sharp_ev_v1",
+         "market_rule_verified": True, "score": {"home": 1, "away": 0},
          "settled_at": (START + timedelta(hours=i + 2)).isoformat()}
     b.update(kw)
     return b
@@ -33,8 +34,8 @@ def ledger(bets):
 class RuleFrozenTests(unittest.TestCase):
     def test_thresholds_cannot_change_silently(self):
         # Changer un seuil exige une nouvelle version de règle (et ce test).
-        self.assertEqual(RULE, {"version": "revue_decision_rule_v1", "adopted_on": "2026-10-11",
-                                "min_settled": 300, "min_for_stop": 100, "z": 1.96,
+        self.assertEqual(RULE, {"version": "revue_decision_rule_v2", "adopted_on": "2026-10-11",
+                                "selection_rule": "sharp_ev_v1", "min_settled": 300, "min_for_stop": 100, "z": 1.96,
                                 "min_clv_samples": 150})
 
 
@@ -53,6 +54,8 @@ class EligibilityTests(unittest.TestCase):
         self.assertEqual(eligible(bet(1, bookmaker_price=True)), "cote_ou_mise_invalide")
         self.assertEqual(eligible(bet(1, score=None)), "resultat_sans_score")
         self.assertIsNone(eligible(bet(1, status="push", score=None)))
+        # Paris choisis par l'ancienne stratégie (modèle) : archivés, jamais comptés en v2.
+        self.assertEqual(eligible(bet(1, selection_rule=None)), "autre_strategie")
 
 
 class VerdictTests(unittest.TestCase):
@@ -91,6 +94,14 @@ class VerdictTests(unittest.TestCase):
         self.assertEqual(r["settled_eligible"], 5)
         self.assertEqual(r["excluded"], {"chronologie_non_validee": 3, "non_regle": 1})
         self.assertEqual(r["pending"], 1)
+
+    def test_previous_strategy_is_archived_separately(self):
+        old = [bet(i, selection_rule=None) for i in range(4)]
+        r = evaluate(ledger(old + [bet(10)]), NOW)
+        self.assertEqual(r["settled_eligible"], 1)
+        self.assertEqual(r["excluded"], {"autre_strategie": 4})
+        self.assertEqual(r["previous_strategy"]["settled"], 4)
+        self.assertEqual(r["previous_strategy"]["profit_units"], 4.0)
 
     def test_cumulative_and_segments(self):
         r = evaluate(ledger([bet(1), bet(2, status="lost"), bet(3, market="totals")]), NOW)

@@ -1,11 +1,12 @@
 {
-  "version": "revue_decision_rule_v1",
-  "generated_at_utc": "2026-10-11T03:15:00.154844+00:00",
+  "version": "revue_decision_rule_v2",
+  "generated_at_utc": "2026-10-11T11:44:36.166332+00:00",
   "source": "docs/engine-v2-ledger.json",
   "ledger_started_at": "2026-10-09T17:34:09.913301+00:00",
   "rule": {
-    "version": "revue_decision_rule_v1",
+    "version": "revue_decision_rule_v2",
     "adopted_on": "2026-10-11",
+    "selection_rule": "sharp_ev_v1",
     "min_settled": 300,
     "min_for_stop": 100,
     "z": 1.96,
@@ -16,20 +17,13 @@
       "id": "volume",
       "label": "Au moins 300 paris pré-match réglés à cote réellement observée",
       "ok": false,
-      "progress": "13/300"
+      "progress": "0/300"
     },
     {
       "id": "roi",
       "label": "ROI positif même en bas de son intervalle de confiance à 95 %",
       "ok": false,
-      "value": {
-        "n": 13,
-        "mean": 0.2723,
-        "ci95": [
-          -0.5259,
-          1.0706
-        ]
-      }
+      "value": null
     },
     {
       "id": "clv",
@@ -40,126 +34,34 @@
     },
     {
       "id": "calibration",
-      "label": "Probabilités du modèle plus justes que celles du marché (Brier plus bas) sur les mêmes paris",
+      "label": "Probabilité de référence (PS3838/Pinnacle sans marge) plus juste que le marché français (Brier plus bas) sur les mêmes paris",
       "ok": false,
       "value": {
-        "n": 13,
-        "brier_model": 0.2856,
-        "brier_market": 0.2845,
-        "difference": {
-          "n": 13,
-          "mean": 0.0011,
-          "ci95": [
-            -0.0468,
-            0.049
-          ]
-        }
+        "n": 0,
+        "brier_reference": null,
+        "brier_market": null,
+        "difference": null
       }
     }
   ],
   "verdict": "insuffisant",
-  "settled_eligible": 13,
-  "pending": 26,
+  "settled_eligible": 0,
+  "pending": 0,
   "excluded": {
-    "non_regle": 36
+    "autre_strategie": 53
   },
-  "stake_units": 13.0,
-  "profit_units": 3.54,
-  "cumulative_units": [
-    {
-      "date": "2026-10-09",
-      "units": -1.0
-    },
-    {
-      "date": "2026-10-09",
-      "units": 0.17
-    },
-    {
-      "date": "2026-10-10",
-      "units": -0.83
-    },
-    {
-      "date": "2026-10-10",
-      "units": -1.83
-    },
-    {
-      "date": "2026-10-10",
-      "units": 0.12
-    },
-    {
-      "date": "2026-10-10",
-      "units": 2.24
-    },
-    {
-      "date": "2026-10-10",
-      "units": 1.24
-    },
-    {
-      "date": "2026-10-10",
-      "units": 2.47
-    },
-    {
-      "date": "2026-10-10",
-      "units": 4.07
-    },
-    {
-      "date": "2026-10-10",
-      "units": 3.07
-    },
-    {
-      "date": "2026-10-10",
-      "units": 2.07
-    },
-    {
-      "date": "2026-10-10",
-      "units": 1.07
-    },
-    {
-      "date": "2026-10-10",
-      "units": 3.54
-    }
-  ],
+  "stake_units": 0,
+  "profit_units": 0,
+  "cumulative_units": [],
   "exploratory_segments": {
     "warning": "Exploratoire : ne jamais retenir après coup le segment qui a le mieux marché.",
-    "by_league": {
-      "BUNDESLIGA": {
-        "n": 3,
-        "units": -0.05,
-        "roi": -0.0167
-      },
-      "LIGUE1": {
-        "n": 4,
-        "units": -0.53,
-        "roi": -0.1325
-      },
-      "PL": {
-        "n": 3,
-        "units": 1.83,
-        "roi": 0.61
-      },
-      "SERIEA": {
-        "n": 2,
-        "units": 1.12,
-        "roi": 0.56
-      },
-      "WNBA": {
-        "n": 1,
-        "units": 1.17,
-        "roi": 1.17
-      }
-    },
-    "by_market": {
-      "h2h": {
-        "n": 8,
-        "units": 5.59,
-        "roi": 0.6987
-      },
-      "totals": {
-        "n": 5,
-        "units": -2.05,
-        "roi": -0.41
-      }
-    }
+    "by_league": {},
+    "by_market": {}
+  },
+  "previous_strategy": {
+    "label": "Archive : paris choisis par le modèle Revue (avant le 2026-10-11), hors règle v2",
+    "settled": 18,
+    "profit_units": 4.16
   },
   "real_bets_enabled": false
 }

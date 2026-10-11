@@ -24,6 +24,7 @@ footer{border-top:1px solid var(--edge);margin-top:30px;padding-top:18px}
 <main><small class="eyebrow">Revue · Journal papier</small>
 <h1>Règle de décision</h1>
 <p>Une seule question : les paris fictifs de Revue, figés <strong>avant</strong> le match à des cotes françaises <strong>réellement observées</strong>, montrent-ils un avantage réel ? La règle a été écrite le 11 octobre 2026, avant d'avoir des résultats, pour ne pas pouvoir l'ajuster après coup.</p>
+<p><strong>Stratégie suivie (v2, depuis le 11 octobre 2026)</strong> : un pari n'est retenu que si la cote française bat d'au moins 3 % la probabilité de référence de PS3838 (cotes de type Pinnacle), marge retirée. Le modèle Revue reste affiché pour comparaison, mais ne choisit plus. Les paris de l'ancienne stratégie (choisis par le modèle) sont archivés à part et ne comptent pas.</p>
 <div id="verdict" class="verdict"><span>Chargement…</span></div>
 <h2>Les quatre critères (tous requis)</h2>
 <div class="grid" id="criteria"></div>
@@ -49,7 +50,7 @@ function detail(c){
  if(c.id==="volume")return `${c.progress} paris réglés éligibles`;
  if(c.id==="roi")return v?`ROI ${pct(v.mean)} · IC 95 % ${ci(v)}`:"Aucun pari réglé";
  if(c.id==="clv")return v?`${c.progress} cotes de clôture · CLV moyenne ${pct(v.mean)} · IC ${ci(v)}`:`${c.progress} cotes de clôture observées`;
- if(c.id==="calibration")return v&&v.n?`Brier modèle ${v.brier_model} vs marché ${v.brier_market} (${v.n} paris ; plus bas = mieux)`:"Aucun pari réglé";
+ if(c.id==="calibration")return v&&v.n?`Brier référence ${v.brier_reference} vs marché ${v.brier_market} (${v.n} paris ; plus bas = mieux)`:"Aucun pari réglé";
  return "";
 }
 function progress(c){const m=/^(\d+)\/(\d+)$/.exec(c.progress||"");return m?Math.min(1,+m[1]/+m[2]):null;}
@@ -74,6 +75,8 @@ fetch("./regle-decision-latest.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw
  const [cls,title,text]=LABEL[d.verdict]||["v-non",d.verdict,""];
  const box=$("verdict");box.className="verdict "+cls;box.replaceChildren(el("small","eyebrow","Verdict actuel"),el("strong",null,title),el("p",null,text),
    el("p",null,`${d.settled_eligible} paris réglés éligibles · ${d.pending} en attente · ${d.profit_units>=0?"+":""}${d.profit_units} u · mis à jour ${String(d.generated_at_utc).slice(0,16).replace("T"," ")} UTC`));
+ const old=d.previous_strategy;
+ if(old)box.append(el("p",null,`Archive ancienne stratégie (modèle) : ${old.settled} paris réglés · ${old.profit_units>=0?"+":""}${old.profit_units} u — hors règle.`));
  for(const c of d.criteria){
   const card=el("div","card"),h=el("h3");h.append(el("span",null,c.label),el("span",c.ok?"ok":"ko",c.ok?"✓ rempli":"○ pas encore"));card.append(h,el("p",null,detail(c)));
   const p=progress(c);if(p!==null){const bar=el("div","bar"),i=el("i");i.style.width=(100*p).toFixed(1)+"%";bar.append(i);card.append(bar);}

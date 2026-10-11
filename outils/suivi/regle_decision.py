@@ -13,6 +13,11 @@ Verdicts possibles :
 - « prometteur »   : les QUATRE critères sont remplis ;
 - « non concluant »: sinon.
 
+v2 (2026-10-11) : la sélection des paris passe du modèle Revue à la
+référence sharp (stratégie « sharp_ev_v1 » : cote française meilleure que
+PS3838/Pinnacle sans marge, d'au moins 3 %). Adoptée avant tout résultat de
+cette stratégie ; seuls ses paris comptent, les précédents sont archivés à part.
+
 Toute modification de RULE = nouvelle version (RULE["version"]) ; le test
 tests/test_regle_decision.py échoue si les seuils changent sans cela.
 Les ventilations par ligue/marché sont exploratoires : choisir après coup le
@@ -29,8 +34,9 @@ from pathlib import Path
 from outils.suivi.historique_cotes_clv import closing_sample
 
 RULE = {
-    "version": "revue_decision_rule_v1",
+    "version": "revue_decision_rule_v2",
     "adopted_on": "2026-10-11",
+    "selection_rule": "sharp_ev_v1",  # seuls les paris de cette stratégie comptent
     "min_settled": 300,          # C1 volume
     "min_for_stop": 100,         # seuil minimal pour conclure à l'abandon
     "z": 1.96,                   # intervalles de confiance à 95 %
@@ -41,7 +47,7 @@ CRITERIA = (
     ("volume", "Au moins 300 paris pré-match réglés à cote réellement observée"),
     ("roi", "ROI positif même en bas de son intervalle de confiance à 95 %"),
     ("clv", "Cote prise meilleure que la cote de clôture (CLV > 0, IC 95 %) sur au moins 150 paris"),
-    ("calibration", "Probabilités du modèle plus justes que celles du marché (Brier plus bas) sur les mêmes paris"),
+    ("calibration", "Probabilité de référence (PS3838/Pinnacle sans marge) plus juste que le marché français (Brier plus bas) sur les mêmes paris"),
 )
 
 
@@ -65,6 +71,13 @@ def _num(value):
 
 def eligible(bet: dict) -> str | None:
     """None si le pari compte ; sinon le motif d'exclusion."""
+    if bet.get("selection_rule") != RULE["selection_rule"]:
+        return "autre_strategie"
+    return eligible_any_strategy(bet)
+
+
+def eligible_any_strategy(bet: dict) -> str | None:
+    """Contrôles d'intégrité communs, quelle que soit la stratégie de sélection."""
     if bet.get("status") not in ("won", "lost", "push"):
         return "non_regle"
     if bet.get("chronology") != "pre_valide":
@@ -113,7 +126,7 @@ def brier_comparison(bets: list[dict]) -> dict:
     for b in bets:
         if b["status"] == "push":
             continue
-        p = _num(b.get("p_model"))
+        p = _num(b.get("p_sharp_no_vig"))
         if p is None or not 0 < p < 1:
             continue
         y = 1.0 if b["status"] == "won" else 0.0
@@ -121,9 +134,9 @@ def brier_comparison(bets: list[dict]) -> dict:
         market.append((market_probability(b) - y) ** 2)
     n = len(model)
     if not n:
-        return {"n": 0, "brier_model": None, "brier_market": None, "difference": None}
+        return {"n": 0, "brier_reference": None, "brier_market": None, "difference": None}
     diff = mean_ci([a - b for a, b in zip(model, market)], RULE["z"])
-    return {"n": n, "brier_model": round(sum(model) / n, 4), "brier_market": round(sum(market) / n, 4),
+    return {"n": n, "brier_reference": round(sum(model) / n, 4), "brier_market": round(sum(market) / n, 4),
             "difference": diff}
 
 
@@ -181,7 +194,10 @@ def evaluate(ledger: dict, now: datetime) -> dict:
         verdict = "prometteur"
     else:
         verdict = "non concluant"
-    pending = sum(1 for b in bets if isinstance(b, dict) and b.get("status") == "pending")
+    pending = sum(1 for b in bets if isinstance(b, dict) and b.get("status") == "pending"
+                  and b.get("selection_rule") == RULE["selection_rule"])
+    previous = [b for b in bets if isinstance(b, dict) and b.get("selection_rule") != RULE["selection_rule"]
+                and eligible_any_strategy(b) is None]
     return {
         "version": RULE["version"],
         "generated_at_utc": now.astimezone(timezone.utc).isoformat(),
@@ -200,6 +216,11 @@ def evaluate(ledger: dict, now: datetime) -> dict:
             "warning": "Exploratoire : ne jamais retenir après coup le segment qui a le mieux marché.",
             "by_league": segments(kept, lambda b: str(b.get("league"))),
             "by_market": segments(kept, lambda b: str(b.get("market"))),
+        },
+        "previous_strategy": {
+            "label": "Archive : paris choisis par le modèle Revue (avant le 2026-10-11), hors règle v2",
+            "settled": len(previous),
+            "profit_units": round(sum(profit(b) for b in previous), 2),
         },
         "real_bets_enabled": False,
     }

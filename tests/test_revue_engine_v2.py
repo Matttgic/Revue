@@ -115,11 +115,26 @@ class PaperTests(unittest.TestCase):
         self.assertTrue(any(s["p_sharp_no_vig"] is not None for s in selections))
 
     def test_stale_pinnacle_not_used_as_consensus(self):
+        # sharp_ev_v1 : sans référence sharp fraîche, aucun pari n'est retenu.
         event=quotes()
         event["bookmakers"][1]["last_update"]=iso(NOW-timedelta(hours=3))
+        out,notes=market_recommendations(models(),{"PL":[event]},NOW)
+        self.assertEqual(out,[])
+        self.assertGreater(notes["no_sharp_reference"],0)
+
+    def test_selection_follows_sharp_reference_not_model(self):
+        out,_=market_recommendations(models(),{"PL":[quotes()]},NOW)
+        home=[c for c in out if c["market"]=="h2h" and c["side"]=="home"]
+        self.assertEqual(len(home),1)
+        inv=[1/1.72,1/5.8,1/4.0]
+        self.assertAlmostEqual(home[0]["ev_sharp"],inv[0]/sum(inv)*1.85-1,places=4)
+        self.assertEqual(home[0]["selection_rule"],"sharp_ev_v1")
+        # Le modèle voit de la value à 1.70 (0.64 x 1.70 > 1), mais la cote ne bat
+        # pas la référence sharp sans marge : refusé.
+        event=quotes()
+        event["bookmakers"][0]["markets"][0]["outcomes"][0]["price"]=1.70
         out,_=market_recommendations(models(),{"PL":[event]},NOW)
-        self.assertTrue(out)
-        self.assertTrue(all(c["p_sharp_no_vig"] is None for c in out))
+        self.assertFalse([c for c in out if c["market"]=="h2h" and c["side"]=="home"])
 
     def test_late_quote_refused(self):
         selections,notes=market_recommendations(models(),{"PL":[quotes(when=START+timedelta(hours=1))]},NOW)
