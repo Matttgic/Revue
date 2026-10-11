@@ -1,6 +1,11 @@
 name: Revue - PulseScore vs community odds (7 days)
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/community-odds-shadow.yml'
+      - 'outils/collecte/shadow_sources.py'
   schedule:
     # Seven calendar days in October 2026 (UTC), then automatically no-op.
     - cron: '27 9 * * *'
