@@ -2,28 +2,28 @@
 "use strict";
 document.addEventListener("DOMContentLoaded",async()=>{
  const root=document.getElementById("phase14-brief");if(!root)return;
+ root.querySelectorAll(".p14-brief-msg").forEach(n=>n.remove());
  const add=(tag,text,klass,parent)=>{const n=document.createElement(tag);if(klass)n.className=klass;
   n.textContent=String(text);(parent||root).append(n);return n;};
  const fmt=n=>typeof n==="number"&&Number.isFinite(n)?n.toLocaleString("fr-FR",{maximumFractionDigits:1}):"—";
  const route=document.body.dataset.page;
- const top=add("div","","p14-brief-top"),headline=add("strong","SOURCE CHECK / RECHERCHE","",top);
- const time=add("small","Vérification des sources…","",top);
+ const top=add("div","","p14-brief-top"),headline=add("strong","ÉTAT DU JEU","",top);
+ const time=add("small","Lecture des données…","",top);
  const tiles=add("div","","p14-metrics");
  const msg=add("p","Les matchs, les simulations fictives et les résultats des modèles doivent rester séparés.","p14-brief-msg");
  const links=add("div","","p14-brief-actions");
  const link=(target,text)=>{const a=add("a",text,"",links);a.href=target;};
- link("./play.html","01 À JOUER");link("./pourquoi.html","02 POURQUOI");
- link("./bilan.html","03 BILAN");link("./phase13-modeles.html","LAB : TESTS DES MODÈLES ↗");
+ link("./regle-decision.html","★ RÈGLE DE DÉCISION");link("./phase13-modeles.html","⚙ TESTS DES MODÈLES");
  function tile(label,value,description){
   const box=add("article","","p14-metric",tiles);
   add("small",label,"",box);add("strong",value,"",box);add("span",description,"",box);
  }
  function fail(label){
-  tiles.replaceChildren();headline.textContent="SOURCE CHECK / ABSTENTION";
-  time.textContent="Source non validée";msg.textContent=label;
+  tiles.replaceChildren();headline.textContent="PAUSE : DONNÉES À VÉRIFIER";
+  time.textContent="Données non confirmées";msg.textContent=label;
   tile("Paris certifiés","0","Aucune mise conseillée");
   tile("Matchs à étudier","—","Calendrier non confirmé");
-  tile("Modèles validés","0","Validation insuffisante");
+  tile("Modèles fiables","0","Pas encore assez de preuves");
  }
  try{
   const resp=await fetch("./phase14-readiness-latest.json",{cache:"no-store"});
@@ -46,26 +46,26 @@ document.addEventListener("DOMContentLoaded",async()=>{
   time.textContent="Mise à jour "+new Date(published).toLocaleString("fr-FR",
      {timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
   tiles.replaceChildren();
-  tile("Matchs à analyser",fmt(d.today.upcoming_fixtures),
-       fmt(d.today.upcoming_with_research_models)+" avec modèle expérimental");
-  tile("Paris réellement validés","0","Sans cotes jouables + calibration, SKIP");
+  tile("Matchs à étudier",fmt(d.today.upcoming_fixtures),
+       fmt(d.today.upcoming_with_research_models)+" avec un avis des modèles");
+  tile("Paris conseillés","0","Aucun tant que rien n'est prouvé");
   if(route==="bilan"){
-   tile("Simulations fictives réglées",fmt(d.simulation_paper.settled),
-     fmt(d.simulation_paper.excluded)+" exclues des résultats");
-   msg.textContent="Le ROI et le profit en unités affichés plus bas sont uniquement fictifs. "+
-     d.models.officially_settled_forecasts+" sorties de modèles multisports réglées, "+
-     d.models.NHL_settled+" en NHL. Aucun avantage prouvé.";
+   tile("Paris fictifs terminés",fmt(d.simulation_paper.settled),
+     fmt(d.simulation_paper.excluded)+" écartés (règles non vérifiées)");
+   msg.textContent="Les gains et pertes ci-dessous sont fictifs (aucun argent réel). "+
+     d.models.officially_settled_forecasts+" prévisions des modèles déjà vérifiées, dont "+
+     d.models.NHL_settled+" en NHL. Aucun avantage prouvé pour l'instant.";
   }else if(route==="pourquoi"){
-   tile("Prédictions validées","0","Modèles non calibrés indépendamment");
-   msg.textContent="Choisis un match : les sources, probabilités expérimentales et motifs d'abstention "+
-     "sont distingués des vraies cotes. Aucun pronostic automatique.";
+   tile("Modèles fiables","0","Pas encore assez de preuves");
+   msg.textContent="Choisis un match pour voir ce que disent les modèles et pourquoi Revue ne conseille "+
+     "pas de parier. Les chiffres des modèles ne sont pas des cotes de bookmaker.";
   }else{
-   tile("Prédictions réglées",fmt(d.models.officially_settled_forecasts),
-     "Évaluées sur résultat officiel, hors simulations");
-   msg.textContent="Aucun pari validé à ce stade. Consulte les matchs disponibles pour les étudier, "+
-     "ou leur bilan indépendant ; un modèle prometteur n'est pas une garantie.";
+   tile("Prévisions vérifiées",fmt(d.models.officially_settled_forecasts),
+     "Comparées au score final officiel");
+   msg.textContent="Aucun pari conseillé pour l'instant. Tu peux étudier les matchs du jour "+
+     "et suivre le score des paris fictifs : un bon modèle n'est jamais une garantie.";
   }
-  headline.textContent="SOURCE CHECK / DONNÉES HORODATÉES";
- }catch(e){fail("Revue ne peut pas certifier la fraîcheur de ses sources : "+e.message+
-    " Les recherches restent consultables, sans conseil de mise.");}
+  headline.textContent="ÉTAT DU JEU · DONNÉES À JOUR";
+ }catch(e){fail("Les données ne sont pas assez récentes pour être sûres : "+e.message+
+    " Tu peux tout consulter, mais sans aucun conseil de pari.");}
 });

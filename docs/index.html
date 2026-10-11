@@ -4,63 +4,62 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080b19">
 <meta name="description" content="REVUE ARCADE : quoi analyser aujourd'hui, pourquoi un pari est refusé et le bilan de simulations vérifiées.">
-<title>REVUE ARCADE · À jouer, pourquoi, bilan</title>
+<title>REVUE · le carnet de paris qui ne triche pas</title>
 <link rel="stylesheet" href="./theme.css?v=2">
 <link rel="stylesheet" href="./retro.css?v=1"><link rel="stylesheet" href="./phase8-ui.css?v=1"><link rel="stylesheet" href="./phase14-ui.css?v=1">
 <link rel="stylesheet" href="./arcade-v3.css?v=1">
 <script defer src="./retro-app.js?v=1"></script>
 <script defer src="./arcade-v3-data.js?v=3"></script>
 <script defer src="./arcade-v3-app.js?v=4"></script>
-<script defer src="./phase14-ui.js?v=1"></script></head>
+<script defer src="./phase14-ui.js?v=1"></script><script defer src="./pixel.js?v=1"></script>
+</head>
 <body class="retro" data-page="arcade-v3">
 <div class="rv-topbar"><div class="rv-top-inner">
 <a href="./index.html" class="rv-brand" aria-label="Revue Arcade, accueil"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a>
-<nav class="rv-nav" aria-label="Navigation principale"><a href="./play.html">À JOUER</a><a href="./pourquoi.html">POURQUOI</a><a href="./bilan.html">BILAN</a></nav>
-<a class="phase8-lab-shortcut" href="./lab.html">LAB ↗</a>
+<nav class="rv-nav" aria-label="Navigation principale"><a href="./play.html">MATCHS</a><a href="./pourquoi.html">POURQUOI ?</a><a href="./bilan.html">BILAN</a></nav>
+<a class="phase8-lab-shortcut" href="./lab.html">LAB</a>
 </div></div>
-<nav class="arc-bottom-nav" aria-label="Navigation mobile principale"><a href="./play.html"><span class="arc-nav-icon" aria-hidden="true">▷</span>À JOUER</a><a href="./pourquoi.html"><span class="arc-nav-icon" aria-hidden="true">?</span>POURQUOI</a><a href="./bilan.html"><span class="arc-nav-icon" aria-hidden="true">▤</span>BILAN</a></nav>
+<nav class="arc-bottom-nav" aria-label="Navigation mobile principale"><a href="./play.html"><span class="arc-nav-icon" aria-hidden="true">▶</span>MATCHS</a><a href="./pourquoi.html"><span class="arc-nav-icon" aria-hidden="true">?</span>POURQUOI ?</a><a href="./bilan.html"><span class="arc-nav-icon" aria-hidden="true">★</span>BILAN</a></nav>
 <main class="arc-main">
-<header class="arc-v3-header">
+<header class="px-start">
+<div class="px-screen">
+<div class="px-ball-zone" aria-hidden="true"><i class="px-ball"></i><i class="px-ball-shadow"></i></div>
+<h1 class="px-title">REVUE<span>.</span></h1>
+<p class="px-tagline">Le carnet de paris sportifs qui ne triche pas.</p>
+<p class="px-tagline" style="font-size:20px;color:var(--px-lgray)">On étudie les matchs, on note chaque pari fictif <strong>avant</strong> le coup d'envoi, et on garde le score honnêtement.</p>
+<p class="px-press" aria-hidden="true">▶ CHOISIS TA PARTIE</p>
+</div>
 <div>
-<span class="arc-eyebrow">REVUE ARCADE / TON TABLEAU DE BORD</span>
-<h1>GAME <span>ON.</span></h1>
-<p>Un seul endroit pour savoir <strong>quels matchs étudier</strong>, comprendre <strong>pourquoi un pari est refusé</strong> et voir le <strong>bilan réel des simulations fictives</strong>.</p>
-<div class="arc-v3-hero-actions">
-<a class="arc-btn arc-btn--primary" href="./play.html">▷ À JOUER</a>
-<a class="arc-btn" href="./pourquoi.html">? POURQUOI</a>
-</div>
-</div>
-<div class="arc-machine" aria-hidden="true">
-<div class="arc-pixel arc-pixel--a"></div><div class="arc-pixel arc-pixel--b"></div><div class="arc-pixel arc-pixel--c"></div>
-<div class="arc-orbit"></div><div class="arc-console"><div class="arc-console-screen"><div class="arc-screen-text">REVUE<small>GAME DATA · NO GUESS</small></div></div><div class="arc-dpad"></div><div class="arc-pad-buttons"><i></i><i></i></div></div><div class="arc-grid"></div>
+<nav class="px-menu" aria-label="Menu principal" data-menu>
+<a class="px-menu-item" href="#home-jouer"><b>1</b><strong>MATCHS DU JOUR</strong><small>Les rencontres à étudier, sport par sport</small></a>
+<a class="px-menu-item" href="#home-pourquoi"><b>?</b><strong>POURQUOI ?</strong><small>L'avis des modèles, match par match</small></a>
+<a class="px-menu-item" href="#home-bilan"><b>★</b><strong>MON BILAN</strong><small>Le score des paris fictifs, gagnés et perdus</small></a>
+<a class="px-menu-item px-menu-item--lab" href="./lab.html"><b>⚙</b><strong>LE LAB</strong><small>Tous les outils et audits techniques</small></a>
+</nav>
+<p class="px-keys">↑ ↓ POUR CHOISIR · ENTRÉE POUR JOUER</p>
 </div>
 </header>
 <section id="phase14-brief" class="p14-brief" aria-label="Statut vérifié de Revue" role="region">
 <p class="p14-brief-msg" aria-live="polite">Vérification des matchs, prévisions et simulations…</p>
 </section>
-<nav class="arc-v3-sticky" aria-label="Les trois étapes de Revue">
-<a href="#home-jouer">01 · À JOUER</a>
-<a href="#home-pourquoi">02 · POURQUOI</a>
-<a href="#home-bilan">03 · BILAN</a>
-</nav>
 <p class="arc-v3-info" id="v3-data-status" role="status" aria-live="polite">Vérification des données réelles et des résultats fictifs…</p>
 
 <section class="arc-v3-section" id="home-jouer" aria-labelledby="v3-playing">
 <div class="arc-v3-headline">
-<h2 id="v3-playing">01 / <span>À JOUER ?</span></h2>
+<h2 id="v3-playing"><span class="px-level">NIVEAU 1</span><br>MATCHS <span>DU JOUR</span></h2>
 <small id="home-when">Lecture des horaires…</small>
 </div>
 <div class="arc-v3-nope" role="status">
-<div><strong id="home-status">Aucun pari certifié à ce stade</strong>
-<small>Revue ne recommande pas une mise sans données actualisées, modèle suffisamment validé et cote réelle comparable.</small></div>
+<div><strong id="home-status">Aucun pari conseillé pour l'instant</strong>
+<small>Revue ne conseille un pari que si les données sont à jour, le modèle a fait ses preuves et une vraie cote est disponible. Ce n'est pas encore le cas : on étudie, on ne mise pas.</small></div>
 </div>
 <div class="arc-v3-stats" aria-label="État du radar">
-<div class="arc-v3-stat"><div class="caption">Paris validés</div><strong id="home-active" class="value">0</strong><div class="hint">Pas d'opportunité inventée</div></div>
-<div class="arc-v3-stat"><div class="caption">Critère principal</div><strong class="value">EV</strong><div class="hint">Cote actuelle + probabilité validée</div></div>
-<div class="arc-v3-stat"><div class="caption">En cas de doute</div><strong class="value">SKIP</strong><div class="hint">Aucune mise automatique</div></div>
+<div class="arc-v3-stat"><div class="caption">Paris conseillés</div><strong id="home-active" class="value">0</strong><div class="hint">Jamais de pari inventé</div></div>
+<div class="arc-v3-stat"><div class="caption">Condition</div><strong class="value">COTE</strong><div class="hint">Une vraie cote, meilleure que le modèle</div></div>
+<div class="arc-v3-stat"><div class="caption">En cas de doute</div><strong class="value">PASSE</strong><div class="hint">Mieux vaut ne pas jouer</div></div>
 </div>
 <div class="arc-v3-headline">
-<h2>Matchs <span>à analyser</span></h2>
+<h2>Choisis <span>un match</span></h2>
 <small id="v3-count">Chargement du calendrier…</small>
 </div>
 <div class="arc-v3-filters">
@@ -83,7 +82,7 @@
 
 <section class="arc-v3-section" id="home-pourquoi" aria-labelledby="v3-why">
 <div class="arc-v3-headline">
-<h2 id="v3-why">02 / <span>POURQUOI ?</span></h2><small>Une justification claire pour chaque rencontre</small>
+<h2 id="v3-why"><span class="px-level">NIVEAU 2</span><br>POUR<span>QUOI ?</span></h2><small>Ce que disent les modèles, en clair</small>
 </div>
 <p id="v3-why-summary" class="arc-v3-info">Les raisons sont calculées à partir des sources vérifiées, pas d'un score de confiance inventé.</p>
 <div id="v3-explain" class="arc-v3-why-panel" aria-live="polite">
@@ -92,14 +91,14 @@
 </section>
 
 <section class="arc-v3-section" id="home-bilan" aria-labelledby="v3-bilan">
-<div class="arc-v3-headline"><h2 id="v3-bilan">03 / <span>BILAN.</span></h2>
+<div class="arc-v3-headline"><h2 id="v3-bilan"><span class="px-level">NIVEAU 3</span><br>MON <span>BILAN</span></h2>
 <a href="./bilan.html" class="arc-btn">BILAN DÉTAILLÉ ↗</a></div>
 <div class="arc-v3-info">Uniquement les <strong>simulations fictives</strong> enregistrées avant le début des matchs, puis vérifiées et réglées. Ces unités ne correspondent ni à un solde bancaire, ni à des gains réels.</div>
 <div class="arc-v3-stats" aria-label="Résultats fictifs vérifiés">
 <article class="arc-v3-stat"><div class="caption">Profit fictif</div><strong id="home-profit" class="value">—</strong><div class="hint">Après règlement</div></article>
 <article class="arc-v3-stat"><div class="caption">ROI fictif</div><strong id="home-roi" class="value">—</strong><div class="hint">Seulement sur mises réglées</div></article>
 <article class="arc-v3-stat"><div class="caption">Paris réglés</div><strong id="home-settled" class="value">—</strong><div class="hint">Résultats vérifiés</div></article>
-<article class="arc-v3-stat"><div class="caption">Winrate</div><strong id="v3-winrate" class="value">—</strong><div class="hint">Gagnés / réglés</div></article>
+<article class="arc-v3-stat"><div class="caption">Réussite</div><strong id="v3-winrate" class="value">—</strong><div class="hint">Gagnés / réglés</div></article>
 <article class="arc-v3-stat"><div class="caption">En attente</div><strong id="v3-pending" class="value">—</strong><div class="hint">Non inclus dans le ROI</div></article>
 </div>
 <p class="arc-v3-paper-note" id="v3-paper-detail">Vérification du journal pré-match…</p>
@@ -123,7 +122,7 @@
 </section>
 <footer class="arc-footer">
 <span>REVUE ARCADE · DONNÉES HORODATÉES · AUCUN PARI AUTOMATIQUE</span>
-<a href="./etat-donnees.html">ÉTAT DES DONNÉES ↗</a> · <a href="./lab.html">LAB ↗</a>
+<a href="./etat-donnees.html">ÉTAT DES DONNÉES ↗</a> · <a href="./lab.html">LAB</a>
 </footer>
 </main>
 </body></html>

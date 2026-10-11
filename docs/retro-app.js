@@ -90,9 +90,9 @@ function createResearch(g){
  card.append(head,el("h3","",g.away+" — "+g.home));
  card.append(el("p","selection","À examiner : "+selectionName(g)));
  const bot=el("div","arc-pick-bottom");
- const odds=el("div");odds.append(el("div","arc-odds",price(g.best_observed_price.decimal_odds)),el("small","arc-muted","Cote OBSERVÉE · "+String(g.best_observed_price.bookmaker).replace("_fr","")));
- bot.append(odds,label("NON VALIDÉ","off"));card.append(bot);
- card.append(el("p","arc-help","Relevé le "+fmtTime(g.best_observed_price.quote_at_utc)+". Modèle expérimental non calibré. Cette cote peut ne plus être disponible."));
+ const odds=el("div");odds.append(el("div","arc-odds",price(g.best_observed_price.decimal_odds)),el("small","arc-muted","Cote relevée · "+String(g.best_observed_price.bookmaker).replace("_fr","")));
+ bot.append(odds,label("PAS DE PARI","off"));card.append(bot);
+ card.append(el("p","arc-help","Relevé le "+fmtTime(g.best_observed_price.quote_at_utc)+". Modèle pas encore prouvé ; la cote a peut-être changé depuis."));
  const why=el("a","arc-btn","POURQUOI ? ↗");why.href="./pourquoi.html?league="+encodeURIComponent(g.league)+"&id="+encodeURIComponent(g.event_id);card.append(why);
  const link=el("a","arc-btn","Fiche match ↗");link.href=matchUrl(g);card.append(link);
  return card;
@@ -102,7 +102,7 @@ function createMatch(g){
  const head=el("div","arc-pick-head");
  head.append(el("span","",g.league),el("span","",fmtTime(g.start_utc)));
  card.append(head,el("h3","",g.away+" — "+g.home));
- card.append(el("p","arc-help","Rencontre à suivre · "+g.research.length+" modèle(s) de recherche · aucune sélection validée"));
+ card.append(el("p","arc-help","À suivre · "+g.research.length+" modèle(s) · pas de pari conseillé"));
  if(g.league==="NHL"&&g.observed_nhl_goalies&&
     g.observed_nhl_goalies.model_probabilities_recomputed===false&&
     g.observed_nhl_goalies.actually_started_verified===false){
@@ -125,7 +125,7 @@ function createMatch(g){
      ". Titulaires non confirmés et probabilités inchangées."));
  }
  const bottom=el("div","arc-pick-bottom");
- bottom.append(label("PAS DE PARI VALIDÉ","off"));
+ bottom.append(label("PAS DE PARI","off"));
  const link=el("a","arc-btn","Voir la rencontre ↗");link.href=matchUrl(g);bottom.append(link);
  const why=el("a","arc-btn","POURQUOI ? ↗");why.href="./pourquoi.html?league="+encodeURIComponent(g.league)+"&id="+encodeURIComponent(g.event_id);bottom.append(why);
  card.append(bottom);return card;
@@ -167,8 +167,8 @@ function renderHome(){
   root.replaceChildren();
   const candidates=researchCandidates().slice(0,3);
   put("home-research-count",candidates.length);
-  if(!candidates.length)root.append(empty("Aucun pari validé aujourd'hui",
-   "La sélection automatique n'est pas calibrée et aucune cote actuelle n'est confirmée. Ne rien jouer est une option. Les matchs à venir restent consultables ci-dessous."));
+  if(!candidates.length)root.append(empty("Aucun pari conseillé aujourd'hui",
+   "Les modèles n'ont pas encore fait leurs preuves et aucune cote n'est confirmée. Ne pas jouer est un bon choix. Les matchs restent à étudier ci-dessous."));
   else {root.append(el("p","arc-help","Observations expérimentales uniquement : aucune recommandation de mise."));for(const c of candidates)root.append(createResearch(c));}
  }
  const m=$("home-matches");if(m){
@@ -204,11 +204,11 @@ function renderPlay(){
  const valid=candidates.filter(x=>!filter||[x.league,x.home,x.away,x.market,x.selection_label].some(v=>String(v||"").toLowerCase().includes(filter)));
  put("play-count",valid.length);
  put("play-status",picks?
- "Flux enregistré le "+fmtTime(picks.source_engine_generated_at_utc)+
- " · aucune EV confirmée · meilleure cote = prix passé, non disponible en direct":
+ "Cotes relevées le "+fmtTime(picks.source_engine_generated_at_utc)+
+ " · ces cotes sont des relevés passés, pas des cotes en direct":
  "Aucune source de prix vérifiée");
  if(valid.length)for(const c of valid.slice(0,60))root.append(createResearch(c));
- else root.append(empty("Aucun pari recommandé","Les probabilités ne sont pas calibrées et aucune cote n'est confirmée en temps réel. Pas de sélection forcée."));
+ else root.append(empty("Aucun pari conseillé","Les modèles ne sont pas encore prouvés et aucune cote n'est confirmée en direct. Pas de pari forcé."));
  const games=upcomingMatches().filter(x=>!filter||[x.league,x.home,x.away].some(v=>String(v).toLowerCase().includes(filter)));
  put("play-match-count",games.length);
  if(matchRoot){
@@ -323,7 +323,7 @@ document.addEventListener("DOMContentLoaded",async()=>{
  setupEvents();setupTilt();
  const route=document.body.dataset.page;
  if(route==="arcade-v3"||route==="pourquoi")return; // V3 owns its data gates and UI; never boot two competing dashboards
- if(route==="lab"){put("lab-status","Laboratoire de recherche · réservé aux outils techniques, sans mise réelle");return;}
+ if(route==="lab"){put("lab-status","Salle des machines · outils techniques, sans argent réel");return;}
  await bootData();
  if(route==="home")renderHome();
  if(route==="play")renderPlay();

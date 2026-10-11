@@ -152,16 +152,16 @@ function createCard(e){
   h("span","arc-v3-date",date(e.start)));
  c.append(a,h("h3","",e.away+" — "+e.home));
  const info=h("p","arc-v3-game-info",e.modelCount+
-  " modèle(s) expérimental(aux)"+
-  (e.owned?" · "+e.owned.projections.length+" prévision(s) verrouillée(s)":"")+" · "+
+  (e.modelCount>1?" modèles":" modèle")+
+  (e.owned?" · "+e.owned.projections.length+" avis figés avant le match":"")+" · "+
   (e.recentCrossBookPrices?.length?
-    e.recentCrossBookPrices.length+" écarts de cotes PulseScore observés":
+    e.recentCrossBookPrices.length+" écarts de cotes relevés":
     e.recentObservedPriceExamples?.length?
-    "cotes PulseScore observées (non garanties)":
-    e.historicalQuotes.length?"prix historiques disponibles":"aucune cote vérifiée"));
+    "cotes relevées (peut-être plus dispo)":
+    e.historicalQuotes.length?"anciennes cotes connues":"pas de cote connue"));
  c.append(info);
  const bottom=h("div","arc-v3-game-bottom");
- add(bottom,h("span","arc-v3-status","À ANALYSER · NON VALIDÉ"));
+ add(bottom,h("span","arc-v3-status","À ÉTUDIER · PAS DE PARI"));
  const button=h("button","arc-v3-why-button","Pourquoi ?");
  button.type="button";
  button.setAttribute("aria-label","Voir pourquoi aucun pari n'est validé pour "+e.away+" contre "+e.home);
@@ -186,7 +186,7 @@ function drawEvents(){
  const items=source.filter(e=>(activeSport==="all"||sportOf(e)===activeSport)&&
   (!query||(e.away+" "+e.home+" "+e.league).toLowerCase().includes(query)));
  const chosen=window.RevueArcadeV3.prioritizeForReview(items).slice(0,10);
- put("v3-count",items.length+" rencontre(s) · mieux documentées d'abord (pas un classement de paris)");
+ put("v3-count",items.length+" matchs · les plus riches en données d'abord");
  put("home-active",0);
  root.replaceChildren();
  if(!chosen.length){
@@ -236,23 +236,23 @@ function drawPaper(){
 }
 function renderState(){
  const m=state.sources.matches==="fresh";
- put("home-status",m?"0 pari certifié · calendrier vérifié":"0 pari certifié · calendrier non actualisé");
- put("home-when",m?"Rencontres : "+date(state.matchUpdated)+" · données horodatées":"Aucune prédiction générée depuis un calendrier périmé");
+ put("home-status",m?"Aucun pari conseillé pour l'instant":"Aucun pari conseillé · calendrier pas à jour");
+ put("home-when",m?"Mis à jour le "+date(state.matchUpdated):"Aucune prédiction générée depuis un calendrier périmé");
  put("v3-why-summary",state.reason);
  const n=state.sources.nhl==="partial_research";
  put("v3-data-status",
-   (m?"CALENDRIER VÉRIFIÉ":"CALENDRIER INDISPONIBLE")+" · "+
-   (n?"NHL EXPÉRIMENTAL":"NHL NON ACTUALISÉ")+" · "+
-   (state.sources.radar==="bounded_six_hour_observations"?"PULSESCORE 6H OBSERVÉ":"PULSESCORE 6H INDISPONIBLE")+" · "+
-   (state.sources.own==="prospective_independent_unvalidated"?"HISTORIQUE REVUE CONNECTÉ":"HISTORIQUE REVUE À ACTUALISER")+" · "+
-   (state.paper?"BILAN FICTIF VÉRIFIÉ":"BILAN NON VÉRIFIÉ"));
+   (m?"✓ CALENDRIER À JOUR":"✗ CALENDRIER EN RETARD")+" · "+
+   (n?"✓ NHL":"✗ NHL")+" · "+
+   (state.sources.radar==="bounded_six_hour_observations"?"✓ COTES RÉCENTES":"✗ PAS DE COTES RÉCENTES")+" · "+
+   (state.sources.own==="prospective_independent_unvalidated"?"✓ HISTORIQUE":"✗ HISTORIQUE")+" · "+
+   (state.paper?"✓ BILAN":"✗ BILAN"));
  const owned=state.ownedSummary;
  put("v3-owned-locked",state.sources.own==="prospective_independent_unvalidated"?owned.locked:"—");
  put("v3-owned-settled",state.sources.own==="prospective_independent_unvalidated"?owned.settled:"—");
  put("v3-owned-elo",state.sources.own==="prospective_independent_unvalidated"?owned.elo:"—");
  put("v3-owned-status",state.sources.own==="prospective_independent_unvalidated"?
    "Prévisions figées depuis "+date(owned.since)+
-   " · aucun modèle calibré, aucun ROI réel · "+owned.locked+" matchs enregistrés.":
+   " · "+owned.locked+" matchs enregistrés · aucun modèle encore prouvé.":
    "Historique indépendant indisponible ou non actualisé : aucune statistique extrapolée.");
  drawEvents();if($("home-recent"))drawPaper();
 }
