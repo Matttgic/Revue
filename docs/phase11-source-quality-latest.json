@@ -1,6 +1,6 @@
 {
   "version": "revue_phase11_source_quality_v1",
-  "generated_at_utc": "2026-10-11T18:13:16.648404+00:00",
+  "generated_at_utc": "2026-10-11T23:01:00.716277+00:00",
   "status": "input_gates_verified_missing_original_model_sources",
   "sports": {
     "NBA": {
@@ -14,7 +14,7 @@
       "original_sql_parity_proven": false
     },
     "NHL": {
-      "goalie_observations": 4,
+      "goalie_observations": 3,
       "both_sides_confirmed_by_ESPN": 0,
       "actual_starters_verified": false,
       "missing": [
@@ -27,7 +27,7 @@
       "ESPN_completed_games_used_for_diagnostic": 292,
       "pitchers_verified_from_current_feed": false,
       "official_probable_pitcher_feed_available": true,
-      "official_probable_pitcher_sides_observed": 5,
+      "official_probable_pitcher_sides_observed": 6,
       "official_probable_pitcher_source_status": "official_MLB_probable_pitchers_observed_not_confirmed",
       "original_elo_sql_verified": false,
       "missing": [
@@ -49,50 +49,18 @@
   "NHL_espn_observations": {
     "source_report_valid": true,
     "source_age": {
-      "age_hours": 4.13,
+      "age_hours": 0.18,
       "status": "recent",
       "max_age_hours": 12
     },
-    "future_nhl_fixtures": 6,
-    "matched_upcoming_fixtures": 4,
+    "future_nhl_fixtures": 4,
+    "matched_upcoming_fixtures": 3,
     "goalie_sides_confirmed_by_espn": 0,
-    "goalie_sides_projected_by_espn": 8,
+    "goalie_sides_projected_by_espn": 6,
     "fixtures_with_both_espn_confirmed": 0,
     "actual_game_starts_independently_verified": 0,
     "used_in_prediction": false,
     "fixtures": [
-      {
-        "league": "NHL",
-        "event_id": "2026020084",
-        "home": "WSH",
-        "away": "SEA",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
-        "both_reported_confirmed": false,
-        "source_ready_for_lineup_dependent_models": false,
-        "probabilities_modified": false,
-        "note": "ESPN status is observed provider wording, not a guarantee of actual starting lineup."
-      },
-      {
-        "league": "NHL",
-        "event_id": "2026020085",
-        "home": "NYR",
-        "away": "VAN",
-        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
-        "home_goalie": {
-          "name": "Dylan Garand",
-          "status": "projected"
-        },
-        "away_goalie": {
-          "name": "Leevi Merilainen",
-          "status": "projected"
-        },
-        "both_reported_confirmed": false,
-        "source_ready_for_lineup_dependent_models": false,
-        "probabilities_modified": false,
-        "note": "ESPN status is observed provider wording, not a guarantee of actual starting lineup."
-      },
       {
         "league": "NHL",
         "event_id": "2026020086",
@@ -111,9 +79,9 @@
         "event_id": "2026020087",
         "home": "BUF",
         "away": "FLA",
-        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
+        "source_observed_utc": "2026-10-11T22:50:28.402092+00:00",
         "home_goalie": {
-          "name": "Ukko-Pekka Luukkonen",
+          "name": "Colten Ellis",
           "status": "projected"
         },
         "away_goalie": {
@@ -130,7 +98,7 @@
         "event_id": "2026020088",
         "home": "NJD",
         "away": "OTT",
-        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
+        "source_observed_utc": "2026-10-11T22:50:28.402092+00:00",
         "home_goalie": {
           "name": "Jake Allen",
           "status": "projected"
@@ -149,7 +117,7 @@
         "event_id": "2026020089",
         "home": "MIN",
         "away": "VGK",
-        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
+        "source_observed_utc": "2026-10-11T22:50:28.402092+00:00",
         "home_goalie": {
           "name": "Jesper Wallstedt",
           "status": "projected"
@@ -287,38 +255,38 @@
   },
   "phase10_validation": {
     "locked_predictions": 78,
-    "officially_settled": 32,
+    "officially_settled": 37,
     "models_calibrated": false,
     "prospective_evidence_not_historical_backfill": true
   },
   "freshness": {
     "goalies": {
-      "age_hours": 4.13,
+      "age_hours": 0.18,
       "status": "recent",
       "max_age_hours": 12
     },
     "nba": {
-      "age_hours": 3.92,
+      "age_hours": 8.71,
       "status": "recent",
       "max_age_hours": 48
     },
     "mlb": {
-      "age_hours": 0.42,
+      "age_hours": 5.21,
       "status": "recent",
       "max_age_hours": 48
     },
     "football": {
-      "age_hours": 6.66,
+      "age_hours": 3.9,
       "status": "recent",
       "max_age_hours": 48
     },
     "center": {
-      "age_hours": 0.22,
+      "age_hours": 0.56,
       "status": "recent",
       "max_age_hours": 12
     },
     "picks": {
-      "age_hours": 0.56,
+      "age_hours": 1.06,
       "status": "recent",
       "max_age_hours": 24
     }
