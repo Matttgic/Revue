@@ -33,6 +33,12 @@ Les modèles reconstruits sont regroupés dans `modeles/reproduction/` ; les fon
 
 Le chiffre historique de « 35 % de couverture fonctionnelle Revue » comprenait le design du site, les cotes et des **modèles inventés** : il **ne mesure pas** la fidélité de reproduction et ne doit plus être présenté comme tel.
 
+## Mise à jour du 2026-10-11 — plafond de confiance non-moneyline
+
+Le source a ajouté le 2026-10-10 (commit `fe5eba7a`) `MARKET_P_CEILING` / `_mktCeiling` / `_capMktP` : toute probabilité SPREAD / O-U / PROP est bornée à [1−c, c] (CFB/NFL c = 0,62, sinon 0,68 ; moneyline jamais bornée). `_generateNBAProps` l'applique désormais. Reproduction : [frontend_clairvoyance_market_ceiling.js](frontend_clairvoyance_market_ceiling.js), branchée dans `nbaProps` ; 1 520 comparaisons directes du plafond ajoutées dans `outils/verify_clairvoyance_nba_props.js`. Toutes les parités ont été relancées sur le commit source `0d900f51` (6 263 comparaisons frontend, 446 NBA, 43 prédicteurs, 9 001 opérations de chronologie).
+
+**Hors catalogue, non reproduit à ce jour** : la couche de sélection qui transforme ces probabilités en paris — `sportCalibrate` + correction adaptative `_calAdjProb` (dépend de `adaptive_weights.json` et du `localStorage` du propriétaire), `_evalMkts` / `tier()`, application du plafond aux cartes CFB/NFL/football, et les règles de `scripts/auto_lock_settle.py`. Voir [l'analyse du 11/10](../../analyses/2026-10-11_Clairvoyance_verification_rentabilite_et_reproduction.md).
+
 ## Licence et droits
 
 L'accès public à un dépôt GitHub permet d'en lire le code, mais ne confère pas automatiquement le droit de le redistribuer. Nous pouvons vérifier l'identité des calculs en faisant tourner le code de référence dans un job temporaire, mais **nous ne republions pas ses fichiers source** ni les éventuels jeux de données Opta protégés. Toute demande d'intégration du code original mot pour mot nécessiterait une permission ou une licence compatible.

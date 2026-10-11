@@ -3,6 +3,40 @@
 const vm=require("node:vm");
 const {sourceFunction}=require("./verify_clairvoyance_euro_hockey_matches.js");
 const own=require("../modeles/reproduction/frontend_clairvoyance_nba_props.js");
+const ceiling=require("../modeles/reproduction/frontend_clairvoyance_market_ceiling.js");
+/** Source non-moneyline ceiling (MARKET_P_CEILING, _mktCeiling, _capMktP),
+ * evaluated in its own sandbox and injected into _generateNBAProps. */
+function sourceCeiling(source){
+ const start=source.search(/^const MARKET_P_CEILING=\{/m);
+ if(start<0)throw Error("Missing source MARKET_P_CEILING table");
+ const end=source.indexOf("\n};",start);
+ if(end<0||end-start>600)throw Error("Unexpected MARKET_P_CEILING table");
+ const code=source.slice(start,end+3)+"\n"+
+   sourceFunction(source,"_mktCeiling")+"\n"+sourceFunction(source,"_capMktP")+
+   "\nthis._mktCeiling=_mktCeiling;this._capMktP=_capMktP;";
+ const ctx=vm.createContext({});
+ vm.runInContext(code,ctx,{timeout:500});
+ return ctx;
+}
+function verifyCeiling(ref,compare){
+ let count=0;
+ const leagues=["NBA","CFB","NFL","cfb","SOC_PL","SOC_CFB","LIIGA","",null,undefined];
+ const markets=["ML","SPREAD","OU","PROP","PL","RL","TEN",undefined];
+ const probs=[0,.01,.3,.31,.32,.38,.5,.62,.6200001,.65,.68,.6800001,.7,.95,1,-.2,1.3,NaN];
+ for(const league of leagues){
+  for(const market of markets){
+   compare("ceiling "+league+" "+market,"frontend_nba_player_props",
+     ref._mktCeiling(league,market),ceiling.marketCeiling(league,market));
+   count++;
+   for(const p of probs){
+    compare("cap "+league+" "+market+" "+p,"frontend_nba_player_props",
+      ref._capMktP(p,market,league),ceiling.capMarketProbability(p,market,league));
+    count++;
+   }
+  }
+ }
+ return count;
+}
 const KEYS=["player","team","opp","hA","awA","stat","statAbbr","line",
             "over","ml","prob","grade","hitRate","adjustor","mu","sigma",
             "base","form"];
@@ -10,11 +44,12 @@ function comparable(arr){
  return arr.map(x=>Object.fromEntries(KEYS.map(key=>[key,x[key]])));
 }
 function verifyNBAProps(source,compare) {
+ const cap=sourceCeiling(source);
  const fakeMC=(mu,sigma,line)=>({overP:Math.max(.02,Math.min(.98,
      1/(1+Math.exp(-(mu-line)/sigma))))});
  const grade=conf=>conf>70?"OPTIMAL":conf>60?"GOOD":conf>54?"LEAN":"SKIP";
  const half=n=>(Math.floor(n)+.5).toFixed(1);
- let count=0;
+ let count=verifyCeiling(cap,compare);
  const players={
   "id1":{name:"Player One",team:"BOS",ppg:27.5,rpg:8.4,apg:6.2,gp:68,
     last5:{n:5,ppg:32,rpg:6,apg:7.8},stdev:{pts:9.6,reb:3,ast:2.4}},
@@ -47,7 +82,8 @@ function verifyNBAProps(source,compare) {
       lgAvg:115,realAvg:true,note:false});
    const ctx=vm.createContext({
     _forceHalfLine:half,propMC:fakeMC,_propGradeByConf:grade,
-    _propOppDefFactor:opponent,_withPropReasoning:x=>x
+    _propOppDefFactor:opponent,_withPropReasoning:x=>x,
+    _capMktP:cap._capMktP
    });
    vm.runInContext(sourceFunction(source,"_generateNBAProps"),ctx,{timeout:800});
    const ref=ctx._generateNBAProps(games,players);
@@ -63,7 +99,8 @@ function verifyNBAProps(source,compare) {
   const ctx=vm.createContext({
     _forceHalfLine:half,propMC:fakeMC,_propGradeByConf:grade,
     _propOppDefFactor:()=>({factor:0,note:true}),
-    _withPropReasoning:x=>x
+    _withPropReasoning:x=>x,
+    _capMktP:cap._capMktP
   });
   vm.runInContext(sourceFunction(source,"_generateNBAProps"),ctx,{timeout:800});
   compare("NBA missing stats "+stat,"frontend_nba_player_props",

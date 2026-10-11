@@ -142,8 +142,11 @@ class QualityTests(unittest.TestCase):
   self.assertEqual(out["models"]["SERIEA::"+code]["settled"],1)
   self.assertEqual(out["metrics"]["distinct_settled_fixtures"],2)
  def test_nhl_native_scalar_brier_not_confused_with_two_class_brier(self):
-  out=nhl_comparison(nhl(),datetime.now(timezone.utc))
-  self.assertEqual(out["settled"],1)
+  ledger=nhl()
+  out=nhl_comparison(ledger,datetime.now(timezone.utc))
+  # Live ledger grows as NHL games settle: never hard-code its size.
+  self.assertGreaterEqual(out["settled"],1)
+  self.assertLessEqual(out["settled"],sum(e.get("status")=="settled" for e in ledger["events"]))
   self.assertAlmostEqual(out["reference_score"]["brier"],
                          2*out["native_binary_scalar_brier"],places=5)
 

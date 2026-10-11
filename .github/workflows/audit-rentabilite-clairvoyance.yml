@@ -1,0 +1,53 @@
+name: Revue - Audit rentabilité Clairvoyance
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 8 * * *'
+  push:
+    paths:
+      - 'outils/audit_rentabilite_clairvoyance.py'
+      - 'modeles/reproduction/clairvoyance_lock_timing.py'
+      - 'tests/test_audit_rentabilite_clairvoyance.py'
+      - '.github/workflows/audit-rentabilite-clairvoyance.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-audit-rentabilite-clairvoyance
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: revue
+      - uses: actions/checkout@v4
+        with:
+          repository: Purple-Wraith/clairvoyance-backend
+          path: reference
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tester l'audit sans source externe
+        working-directory: revue
+        run: python -m unittest discover -s tests -p 'test_audit_rentabilite_clairvoyance.py' -v
+      - name: Recalculer le ROI pré-match et la provenance des cotes (lecture seule)
+        working-directory: revue
+        run: python -m outils.audit_rentabilite_clairvoyance --source ../reference
+      - name: Publier uniquement les agrégats
+        working-directory: revue
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/clairvoyance-rentabilite-audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "audit(clairvoyance): refresh pre-start ROI by price provenance"
+            for attempt in 1 2 3 4; do
+              git pull --rebase -X theirs origin main
+              if git push origin HEAD:main; then exit 0; fi
+              sleep "$attempt"
+            done
+            exit 1
+          fi

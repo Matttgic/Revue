@@ -4,13 +4,17 @@
  * and selection outcomes, not copyrighted prose from the original UI.
  * The underlying propMC function is an injected, separately testable
  * dependency: without real player stats it creates no selections.
+ * Since source commit fe5eba7a the stated hit probability is clamped by the
+ * non-moneyline confidence ceiling (PROP, NBA) before grading and pricing.
  */
+const {capMarketProbability}=require("./frontend_clairvoyance_market_ceiling.js");
 function nbaProps(games,stats,{
  defense=()=>({factor:0,note:true}),
  halfLine=value=>Math.floor(value)+.5,
  monteCarlo=()=>({overP:.5}),
  classify=()=> "SKIP",
  explain=object=>object,
+ cap=capMarketProbability,
 }={}){
  if(!stats)return[];
  const result=[];
@@ -54,10 +58,13 @@ function nbaProps(games,stats,{
        deviation!=null&&deviation>0?deviation:average*cv);
     const probability=monteCarlo(adjusted,sigma,line,5000).overP;
     const over=adjusted>=line;
-    const conf=(over?probability:1-probability)*100;
+    let conf=(over?probability:1-probability)*100;
+    const raw=conf/100;
+    const capped=cap(raw,"PROP","NBA");
+    if(capped!==raw)conf=capped*100;
     const grade=(Math.abs(modifier)<.01&&Math.abs(conf-50)<4)
        ?"SKIP":classify(conf);
-    const american=odds(over?probability:1-probability);
+    const american=odds(capped!==raw?capped:(over?probability:1-probability));
     const stat=field==="ppg"?"PTS":field==="rpg"?"REB":field==="apg"?"AST":field.toUpperCase();
     const record={
       player:athlete.name,team:athlete.team,opp:opponent,
