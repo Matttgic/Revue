@@ -340,11 +340,11 @@ class ArenaTests(unittest.TestCase):
         text=(DOCS/"index.html").read_text(encoding="utf-8")
         css=(DOCS/"retro.css").read_text(encoding="utf-8")
         js=(DOCS/"retro-app.js").read_text(encoding="utf-8")
-        for fragment in ("GAME","arc-machine","arc-console","home-picks",
+        for fragment in ("px-start","px-menu","data-menu","home-picks",
                          "home-recent","home-profit","home-roi","aria-label",
                          'href="./play.html"','href="./bilan.html"'):
             with self.subTest(fragment=fragment):self.assertIn(fragment,text)
-        for fragment in ("perspective:800px","transform-style:preserve-3d",
+        for fragment in ("px-menu-item","steps(",
                          "prefers-reduced-motion:reduce","arc-bottom-nav"):
             with self.subTest(css=fragment):self.assertIn(fragment,css)
         for fragment in ("picks-center-latest.json","match-center-latest.json",
@@ -464,7 +464,7 @@ class ArenaTests(unittest.TestCase):
                          "verified_real_ev===false",
                          "live_bookmaker_prices===false",
                          "actualUpcoming","sourceFresh",
-                         "Aucun pari recommandé","Aucun pari validé",
+                         "Aucun pari conseillé",
                          "settled_stake_units","paper_profit_units",
                          "roi:stake>0?net/stake*100:null"):
             self.assertIn(fragment,text)

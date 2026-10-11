@@ -1,32 +1,44 @@
-/* Phase 8: consistent three-task navigation, modern retro handheld design. */
-body.retro .rv-top-inner{gap:16px}
-body.retro .rv-nav{margin-left:auto;gap:7px}
-body.retro .rv-nav a{white-space:nowrap}
-body.retro .phase8-lab-shortcut{display:inline-flex;align-items:center;padding:9px 12px;
- border:1px solid #496679;border-radius:9px;background:#16273e;color:#c9e3e9;
- text-decoration:none;font:800 11px 'Chakra Petch',sans-serif;white-space:nowrap}
-body.retro .phase8-lab-shortcut:hover{color:#a0ffde;border-color:#86e9d1}
-body.retro .rv-nav a:focus-visible,body.retro .arc-bottom-nav a:focus-visible,body.retro a:focus-visible,body.retro button:focus-visible{outline:3px solid #82f7d9;outline-offset:3px}
+/* REVUE · page Pourquoi, raccourci Lab, détails dépliables (classes phase8-*). */
+body.retro .rv-top-inner{gap:12px}
+body.retro .phase8-lab-shortcut{
+  display:inline-flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap;
+  font:14px var(--px-font-title);color:var(--px-black);background:var(--px-blue);padding:8px 10px;
+  box-shadow:inset -3px -3px 0 rgba(0,0,0,.35);
+}
+body.retro .phase8-lab-shortcut:hover{background:var(--px-white);color:var(--px-black)}
+body.retro .rv-nav a:focus-visible,body.retro .arc-bottom-nav a:focus-visible,body.retro a:focus-visible,body.retro button:focus-visible{outline:4px solid var(--px-yellow);outline-offset:4px}
 body.retro .arc-bottom-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
-.phase8-why-hero{display:grid;grid-template-columns:minmax(0,1fr) 190px;align-items:center;gap:20px;
- border:1px solid #4e7381;border-radius:20px;background:linear-gradient(126deg,#173d49,#151d38 65%,#292043);
- padding:28px;min-height:245px}
-.phase8-why-hero h1{font:900 clamp(37px,7vw,67px)/1.04 'Chakra Petch',sans-serif;letter-spacing:-.05em;margin:15px 0}
-.phase8-why-hero h1 span{color:#84f4d7}
-.phase8-why-hero p{line-height:1.7;color:#c7d5e0;font-size:14px}
-.phase8-orb{position:relative;height:175px;perspective:600px;transform-style:preserve-3d;animation:p8float 6s ease-in-out infinite}
-.phase8-orb:before{content:"";position:absolute;inset:10%;border-radius:50%;border:2px solid #8df1d988;transform:rotateX(66deg)}
-.phase8-orb-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotateY(-22deg) rotateX(12deg);
- width:115px;height:115px;display:grid;place-items:center;border-radius:26px;border:2px solid #86f4da;
- background:linear-gradient(135deg,#2c5c6c,#202744);color:#cafff2;
- font:900 75px 'Chakra Petch',sans-serif;box-shadow:0 22px 48px #010810aa,inset 0 0 25px #81f5d632}
-@keyframes p8float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px) rotateY(10deg)}}
-body.retro[data-page="pourquoi"] .arc-v3-why-panel{scroll-margin-top:85px;min-height:155px}
-body.retro .phase8-details{border:1px solid #42576f;border-radius:13px;padding:0 16px;margin:22px 0;background:#142339}
-body.retro .phase8-details summary{padding:17px 0;cursor:pointer;font:800 13px 'Chakra Petch',sans-serif;color:#8ff0d5}
-body.retro .phase8-details[open]{padding-bottom:15px}
+
+/* En-tête de la page Pourquoi : bloc « ? » façon brique mystère */
+.phase8-why-hero{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:24px;align-items:center;margin:14px 0 26px}
+.phase8-why-hero h1{margin:12px 0}
+.phase8-why-hero h1 span{color:var(--px-white)}
+.phase8-why-hero p{font-size:19px;color:var(--px-white);max-width:620px}
+.phase8-orb{position:relative;height:150px;display:grid;place-items:center}
+.phase8-orb:before{content:"";position:absolute;bottom:0;width:96px;height:8px;background:var(--px-dgray);animation:p8shadow 1.2s steps(4) infinite}
+.phase8-orb-core{
+  width:96px;height:96px;display:grid;place-items:center;font:64px var(--px-font-title);color:var(--px-white);
+  background:var(--px-orange);text-shadow:4px 4px 0 var(--px-brown);
+  box-shadow:inset 6px 6px 0 var(--px-yellow),inset -6px -6px 0 var(--px-brown),0 0 0 4px var(--px-black);
+  animation:p8float 1.2s steps(4) infinite;
+}
+@keyframes p8float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes p8shadow{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.7)}}
+body.retro[data-page="pourquoi"] .arc-v3-why-panel{scroll-margin-top:85px;min-height:150px}
+
+/* Détails dépliables (mode avancé) */
+body.retro .phase8-details{background:var(--px-panel-2);padding:4px 16px;margin:24px 4px;box-shadow:var(--px-frame)}
+body.retro .phase8-details summary{font:16px/1.6 var(--px-font-title);color:var(--px-yellow);padding:12px 0}
+body.retro .phase8-details[open]{padding-bottom:16px}
+
+/* Lab : recherche */
 body.retro .arc-lab-link[hidden]{display:none!important}
 body.retro .phase8-lab-find{display:flex;align-items:center;flex-wrap:wrap;gap:13px;margin:18px 0}
 body.retro .phase8-lab-find input{min-width:170px;width:min(100%,420px);flex:1}
-@media(max-width:760px){.phase8-why-hero{grid-template-columns:1fr;padding:24px 20px;min-height:auto}.phase8-orb{display:none}body.retro .phase8-lab-shortcut{padding:8px;font-size:10px}body.retro .arc-bottom-nav{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(prefers-reduced-motion:reduce){.phase8-orb{animation:none}}
+
+@media(max-width:760px){
+  .phase8-why-hero{grid-template-columns:1fr}
+  .phase8-orb{height:120px}
+  body.retro .arc-bottom-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){.phase8-orb-core,.phase8-orb:before{animation:none}}
