@@ -1,6 +1,6 @@
 {
   "version": "nhl_clairvoyance_moneypuck_shadow_v1",
-  "updated_at_utc": "2026-10-11T05:39:37.399099+00:00",
+  "updated_at_utc": "2026-10-11T14:05:17.212698+00:00",
   "rule": "Immutable predictions only if created >=20 minutes before kickoff",
   "evaluation": "2-way NHL final including OT/SO; Brier mean; no wagers/ROI",
   "events": [
@@ -773,6 +773,96 @@
       "home_goals": null,
       "away_goals": null,
       "brier": null
+    },
+    {
+      "event_id": "2026020088",
+      "home": "NJD",
+      "away": "OTT",
+      "kickoff_utc": "2026-10-12T23:00:00+00:00",
+      "locked_at_utc": "2026-10-11T14:05:17.212698+00:00",
+      "source_prediction_at_utc": "2026-10-11T14:05:17.212698+00:00",
+      "home_win_probability": 0.381,
+      "away_win_probability": 0.619,
+      "research_home_win_probability": 0.414,
+      "research_model_id": "revue_nhl_low_sample_shrink_v1",
+      "source_updated_utc": {
+        "teams": "2026-10-11T10:31:46+00:00",
+        "goalies": "2026-10-11T10:31:43+00:00"
+      },
+      "source_snapshot_utc": {
+        "teams": "2026-10-11T13:26:51.342006+00:00",
+        "goalies": "2026-10-11T13:26:51.623429+00:00"
+      },
+      "xg_games_observed": {
+        "home": 4,
+        "away": 5
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Jake Allen",
+          "games": 3,
+          "save_pct": 0.8961
+        },
+        "away": {
+          "name": "Linus Ullmark",
+          "games": 4,
+          "save_pct": 0.9419
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "status": "pending",
+      "resolved_at_utc": null,
+      "result": null,
+      "home_goals": null,
+      "away_goals": null,
+      "brier": null,
+      "research_brier": null
+    },
+    {
+      "event_id": "2026020089",
+      "home": "MIN",
+      "away": "VGK",
+      "kickoff_utc": "2026-10-13T00:00:00+00:00",
+      "locked_at_utc": "2026-10-11T14:05:17.212698+00:00",
+      "source_prediction_at_utc": "2026-10-11T14:05:17.212698+00:00",
+      "home_win_probability": 0.573,
+      "away_win_probability": 0.427,
+      "research_home_win_probability": 0.566,
+      "research_model_id": "revue_nhl_low_sample_shrink_v1",
+      "source_updated_utc": {
+        "teams": "2026-10-11T10:31:46+00:00",
+        "goalies": "2026-10-11T10:31:43+00:00"
+      },
+      "source_snapshot_utc": {
+        "teams": "2026-10-11T13:26:51.342006+00:00",
+        "goalies": "2026-10-11T13:26:51.623429+00:00"
+      },
+      "xg_games_observed": {
+        "home": 5,
+        "away": 6
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Jesper Wallstedt",
+          "games": 5,
+          "save_pct": 0.9357
+        },
+        "away": {
+          "name": "Carter Hart",
+          "games": 4,
+          "save_pct": 0.91
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "status": "pending",
+      "resolved_at_utc": null,
+      "result": null,
+      "home_goals": null,
+      "away_goals": null,
+      "brier": null,
+      "research_brier": null
     }
   ]
 }
