@@ -1,9 +1,9 @@
-"""Strict low-quota PulseScore mini-radar, without paid calls in tests."""
+"""PulseScore short-horizon radar (Pro access), without paid calls in tests."""
 import unittest
 from datetime import datetime,timedelta,timezone
 from copy import deepcopy
 from outils.collecte.pulsescore_radar_six_heures import compute,MAX_CALLS,HORIZON_HOURS,VERSION
-from outils.collecte.pulsescore_v2 import BOOKMAKERS
+from outils.collecte.pulsescore_v2 import BOOKMAKERS,SPORT_GROUPS,MAX_PAGES,MAX_CALLS as PULSE_MAX_CALLS
 
 NOW=datetime(2026,10,10,19,tzinfo=timezone.utc)
 ISO=lambda t:t.isoformat()
@@ -36,7 +36,7 @@ class RadarTests(unittest.TestCase):
                            "sports":["soccer"],"errors":{},"truncated":False}
         m=models();unchanged=deepcopy(m)
         result=compute(m,NOW,key="secret-key",scanner=fake)
-        self.assertEqual(captured,[("secret-key",8,6,True)])
+        self.assertEqual(captured,[("secret-key",MAX_CALLS,6,True)])
         self.assertEqual(result["version"],VERSION)
         self.assertEqual(result["status"],"observed")
         self.assertEqual(result["matches_observed"],1)
@@ -69,19 +69,20 @@ class RadarTests(unittest.TestCase):
         self.assertEqual(compute(m,NOW,key="secret",scanner=fail)["status"],"model_stale_or_invalid")
 
     def test_hard_api_budget_limit_rejects_unexpected_calls(self):
-        for cap in (0,9,32):
+        for cap in (0,MAX_CALLS+1,1000):
             with self.assertRaises(ValueError):
                 compute(models(),NOW,key="fake",max_calls=cap)
         def bad(*args,**kwargs):
-            return {},{"requests":9}
+            return {},{"requests":MAX_CALLS+1}
         with self.assertRaises(ValueError):
             compute(models(),NOW,key="fake",scanner=bad)
 
-    def test_31_day_upper_bound_no_other_runs(self):
-        self.assertEqual(4*32*31+4*MAX_CALLS*31,4960)
+    def test_cap_covers_whole_catalogue_without_runaway(self):
+        # Accès Pro illimité : le plafond couvre tout le catalogue, sans plus.
+        self.assertEqual(MAX_CALLS,PULSE_MAX_CALLS)
+        self.assertEqual(PULSE_MAX_CALLS,len(set(SPORT_GROUPS.values()))*len(BOOKMAKERS)*MAX_PAGES)
         self.assertEqual(HORIZON_HOURS,6)
         self.assertEqual(len(BOOKMAKERS),5)
-        self.assertTrue(4960<=5000)
 
     def test_real_provider_schema_exposes_source_without_claiming_ev(self):
         from pathlib import Path

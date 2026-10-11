@@ -33,8 +33,10 @@ SPORT_GROUPS={
     "PL":"soccer","LALIGA":"soccer","SERIEA":"soccer",
     "BUNDESLIGA":"soccer","LIGUE1":"soccer","MLS":"soccer",
 }
-MAX_PAGES=2
-MAX_CALLS=32
+# Accès PulseScore Pro illimité : 5 sports x 5 bookmakers x 4 pages couvre
+# tout le catalogue ; le plafond reste un garde-fou contre une boucle folle.
+MAX_PAGES=4
+MAX_CALLS=100
 HORIZON_HOURS=36
 
 
@@ -163,7 +165,7 @@ def scan(key:str,models:dict,now:datetime,
          fetch=None, balanced:bool=False) -> tuple[dict,dict]:
     """Radar: scan each sport/book ONCE, then optionally a second page.
 
-    Limits calls globally rather than per sport to prevent monthly blowups.
+    Limits calls globally rather than per sport (guard against runaway loops).
     """
     if not 1<=max_calls<=MAX_CALLS:raise ValueError("Invalid max_calls")
     if not 1<=days_horizon<=72:raise ValueError("Invalid horizon")

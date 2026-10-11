@@ -2,7 +2,9 @@ name: Revue - Multisports Independent
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 5,11,17,23 * * *"
+    # Toutes les 3 h : le radar refuse des prédictions de plus de 6 h, et GitHub
+    # saute parfois un créneau planifié.
+    - cron: "30 2,5,8,11,14,17,20,23 * * *"
   push:
     branches: [main]
     paths:

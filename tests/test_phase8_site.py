@@ -13,7 +13,7 @@ class Phase8Tests(unittest.TestCase):
                     nav=re.search(r'<nav class="'+name+r'"[^>]*>(.*?)</nav>',text,re.S)
                     self.assertIsNotNone(nav)
                     self.assertEqual(tuple(re.findall(r'href="./([^"]+)"',nav.group(1))),PRIMARY)
-                self.assertIn("phase8-ui.css?v=1",text)
+                self.assertIn("phase8-ui.css?v=2",text)
                 self.assertIn('href="./lab.html"',text)
                 self.assertIn('href="./index.html"',text)
     def test_why_page_uses_same_source_gates_as_home(self):

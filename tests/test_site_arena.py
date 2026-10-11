@@ -42,7 +42,7 @@ class ArenaTests(unittest.TestCase):
                 text=(DOCS/name).read_text(encoding="utf-8")
                 dom=Page();dom.feed(text)
                 self.assertTrue(dom.title)
-                self.assertIn("./theme.css?v=2",dom.links)
+                self.assertIn("./theme.css?v=3",dom.links)
                 self.assertIn("./index.html",dom.links)
                 self.assertIn("rv-topbar",text)
                 self.assertIn("rv-nav",text)
@@ -449,7 +449,7 @@ class ArenaTests(unittest.TestCase):
             links=re.findall(r'href="\./([^"]+)"',nav.group(1))
             self.assertEqual(links,expected,filename)
             self.assertIn('data-page=',page)
-            self.assertIn('phase8-ui.css?v=1',page)
+            self.assertIn('phase8-ui.css?v=2',page)
         lab=(DOCS/"lab.html").read_text(encoding="utf-8")
         for old in ("command-center.html","match-dossier.html","operations.html",
                     "individual-hub.html","reproduction-exacte.html"):

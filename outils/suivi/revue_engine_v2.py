@@ -510,8 +510,8 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
     elif pulsescore_key:
         # PulseScore Pro: one standardized REST schema per French bookmaker.
         # No code or data is copied from the unrelated Clairvoyance project.
-        from outils.collecte.pulsescore_v2 import scan as pulse_scan
-        odds,diag=pulse_scan(pulsescore_key,models,now,max_calls=32,
+        from outils.collecte.pulsescore_v2 import scan as pulse_scan, MAX_CALLS as PULSE_MAX_CALLS
+        odds,diag=pulse_scan(pulsescore_key,models,now,max_calls=PULSE_MAX_CALLS,
                              days_horizon=24)
         meta={
             "status":"active_pulsescore",

@@ -3,8 +3,8 @@ name: Revue - Engine V2 (simulation)
 on:
   workflow_dispatch:
   schedule:
-    # Refresh after the forecast workflow, keep runs spaced out.
-    - cron: '00 0,6,12,18 * * *'
+    # Relevé complet toutes les deux heures (accès PulseScore Pro illimité).
+    - cron: '7 */2 * * *'
   push:
     branches: [main]
     paths:
