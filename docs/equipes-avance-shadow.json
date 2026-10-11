@@ -1,40 +1,10 @@
 {
-  "generated_at_utc": "2026-10-11T19:06:59.202143+00:00",
+  "generated_at_utc": "2026-10-11T23:50:54.395422+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401898401",
-          "league": "NBA",
-          "home": "Cavaliers",
-          "away": "Magic",
-          "start_utc": "2026-10-11T22:30:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 1,
-            "away": 1
-          },
-          "probabilities": null,
-          "odds": null
-        },
-        {
-          "event_id": "401901821",
-          "league": "NBA",
-          "home": "Hornets",
-          "away": "Bucks",
-          "start_utc": "2026-10-11T23:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 1,
-            "away": 2
-          },
-          "probabilities": null,
-          "odds": null
-        },
         {
           "event_id": "401908941",
           "league": "NBA",
@@ -199,6 +169,36 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401898404",
+          "league": "NBA",
+          "home": "Heat",
+          "away": "Nets",
+          "start_utc": "2026-10-14T23:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 3,
+            "away": 2
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401898405",
+          "league": "NBA",
+          "home": "Celtics",
+          "away": "Hornets",
+          "start_utc": "2026-10-14T23:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 2,
+            "away": 1
+          },
+          "probabilities": null,
+          "odds": null
         }
       ],
       "evaluation": {
@@ -221,13 +221,13 @@
             "away": 11
           },
           "probabilities": {
-            "home_win": 0.65424,
-            "away_win": 0.34576
+            "home_win": 0.65387,
+            "away_win": 0.34613
           },
           "odds": null,
           "expected_margin_home": 2.188,
           "components": {
-            "elo_probability": 0.6985,
+            "elo_probability": 0.6979,
             "margin_probability": 0.5788,
             "last_games_form": 5
           }
@@ -245,30 +245,30 @@
             "away": 11
           },
           "probabilities": {
-            "home_win": 0.61252,
-            "away_win": 0.38748
+            "home_win": 0.61221,
+            "away_win": 0.38779
           },
           "odds": null,
           "expected_margin_home": 1.021,
           "components": {
-            "elo_probability": 0.6569,
+            "elo_probability": 0.6564,
             "margin_probability": 0.537,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 10,
+        "n": 9,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.19878,
-          "logloss_binary": 0.58917
+          "brier_binary": 0.19223,
+          "logloss_binary": 0.57583
         },
         "baseline": {
-          "brier_binary": 0.19193,
-          "logloss_binary": 0.57481
+          "brier_binary": 0.18603,
+          "logloss_binary": 0.5627
         },
-        "brier_delta_candidate_minus_baseline": 0.00685,
+        "brier_delta_candidate_minus_baseline": 0.0062,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -281,78 +281,6 @@
     },
     "NFL": {
       "games": [
-        {
-          "event_id": "401872989",
-          "league": "NFL",
-          "home": "Chargers",
-          "away": "Broncos",
-          "start_utc": "2026-10-11T20:05:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.46944,
-            "away_win": 0.53056
-          },
-          "odds": null,
-          "expected_margin_home": -0.538,
-          "components": {
-            "elo_probability": 0.4612,
-            "margin_probability": 0.4835,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401872991",
-          "league": "NFL",
-          "home": "Cardinals",
-          "away": "Lions",
-          "start_utc": "2026-10-11T20:25:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.49514,
-            "away_win": 0.50486
-          },
-          "odds": null,
-          "expected_margin_home": -0.154,
-          "components": {
-            "elo_probability": 0.4951,
-            "margin_probability": 0.4953,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401872992",
-          "league": "NFL",
-          "home": "Seahawks",
-          "away": "49ers",
-          "start_utc": "2026-10-11T20:25:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.48426,
-            "away_win": 0.51574
-          },
-          "odds": null,
-          "expected_margin_home": -0.155,
-          "components": {
-            "elo_probability": 0.4778,
-            "margin_probability": 0.4953,
-            "last_games_form": 5
-          }
-        },
         {
           "event_id": "401872993",
           "league": "NFL",
@@ -403,17 +331,17 @@
         }
       ],
       "evaluation": {
-        "n": 66,
+        "n": 73,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23676,
-          "logloss_binary": 0.66633
+          "brier_binary": 0.23705,
+          "logloss_binary": 0.66694
         },
         "baseline": {
-          "brier_binary": 0.23753,
-          "logloss_binary": 0.66768
+          "brier_binary": 0.23703,
+          "logloss_binary": 0.66678
         },
-        "brier_delta_candidate_minus_baseline": -0.00077,
+        "brier_delta_candidate_minus_baseline": 2e-05,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -429,17 +357,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 21,
-            "away": 23
+            "away": 22
           },
           "probabilities": {
-            "home_win": 0.55004,
-            "away_win": 0.44996
+            "home_win": 0.5559,
+            "away_win": 0.4441
           },
           "odds": null,
-          "expected_margin_home": 0.061,
+          "expected_margin_home": 0.073,
           "components": {
-            "elo_probability": 0.5748,
-            "margin_probability": 0.5078,
+            "elo_probability": 0.5832,
+            "margin_probability": 0.5094,
             "last_games_form": 5
           }
         },
@@ -453,17 +381,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 21,
-            "away": 23
+            "away": 22
           },
           "probabilities": {
-            "home_win": 0.55004,
-            "away_win": 0.44996
+            "home_win": 0.5559,
+            "away_win": 0.4441
           },
           "odds": null,
-          "expected_margin_home": 0.061,
+          "expected_margin_home": 0.073,
           "components": {
-            "elo_probability": 0.5748,
-            "margin_probability": 0.5078,
+            "elo_probability": 0.5832,
+            "margin_probability": 0.5094,
             "last_games_form": 5
           }
         },
@@ -480,13 +408,13 @@
             "away": 22
           },
           "probabilities": {
-            "home_win": 0.55966,
-            "away_win": 0.44034
+            "home_win": 0.55955,
+            "away_win": 0.44045
           },
           "odds": null,
           "expected_margin_home": 0.371,
           "components": {
-            "elo_probability": 0.5667,
+            "elo_probability": 0.5665,
             "margin_probability": 0.5477,
             "last_games_form": 5
           }
@@ -504,30 +432,30 @@
             "away": 22
           },
           "probabilities": {
-            "home_win": 0.55966,
-            "away_win": 0.44034
+            "home_win": 0.55955,
+            "away_win": 0.44045
           },
           "odds": null,
           "expected_margin_home": 0.371,
           "components": {
-            "elo_probability": 0.5667,
+            "elo_probability": 0.5665,
             "margin_probability": 0.5477,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 182,
+        "n": 179,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24149,
-          "logloss_binary": 0.67587
+          "brier_binary": 0.24217,
+          "logloss_binary": 0.67722
         },
         "baseline": {
-          "brier_binary": 0.24064,
-          "logloss_binary": 0.67393
+          "brier_binary": 0.24102,
+          "logloss_binary": 0.67468
         },
-        "brier_delta_candidate_minus_baseline": 0.00085,
+        "brier_delta_candidate_minus_baseline": 0.00115,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     }
