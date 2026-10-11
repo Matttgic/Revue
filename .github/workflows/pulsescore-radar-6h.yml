@@ -1,9 +1,10 @@
 name: Revue - Radar PulseScore 6h
 on:
   workflow_dispatch:
-  # Four mini-scans daily, between the full 32-call scans at 00/06/12/18 UTC.
+  # Accès PulseScore Pro illimité : un relevé court terme (6 h) chaque heure,
+  # pour suivre les cotes jusqu'au coup d'envoi (prix de clôture, CLV).
   schedule:
-    - cron: '30 3,9,15,21 * * *'
+    - cron: '37 * * * *'
   push:
     branches: [main]
     paths:
@@ -38,7 +39,7 @@ jobs:
           PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
           ODDS_API_KEY: ''
         run: |
-          python -m outils.collecte.pulsescore_radar_six_heures --max-calls 8
+          python -m outils.collecte.pulsescore_radar_six_heures --max-calls 100
           cp docs/pulsescore-radar-latest.json /tmp/revue-pulsescore-six-hour-observation.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

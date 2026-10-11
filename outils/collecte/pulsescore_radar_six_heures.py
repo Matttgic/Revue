@@ -21,7 +21,7 @@ from outils.collecte.pulsescore_v2 import scan
 from outils.suivi.revue_engine_v2 import timestamp
 from outils.collecte.tableau_cotes import build_board
 
-MAX_CALLS=8
+MAX_CALLS=100
 HORIZON_HOURS=6
 MAX_MODEL_AGE=timedelta(hours=6)
 VERSION="revue_pulsescore_six_hour_radar_v1"
@@ -32,7 +32,7 @@ def compute(models:dict,now:datetime,key:str="",scanner=scan,max_calls:int=MAX_C
         raise ValueError("Timezone aware clock required")
     now=now.astimezone(timezone.utc)
     if not 1<=max_calls<=MAX_CALLS:
-        raise ValueError("Mini radar hard cap: at most eight requests")
+        raise ValueError(f"Radar hard cap: at most {MAX_CALLS} requests")
     stamp=timestamp(models.get("generated_at_utc"))
     valid=bool(stamp and stamp<=now and now-stamp<=MAX_MODEL_AGE and
               models.get("status")=="prototype_non_calibre" and

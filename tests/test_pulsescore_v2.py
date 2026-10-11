@@ -3,7 +3,7 @@ import unittest
 from datetime import datetime,timedelta,timezone
 from unittest.mock import patch
 from outils.collecte.pulsescore_v2 import (
-    BOOKMAKERS,translate_market,translate_event,scan,_side,_request,
+    BOOKMAKERS,MAX_CALLS,translate_market,translate_event,scan,_side,_request,
 )
 from outils.suivi.revue_engine_v2 import execute
 
@@ -134,7 +134,7 @@ class PulseScoreTests(unittest.TestCase):
 
     def test_invalid_budget_refused(self):
         with self.assertRaises(ValueError):
-            scan("secret",models(),NOW,max_calls=34,fetch=lambda *args:([],False))
+            scan("secret",models(),NOW,max_calls=MAX_CALLS+1,fetch=lambda *args:([],False))
 
 
     def test_balanced_radar_fairly_covers_three_sports_with_eight_calls(self):
