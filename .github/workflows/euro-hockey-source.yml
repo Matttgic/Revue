@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '15 4,10,16,22 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/clairvoyance/euro_hockey_reference_feed.js'
       - 'tests/test_euro_hockey_reference_feed.cjs'

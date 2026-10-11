@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '15 6 * * 1'
   push:
+    branches: [main]
     paths:
       - 'outils/clairvoyance/audit_clairvoyance_complet.py'
       - 'tests/test_audit_clairvoyance_complet.py'

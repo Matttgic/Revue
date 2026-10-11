@@ -5,6 +5,7 @@ on:
   # Automated daily NBA calculations use clairvoyance-nba-advanced.yml
   # to prevent preseason standings from entering current-season Elo.
   push:
+    branches: [main]
     paths:
       - 'outils/clairvoyance/nba_ratings_clairvoyance_live.py'
       - 'tests/test_nba_ratings_clairvoyance_live.py'

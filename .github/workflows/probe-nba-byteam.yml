@@ -2,6 +2,7 @@ name: Revue - Probe NBA ESPN Byteam
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'outils/collecte/probe_nba_espn_byteam.py'
       - '.github/workflows/probe-nba-byteam.yml'

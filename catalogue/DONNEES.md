@@ -25,7 +25,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | PulseScore / The Odds API (clé en secret) | Cotes de bookmakers FR observées | `outils/collecte/pulsescore_v2.py`, `outils/suivi/revue_engine_v2.py` |
 | Dépôt public Clairvoyance (lecture seule) | Comparaisons de parité, audits | `outils/clairvoyance/` |
 
-## Inventaire (101 fichiers)
+## Inventaire (102 fichiers)
 
 ### Reproduction Clairvoyance (parité, audits)
 
@@ -42,23 +42,23 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [clairvoyance-real-output-gap.json](../docs/clairvoyance-real-output-gap.json) | 2026-10-11 02:10 | 28 | clairvoyance-real-output-gap.yml | `outils/clairvoyance/clairvoyance_nhl_forensics.py`, `outils/clairvoyance/clairvoyance_real_output_gap.py`, `outils/clairvoyance/phase4_parite_reelle.py` |
 | [clairvoyance-rentabilite-audit.json](../docs/clairvoyance-rentabilite-audit.json) | 2026-10-11 02:29 | 7 | audit-rentabilite-clairvoyance.yml | `outils/clairvoyance/audit_rentabilite_clairvoyance.py` |
 | [parite-clairvoyance-espn-nba.json](../docs/parite-clairvoyance-espn-nba.json) | 2026-10-11 02:24 | 0 | parite-nba-espn-source.yml | `outils/clairvoyance/audit_entrees_clairvoyance.py`, `outils/clairvoyance/verifier_parite_nba_espn_source.py` |
-| [parite-clairvoyance-frontend.json](../docs/parite-clairvoyance-frontend.json) | 2026-10-11 02:31 | 4 | parite-clairvoyance-predictor.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/verify_clairvoyance_frontend.js` |
+| [parite-clairvoyance-frontend.json](../docs/parite-clairvoyance-frontend.json) | 2026-10-11 02:59 | 4 | parite-clairvoyance-predictor.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/verify_clairvoyance_frontend.js` |
 | [parite-clairvoyance-moneypuck-parser.json](../docs/parite-clairvoyance-moneypuck-parser.json) | 2026-10-11 02:24 | 1 | parite-moneypuck-parser.yml | `outils/clairvoyance/audit_entrees_clairvoyance.py`, `outils/clairvoyance/verifier_parite_moneypuck_source.py` |
-| [parite-clairvoyance-nba-source.json](../docs/parite-clairvoyance-nba-source.json) | 2026-10-11 02:31 | 1 | parite-clairvoyance-predictor.yml, parite-nba-source.yml | `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/verifier_parite_nba_source.py` |
-| [parite-clairvoyance-nhl-observe.json](../docs/parite-clairvoyance-nhl-observe.json) | 2026-10-11 02:31 | 3 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/verifier_parite_predictor_nhl_observe.py` |
-| [parite-clairvoyance-predictor.json](../docs/parite-clairvoyance-predictor.json) | 2026-10-11 02:31 | 1 | parite-clairvoyance-predictor.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/verifier_parite_clairvoyance.py` |
-| [parite-clairvoyance-timing.json](../docs/parite-clairvoyance-timing.json) | 2026-10-11 02:27 | 1 | parite-clairvoyance-timing.yml | — |
+| [parite-clairvoyance-nba-source.json](../docs/parite-clairvoyance-nba-source.json) | 2026-10-11 02:59 | 1 | parite-clairvoyance-predictor.yml, parite-nba-source.yml | `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/verifier_parite_nba_source.py` |
+| [parite-clairvoyance-nhl-observe.json](../docs/parite-clairvoyance-nhl-observe.json) | 2026-10-11 02:59 | 3 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/verifier_parite_predictor_nhl_observe.py` |
+| [parite-clairvoyance-predictor.json](../docs/parite-clairvoyance-predictor.json) | 2026-10-11 02:59 | 1 | parite-clairvoyance-predictor.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/verifier_parite_clairvoyance.py` |
+| [parite-clairvoyance-timing.json](../docs/parite-clairvoyance-timing.json) | 2026-10-11 02:59 | 1 | parite-clairvoyance-timing.yml | — |
 | [parite-donnees-clairvoyance.json](../docs/parite-donnees-clairvoyance.json) | 2026-10-10 21:18 | 2 | audit-donnees-clairvoyance.yml | `outils/clairvoyance/audit_entrees_clairvoyance.py`, `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/verifier_phase1_nhl.py` |
-| [parite-elo-mlb-source.json](../docs/parite-elo-mlb-source.json) | 2026-10-11 02:31 | 1 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/verifier_parite_elo_mlb_source.py` |
-| [parite-modeles-clairvoyance.json](../docs/parite-modeles-clairvoyance.json) | 2026-10-11 02:31 | 21 | parite-clairvoyance-predictor.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/pin_source_parity.py` |
-| [parite-nhl-espn-id-map.json](../docs/parite-nhl-espn-id-map.json) | 2026-10-11 02:31 | 3 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `api_revue/fixtures.py`, `api_revue/paper_picks.py`, `api_revue/research_predictions.py` |
+| [parite-elo-mlb-source.json](../docs/parite-elo-mlb-source.json) | 2026-10-11 02:59 | 1 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/verifier_parite_elo_mlb_source.py` |
+| [parite-modeles-clairvoyance.json](../docs/parite-modeles-clairvoyance.json) | 2026-10-11 03:00 | 21 | parite-clairvoyance-predictor.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/pin_source_parity.py` |
+| [parite-nhl-espn-id-map.json](../docs/parite-nhl-espn-id-map.json) | 2026-10-11 02:59 | 3 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `api_revue/fixtures.py`, `api_revue/paper_picks.py`, `api_revue/research_predictions.py` |
 | [parite-nhl-gardiens-publics.json](../docs/parite-nhl-gardiens-publics.json) | 2026-10-10 23:39 | 12 | phase1-nhl-fidelity.yml | `outils/clairvoyance/parite_nhl_gardiens_publics.py`, `outils/clairvoyance/verifier_phase1_nhl.py` |
 | [parite-nhl-source-style.json](../docs/parite-nhl-source-style.json) | 2026-10-11 02:27 | 1 | parite-nhl-source-style.yml | `outils/clairvoyance/verifier_parite_nhl_source_style.py` |
 | [phase1-nhl-fidelity.json](../docs/phase1-nhl-fidelity.json) | 2026-10-10 23:39 | 3 | phase1-nhl-fidelity.yml | `outils/clairvoyance/verifier_phase1_nhl.py` |
 | [phase4-evidence-latest.json](../docs/phase4-evidence-latest.json) | 2026-10-11 02:10 | 2 | phase4-parite-reelle.yml | `outils/clairvoyance/phase4_parite_reelle.py` |
 | [phase6-predictions-latest.json](../docs/phase6-predictions-latest.json) | 2026-10-11 00:17 | 19 | phase6-predictions.yml | `outils/clairvoyance/phase6_comparaison_pregame.py`, `outils/controles/phase9_acceptation_production.py` |
 | [phase6-pregame-ledger.json](../docs/phase6-pregame-ledger.json) | — | 18 | phase6-predictions.yml | `outils/clairvoyance/phase6_comparaison_pregame.py`, `outils/controles/phase7_cotes_et_bilan.py` |
-| [reproduction-exacte-audit.json](../docs/reproduction-exacte-audit.json) | 2026-10-11 02:36 | 17 | parite-exacte-clairvoyance.yml | `api_revue/app.py`, `outils/clairvoyance/audit_reproduction_exacte.py` |
+| [reproduction-exacte-audit.json](../docs/reproduction-exacte-audit.json) | 2026-10-11 03:05 | 17 | parite-exacte-clairvoyance.yml | `api_revue/app.py`, `outils/clairvoyance/audit_reproduction_exacte.py` |
 
 ### NHL
 
@@ -173,7 +173,8 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [github-workflows-latest.json](../docs/github-workflows-latest.json) | 2026-10-10 21:52 | 57 | github-actions-monitor.yml | `api_revue/admin_readonly.py`, `outils/controles/github_actions_monitor.py` |
 | [health-latest.json](../docs/health-latest.json) | 2026-10-10 21:51 | 1 | health-revue.yml | `api_revue/operational.py`, `outils/controles/diagnostic_revue.py`, `outils/controles/phase9_acceptation_production.py` |
 | [phase11-source-quality-latest.json](../docs/phase11-source-quality-latest.json) | 2026-10-11 02:32 | 12 | phase11-data-quality.yml | `outils/controles/phase11_data_quality.py`, `outils/controles/phase14_reception.py` |
-| [phase14-readiness-latest.json](../docs/phase14-readiness-latest.json) | 2026-10-11 02:32 | 2 | phase14-finalisation.yml | `outils/controles/phase14_reception.py` |
+| [phase14-readiness-latest.json](../docs/phase14-readiness-latest.json) | 2026-10-11 03:00 | 2 | phase14-finalisation.yml | `outils/controles/phase14_reception.py` |
 | [phase5-sources-latest.json](../docs/phase5-sources-latest.json) | 2026-10-10 21:47 | 4 | phase5-donnees-multisports.yml | `outils/controles/phase11_data_quality.py`, `outils/controles/phase5_donnees_multisports.py` |
-| [phase9-readiness-latest.json](../docs/phase9-readiness-latest.json) | 2026-10-10 22:00 | 1 | phase9-acceptation-production.yml | `outils/controles/phase14_reception.py`, `outils/controles/phase9_acceptation_production.py` |
+| [phase9-readiness-latest.json](../docs/phase9-readiness-latest.json) | 2026-10-11 03:00 | 1 | phase9-acceptation-production.yml | `outils/controles/phase14_reception.py`, `outils/controles/phase9_acceptation_production.py` |
 | [progression-revue.json](../docs/progression-revue.json) | 2026-10-10 17:16 | 28 | — | — |
+| [regle-decision-latest.json](../docs/regle-decision-latest.json) | 2026-10-11 03:03 | 3 | regle-decision.yml | `outils/suivi/regle_decision.py` |

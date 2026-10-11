@@ -6,6 +6,7 @@ on:
     # Refresh after the forecast workflow, keep runs spaced out.
     - cron: '00 0,6,12,18 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/suivi/revue_engine_v2.py'
       - 'tests/test_revue_engine_v2.py'

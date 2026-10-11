@@ -2,6 +2,7 @@ name: Revue - Probe NBA ESPN Prior Season
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'outils/collecte/probe_nba_espn_standings.py'
       - '.github/workflows/probe-nba-standings.yml'

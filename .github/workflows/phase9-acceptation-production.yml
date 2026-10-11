@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '40 3,15 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/controles/phase9_acceptation_production.py'
       - 'tests/test_phase9_acceptation.py'

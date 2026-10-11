@@ -1,0 +1,43 @@
+name: Revue - Règle de décision
+# Évalue le journal papier contre la règle pré-enregistrée (outils/suivi/regle_decision.py).
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '55 1,9,17 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'outils/suivi/regle_decision.py'
+      - 'tests/test_regle_decision.py'
+      - '.github/workflows/regle-decision.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-regle-decision
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tester la règle
+        run: python -m unittest discover -s tests -p 'test_regle_decision.py' -v
+      - name: Évaluer le journal papier et publier le verdict
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            python -m outils.suivi.regle_decision
+            git add docs/regle-decision-latest.json
+            if git diff --cached --quiet; then echo "Verdict inchangé"; exit 0; fi
+            git commit -q -m "data(decision): évaluer le journal papier contre la règle pré-enregistrée"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1

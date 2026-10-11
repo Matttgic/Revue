@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '25 6 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/controles/github_actions_monitor.py'
       - 'tests/test_github_actions_monitor.py'

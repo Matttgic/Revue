@@ -2,6 +2,7 @@ name: Revue - Parité source NBA Clairvoyance
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'modeles/reproduction/clairvoyance_nba_source.py'
       - 'outils/clairvoyance/verifier_parite_nba_source.py'

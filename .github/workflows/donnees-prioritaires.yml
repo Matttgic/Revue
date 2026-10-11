@@ -5,6 +5,7 @@ on:
     # Score-only hourly checks: no paid odds API requests.
     - cron: '42 * * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/suivi/reglement_multisport_officiel.py'
       - 'outils/controles/etat_donnees_revue.py'

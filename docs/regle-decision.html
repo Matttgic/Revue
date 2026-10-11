@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revue — Règle de décision</title>
+<meta name="description" content="Règle pré-enregistrée : le journal de paris papier de Revue montre-t-il un avantage réel ?">
+<style>:root{color-scheme:dark;--bg:#0b111a;--card:#172231;--fg:#edf4f2;--dim:#9aafbf;--edge:#2b3c4f;--accent:#d5fa90;--bad:#ffb5a0;--warn:#ffd88a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
+main{max-width:940px;margin:auto;padding:26px 16px 70px}
+small.eyebrow{color:var(--accent);font-size:11px;letter-spacing:.14em;font-weight:850;text-transform:uppercase}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;letter-spacing:-.05em;margin:8px 0}h2{font-size:1.2rem;margin-top:28px}
+p{color:var(--dim)}a{color:#aacbff}
+.verdict{border:1px solid var(--edge);border-radius:14px;padding:18px;background:var(--card);margin:18px 0}
+.verdict strong{display:block;font-size:1.8rem;letter-spacing:-.03em;text-transform:uppercase}
+.v-insuffisant strong{color:var(--warn)}.v-abandon strong{color:var(--bad)}.v-prometteur strong{color:var(--accent)}.v-non strong{color:var(--fg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.card{border:1px solid var(--edge);padding:16px;border-radius:12px;background:var(--card)}
+.card h3{margin:0 0 6px;font-size:1rem;display:flex;justify-content:space-between;gap:10px}
+.card p{margin:6px 0;font-size:.92rem}.ok{color:var(--accent)}.ko{color:var(--dim)}
+.bar{height:8px;border-radius:5px;background:#0e1824;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--accent)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--edge)}th{color:var(--dim);font-weight:600}
+.table-wrap{overflow-x:auto}svg{width:100%;height:auto;display:block}
+.note{border-left:3px solid var(--accent);padding:12px 14px;background:#1b2521;margin:18px 0}
+footer{border-top:1px solid var(--edge);margin-top:30px;padding-top:18px}
+</style><link rel="stylesheet" href="./theme.css?v=2"></head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./play.html">À JOUER</a><a href="./pourquoi.html">POURQUOI</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav></div></div>
+<main><small class="eyebrow">Revue · Journal papier</small>
+<h1>Règle de décision</h1>
+<p>Une seule question : les paris fictifs de Revue, figés <strong>avant</strong> le match à des cotes françaises <strong>réellement observées</strong>, montrent-ils un avantage réel ? La règle a été écrite le 11 octobre 2026, avant d'avoir des résultats, pour ne pas pouvoir l'ajuster après coup.</p>
+<div id="verdict" class="verdict"><span>Chargement…</span></div>
+<h2>Les quatre critères (tous requis)</h2>
+<div class="grid" id="criteria"></div>
+<h2>Unités cumulées (mise de 1 u par pari)</h2>
+<div class="card"><div id="chart"><p>Pas encore de pari réglé.</p></div></div>
+<h2>Ventilation exploratoire</h2>
+<p>À lire avec prudence : choisir après coup la ligue ou le marché qui « marche » est précisément le biais que la règle interdit.</p>
+<div class="grid"><div class="card table-wrap"><table id="by-league"></table></div><div class="card table-wrap"><table id="by-market"></table></div></div>
+<div class="note"><strong>Sans argent réel.</strong> Aucun pari n'est placé. « Prometteur » voudrait dire « à confirmer sur une nouvelle période », jamais « rentable garanti ».</div>
+<footer><p><a href="./lab.html">← Lab</a> · <a href="./regle-decision-latest.json">Données JSON</a> · <a href="https://github.com/Matttgic/Revue/blob/main/outils/suivi/regle_decision.py">Code de la règle</a></p></footer>
+</main><script>
+"use strict";
+const $=id=>document.getElementById(id);
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e;}
+const pct=x=>x==null?"—":(x>=0?"+":"")+(100*x).toFixed(1)+" %";
+const ci=v=>v&&v.ci95?`[${pct(v.ci95[0])} ; ${pct(v.ci95[1])}]`:"—";
+const LABEL={"insuffisant":["v-insuffisant","Données insuffisantes","Pas assez de paris réglés pour conclure, dans un sens comme dans l'autre."],
+ "abandon":["v-abandon","Abandon recommandé","Même dans le meilleur cas plausible, le ROI reste négatif."],
+ "prometteur":["v-prometteur","Prometteur","Les quatre critères sont remplis : à confirmer sur une nouvelle période, sans réajuster la règle."],
+ "non concluant":["v-non","Non concluant","Assez de paris, mais au moins un critère n'est pas rempli."]};
+function detail(c){
+ const v=c.value;
+ if(c.id==="volume")return `${c.progress} paris réglés éligibles`;
+ if(c.id==="roi")return v?`ROI ${pct(v.mean)} · IC 95 % ${ci(v)}`:"Aucun pari réglé";
+ if(c.id==="clv")return v?`${c.progress} cotes de clôture · CLV moyenne ${pct(v.mean)} · IC ${ci(v)}`:`${c.progress} cotes de clôture observées`;
+ if(c.id==="calibration")return v&&v.n?`Brier modèle ${v.brier_model} vs marché ${v.brier_market} (${v.n} paris ; plus bas = mieux)`:"Aucun pari réglé";
+ return "";
+}
+function progress(c){const m=/^(\d+)\/(\d+)$/.exec(c.progress||"");return m?Math.min(1,+m[1]/+m[2]):null;}
+function chart(rows){
+ if(!rows.length)return;
+ const W=900,H=200,P=24,ys=rows.map(r=>r.units),lo=Math.min(0,...ys),hi=Math.max(0,...ys),span=(hi-lo)||1;
+ const x=i=>P+(W-2*P)*(rows.length===1?0.5:i/(rows.length-1)),y=u=>H-P-(H-2*P)*(u-lo)/span;
+ const ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+ svg.setAttribute("role","img");svg.setAttribute("aria-label",`Unités cumulées : ${ys[ys.length-1]} u après ${rows.length} paris`);
+ const zero=document.createElementNS(ns,"line");Object.entries({x1:P,x2:W-P,y1:y(0),y2:y(0),stroke:"#2b3c4f"}).forEach(([k,v])=>zero.setAttribute(k,v));svg.append(zero);
+ const path=document.createElementNS(ns,"polyline");path.setAttribute("points",rows.map((r,i)=>`${x(i)},${y(r.units)}`).join(" "));
+ path.setAttribute("fill","none");path.setAttribute("stroke","#d5fa90");path.setAttribute("stroke-width","2.5");svg.append(path);
+ const t=document.createElementNS(ns,"text");t.setAttribute("x",W-P);t.setAttribute("y",14);t.setAttribute("text-anchor","end");t.setAttribute("fill","#9aafbf");t.setAttribute("font-size","13");
+ t.textContent=`${ys[ys.length-1]>=0?"+":""}${ys[ys.length-1]} u · ${rows.length} paris`;svg.append(t);
+ $("chart").replaceChildren(svg);
+}
+function table(node,title,rows){
+ const head=el("tr");[title,"Paris","Unités","ROI"].forEach(h=>head.append(el("th",null,h)));node.append(head);
+ for(const [k,v] of Object.entries(rows)){const tr=el("tr");[k,v.n,(v.units>=0?"+":"")+v.units,pct(v.roi)].forEach(c=>tr.append(el("td",null,c)));node.append(tr);}
+}
+fetch("./regle-decision-latest.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error(r.status);return r.json();}).then(d=>{
+ const [cls,title,text]=LABEL[d.verdict]||["v-non",d.verdict,""];
+ const box=$("verdict");box.className="verdict "+cls;box.replaceChildren(el("small","eyebrow","Verdict actuel"),el("strong",null,title),el("p",null,text),
+   el("p",null,`${d.settled_eligible} paris réglés éligibles · ${d.pending} en attente · ${d.profit_units>=0?"+":""}${d.profit_units} u · mis à jour ${String(d.generated_at_utc).slice(0,16).replace("T"," ")} UTC`));
+ for(const c of d.criteria){
+  const card=el("div","card"),h=el("h3");h.append(el("span",null,c.label),el("span",c.ok?"ok":"ko",c.ok?"✓ rempli":"○ pas encore"));card.append(h,el("p",null,detail(c)));
+  const p=progress(c);if(p!==null){const bar=el("div","bar"),i=el("i");i.style.width=(100*p).toFixed(1)+"%";bar.append(i);card.append(bar);}
+  $("criteria").append(card);
+ }
+ chart(d.cumulative_units||[]);
+ table($("by-league"),"Ligue",d.exploratory_segments.by_league);table($("by-market"),"Marché",d.exploratory_segments.by_market);
+}).catch(e=>{$("verdict").replaceChildren(el("span",null,"Données indisponibles ("+e.message+")."));});
+</script></body></html>

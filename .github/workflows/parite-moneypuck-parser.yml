@@ -2,6 +2,7 @@ name: Revue - Parité parseur NHL MoneyPuck
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'modeles/reproduction/clairvoyance_moneypuck_parser.py'
       - 'outils/clairvoyance/verifier_parite_moneypuck_source.py'

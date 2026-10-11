@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '35 7 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/clairvoyance/nba_ratings_clairvoyance_advanced.py'
       - 'modeles/reproduction/clairvoyance_nba_espn_source.py'

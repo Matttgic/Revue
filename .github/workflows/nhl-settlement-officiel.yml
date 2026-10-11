@@ -6,6 +6,7 @@ on:
     # Score-only settlement every four hours, independent of MoneyPuck refresh.
     - cron: '15 0,4,8,12,16,20 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/suivi/nhl_settlement_officiel.py'
       - 'outils/suivi/nhl_shadow_tracker.py'
