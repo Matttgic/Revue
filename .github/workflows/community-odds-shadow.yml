@@ -1,0 +1,106 @@
+name: Revue - PulseScore vs community odds (7 days)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/community-odds-shadow.yml'
+      - 'outils/collecte/shadow_sources.py'
+  schedule:
+    # Seven calendar days in October 2026 (UTC), then automatically no-op.
+    - cron: '27 9 * * *'
+  pull_request:
+    paths:
+      - 'outils/collecte/shadow_sources.py'
+      - 'tests/test_shadow_sources.py'
+      - '.github/workflows/community-odds-shadow.yml'
+permissions:
+  contents: write
+concurrency:
+  group: revue-community-shadow
+  cancel-in-progress: false
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Guard seven-day capture window
+        id: window
+        shell: bash
+        run: |
+          today=$(date -u +%F)
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            if [[ "$today" < "2026-10-12" || "$today" > "2026-10-18" ]]; then
+              echo "run=no" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          echo "run=yes" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: steps.window.outputs.run == 'yes'
+      - uses: actions/setup-python@v5
+        if: steps.window.outputs.run == 'yes'
+        with:
+          python-version: '3.12'
+      - name: Offline comparison contract tests
+        if: steps.window.outputs.run == 'yes'
+        run: python -m unittest discover -s tests -p 'test_shadow_sources.py' -v
+      - name: Checkout vetted public Flashscore adapter (MIT, pinned commit)
+        if: steps.window.outputs.run == 'yes' && github.event_name != 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          repository: omkarcloud/flashscore-scraper
+          ref: b1c54af09d893a5a56a52398f76845a111b4235e
+          path: community-flashscore
+          persist-credentials: false
+      - name: Install pinned community adapters
+        if: steps.window.outputs.run == 'yes' && github.event_name != 'pull_request'
+        run: |
+          python -m pip install -q "git+https://github.com/TapsHTS/betclic-api.git@5989c0936e17c98fff392dc20f5d2e8e4048c04e"
+          python -m pip install -q -r community-flashscore/requirements.txt
+      - name: Start community Flashscore API (read-only)
+        if: steps.window.outputs.run == 'yes' && github.event_name != 'pull_request'
+        run: |
+          python community-flashscore/run.py > /tmp/revue-community-flashscore.log 2>&1 &
+          echo $! > /tmp/revue-community-flashscore.pid
+          for _ in 1 2 3 4 5 6 7 8; do
+            if curl -fsS --max-time 2 http://127.0.0.1:8000/health > /dev/null; then
+              echo "Flashscore adapter ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Flashscore local adapter not responding; runner will record 'error' independently"
+          exit 0
+      - name: Observe same football matches and 1X2 (bounded, no betting)
+        if: steps.window.outputs.run == 'yes' && github.event_name != 'pull_request'
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+        run: python -m outils.collecte.shadow_sources
+      - name: Upload report artifact
+        if: steps.window.outputs.run == 'yes' && github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: community-odds-shadow-${{ github.run_id }}
+          path: docs/opensource-shadow/*.json
+          retention-days: 30
+      - name: Persist sanitized daily report (main only)
+        if: steps.window.outputs.run == 'yes' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          cp -r docs/opensource-shadow /tmp/revue-community-shadow-collect
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p docs/opensource-shadow
+            cp /tmp/revue-community-shadow-collect/*.json docs/opensource-shadow/
+            git add docs/opensource-shadow
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'data: record read-only community odds provider comparison'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
