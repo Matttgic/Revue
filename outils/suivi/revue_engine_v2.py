@@ -222,6 +222,7 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
     if model_stamp is None or model_stamp>now or now-model_stamp>PREDICTION_MAX_AGE:
         return [],{"model_stale":1}
     candidates=[]
+    near=[]  # écarts sharp observés sous le seuil : publiés pour transparence
     for league,raw in odds.items():
         section=data.get("competitions",{}).get(league,{})
         scheduled=[]
@@ -289,9 +290,18 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                         if fair_p is None:
                             diagnostics["no_sharp_reference"]+=1
                             continue
-                        if not 0.28<=fair_p<=0.84:continue
+                        if not 0.28<=fair_p<=0.84:
+                            diagnostics["sharp_probability_out_of_range"]+=1
+                            continue
                         ev_sharp=fair_p*price-1
-                        if ev_sharp<SHARP_MIN_EV:continue
+                        if ev_sharp<SHARP_MIN_EV:
+                            diagnostics["sharp_edge_below_threshold"]+=1
+                            near.append({"league":league,"home":game["home"],"away":game["away"],
+                                         "start_utc":game["start_utc"],"market":mk,"side":side,
+                                         "line":outcome.get("point"),"bookmaker":bk,
+                                         "bookmaker_price":price,"p_sharp_no_vig":round(fair_p,5),
+                                         "sharp_source":pinnacle.get("key"),"ev_sharp":round(ev_sharp,5)})
+                            continue
                         # Pure price consensus: other FR books only, same
                         # verified event/market/line and fresh timestamps.
                         from outils.controles.consensus_quotations import peer_consensus
@@ -338,7 +348,10 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                         })
                         diagnostics["passing_filter"]+=1
     candidates.sort(key=lambda x:(-x["ev_sharp"],x["start_utc"],x["selection_id"]))
-    return candidates[:max_candidates],dict(diagnostics)
+    near.sort(key=lambda x:(-x["ev_sharp"],x["start_utc"]))
+    out=dict(diagnostics)
+    out["best_sharp_edges"]=near[:10]
+    return candidates[:max_candidates],out
 
 
 def _outcome_from_score(bet:dict,home:float,away:float)->str|None:
@@ -539,6 +552,7 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
     from outils.collecte.tableau_cotes import build_board
     odds_board=build_board(models,odds,now)
     picks,notes=market_recommendations(models,odds,now)
+    near_misses=notes.pop("best_sharp_edges",[])
     paper_locks(picks,ledger,now)
     # Observe subsequent real prices of the EXACT locked paper market only.
     # Historical price data is never synthesized from latest odds.
@@ -565,6 +579,9 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
         "candidate_count":len(picks),
         "candidates":picks[:100],
         "diagnostics":notes,
+        "selection_rule":{"id":SELECTION_RULE,"min_ev_sharp":SHARP_MIN_EV,
+                          "label":"Cote française ≥ référence PS3838 sans marge + 3 %"},
+        "best_sharp_edges_below_threshold":near_misses,
         "paper":ledger_statistics(ledger),
         "price_tracking":price_tracking,
         "warning":"Aucun modèle calibré. EV supposée, non vérifiée. Aucun pari réel automatique.",

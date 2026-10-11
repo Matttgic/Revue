@@ -133,8 +133,11 @@ class PaperTests(unittest.TestCase):
         # pas la référence sharp sans marge : refusé.
         event=quotes()
         event["bookmakers"][0]["markets"][0]["outcomes"][0]["price"]=1.70
-        out,_=market_recommendations(models(),{"PL":[event]},NOW)
+        out,notes=market_recommendations(models(),{"PL":[event]},NOW)
         self.assertFalse([c for c in out if c["market"]=="h2h" and c["side"]=="home"])
+        near=[x for x in notes["best_sharp_edges"] if x["side"]=="home"]
+        self.assertEqual(len(near),1)
+        self.assertLess(near[0]["ev_sharp"],0.03)
 
     def test_late_quote_refused(self):
         selections,notes=market_recommendations(models(),{"PL":[quotes(when=START+timedelta(hours=1))]},NOW)
