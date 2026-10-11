@@ -7,7 +7,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Groupe | Rôle | Scripts |
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
-| [`collecte/`](#collecte) | Collecte de données | 14 |
+| [`collecte/`](#collecte) | Collecte de données | 15 |
 | [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 24 |
 | [`controles/`](#controles) | Contrôles qualité | 15 |
 | [`publication/`](#publication) | Publication du site | 4 |
@@ -83,6 +83,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | [probe_nba_espn_standings.py](collecte/probe_nba_espn_standings.py) | Read-only diagnostic: ESPN previous NBA season team standings metadata. |
 | [pulsescore_radar_six_heures.py](collecte/pulsescore_radar_six_heures.py) | Revue six-hour PulseScore radar: strictly incremental, no paper bets. |
 | [pulsescore_v2.py](collecte/pulsescore_v2.py) | PulseScore Pro prematch adapter for Revue V2. |
+| [shadow_sources.py](collecte/shadow_sources.py) | Independent read-only shadow comparison: PulseScore vs community sources. |
 | [scoreboard_revue.py](collecte/scoreboard_revue.py) | Observed sport scores from official NHL and ESPN scoreboard APIs. |
 | [tableau_cotes.py](collecte/tableau_cotes.py) | Revue: time-stamped French bookmaker odds board, independent of model EV. |
 
