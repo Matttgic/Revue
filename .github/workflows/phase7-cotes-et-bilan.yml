@@ -2,7 +2,7 @@ name: Revue - Phase 7 PulseScore quote integrity and paper audit
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 0,3,6,9,12,15,18,21 * * *'
+    - cron: '45 2,10,18 * * *'  # 3x/j : phase 9 exige < 15 h
   push:
     paths:
       - 'outils/controles/phase7_cotes_et_bilan.py'

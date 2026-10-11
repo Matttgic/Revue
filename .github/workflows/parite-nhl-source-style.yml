@@ -2,7 +2,7 @@ name: Revue - NHL original backend source-style parity
 on:
   workflow_dispatch:
   schedule:
-    - cron: '35 14,18 * * *'
+    - cron: '35 14 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/verifier_parite_nhl_source_style.py'

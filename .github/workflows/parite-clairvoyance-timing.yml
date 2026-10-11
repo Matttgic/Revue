@@ -2,7 +2,7 @@ name: Revue - Parité temporelle Clairvoyance
 on:
   workflow_dispatch:
   schedule:
-    - cron: '47 7 * * *'
+    - cron: '47 7 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'modeles/reproduction/clairvoyance_lock_timing.py'

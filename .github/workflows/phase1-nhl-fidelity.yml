@@ -2,13 +2,7 @@ name: Revue - Phase 1 fidelite NHL
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 6,18 * * *'
-  workflow_run:
-    workflows:
-      - 'Revue - Donnees prioritaires et reglements'
-      - 'Revue - Source input NHL gap study'
-      - 'Revue - NHL Monte Carlo Ensemble prospective'
-    types: [completed]
+    - cron: '17 9 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/clairvoyance_elo_settlement_replay.py'

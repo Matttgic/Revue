@@ -3,7 +3,7 @@ name: Revue - Parité exacte Clairvoyance
 on:
   workflow_dispatch:
   schedule:
-    - cron: '40 7 * * *'
+    - cron: '40 7 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/audit_reproduction_exacte.py'

@@ -2,7 +2,7 @@ name: Revue - Sorties reelles Clairvoyance
 on:
   workflow_dispatch:
   schedule:
-    - cron: '42 5,11,17,23 * * *'
+    - cron: '42 5 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/clairvoyance_real_output_gap.py'

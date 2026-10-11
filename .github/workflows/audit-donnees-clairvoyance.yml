@@ -2,7 +2,7 @@ name: Revue - Parité des données sportives Clairvoyance
 on:
   workflow_dispatch:
   schedule:
-    - cron: '35 5 * * *'
+    - cron: '35 5 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/audit_entrees_clairvoyance.py'

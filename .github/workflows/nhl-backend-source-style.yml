@@ -2,7 +2,7 @@ name: Revue - NHL backend source-style audits
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 14,18 * * *'
+    - cron: '15 14 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/nhl_backend_source_style.py'
