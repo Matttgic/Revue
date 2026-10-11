@@ -1,6 +1,6 @@
 {
   "version": "revue_phase11_source_quality_v1",
-  "generated_at_utc": "2026-10-11T11:34:36.777882+00:00",
+  "generated_at_utc": "2026-10-11T18:13:16.648404+00:00",
   "status": "input_gates_verified_missing_original_model_sources",
   "sports": {
     "NBA": {
@@ -14,7 +14,7 @@
       "original_sql_parity_proven": false
     },
     "NHL": {
-      "goalie_observations": 3,
+      "goalie_observations": 4,
       "both_sides_confirmed_by_ESPN": 0,
       "actual_starters_verified": false,
       "missing": [
@@ -24,10 +24,10 @@
       "original_sql_parity_proven": false
     },
     "MLB": {
-      "ESPN_completed_games_used_for_diagnostic": 291,
+      "ESPN_completed_games_used_for_diagnostic": 292,
       "pitchers_verified_from_current_feed": false,
       "official_probable_pitcher_feed_available": true,
-      "official_probable_pitcher_sides_observed": 3,
+      "official_probable_pitcher_sides_observed": 5,
       "official_probable_pitcher_source_status": "official_MLB_probable_pitchers_observed_not_confirmed",
       "original_elo_sql_verified": false,
       "missing": [
@@ -49,14 +49,14 @@
   "NHL_espn_observations": {
     "source_report_valid": true,
     "source_age": {
-      "age_hours": 1.32,
+      "age_hours": 4.13,
       "status": "recent",
       "max_age_hours": 12
     },
     "future_nhl_fixtures": 6,
-    "matched_upcoming_fixtures": 3,
+    "matched_upcoming_fixtures": 4,
     "goalie_sides_confirmed_by_espn": 0,
-    "goalie_sides_projected_by_espn": 6,
+    "goalie_sides_projected_by_espn": 8,
     "fixtures_with_both_espn_confirmed": 0,
     "actual_game_starts_independently_verified": 0,
     "used_in_prediction": false,
@@ -79,7 +79,7 @@
         "event_id": "2026020085",
         "home": "NYR",
         "away": "VAN",
-        "source_observed_utc": "2026-10-11T10:15:25.815308+00:00",
+        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
         "home_goalie": {
           "name": "Dylan Garand",
           "status": "projected"
@@ -98,15 +98,9 @@
         "event_id": "2026020086",
         "home": "PHI",
         "away": "CAR",
-        "source_observed_utc": "2026-10-11T10:15:25.815308+00:00",
-        "home_goalie": {
-          "name": "Joseph Woll",
-          "status": "projected"
-        },
-        "away_goalie": {
-          "name": "Pyotr Kochetkov",
-          "status": "projected"
-        },
+        "source_observed_utc": null,
+        "home_goalie": null,
+        "away_goalie": null,
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -117,7 +111,7 @@
         "event_id": "2026020087",
         "home": "BUF",
         "away": "FLA",
-        "source_observed_utc": "2026-10-11T10:15:25.815308+00:00",
+        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
         "home_goalie": {
           "name": "Ukko-Pekka Luukkonen",
           "status": "projected"
@@ -136,9 +130,15 @@
         "event_id": "2026020088",
         "home": "NJD",
         "away": "OTT",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
+        "home_goalie": {
+          "name": "Jake Allen",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Linus Ullmark",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -149,9 +149,15 @@
         "event_id": "2026020089",
         "home": "MIN",
         "away": "VGK",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-10-11T14:05:40.917127+00:00",
+        "home_goalie": {
+          "name": "Jesper Wallstedt",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Carter Hart",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -280,39 +286,39 @@
     "not_in_real_or_paper_settled_roi": true
   },
   "phase10_validation": {
-    "locked_predictions": 77,
-    "officially_settled": 19,
+    "locked_predictions": 78,
+    "officially_settled": 32,
     "models_calibrated": false,
     "prospective_evidence_not_historical_backfill": true
   },
   "freshness": {
     "goalies": {
-      "age_hours": 1.32,
+      "age_hours": 4.13,
       "status": "recent",
       "max_age_hours": 12
     },
     "nba": {
-      "age_hours": 8.33,
+      "age_hours": 3.92,
       "status": "recent",
       "max_age_hours": 48
     },
     "mlb": {
-      "age_hours": 8.33,
+      "age_hours": 0.42,
       "status": "recent",
       "max_age_hours": 48
     },
     "football": {
-      "age_hours": 0.02,
+      "age_hours": 6.66,
       "status": "recent",
       "max_age_hours": 48
     },
     "center": {
-      "age_hours": 0.01,
+      "age_hours": 0.22,
       "status": "recent",
       "max_age_hours": 12
     },
     "picks": {
-      "age_hours": 2.66,
+      "age_hours": 0.56,
       "status": "recent",
       "max_age_hours": 24
     }
