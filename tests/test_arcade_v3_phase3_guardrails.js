@@ -13,7 +13,10 @@ const kick=M.events.find(x=>x.league==="LIGUE1"&&Date.parse(x.start_utc)>NOW+30*
 if(!kick)throw Error("No future fixture in snapshot");
 function picks(){
  const doc=structuredClone(P);
- doc.research_selections=[{...P.research_selections[0],
+ // Fraîcheur fixée par le test : on vérifie la jointure, pas l'âge du dernier scan.
+ doc.source_engine_generated_at_utc=new Date(NOW-60000).toISOString();
+ doc.research_selections=[{...(P.research_selections[0]||{}),market:"h2h",side:"home",line:null,
+  selection_label:"test",
   league:kick.league,event_id:String(kick.event_id),home:kick.home,away:kick.away,
   start_utc:kick.start_utc,real_bet:false,model_is_calibrated:false,
   qualified_positive_ev:false,available_as_real_market:false,
