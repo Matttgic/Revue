@@ -25,7 +25,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | PulseScore / The Odds API (clé en secret) | Cotes de bookmakers FR observées | `outils/collecte/pulsescore_v2.py`, `outils/suivi/revue_engine_v2.py` |
 | Dépôt public Clairvoyance (lecture seule) | Comparaisons de parité, audits | `outils/clairvoyance/` |
 
-## Inventaire (101 fichiers)
+## Inventaire (102 fichiers)
 
 ### Reproduction Clairvoyance (parité, audits)
 
@@ -177,3 +177,4 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [phase5-sources-latest.json](../docs/phase5-sources-latest.json) | 2026-10-10 21:47 | 4 | phase5-donnees-multisports.yml | `outils/controles/phase11_data_quality.py`, `outils/controles/phase5_donnees_multisports.py` |
 | [phase9-readiness-latest.json](../docs/phase9-readiness-latest.json) | 2026-10-10 22:00 | 1 | phase9-acceptation-production.yml | `outils/controles/phase14_reception.py`, `outils/controles/phase9_acceptation_production.py` |
 | [progression-revue.json](../docs/progression-revue.json) | 2026-10-10 17:16 | 28 | — | — |
+| [regle-decision-latest.json](../docs/regle-decision-latest.json) | 2026-10-11 03:03 | 3 | regle-decision.yml | `outils/suivi/regle_decision.py` |

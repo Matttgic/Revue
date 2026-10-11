@@ -13,6 +13,7 @@ Site : [matttgic.github.io/Revue](https://matttgic.github.io/Revue/) · Journal 
 | **Clairvoyance** (Purple-Wraith) | Rentabilité affichée **non démontrée** : sur 125 paris pré-match à cote observée, ROI +2,7 %, IC 95 % [−9,8 % ; +15,1 %] | [Vérification](analyses/2026-10-11_Clairvoyance_verification_rentabilite_et_reproduction.md) · [agrégats](docs/clairvoyance-rentabilite-audit.json) |
 | Reproduction Clairvoyance | 44 fonctions modèle identiques à l'original (re-vérifiées chaque jour) ; couche de sélection des paris non reproduite | [Modèles](catalogue/MODELES.md) · [parité](docs/parite-modeles-clairvoyance.json) |
 | Modèles Revue | 9 modèles de recherche suivis de façon prospective, non calibrés | [Modèles](catalogue/MODELES.md) |
+| **Journal de paris papier** | Règle de décision fixée le 11/10/2026 : ≥ 300 paris pré-match à cote observée, ROI et CLV positifs (IC 95 %), modèle plus juste que le marché. Verdict actuel : données insuffisantes | [Tableau de bord](https://matttgic.github.io/Revue/regle-decision.html) · [règle](outils/suivi/regle_decision.py) |
 | Catalogue | 4 dépôts audités, 33 entrées (méthodes, modèles, outils), aucune rentabilité prouvée | [Analyses](analyses/README.md) · [Méthodes](catalogue/INDEX.md) |
 
 ## Organisation

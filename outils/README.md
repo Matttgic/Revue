@@ -8,7 +8,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
 | [`collecte/`](#collecte) | Collecte de données | 14 |
-| [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 23 |
+| [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 24 |
 | [`controles/`](#controles) | Contrôles qualité | 15 |
 | [`publication/`](#publication) | Publication du site | 4 |
 
@@ -113,6 +113,7 @@ Documentation : [BACKTESTS_MULTISPORTS.md](suivi/BACKTESTS_MULTISPORTS.md) · [E
 | [phase13_comparaison_modeles.py](suivi/phase13_comparaison_modeles.py) | Phase 13: immutable out-of-sample multisport model comparison. |
 | [phase2_historique_autonome.py](suivi/phase2_historique_autonome.py) | Phase 2: Revue-owned *prospective* multi-sport forecasting & Elo history. |
 | [prospectif_multisports_revue.py](suivi/prospectif_multisports_revue.py) | Immutable multisport prospective predictions and strict official-result evaluation. |
+| [regle_decision.py](suivi/regle_decision.py) | Règle de décision pré-enregistrée pour le journal de paris papier de Revue. |
 | [reglement_multisport_officiel.py](suivi/reglement_multisport_officiel.py) | Independent, verified ESPN final-score settlement for existing PAPER bets. |
 | [revue_engine_v2.py](suivi/revue_engine_v2.py) | Revue Engine V2 — an ORIGINAL, dry-run-only multisport odds and paper ledger. |
 | [suivi_ensemble.py](suivi/suivi_ensemble.py) | Prospective paired model audit: real scores vs frozen 1X2 at pregame time. |
