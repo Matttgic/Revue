@@ -45,6 +45,8 @@ class CommunityOddsShadowTests(unittest.TestCase):
                                   {"name": "Nul", "odds": 3.1},
                                   {"name": "Lyon", "odds": 3.8}]}]}
         self.assertEqual(betclic_h2h(event), {"home": 2.1, "draw": 3.1, "away": 3.8})
+        event["markets"][0]["name"] = "Résultat du match (t. rég)"
+        self.assertEqual(betclic_h2h(event), {"home": 2.1, "draw": 3.1, "away": 3.8})
 
     def test_absent_key_never_makes_network_request(self):
         report = {"sources": {"pulsescore": source_state()}}

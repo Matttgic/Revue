@@ -169,8 +169,10 @@ def betclic_h2h(match):
     home, away = teams(match)
     for m in match.get("markets") or []:
         title = str(getattr(m, "name", None) or (m.get("name", "") if isinstance(m, dict) else "")).casefold()
-        if title not in {"resultat du match", "résultat du match", "résultat du match (90 min.)",
-                         "1x2", "résultat", "resultat", "résultat du match (90 minutes)"}:
+        if any(word in title for word in ("mi-temps", "1st half", "première période", "1re période")):
+            continue
+        if not (title.startswith(("resultat du match", "résultat du match"))
+                or title in {"1x2", "résultat", "resultat"}):
             continue
         if getattr(m, "suspended", False) or (isinstance(m, dict) and m.get("suspended")):
             continue
