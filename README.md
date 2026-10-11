@@ -1,3 +1,5 @@
+> **Verdict Clairvoyance (audit du 11/10/2026)** — la rentabilité affichée (≈ +978 u, 70 % de réussite) **n'est pas démontrée** : elle mélange des paris verrouillés après le début du match, des heures inconnues, 313 saisies a posteriori et des cotes jamais observées (−110 par défaut ou 1/p du modèle). Sur les seuls 125 paris pré-match à cote de marché observée : ROI **+2,7 %, IC 95 % [−9,8 % ; +15,1 %]**, indiscernable de zéro. Détails : [analyse](analyses/2026-10-11_Clairvoyance_verification_rentabilite_et_reproduction.md) · [agrégats](docs/clairvoyance-rentabilite-audit.json). La reproduction des 44 fonctions modèle est re-vérifiée sur le source actuel (`0d900f51`) ; la couche de sélection des paris (calibration adaptative, `tier`, verrouillage auto) n'est pas encore reproduite.
+
 ## Phase 3 — Intégration de bout en bout dans les 3 écrans Arcade (10 octobre 2026)
 
 **À jouer → Pourquoi → Bilan** reste l'unique parcours principal. [Accueil Revue Arcade](docs/index.html) · [Bilan détaillé](docs/bilan.html) · [historique propre à Revue](docs/historique-phase2.html).

@@ -25,7 +25,10 @@ class Phase12QualityTests(unittest.TestCase):
   self.assertEqual(q["version"],VERSION)
   self.assertEqual(q["multisport"]["settled"],3)
   self.assertEqual(q["multisport"]["pending"],0)
-  self.assertEqual(q["NHL"]["settled"],1)
+  # Live ledger grows as NHL games settle: compare to the ledger itself.
+  expected=sum(e.get("status")=="settled" for e in inp[1]["events"])
+  self.assertGreaterEqual(expected,1)
+  self.assertEqual(q["NHL"]["settled"],expected)
   self.assertFalse(q["real_bets_enabled"])
   self.assertIsNone(q["ROI"])
   self.assertEqual(q["audit_errors"],[])

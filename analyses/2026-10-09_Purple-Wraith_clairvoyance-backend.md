@@ -1,5 +1,7 @@
 # Audit — Purple-Wraith/clairvoyance-backend
 
+> **Mise à jour 2026-10-11 :** les chiffres de rentabilité ci-dessous ont été recalculés depuis le registre public (pré-match, provenance des cotes, horodatages). Voir [la vérification complète](2026-10-11_Clairvoyance_verification_rentabilite_et_reproduction.md) : sur 125 paris pré-match à cote de marché observée, ROI +2,7 % (IC 95 % [−9,8 % ; +15,1 %]). Rentabilité **non démontrée**.
+
 - **Source :** https://github.com/Purple-Wraith/clairvoyance-backend
 - **Auteur :** Purple-Wraith
 - **Commit audité :** `baa687b11a2d59b8a25720d4d747b0671b9450ff` (main, 2026-10-09)
