@@ -270,6 +270,20 @@ def compare(pulse, community, client, flash_matches, report, getter=api_get):
         except Exception:
             pairs["betclic_details_errors"] += 1
             continue
+        if odds_pulse:
+            pairs["pulse_complete_1x2"] += 1
+        else:
+            names = [str(m.get("canonicalMarket") or m.get("rawName") or "")[:48]
+                     for m in (raw.get("markets") or []) if isinstance(m, dict)]
+            pairs["pulse_market_examples"] = list(dict.fromkeys(
+                pairs["pulse_market_examples"] + names))[:12]
+        if odds_community:
+            pairs["betclic_complete_1x2"] += 1
+        else:
+            names = [str(getattr(m, "name", None) or (m.get("name", "") if isinstance(m, dict) else ""))[:48]
+                     for m in (detailed.get("markets") or [])]
+            pairs["betclic_market_examples"] = list(dict.fromkeys(
+                pairs["betclic_market_examples"] + names))[:12]
         if odds_pulse and odds_community:
             pairs["same_market_1x2_matches"] += 1
             differences = [abs(odds_pulse[s] - odds_community[s]) for s in ("home", "draw", "away")]
@@ -309,6 +323,8 @@ def run(out_dir, key, client_factory=None, getter=api_get):
               "comparison": {"betclic_fixture_matches": 0, "flashscore_fixture_matches": 0,
                              "betclic_details_queried": 0, "betclic_details_errors": 0,
                              "same_market_1x2_matches": 0, "unverified_market_matches": 0,
+                             "pulse_complete_1x2": 0, "betclic_complete_1x2": 0,
+                             "pulse_market_examples": [], "betclic_market_examples": [],
                              "flashscore_odds_queries": 0, "flashscore_odds_responses": 0,
                              "flashscore_odds_errors": 0, "absolute_differences": []},
               "safety": "No wagering; quotes not used as recommendations"}
