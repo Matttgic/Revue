@@ -2,7 +2,9 @@
 
 - **Projet :** https://github.com/blummabet/Betting-Dashboard
 - **Auteur :** blummabet
-- **Commit source audité :** `4d9d08f76ce1b0f39b2e2890c9781f5862b3553c` (branche main, 09/10/2026)
+- **Commit source de l’audit initial :** `4d9d08f76ce1b0f39b2e2890c9781f5862b3553c` (branche main, 09/10/2026)
+- **HEAD main vérifié :** `7fafbbde2cc95f2367b1b84089b70e2a1eef4eda` (11/10/2026)
+- **Contrôle de mise à jour :** depuis le commit d’audit initial, les modules et rapports utilisés pour les sept pistes ci-dessous sont inchangés. Quatorze autres fichiers Python, Markdown ou workflow avaient changé avant le contrôle du 11/10 à 14:51 UTC, surtout les outils de mises (« stake »), l’analyse des cotes en direct et leurs tests; ils ne sont pas audités ici. Depuis ce contrôle, 218 fichiers JSON ont changé (données et états mis à jour), sans modification de code, documentation ou workflow; les rapports `backtest_report.md`, `backtest_results.json` et `liga_backtest_report.json` cités ci-dessous sont inchangés. L’examen reste ciblé et ne couvre pas ces états JSON mouvants.
 - **Licence :** AUCUNE licence explicite visible dans les métadonnées et l'arborescence inspectées. Code, datasets, historiques, interface : **pas de copie ni de redistribution**.
 - **Stack :** Python, JavaScript, HTML, GitHub Actions, multiples API sport/cotes.
 - **Statut Revue :** recherche documentée ; pas d'intégration de code tiers ; pas de stratégie prouvée rentable.
@@ -23,13 +25,13 @@
 
 | ID | Thème | Fiche |
 |---|---|---|
-| REV-BLUMMA-01 | Steam Pinnacle + retard de bookmakers | [steam](../recherche/football/steam-sharp-softbooks.md) |
-| REV-BLUMMA-02 | Dé-margement et sensibilité des longshots | [devig](../recherche/transversales/devig-methode-robuste.md) |
-| REV-BLUMMA-03 | Consensus, anti-double comptage et gating | [signaux](../recherche/transversales/consensus-signaux-independants.md) |
-| REV-BLUMMA-04 | xG, effet domicile/extérieur, déplacement MLS | [forme](../recherche/football/xg-venue-travel.md) |
-| REV-BLUMMA-05 | Journal de signaux et apprentissage prudent | [apprentissage](../recherche/transversales/learning-loop.md) |
-| REV-BLUMMA-06 | Cohérence des lignes de totaux entre marchés | [cohérence](../recherche/football/coherence-marche-totaux.md) |
-| REV-BLUMMA-07 | Audit de backtest, ROI et incertitude | [validation](../recherche/transversales/audit-signal-backtests.md) |
+| REV-BLUMMA-01 | Steam Pinnacle + retard de bookmakers | [steam](REV-BLUMMA-01_steam-sharp-softbooks.md) |
+| REV-BLUMMA-02 | Dé-margement et sensibilité des longshots | [devig](REV-BLUMMA-02_devig-methode-robuste.md) |
+| REV-BLUMMA-03 | Consensus, anti-double comptage et gating | [signaux](REV-BLUMMA-03_consensus-signaux.md) |
+| REV-BLUMMA-04 | xG, effet domicile/extérieur, déplacement MLS | [forme](REV-BLUMMA-04_xg-venue-travel.md) |
+| REV-BLUMMA-05 | Journal de signaux et apprentissage prudent | [apprentissage](REV-BLUMMA-05_learning-loop.md) |
+| REV-BLUMMA-06 | Cohérence des lignes de totaux entre marchés | [cohérence](REV-BLUMMA-06_coherence-totaux.md) |
+| REV-BLUMMA-07 | Audit de backtest, ROI et incertitude | [validation](REV-BLUMMA-07_audit-backtests.md) |
 
 ## Évidence des rendements — prudence indispensable
 

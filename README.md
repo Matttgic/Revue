@@ -14,7 +14,9 @@ Site : [matttgic.github.io/Revue](https://matttgic.github.io/Revue/) · Journal 
 | Reproduction Clairvoyance | 44 fonctions modèle identiques à l'original (re-vérifiées chaque jour) ; couche de sélection des paris non reproduite | [Modèles](catalogue/MODELES.md) · [parité](docs/parite-modeles-clairvoyance.json) |
 | Modèles Revue | 9 modèles de recherche suivis de façon prospective, non calibrés | [Modèles](catalogue/MODELES.md) |
 | **Journal de paris papier** | Règle de décision fixée le 11/10/2026 : ≥ 300 paris pré-match à cote observée, ROI et CLV positifs (IC 95 %), modèle plus juste que le marché. Verdict actuel : données insuffisantes | [Tableau de bord](https://matttgic.github.io/Revue/regle-decision.html) · [règle](outils/suivi/regle_decision.py) |
-| Catalogue | 4 dépôts audités, 33 entrées (méthodes, modèles, outils), aucune rentabilité prouvée | [Analyses](analyses/README.md) · [Méthodes](catalogue/INDEX.md) |
+| Catalogue | 44 dépôts examinés (dont 20 nouvelles revues ciblées), 56 entrées (méthodes, modèles, outils), aucune rentabilité prouvée | [Analyses](analyses/README.md) · [Méthodes](catalogue/INDEX.md) · [Enseignements transversaux](catalogue/ENSEIGNEMENTS.md) |
+
+[Recherche GitHub du 11 octobre 2026 : 20 nouveaux dossiers et avis comparatifs](recherche/panorama-github-2026-10-11/README.md).
 
 ## Organisation
 
@@ -23,9 +25,10 @@ Revue/
 ├── README.md              ← vous êtes ici
 ├── catalogue/             ← POINT D'ENTRÉE : index des méthodes, modèles et données
 │   ├── INDEX.md           │  méthodes / stratégies (une ligne par idée)
+│   ├── ENSEIGNEMENTS.md   │  leçons cumulées et recoupements entre dépôts
 │   ├── MODELES.md         │  modèles reproduits et modèles Revue
 │   └── DONNEES.md         │  jeux de données publiés et sources (généré)
-├── analyses/              ← un audit par dépôt GitHub examiné (source, licence, verdict)
+├── analyses/              ← audits et fiches rangés par dépôt dans leur dossier propre
 ├── recherche/             ← fiches de méthodes par sport : hockey/, football/, basketball/, …
 ├── modeles/
 │   ├── reproduction/      ← réécritures vérifiées contre l'original
@@ -48,7 +51,7 @@ Revue/
 ## Ajouter un dépôt découvert
 
 1. **Auditer** : créer `analyses/AAAA-MM-JJ_proprietaire_depot.md` depuis [templates/FICHE_SOURCE.md](templates/FICHE_SOURCE.md). Préciser l'objectif, le commit, la licence, les données et la sécurité. Si la rentabilité est affichée, la **recalculer** : pré-match seulement, cotes réellement observées (voir [outils/clairvoyance/audit_rentabilite_clairvoyance.py](outils/clairvoyance/audit_rentabilite_clairvoyance.py)).
-2. **Extraire** chaque idée utile dans `recherche/<sport>/`, depuis [templates/FICHE_STRATEGIE.md](templates/FICHE_STRATEGIE.md), et ajouter une ligne à [catalogue/INDEX.md](catalogue/INDEX.md).
+2. **Comparer et extraire** : indiquer ce que le dépôt confirme, complète ou contredit dans les fiches existantes. Documenter chaque idée utile dans `recherche/<sport>/` ou son dossier source, l'indexer dans [catalogue/INDEX.md](catalogue/INDEX.md) sans créer de doublon, puis enrichir [catalogue/ENSEIGNEMENTS.md](catalogue/ENSEIGNEMENTS.md) quand plusieurs sources éclairent un même point.
 3. **Reproduire** si c'est pertinent : `modeles/reproduction/` + un vérificateur de parité. Sans licence explicite, réécrire sans copier, et ne jamais republier le code ni les données sous licence.
 4. **Mesurer** de façon prospective (`outils/suivi/`) avant toute conclusion. Statuts : `À étudier`, `Prototype`, `Testé`, `Validé hors échantillon`, `Rejeté` (→ [archives/](archives/README.md)).
 
