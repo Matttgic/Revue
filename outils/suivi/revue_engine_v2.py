@@ -58,6 +58,11 @@ NHL_FULL={
 "WPG":"Winnipeg Jets","WSH":"Washington Capitals"}
 ALIASES={"st":"saint","st.":"saint"}
 MIN_EV=0.04
+# Stratégie de sélection (adoptée le 2026-10-11) : la cote française doit battre
+# la probabilité de référence sharp (PS3838/Pinnacle, sans marge) d'au moins 3 %.
+# Le modèle Revue reste enregistré pour suivi, mais ne décide plus.
+SELECTION_RULE="sharp_ev_v1"
+SHARP_MIN_EV=0.03
 MIN_STAKE_ODDS=1.30
 MAX_STAKE_ODDS=3.5
 QUOTE_MAX_AGE=timedelta(minutes=50)
@@ -276,13 +281,17 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                             continue
                         if not math.isfinite(price) or price<MIN_STAKE_ODDS or price>MAX_STAKE_ODDS:
                             continue
-                        if not 0.28<=prob<=0.84:continue
                         ev=prob*price-1
-                        if ev<MIN_EV:continue
                         fair_p=None
                         if pinnacle:
                             from outils.controles.consensus_quotations import book_no_vig
                             fair_p=book_no_vig(pinnacle,game,mk,outcome,now)
+                        if fair_p is None:
+                            diagnostics["no_sharp_reference"]+=1
+                            continue
+                        if not 0.28<=fair_p<=0.84:continue
+                        ev_sharp=fair_p*price-1
+                        if ev_sharp<SHARP_MIN_EV:continue
                         # Pure price consensus: other FR books only, same
                         # verified event/market/line and fresh timestamps.
                         from outils.controles.consensus_quotations import peer_consensus
@@ -316,6 +325,8 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                             "peer_price_delta":round(price*consensus-1,5) if consensus is not None else None,
                             "peer_confirmation":"observed_prices_only_not_true_edge",
                             "ev_model":round(ev,5),
+                            "ev_sharp":round(ev_sharp,5),
+                            "selection_rule":SELECTION_RULE,
                             "quote_at":observed.isoformat(),
                             "quote_time_source":market.get("observed_origin") or "provider_last_update",
                             "model_at":model_stamp.isoformat(),
@@ -326,7 +337,7 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                             "note":"Estimation non calibrée; aucune EV démontrée.",
                         })
                         diagnostics["passing_filter"]+=1
-    candidates.sort(key=lambda x:(-x["ev_model"],x["start_utc"],x["selection_id"]))
+    candidates.sort(key=lambda x:(-x["ev_sharp"],x["start_utc"],x["selection_id"]))
     return candidates[:max_candidates],dict(diagnostics)
 
 
