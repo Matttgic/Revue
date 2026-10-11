@@ -129,7 +129,7 @@ function safeRadar(doc,now){
 function radarComparisons(doc,now){
  const out=new Map();
  if(!safeRadar(doc,now))return out;
- const books=new Set(["betclic_fr","winamax_fr","unibet_fr","netbet_fr","pmu_fr"]);
+ const books=new Set(["betclic_fr","winamax_fr","unibet_fr","pmu_fr"]);
  const selections=new Set(["home","away","draw","over","under"]);
  const seenEvents=new Set();
  const invalidEventIds=new Set();

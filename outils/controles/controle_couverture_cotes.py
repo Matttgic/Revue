@@ -23,7 +23,7 @@ from outils.suivi.revue_engine_v2 import timestamp
 
 VERSION="revue_quotations_crossbook_coverage_v1"
 SOCCER={"PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS"}
-BOOKS={"betclic_fr","winamax_fr","unibet_fr","netbet_fr","pmu_fr"}
+BOOKS={"betclic_fr","winamax_fr","unibet_fr","pmu_fr"}
 MAX_AGE=timedelta(minutes=70)
 MAX_QUOTE_GAP=timedelta(minutes=15)
 MIN_START=timedelta(minutes=20)

@@ -29,8 +29,10 @@ from outils.controles.chronologie_pre_match import Decision, classifier, PRE_VAL
 UTC=timezone.utc
 PARIS=ZoneInfo("Europe/Paris")
 BASE="https://api.the-odds-api.com/v4"
-FR_BOOKS={"betclic_fr","netbet_fr","pmu_fr","unibet_fr","winamax_fr"}
+FR_BOOKS={"betclic_fr","pmu_fr","unibet_fr","winamax_fr"}
 SHARP="pinnacle"
+# PS3838 (PulseScore) publie des cotes de type Pinnacle ; gardé sous son vrai nom.
+SHARP_KEYS=(SHARP,"ps3838")
 SOURCED_BOOKS=sorted(FR_BOOKS | {SHARP})
 ODDS_SPORTS={
  "NBA":"basketball_nba","WNBA":"basketball_wnba","NCAAB":"basketball_ncaab",
@@ -231,7 +233,7 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                 diagnostics["too_close_or_started"]+=1
                 continue
             books=event.get("bookmakers") or []
-            pinnacle=next((b for b in books if b.get("key")==SHARP),None)
+            pinnacle=next((b for key in SHARP_KEYS for b in books if b.get("key")==key),None)
             for book in books:
                 bk=str(book.get("key") or "")
                 if bk not in FR_BOOKS:continue
@@ -279,10 +281,8 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                         if ev<MIN_EV:continue
                         fair_p=None
                         if pinnacle:
-                            sharp_market=next((z for z in pinnacle.get("markets",[])
-                                               if z.get("key")==mk),None)
-                            if sharp_market and quote_book_valid(pinnacle,sharp_market,now):
-                                fair_p=same_market_book(pinnacle,mk,outcome)
+                            from outils.controles.consensus_quotations import book_no_vig
+                            fair_p=book_no_vig(pinnacle,game,mk,outcome,now)
                         # Pure price consensus: other FR books only, same
                         # verified event/market/line and fresh timestamps.
                         from outils.controles.consensus_quotations import peer_consensus
@@ -310,6 +310,7 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                             "bookmaker":bk,"bookmaker_price":price,
                             "p_model":round(prob,5),
                             "p_sharp_no_vig":round(fair_p,5) if fair_p is not None else None,
+                            "sharp_source":pinnacle.get("key") if fair_p is not None else None,
                             "p_peer_books_no_vig":consensus,
                             "peer_books_count":peer.get("peer_count",0),
                             "peer_price_delta":round(price*consensus-1,5) if consensus is not None else None,

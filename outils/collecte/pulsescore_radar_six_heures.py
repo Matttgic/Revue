@@ -61,7 +61,7 @@ def compute(models:dict,now:datetime,key:str="",scanner=scan,max_calls:int=MAX_C
         "requests_used":stats["requests"],
         "provider":"PulseScore",
         "scope":"FR observed snapshots, no currently bookable odds guaranteed",
-        "bookmakers_supported":["betclic_fr","winamax_fr","unibet_fr","netbet_fr","pmu_fr"],
+        "bookmakers_supported":["betclic_fr","winamax_fr","unibet_fr","pmu_fr"],
         "market_prices_are_live":False,
         "positive_ev_verified":False,
         "model_is_calibrated":False,
