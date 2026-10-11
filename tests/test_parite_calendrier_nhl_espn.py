@@ -3,7 +3,7 @@ from datetime import datetime,timedelta,timezone
 from copy import deepcopy
 import unittest
 
-from outils.parite_calendrier_nhl_espn import resolve_reference_ids,build
+from outils.clairvoyance.parite_calendrier_nhl_espn import resolve_reference_ids,build
 
 NOW=datetime(2026,10,10,11,tzinfo=timezone.utc)
 KICK=(NOW+timedelta(hours=6)).isoformat()

@@ -5,7 +5,7 @@ on:
     - cron: '35 5 * * *'
   push:
     paths:
-      - 'outils/audit_entrees_clairvoyance.py'
+      - 'outils/clairvoyance/audit_entrees_clairvoyance.py'
       - 'tests/test_audit_entrees_clairvoyance.py'
       - '.github/workflows/audit-donnees-clairvoyance.yml'
 permissions:
@@ -25,7 +25,7 @@ jobs:
       - name: Tester qu'aucune donnée absente n'est inventée
         run: python -m unittest discover -s tests -p 'test_audit_entrees_clairvoyance.py' -v
       - name: Comparer la disponibilité des données réellement observées
-        run: python -m outils.audit_entrees_clairvoyance
+        run: python -m outils.clairvoyance.audit_entrees_clairvoyance
       - name: Publier uniquement le statut dérivé de la couverture
         run: |
           git config user.name "github-actions[bot]"

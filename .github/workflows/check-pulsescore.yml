@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '.github/workflows/check-pulsescore.yml'
-      - 'outils/check_pulsescore_connection.py'
+      - 'outils/collecte/check_pulsescore_connection.py'
 permissions:
   contents: write
 concurrency:
@@ -22,7 +22,7 @@ jobs:
       - name: Verify PulseScore key with one read-only request
         env:
           PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
-        run: python outils/check_pulsescore_connection.py
+        run: python outils/collecte/check_pulsescore_connection.py
       - name: Save sanitized connection status only
         run: |
           git config user.name "github-actions[bot]"

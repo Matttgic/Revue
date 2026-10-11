@@ -2,7 +2,7 @@
 import unittest
 from copy import deepcopy
 from datetime import datetime,timezone
-from outils.phase4_parite_reelle import build,stamp,prob
+from outils.clairvoyance.phase4_parite_reelle import build,stamp,prob
 NOW=datetime(2026,10,10,21,0,tzinfo=timezone.utc)
 def sample():
     g={"status":"public_original_source_fixture_and_nhl_output_diagnostic",

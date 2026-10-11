@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'modeles/reproduction/clairvoyance_nba_source.py'
-      - 'outils/verifier_parite_nba_source.py'
+      - 'outils/clairvoyance/verifier_parite_nba_source.py'
       - '.github/workflows/parite-nba-source.yml'
 permissions:
   contents: write
@@ -29,7 +29,7 @@ jobs:
           python-version: '3.12'
       - name: Comparer 4 préparations NBA avec le code original du dépôt
         working-directory: revue
-        run: python -m outils.verifier_parite_nba_source --reference ../reference
+        run: python -m outils.clairvoyance.verifier_parite_nba_source --reference ../reference
       - name: Publier seulement la preuve de parité sans code tiers
         working-directory: revue
         run: |

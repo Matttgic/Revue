@@ -2,8 +2,8 @@
 import unittest
 from datetime import datetime,timedelta,timezone
 from copy import deepcopy
-from outils.pulsescore_radar_six_heures import compute,MAX_CALLS,HORIZON_HOURS,VERSION
-from outils.pulsescore_v2 import BOOKMAKERS
+from outils.collecte.pulsescore_radar_six_heures import compute,MAX_CALLS,HORIZON_HOURS,VERSION
+from outils.collecte.pulsescore_v2 import BOOKMAKERS
 
 NOW=datetime(2026,10,10,19,tzinfo=timezone.utc)
 ISO=lambda t:t.isoformat()

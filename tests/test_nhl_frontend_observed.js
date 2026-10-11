@@ -1,7 +1,7 @@
 "use strict";
 const assert=require("node:assert/strict");
 const {test}=require("node:test");
-const {generate}=require("../outils/nhl_frontend_observed.js");
+const {generate}=require("../outils/suivi/nhl_frontend_observed.js");
 
 const T=Date.parse("2026-10-10T12:00:00Z");
 const past="2026-10-10T10:00:00Z";

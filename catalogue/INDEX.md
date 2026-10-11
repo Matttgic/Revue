@@ -1,6 +1,17 @@
 # Catalogue Revue
 
+| Catalogue | Contenu |
+|---|---|
+| **Méthodes et stratégies** (cette page) | Idées extraites des dépôts examinés, avec leur fiche de recherche |
+| [MODELES.md](MODELES.md) | Modèles reproduits et modèles Revue, statut et suivi |
+| [DONNEES.md](DONNEES.md) | Jeux de données publiés, sources externes, producteurs (généré) |
+| [Analyses de dépôts](../analyses/README.md) | Un audit par dépôt GitHub examiné, avec verdict |
+
 Ce catalogue contient **uniquement** les méthodes effectivement examinées. Aucun score ni performance n'est inventé.
+
+**Statuts** : `À étudier` → `Prototype` → `Testé` → `Validé hors échantillon` ; ou `Rejeté` (alors déplacé dans [archives/](../archives/README.md)). « Testé » ne veut pas dire rentable.
+
+## Méthodes et stratégies
 
 | ID | Sport | Marché | Stratégie / composant | Source | Statut | Score intérêt /100 | Preuves | Fiche |
 |---|---|---|---|---|---|---|---|---|
@@ -38,9 +49,9 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 | REV-MOD-IND-03 | Hockey Finlande Liiga | ML et totaux 4,5/5,5 | Elo régularisé + Poisson et historique API Liiga | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 544 matchs de saison / 6 sorties probas au run ; aucun ROI démontré | [Fiche](../modeles/simulations/SPORTS_INDIVIDUELS_README.md) |
 | REV-MOD-NHL-02 | NHL | Joueur buteur, passeur, point et tirs | Régression saisons précédentes, ESPN NHL skaters, Poisson de comptage | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 224 profils/32 équipes réellement publiés, effectifs non confirmés, ROI inconnu | [Fiche](../modeles/simulations/NHL-JOUEURS-README.md) |
 
-| REV-OUT-BT-01 | Multi-sports | Audit probabiliste, pas paris | Backtest chronologique ESPN, Brier/log loss par compétition | [Revue](https://github.com/Matttgic/Revue) | Testé techniquement | NC | Tests GitHub réussis ; MLB n=207, NFL n=65 ; ROI non calculable sans cotes | [Fiche](../outils/BACKTESTS_MULTISPORTS.md) |
+| REV-OUT-BT-01 | Multi-sports | Audit probabiliste, pas paris | Backtest chronologique ESPN, Brier/log loss par compétition | [Revue](https://github.com/Matttgic/Revue) | Testé techniquement | NC | Tests GitHub réussis ; MLB n=207, NFL n=65 ; ROI non calculable sans cotes | [Fiche](../outils/suivi/BACKTESTS_MULTISPORTS.md) |
 
-| REV-MOD-ENGINE-V2 | Multi-sports / France | 1N2, ML et totaux | Scanner de vrais prix français + Pinnacle, rapprochement temporel, ledger simulé et règlement | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 36 tests Engine V2/PulseScore réussis ; aucune clé configurée ; EV/ROI non validés | [Guide](../outils/ENGINE-V2-README.md) |
+| REV-MOD-ENGINE-V2 | Multi-sports / France | 1N2, ML et totaux | Scanner de vrais prix français + Pinnacle, rapprochement temporel, ledger simulé et règlement | [Revue](https://github.com/Matttgic/Revue) | Prototype | NC | 36 tests Engine V2/PulseScore réussis ; aucune clé configurée ; EV/ROI non validés | [Guide](../outils/suivi/ENGINE-V2-README.md) |
 
 | REV-MOD-SOCCER-ADV-01 | Football PL/Liga/Serie A/Bundesliga/L1/MLS/UCL | 1N2 et O/U 2,5 | Elo + forme 5 + Dixon-Coles + xG/Power en snapshots autorisés uniquement | [Revue](https://github.com/Matttgic/Revue) | SHADOW testé | NC | 13 tests passés ; Liga n=18 Brier -0,00264, MLS n=60 Brier +0,00184 ; Opta absent | [Fiche](../modeles/simulations/FOOTBALL-AVANCE-README.md) |
 

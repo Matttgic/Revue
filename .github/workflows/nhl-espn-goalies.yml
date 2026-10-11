@@ -9,7 +9,7 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/nhl_espn_goalies.py'
+      - 'outils/collecte/nhl_espn_goalies.py'
       - 'tests/test_nhl_espn_goalies.py'
       - '.github/workflows/nhl-espn-goalies.yml'
 permissions:
@@ -41,7 +41,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             python -m unittest discover -s tests -p 'test_nhl_espn_goalies.py'
-            python -m outils.nhl_espn_goalies
+            python -m outils.collecte.nhl_espn_goalies
             git add docs/nhl-espn-goalies-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'data(nhl): observe ESPN confirmed or projected goalies with explicit missing statuses'

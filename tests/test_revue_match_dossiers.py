@@ -1,7 +1,7 @@
 """Game dossiers: pregame identity checks, source odds comparisons, archival history."""
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.revue_match_dossiers import compile_dossiers,make_market_view
+from outils.publication.revue_match_dossiers import compile_dossiers,make_market_view
 NOW=datetime(2026,10,10,12,tzinfo=timezone.utc)
 def t(hours):return (NOW+timedelta(hours=hours)).isoformat()
 def base():

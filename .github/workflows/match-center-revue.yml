@@ -11,12 +11,12 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/match_center_revue.py'
-      - 'outils/phase10_modeles_multisports.py'
-      - 'outils/phase10_validation_prospective.py'
-      - 'outils/phase12_official_finals.py'
-      - 'outils/phase12_audit.py'
-      - 'outils/phase13_comparaison_modeles.py'
+      - 'outils/publication/match_center_revue.py'
+      - 'outils/suivi/phase10_modeles_multisports.py'
+      - 'outils/suivi/phase10_validation_prospective.py'
+      - 'outils/suivi/phase12_official_finals.py'
+      - 'outils/suivi/phase12_audit.py'
+      - 'outils/suivi/phase13_comparaison_modeles.py'
       - 'tests/test_phase13_comparaison_modeles.py'
       - 'tests/test_phase13_site.py'
       - 'tests/test_phase12_audit.py'
@@ -25,9 +25,9 @@ on:
       - 'tests/test_phase10_modeles_multisports.py'
       - 'tests/test_phase10_validation_prospective.py'
       - 'tests/test_phase10_modeles_site.py'
-      - 'outils/scoreboard_revue.py'
-      - 'outils/prospectif_multisports_revue.py'
-      - 'outils/revue_match_dossiers.py'
+      - 'outils/collecte/scoreboard_revue.py'
+      - 'outils/suivi/prospectif_multisports_revue.py'
+      - 'outils/publication/revue_match_dossiers.py'
       - 'tests/test_revue_match_dossiers.py'
       - 'tests/test_match_center_revue.py'
       - 'tests/test_scoreboard_revue.py'
@@ -73,19 +73,19 @@ jobs:
             git reset --hard origin/main
             # Public scoreboards are best effort; a failing sports provider
             # must not block a fresh bookmakers/model dashboard.
-            python -m outils.scoreboard_revue || echo 'Score source unavailable; no stale scores will be shown'
+            python -m outils.collecte.scoreboard_revue || echo 'Score source unavailable; no stale scores will be shown'
             # Model report uses prior known fixtures; each stage validates
             # kickoff, teams and source observation time before promotion.
-            python -m outils.phase10_modeles_multisports
-            python -m outils.match_center_revue
-            python -m outils.prospectif_multisports_revue
+            python -m outils.suivi.phase10_modeles_multisports
+            python -m outils.publication.match_center_revue
+            python -m outils.suivi.prospectif_multisports_revue
             # Only download official finals for previously frozen due games,
             # including those outside the standard short ESPN scoreboard window.
-            python -m outils.phase12_official_finals
-            python -m outils.phase10_validation_prospective
-            python -m outils.phase12_audit
-            python -m outils.phase13_comparaison_modeles
-            python -m outils.revue_match_dossiers
+            python -m outils.suivi.phase12_official_finals
+            python -m outils.suivi.phase10_validation_prospective
+            python -m outils.suivi.phase12_audit
+            python -m outils.suivi.phase13_comparaison_modeles
+            python -m outils.publication.revue_match_dossiers
             git add docs/match-center-latest.json docs/multisport-prospective-ledger.json docs/multisport-prospective-performance.json docs/match-dossiers-latest.json
             git add docs/phase10-modeles-multisports-latest.json docs/phase10-modeles-prospectif-ledger.json docs/phase10-modeles-performance.json
             git add docs/phase12-official-finals-latest.json docs/phase12-reconciliation-latest.json docs/phase12-result-integrity-latest.json

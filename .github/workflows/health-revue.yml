@@ -6,7 +6,7 @@ on:
     - cron: '20 0,6,12,18 * * *'
   push:
     paths:
-      - 'outils/diagnostic_revue.py'
+      - 'outils/controles/diagnostic_revue.py'
       - 'tests/test_diagnostic_revue.py'
       - '.github/workflows/health-revue.yml'
 permissions:
@@ -26,7 +26,7 @@ jobs:
       - name: Validate monitoring
         run: python -m unittest discover -s tests -p 'test_diagnostic_revue.py' -v
       - name: Check data timestamps and status without API call
-        run: python -m outils.diagnostic_revue
+        run: python -m outils.controles.diagnostic_revue
       - name: Publish health snapshot
         run: |
           git config user.name "github-actions[bot]"

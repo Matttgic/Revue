@@ -1,7 +1,7 @@
 """Tennis ATP/WTA, UFC and official Liiga frozen-probability tracker."""
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.individual_prospective_revue import base,lock,settle,performance,source_results,VERSION
+from outils.suivi.individual_prospective_revue import base,lock,settle,performance,source_results,VERSION
 NOW=datetime(2026,10,10,12,tzinfo=timezone.utc)
 def t(h):return (NOW+timedelta(hours=h)).isoformat()
 def fixture():

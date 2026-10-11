@@ -2,7 +2,7 @@
 import copy
 from datetime import datetime,timedelta,timezone
 import unittest
-from outils.match_center_revue import collect_center, instant
+from outils.publication.match_center_revue import collect_center, instant
 
 NOW=datetime(2026,10,10,9,tzinfo=timezone.utc)
 KICK=(NOW+timedelta(hours=6)).isoformat()

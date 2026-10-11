@@ -63,7 +63,7 @@ jobs:
           node-version: '22'
       - name: Vérifier navigation et exclusion CFB avant la publication
         run: |
-          python -m outils.phase14_reception
+          python -m outils.controles.phase14_reception
           python -m unittest discover -s tests -p 'test_site_arena.py' -v
           python -m unittest discover -s tests -p 'test_phase1_nhl_site.py' -v
           python -m unittest discover -s tests -p 'test_phase2_site.py' -v
@@ -76,13 +76,13 @@ jobs:
           python -m unittest discover -s tests -p 'test_phase12_site.py' -v
           python -m unittest discover -s tests -p 'test_phase13_site.py' -v
           python -m unittest discover -s tests -p 'test_phase14_reception.py' -v
-          python -m outils.phase14_reception
+          python -m outils.controles.phase14_reception
           python -m unittest discover -s tests -p 'test_phase14_site.py' -v
           node --check docs/phase13-modeles.js
           node --check docs/phase14-ui.js
           node --check docs/phase12-results.js
           node --check docs/phase10-modeles.js
-          python -m outils.phase9_acceptation_production
+          python -m outils.controles.phase9_acceptation_production
           python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
           node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js
       - uses: actions/configure-pages@v5

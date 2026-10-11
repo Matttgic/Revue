@@ -1,7 +1,7 @@
 """Revue picks hub: original-style browse/track, independently verified pregame."""
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.picks_center_revue import board
+from outils.publication.picks_center_revue import board
 NOW=datetime(2026,10,10,12,tzinfo=timezone.utc)
 def t(hours):return (NOW+timedelta(hours=hours)).isoformat()
 

@@ -5,7 +5,7 @@ on:
     - cron: '35 7 * * *'
   push:
     paths:
-      - 'outils/nba_ratings_clairvoyance_advanced.py'
+      - 'outils/clairvoyance/nba_ratings_clairvoyance_advanced.py'
       - 'modeles/reproduction/clairvoyance_nba_espn_source.py'
       - 'tests/test_nba_ratings_clairvoyance_advanced.py'
       - '.github/workflows/clairvoyance-nba-advanced.yml'
@@ -26,7 +26,7 @@ jobs:
       - name: Tester conformité des taux et exclusivité saison régulière
         run: python -m unittest discover -s tests -p 'test_nba_ratings_clairvoyance_advanced.py' -v
       - name: Agréger ESPN équipes NBA avec les fonctions Clairvoyance reproduites
-        run: python -m outils.nba_ratings_clairvoyance_advanced
+        run: python -m outils.clairvoyance.nba_ratings_clairvoyance_advanced
       - name: Publier exclusivement agrégats statistiques dérivés
         run: |
           git config user.name "github-actions[bot]"

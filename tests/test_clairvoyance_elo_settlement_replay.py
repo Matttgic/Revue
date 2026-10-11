@@ -5,7 +5,7 @@ from pathlib import Path
 import json
 import unittest
 
-from outils.clairvoyance_elo_settlement_replay import (
+from outils.clairvoyance.clairvoyance_elo_settlement_replay import (
     VERSION,SOURCE_K,SOURCE_DEFAULT,update_pair,eligible,reconstruct,
 )
 

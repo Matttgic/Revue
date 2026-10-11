@@ -2,7 +2,7 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
-from outils.pin_source_parity import pin,FILES
+from outils.clairvoyance.pin_source_parity import pin,FILES
 
 
 class PinSourceParityTests(unittest.TestCase):

@@ -1,7 +1,7 @@
 """Offline regression tests for fail-closed official MoneyPuck publication audit."""
 import copy
 import unittest
-from outils.verifier_integrite_moneypuck import validate
+from outils.controles.verifier_integrite_moneypuck import validate
 
 YEAR="2026-2027"
 

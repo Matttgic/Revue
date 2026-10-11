@@ -11,7 +11,7 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/phase2_historique_autonome.py'
+      - 'outils/suivi/phase2_historique_autonome.py'
       - 'tests/test_phase2_historique_autonome.py'
       - 'tests/test_phase2_site.py'
       - '.github/workflows/phase2-historique-autonome.yml'
@@ -47,7 +47,7 @@ jobs:
           for attempt in 1 2 3 4; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.phase2_historique_autonome
+            python -m outils.suivi.phase2_historique_autonome
             python - <<'PY'
           import json
           from pathlib import Path

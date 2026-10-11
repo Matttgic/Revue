@@ -5,7 +5,7 @@ from copy import deepcopy
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 
-from outils.controle_couverture_cotes import (
+from outils.controles.controle_couverture_cotes import (
     analyze,source_rows,MIN_THEORETICAL_EDGE,VERSION
 )
 NOW=datetime(2026,10,10,19,tzinfo=timezone.utc)

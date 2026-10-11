@@ -3,7 +3,7 @@ from datetime import datetime,timedelta,timezone
 from copy import deepcopy
 import unittest
 
-from outils.prospectif_multisports_revue import lock,settle,performance,VERSION
+from outils.suivi.prospectif_multisports_revue import lock,settle,performance,VERSION
 
 NOW=datetime(2026,10,10,9,tzinfo=timezone.utc)
 KICK=NOW+timedelta(hours=2)

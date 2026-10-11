@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime,timezone
-from outils.catalogue_parite_modeles import MODELS,generate
+from outils.clairvoyance.catalogue_parite_modeles import MODELS,generate
 NOW=datetime(2026,10,9,tzinfo=timezone.utc)
 def data():
     return {"status":"predictor_formula_parity_verified",

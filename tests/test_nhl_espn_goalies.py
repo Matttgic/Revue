@@ -4,7 +4,7 @@ import unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
-from outils.nhl_espn_goalies import combine,espn_candidate,team_code
+from outils.collecte.nhl_espn_goalies import combine,espn_candidate,team_code
 
 SNAP=json.loads((Path(__file__).resolve().parents[1]/"docs"/"nhl-frontend-observed-latest.json").read_text("utf8"))
 T=datetime.fromisoformat(SNAP["generated_at_utc"].replace("Z","+00:00"))+timedelta(minutes=2)

@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.consensus_quotations import (
+from outils.controles.consensus_quotations import (
     outcome_key,market_probs,peer_consensus
 )
 NOW=datetime(2026,10,9,19,tzinfo=timezone.utc)

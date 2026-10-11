@@ -2,7 +2,7 @@
 import json,tempfile,unittest
 from datetime import datetime,timezone
 from pathlib import Path
-from outils.audit_entrees_clairvoyance import check
+from outils.clairvoyance.audit_entrees_clairvoyance import check
 NOW=datetime(2026,10,10,tzinfo=timezone.utc)
 
 class DataAuditTests(unittest.TestCase):

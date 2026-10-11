@@ -5,7 +5,7 @@ on:
     - cron: '40 5,11,17,23 * * *'
   push:
     paths:
-      - 'outils/reconcile_reference_fixtures.js'
+      - 'outils/clairvoyance/reconcile_reference_fixtures.js'
       - 'tests/test_reconcile_reference_fixtures.cjs'
       - '.github/workflows/original-fixtures.yml'
 permissions:
@@ -22,7 +22,7 @@ jobs:
       - name: Verify strict factual source equivalence and no betting odds
         run: node --test tests/test_reconcile_reference_fixtures.cjs
       - name: Fetch original public factual schedules and compare to Revue
-        run: node outils/reconcile_reference_fixtures.js docs
+        run: node outils/clairvoyance/reconcile_reference_fixtures.js docs
       - name: Publish evidence with latest source snapshot
         run: |
           git config user.name 'github-actions[bot]'

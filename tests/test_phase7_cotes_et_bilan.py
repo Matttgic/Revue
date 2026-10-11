@@ -2,7 +2,7 @@
 import unittest
 from datetime import datetime,timedelta,timezone
 from copy import deepcopy
-from outils.phase7_cotes_et_bilan import build,V
+from outils.controles.phase7_cotes_et_bilan import build,V
 NOW=datetime(2026,10,10,22,tzinfo=timezone.utc)
 def sample():
     q="2026-10-10T21:50:00Z";k="2026-10-11T01:00:00Z";lock="2026-10-10T21:55:00Z"

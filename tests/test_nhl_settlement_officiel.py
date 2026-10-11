@@ -3,11 +3,11 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import unittest
 
-from outils.nhl_settlement_officiel import (
+from outils.suivi.nhl_settlement_officiel import (
     MAX_DATES, SCORE_URL, download_results, due_scoreboard_dates,
     run, settle_existing,
 )
-from outils.nhl_shadow_tracker import VERSION, update_ledger
+from outils.suivi.nhl_shadow_tracker import VERSION, update_ledger
 
 UTC = timezone.utc
 LOCKED = datetime(2026, 10, 9, 18, tzinfo=UTC)

@@ -5,10 +5,10 @@ on:
     - cron: '20 07,17 * * *'
   push:
     paths:
-      - 'outils/clairvoyance_nhl_moneypuck_shadow.py'
-      - 'outils/nhl_shadow_tracker.py'
-      - 'outils/nhl_moneypuck_prudent.py'
-      - 'outils/nhl_point_in_time_audit.py'
+      - 'outils/suivi/clairvoyance_nhl_moneypuck_shadow.py'
+      - 'outils/suivi/nhl_shadow_tracker.py'
+      - 'outils/suivi/nhl_moneypuck_prudent.py'
+      - 'outils/suivi/nhl_point_in_time_audit.py'
       - 'tests/test_clairvoyance_nhl_moneypuck_shadow.py'
       - 'tests/test_nhl_shadow_tracker.py'
       - 'tests/test_nhl_moneypuck_prudent.py'
@@ -38,12 +38,12 @@ jobs:
           python -m unittest discover -s tests -p 'test_nhl_shadow_tracker.py' -v
           python -m unittest discover -s tests -p 'test_nhl_moneypuck_prudent.py' -v
           python -m unittest discover -s tests -p 'test_nhl_point_in_time_audit.py' -v
-          python -m outils.verifier_integrite_moneypuck
+          python -m outils.controles.verifier_integrite_moneypuck
       - name: Check required MoneyPuck publications
         run: |
           test -s docs/moneypuck-nhl-latest.json
           test -s docs/moneypuck-goalies-latest.json
-          python -m outils.verifier_integrite_moneypuck
+          python -m outils.controles.verifier_integrite_moneypuck
       - name: Refresh from newest protected ledger and publish NHL forecasts
         run: |
           git config user.name "github-actions[bot]"
@@ -54,8 +54,8 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.verifier_integrite_moneypuck
-            python -m outils.clairvoyance_nhl_moneypuck_shadow --days 3
+            python -m outils.controles.verifier_integrite_moneypuck
+            python -m outils.suivi.clairvoyance_nhl_moneypuck_shadow --days 3
             git add docs/nhl-clairvoyance-shadow-latest.json docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json
             if git diff --cached --quiet; then
               echo "No changed shadow model output"

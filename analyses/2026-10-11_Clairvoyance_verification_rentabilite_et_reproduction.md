@@ -2,7 +2,7 @@
 
 - **Source auditée :** [Purple-Wraith/clairvoyance-backend](https://github.com/Purple-Wraith/clairvoyance-backend), commit `0d900f51` (2026-10-10 20:19 MT), registre public `docs/picks_backup.json` (4 026 paris).
 - **Date :** 2026-10-11.
-- **Outil reproductible :** [`outils/audit_rentabilite_clairvoyance.py`](../outils/audit_rentabilite_clairvoyance.py) → [`docs/clairvoyance-rentabilite-audit.json`](../docs/clairvoyance-rentabilite-audit.json) (agrégats seulement, aucun pari recopié). Workflow quotidien : [`audit-rentabilite-clairvoyance.yml`](../.github/workflows/audit-rentabilite-clairvoyance.yml).
+- **Outil reproductible :** [`outils/clairvoyance/audit_rentabilite_clairvoyance.py`](../outils/clairvoyance/audit_rentabilite_clairvoyance.py) → [`docs/clairvoyance-rentabilite-audit.json`](../docs/clairvoyance-rentabilite-audit.json) (agrégats seulement, aucun pari recopié). Workflow quotidien : [`audit-rentabilite-clairvoyance.yml`](../.github/workflows/audit-rentabilite-clairvoyance.yml).
 
 ## Verdict
 

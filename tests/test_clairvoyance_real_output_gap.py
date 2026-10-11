@@ -2,7 +2,7 @@
 import unittest
 from copy import deepcopy
 from datetime import datetime,timezone,timedelta
-from outils.clairvoyance_real_output_gap import (
+from outils.clairvoyance.clairvoyance_real_output_gap import (
     calendar,join_events,model_rows,report,date,SPORTS,source_timing_risk)
 AT=datetime(2026,10,10,16,30,tzinfo=timezone.utc)
 BASE="2026-10-10T15:12:08+00:00"

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
-from outils.publier_revue_control import generate,publish
+from outils.publication.publier_revue_control import generate,publish
 NOW=datetime(2026,10,10,13,tzinfo=timezone.utc)
 def t(hours):return (NOW+timedelta(hours=hours)).isoformat()
 

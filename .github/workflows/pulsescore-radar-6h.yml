@@ -6,7 +6,7 @@ on:
     - cron: '30 3,9,15,21 * * *'
   push:
     paths:
-      - 'outils/pulsescore_radar_six_heures.py'
+      - 'outils/collecte/pulsescore_radar_six_heures.py'
       - 'tests/test_pulsescore_radar_six_heures.py'
       - '.github/workflows/pulsescore-radar-6h.yml'
 permissions:
@@ -37,7 +37,7 @@ jobs:
           PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
           ODDS_API_KEY: ''
         run: |
-          python -m outils.pulsescore_radar_six_heures --max-calls 8
+          python -m outils.collecte.pulsescore_radar_six_heures --max-calls 8
           cp docs/pulsescore-radar-latest.json /tmp/revue-pulsescore-six-hour-observation.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

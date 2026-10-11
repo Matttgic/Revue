@@ -6,7 +6,7 @@ from math import log
 from pathlib import Path
 import json
 
-from outils.evaluation_prospective_papier import evaluate,score,valid_entry,MIN_EVIDENCE
+from outils.suivi.evaluation_prospective_papier import evaluate,score,valid_entry,MIN_EVIDENCE
 
 DOC=Path(__file__).resolve().parents[1]/"docs"
 REAL=json.loads((DOC/"engine-v2-ledger.json").read_text(encoding="utf8"))

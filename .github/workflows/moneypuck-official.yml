@@ -5,9 +5,9 @@ on:
     - cron: '35 06 * * *'
   push:
     paths:
-      - 'outils/moneypuck_feed.py'
-      - 'outils/moneypuck_goalies_feed.py'
-      - 'outils/verifier_integrite_moneypuck.py'
+      - 'outils/collecte/moneypuck_feed.py'
+      - 'outils/collecte/moneypuck_goalies_feed.py'
+      - 'outils/controles/verifier_integrite_moneypuck.py'
       - 'modeles/reproduction/clairvoyance_moneypuck_parser.py'
       - 'tests/test_moneypuck_feed.py'
       - 'tests/test_moneypuck_goalies_feed.py'
@@ -41,10 +41,10 @@ jobs:
           python -m unittest discover -s tests -p 'test_integrite_moneypuck.py' -v
       - name: Fetch ONLY the official MoneyPuck season download CSV
         run: |
-          python -m outils.moneypuck_feed --output docs/moneypuck-nhl-latest.json
-          python -m outils.moneypuck_goalies_feed --output docs/moneypuck-goalies-latest.json
+          python -m outils.collecte.moneypuck_feed --output docs/moneypuck-nhl-latest.json
+          python -m outils.collecte.moneypuck_goalies_feed --output docs/moneypuck-goalies-latest.json
       - name: Validate derived MoneyPuck snapshots before publishing
-        run: python -m outils.verifier_integrite_moneypuck
+        run: python -m outils.controles.verifier_integrite_moneypuck
       - name: Publish derived data and explicit attribution (no original CSV)
         run: |
           git config user.name "github-actions[bot]"

@@ -30,7 +30,7 @@ jobs:
           PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
           ODDS_API_KEY: ''
         run: |
-          python outils/revue_engine_v2.py \
+          python outils/suivi/revue_engine_v2.py \
             --predictions docs/multisports-latest.json \
             --history docs/multisports-history.json \
             --ledger docs/engine-v2-ledger.json \

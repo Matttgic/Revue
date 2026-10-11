@@ -6,10 +6,10 @@ on:
     - cron: '42 * * * *'
   push:
     paths:
-      - 'outils/reglement_multisport_officiel.py'
-      - 'outils/etat_donnees_revue.py'
-      - 'outils/evaluation_prospective_papier.py'
-      - 'outils/controle_couverture_cotes.py'
+      - 'outils/suivi/reglement_multisport_officiel.py'
+      - 'outils/controles/etat_donnees_revue.py'
+      - 'outils/suivi/evaluation_prospective_papier.py'
+      - 'outils/controles/controle_couverture_cotes.py'
       - 'tests/test_controle_couverture_cotes.py'
       - 'tests/test_evaluation_prospective_papier.py'
       - 'tests/test_etat_donnees_revue.py'
@@ -50,7 +50,7 @@ jobs:
           for attempt in 1 2 3 4; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.scoreboard_revue
+            python -m outils.collecte.scoreboard_revue
             python - <<'PY'
           import json
           from pathlib import Path
@@ -60,14 +60,14 @@ jobs:
           assert d['requests']['ok']>0, "No verified public scoreboard response; retain historical state"
           print('Observed scoreboards:',d['requests']['ok'],'/',d['requests']['total'])
           PY
-            python -m outils.reglement_multisport_officiel
-            python -m outils.evaluation_prospective_papier
-            python -m outils.controle_couverture_cotes
-            python -m outils.publier_revue_control
-            python -m outils.picks_center_revue
-            python -m outils.match_center_revue
-            python -m outils.revue_match_dossiers
-            python -m outils.etat_donnees_revue
+            python -m outils.suivi.reglement_multisport_officiel
+            python -m outils.suivi.evaluation_prospective_papier
+            python -m outils.controles.controle_couverture_cotes
+            python -m outils.publication.publier_revue_control
+            python -m outils.publication.picks_center_revue
+            python -m outils.publication.match_center_revue
+            python -m outils.publication.revue_match_dossiers
+            python -m outils.controles.etat_donnees_revue
             git add docs/engine-v2-ledger.json docs/scoreboard-revue-latest.json \
               docs/paper-score-settlement-latest.json docs/revue-model-quality-latest.json docs/revue-crossbook-latest.json \
               docs/revue-control-ledger-latest.json docs/revue-control-state-latest.json \

@@ -2,7 +2,7 @@
 import unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
-from outils.mlb_official_pitchers import team_name,eligible_game,collect
+from outils.collecte.mlb_official_pitchers import team_name,eligible_game,collect
 
 NOW=datetime(2026,10,11,0,tzinfo=timezone.utc)
 KICK=(NOW+timedelta(hours=3)).isoformat()

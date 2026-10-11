@@ -9,7 +9,7 @@ import unittest
 from unittest.mock import patch
 
 from modeles.simulations.nhl_independant import Game
-from outils.nhl_point_in_time_audit import verify_point_in_time, as_utc
+from outils.suivi.nhl_point_in_time_audit import verify_point_in_time, as_utc
 
 UTC=timezone.utc
 NOW=datetime(2026,10,10,6,tzinfo=UTC)
@@ -116,7 +116,7 @@ class TemporalIntegrityTest(unittest.TestCase):
             self.verify(t,g,s)
 
     def test_full_pipeline_fetches_fixtures_before_timestamp_and_locks_audited_pick(self):
-        from outils import clairvoyance_nhl_moneypuck_shadow as runner
+        from outils.suivi import clairvoyance_nhl_moneypuck_shadow as runner
 
         t,g,schedule=fixture()
         # The fake clock advances while downloads are happening. A snapshot

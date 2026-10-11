@@ -10,7 +10,7 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/picks_center_revue.py'
+      - 'outils/publication/picks_center_revue.py'
       - 'tests/test_picks_center_revue.py'
       - '.github/workflows/picks-center-revue.yml'
 permissions:
@@ -37,7 +37,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.picks_center_revue
+            python -m outils.publication.picks_center_revue
             git add docs/picks-center-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'data(picks): publish research selections and validated paper journal'

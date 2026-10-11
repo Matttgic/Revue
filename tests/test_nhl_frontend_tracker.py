@@ -6,7 +6,7 @@ from datetime import datetime,timedelta,timezone
 from pathlib import Path
 
 from modeles.simulations.nhl_independant import Game
-from outils.nhl_frontend_tracker import (
+from outils.suivi.nhl_frontend_tracker import (
     VERSION,valid_report,lockable,update_ledger,summarize,process,due_scoreboard_days,
 )
 

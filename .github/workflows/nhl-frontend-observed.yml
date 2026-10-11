@@ -9,7 +9,7 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/nhl_frontend_observed.js'
+      - 'outils/suivi/nhl_frontend_observed.js'
       - 'tests/test_nhl_frontend_observed.js'
       - 'docs/nhl-frontend-observed.html'
       - '.github/workflows/nhl-frontend-observed.yml'
@@ -38,7 +38,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             node --test tests/test_nhl_frontend_observed.js
-            node outils/nhl_frontend_observed.js docs docs/nhl-frontend-observed-latest.json
+            node outils/suivi/nhl_frontend_observed.js docs docs/nhl-frontend-observed-latest.json
             git add docs/nhl-frontend-observed-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'data(nhl): generate prospective observed MC+Ensemble research, without bets'

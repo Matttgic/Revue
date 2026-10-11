@@ -5,8 +5,8 @@ on:
     - cron: '35 14,18 * * *'
   push:
     paths:
-      - 'outils/verifier_parite_nhl_source_style.py'
-      - 'outils/nhl_backend_source_style.py'
+      - 'outils/clairvoyance/verifier_parite_nhl_source_style.py'
+      - 'outils/clairvoyance/nhl_backend_source_style.py'
       - 'tests/test_nhl_backend_source_style.py'
       - '.github/workflows/parite-nhl-source-style.yml'
 permissions:
@@ -36,7 +36,7 @@ jobs:
       - name: Compare real NHL scenarios with original predictor, without copying its code
         working-directory: revue
         run: |
-          python -m outils.verifier_parite_nhl_source_style --reference ../reference \
+          python -m outils.clairvoyance.verifier_parite_nhl_source_style --reference ../reference \
             --input docs/nhl-backend-source-style-latest.json \
             --output docs/parite-nhl-source-style.json
       - name: Publish output comparison metadata only

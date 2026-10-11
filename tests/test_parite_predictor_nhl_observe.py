@@ -3,7 +3,7 @@ from copy import deepcopy
 from datetime import datetime,timedelta,timezone
 import unittest
 
-from outils.verifier_parite_predictor_nhl_observe import validate_rows
+from outils.clairvoyance.verifier_parite_predictor_nhl_observe import validate_rows
 
 NOW=datetime(2026,10,10,9,tzinfo=timezone.utc)
 

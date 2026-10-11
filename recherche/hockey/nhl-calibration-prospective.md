@@ -65,7 +65,7 @@ le CLV et les cotes historiques restent des problèmes séparés.
 
 ## Intégration
 
-- Générateur : `outils/nhl_calibration_prospective.py`.
+- Générateur : `outils/suivi/nhl_calibration_prospective.py`.
 - Tests unitaires : `tests/test_nhl_calibration_prospective.py`.
 - Entrée de référence : `docs/nhl-shadow-ledger.json`.
 - Rapport : `docs/nhl-calibration-latest.json`.

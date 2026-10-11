@@ -10,8 +10,8 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/phase11_data_quality.py'
-      - 'outils/mlb_official_pitchers.py'
+      - 'outils/controles/phase11_data_quality.py'
+      - 'outils/collecte/mlb_official_pitchers.py'
       - 'tests/test_mlb_official_pitchers.py'
       - 'tests/test_phase11_data_quality.py'
       - 'docs/phase11-donnees.html'
@@ -50,8 +50,8 @@ jobs:
           for attempt in 1 2 3 4; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.mlb_official_pitchers
-            python -m outils.phase11_data_quality
+            python -m outils.collecte.mlb_official_pitchers
+            python -m outils.controles.phase11_data_quality
             git add docs/phase11-source-quality-latest.json docs/mlb-official-probable-pitchers-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'audit(phase11): update bookmaker exclusion and multisport input evidence'

@@ -474,8 +474,8 @@ class ArenaTests(unittest.TestCase):
     def test_cfb_not_in_live_model_feeds(self):
         model=(ROOT/"modeles/simulations/multisports_independant.py").read_text(encoding="utf-8")
         sports=(ROOT/"modeles/simulations/equipes_avance_multisports.py").read_text(encoding="utf-8")
-        engine=(ROOT/"outils/revue_engine_v2.py").read_text(encoding="utf-8")
-        pulse=(ROOT/"outils/pulsescore_v2.py").read_text(encoding="utf-8")
+        engine=(ROOT/"outils/suivi/revue_engine_v2.py").read_text(encoding="utf-8")
+        pulse=(ROOT/"outils/collecte/pulsescore_v2.py").read_text(encoding="utf-8")
         self.assertNotIn('League("CFB"',model)
         self.assertNotIn('"CFB":(',sports)
         self.assertNotIn('"CFB":"americanfootball',engine)

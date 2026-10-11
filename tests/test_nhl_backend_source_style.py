@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 import unittest
 
 from modeles.reproduction.clairvoyance_predictor import Game, nhl
-from outils.nhl_backend_source_style import build
+from outils.clairvoyance.nhl_backend_source_style import build
 
 NOW = datetime(2026, 10, 10, 12, tzinfo=timezone.utc)
 LABEL = "2026-2027"

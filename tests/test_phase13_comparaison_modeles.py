@@ -2,7 +2,7 @@
 import copy,json,math,unittest
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
-from outils.phase13_comparaison_modeles import (
+from outils.suivi.phase13_comparaison_modeles import (
  evaluate,compare,score_summary,loss,soften,valid_vector,bins,
  calibrate,verify,nhl_comparison,VERSION,TRAIN_N,HOLDOUT_N,PAIRED_MIN,
 )

@@ -5,7 +5,7 @@ on:
     - cron: '25 8 * * *'
   push:
     paths:
-      - 'outils/audit_rentabilite_clairvoyance.py'
+      - 'outils/clairvoyance/audit_rentabilite_clairvoyance.py'
       - 'modeles/reproduction/clairvoyance_lock_timing.py'
       - 'tests/test_audit_rentabilite_clairvoyance.py'
       - '.github/workflows/audit-rentabilite-clairvoyance.yml'
@@ -35,7 +35,7 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_audit_rentabilite_clairvoyance.py' -v
       - name: Recalculer le ROI pré-match et la provenance des cotes (lecture seule)
         working-directory: revue
-        run: python -m outils.audit_rentabilite_clairvoyance --source ../reference
+        run: python -m outils.clairvoyance.audit_rentabilite_clairvoyance --source ../reference
       - name: Publier uniquement les agrégats
         working-directory: revue
         run: |

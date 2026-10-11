@@ -2,8 +2,8 @@
 import copy,json,unittest
 from pathlib import Path
 from datetime import datetime,timedelta,timezone
-from outils.phase12_audit import evaluate,VERSION
-from outils.phase10_validation_prospective import lock,settle
+from outils.suivi.phase12_audit import evaluate,VERSION
+from outils.suivi.phase10_validation_prospective import lock,settle
 from test_phase10_validation_prospective import observed,scores,NOW,KICK
 
 D=Path(__file__).resolve().parents[1]/"docs"

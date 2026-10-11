@@ -2,10 +2,10 @@
 import unittest
 from datetime import datetime,timedelta,timezone
 from unittest.mock import patch
-from outils.pulsescore_v2 import (
+from outils.collecte.pulsescore_v2 import (
     BOOKMAKERS,translate_market,translate_event,scan,_side,_request,
 )
-from outils.revue_engine_v2 import execute
+from outils.suivi.revue_engine_v2 import execute
 
 
 NOW=datetime(2026,10,9,17,tzinfo=timezone.utc)
@@ -114,7 +114,7 @@ class PulseScoreTests(unittest.TestCase):
     def test_no_future_with_probability_means_no_calls(self):
         m=models()
         m["competitions"]["PL"]["games"][0]["probabilities"]=None
-        with patch("outils.pulsescore_v2._request") as req:
+        with patch("outils.collecte.pulsescore_v2._request") as req:
             odds,meta=scan("secret",m,NOW)
             req.assert_not_called()
         self.assertEqual(meta["requests"],0)
@@ -122,9 +122,9 @@ class PulseScoreTests(unittest.TestCase):
 
     def test_engine_prioritizes_pulse_over_other_api(self):
         one=translate_event(event(),"betclic_fr",NOW)
-        with patch("outils.pulsescore_v2.scan",return_value=(
+        with patch("outils.collecte.pulsescore_v2.scan",return_value=(
              {"PL":[one]}, {"requests":1,"errors":{},"matched_events":1})):
-            with patch("outils.revue_engine_v2.download_odds") as odds_call:
+            with patch("outils.suivi.revue_engine_v2.download_odds") as odds_call:
                 report,ledger=execute(models(),{"leagues":{}},{"version":1,"bets":[]},NOW,
                     api_key="other_test_secret",pulsescore_key="pulse_test_secret")
                 odds_call.assert_not_called()

@@ -5,7 +5,7 @@ on:
     - cron: '15 6 * * 1'
   push:
     paths:
-      - 'outils/audit_clairvoyance_complet.py'
+      - 'outils/clairvoyance/audit_clairvoyance_complet.py'
       - 'tests/test_audit_clairvoyance_complet.py'
       - '.github/workflows/audit-clairvoyance.yml'
 permissions:
@@ -32,7 +32,7 @@ jobs:
       - name: Offline tests for safe static audit
         run: python -m unittest discover -s tests -p 'test_audit_clairvoyance_complet.py' -v
       - name: Parse every source Python file and classify gaps (never execute)
-        run: python outils/audit_clairvoyance_complet.py --source .audit_source --project . --output docs/clairvoyance-code-audit.json
+        run: python outils/clairvoyance/audit_clairvoyance_complet.py --source .audit_source --project . --output docs/clairvoyance-code-audit.json
       - name: Commit only derived noncopyright code metadata
         run: |
           git config user.name "github-actions[bot]"

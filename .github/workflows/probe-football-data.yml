@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'outils/probe_espn_football_stats.py'
+      - 'outils/collecte/probe_espn_football_stats.py'
       - '.github/workflows/probe-football-data.yml'
 permissions:
   contents: read
@@ -16,4 +16,4 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python outils/probe_espn_football_stats.py
+      - run: python outils/collecte/probe_espn_football_stats.py

@@ -3,10 +3,10 @@ import copy
 import json
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.phase12_official_finals import (
+from outils.suivi.phase12_official_finals import (
     recover,eligible_targets,schedule_dates,parse_final,MAX_FETCH,
 )
-from outils.phase10_validation_prospective import lock,reconcile_and_settle,score_index
+from outils.suivi.phase10_validation_prospective import lock,reconcile_and_settle,score_index
 from test_phase10_validation_prospective import observed,scores,NOW,KICK
 
 AFTER=NOW+timedelta(hours=12)

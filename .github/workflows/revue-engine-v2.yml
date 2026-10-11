@@ -7,15 +7,15 @@ on:
     - cron: '00 0,6,12,18 * * *'
   push:
     paths:
-      - 'outils/revue_engine_v2.py'
+      - 'outils/suivi/revue_engine_v2.py'
       - 'tests/test_revue_engine_v2.py'
-      - 'outils/pulsescore_v2.py'
+      - 'outils/collecte/pulsescore_v2.py'
       - 'tests/test_pulsescore_v2.py'
-      - 'outils/consensus_quotations.py'
+      - 'outils/controles/consensus_quotations.py'
       - 'tests/test_consensus_quotations.py'
-      - 'outils/historique_cotes_clv.py'
+      - 'outils/suivi/historique_cotes_clv.py'
       - 'tests/test_historique_cotes_clv.py'
-      - 'outils/tableau_cotes.py'
+      - 'outils/collecte/tableau_cotes.py'
       - 'tests/test_tableau_cotes.py'
       - '.github/workflows/revue-engine-v2.yml'
 
@@ -54,7 +54,7 @@ jobs:
           ODDS_API_KEY: ${{ github.event_name != 'push' && (secrets.THE_ODDS_API_KEY || secrets.ODDS_API_KEY) || '' }}
           PULSESCORE_API_KEY: ${{ github.event_name != 'push' && (secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY) || '' }}
         run: |
-          python outils/revue_engine_v2.py \
+          python outils/suivi/revue_engine_v2.py \
             --predictions docs/multisports-latest.json \
             --history docs/multisports-history.json \
             --ledger docs/engine-v2-ledger.json \
