@@ -26,7 +26,7 @@ def build(root,data,now):
   try:s=Parser();s.feed((root/page).read_text(encoding="utf8"))
   except OSError:errors.append("missing_page:"+page);continue
   if s.nav!=[["./play.html","./pourquoi.html","./bilan.html"]]*2:errors.append("navigation:"+page)
-  if "./phase8-ui.css?v=1" not in s.refs:errors.append("style:"+page)
+  if "./phase8-ui.css?v=2" not in s.refs:errors.append("style:"+page)
   for ref in s.refs:
    if ref.startswith("./"):
     name=ref[2:].split("?")[0].split("#")[0]

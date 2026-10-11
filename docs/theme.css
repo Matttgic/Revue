@@ -77,6 +77,8 @@ button,.px-btn{
 button:hover,.px-btn:hover{background:var(--px-plum)}
 button:active,.px-btn:active{transform:translate(4px,4px);box-shadow:var(--px-frame)}
 button.primary,button[aria-pressed=true],button[aria-selected=true]{background:var(--px-yellow);color:var(--px-black)}
+/* Texte noir sur fond jaune, même si une page impose sa propre couleur d'onglet. */
+html body button.primary,html body button[aria-pressed=true],html body button[aria-selected=true]{background:var(--px-yellow);color:var(--px-black)}
 select,input[type=search],input[type=text],input[type=number]{
   background:var(--px-black);color:var(--px-white);border:0;padding:10px 12px;margin:4px;
   font:19px var(--px-font);box-shadow:var(--px-frame);border-radius:0;caret-color:var(--px-yellow);
