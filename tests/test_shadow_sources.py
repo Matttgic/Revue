@@ -56,7 +56,7 @@ class CommunityOddsShadowTests(unittest.TestCase):
         self.assertEqual(report["sources"]["pulsescore"]["status"], "missing_secret")
 
     def test_summary_never_claims_replacement(self):
-        records = [{"version": "open_odds_shadow_v1",
+        records = [{"version": "open_odds_shadow_v1", "date_utc": "2026-10-11",
                     "sources": {"pulsescore": {"status": "ok"},
                                 "betclic_community": {"status": "error"},
                                 "flashscore_community": {"status": "ok"}},
@@ -67,6 +67,9 @@ class CommunityOddsShadowTests(unittest.TestCase):
         self.assertEqual(stats["outcomes_compared"], 2)
         self.assertTrue(stats["no_replacement_proven"])
         self.assertEqual(stats["odds_difference_mean"], 0.03)
+        stats = summary(records + [dict(records[0])])
+        self.assertEqual(stats["days"], 1)
+        self.assertEqual(stats["snapshots"], 2)
 
 
 if __name__ == "__main__":
