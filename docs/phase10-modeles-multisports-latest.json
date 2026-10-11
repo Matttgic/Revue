@@ -1,8 +1,8 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-11T17:39:50.058614+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-11T15:03:32.187665+00:00",
+  "generated_at_utc": "2026-10-11T18:00:03.116541+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-11T17:39:50.100630+00:00",
   "models": [
     {
       "event_id": "401876440",
@@ -262,8 +262,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-11T03:14:44.343734+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-11T03:14:44.343734+00:00"
+        "espn_elo_replay": "2026-10-11T17:48:22.036468+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-11T17:48:22.036468+00:00"
       },
       "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
     },
@@ -457,8 +457,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-11T03:14:44.343734+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-11T03:14:44.343734+00:00"
+        "espn_elo_replay": "2026-10-11T17:48:22.036468+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-11T17:48:22.036468+00:00"
       },
       "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
     },
@@ -667,6 +667,29 @@
       "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
     },
     {
+      "event_id": "401908023",
+      "league": "MLB",
+      "home": "Rays",
+      "away": "Guardians",
+      "start_utc": "2026-10-13T00:00:00+00:00",
+      "model_id": "revue_mlb_espn_history_elo_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.599,
+        "away_win": 0.401
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "espn_elo_replay": "2026-10-11T17:48:22.036468+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-11T17:48:22.036468+00:00"
+      },
+      "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
+    },
+    {
       "event_id": "401898721",
       "league": "NBA",
       "home": "Jazz",
@@ -736,24 +759,22 @@
     }
   ],
   "metrics": {
-    "candidates": 31,
-    "events_covered": 17,
+    "candidates": 32,
+    "events_covered": 18,
     "models_by_league": {
       "LIGUE1": 1,
       "SERIEA": 3,
       "LALIGA": 2,
       "NBA": 21,
       "MLS": 1,
-      "MLB": 2,
+      "MLB": 3,
       "PL": 1
     },
     "decisions": {
-      "not_pregame_20m": 5,
       "football_correlated_research_pool": 8,
       "nba_prior_both_available": 7,
-      "mlb_history_elo": 2,
+      "mlb_history_elo": 3,
       "nba_no_safe_prior_probability": 1,
-      "mlb_no_identical_history_fixture": 1,
       "football_model_inputs_missing": 9
     }
   },
