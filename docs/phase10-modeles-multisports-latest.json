@@ -1,77 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-11T21:51:16.914599+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-11T21:48:55.002219+00:00",
+  "generated_at_utc": "2026-10-11T22:27:34.105956+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-11T21:51:17.046579+00:00",
   "models": [
-    {
-      "event_id": "401898401",
-      "league": "NBA",
-      "home": "Cavaliers",
-      "away": "Magic",
-      "start_utc": "2026-10-11T22:30:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.57632,
-        "away_win": 0.42368
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-11T19:06:57.133863+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401898401",
-      "league": "NBA",
-      "home": "Cavaliers",
-      "away": "Magic",
-      "start_utc": "2026-10-11T22:30:00+00:00",
-      "model_id": "revue_nba_prior_consensus_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.587991,
-        "away_win": 0.412009
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-11T19:06:57.133863+00:00",
-        "advanced_previous_season": "2026-10-11T14:18:13.826822+00:00"
-      },
-      "method": "Experimental correlated-prior average: standings 55%, regressed Elo 45%; NOT three independent models"
-    },
-    {
-      "event_id": "401898401",
-      "league": "NBA",
-      "home": "Cavaliers",
-      "away": "Magic",
-      "start_utc": "2026-10-11T22:30:00+00:00",
-      "model_id": "revue_nba_prior_elo_regressed_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.602255,
-        "away_win": 0.397745
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-11T19:06:57.133863+00:00",
-        "advanced_previous_season": "2026-10-11T14:18:13.826822+00:00"
-      },
-      "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
-    },
     {
       "event_id": "761859",
       "league": "MLS",
@@ -681,19 +613,20 @@
     }
   ],
   "metrics": {
-    "candidates": 29,
-    "events_covered": 15,
+    "candidates": 26,
+    "events_covered": 14,
     "models_by_league": {
-      "NBA": 21,
       "MLS": 1,
+      "NBA": 18,
       "MLB": 3,
       "SERIEA": 2,
       "LALIGA": 1,
       "PL": 1
     },
     "decisions": {
-      "nba_prior_both_available": 7,
+      "not_pregame_20m": 1,
       "football_correlated_research_pool": 5,
+      "nba_prior_both_available": 6,
       "mlb_history_elo": 3,
       "nba_no_safe_prior_probability": 1,
       "football_model_inputs_missing": 9
