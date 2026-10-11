@@ -1,7 +1,7 @@
 """MLB Elo fallback scenario respects actual source behavior and chronology."""
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.mlb_source_elo_gap import analyze
+from outils.clairvoyance.mlb_source_elo_gap import analyze
 from modeles.reproduction.clairvoyance_predictor import Game,mlb
 NOW=datetime(2026,10,10,12,tzinfo=timezone.utc)
 def when(hours):return (NOW+timedelta(hours=hours)).isoformat()

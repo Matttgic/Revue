@@ -5,7 +5,7 @@ from datetime import datetime,timedelta,timezone
 from pathlib import Path
 import json
 
-from outils.phase2_historique_autonome import (
+from outils.suivi.phase2_historique_autonome import (
     VERSION, REPORT_VERSION, utc, normalize, step, summarize, SUPPORTED,
 )
 

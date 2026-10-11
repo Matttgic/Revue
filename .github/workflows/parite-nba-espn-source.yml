@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'modeles/reproduction/clairvoyance_nba_espn_source.py'
-      - 'outils/verifier_parite_nba_espn_source.py'
+      - 'outils/clairvoyance/verifier_parite_nba_espn_source.py'
       - '.github/workflows/parite-nba-espn-source.yml'
 permissions:
   contents: write
@@ -29,7 +29,7 @@ jobs:
           python-version: '3.12'
       - name: Vérifier les agrégations byteam ESPN contre les fonctions exactes
         working-directory: revue
-        run: python -m outils.verifier_parite_nba_espn_source --reference ../reference
+        run: python -m outils.clairvoyance.verifier_parite_nba_espn_source --reference ../reference
       - name: Publier vérification des formules sans payloads de tiers
         working-directory: revue
         run: |

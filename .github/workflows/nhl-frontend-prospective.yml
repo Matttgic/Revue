@@ -10,7 +10,7 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/nhl_frontend_tracker.py'
+      - 'outils/suivi/nhl_frontend_tracker.py'
       - 'tests/test_nhl_frontend_tracker.py'
       - '.github/workflows/nhl-frontend-prospective.yml'
 permissions:
@@ -44,7 +44,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             python -m unittest discover -s tests -p 'test_nhl_frontend_tracker.py'
-            python -m outils.nhl_frontend_tracker
+            python -m outils.suivi.nhl_frontend_tracker
             if ! test -s docs/nhl-frontend-prospective-ledger.json; then
               echo "No qualifying genuine upcoming NHL predictions; never fabricate historical locks."
               exit 0

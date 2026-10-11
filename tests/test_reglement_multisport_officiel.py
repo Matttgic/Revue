@@ -2,7 +2,7 @@
 import unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
-from outils.reglement_multisport_officiel import grade_existing,official_index
+from outils.suivi.reglement_multisport_officiel import grade_existing,official_index
 
 NOW=datetime(2026,10,12,1,tzinfo=timezone.utc)
 START=datetime(2026,10,11,19,tzinfo=timezone.utc)

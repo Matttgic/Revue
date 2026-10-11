@@ -5,7 +5,7 @@ on:
     - cron: '15 14,18 * * *'
   push:
     paths:
-      - 'outils/nhl_backend_source_style.py'
+      - 'outils/clairvoyance/nhl_backend_source_style.py'
       - 'tests/test_nhl_backend_source_style.py'
       - 'docs/nhl-backend-source-style.html'
       - '.github/workflows/nhl-backend-source-style.yml'
@@ -35,7 +35,7 @@ jobs:
           for attempt in 1 2 3 4; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.nhl_backend_source_style --out docs/nhl-backend-source-style-latest.json
+            python -m outils.clairvoyance.nhl_backend_source_style --out docs/nhl-backend-source-style-latest.json
             git add docs/nhl-backend-source-style-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m "data(nhl): publish source-style input scenarios without altering frozen picks"

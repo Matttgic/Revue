@@ -3,7 +3,7 @@ from datetime import datetime,timedelta,timezone
 import copy
 import unittest
 from modeles.simulations.nhl_independant import Game
-from outils.nhl_shadow_tracker import update_ledger,summarize,grade_brier,grade_logloss
+from outils.suivi.nhl_shadow_tracker import update_ledger,summarize,grade_brier,grade_logloss
 
 NOW=datetime(2026,10,10,6,tzinfo=timezone.utc)
 KICK=NOW+timedelta(hours=8)

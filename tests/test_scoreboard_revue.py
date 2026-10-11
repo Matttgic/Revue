@@ -1,7 +1,7 @@
 """Official NHL and ESPN scoreboard source and integrity tests."""
 from datetime import datetime,timedelta,timezone,date
 import unittest
-from outils.scoreboard_revue import _parse_score_event,download_nhl,download_espn,collect
+from outils.collecte.scoreboard_revue import _parse_score_event,download_nhl,download_espn,collect
 
 NOW=datetime(2026,10,10,13,tzinfo=timezone.utc)
 KICK=NOW-timedelta(hours=2)

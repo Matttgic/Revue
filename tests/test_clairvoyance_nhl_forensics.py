@@ -1,7 +1,7 @@
 """Temporal and source-provenance guards for independent NHL input comparison."""
 import copy,unittest
 from datetime import datetime,timezone,timedelta
-from outils.clairvoyance_nhl_forensics import make,strict_input_match,extract_xg_note
+from outils.clairvoyance.clairvoyance_nhl_forensics import make,strict_input_match,extract_xg_note
 T=datetime(2026,10,10,15,30,tzinfo=timezone.utc)
 def time(hours=0):return (T+timedelta(hours=hours)).isoformat()
 def fixture():

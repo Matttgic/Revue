@@ -1,7 +1,7 @@
 """No fabricated CI successes or untrusted GitHub Actions run URLs."""
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.github_actions_monitor import compile_runs
+from outils.controles.github_actions_monitor import compile_runs
 NOW=datetime(2026,10,10,14,tzinfo=timezone.utc)
 def make(ident,conclusion="success",age=-60,workflow="Revue - API Clairvoyance contrats",status="completed"):
     return {"id":ident,"name":workflow,"status":status,"conclusion":conclusion,

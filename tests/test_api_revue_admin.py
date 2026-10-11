@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 import json,unittest
 from fastapi.testclient import TestClient
 from api_revue.app import create_app
-from outils.github_actions_monitor import compile_runs
+from outils.controles.github_actions_monitor import compile_runs
 NOW=datetime(2026,10,10,14,tzinfo=timezone.utc)
 
 def make():

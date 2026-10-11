@@ -9,24 +9,24 @@ on:
       - 'tests/test_multisports_independant.py'
       - 'modeles/simulations/sports_individuels_et_liiga.py'
       - 'tests/test_sports_individuels_et_liiga.py'
-      - 'outils/individual_prospective_revue.py'
+      - 'outils/suivi/individual_prospective_revue.py'
       - 'tests/test_individual_prospective_revue.py'
       - 'modeles/simulations/nhl_joueurs_independant.py'
       - 'tests/test_nhl_joueurs_independant.py'
-      - 'outils/probe_espn_hockey.py'
-      - 'outils/backtest_multisports.py'
+      - 'outils/collecte/probe_espn_hockey.py'
+      - 'outils/suivi/backtest_multisports.py'
       - 'tests/test_backtest_multisports.py'
       - 'modeles/simulations/football_avance_independant.py'
       - 'tests/test_football_avance_independant.py'
       - 'modeles/simulations/football_espn_statistiques.py'
       - 'tests/test_football_espn_statistiques.py'
-      - 'outils/suivi_football_avance.py'
+      - 'outils/suivi/suivi_football_avance.py'
       - 'tests/test_suivi_football_avance.py'
       - 'modeles/simulations/equipes_avance_multisports.py'
       - 'tests/test_equipes_avance_multisports.py'
       - 'modeles/simulations/ensemble_montecarlo_bayes.py'
       - 'tests/test_ensemble_montecarlo_bayes.py'
-      - 'outils/suivi_ensemble.py'
+      - 'outils/suivi/suivi_ensemble.py'
       - 'tests/test_suivi_ensemble.py'
       - 'modeles/simulations/nba_prior_espn.py'
       - 'tests/test_nba_prior_espn.py'
@@ -64,7 +64,7 @@ jobs:
       - name: Tester suivi pré-match ATP WTA UFC et Liiga
         run: python -m unittest discover -s tests -p 'test_individual_prospective_revue.py' -v
       - name: Verrouiller nouvelles prévisions individuelles et régler résultats officiels
-        run: python -m outils.individual_prospective_revue
+        run: python -m outils.suivi.individual_prospective_revue
       - name: Calculer toutes les compétitions disponibles
         run: python modeles/simulations/multisports_independant.py --days 3 --output docs/multisports-latest.json
       - name: Tester les classements NBA de saison précédente et absence de fuite
@@ -82,7 +82,7 @@ jobs:
       - name: Tests suivi football prospectif anti-fuite
         run: python -m unittest discover -s tests -p 'test_suivi_football_avance.py' -v
       - name: Enregistrer prévisions football avant le coup d'envoi et régler les anciennes
-        run: python -m outils.suivi_football_avance
+        run: python -m outils.suivi.suivi_football_avance
       - name: Tester modèles équipes avancés NBA NFL NCAA MLB
         run: python -m unittest discover -s tests -p 'test_equipes_avance_multisports.py' -v
       - name: Comparer les modèles avancés des équipes (shadow uniquement)
@@ -94,11 +94,11 @@ jobs:
       - name: Tester suivi prospectif ensemble sans cotes
         run: python -m unittest discover -s tests -p 'test_suivi_ensemble.py' -v
       - name: Enregistrer prévisions ensemble pre-match et scores vérifiés
-        run: python -m outils.suivi_ensemble
+        run: python -m outils.suivi.suivi_ensemble
       - name: Tests du backtest chronologique
         run: python -m unittest discover -s tests -p 'test_backtest_multisports.py' -v
       - name: Brier et log loss historiques par compétition
-        run: python outils/backtest_multisports.py --history docs/multisports-history.json --output docs/backtests-multisports.json
+        run: python outils/suivi/backtest_multisports.py --history docs/multisports-history.json --output docs/backtests-multisports.json
       - name: Enregistrer uniquement les prédictions calculées
         run: |
           git config user.name "github-actions[bot]"

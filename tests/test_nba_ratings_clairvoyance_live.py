@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime,timezone
-from outils.nba_ratings_clairvoyance_live import (
+from outils.clairvoyance.nba_ratings_clairvoyance_live import (
     current_espn_rows,previous_espn_rows,build_report
 )
 NOW=datetime(2026,10,10,2,tzinfo=timezone.utc)

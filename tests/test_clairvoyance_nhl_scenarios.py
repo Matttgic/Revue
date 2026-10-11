@@ -1,6 +1,6 @@
 """Sensitivity of independently reconstructed NHL backend formula on real proxy inputs."""
 import copy,unittest
-from outils.clairvoyance_nhl_scenarios import investigate,model_prob
+from outils.clairvoyance.clairvoyance_nhl_scenarios import investigate,model_prob
 from modeles.reproduction.clairvoyance_predictor import Game,nhl
 from datetime import datetime,timezone,timedelta
 T=datetime(2026,10,10,15,tzinfo=timezone.utc)

@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.diagnostic_revue import build,verify_component
+from outils.controles.diagnostic_revue import build,verify_component
 NOW=datetime(2026,10,9,20,tzinfo=timezone.utc)
 def ts(d):return d.isoformat()
 def sources():

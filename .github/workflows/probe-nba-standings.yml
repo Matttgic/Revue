@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'outils/probe_nba_espn_standings.py'
+      - 'outils/collecte/probe_nba_espn_standings.py'
       - '.github/workflows/probe-nba-standings.yml'
 permissions:
   contents: read
@@ -17,4 +17,4 @@ jobs:
         with:
           python-version: '3.12'
       - name: Tester les standings de la saison NBA 2025-26
-        run: python -m outils.probe_nba_espn_standings
+        run: python -m outils.collecte.probe_nba_espn_standings

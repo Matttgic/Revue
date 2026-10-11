@@ -2,8 +2,8 @@
 import copy,json,unittest
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
-from outils.phase10_modeles_multisports import build,VERSION,STATUS,NBA_ABBR
-from outils.match_center_revue import instant
+from outils.suivi.phase10_modeles_multisports import build,VERSION,STATUS,NBA_ABBR
+from outils.publication.match_center_revue import instant
 
 NOW=datetime(2026,10,10,20,tzinfo=timezone.utc)
 OBS=(NOW-timedelta(hours=1)).isoformat()
@@ -131,7 +131,7 @@ class ModelTests(unittest.TestCase):
 
 
  def test_phase10_matches_only_exact_teams_and_clocks_in_match_center(self):
-  from outils.match_center_revue import collect_center
+  from outils.publication.match_center_revue import collect_center
   p=sample()
   model_report=build(*p,NOW)
   base=p[1];advanced=p[5]

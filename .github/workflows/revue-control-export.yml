@@ -9,7 +9,7 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/publier_revue_control.py'
+      - 'outils/publication/publier_revue_control.py'
       - 'api_revue/operational.py'
       - 'tests/test_publier_revue_control.py'
       - '.github/workflows/revue-control-export.yml'
@@ -37,7 +37,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.publier_revue_control
+            python -m outils.publication.publier_revue_control
             git add docs/revue-control-ledger-latest.json docs/revue-control-state-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'data(revue): export validated Control Center static snapshots'

@@ -6,7 +6,7 @@ on:
   # to prevent preseason standings from entering current-season Elo.
   push:
     paths:
-      - 'outils/nba_ratings_clairvoyance_live.py'
+      - 'outils/clairvoyance/nba_ratings_clairvoyance_live.py'
       - 'tests/test_nba_ratings_clairvoyance_live.py'
       - '.github/workflows/clairvoyance-nba-ratings.yml'
 permissions:
@@ -26,7 +26,7 @@ jobs:
       - name: Tester l'adaptateur exact Clairvoyance NBA
         run: python -m unittest discover -s tests -p 'test_nba_ratings_clairvoyance_live.py' -v
       - name: Produire vrais Elo avec les statistiques ESPN
-        run: python -m outils.nba_ratings_clairvoyance_live
+        run: python -m outils.clairvoyance.nba_ratings_clairvoyance_live
       - name: Publier résultats dérivés seulement
         run: |
           git config user.name "github-actions[bot]"

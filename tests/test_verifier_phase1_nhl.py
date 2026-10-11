@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import json
 
-from outils.verifier_phase1_nhl import report, VERSION
+from outils.clairvoyance.verifier_phase1_nhl import report, VERSION
 
 DOCS=Path(__file__).resolve().parents[1]/"docs"
 load=lambda name:json.loads((DOCS/name).read_text(encoding="utf8"))

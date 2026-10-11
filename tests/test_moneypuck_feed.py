@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import unittest
 
-from outils.moneypuck_feed import (
+from outils.collecte.moneypuck_feed import (
     Download, create_snapshot, derive_rows, season_year, source_url, _clean_fraction
 )
 

@@ -48,7 +48,7 @@ Les tests unitaires couvrent la formule inchangée, la séparation des modèles,
 
 ## Garde-fou essentiel : zéro donnée postérieure au match
 
-Avant toute publication NHL, `outils/nhl_point_in_time_audit.py` recoupe les fichiers MoneyPuck officiels et les rencontres officiellement **terminées avant l'horodatage de la source**, non pas seulement avant la date de consultation :
+Avant toute publication NHL, `outils/suivi/nhl_point_in_time_audit.py` recoupe les fichiers MoneyPuck officiels et les rencontres officiellement **terminées avant l'horodatage de la source**, non pas seulement avant la date de consultation :
 
 - Comparaison des matchs déclarés `games_played` de chaque équipe en situation **5 contre 5** avec le maximum de rencontres officiellement terminées dans l'API NHL à cette date.
 - Contrôle indépendant du nombre de matchs observés pour chaque gardien : il ne peut dépasser le nombre de rencontres officielles disponibles pour son club.
@@ -78,9 +78,9 @@ Site : `docs/nhl-clairvoyance.html`, onglet *Suivi / résultats NHL* avec histor
 
 ## Fichiers
 
-- `outils/clairvoyance_nhl_moneypuck_shadow.py` : production des prévisions de référence + recherches.
-- `outils/nhl_moneypuck_prudent.py` : transformation indépendante des entrées.
-- `outils/nhl_shadow_tracker.py` : journal prospectif et Brier apparié.
+- `outils/suivi/clairvoyance_nhl_moneypuck_shadow.py` : production des prévisions de référence + recherches.
+- `outils/suivi/nhl_moneypuck_prudent.py` : transformation indépendante des entrées.
+- `outils/suivi/nhl_shadow_tracker.py` : journal prospectif et Brier apparié.
 - `docs/nhl-clairvoyance-shadow-latest.json` : prévisions horodatées.
 - `docs/nhl-shadow-performance.json` : indicateurs vérifiables.
 - `docs/nhl-clairvoyance.html` : affichage adapté au mobile.

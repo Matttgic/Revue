@@ -2,8 +2,8 @@
 import json,unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
-from outils.phase10_modeles_multisports import build
-from outils.phase10_validation_prospective import lock,settle,summarize,empty
+from outils.suivi.phase10_modeles_multisports import build
+from outils.suivi.phase10_validation_prospective import lock,settle,summarize,empty
 
 NOW=datetime(2026,10,10,20,tzinfo=timezone.utc)
 KICK=NOW+timedelta(hours=8)

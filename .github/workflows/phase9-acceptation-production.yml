@@ -5,7 +5,7 @@ on:
     - cron: '40 0,6,12,18 * * *'
   push:
     paths:
-      - 'outils/phase9_acceptation_production.py'
+      - 'outils/controles/phase9_acceptation_production.py'
       - 'tests/test_phase9_acceptation.py'
       - '.github/workflows/phase9-acceptation-production.yml'
       - 'docs/phase9-production.html'
@@ -34,7 +34,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_phase7_cotes_et_bilan.py' -v
           node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js
       - name: Validate sources without paid API calls
-        run: python -m outils.phase9_acceptation_production
+        run: python -m outils.controles.phase9_acceptation_production
       - name: Publish latest safety and data status
         run: |
           git config user.name 'github-actions[bot]'
@@ -42,7 +42,7 @@ jobs:
           for attempt in 1 2 3 4; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.phase9_acceptation_production
+            python -m outils.controles.phase9_acceptation_production
             git add docs/phase9-readiness-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'qa(phase9): release safety and data freshness'

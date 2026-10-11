@@ -2,7 +2,7 @@
 import unittest
 from dataclasses import replace
 from datetime import datetime,timedelta,timezone
-from outils.backtest_multisports import score_league,_multiclass_brier,generate
+from outils.suivi.backtest_multisports import score_league,_multiclass_brier,generate
 from modeles.simulations.multisports_independant import LEAGUES,Event
 
 

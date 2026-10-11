@@ -2,7 +2,7 @@
 import unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
-from outils.tableau_cotes import build_board,selections
+from outils.collecte.tableau_cotes import build_board,selections
 from test_revue_engine_v2 import quotes,models,NOW,START
 
 class OddsBoardTests(unittest.TestCase):

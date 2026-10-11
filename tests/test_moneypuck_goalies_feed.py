@@ -1,7 +1,7 @@
 """Offline tests for MoneyPuck official goalie statistics (no starter inference)."""
 from datetime import datetime, timezone
 import unittest
-from outils.moneypuck_goalies_feed import (
+from outils.collecte.moneypuck_goalies_feed import (
     Download, derived_goalies, create_snapshot, goalie_csv_url
 )
 

@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta, timezone
 
 from modeles.simulations.nhl_independant import Game
 from modeles.reproduction.clairvoyance_predictor import Game as ModelGame, nhl
-from outils.clairvoyance_nhl_moneypuck_shadow import (
+from outils.suivi.clairvoyance_nhl_moneypuck_shadow import (
     predict_shadow, _most_used_goalie, _elo_from_scores
 )
 

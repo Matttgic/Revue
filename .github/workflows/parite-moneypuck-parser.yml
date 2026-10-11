@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'modeles/reproduction/clairvoyance_moneypuck_parser.py'
-      - 'outils/verifier_parite_moneypuck_source.py'
+      - 'outils/clairvoyance/verifier_parite_moneypuck_source.py'
       - 'tests/test_moneypuck_compat.py'
       - '.github/workflows/parite-moneypuck-parser.yml'
 permissions:
@@ -33,7 +33,7 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_moneypuck_compat.py' -v
       - name: Comparer les fonctions originales Clairvoyance en lecture seule
         working-directory: revue
-        run: python -m outils.verifier_parite_moneypuck_source --reference ../reference
+        run: python -m outils.clairvoyance.verifier_parite_moneypuck_source --reference ../reference
       - name: Publier uniquement les comparaisons et la provenance
         working-directory: revue
         run: |

@@ -5,7 +5,7 @@ on:
     - cron: '25 0,6,12,18 * * *'
   push:
     paths:
-      - 'outils/github_actions_monitor.py'
+      - 'outils/controles/github_actions_monitor.py'
       - 'tests/test_github_actions_monitor.py'
       - '.github/workflows/github-actions-monitor.yml'
 permissions:
@@ -34,7 +34,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.github_actions_monitor
+            python -m outils.controles.github_actions_monitor
             git add docs/github-workflows-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'data(ops): capture actual Revue GitHub Actions run history'

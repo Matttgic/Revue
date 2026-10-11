@@ -1,7 +1,7 @@
 """NHL source-input comparison must never write frozen bets or backfill."""
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.nhl_source_input_gap import analyze
+from outils.clairvoyance.nhl_source_input_gap import analyze
 NOW=datetime(2026,10,10,12,tzinfo=timezone.utc)
 EARLY=(NOW-timedelta(hours=2)).isoformat()
 MID=(NOW-timedelta(hours=1)).isoformat()

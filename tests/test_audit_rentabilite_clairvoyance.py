@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from outils.audit_rentabilite_clairvoyance import (  # noqa: E402
+from outils.clairvoyance.audit_rentabilite_clairvoyance import (  # noqa: E402
     audit, backfilled, decimal_odds, family, price_provenance, start_index, summary,
 )
 

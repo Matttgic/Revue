@@ -2,7 +2,7 @@ import unittest
 import tempfile
 from pathlib import Path
 from datetime import datetime,timezone
-from outils.audit_clairvoyance_complet import inventory, inspect_frontend_model_symbols
+from outils.clairvoyance.audit_clairvoyance_complet import inventory, inspect_frontend_model_symbols
 
 NOW=datetime(2026,10,9,20,tzinfo=timezone.utc)
 class StaticInventoryTests(unittest.TestCase):

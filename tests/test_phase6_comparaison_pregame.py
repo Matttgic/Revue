@@ -2,7 +2,7 @@
 import unittest
 from copy import deepcopy
 from datetime import datetime,timezone,timedelta
-from outils.phase6_comparaison_pregame import build,VERSION,verify_ledger
+from outils.clairvoyance.phase6_comparaison_pregame import build,VERSION,verify_ledger
 NOW=datetime(2026,10,10,21,0,tzinfo=timezone.utc)
 SHA="a"*40
 

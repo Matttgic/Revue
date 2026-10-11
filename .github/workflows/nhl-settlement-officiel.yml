@@ -7,9 +7,9 @@ on:
     - cron: '15 0,4,8,12,16,20 * * *'
   push:
     paths:
-      - 'outils/nhl_settlement_officiel.py'
-      - 'outils/nhl_shadow_tracker.py'
-      - 'outils/nhl_calibration_prospective.py'
+      - 'outils/suivi/nhl_settlement_officiel.py'
+      - 'outils/suivi/nhl_shadow_tracker.py'
+      - 'outils/suivi/nhl_calibration_prospective.py'
       - 'tests/test_nhl_settlement_officiel.py'
       - 'tests/test_nhl_calibration_prospective.py'
       - '.github/workflows/nhl-settlement-officiel.yml'
@@ -50,11 +50,11 @@ jobs:
             git reset --hard origin/main
             # The scorer never generates new probabilities. It does nothing
             # when the official games are not yet final or are already graded.
-            python -m outils.nhl_settlement_officiel
+            python -m outils.suivi.nhl_settlement_officiel
             # Rebuild research validation only when new official results arrive
             # (or when first installed); do not fabricate results or churn git.
             if ! git diff --quiet -- docs/nhl-shadow-ledger.json || ! test -s docs/nhl-calibration-latest.json; then
-              python -m outils.nhl_calibration_prospective
+              python -m outils.suivi.nhl_calibration_prospective
             fi
             git add docs/nhl-shadow-ledger.json docs/nhl-shadow-performance.json docs/nhl-calibration-latest.json
             if git diff --cached --quiet; then

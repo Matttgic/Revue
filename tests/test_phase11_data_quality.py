@@ -3,8 +3,8 @@ from __future__ import annotations
 import copy,json,unittest
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
-from outils.phase11_data_quality import evaluate,goalie_evidence,quarantined,INPUT_FILES
-from outils.match_center_revue import official_goalie_observation,collect_center
+from outils.controles.phase11_data_quality import evaluate,goalie_evidence,quarantined,INPUT_FILES
+from outils.publication.match_center_revue import official_goalie_observation,collect_center
 from test_match_center_revue import fixture,NOW,GENERATED,KICK
 
 ROOT=Path(__file__).resolve().parents[1]/"docs"
@@ -112,7 +112,7 @@ class SourceQualityTests(unittest.TestCase):
   self.assertIsNone(next(x for x in doc["events"] if x["league"]=="NHL")["observed_nhl_goalies"])
 
  def test_official_mlb_pitcher_attachment_fails_closed(self):
-  from outils.match_center_revue import official_mlb_probable_pitchers
+  from outils.publication.match_center_revue import official_mlb_probable_pitchers
   model={"league":"MLB","event_id":"401999992","home":"Dodgers","away":"Brewers",
          "start_utc":KICK}
   source={"status":"official_MLB_probable_pitchers_observed_not_confirmed",

@@ -3,7 +3,7 @@ import unittest
 from dataclasses import replace
 from datetime import datetime, timezone
 
-from outils.validateur_cotes import Cotation, esperance_de_gain
+from outils.controles.validateur_cotes import Cotation, esperance_de_gain
 
 
 class TestCotes(unittest.TestCase):

@@ -1,6 +1,6 @@
 "use strict";
 const test=require("node:test"),assert=require("node:assert/strict");
-const {build,tracker,emptyLedger,performance,time}=require("../outils/euro_hockey_reference_feed.js");
+const {build,tracker,emptyLedger,performance,time}=require("../outils/clairvoyance/euro_hockey_reference_feed.js");
 const NOW=Date.UTC(2026,9,10,12);
 const iso=hours=>new Date(NOW+hours*3600000).toISOString();
 function fixture(){

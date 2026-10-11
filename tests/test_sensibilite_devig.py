@@ -2,7 +2,7 @@
 import math
 import unittest
 
-from outils.sensibilite_devig import additive, comparer_methodes, multiplicative, puissance
+from outils.controles.sensibilite_devig import additive, comparer_methodes, multiplicative, puissance
 
 
 class TestSensibiliteDevig(unittest.TestCase):

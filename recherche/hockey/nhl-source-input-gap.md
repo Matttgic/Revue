@@ -2,7 +2,7 @@
 
 Clairvoyance utilise les statistiques MoneyPuck de situation **all** et le gardien NHL Edge ayant le plus de matchs, tandis que le SHADOW Revue utilise le **5on5** et des gardiens MoneyPuck historiques. Ce comparateur ne modifie aucune prévision gelée. Il applique la même formule à des entrées différentes avec **l'Elo proxy Revue**, sans supposer disposer de la base de données SQL originale.
 
-- Code autonome : `outils/nhl_source_input_gap.py`
+- Code autonome : `outils/clairvoyance/nhl_source_input_gap.py`
 - Sorties mesurées : `docs/nhl-source-input-delta.json`
 - Tests : `tests/test_nhl_source_input_gap.py`
 - Mise à jour : `.github/workflows/nhl-source-input-gap.yml`

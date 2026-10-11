@@ -6,7 +6,7 @@ on:
   push:
     paths:
       - 'modeles/reproduction/clairvoyance_lock_timing.py'
-      - 'outils/verifier_parite_timing_clairvoyance.py'
+      - 'outils/clairvoyance/verifier_parite_timing_clairvoyance.py'
       - 'tests/test_clairvoyance_lock_timing.py'
       - '.github/workflows/parite-clairvoyance-timing.yml'
 permissions:
@@ -38,7 +38,7 @@ jobs:
       - name: Replay synthetic cases on original and Revue implementations
         working-directory: revue
         run: >-
-          python -m outils.verifier_parite_timing_clairvoyance
+          python -m outils.clairvoyance.verifier_parite_timing_clairvoyance
           --reference ../clairvoyance_reference
           --output docs/parite-clairvoyance-timing.json
       - name: Publish verification metadata only (no source code or original picks)

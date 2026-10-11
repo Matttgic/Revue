@@ -4,10 +4,10 @@ import unittest
 
 from modeles.reproduction.clairvoyance_predictor import Game as PredictorGame, nhl
 from modeles.simulations.nhl_independant import Game
-from outils.nhl_moneypuck_prudent import (
+from outils.suivi.nhl_moneypuck_prudent import (
     xg_shrunk, goalie_shrunk, prudent_forecast, XG_PRIOR_GAMES, MODEL_ID
 )
-from outils.clairvoyance_nhl_moneypuck_shadow import predict_shadow
+from outils.suivi.clairvoyance_nhl_moneypuck_shadow import predict_shadow
 
 NOW=datetime(2026,10,10,6,tzinfo=timezone.utc)
 LABEL="2026-2027"

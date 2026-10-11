@@ -2,7 +2,7 @@
 import unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
-from outils.parite_nhl_gardiens_publics import compare,name_key,VERSION
+from outils.clairvoyance.parite_nhl_gardiens_publics import compare,name_key,VERSION
 
 NOW=datetime(2026,10,10,20,tzinfo=timezone.utc)
 ORIG_AT=(NOW-timedelta(hours=1)).strftime("%Y-%m-%d %H:%M UTC")

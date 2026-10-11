@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.historique_cotes_clv import observe,closing_sample,report,valid_hockey_period
+from outils.suivi.historique_cotes_clv import observe,closing_sample,report,valid_hockey_period
 NOW=datetime(2026,10,9,19,tzinfo=timezone.utc)
 START=NOW+timedelta(hours=3)
 def iso(t):return t.isoformat()

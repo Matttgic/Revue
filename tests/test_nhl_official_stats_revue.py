@@ -1,7 +1,7 @@
 """Official NHL Stats REST adapter tests with mock, not fabricated production data."""
 from datetime import datetime,timezone
 import unittest
-from outils.nhl_official_stats_revue import clean,positive_number,source_id
+from outils.collecte.nhl_official_stats_revue import clean,positive_number,source_id
 
 NOW=datetime(2026,10,10,tzinfo=timezone.utc)
 

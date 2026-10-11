@@ -5,7 +5,7 @@ from copy import deepcopy
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 
-from outils.etat_donnees_revue import FILES,layer,report
+from outils.controles.etat_donnees_revue import FILES,layer,report
 
 ROOT=Path(__file__).resolve().parents[1]/"docs"
 DATA={k:json.loads((ROOT/p).read_text(encoding="utf-8"))

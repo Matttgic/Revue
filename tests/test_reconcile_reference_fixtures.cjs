@@ -1,6 +1,6 @@
 "use strict";
 const {test}=require("node:test"),assert=require("node:assert/strict");
-const {reconcile}=require("../outils/reconcile_reference_fixtures.js");
+const {reconcile}=require("../outils/clairvoyance/reconcile_reference_fixtures.js");
 const now=Date.parse("2026-10-10T18:00:00Z");
 function input(){
  const o={generated:"2026-10-10T17:00:00Z",nhl:{today:[{id:12,home:"BOS",away:"PHI",date:"2026-10-10T22:00Z",homeML:-150}],tomorrow:[]},

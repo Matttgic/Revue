@@ -3,7 +3,7 @@ from copy import deepcopy
 from datetime import datetime,timezone
 from pathlib import Path
 import json,unittest
-from outils.phase5_donnees_multisports import build,nba,nhl,mlb,football,clock
+from outils.controles.phase5_donnees_multisports import build,nba,nhl,mlb,football,clock
 NOW=datetime(2026,10,10,22,tzinfo=timezone.utc)
 T="2026-10-10T18:00:00Z"
 def samples():

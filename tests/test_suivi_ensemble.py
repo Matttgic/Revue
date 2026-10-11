@@ -2,7 +2,7 @@
 import unittest
 from datetime import datetime,timedelta,timezone
 from copy import deepcopy
-from outils.suivi_ensemble import (
+from outils.suivi.suivi_ensemble import (
     normalize_two_way,score_pair,step,summarize,PREGAME_BUFFER
 )
 NOW=datetime(2026,10,9,21,tzinfo=timezone.utc)

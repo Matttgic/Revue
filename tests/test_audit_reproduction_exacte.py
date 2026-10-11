@@ -5,7 +5,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
-from outils.audit_reproduction_exacte import route_inventory, strict_report
+from outils.clairvoyance.audit_reproduction_exacte import route_inventory, strict_report
 
 NOW=datetime(2026,10,10,9,tzinfo=timezone.utc)
 
@@ -118,10 +118,10 @@ async def get_goalie(id): pass
                 "identical_original_clairvoyance_predictions_proven":False,
             }
             _write(target,"docs/parite-clairvoyance-nhl-observe.json",json.dumps(fixture))
-            with patch("outils.audit_reproduction_exacte.source_commit",return_value="different"):
+            with patch("outils.clairvoyance.audit_reproduction_exacte.source_commit",return_value="different"):
                 out=strict_report(source,target,NOW)
                 self.assertEqual(out["model_formulas"]["current_nhl_real_fixtures_tested"],0)
-            with patch("outils.audit_reproduction_exacte.source_commit",return_value="observed-ref"):
+            with patch("outils.clairvoyance.audit_reproduction_exacte.source_commit",return_value="observed-ref"):
                 out=strict_report(source,target,NOW)
                 self.assertEqual(out["model_formulas"]["current_nhl_real_fixtures_tested"],18)
                 self.assertEqual(out["model_formulas"]["current_nhl_full_output_dicts_equal"],18)
@@ -183,13 +183,13 @@ def build():
             pair=json.loads(pair_file.read_text())
             pair["mappings"][0].update(home="BOS",away="PHI",start_utc=NOW.isoformat())
             _write(target,"docs/parite-nhl-espn-id-map.json",json.dumps(pair))
-            with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v1"):
+            with patch("outils.clairvoyance.audit_reproduction_exacte.source_commit",return_value="source-v1"):
                 report=strict_report(source,target,NOW)
                 self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],1)
                 self.assertTrue(report["nhl_fixture_identity"]["verified_source_revision"])
                 self.assertFalse(report["nhl_fixture_identity"]["all_source_data_equal"])
                 self.assertIsNone(report["exact_reproduction_percent"])
-            with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v2"):
+            with patch("outils.clairvoyance.audit_reproduction_exacte.source_commit",return_value="source-v2"):
                 report=strict_report(source,target,NOW)
                 self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],1)
                 self.assertFalse(report["nhl_fixture_identity"]["verified_source_revision"])
@@ -198,12 +198,12 @@ def build():
                 "games":[{"id":"401892469","home":"COL","away":"PHI",
                           "date":NOW.isoformat()}],
             }))
-            with patch("outils.audit_reproduction_exacte.source_commit",return_value="source-v2"):
+            with patch("outils.clairvoyance.audit_reproduction_exacte.source_commit",return_value="source-v2"):
                 report=strict_report(source,target,NOW)
                 self.assertEqual(report["nhl_fixture_identity"]["source_espn_id_matches"],0)
 
     def test_original_pydantic_schema_field_shapes_against_independent_implementation(self):
-        from outils.audit_reproduction_exacte import compare_api_schemas
+        from outils.clairvoyance.audit_reproduction_exacte import compare_api_schemas
         with TemporaryDirectory() as tmp:
             source,target=Path(tmp)/"original",Path(tmp)/"revue"
             _write(source,"app/schemas/mlb.py",'''
@@ -280,14 +280,14 @@ class NHLSkaterStatOut(BaseModel):
             prior["reference_model_source_sha256"]=hashes
             _write(target,"docs/parite-modeles-clairvoyance.json",json.dumps(prior))
             # A new repo commit alone must not invalidate unchanged source.
-            with patch("outils.audit_reproduction_exacte.source_commit",return_value="new-data-only-commit"):
+            with patch("outils.clairvoyance.audit_reproduction_exacte.source_commit",return_value="new-data-only-commit"):
                 report=strict_report(source,target,NOW)
                 self.assertFalse(report["model_formulas"]["verification_is_on_current_source_commit"])
                 self.assertTrue(report["model_formulas"]["verification_is_on_current_source_code"])
                 self.assertTrue(report["model_formulas"]["reference_code_artifacts_still_identical"])
                 self.assertIsNone(report["exact_reproduction_percent"])
             _write(source,"docs/app.html","different original source code")
-            with patch("outils.audit_reproduction_exacte.source_commit",return_value="new-data-only-commit"):
+            with patch("outils.clairvoyance.audit_reproduction_exacte.source_commit",return_value="new-data-only-commit"):
                 report=strict_report(source,target,NOW)
                 self.assertFalse(report["model_formulas"]["verification_is_on_current_source_code"])
                 self.assertFalse(report["model_formulas"]["reference_code_artifacts_still_identical"])

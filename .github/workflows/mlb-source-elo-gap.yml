@@ -5,7 +5,7 @@ on:
     - cron: '50 12 * * *'
   push:
     paths:
-      - 'outils/mlb_source_elo_gap.py'
+      - 'outils/clairvoyance/mlb_source_elo_gap.py'
       - 'tests/test_mlb_source_elo_gap.py'
       - '.github/workflows/mlb-source-elo-gap.yml'
 permissions:
@@ -32,7 +32,7 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.mlb_source_elo_gap
+            python -m outils.clairvoyance.mlb_source_elo_gap
             git add docs/mlb-source-elo-gap.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'data(mlb): measure sensitivity to missing original SQL Elo inputs'

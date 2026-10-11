@@ -11,7 +11,7 @@ on:
     types: [completed]
   push:
     paths:
-      - 'outils/phase14_reception.py'
+      - 'outils/controles/phase14_reception.py'
       - 'tests/test_phase14_reception.py'
       - 'tests/test_phase14_site.py'
       - 'docs/index.html'
@@ -41,7 +41,7 @@ jobs:
           node-version: '22'
       - name: Three-screen source and accounting acceptance
         run: |
-          python -m outils.phase14_reception
+          python -m outils.controles.phase14_reception
           python -m unittest discover -s tests -p 'test_phase14_reception.py' -v
           python -m unittest discover -s tests -p 'test_phase8_site.py' -v
           python -m unittest discover -s tests -p 'test_phase13_site.py' -v
@@ -49,7 +49,7 @@ jobs:
           node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js
       - name: Offline source-of-truth product snapshot
         run: |
-          python -m outils.phase14_reception
+          python -m outils.controles.phase14_reception
           python -m unittest discover -s tests -p 'test_phase14_site.py' -v
       - name: Push current product release status
         run: |
@@ -58,7 +58,7 @@ jobs:
           for attempt in 1 2 3 4; do
             git fetch origin main
             git reset --hard origin/main
-            python -m outils.phase14_reception
+            python -m outils.controles.phase14_reception
             git add docs/phase14-readiness-latest.json
             if git diff --cached --quiet; then exit 0; fi
             git commit -m 'qa(phase14): update truthful product status across three public screens'

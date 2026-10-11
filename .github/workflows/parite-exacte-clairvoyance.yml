@@ -6,7 +6,7 @@ on:
     - cron: '40 7 * * *'
   push:
     paths:
-      - 'outils/audit_reproduction_exacte.py'
+      - 'outils/clairvoyance/audit_reproduction_exacte.py'
       - 'docs/parite-nhl-espn-id-map.json'
       - 'docs/parite-clairvoyance-nhl-observe.json'
       - 'api_revue/app.py'
@@ -48,7 +48,7 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             python -m unittest discover -s tests -p 'test_audit_reproduction_exacte.py' -q
-            python -m outils.audit_reproduction_exacte \
+            python -m outils.clairvoyance.audit_reproduction_exacte \
               --source "$RUNNER_TEMP/clairvoyance-original" \
               --target . --output docs/reproduction-exacte-audit.json
             git add docs/reproduction-exacte-audit.json

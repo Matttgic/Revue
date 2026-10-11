@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime,timedelta,timezone
-from outils.suivi_football_avance import (
+from outils.suivi.suivi_football_avance import (
     probabilities,grade,reconcile,summarize
 )
 

@@ -16,4 +16,4 @@ Comparer multiplicative, additive (qui peut être invalide pour longshots), puis
 
 **Pas de preuve :** diverger entre méthodes prouve une incertitude de retrait de marge, pas l'existence d'une value exploitable.
 
-**Outil Revue original :** [outils/sensibilite_devig.py](../../outils/sensibilite_devig.py), si disponible, pour comparaison limitée (multiplicative/additive/puissance) ; jamais recopier la source.
+**Outil Revue original :** [outils/controles/sensibilite_devig.py](../../outils/controles/sensibilite_devig.py), si disponible, pour comparaison limitée (multiplicative/additive/puissance) ; jamais recopier la source.

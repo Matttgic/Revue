@@ -6,7 +6,7 @@ on:
     - cron: '24 8,14,20 * * *'
   push:
     paths:
-      - 'outils/nhl_official_stats_revue.py'
+      - 'outils/collecte/nhl_official_stats_revue.py'
       - 'tests/test_nhl_official_stats_revue.py'
       - '.github/workflows/nhl-official-stats.yml'
 
@@ -29,7 +29,7 @@ jobs:
       - name: Test strict NHL source parsing (no mock used in production)
         run: python -m unittest discover -s tests -p 'test_nhl_official_stats_revue.py' -v
       - name: Collect official NHL regular-season statistics
-        run: python -m outils.nhl_official_stats_revue --season 20262027
+        run: python -m outils.collecte.nhl_official_stats_revue --season 20262027
       - name: Verify nonempty actual source and publish timestamped snapshot
         run: |
           python - <<'PY'

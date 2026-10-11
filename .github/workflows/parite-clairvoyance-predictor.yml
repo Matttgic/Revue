@@ -5,48 +5,48 @@ on:
     paths:
       - 'modeles/reproduction/clairvoyance_predictor.py'
       - 'modeles/reproduction/clairvoyance_nba_source.py'
-      - 'outils/verifier_parite_nba_source.py'
-      - 'outils/verifier_parite_clairvoyance.py'
-      - 'outils/verifier_parite_elo_mlb_source.py'
+      - 'outils/clairvoyance/verifier_parite_nba_source.py'
+      - 'outils/clairvoyance/verifier_parite_clairvoyance.py'
+      - 'outils/clairvoyance/verifier_parite_elo_mlb_source.py'
       - 'api_revue/mlb_elo.py'
       - 'tests/test_api_mlb_elo.py'
-      - 'outils/verifier_parite_predictor_nhl_observe.py'
+      - 'outils/clairvoyance/verifier_parite_predictor_nhl_observe.py'
       - 'tests/test_parite_predictor_nhl_observe.py'
-      - 'outils/parite_calendrier_nhl_espn.py'
+      - 'outils/clairvoyance/parite_calendrier_nhl_espn.py'
       - 'tests/test_parite_calendrier_nhl_espn.py'
       - 'tests/test_clairvoyance_model_reproduction.py'
-      - 'outils/catalogue_parite_modeles.py'
-      - 'outils/pin_source_parity.py'
+      - 'outils/clairvoyance/catalogue_parite_modeles.py'
+      - 'outils/clairvoyance/pin_source_parity.py'
       - 'tests/test_pin_source_parity.py'
       - 'modeles/reproduction/frontend_clairvoyance.js'
-      - 'outils/verify_clairvoyance_frontend.js'
+      - 'outils/clairvoyance/verify_clairvoyance_frontend.js'
       - 'modeles/reproduction/frontend_clairvoyance_nhl.js'
-      - 'outils/verify_clairvoyance_nhl.js'
+      - 'outils/clairvoyance/verify_clairvoyance_nhl.js'
       - 'modeles/reproduction/frontend_clairvoyance_soccer_xg.js'
-      - 'outils/verify_clairvoyance_soccer_xg.js'
+      - 'outils/clairvoyance/verify_clairvoyance_soccer_xg.js'
       - 'modeles/reproduction/frontend_clairvoyance_soccer_analytic.js'
-      - 'outils/verify_clairvoyance_soccer_analytic.js'
+      - 'outils/clairvoyance/verify_clairvoyance_soccer_analytic.js'
       - 'modeles/reproduction/frontend_clairvoyance_euro_hockey.js'
-      - 'outils/verify_clairvoyance_euro_hockey.js'
+      - 'outils/clairvoyance/verify_clairvoyance_euro_hockey.js'
       - 'modeles/reproduction/frontend_clairvoyance_euro_hockey_games.js'
-      - 'outils/verify_clairvoyance_euro_hockey_matches.js'
+      - 'outils/clairvoyance/verify_clairvoyance_euro_hockey_matches.js'
       - 'modeles/reproduction/frontend_clairvoyance_euro_hockey_ensemble.js'
-      - 'outils/verify_clairvoyance_euro_hockey_ensemble.js'
-      - 'outils/verify_clairvoyance_hockey_helpers.js'
+      - 'outils/clairvoyance/verify_clairvoyance_euro_hockey_ensemble.js'
+      - 'outils/clairvoyance/verify_clairvoyance_hockey_helpers.js'
       - 'modeles/reproduction/frontend_clairvoyance_hockey_market.js'
-      - 'outils/verify_clairvoyance_hockey_market.js'
+      - 'outils/clairvoyance/verify_clairvoyance_hockey_market.js'
       - 'modeles/reproduction/frontend_clairvoyance_soccer_form.js'
-      - 'outils/verify_clairvoyance_soccer_form.js'
+      - 'outils/clairvoyance/verify_clairvoyance_soccer_form.js'
       - 'modeles/reproduction/frontend_clairvoyance_soccer_fbref.js'
-      - 'outils/verify_clairvoyance_soccer_fbref.js'
+      - 'outils/clairvoyance/verify_clairvoyance_soccer_fbref.js'
       - 'modeles/reproduction/frontend_clairvoyance_nhl_goalie_form.js'
-      - 'outils/verify_clairvoyance_nhl_goalie_form.js'
+      - 'outils/clairvoyance/verify_clairvoyance_nhl_goalie_form.js'
       - 'modeles/reproduction/frontend_clairvoyance_player_line.js'
-      - 'outils/verify_clairvoyance_player_line.js'
+      - 'outils/clairvoyance/verify_clairvoyance_player_line.js'
       - 'modeles/reproduction/frontend_clairvoyance_injury_impact.js'
-      - 'outils/verify_clairvoyance_injury_impact.js'
+      - 'outils/clairvoyance/verify_clairvoyance_injury_impact.js'
       - 'modeles/reproduction/frontend_clairvoyance_nba_props.js'
-      - 'outils/verify_clairvoyance_nba_props.js'
+      - 'outils/clairvoyance/verify_clairvoyance_nba_props.js'
       - 'tests/test_catalogue_parite_modeles.py'
       - '.github/workflows/parite-clairvoyance-predictor.yml'
   # The original source changes; reevaluate pinned function parity every day.
@@ -78,40 +78,40 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_clairvoyance_model_reproduction.py' -v
       - name: Verify real parity against original reference (read only AST)
         working-directory: revue
-        run: python -m outils.verifier_parite_clairvoyance --reference ../clairvoyance_reference --output docs/parite-clairvoyance-predictor.json
+        run: python -m outils.clairvoyance.verifier_parite_clairvoyance --reference ../clairvoyance_reference --output docs/parite-clairvoyance-predictor.json
       - name: Compare original NHL predictor with observed Revue fixture inputs (not original data)
         working-directory: revue
         run: |
           python -m unittest discover -s tests -p 'test_parite_predictor_nhl_observe.py' -v
-          python -m outils.verifier_parite_predictor_nhl_observe --reference ../clairvoyance_reference --output docs/parite-clairvoyance-nhl-observe.json
+          python -m outils.clairvoyance.verifier_parite_predictor_nhl_observe --reference ../clairvoyance_reference --output docs/parite-clairvoyance-nhl-observe.json
       - name: Replay every recorded MLB final against original Elo source arithmetic
         working-directory: revue
-        run: python -m outils.verifier_parite_elo_mlb_source --reference ../clairvoyance_reference --output docs/parite-elo-mlb-source.json
+        run: python -m outils.clairvoyance.verifier_parite_elo_mlb_source --reference ../clairvoyance_reference --output docs/parite-elo-mlb-source.json
       - name: Match source ESPN NHL IDs against official NHL calendar by teams and exact kickoff
         working-directory: revue
         run: |
           python -m unittest discover -s tests -p 'test_parite_calendrier_nhl_espn.py' -v
-          python -m outils.parite_calendrier_nhl_espn --reference ../clairvoyance_reference
+          python -m outils.clairvoyance.parite_calendrier_nhl_espn --reference ../clairvoyance_reference
       - name: Comparer quatre fonctions NBA au code Clairvoyance d'origine
         working-directory: revue
-        run: python -m outils.verifier_parite_nba_source --reference ../clairvoyance_reference --output docs/parite-clairvoyance-nba-source.json
+        run: python -m outils.clairvoyance.verifier_parite_nba_source --reference ../clairvoyance_reference --output docs/parite-clairvoyance-nba-source.json
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Vérifier les fonctions JavaScript originales sur mêmes entrées
         working-directory: revue
-        run: node outils/verify_clairvoyance_frontend.js ../clairvoyance_reference docs/parite-clairvoyance-frontend.json
+        run: node outils/clairvoyance/verify_clairvoyance_frontend.js ../clairvoyance_reference docs/parite-clairvoyance-frontend.json
       - name: Check the strict model parity progress measurement
         working-directory: revue
         run: python -m unittest discover -s tests -p 'test_catalogue_parite_modeles.py' -v
       - name: Regenerate the 13-model strict reproduction scoreboard
         working-directory: revue
-        run: python -m outils.catalogue_parite_modeles
+        run: python -m outils.clairvoyance.catalogue_parite_modeles
       - name: Pin exact original source code fingerprints after successful parity checks
         working-directory: revue
         run: |
           python -m unittest discover -s tests -p 'test_pin_source_parity.py' -v
-          python -m outils.pin_source_parity --reference ../clairvoyance_reference
+          python -m outils.clairvoyance.pin_source_parity --reference ../clairvoyance_reference
       - name: Publish ONLY equality metadata, not third-party code
         working-directory: revue
         run: |

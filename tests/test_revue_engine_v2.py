@@ -2,7 +2,7 @@
 import unittest
 from datetime import datetime,timedelta,timezone
 from copy import deepcopy
-from outils.revue_engine_v2 import (
+from outils.suivi.revue_engine_v2 import (
     match_fixture,normalize,same_team,price_probabilities,same_market_book,
     quote_book_valid,market_recommendations,paper_locks,ledger_statistics,
     settle_ledger,execute,timestamp,_outcome_from_score,FR_BOOKS,ODDS_SPORTS,download_odds,
@@ -64,7 +64,7 @@ class MatchingTests(unittest.TestCase):
         def fake_api(url):
             urls.append(url)
             return [],quota
-        with patch("outils.revue_engine_v2._api",side_effect=fake_api):
+        with patch("outils.suivi.revue_engine_v2._api",side_effect=fake_api):
             download_odds("not_a_real_key",["NBA","NHL"],2)
         self.assertEqual(len(urls),2)
         self.assertIn("markets=h2h&",urls[0])
@@ -262,7 +262,7 @@ class PaperTests(unittest.TestCase):
         from unittest.mock import patch
         stale=models()
         stale["generated_at_utc"]=iso(NOW-timedelta(hours=10))
-        with patch("outils.revue_engine_v2.download_odds") as calls:
+        with patch("outils.suivi.revue_engine_v2.download_odds") as calls:
             report,_=execute(stale,{"leagues":{}},{"bets":[]},NOW,
                              api_key="private_test_key")
             calls.assert_not_called()

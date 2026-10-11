@@ -4,8 +4,8 @@ from datetime import datetime, timedelta, timezone
 import math
 import unittest
 
-from outils.nhl_calibration_prospective import build_report, TRAIN_MIN, HOLDOUT_MIN
-from outils.nhl_shadow_tracker import VERSION
+from outils.suivi.nhl_calibration_prospective import build_report, TRAIN_MIN, HOLDOUT_MIN
+from outils.suivi.nhl_shadow_tracker import VERSION
 
 UTC = timezone.utc
 START = datetime(2026, 10, 10, 12, tzinfo=UTC)
