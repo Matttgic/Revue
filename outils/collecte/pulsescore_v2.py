@@ -12,6 +12,7 @@ from __future__ import annotations
 from collections import defaultdict, deque
 from datetime import datetime, timedelta, timezone
 import json
+import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -23,9 +24,14 @@ BOOKMAKERS={
     "betclic_fr":"betclic",
     "winamax_fr":"winamax",
     "unibet_fr":"unibet-fr",
-    "netbet_fr":"netbet",
     "pmu_fr":"pmu",
 }
+# Le « netbet » de PulseScore est netbet.co.uk (UK), pas NetBet France : exclu.
+# PS3838 sert uniquement de référence sharp (jamais parié, jamais appelé Pinnacle).
+REFERENCE_BOOKS={"ps3838":"ps3838"}
+SCAN_BOOKS={**BOOKMAKERS,**REFERENCE_BOOKS}
+# Offre Pro : 1 requête par seconde et par bookmaker.
+MIN_INTERVAL_PER_BOOK=1.1
 SPORT_GROUPS={
     "NBA":"basketball","WNBA":"basketball","NCAAB":"basketball",
     "NFL":"american-football",
@@ -33,7 +39,7 @@ SPORT_GROUPS={
     "PL":"soccer","LALIGA":"soccer","SERIEA":"soccer",
     "BUNDESLIGA":"soccer","LIGUE1":"soccer","MLS":"soccer",
 }
-# Accès PulseScore Pro illimité : 5 sports x 5 bookmakers x 4 pages couvre
+# Accès PulseScore Pro illimité : 5 sports x 5 sources x 4 pages couvre
 # tout le catalogue ; le plafond reste un garde-fou contre une boucle folle.
 MAX_PAGES=4
 MAX_CALLS=100
@@ -41,7 +47,7 @@ HORIZON_HOURS=36
 
 
 def _request(book:str,sport:str,key:str,page:int) -> tuple[list[dict],bool]:
-    if book not in BOOKMAKERS.values() or sport not in set(SPORT_GROUPS.values()):
+    if book not in SCAN_BOOKS.values() or sport not in set(SPORT_GROUPS.values()):
         raise ValueError("Unrecognized PulseScore sports/bookmaker")
     query=urlencode({"page":page,"limit":30})
     url=f"{SOURCE}/{book}/{sport}/events?{query}"
@@ -162,13 +168,14 @@ def translate_event(raw:dict,book_key:str,observed:datetime)->dict|None:
 
 def scan(key:str,models:dict,now:datetime,
          max_calls:int=MAX_CALLS,days_horizon:int=HORIZON_HOURS,
-         fetch=None, balanced:bool=False) -> tuple[dict,dict]:
+         fetch=None, balanced:bool=False, sleep=time.sleep) -> tuple[dict,dict]:
     """Radar: scan each sport/book ONCE, then optionally a second page.
 
     Limits calls globally rather than per sport (guard against runaway loops).
     """
     if not 1<=max_calls<=MAX_CALLS:raise ValueError("Invalid max_calls")
     if not 1<=days_horizon<=72:raise ValueError("Invalid horizon")
+    pace=fetch is None
     fetch=fetch or _request
     horizon=now+timedelta(hours=days_horizon)
     interested={}
@@ -193,22 +200,28 @@ def scan(key:str,models:dict,now:datetime,
     sport_order=sorted(sports,key=lambda sport:earliest[sport])
     # Bounded short-horizon scans need sport breadth: first two books across
     # every sport before third books, with no extra API calls.
-    tasks=(deque((sport,b,1) for b in BOOKMAKERS for sport in sport_order)
+    tasks=(deque((sport,b,1) for b in SCAN_BOOKS for sport in sport_order)
            if balanced else
-           deque((sport,b,1) for sport in sport_order for b in BOOKMAKERS))
+           deque((sport,b,1) for sport in sport_order for b in SCAN_BOOKS))
     results=defaultdict(dict)
     stats={"status":"active","requests":0,"errors":{},"matched_events":0,
            "sports":sport_order,"bookmakers":list(BOOKMAKERS),
+           "reference_books":list(REFERENCE_BOOKS),"matched_by_book":{},
            "truncated":False,"max_calls":max_calls,
            "allocation_mode":"sport_balanced" if balanced else "sport_priority",
            "calls_by_sport":{},
            "horizon_hours":days_horizon,
            "observation_provenance":"provider updatedAt when present; else time fetched",
            }
+    last_call={}
     while tasks and stats["requests"]<max_calls:
         sport,book_key,page=tasks.popleft()
-        prefix=BOOKMAKERS[book_key]
+        prefix=SCAN_BOOKS[book_key]
         stats["calls_by_sport"][sport]=stats["calls_by_sport"].get(sport,0)+1
+        if pace:
+            wait=last_call.get(prefix,0.0)+MIN_INTERVAL_PER_BOOK-time.monotonic()
+            if wait>0:sleep(wait)
+            last_call[prefix]=time.monotonic()
         try:
             records,has_next=fetch(prefix,sport,key,page)
             stats["requests"]+=1
@@ -236,6 +249,7 @@ def scan(key:str,models:dict,now:datetime,
                 })
                 stored["bookmakers"].extend(translated["bookmakers"])
                 stats["matched_events"]+=1
+                stats["matched_by_book"][book_key]=stats["matched_by_book"].get(book_key,0)+1
         if has_next and page<MAX_PAGES and stats["requests"]<max_calls:
             # Only proceed when earliest event could still be within horizon.
             last_start=timestamp(records[-1].get("startTime")) if records else None

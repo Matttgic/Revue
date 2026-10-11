@@ -8,7 +8,7 @@ from datetime import datetime,timedelta,timezone
 from pathlib import Path
 
 V="revue_phase7_price_integrity_v1"
-BOOKS={"betclic_fr","winamax_fr","unibet_fr","netbet_fr","pmu_fr"}
+BOOKS={"betclic_fr","winamax_fr","unibet_fr","pmu_fr"}
 SETTLED={"won","lost","push"}
 LEAD=timedelta(minutes=20)
 MAX_LOCK_QUOTE_AGE=timedelta(minutes=30)

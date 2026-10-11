@@ -56,6 +56,18 @@ def market_probs(book:dict,market:dict,game:dict,now:datetime)->dict[str,float]|
     return {k:v/margin for k,v in buckets.items()}
 
 
+def book_no_vig(book:dict,game:dict,market:str,outcome:dict,now:datetime)->float|None:
+    """Vig-free probability of one outcome in ONE book (team names matched loosely)."""
+    label=outcome_key(outcome,market,game)
+    if label is None:return None
+    found=[]
+    for m in book.get("markets") or []:
+        if m.get("key")!=market:continue
+        p=market_probs(book,m,game,now)
+        if p and label in p:found.append(p[label])
+    return round(found[0],5) if len(found)==1 else None
+
+
 def peer_consensus(event:dict,game:dict,market:str,outcome:dict,
                    exclude_book:str,now:datetime,min_peers:int=2)->dict:
     """Median vig-free probability of OTHER named FR books; no own-price leakage."""

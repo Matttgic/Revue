@@ -64,7 +64,7 @@ const $=x=>document.getElementById(x);
 const elem=(type,txt,cls)=>{const n=document.createElement(type);if(txt!==undefined)n.textContent=String(txt);if(cls)n.className=cls;return n};
 const time=s=>new Date(s).toLocaleString("fr-FR",{timeZone:"Europe/Paris",dateStyle:"short",timeStyle:"short"});
 const decimal=n=>Number(n).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:3});
-const books=new Set(["betclic_fr","winamax_fr","netbet_fr","unibet_fr","pmu_fr"]);
+const books=new Set(["betclic_fr","winamax_fr","unibet_fr","pmu_fr"]);
 const label=(m,o)=>{
   const name=m.market==="h2h"?
     (o.selection==="home"?"Domicile":o.selection==="away"?"Extérieur":"Nul"):

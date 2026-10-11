@@ -3,7 +3,7 @@ import unittest
 from datetime import datetime,timedelta,timezone
 from copy import deepcopy
 from outils.collecte.pulsescore_radar_six_heures import compute,MAX_CALLS,HORIZON_HOURS,VERSION
-from outils.collecte.pulsescore_v2 import BOOKMAKERS,SPORT_GROUPS,MAX_PAGES,MAX_CALLS as PULSE_MAX_CALLS
+from outils.collecte.pulsescore_v2 import BOOKMAKERS,SCAN_BOOKS,SPORT_GROUPS,MAX_PAGES,MAX_CALLS as PULSE_MAX_CALLS
 
 NOW=datetime(2026,10,10,19,tzinfo=timezone.utc)
 ISO=lambda t:t.isoformat()
@@ -80,9 +80,9 @@ class RadarTests(unittest.TestCase):
     def test_cap_covers_whole_catalogue_without_runaway(self):
         # Accès Pro illimité : le plafond couvre tout le catalogue, sans plus.
         self.assertEqual(MAX_CALLS,PULSE_MAX_CALLS)
-        self.assertEqual(PULSE_MAX_CALLS,len(set(SPORT_GROUPS.values()))*len(BOOKMAKERS)*MAX_PAGES)
+        self.assertEqual(PULSE_MAX_CALLS,len(set(SPORT_GROUPS.values()))*len(SCAN_BOOKS)*MAX_PAGES)
         self.assertEqual(HORIZON_HOURS,6)
-        self.assertEqual(len(BOOKMAKERS),5)
+        self.assertEqual(len(BOOKMAKERS),4)
 
     def test_real_provider_schema_exposes_source_without_claiming_ev(self):
         from pathlib import Path

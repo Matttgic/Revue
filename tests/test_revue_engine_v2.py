@@ -53,7 +53,7 @@ def models():
 
 class MatchingTests(unittest.TestCase):
     def test_french_books_are_explicit(self):
-        self.assertEqual(FR_BOOKS,{"betclic_fr","netbet_fr","pmu_fr","unibet_fr","winamax_fr"})
+        self.assertEqual(FR_BOOKS,{"betclic_fr","pmu_fr","unibet_fr","winamax_fr"})
         self.assertIn("icehockey_nhl",ODDS_SPORTS.values())
 
     def test_market_credit_savings_and_ucl_regulation_guard(self):

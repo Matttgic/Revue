@@ -3,9 +3,10 @@ import unittest
 from datetime import datetime,timedelta,timezone
 from unittest.mock import patch
 from outils.collecte.pulsescore_v2 import (
-    BOOKMAKERS,MAX_CALLS,translate_market,translate_event,scan,_side,_request,
+    BOOKMAKERS,MAX_CALLS,MIN_INTERVAL_PER_BOOK,REFERENCE_BOOKS,
+    translate_market,translate_event,scan,_side,_request,
 )
-from outils.suivi.revue_engine_v2 import execute
+from outils.suivi.revue_engine_v2 import execute,FR_BOOKS
 
 
 NOW=datetime(2026,10,9,17,tzinfo=timezone.utc)
@@ -46,7 +47,7 @@ def models():
 
 class PulseScoreTests(unittest.TestCase):
     def test_all_five_fr_feeds_declared(self):
-        self.assertEqual(set(BOOKMAKERS),{"betclic_fr","winamax_fr","unibet_fr","netbet_fr","pmu_fr"})
+        self.assertEqual(set(BOOKMAKERS),{"betclic_fr","winamax_fr","unibet_fr","pmu_fr"})
         self.assertEqual(BOOKMAKERS["unibet_fr"],"unibet-fr")
 
     def test_canonical_side_names(self):
@@ -165,6 +166,54 @@ class PulseScoreTests(unittest.TestCase):
         self.assertEqual(original["requests"],8)
         self.assertLess(len(original["calls_by_sport"]),3)
 
+
+
+class ReferenceAndPacingTests(unittest.TestCase):
+    def test_ps3838_is_reference_only_and_feeds_sharp_probability(self):
+        def fake(book,sport,key,page):
+            e=event()
+            if book=="ps3838":
+                # Autre graphie d'équipe : la correspondance doit rester souple.
+                e={**e,"eventId":"ps3838-1","home":"Arsenal FC"}
+                e["markets"]=[{**e["markets"][0],"selections":[
+                    {"canonicalOutcome":"HOME","odds":1.80},
+                    {"canonicalOutcome":"DRAW","odds":3.90},
+                    {"canonicalOutcome":"AWAY","odds":4.80}]}]
+            return [e],False
+        odds,meta=scan("secret",models(),NOW,fetch=fake)
+        self.assertEqual(set(REFERENCE_BOOKS),{"ps3838"})
+        self.assertNotIn("ps3838",FR_BOOKS)
+        self.assertEqual(meta["matched_by_book"].get("ps3838"),1)
+        self.assertIn("ps3838",{b["key"] for b in odds["PL"][0]["bookmakers"]})
+        with patch("outils.collecte.pulsescore_v2.scan",return_value=(odds,meta)):
+            report,ledger=execute(models(),{"leagues":{}},{"version":1,"bets":[]},NOW,
+                                  pulsescore_key="pulse_test_secret")
+        cands=report["candidates"]
+        self.assertTrue(cands)
+        self.assertTrue(all(c["bookmaker"] in FR_BOOKS for c in cands))
+        self.assertTrue(all(b["bookmaker"] in FR_BOOKS for b in ledger["bets"]))
+        home=[c for c in cands if c["market"]=="h2h" and c["side"]=="home"]
+        self.assertTrue(home)
+        inv=[1/1.80,1/3.90,1/4.80]
+        for c in home:
+            self.assertEqual(c["sharp_source"],"ps3838")
+            self.assertAlmostEqual(c["p_sharp_no_vig"],inv[0]/sum(inv),places=4)
+
+    def test_live_requests_respect_one_request_per_second_per_book(self):
+        clock=[0.0];calls={}
+        def fake_request(book,sport,key,page):
+            calls.setdefault(book,[]).append(clock[0])
+            return [],True
+        def sleep(seconds):
+            self.assertGreater(seconds,0)
+            clock[0]+=seconds
+        with patch("outils.collecte.pulsescore_v2._request",side_effect=fake_request), \
+             patch("outils.collecte.pulsescore_v2.time.monotonic",side_effect=lambda:clock[0]):
+            _,meta=scan("secret",models(),NOW,sleep=sleep)
+        self.assertGreater(meta["requests"],len(calls))
+        for book,times in calls.items():
+            for a,b in zip(times,times[1:]):
+                self.assertGreaterEqual(b-a,MIN_INTERVAL_PER_BOOK-1e-9,book)
 
 if __name__=="__main__":
     unittest.main()
