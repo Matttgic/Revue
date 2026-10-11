@@ -3,11 +3,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '25 1,7,13,19 * * *'
-  workflow_run:
-    workflows:
-      - 'Revue - Match Center unifié'
-      - 'Revue - NHL ESPN gardiens observes'
-    types: [completed]
   push:
     paths:
       - 'outils/controles/phase11_data_quality.py'

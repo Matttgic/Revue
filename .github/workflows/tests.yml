@@ -1,0 +1,43 @@
+name: Revue - Tests complets
+# Toute la suite Python (unittest) et JavaScript (node --test).
+# Ne se déclenche pas sur les seules mises à jour de données des robots (docs/*.json).
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - 'outils/**'
+      - 'modeles/**'
+      - 'api_revue/**'
+      - 'api/**'
+      - 'tests/**'
+      - 'docs/*.js'
+      - 'docs/*.html'
+      - 'docs/*.css'
+      - '.github/**'
+      - 'requirements*.txt'
+permissions:
+  contents: read
+concurrency:
+  group: revue-tests-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Installer les dépendances
+        run: pip install -r requirements.txt
+      - name: Tests Python
+        run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Tests JavaScript
+        run: |
+          for f in tests/*.js tests/*.cjs; do node --test "$f"; done

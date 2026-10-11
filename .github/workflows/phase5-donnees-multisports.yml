@@ -2,14 +2,7 @@ name: Revue - Phase 5 Sources multisports
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 1,7,13,19 * * *'
-  workflow_run:
-    workflows:
-      - 'Revue - Clairvoyance NBA advanced real input ratings'
-      - 'Revue - NHL official stats'
-      - 'Revue - NHL backend source-style audits'
-      - 'Revue - MLB source Elo gap'
-    types: [completed]
+    - cron: '10 15 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/controles/phase5_donnees_multisports.py'

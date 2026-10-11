@@ -2,7 +2,7 @@ name: Revue - Audit rentabilité Clairvoyance
 on:
   workflow_dispatch:
   schedule:
-    - cron: '25 8 * * *'
+    - cron: '25 8 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/audit_rentabilite_clairvoyance.py'

@@ -2,8 +2,7 @@ name: Revue - Health diagnostics
 on:
   workflow_dispatch:
   schedule:
-    # 20 minutes after the odds scanner every six hours.
-    - cron: '20 0,6,12,18 * * *'
+    - cron: '20 0,8,16 * * *'  # 3x/j : phase 9 exige < 12 h
   push:
     paths:
       - 'outils/controles/diagnostic_revue.py'

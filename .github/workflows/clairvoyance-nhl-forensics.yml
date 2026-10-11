@@ -1,8 +1,6 @@
 name: Revue - Diagnostic NHL entrees originales
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '51 5,11,17,23 * * *'
   workflow_run:
     workflows:
       - 'Revue - Sorties reelles Clairvoyance'

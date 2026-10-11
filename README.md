@@ -57,6 +57,18 @@ Critères d'évaluation et mesures minimales d'un test : [templates/PROTOCOLE.md
 
 Pour une exploitation en France, vérifier pour chaque sport, compétition et type de pari qu'il est autorisé par l'ANJ et disponible chez un opérateur agréé. Vérifier aussi le droit d'utiliser les données ou l'API. Une méthode incompatible reste cataloguée pour la recherche, **sans être présentée comme exploitable**.
 
+## Automatisation (GitHub Actions)
+
+| Rythme | Rôle | Workflows |
+|---|---|---|
+| Toutes les heures | Écrans du site, règlement des paris papier, prédictions publiées par Clairvoyance figées avant match | `match-center-revue`, `picks-center-revue`, `donnees-prioritaires`, `phase6-predictions` |
+| 3 à 6 fois par jour | Cotes réelles et journal papier, prédictions des modèles Revue, données et suivi NHL, contrôles de fraîcheur | `revue-engine-v2`, `pulsescore-radar-6h`, `multisports-independent`, `nhl-*`, `moneypuck-official`, `phase2/7/9/11/14`, `health-revue` |
+| 1 fois par jour | Données NBA/MLB (exigées < 48 h), santé CI, API | `clairvoyance-nba-advanced`, `mlb-source-elo-gap`, `github-actions-monitor`, `api-vercel-smoke` |
+| Le lundi | Parité et audits de Clairvoyance, diagnostics d'écarts | `parite-*`, `audit-*clairvoyance*`, `clairvoyance-real-output-gap`, `phase1/4/5`, … |
+| Sur modification ou à la main | Tests ciblés, sondes d'API | `tests` (suite complète), `arcade-v3-tests`, `probe-*`, `check-pulsescore`, … |
+
+Les échecs sur `main` ouvrent automatiquement une issue (`ci-failure-alerts`). Les seuils de fraîcheur (phase 9 : santé < 12 h, phase 7 < 15 h ; phase 14 : phase 11 < 24 h ; phase 11 : NBA/MLB < 48 h) imposent les rythmes minimaux ci-dessus.
+
 ## Lancer les vérifications
 
 ```bash

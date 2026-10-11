@@ -2,7 +2,7 @@ name: Revue - Source input NHL gap study
 on:
   workflow_dispatch:
   schedule:
-    - cron: '40 12 * * *'
+    - cron: '40 12 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/nhl_source_input_gap.py'

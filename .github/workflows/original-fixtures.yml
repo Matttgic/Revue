@@ -2,7 +2,7 @@ name: Revue - Parite calendrier original
 on:
   workflow_dispatch:
   schedule:
-    - cron: '40 5,11,17,23 * * *'
+    - cron: '50 5 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
     paths:
       - 'outils/clairvoyance/reconcile_reference_fixtures.js'
