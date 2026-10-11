@@ -1,23 +1,25 @@
 {
   "version": "revue_phase7_price_integrity_v1",
-  "generated_at_utc": "2026-10-11T16:25:22.074840+00:00",
+  "generated_at_utc": "2026-10-11T22:28:57.012537+00:00",
   "status": "observed_quote_provenance_and_separate_paper_audit_only",
   "quote_sources": {
-    "observed_at_utc": "2026-10-11T10:28:15.706241+00:00",
-    "age_minutes": 357.1,
-    "fixtures": 2,
-    "market_rows": 52,
+    "observed_at_utc": "2026-10-11T21:03:02.357670+00:00",
+    "age_minutes": 85.9,
+    "fixtures": 5,
+    "market_rows": 194,
     "market_rows_by_kind": {
-      "h2h": 5,
-      "totals": 47
+      "totals": 183,
+      "h2h": 11
     },
     "market_rows_by_bookmaker": {
-      "betclic_fr": 7,
-      "winamax_fr": 43,
-      "unibet_fr": 2
+      "betclic_fr": 60,
+      "winamax_fr": 52,
+      "pmu_fr": 79,
+      "unibet_fr": 3
     },
     "bookmakers_observed": [
       "betclic_fr",
+      "pmu_fr",
       "unibet_fr",
       "winamax_fr"
     ],
@@ -27,49 +29,50 @@
       "unibet_fr",
       "winamax_fr"
     ],
-    "bookmakers_without_quotes": [
-      "pmu_fr"
-    ],
+    "bookmakers_without_quotes": [],
     "period_rules": {
-      "90min": 19,
-      "game_result": 33
+      "overtime_rule_unverified": 46,
+      "90min": 1,
+      "game_result": 147
     },
     "quote_timestamp_source": {
-      "fetch_observation": 52
+      "fetch_observation": 194
     },
     "bookability_verified": false
   },
   "phase6_join": {
-    "source_predictions_checked": 26,
-    "same_selection_historical_market_rows": 0,
-    "source_selections_with_exact_archived_prices": 0,
+    "source_predictions_checked": 28,
+    "same_selection_historical_market_rows": 11,
+    "source_selections_with_exact_archived_prices": 5,
     "verified_bookable_market_prices": 0,
     "verified_positive_ev": 0,
     "statuses": {
-      "no_same_event_quote": 26
+      "no_same_event_quote": 21,
+      "no_identical_selection_and_line": 2,
+      "quote_not_observed_near_lock": 5
     }
   },
   "paper_performance": {
     "total": 53,
-    "settled": 18,
-    "wins": 8,
-    "losses": 10,
+    "settled": 23,
+    "wins": 10,
+    "losses": 13,
     "pushes": 0,
-    "pending": 25,
+    "pending": 20,
     "excluded_unverified": 10,
-    "net_paper_units": 4.16,
-    "settled_stakes_units": 18.0,
-    "paper_roi_settled_only_pct": 23.11,
+    "net_paper_units": 2.91,
+    "settled_stakes_units": 23.0,
+    "paper_roi_settled_only_pct": 12.65,
     "markets": {
       "h2h": {
-        "settled": 12,
-        "profit_units": 7.21,
-        "roi_pct": 60.08
+        "settled": 16,
+        "profit_units": 5.18,
+        "roi_pct": 32.38
       },
       "totals": {
-        "settled": 6,
-        "profit_units": -3.05,
-        "roi_pct": -50.83
+        "settled": 7,
+        "profit_units": -2.27,
+        "roi_pct": -32.43
       }
     },
     "sample_under_100_settled": true,
@@ -402,7 +405,7 @@
       "line": 1.5,
       "source_original_probability": 0.541,
       "revue_comparison_probability": null,
-      "status": "no_same_event_quote",
+      "status": "no_identical_selection_and_line",
       "matching_quotes": 0,
       "best_historical_quote": null,
       "verified_positive_ev": false,
@@ -417,7 +420,7 @@
       "line": -1.5,
       "source_original_probability": 0.45,
       "revue_comparison_probability": null,
-      "status": "no_same_event_quote",
+      "status": "no_identical_selection_and_line",
       "matching_quotes": 0,
       "best_historical_quote": null,
       "verified_positive_ev": false,
@@ -432,9 +435,34 @@
       "line": 5.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.3789,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "betclic_fr",
+        "decimal_odds": 2.05,
+        "quote_at_utc": "2026-10-11T21:03:02.357670+00:00",
+        "not_a_bookable_offer": true
+      },
+      "verified_positive_ev": false,
+      "automatic_real_bet": false
+    },
+    {
+      "phase6_selection_id": "NHL:2026020085:nhl_total_unverified_period:under:6.5",
+      "league": "NHL",
+      "event_id": "2026020085",
+      "market": "nhl_total_unverified_period",
+      "side": "under",
+      "line": 6.5,
+      "source_original_probability": 0.56,
+      "revue_comparison_probability": 0.5371,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.6,
+        "quote_at_utc": "2026-10-11T21:03:02.357670+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -447,9 +475,14 @@
       "line": null,
       "source_original_probability": 0.425,
       "revue_comparison_probability": 0.05,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 3.15,
+        "quote_at_utc": "2026-10-11T21:03:02.357670+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -462,9 +495,34 @@
       "line": 5.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.4561,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "betclic_fr",
+        "decimal_odds": 1.87,
+        "quote_at_utc": "2026-10-11T21:03:02.357670+00:00",
+        "not_a_bookable_offer": true
+      },
+      "verified_positive_ev": false,
+      "automatic_real_bet": false
+    },
+    {
+      "phase6_selection_id": "NHL:2026020086:two_way_moneyline_unverified_period:home",
+      "league": "NHL",
+      "event_id": "2026020086",
+      "market": "two_way_moneyline_unverified_period",
+      "side": "home",
+      "line": null,
+      "source_original_probability": 0.371,
+      "revue_comparison_probability": 0.428,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 2.55,
+        "quote_at_utc": "2026-10-11T21:03:02.357670+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     }
