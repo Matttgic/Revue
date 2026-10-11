@@ -295,8 +295,10 @@ def compare(pulse, community, client, flash_matches, report, getter=api_get):
 
 
 def summary(reports):
-    ok = [r for r in reports if r.get("version") == "open_odds_shadow_v1"]
-    result = {"days": len(ok), "pulse_success_days": 0, "betclic_success_days": 0,
+    snapshots = [r for r in reports if r.get("version") == "open_odds_shadow_v1"]
+    by_day = {r["date_utc"]: r for r in snapshots if isinstance(r.get("date_utc"), str)}
+    ok = list(by_day.values())  # latest snapshot per calendar day, not one "day" per rerun
+    result = {"snapshots": len(snapshots), "days": len(ok), "pulse_success_days": 0, "betclic_success_days": 0,
               "flashscore_success_days": 0, "matched_1x2_events": 0,
               "odds_difference_mean": None, "outcomes_compared": 0, "no_replacement_proven": True}
     diffs = []
