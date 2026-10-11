@@ -2,6 +2,7 @@ name: Revue - Probe ESPN Soccer Stats
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'outils/collecte/probe_espn_football_stats.py'
       - '.github/workflows/probe-football-data.yml'

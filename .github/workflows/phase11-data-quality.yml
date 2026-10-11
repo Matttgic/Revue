@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '25 1,7,13,19 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/controles/phase11_data_quality.py'
       - 'outils/collecte/mlb_official_pitchers.py'

@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '50 5 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
+    branches: [main]
     paths:
       - 'outils/clairvoyance/reconcile_reference_fixtures.js'
       - 'tests/test_reconcile_reference_fixtures.cjs'

@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '42 5 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
+    branches: [main]
     paths:
       - 'outils/clairvoyance/clairvoyance_real_output_gap.py'
       - 'tests/test_clairvoyance_real_output_gap.py'

@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '10 15 * * 1'  # Audit Clairvoyance hebdomadaire (lundi) : le source ne change pas au jour le jour.
   push:
+    branches: [main]
     paths:
       - 'outils/controles/phase5_donnees_multisports.py'
       - 'tests/test_phase5_donnees_multisports.py'

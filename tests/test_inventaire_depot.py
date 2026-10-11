@@ -55,3 +55,13 @@ class HelperTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WorkflowSafetyTests(unittest.TestCase):
+    def test_push_triggers_only_run_on_main(self):
+        """Un workflow lancé sur une branche de travail ne doit jamais publier sur main."""
+        import yaml
+        for wf in sorted((ROOT / ".github" / "workflows").glob("*.yml")):
+            on = yaml.safe_load(wf.read_text(encoding="utf-8")).get(True) or {}
+            if isinstance(on, dict) and "push" in on:
+                self.assertEqual((on["push"] or {}).get("branches"), ["main"], wf.name)

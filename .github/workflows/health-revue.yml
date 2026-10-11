@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '20 0,8,16 * * *'  # 3x/j : phase 9 exige < 12 h
   push:
+    branches: [main]
     paths:
       - 'outils/controles/diagnostic_revue.py'
       - 'tests/test_diagnostic_revue.py'

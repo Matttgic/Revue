@@ -2,6 +2,7 @@ name: Revue - Parité ESPN avancé NBA Clairvoyance
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     paths:
       - 'modeles/reproduction/clairvoyance_nba_espn_source.py'
       - 'outils/clairvoyance/verifier_parite_nba_espn_source.py'

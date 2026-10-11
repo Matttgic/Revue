@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "30 5,11,17,23 * * *"
   push:
+    branches: [main]
     paths:
       - 'modeles/simulations/multisports_independant.py'
       - 'tests/test_multisports_independant.py'

@@ -5,6 +5,7 @@ on:
   schedule:
     - cron: '24 8,14,20 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/collecte/nhl_official_stats_revue.py'
       - 'tests/test_nhl_official_stats_revue.py'

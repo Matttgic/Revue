@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '50 12 * * *'
   push:
+    branches: [main]
     paths:
       - 'outils/clairvoyance/mlb_source_elo_gap.py'
       - 'tests/test_mlb_source_elo_gap.py'

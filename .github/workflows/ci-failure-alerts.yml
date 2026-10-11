@@ -25,6 +25,7 @@ on:
   # Test this alert workflow on installation/code changes without creating
   # artificial failure Issues.
   push:
+    branches: [main]
     paths:
       - ".github/workflows/ci-failure-alerts.yml"
       - ".github/scripts/ci-alert.cjs"

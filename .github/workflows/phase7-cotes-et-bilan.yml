@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: '45 2,10,18 * * *'  # 3x/j : phase 9 exige < 15 h
   push:
+    branches: [main]
     paths:
       - 'outils/controles/phase7_cotes_et_bilan.py'
       - 'tests/test_phase7_cotes_et_bilan.py'
