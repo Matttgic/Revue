@@ -1,213 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-12T21:52:19.393384+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-12T20:24:08.987052+00:00",
+  "generated_at_utc": "2026-10-12T23:38:34.132558+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-12T21:52:19.437150+00:00",
   "models": [
-    {
-      "event_id": "401898402",
-      "league": "NBA",
-      "home": "Hawks",
-      "away": "Thunder",
-      "start_utc": "2026-10-12T23:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.43335,
-        "away_win": 0.56665
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401898402",
-      "league": "NBA",
-      "home": "Hawks",
-      "away": "Thunder",
-      "start_utc": "2026-10-12T23:00:00+00:00",
-      "model_id": "revue_nba_prior_consensus_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.417328,
-        "away_win": 0.582672
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00",
-        "advanced_previous_season": "2026-10-12T16:55:08.734148+00:00"
-      },
-      "method": "Experimental correlated-prior average: standings 55%, regressed Elo 45%; NOT three independent models"
-    },
-    {
-      "event_id": "401898402",
-      "league": "NBA",
-      "home": "Hawks",
-      "away": "Thunder",
-      "start_utc": "2026-10-12T23:00:00+00:00",
-      "model_id": "revue_nba_prior_elo_regressed_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.397745,
-        "away_win": 0.602255
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00",
-        "advanced_previous_season": "2026-10-12T16:55:08.734148+00:00"
-      },
-      "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
-    },
-    {
-      "event_id": "401901824",
-      "league": "NBA",
-      "home": "Wizards",
-      "away": "Nets",
-      "start_utc": "2026-10-12T23:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.48462,
-        "away_win": 0.51538
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401901824",
-      "league": "NBA",
-      "home": "Wizards",
-      "away": "Nets",
-      "start_utc": "2026-10-12T23:00:00+00:00",
-      "model_id": "revue_nba_prior_consensus_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.497172,
-        "away_win": 0.502828
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00",
-        "advanced_previous_season": "2026-10-12T16:55:08.734148+00:00"
-      },
-      "method": "Experimental correlated-prior average: standings 55%, regressed Elo 45%; NOT three independent models"
-    },
-    {
-      "event_id": "401901824",
-      "league": "NBA",
-      "home": "Wizards",
-      "away": "Nets",
-      "start_utc": "2026-10-12T23:00:00+00:00",
-      "model_id": "revue_nba_prior_elo_regressed_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.512513,
-        "away_win": 0.487487
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00",
-        "advanced_previous_season": "2026-10-12T16:55:08.734148+00:00"
-      },
-      "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
-    },
-    {
-      "event_id": "401914124",
-      "league": "NBA",
-      "home": "Knicks",
-      "away": "Timberwolves",
-      "start_utc": "2026-10-12T23:30:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.55,
-        "away_win": 0.45
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401914124",
-      "league": "NBA",
-      "home": "Knicks",
-      "away": "Timberwolves",
-      "start_utc": "2026-10-12T23:30:00+00:00",
-      "model_id": "revue_nba_prior_consensus_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.570193,
-        "away_win": 0.429807
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00",
-        "advanced_previous_season": "2026-10-12T16:55:08.734148+00:00"
-      },
-      "method": "Experimental correlated-prior average: standings 55%, regressed Elo 45%; NOT three independent models"
-    },
-    {
-      "event_id": "401914124",
-      "league": "NBA",
-      "home": "Knicks",
-      "away": "Timberwolves",
-      "start_utc": "2026-10-12T23:30:00+00:00",
-      "model_id": "revue_nba_prior_elo_regressed_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.594873,
-        "away_win": 0.405127
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-12T21:17:22.459220+00:00",
-        "advanced_previous_season": "2026-10-12T16:55:08.734148+00:00"
-      },
-      "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
-    },
     {
       "event_id": "401908023",
       "league": "MLB",
@@ -664,16 +460,16 @@
     }
   ],
   "metrics": {
-    "candidates": 29,
-    "events_covered": 11,
+    "candidates": 20,
+    "events_covered": 8,
     "models_by_league": {
-      "NBA": 27,
-      "MLB": 2
+      "MLB": 2,
+      "NBA": 18
     },
     "decisions": {
-      "not_pregame_20m": 1,
-      "nba_prior_both_available": 9,
+      "not_pregame_20m": 3,
       "mlb_history_elo": 2,
+      "nba_prior_both_available": 6,
       "football_model_inputs_missing": 18
     }
   },
