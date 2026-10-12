@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-12T04:45:56.879533+00:00",
+  "generated_at_utc": "2026-10-12T07:16:21.618847+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -99,8 +99,8 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 1,
-            "away": 1
+            "home": 2,
+            "away": 2
           },
           "probabilities": null,
           "components": null
@@ -190,7 +190,7 @@
           "status": "insufficient_history",
           "training_games": {
             "home": 2,
-            "away": 1
+            "away": 2
           },
           "probabilities": null,
           "components": null
@@ -234,7 +234,7 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 2,
+            "home": 3,
             "away": 2
           },
           "probabilities": null,
@@ -415,23 +415,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 76,
+        "n": 77,
         "scores": {
           "baseline": {
-            "brier_binary": 0.23752,
-            "logloss_binary": 0.66777
+            "brier_binary": 0.23799,
+            "logloss_binary": 0.6687
           },
           "previous_shadow": {
-            "brier_binary": 0.2369,
-            "logloss_binary": 0.66666
+            "brier_binary": 0.237,
+            "logloss_binary": 0.66686
           },
           "ensemble": {
-            "brier_binary": 0.23485,
-            "logloss_binary": 0.66254
+            "brier_binary": 0.23469,
+            "logloss_binary": 0.66222
           }
         },
-        "delta_brier_vs_baseline": -0.00267,
-        "delta_brier_vs_previous_shadow": -0.00205,
+        "delta_brier_vs_baseline": -0.0033,
+        "delta_brier_vs_previous_shadow": -0.00231,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -576,23 +576,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 179,
+        "n": 180,
         "scores": {
           "baseline": {
-            "brier_binary": 0.24102,
-            "logloss_binary": 0.67468
+            "brier_binary": 0.2406,
+            "logloss_binary": 0.67384
           },
           "previous_shadow": {
-            "brier_binary": 0.24217,
-            "logloss_binary": 0.67722
+            "brier_binary": 0.24192,
+            "logloss_binary": 0.67672
           },
           "ensemble": {
-            "brier_binary": 0.24018,
-            "logloss_binary": 0.67324
+            "brier_binary": 0.24007,
+            "logloss_binary": 0.67302
           }
         },
-        "delta_brier_vs_baseline": -0.00084,
-        "delta_brier_vs_previous_shadow": -0.00199,
+        "delta_brier_vs_baseline": -0.00053,
+        "delta_brier_vs_previous_shadow": -0.00185,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     }
