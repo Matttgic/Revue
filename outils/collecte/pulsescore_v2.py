@@ -46,11 +46,11 @@ MAX_CALLS=100
 HORIZON_HOURS=36
 
 
-def _request(book:str,sport:str,key:str,page:int) -> tuple[list[dict],bool]:
+def _get_json(book:str,sport:str,suffix:str,key:str,params:dict) -> dict:
+    """GET {SOURCE}/{book}/{sport}/{suffix}; erreurs nettoyées (ni URL ni clé)."""
     if book not in SCAN_BOOKS.values() or sport not in set(SPORT_GROUPS.values()):
         raise ValueError("Unrecognized PulseScore sports/bookmaker")
-    query=urlencode({"page":page,"limit":30})
-    url=f"{SOURCE}/{book}/{sport}/events?{query}"
+    url=f"{SOURCE}/{book}/{sport}/{suffix}?{urlencode(params)}"
     try:
         with urlopen(Request(url,headers={"X-Secret":key,"Accept":"application/json"}),
                      timeout=22) as response:
@@ -59,6 +59,13 @@ def _request(book:str,sport:str,key:str,page:int) -> tuple[list[dict],bool]:
         raise RuntimeError(f"HTTP {err.code} from PulseScore {book}/{sport}") from None
     except (URLError,TimeoutError,ValueError) as err:
         raise RuntimeError(f"{type(err).__name__} from PulseScore {book}/{sport}") from None
+    if not isinstance(data,dict):
+        raise RuntimeError(f"Malformed PulseScore payload from {book}/{sport}")
+    return data
+
+
+def _request(book:str,sport:str,key:str,page:int) -> tuple[list[dict],bool]:
+    data=_get_json(book,sport,"events",key,{"page":page,"limit":30})
     records=data.get("events")
     if not isinstance(records,list):
         raise RuntimeError(f"Malformed PulseScore events from {book}/{sport}")
