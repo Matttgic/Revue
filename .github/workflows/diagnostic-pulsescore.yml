@@ -1,0 +1,41 @@
+name: Revue - Diagnostic PulseScore
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  # Même groupe que les relevés : jamais deux séries d'appels PulseScore en même temps.
+  group: revue-engine-v2-paper
+  cancel-in-progress: false
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests hors ligne
+        run: python -m unittest discover -s tests -p 'test_diagnostic_pulsescore.py' -v
+      - name: Une page par bookmaker et par sport (rapport sans clé ni cote)
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+        run: |
+          python -m outils.collecte.diagnostic_pulsescore
+          cp docs/pulsescore-diagnostic-latest.json /tmp/revue-pulsescore-diagnostic.json
+      - name: Publier le rapport
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/revue-pulsescore-diagnostic.json docs/pulsescore-diagnostic-latest.json
+            git add docs/pulsescore-diagnostic-latest.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'diagnostics(pulsescore): rattachement par bookmaker et par sport'
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
