@@ -10,6 +10,10 @@ const L=get("phase2-owned-ledger.json"),S=get("phase2-owned-performance.json");
 const NOW=Math.max(...[M,P,N,G,S].map(x=>Date.parse(x.generated_at_utc)),
   Date.parse(L.updated_at_utc))+120000;
 const copy=structuredClone;
+// Un match encore en attente ET présent dans le centre de matchs : le premier
+// du registre finit toujours par être réglé puis sortir de la fenêtre glissante.
+const LIVE_KEY=Object.keys(L.events).find(k=>L.events[k].status==="pending"&&
+  M.events.some(x=>x.league+":"+x.event_id===k));
 
 test("actual 39+ independent frozen forecasts join exact match center fixtures",()=>{
  const o=ownedSnapshot(L,S,NOW);
@@ -85,7 +89,7 @@ test("no fabricated independent history, SQL equivalence, ROI or live bookmaker 
 });
 
 test("reject edited or retroactively backfilled locked predictions",()=>{
- const key=Object.keys(L.events)[0];
+ const key=LIVE_KEY;assert.ok(key,"aucun match en attente dans le centre de matchs");
  for(const mutate of [
   d=>{d.events[key].locked_at_utc=d.events[key].start_utc;},
   d=>{d.events[key].locked_at_utc="2026-01-01T00:00:00Z";},
@@ -101,7 +105,7 @@ test("reject edited or retroactively backfilled locked predictions",()=>{
 });
 
 test("no invented confidence when event identities or kickoffs fail",()=>{
- const fake=copy(L);const key=Object.keys(fake.events)[0];
+ const fake=copy(L);const key=LIVE_KEY;assert.ok(key,"aucun match en attente dans le centre de matchs");
  fake.events[key].home="Unrelated Team";
  const joined=build({matches:M,picks:P,nhl:N,ownedLedger:fake,
    ownedPerformance:S},NOW);

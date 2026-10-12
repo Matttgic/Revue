@@ -11,6 +11,7 @@ import argparse
 import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from outils.collecte.pulsescore_radar_six_heures import MAX_CALLS as RADAR_MAX_CALLS
 
 
 FILES = {
@@ -89,7 +90,7 @@ def layer(name,doc,now):
                and doc.get("provider")=="PulseScore"
                and doc.get("horizon_hours")==6
                and type(doc.get("request_cap")) is int
-               and 1<=doc["request_cap"]<=8
+               and 1<=doc["request_cap"]<=RADAR_MAX_CALLS
                and type(doc.get("requests_used")) is int
                and 0<=doc["requests_used"]<=doc["request_cap"]
                and doc.get("market_prices_are_live") is False

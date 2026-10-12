@@ -20,6 +20,7 @@ from math import isfinite
 from pathlib import Path
 
 from outils.suivi.revue_engine_v2 import timestamp
+from outils.collecte.pulsescore_radar_six_heures import MAX_CALLS as RADAR_MAX_CALLS
 
 VERSION="revue_quotations_crossbook_coverage_v1"
 SOCCER={"PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS"}
@@ -46,7 +47,7 @@ def source_rows(source:dict,now:datetime)->tuple[list[dict],str]:
         and source.get("existing_paper_ledger_modified") is False
         and source.get("horizon_hours")==6
         and type(source.get("request_cap")) is int
-        and 1<=source["request_cap"]<=8
+        and 1<=source["request_cap"]<=RADAR_MAX_CALLS
         and type(source.get("requests_used")) is int
         and 0<=source["requests_used"]<=source["request_cap"]
         and isinstance(source.get("observations"),list)):

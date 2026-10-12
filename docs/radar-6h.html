@@ -134,7 +134,7 @@ function draw(){
      d.provider!=="PulseScore"||d.market_prices_are_live!==false||
      d.real_bets_enabled!==false||d.positive_ev_verified!==false||
      d.new_paper_bets_created!==false||d.existing_paper_ledger_modified!==false||
-     !Number.isInteger(d.request_cap)||d.request_cap>8||
+     !Number.isInteger(d.request_cap)||d.request_cap>100||
      !Number.isInteger(d.requests_used)||d.requests_used>d.request_cap||
      !Array.isArray(d.observations)||!Number.isFinite(age)||age < -120000||
      age>4*3600000)throw Error("relevé incomplet, invalide ou périmé");

@@ -2,7 +2,7 @@
 """Revue six-hour PulseScore radar: strictly incremental, no paper bets.
 
 The existing four daily full-scan Engine V2 jobs remain unchanged.
-This small scan uses <=8 HTTP requests, and publishes only its own
+This scan uses <=MAX_CALLS HTTP requests, and publishes only its own
 timestamped market observations; it never overwrites a full scan,
 locks a paper selection, fabricates odds, or executes a wager.
 
@@ -80,7 +80,7 @@ def compute(models:dict,now:datetime,key:str="",scanner=scan,max_calls:int=MAX_C
             "truncated":stats.get("truncated",False),
             "errors":stats.get("errors",{}),
         },
-        "note":"Only existing pregame forecasted events <=6 h are queried; <=8 authenticated calls. Differences across French books are not a calibrated fair price, proven positive EV, or a current offer."
+        "note":"Only existing pregame forecasted events <=6 h are queried; at most 100 authenticated calls (PulseScore Pro). Differences across French books are not a calibrated fair price, proven positive EV, or a current offer."
     }
 
 
