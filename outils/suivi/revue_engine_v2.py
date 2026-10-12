@@ -264,7 +264,9 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                                 "incl ot","including ot","including overtime",
                                 "overtime included","prolongation incl",
                                 "prolongations incl","incluant prolongation",
-                                "incl. prolongation","avec prolongation")))
+                                "incl. prolongation","avec prolongation",
+                                "prolongations et penaltys inclus",
+                                "prolongation et tirs au but inclus")))
                         if not explicit_ot:
                             diagnostics["nhl_overtime_market_not_verified"]+=1
                             continue
