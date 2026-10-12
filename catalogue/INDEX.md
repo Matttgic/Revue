@@ -84,6 +84,15 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 | REV-TCB-01 | Tennis | Match / sets / live | Probabilités service-retour vers jeu, set et match | [mcekovic/tennis-crystal-ball](https://github.com/mcekovic/tennis-crystal-ball) | À étudier | NC | Sources ciblées inspectées ; aucun backtest reproduit | [Fiche](../analyses/tennis-crystal-ball/REV-TCB-01_point-match.md) |
 | REV-CFB-01 | Multi-sports | Fiabilité des modèles | Lier modèle et contrat ordonné des variables | [sportsdataverse/cfbfastR](https://github.com/sportsdataverse/cfbfastR) | À étudier | NC | Sources ciblées inspectées ; aucun backtest reproduit | [Fiche](../analyses/cfbfastR/REV-CFB-01_contrat-modele.md) |
 
+## Méthodes complémentaires — recherche du 12 octobre 2026
+
+| ID | Sport | Marché | Stratégie / composant | Source | Statut | Score intérêt /100 | Preuves | Fiche |
+|---|---|---|---|---|---|---|---|---|
+| REV-IMPLIED-01 | Multi-sports | Toute probabilité tirée d'une cote | Choisir le retrait de marge par source, sport et marché, par calibration historique | [opisthokonta/implied](https://github.com/opisthokonta/implied) | Testé | NC | 235 543 matchs 1N2 : puissance −0,00071 log-loss vs multiplicative (ET 0,00007) ; NBA : puissance +0,00105 (ET 0,00036). Outil `calibration_devig.py` | [Fiche](../analyses/implied/REV-IMPLIED-01_choix-devig-par-marche.md) |
+| REV-KICKSCORE-01 | Multi-sports | Victoire / 1N2 / écart | Forces dynamiques par processus gaussien, évaluées en filtrage strictement antérieur | [lucasmaystre/kickscore](https://github.com/lucasmaystre/kickscore) | À étudier | NC | Code lu : lissage RTS par défaut (fuite si backtest naïf) ; non exécuté | [Fiche](../analyses/kickscore/REV-KICKSCORE-01_filtrage-vs-lissage.md) |
+| REV-MEZZALA-01 | Football | 1N2 / totaux / scores | Dixon–Coles avec décroissance temporelle, regroupement des équipes rares et blocs | [Torvaney/mezzala](https://github.com/Torvaney/mezzala) | À étudier | NC | Code lu ; ξ de dashee87 choisi sur la période rapportée ; non exécuté | [Fiche](../analyses/mezzala/REV-MEZZALA-01_ponderation-et-regroupement.md) |
+| REV-NFLFASTR-01 | NFL / multi-sports | Contrôle des variables | Noter pour chaque variable la cote dont elle dépend et la période d'entraînement du modèle qui la produit | [nflverse/nflfastR](https://github.com/nflverse/nflfastR) | À étudier | NC | `vegas_wp` utilise `spread_line` ; EP/WP entraînés sur `full_train` | [Fiche](../analyses/nflfastR/REV-NFLFASTR-01_probabilite-ancree-sur-la-ligne.md) |
+
 ## Analyses par source
 
 - [2026-10-09 — Purple-Wraith/clairvoyance-backend](../analyses/2026-10-09_Purple-Wraith_clairvoyance-backend.md) : 8 pistes NHL/hockey/validation et un outil de contrôle original, métriques historiques contaminées par des locks tardifs/inconnus ; aucune copie de source sans licence.
@@ -113,6 +122,8 @@ Ce catalogue contient **uniquement** les méthodes effectivement examinées. Auc
 - [2026-10-11 — vishalkiritnaik-a11y/nfl-sports-betting](../analyses/nfl-sports-betting/AUDIT.md) : modèle NFL de touchdowns anytime par occasions × taux et allocation hiérarchique; scores walk-forward encourageants, mais population limitée aux joueurs ayant pris un snap, cotes de TD historiques absentes et ledger prospectif sans règlements à cette version.
 
 - [2026-10-11 — Recherche de 20 sources complémentaires](../recherche/panorama-github-2026-10-11/README.md) : modèles, données, probabilités et simulation ; 20 dossiers indépendants et 5 nouvelles méthodes, revues ciblées sans backtest économique reproduit.
+
+- [2026-10-12 — Recherche de 22 sources complémentaires](../recherche/panorama-github-2026-10-12/README.md) : cotes historiques, retrait de marge mesuré, classements dynamiques, hockey ; 22 dossiers indépendants et 4 nouvelles fiches.
 
 ## Statuts
 - **À étudier** : proposition ou méthode documentée, non implémentée et non auditée indépendamment.

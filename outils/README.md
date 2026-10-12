@@ -9,7 +9,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
 | [`collecte/`](#collecte) | Collecte de données | 16 |
 | [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 24 |
-| [`controles/`](#controles) | Contrôles qualité | 15 |
+| [`controles/`](#controles) | Contrôles qualité | 16 |
 | [`publication/`](#publication) | Publication du site | 4 |
 
 ## clairvoyance
@@ -129,6 +129,7 @@ Documentation : [CONTROLE_CHRONOLOGIE.md](controles/CONTROLE_CHRONOLOGIE.md)
 
 | Script | Objet |
 |---|---|
+| [calibration_devig.py](controles/calibration_devig.py) | Calibration des méthodes de retrait de marge sur des cotes historiques — implémentation originale Revue. |
 | [chronologie_pre_match.py](controles/chronologie_pre_match.py) | Contrôle chronologique original pour Revue — pré-match seulement. |
 | [consensus_quotations.py](controles/consensus_quotations.py) | Independent comparison of DEVIGGED bookmaker quote snapshots. |
 | [controle_couverture_cotes.py](controles/controle_couverture_cotes.py) | Read-only cross-book mathematical cover audit from existing observed FR quotes. |

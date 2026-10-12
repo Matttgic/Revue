@@ -1,0 +1,10 @@
+source(commandArgs(TRUE)[1])
+show <- function(lbl, expr){ r <- tryCatch(expr, error=function(e) paste("ERREUR:", conditionMessage(e)), warning=function(w) paste("AVERTISSEMENT:", conditionMessage(w))); cat(lbl, ":\n"); str(r) }
+show("shin js 1N2", implied_probabilities(c(4.20,3.70,1.95), method='shin')[c('probabilities','zvalues')])
+show("shin uniroot 1N2", implied_probabilities(c(4.20,3.70,1.95), method='shin', shin_method='uniroot')[c('probabilities','zvalues')])
+show("shin js 2 issues 1.90/1.90", implied_probabilities(c(1.90,1.90), method='shin'))
+show("shin js 2 issues 1.25/4.00", implied_probabilities(c(1.25,4.00), method='shin'))
+show("shin uniroot 2 issues 1.25/4.00", implied_probabilities(c(1.25,4.00), method='shin', shin_method='uniroot')[c('probabilities','zvalues')])
+show("shin js sans marge 2/4/4", implied_probabilities(c(2,4,4), method='shin'))
+show("goto zvalues", implied_probabilities(c(4.20,3.70,1.95), method='goto')[c('probabilities','zvalues')])
+for (m in c('basic','additive','wpo','or','power','bb','jsd','goto')) show(paste('methode', m, '1.25/4.00'), round(implied_probabilities(c(1.25,4.00), method=m)$probabilities, 6))

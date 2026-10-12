@@ -56,3 +56,32 @@ Un audit centralise les informations de chaque dépôt examiné, à partir de [`
 | [jordantete/OddsHarvester](https://github.com/jordantete/OddsHarvester) | Très pertinent pour étudier la collecte de cotes ; qualité temporelle à vérifier avant backtest. | [Audit](OddsHarvester/AUDIT.md) |
 | [Friends-of-Tracking-Data-FoTD/LaurieOnTracking](https://github.com/Friends-of-Tracking-Data-FoTD/LaurieOnTracking) | Très formateur pour les mécanismes du jeu ; besoin de données élevé. | [Audit](LaurieOnTracking/AUDIT.md) |
 | [pnxenopoulos/awpy](https://github.com/pnxenopoulos/awpy) | Bonne porte d’entrée vers CS2 ; tout le modèle de pari reste à construire. | [Audit](awpy/AUDIT.md) |
+
+## Recherche complémentaire du 12 octobre 2026
+
+22 revues ciblées, dont trois jeux de données téléchargés et analysés. [Synthèse comparative](../recherche/panorama-github-2026-10-12/README.md). Chaque source reste dans son dossier indépendant.
+
+| Dépôt | Avis | Dossier |
+|---|---|---|
+| [opisthokonta/implied](https://github.com/opisthokonta/implied) | Meilleure référence trouvée pour comparer les conversions cotes → probabilités ; la méthode Shin par défaut échoue sur les marchés à deux issues. | [Audit](implied/AUDIT.md) |
+| [lucasmaystre/kickscore](https://github.com/lucasmaystre/kickscore) | Généralisation solide d'Elo/TrueSkill à des forces qui évoluent dans le temps ; à n'utiliser en backtest qu'en mode filtrage, jamais avec le lissage par défaut. | [Audit](kickscore/AUDIT.md) |
+| [Torvaney/mezzala](https://github.com/Torvaney/mezzala) | Dixon–Coles lisible et extensible (blocs, poids, regroupement des équipes rares) ; dépôt inactif depuis 2021. | [Audit](mezzala/AUDIT.md) |
+| [dashee87/blogScripts](https://github.com/dashee87/blogScripts) | Tutoriel Dixon–Coles avec décroissance temporelle très cité ; pédagogique, mais le choix de ξ est fait sur la période évaluée. | [Audit](dashee87-blogScripts/AUDIT.md) |
+| [betfair-datascientists/predictive-models](https://github.com/betfair-datascientists/predictive-models) | Tutoriels officiels Betfair utiles pour la structure (variables décalées, baseline marché) ; le modèle EPL publié reste derrière les cotes et contient deux erreurs. | [Audit](betfair-predictive-models/AUDIT.md) |
+| [fivethirtyeight/data](https://github.com/fivethirtyeight/data) | Référence historique des Elo NFL/NBA/MLB/NHL/foot ; les fichiers de données liés ne sont plus accessibles. | [Audit](fivethirtyeight-data/AUDIT.md) |
+| [danmorse314/hockeyR](https://github.com/danmorse314/hockeyR) | Bon client R du play-by-play NHL avec xG public ; xG historique dans l'échantillon d'entraînement et données hors saison 2023-24 non mises à jour. | [Audit](hockeyR/AUDIT.md) |
+| [HarryShomer/Hockey-Scraper](https://github.com/HarryShomer/Hockey-Scraper) | Scraper NHL de référence (PBP + présences depuis 2007-08) ; officiellement non maintenu, mais ses points d'accès répondent encore. | [Audit](Hockey-Scraper/AUDIT.md) |
+| [HarryShomer/xG-Model](https://github.com/HarryShomer/xG-Model) | Modèle xG historique (2007-2016) bien documenté ; découpage aléatoire des tirs et absence de licence. | [Audit](HarryShomer-xG-Model/AUDIT.md) |
+| [JaseZiv/worldfootballR](https://github.com/JaseZiv/worldfootballR) | Connecteurs football très complets, dont valeurs Transfermarkt datées et suspensions ; dépôt archivé. | [Audit](worldfootballR/AUDIT.md) |
+| [amosbastian/understat](https://github.com/amosbastian/understat) | Client minimal et à jour des points d'accès JSON d'Understat ; utile pour des xG de match, sans garantie sur les révisions. | [Audit](understat/AUDIT.md) |
+| [xgabora/Club-Football-Match-Data-2000-2025](https://github.com/xgabora/Club-Football-Match-Data-2000-2025) | Plus grand jeu ouvert trouvé (238 858 matchs, 38 divisions, 2000 → 09/2026) avec cotes et Elo ; utilisable après avoir écarté les Elo postérieurs au match et les colonnes de clusters. | [Audit](Club-Football-Match-Data/AUDIT.md) |
+| [martj42/international_results](https://github.com/martj42/international_results) | Base de référence pour les Elo de sélections (49 945 matchs, mise à jour au 06/10/2026) ; le score inclut la prolongation, donc il ne règle pas un pari 1N2. | [Audit](international_results/AUDIT.md) |
+| [OpenDebates/openskill.py](https://github.com/OpenDebates/openskill.py) | Alternative ouverte à TrueSkill pour équipes et compétitions à plusieurs participants ; son banc d'essai mélange le temps. | [Audit](openskill/AUDIT.md) |
+| [helton-tech/elote](https://github.com/helton-tech/elote) | Interface unique pour comparer Elo, Glicko, TrueSkill, Bradley-Terry, Colley, Massey, WHR… ; son évaluation gèle les forces pendant toute la période de test. | [Audit](elote/AUDIT.md) |
+| [JeffSackmann/tennis_MatchChartingProject](https://github.com/JeffSackmann/tennis_MatchChartingProject) | Seule source publique de tennis coup par coup ; échantillon très biaisé vers les vedettes et les fins de tournoi. | [Audit](tennis_MatchChartingProject/AUDIT.md) |
+| [sportsdataverse/hoopR](https://github.com/sportsdataverse/hoopR) | Client R très actif (dernier commit 11/10/2026) pour NBA et NCAA ; utile pour les données de match, pas pour l'historique des blessures. | [Audit](hoopR/AUDIT.md) |
+| [nflverse/nflfastR](https://github.com/nflverse/nflfastR) | Référence des modèles EP/WP NFL ; `vegas_wp` incorpore la ligne de clôture et les modèles sont ajustés sur tout l'historique. | [Audit](nflfastR/AUDIT.md) |
+| [WarrierRajeev/UFC-Predictions](https://github.com/WarrierRajeev/UFC-Predictions) | Jeu de données UFC très utilisé (Kaggle) et variables cumulées correctement décalées ; évaluation aléatoire, sans cotes. | [Audit](UFC-Predictions/AUDIT.md) |
+| [FinnedAI/sportsbookreview-scraper](https://github.com/FinnedAI/sportsbookreview-scraper) | Seule archive gratuite trouvée de cotes d'ouverture et de clôture NHL ; la partie MLB est corrompue. | [Audit](sportsbookreview-scraper/AUDIT.md) |
+| [jkrusina/SoccerPredictor](https://github.com/jkrusina/SoccerPredictor) | « Profit 1 069 %, ROI 33,4 % » sur 32 paris : résultat contaminé par la sélection des poids sur le jeu de test. Archiver. | [Audit](SoccerPredictor/AUDIT.md) |
+| [robjhyndman/cricketdata](https://github.com/robjhyndman/cricketdata) | Point d'entrée sérieux (auteur : Rob Hyndman) vers les données de cricket ; aucun modèle de pari. | [Audit](cricketdata/AUDIT.md) |

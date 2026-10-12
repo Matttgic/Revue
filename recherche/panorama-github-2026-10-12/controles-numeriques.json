@@ -1,0 +1,1017 @@
+{
+ "implied_R": {
+  "environnement": "R 4.3.3, fichier R/implied_probabilities.R au commit 1d1c5cd5 sourcé isolément",
+  "sortie_brute": [
+   "shin js 1N2 :",
+   "List of 2",
+   " $ probabilities: num [1, 1:3] 0.232 0.264 0.505",
+   " $ zvalues      : num 0.0105",
+   "shin uniroot 1N2 :",
+   "List of 2",
+   " $ probabilities: num [1, 1:3] 0.232 0.264 0.505",
+   " $ zvalues      : num 0.0106",
+   "shin js 2 issues 1.90/1.90 :",
+   " chr \"ERREUR: missing value where TRUE/FALSE needed\"",
+   "shin js 2 issues 1.25/4.00 :",
+   " chr \"ERREUR: missing value where TRUE/FALSE needed\"",
+   "shin uniroot 2 issues 1.25/4.00 :",
+   "List of 2",
+   " $ probabilities: num [1, 1:2] 0.775 0.225",
+   " $ zvalues      : num 0.051",
+   "shin js sans marge 2/4/4 :",
+   " chr \"AVERTISSEMENT: Probabilities outside the 0-1 range produced at 1 instances.\\n\"",
+   "goto zvalues :",
+   "List of 2",
+   " $ probabilities: num [1, 1:3] 0.23 0.263 0.507",
+   "  ..- attr(*, \"dimnames\")=List of 2",
+   "  .. ..$ : NULL",
+   "  .. ..$ : NULL",
+   " $ zvalues      : num [1, 1:3] 0.23 0.263 0.507",
+   "  ..- attr(*, \"dimnames\")=List of 2",
+   "  .. ..$ : NULL",
+   "  .. ..$ : NULL",
+   "methode basic 1.25/4.00 :",
+   " num [1, 1:2] 0.762 0.238",
+   " - attr(*, \"dimnames\")=List of 2",
+   "  ..$ : NULL",
+   "  ..$ : NULL",
+   "methode additive 1.25/4.00 :",
+   " num [1, 1:2] 0.775 0.225",
+   "methode wpo 1.25/4.00 :",
+   " num [1, 1:2] 0.775 0.225",
+   " - attr(*, \"dimnames\")=List of 2",
+   "  ..$ : NULL",
+   "  ..$ : NULL",
+   "methode or 1.25/4.00 :",
+   " num [1, 1:2] 0.776 0.224",
+   "methode power 1.25/4.00 :",
+   " num [1, 1:2] 0.782 0.218",
+   "methode bb 1.25/4.00 :",
+   " num [1, 1:2] 0.789 0.211",
+   " - attr(*, \"dimnames\")=List of 2",
+   "  ..$ : NULL",
+   "  ..$ : NULL",
+   "methode jsd 1.25/4.00 :",
+   " num [1, 1:2] 0.776 0.224",
+   "methode goto 1.25/4.00 :",
+   " num [1, 1:2] 0.783 0.217",
+   " - attr(*, \"dimnames\")=List of 2",
+   "  ..$ : NULL",
+   "  ..$ : NULL"
+  ]
+ },
+ "implied_portage_python": {
+  "1N2 [4.20,3.70,1.95]": {
+   "js_R": {
+    "z": 0.010547337748505914,
+    "probs": [
+     0.23158105789160796,
+     0.26358076881960524,
+     0.5048381732887869
+    ],
+    "iterations": 137
+   },
+   "exact": {
+    "z": 0.01060805815502358,
+    "probs": [
+     0.23157195890888924,
+     0.26357449628316393,
+     0.504853544807947
+    ]
+   },
+   "ecart_max_proba": 1.5371519160090052e-05,
+   "ecart_z": -6.072040651766697e-05
+  },
+  "1N2 [1.19,7.0,14.0]": {
+   "js_R": {
+    "z": 0.028770996299466223,
+    "probs": [
+     0.8155905912826209,
+     0.12710992467101234,
+     0.05729948404636668
+    ],
+    "iterations": 19
+   },
+   "exact": {
+    "z": 0.028835949165119903,
+    "probs": [
+     0.8156312179841608,
+     0.12709106036591697,
+     0.05727772164992238
+    ]
+   },
+   "ecart_max_proba": 4.0626701539925314e-05,
+   "ecart_z": -6.495286565368075e-05
+  },
+  "6 issues test my_odds2": {
+   "js_R": {
+    "z": 0.08135355125483823,
+    "probs": [
+     0.7686903795851501,
+     0.1475180293016831,
+     0.059003554621580856,
+     0.020043336245990303,
+     0.0037721655426133805,
+     0.00097253470298221
+    ],
+    "iterations": 10
+   },
+   "exact": {
+    "z": 0.08150332117543085,
+    "probs": [
+     0.7687863600487606,
+     0.14748642849293767,
+     0.05896848739414524,
+     0.020021434494498305,
+     0.0037663582621309554,
+     0.0009709313075273328
+    ]
+   },
+   "ecart_max_proba": 9.598046361047885e-05,
+   "ecart_z": -0.00014976992059262395
+  },
+  "2 issues [1.90,1.90]": {
+   "js_R": {
+    "erreur_R": "missing value where TRUE/FALSE needed",
+    "iteration": 2
+   },
+   "exact": {
+    "z": 0.052631578947367974,
+    "probs": [
+     0.5000000000000001,
+     0.5000000000000001
+    ]
+   }
+  },
+  "2 issues [1.25,4.00]": {
+   "js_R": {
+    "erreur_R": "missing value where TRUE/FALSE needed",
+    "iteration": 2
+   },
+   "exact": {
+    "z": 0.05103259941969593,
+    "probs": [
+     0.775,
+     0.22500000000000012
+    ]
+   }
+  },
+  "3 issues sans marge [2,4,4]": {
+   "z": 0.0,
+   "probs": null,
+   "iterations": 1
+  },
+  "goto zvalues attendu (scalaire)": 0.008736157026356663,
+  "goto zvalues renvoye par le code (= probs)": [
+   0.23046969507499052,
+   0.262807476305926,
+   0.5067228286190836
+  ]
+ },
+ "xgabora_audit": {
+  "lignes": 238858,
+  "periode": [
+   "2000-07-28",
+   "2026-09-03"
+  ],
+  "forme3_domicile": {
+   "n_compares": 235549,
+   "egal_3_matchs_precedents": 0.9998089569473867,
+   "egal_fenetre_incluant_match": 0.3634530394949671
+  },
+  "elo_photo": {
+   "echantillon": 2505,
+   "matchs_avec_photo_identique": 2440,
+   "jours_entre_photo_et_match_min": -9054,
+   "part_photo_datee_jour_meme_ou_apres": 0.11178247734138973,
+   "quantiles_jours": [
+    -4.0,
+    7.0,
+    77.0
+   ]
+  },
+  "auc_victoire_domicile": {
+   "n": 77292,
+   "marche_1/cote_dom": 0.6942965361400126,
+   "elo_diff": 0.6763672495695945,
+   "cluster_C_VHD_moins_C_VAD": 0.5034181659789564
+  },
+  "devig_1n2_bet365": {
+   "n": 235803,
+   "marge_moyenne": 0.07323,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 1.005635,
+     "brier": 0.601821,
+     "diff_vs_multiplicatif": 0.0,
+     "erreur_type_diff": 0.0
+    },
+    "additive": {
+     "logloss": 1.004961,
+     "brier": 0.601441,
+     "diff_vs_multiplicatif": -0.000674,
+     "erreur_type_diff": 6.9e-05
+    },
+    "wpo": {
+     "logloss": 1.004961,
+     "brier": 0.601441,
+     "diff_vs_multiplicatif": -0.000674,
+     "erreur_type_diff": 6.9e-05
+    },
+    "power": {
+     "logloss": 1.004912,
+     "brier": 0.601418,
+     "diff_vs_multiplicatif": -0.000723,
+     "erreur_type_diff": 7.1e-05
+    },
+    "odds_ratio": {
+     "logloss": 1.005043,
+     "brier": 0.601476,
+     "diff_vs_multiplicatif": -0.000592,
+     "erreur_type_diff": 4.4e-05
+    },
+    "shin": {
+     "logloss": 1.005027,
+     "brier": 0.601477,
+     "diff_vs_multiplicatif": -0.000608,
+     "erreur_type_diff": 4.9e-05
+    },
+    "goto": {
+     "logloss": 1.004999,
+     "brier": 0.60145,
+     "diff_vs_multiplicatif": -0.000636,
+     "erreur_type_diff": 9.4e-05
+    },
+    "balanced_books": {
+     "logloss": 1.005234,
+     "brier": 0.601512,
+     "diff_vs_multiplicatif": -0.000401,
+     "erreur_type_diff": 0.000153
+    }
+   }
+  },
+  "devig_1n2_par_periode_diff_logloss": {
+   "2000-2009": {
+    "multiplicative": 0.0,
+    "additive": -0.001121,
+    "wpo": -0.001121,
+    "power": -0.001242,
+    "odds_ratio": -0.001032,
+    "shin": -0.001024,
+    "goto": -0.00104,
+    "balanced_books": -0.000716,
+    "n": 56087
+   },
+   "2010-2018": {
+    "multiplicative": 0.0,
+    "additive": -0.000479,
+    "wpo": -0.000479,
+    "power": -0.000527,
+    "odds_ratio": -0.00044,
+    "shin": -0.000443,
+    "goto": -0.000424,
+    "balanced_books": -0.000108,
+    "n": 97360
+   },
+   "2019-2026": {
+    "multiplicative": 0.0,
+    "additive": -0.0006,
+    "wpo": -0.0006,
+    "power": -0.0006,
+    "odds_ratio": -0.000472,
+    "shin": -0.00052,
+    "goto": -0.000611,
+    "balanced_books": -0.000533,
+    "n": 82356
+   }
+  },
+  "devig_1n2_gros_favori_cote_<1.35": {
+   "multiplicative": 0.0,
+   "additive": -0.006672,
+   "wpo": -0.006672,
+   "power": -0.007252,
+   "odds_ratio": -0.005499,
+   "shin": -0.00559,
+   "goto": -0.007052,
+   "balanced_books": -0.005041,
+   "n": 14033
+  },
+  "devig_over_under_2_5_bet365": {
+   "n": 156667,
+   "marge_moyenne": 0.06606,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 0.680058,
+     "brier": 0.487107,
+     "diff_vs_multiplicatif": 0.0,
+     "erreur_type_diff": 0.0
+    },
+    "additive": {
+     "logloss": 0.67995,
+     "brier": 0.487008,
+     "diff_vs_multiplicatif": -0.000108,
+     "erreur_type_diff": 2.6e-05
+    },
+    "wpo": {
+     "logloss": 0.67995,
+     "brier": 0.487008,
+     "diff_vs_multiplicatif": -0.000108,
+     "erreur_type_diff": 2.6e-05
+    },
+    "power": {
+     "logloss": 0.679937,
+     "brier": 0.486996,
+     "diff_vs_multiplicatif": -0.00012,
+     "erreur_type_diff": 4.1e-05
+    },
+    "odds_ratio": {
+     "logloss": 0.679946,
+     "brier": 0.487004,
+     "diff_vs_multiplicatif": -0.000111,
+     "erreur_type_diff": 2.8e-05
+    },
+    "shin": {
+     "logloss": 0.67995,
+     "brier": 0.487008,
+     "diff_vs_multiplicatif": -0.000108,
+     "erreur_type_diff": 2.6e-05
+    },
+    "goto": {
+     "logloss": 0.679937,
+     "brier": 0.486996,
+     "diff_vs_multiplicatif": -0.00012,
+     "erreur_type_diff": 4.2e-05
+    },
+    "balanced_books": {
+     "logloss": 0.679961,
+     "brier": 0.487017,
+     "diff_vs_multiplicatif": -9.7e-05,
+     "erreur_type_diff": 5.6e-05
+    }
+   }
+  },
+  "meilleure_cote_vs_shin_bet365_illustration": {
+   "n_matchs": 211054,
+   "resultats": {
+    "EV>0.0": {
+     "paris": 205205,
+     "roi": -0.0033,
+     "ic95": [
+      -0.0104,
+      0.0038
+     ]
+    },
+    "EV>0.02": {
+     "paris": 92900,
+     "roi": 0.0023,
+     "ic95": [
+      -0.0094,
+      0.0141
+     ]
+    },
+    "EV>0.05": {
+     "paris": 32173,
+     "roi": 0.0174,
+     "ic95": [
+      -0.0056,
+      0.0403
+     ]
+    }
+   }
+  }
+ },
+ "xgabora_elo_photo": {
+  "n": 149898,
+  "egal_photo_strictement_anterieure": 0.8928004376309223,
+  "egal_photo_du_jour_ou_posterieure": 0.09815341098613724,
+  "egal_aux_deux_(Elo_inchange)": 0.019433214585918426,
+  "aucune_des_deux": 0.028479365968858823,
+  "uniquement_photo_posterieure": {
+   "n": 11800,
+   "part": 0.07872019640021881,
+   "jours_apres_match_quantiles": [
+    0.0,
+    0.0,
+    4.0
+   ],
+   "par_annee": {
+    "2000": 166,
+    "2001": 287,
+    "2002": 207,
+    "2003": 234,
+    "2004": 207,
+    "2005": 321,
+    "2006": 380,
+    "2007": 595,
+    "2008": 510,
+    "2009": 362,
+    "2010": 424,
+    "2011": 762,
+    "2012": 624,
+    "2013": 457,
+    "2014": 440,
+    "2015": 395,
+    "2016": 548,
+    "2017": 548,
+    "2018": 523,
+    "2019": 350,
+    "2020": 399,
+    "2021": 469,
+    "2022": 705,
+    "2023": 652,
+    "2024": 414,
+    "2025": 481,
+    "2026": 340
+   }
+  },
+  "variation_elo_photo_post_moins_ant_selon_resultat": {
+   "A": -2.78,
+   "D": -0.59,
+   "H": 1.67
+  }
+ },
+ "sportsbookreview_audit": {
+  "nhl": {
+   "lignes": 13678,
+   "saisons": [
+    2011,
+    2021
+   ],
+   "doublons_date_equipes": 4,
+   "colonnes_ml_disponibles": [
+    "open",
+    "close"
+   ],
+   "open_ml": {
+    "manquantes_ou_nulles": 0.0008773212457962032,
+    "somme_implicite_<1": 0.00021952290355627103,
+    "somme_implicite_>1.10": 0.0,
+    "marge_mediane": 0.0396
+   },
+   "close_ml": {
+    "manquantes_ou_nulles": 0.0008042111419798159,
+    "somme_implicite_<1": 0.0,
+    "somme_implicite_>1.10": 0.0,
+    "marge_mediane": 0.0323
+   },
+   "n_matchs_evalues_hors_nuls": 13662,
+   "logloss": {
+    "open_multiplicative": {
+     "logloss": 0.67109,
+     "diff_vs_mult": 0.0,
+     "se": 0.0
+    },
+    "open_additive": {
+     "logloss": 0.67105,
+     "diff_vs_mult": -4e-05,
+     "se": 7.2e-05
+    },
+    "open_power": {
+     "logloss": 0.67107,
+     "diff_vs_mult": -2.1e-05,
+     "se": 0.000112
+    },
+    "open_shin": {
+     "logloss": 0.67105,
+     "diff_vs_mult": -4e-05,
+     "se": 7.2e-05
+    },
+    "open_odds_ratio": {
+     "logloss": 0.67106,
+     "diff_vs_mult": -3.4e-05,
+     "se": 7.6e-05
+    },
+    "close_multiplicative": {
+     "logloss": 0.66892,
+     "diff_vs_mult": 0.0,
+     "se": 0.0
+    },
+    "close_additive": {
+     "logloss": 0.66884,
+     "diff_vs_mult": -7.2e-05,
+     "se": 5.9e-05
+    },
+    "close_power": {
+     "logloss": 0.66883,
+     "diff_vs_mult": -9e-05,
+     "se": 9e-05
+    },
+    "close_shin": {
+     "logloss": 0.66884,
+     "diff_vs_mult": -7.2e-05,
+     "se": 5.9e-05
+    },
+    "close_odds_ratio": {
+     "logloss": 0.66884,
+     "diff_vs_mult": -7.4e-05,
+     "se": 6.2e-05
+    }
+   },
+   "calibration_cloture_domicile": {
+    "(0.0, 0.3]": {
+     "n": 74,
+     "p_moy": 0.2705,
+     "freq": 0.3378
+    },
+    "(0.3, 0.4]": {
+     "n": 819,
+     "p_moy": 0.3672,
+     "freq": 0.3565
+    },
+    "(0.4, 0.5]": {
+     "n": 3373,
+     "p_moy": 0.4593,
+     "freq": 0.4426
+    },
+    "(0.5, 0.6]": {
+     "n": 5447,
+     "p_moy": 0.5525,
+     "freq": 0.5539
+    },
+    "(0.6, 0.7]": {
+     "n": 3416,
+     "p_moy": 0.6396,
+     "freq": 0.6446
+    },
+    "(0.7, 1.0]": {
+     "n": 533,
+     "p_moy": 0.7332,
+     "freq": 0.7674
+    }
+   }
+  },
+  "nba": {
+   "lignes": 13903,
+   "saisons": [
+    2011,
+    2021
+   ],
+   "doublons_date_equipes": 0,
+   "colonnes_ml_disponibles": [
+    "close"
+   ],
+   "close_ml": {
+    "manquantes_ou_nulles": 0.0007192692224700092,
+    "somme_implicite_<1": 0.0,
+    "somme_implicite_>1.10": 0.0005758295544518822,
+    "marge_mediane": 0.0379
+   },
+   "n_matchs_evalues_hors_nuls": 13884,
+   "logloss": {
+    "close_multiplicative": {
+     "logloss": 0.5934,
+     "diff_vs_mult": 0.0,
+     "se": 0.0
+    },
+    "close_additive": {
+     "logloss": 0.59384,
+     "diff_vs_mult": 0.000435,
+     "se": 0.00021
+    },
+    "close_power": {
+     "logloss": 0.59445,
+     "diff_vs_mult": 0.001046,
+     "se": 0.000364
+    },
+    "close_shin": {
+     "logloss": 0.59384,
+     "diff_vs_mult": 0.000435,
+     "se": 0.00021
+    },
+    "close_odds_ratio": {
+     "logloss": 0.59392,
+     "diff_vs_mult": 0.000521,
+     "se": 0.00024
+    }
+   },
+   "calibration_cloture_domicile": {
+    "(0.0, 0.3]": {
+     "n": 1415,
+     "p_moy": 0.2207,
+     "freq": 0.2134
+    },
+    "(0.3, 0.4]": {
+     "n": 1574,
+     "p_moy": 0.3544,
+     "freq": 0.3679
+    },
+    "(0.4, 0.5]": {
+     "n": 1881,
+     "p_moy": 0.451,
+     "freq": 0.4482
+    },
+    "(0.5, 0.6]": {
+     "n": 1999,
+     "p_moy": 0.5559,
+     "freq": 0.5408
+    },
+    "(0.6, 0.7]": {
+     "n": 2535,
+     "p_moy": 0.6494,
+     "freq": 0.6505
+    },
+    "(0.7, 1.0]": {
+     "n": 4480,
+     "p_moy": 0.8052,
+     "freq": 0.7982
+    }
+   }
+  },
+  "nfl": {
+   "lignes": 2956,
+   "saisons": [
+    2011,
+    2021
+   ],
+   "doublons_date_equipes": 0,
+   "colonnes_ml_disponibles": [
+    "close"
+   ],
+   "close_ml": {
+    "manquantes_ou_nulles": 0.003382949932341006,
+    "somme_implicite_<1": 0.0,
+    "somme_implicite_>1.10": 0.0013577732518669382,
+    "marge_mediane": 0.0378
+   },
+   "n_matchs_evalues_hors_nuls": 2932,
+   "logloss": {
+    "close_multiplicative": {
+     "logloss": 0.60782,
+     "diff_vs_mult": 0.0,
+     "se": 0.0
+    },
+    "close_additive": {
+     "logloss": 0.60776,
+     "diff_vs_mult": -5.8e-05,
+     "se": 0.000361
+    },
+    "close_power": {
+     "logloss": 0.60792,
+     "diff_vs_mult": 0.000106,
+     "se": 0.000593
+    },
+    "close_shin": {
+     "logloss": 0.60776,
+     "diff_vs_mult": -5.8e-05,
+     "se": 0.000361
+    },
+    "close_odds_ratio": {
+     "logloss": 0.60778,
+     "diff_vs_mult": -3.6e-05,
+     "se": 0.000397
+    }
+   },
+   "calibration_cloture_domicile": {
+    "(0.0, 0.3]": {
+     "n": 294,
+     "p_moy": 0.2352,
+     "freq": 0.2109
+    },
+    "(0.3, 0.4]": {
+     "n": 346,
+     "p_moy": 0.3548,
+     "freq": 0.3613
+    },
+    "(0.4, 0.5]": {
+     "n": 418,
+     "p_moy": 0.447,
+     "freq": 0.4545
+    },
+    "(0.5, 0.6]": {
+     "n": 458,
+     "p_moy": 0.5563,
+     "freq": 0.5197
+    },
+    "(0.6, 0.7]": {
+     "n": 604,
+     "p_moy": 0.6489,
+     "freq": 0.6159
+    },
+    "(0.7, 1.0]": {
+     "n": 812,
+     "p_moy": 0.7797,
+     "freq": 0.8054
+    }
+   }
+  },
+  "mlb": {
+   "lignes": 25597,
+   "saisons": [
+    2011,
+    2021
+   ],
+   "doublons_date_equipes": 16,
+   "colonnes_ml_disponibles": [
+    "open",
+    "close"
+   ],
+   "open_ml": {
+    "manquantes_ou_nulles": 0.001015744032503818,
+    "somme_implicite_<1": 0.36232450823198153,
+    "somme_implicite_>1.10": 0.30217824879746585,
+    "marge_mediane": 0.0393
+   },
+   "close_ml": {
+    "manquantes_ou_nulles": 0.0003906707817322719,
+    "somme_implicite_<1": 0.40821510923515847,
+    "somme_implicite_>1.10": 0.2850275530542854,
+    "marge_mediane": 0.0288
+   },
+   "n_matchs_evalues_hors_nuls": 8012,
+   "logloss": {
+    "open_multiplicative": {
+     "logloss": 0.68588,
+     "diff_vs_mult": 0.0,
+     "se": 0.0
+    },
+    "open_additive": {
+     "logloss": 0.68595,
+     "diff_vs_mult": 6.2e-05,
+     "se": 0.000121
+    },
+    "open_power": {
+     "logloss": 0.68603,
+     "diff_vs_mult": 0.000146,
+     "se": 0.000196
+    },
+    "open_shin": {
+     "logloss": 0.68595,
+     "diff_vs_mult": 6.2e-05,
+     "se": 0.000121
+    },
+    "open_odds_ratio": {
+     "logloss": 0.68595,
+     "diff_vs_mult": 6.9e-05,
+     "se": 0.000136
+    },
+    "close_multiplicative": {
+     "logloss": 0.68534,
+     "diff_vs_mult": 0.0,
+     "se": 0.0
+    },
+    "close_additive": {
+     "logloss": 0.68546,
+     "diff_vs_mult": 0.000115,
+     "se": 0.000127
+    },
+    "close_power": {
+     "logloss": 0.68558,
+     "diff_vs_mult": 0.000238,
+     "se": 0.000205
+    },
+    "close_shin": {
+     "logloss": 0.68546,
+     "diff_vs_mult": 0.000115,
+     "se": 0.000127
+    },
+    "close_odds_ratio": {
+     "logloss": 0.68547,
+     "diff_vs_mult": 0.00013,
+     "se": 0.000143
+    }
+   },
+   "calibration_cloture_domicile": {
+    "(0.0, 0.3]": {
+     "n": 30,
+     "p_moy": 0.2787,
+     "freq": 0.2667
+    },
+    "(0.3, 0.4]": {
+     "n": 1188,
+     "p_moy": 0.3696,
+     "freq": 0.3897
+    },
+    "(0.4, 0.5]": {
+     "n": 4632,
+     "p_moy": 0.4543,
+     "freq": 0.4691
+    },
+    "(0.5, 0.6]": {
+     "n": 1999,
+     "p_moy": 0.5323,
+     "freq": 0.5538
+    },
+    "(0.6, 0.7]": {
+     "n": 160,
+     "p_moy": 0.6262,
+     "freq": 0.6312
+    },
+    "(0.7, 1.0]": {
+     "n": 3,
+     "p_moy": 0.7231,
+     "freq": 0.6667
+    }
+   }
+  }
+ },
+ "calibration_devig_outil_revue": {
+  "xgabora_1n2": {
+   "n": 235543,
+   "lignes_exclues": 10,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 1.005801,
+     "diff_vs_multiplicative": 0.0,
+     "erreur_type": 0.0
+    },
+    "additive": {
+     "logloss": 1.005141,
+     "diff_vs_multiplicative": -0.000661,
+     "erreur_type": 6.8e-05
+    },
+    "puissance": {
+     "logloss": 1.005095,
+     "diff_vs_multiplicative": -0.000707,
+     "erreur_type": 7.1e-05
+    },
+    "shin": {
+     "logloss": 1.005204,
+     "diff_vs_multiplicative": -0.000597,
+     "erreur_type": 4.9e-05
+    },
+    "rapport_de_cotes": {
+     "logloss": 1.00522,
+     "diff_vs_multiplicative": -0.000581,
+     "erreur_type": 4.4e-05
+    }
+   }
+  },
+  "xgabora_ou25": {
+   "n": 156615,
+   "lignes_exclues": 0,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 0.680045,
+     "diff_vs_multiplicative": 0.0,
+     "erreur_type": 0.0
+    },
+    "additive": {
+     "logloss": 0.679934,
+     "diff_vs_multiplicative": -0.00011,
+     "erreur_type": 2.6e-05
+    },
+    "puissance": {
+     "logloss": 0.679919,
+     "diff_vs_multiplicative": -0.000126,
+     "erreur_type": 4.1e-05
+    },
+    "shin": {
+     "logloss": 0.679934,
+     "diff_vs_multiplicative": -0.00011,
+     "erreur_type": 2.6e-05
+    },
+    "rapport_de_cotes": {
+     "logloss": 0.67993,
+     "diff_vs_multiplicative": -0.000115,
+     "erreur_type": 2.8e-05
+    }
+   }
+  },
+  "sbr_mlb_close": {
+   "n": 9537,
+   "lignes_exclues": 0,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 0.686252,
+     "diff_vs_multiplicative": 0.0,
+     "erreur_type": 0.0
+    },
+    "additive": {
+     "logloss": 0.68646,
+     "diff_vs_multiplicative": 0.000208,
+     "erreur_type": 0.000118
+    },
+    "puissance": {
+     "logloss": 0.686642,
+     "diff_vs_multiplicative": 0.00039,
+     "erreur_type": 0.000192
+    },
+    "shin": {
+     "logloss": 0.68646,
+     "diff_vs_multiplicative": 0.000208,
+     "erreur_type": 0.000118
+    },
+    "rapport_de_cotes": {
+     "logloss": 0.686486,
+     "diff_vs_multiplicative": 0.000234,
+     "erreur_type": 0.000133
+    }
+   }
+  },
+  "sbr_nba_close": {
+   "n": 13884,
+   "lignes_exclues": 0,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 0.593402,
+     "diff_vs_multiplicative": 0.0,
+     "erreur_type": 0.0
+    },
+    "additive": {
+     "logloss": 0.593837,
+     "diff_vs_multiplicative": 0.000435,
+     "erreur_type": 0.00021
+    },
+    "puissance": {
+     "logloss": 0.594448,
+     "diff_vs_multiplicative": 0.001046,
+     "erreur_type": 0.000364
+    },
+    "shin": {
+     "logloss": 0.593837,
+     "diff_vs_multiplicative": 0.000435,
+     "erreur_type": 0.00021
+    },
+    "rapport_de_cotes": {
+     "logloss": 0.593923,
+     "diff_vs_multiplicative": 0.000521,
+     "erreur_type": 0.00024
+    }
+   }
+  },
+  "sbr_nfl_close": {
+   "n": 2932,
+   "lignes_exclues": 0,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 0.607819,
+     "diff_vs_multiplicative": 0.0,
+     "erreur_type": 0.0
+    },
+    "additive": {
+     "logloss": 0.607761,
+     "diff_vs_multiplicative": -5.8e-05,
+     "erreur_type": 0.000361
+    },
+    "puissance": {
+     "logloss": 0.607925,
+     "diff_vs_multiplicative": 0.000106,
+     "erreur_type": 0.000593
+    },
+    "shin": {
+     "logloss": 0.607761,
+     "diff_vs_multiplicative": -5.8e-05,
+     "erreur_type": 0.000361
+    },
+    "rapport_de_cotes": {
+     "logloss": 0.607783,
+     "diff_vs_multiplicative": -3.6e-05,
+     "erreur_type": 0.000397
+    }
+   }
+  },
+  "sbr_nhl_close": {
+   "n": 13666,
+   "lignes_exclues": 0,
+   "methodes": {
+    "multiplicative": {
+     "logloss": 0.66893,
+     "diff_vs_multiplicative": 0.0,
+     "erreur_type": 0.0
+    },
+    "additive": {
+     "logloss": 0.668858,
+     "diff_vs_multiplicative": -7.2e-05,
+     "erreur_type": 5.9e-05
+    },
+    "puissance": {
+     "logloss": 0.66884,
+     "diff_vs_multiplicative": -9e-05,
+     "erreur_type": 9e-05
+    },
+    "shin": {
+     "logloss": 0.668858,
+     "diff_vs_multiplicative": -7.2e-05,
+     "erreur_type": 5.9e-05
+    },
+    "rapport_de_cotes": {
+     "logloss": 0.668856,
+     "diff_vs_multiplicative": -7.4e-05,
+     "erreur_type": 6.2e-05
+    }
+   }
+  }
+ },
+ "tennis_mcp": {
+  "matchs_masculins": 7566,
+  "joueurs_distincts": 1003,
+  "part_matchs_top10_joueurs": 0.4199,
+  "top5": {
+   "Roger Federer": 723,
+   "Novak Djokovic": 553,
+   "Rafael Nadal": 425,
+   "Hubert Hurkacz": 320,
+   "Jannik Sinner": 298
+  },
+  "finales": 1209
+ },
+ "http_2026_10_12": {
+  "projects.fivethirtyeight.com/nfl-api/nfl_elo.csv": "302 -> https://abcnews.com/politics (HTML)",
+  "projects.fivethirtyeight.com/soccer-api/club/spi_matches.csv": "302 -> https://abcnews.com/politics (HTML)",
+  "api-web.nhle.com/v1/schedule/2026-10-10": 200,
+  "api-web.nhle.com/v1/gamecenter/2025020001/play-by-play": 200,
+  "nhl.com/scores/htmlreports/20252026/PL020001.HTM": 200,
+  "api.nhle.com/stats/rest/en/shiftcharts?cayenneExp=gameId=2025020001": 200,
+  "understat.com/getLeagueData/EPL/2025": 200
+ }
+}

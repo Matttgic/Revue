@@ -14,9 +14,9 @@ Site : [matttgic.github.io/Revue](https://matttgic.github.io/Revue/) · Journal 
 | Reproduction Clairvoyance | 44 fonctions modèle identiques à l'original (re-vérifiées chaque jour) ; couche de sélection des paris non reproduite | [Modèles](catalogue/MODELES.md) · [parité](docs/parite-modeles-clairvoyance.json) |
 | Modèles Revue | 9 modèles de recherche suivis de façon prospective, non calibrés | [Modèles](catalogue/MODELES.md) |
 | **Journal de paris papier** | Règle de décision fixée le 11/10/2026 : ≥ 300 paris pré-match à cote observée, ROI et CLV positifs (IC 95 %), modèle plus juste que le marché. Verdict actuel : données insuffisantes | [Tableau de bord](https://matttgic.github.io/Revue/regle-decision.html) · [règle](outils/suivi/regle_decision.py) |
-| Catalogue | 44 dépôts examinés (dont 20 nouvelles revues ciblées), 56 entrées (méthodes, modèles, outils), aucune rentabilité prouvée | [Analyses](analyses/README.md) · [Méthodes](catalogue/INDEX.md) · [Enseignements transversaux](catalogue/ENSEIGNEMENTS.md) |
+| Catalogue | 66 dépôts examinés (dont 42 revues ciblées les 11 et 12 octobre), 60 entrées (méthodes, modèles, outils), aucune rentabilité prouvée | [Analyses](analyses/README.md) · [Méthodes](catalogue/INDEX.md) · [Enseignements transversaux](catalogue/ENSEIGNEMENTS.md) |
 
-[Recherche GitHub du 11 octobre 2026 : 20 nouveaux dossiers et avis comparatifs](recherche/panorama-github-2026-10-11/README.md).
+Recherches GitHub : [11 octobre 2026 — 20 dossiers](recherche/panorama-github-2026-10-11/README.md) · [12 octobre 2026 — 22 dossiers, retrait de marge mesuré sur 235 543 matchs, archive de cotes NHL 2011-2021](recherche/panorama-github-2026-10-12/README.md).
 
 ## Organisation
 
