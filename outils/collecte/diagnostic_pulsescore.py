@@ -23,9 +23,9 @@ import time
 from urllib.parse import quote
 
 from outils.collecte.pulsescore_v2 import (
-    SCAN_BOOKS, SPORT_GROUPS, MIN_INTERVAL_PER_BOOK, _get_json, _request, translate_event,
+    SCAN_BOOKS, SPORT_GROUPS, MIN_INTERVAL_PER_BOOK, _get_json, _request, match_quote, translate_event,
 )
-from outils.suivi.revue_engine_v2 import match_fixture, timestamp, ODDS_SPORTS
+from outils.suivi.revue_engine_v2 import timestamp, ODDS_SPORTS
 
 KEYS = ("PULSESCORE_API_KEY", "PULSESCORE_PRO_KEY", "PULSE_SCORE_API_KEY")
 HORIZON = timedelta(hours=48)
@@ -99,7 +99,7 @@ def summarize(records: list[dict], book_key: str, games: list[dict], now: dateti
         translatable += 1
         hit = None
         for league in sorted({g["_league"] for g in games}):
-            hit = hit or match_fixture(quote, [g for g in games if g["_league"] == league], league)
+            hit = hit or match_quote(quote, [g for g in games if g["_league"] == league], league, book_key)
         if hit:
             matched += 1
         elif len(unmatched) < SAMPLES:

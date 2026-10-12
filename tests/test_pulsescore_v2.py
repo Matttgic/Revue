@@ -328,3 +328,30 @@ class ExchangeCollectionTests(unittest.TestCase):
         ev={"home":"Arsenal","away":"Leeds United"}
         self.assertIsNone(translate_market({**raw,"selections":selections(5)},ev,NOW))
         self.assertEqual(len(translate_market({**raw,"selections":selections(250)},ev,NOW)["outcomes"]),3)
+
+
+class SwappedReferenceTests(unittest.TestCase):
+    """Orbit Exchange publie certains matchs NHL domicile/extérieur inversés."""
+    def setUp(self):
+        self.models={"generated_at_utc":when(NOW-timedelta(minutes=7)),"competitions":{"NHL":{"games":[{
+            "event_id":"nhl7","home":"BUF","away":"FLA","start_utc":when(NOW+timedelta(hours=5)),
+            "status":"prototype_non_calibre","probabilities":{"home_win":.5,"away_win":.5}}]}}}
+
+    def raw(self,home,away,home_odds,away_odds):
+        return {"eventId":"x-"+home,"home":home,"away":away,"startTime":when(NOW+timedelta(hours=5)),
+                "live":False,"markets":[{"canonicalMarket":"MATCH_RESULT","period":"FULL_TIME",
+                "rawName":"Moneyline","selections":[{"canonicalOutcome":"HOME","odds":home_odds},
+                                                    {"canonicalOutcome":"AWAY","odds":away_odds}]}]}
+
+    def test_reference_matched_when_swapped_french_book_never(self):
+        def fake(book,sport,key,page):
+            # Même match, ordre inversé : Florida « à domicile ».
+            return [self.raw("Florida Panthers","Buffalo Sabres",1.80,2.10)],False
+        odds,meta=scan("k",self.models,NOW,fetch=fake)
+        books=[b["key"] for b in odds["NHL"][0]["bookmakers"]]
+        self.assertEqual(sorted(books),["orbit_exchange","ps3838"])
+        self.assertEqual(meta["matched_by_book"],{"orbit_exchange":1,"ps3838":1})
+        # Les issues gardent leur nom d'équipe : 1.80 reste le prix de Florida.
+        outcomes=odds["NHL"][0]["bookmakers"][0]["markets"][0]["outcomes"]
+        self.assertEqual({o["name"]:o["price"] for o in outcomes},
+                         {"Florida Panthers":1.80,"Buffalo Sabres":2.10})
