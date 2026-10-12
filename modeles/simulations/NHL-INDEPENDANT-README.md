@@ -27,6 +27,10 @@ Une date optionnelle --date AAAA-MM-JJ ne transforme PAS la prédiction en backt
 
 Pour voir la page comme site depuis un navigateur : Settings → Pages → Deploy from a branch → main → /docs. Le lien https://matttgic.github.io/Revue/nhl-model.html sera utilisable uniquement si GitHub Pages est activé et effectivement déployé.
 
+## Résultat du banc d'essai historique (12/10/2026)
+
+Rejoué sans fuite sur 2011-2021 contre les cotes réelles d'ouverture et de clôture ([fiche](../../recherche/hockey/banc-nhl-cloture-2011-2021.md)). Sur 2015-2021 (8 900 matchs), le modèle est moins juste que la cote d'ouverture (log-loss 0,6763 contre 0,6699). Parier ses écarts au marché (EV > 3 %) donne 4 450 paris, un ROI de −4,1 % [−7,1 ; −1,1] et un CLV de −2,8 % : verdict **abandon** pour une sélection par ce modèle seul.
+
 ## Ce que ce moteur NE fait PAS encore
 
 - Il ne reproduit pas le système complet Clairvoyance. Aucune copie fidèle des poids ou des backtests.
