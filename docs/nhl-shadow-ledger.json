@@ -1,6 +1,6 @@
 {
   "version": "nhl_clairvoyance_moneypuck_shadow_v1",
-  "updated_at_utc": "2026-10-12T16:45:55.617853+00:00",
+  "updated_at_utc": "2026-10-12T23:38:05.723749+00:00",
   "rule": "Immutable predictions only if created >=20 minutes before kickoff",
   "evaluation": "2-way NHL final including OT/SO; Brier mean; no wagers/ROI",
   "events": [
@@ -770,12 +770,13 @@
         "selection_rule": "Most games played, not projected/confirmed starters"
       },
       "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
-      "status": "pending",
-      "resolved_at_utc": null,
-      "result": null,
-      "home_goals": null,
-      "away_goals": null,
-      "brier": null
+      "status": "settled",
+      "resolved_at_utc": "2026-10-12T23:38:05.723749+00:00",
+      "result": 1,
+      "home_goals": 5,
+      "away_goals": 3,
+      "brier": 0.456976,
+      "research_brier": null
     },
     {
       "event_id": "2026020088",
@@ -1575,6 +1576,96 @@
           "name": "Jeremy Swayman",
           "games": 5,
           "save_pct": 0.9323
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "status": "pending",
+      "resolved_at_utc": null,
+      "result": null,
+      "home_goals": null,
+      "away_goals": null,
+      "brier": null,
+      "research_brier": null
+    },
+    {
+      "event_id": "2026020106",
+      "home": "WSH",
+      "away": "MTL",
+      "kickoff_utc": "2026-10-14T23:30:00+00:00",
+      "locked_at_utc": "2026-10-12T23:38:05.723749+00:00",
+      "source_prediction_at_utc": "2026-10-12T23:38:05.723749+00:00",
+      "home_win_probability": 0.6,
+      "away_win_probability": 0.4,
+      "research_home_win_probability": 0.549,
+      "research_model_id": "revue_nhl_low_sample_shrink_v1",
+      "source_updated_utc": {
+        "teams": "2026-10-12T10:31:55+00:00",
+        "goalies": "2026-10-12T10:31:55+00:00"
+      },
+      "source_snapshot_utc": {
+        "teams": "2026-10-12T16:01:47.498300+00:00",
+        "goalies": "2026-10-12T16:01:48.446310+00:00"
+      },
+      "xg_games_observed": {
+        "home": 5,
+        "away": 5
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Logan Thompson",
+          "games": 4,
+          "save_pct": 0.9018
+        },
+        "away": {
+          "name": "Jakub Dobes",
+          "games": 3,
+          "save_pct": 0.8571
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "status": "pending",
+      "resolved_at_utc": null,
+      "result": null,
+      "home_goals": null,
+      "away_goals": null,
+      "brier": null,
+      "research_brier": null
+    },
+    {
+      "event_id": "2026020107",
+      "home": "COL",
+      "away": "DAL",
+      "kickoff_utc": "2026-10-15T00:30:00+00:00",
+      "locked_at_utc": "2026-10-12T23:38:05.723749+00:00",
+      "source_prediction_at_utc": "2026-10-12T23:38:05.723749+00:00",
+      "home_win_probability": 0.395,
+      "away_win_probability": 0.605,
+      "research_home_win_probability": 0.521,
+      "research_model_id": "revue_nhl_low_sample_shrink_v1",
+      "source_updated_utc": {
+        "teams": "2026-10-12T10:31:55+00:00",
+        "goalies": "2026-10-12T10:31:55+00:00"
+      },
+      "source_snapshot_utc": {
+        "teams": "2026-10-12T16:01:47.498300+00:00",
+        "goalies": "2026-10-12T16:01:48.446310+00:00"
+      },
+      "xg_games_observed": {
+        "home": 5,
+        "away": 5
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Mackenzie Blackwood",
+          "games": 4,
+          "save_pct": 0.8673
+        },
+        "away": {
+          "name": "Jake Oettinger",
+          "games": 4,
+          "save_pct": 0.963
         },
         "selection_rule": "Most games played, not projected/confirmed starters"
       },
