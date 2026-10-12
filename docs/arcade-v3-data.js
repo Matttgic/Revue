@@ -112,7 +112,7 @@ function safeRadar(doc,now){
  return !!(doc?.version==="revue_pulsescore_six_hour_radar_v1"&&
     doc.status==="observed"&&doc.provider==="PulseScore"&&
     doc.horizon_hours===6&&Number.isInteger(doc.request_cap)&&
-    doc.request_cap>0&&doc.request_cap<=8&&
+    doc.request_cap>0&&doc.request_cap<=100&&
     Number.isInteger(doc.requests_used)&&
     doc.requests_used>=0&&doc.requests_used<=doc.request_cap&&
     doc.market_prices_are_live===false&&

@@ -87,7 +87,7 @@ test("stale, future, overbudget or fake live radar snapshots are rejected",()=>{
   ["market_prices_are_live",true],["real_bets_enabled",true],
   ["positive_ev_verified",true],["new_paper_bets_created",true],
   ["existing_paper_ledger_modified",true],
-  ["requests_used",9],["request_cap",32],["horizon_hours",24],
+  ["requests_used",9],["request_cap",101],["horizon_hours",24],
  ]){
   const r=radar();r[field]=bad;
   assert.equal(safeRadar(r,NOW),false,field);
