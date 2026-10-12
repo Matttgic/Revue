@@ -20,11 +20,8 @@ MAX_OBSERVATIONS_PER_PICK=36
 MIN_REPEAT=timedelta(minutes=15)
 
 def valid_hockey_period(market:dict)->bool:
-    period=str(market.get("period") or "").upper()
-    raw=str(market.get("raw_market_name") or "").lower()
-    return period in ("GAME_INCLUDING_OVERTIME","INCLUDING_OVERTIME") or any(
-        term in raw for term in ("incl ot","including overtime","overtime included",
-                                 "prolongations incl","avec prolongation"))
+    from outils.suivi.revue_engine_v2 import nhl_includes_overtime
+    return nhl_includes_overtime(market)
 
 def observe(ledger:dict,odds:dict,now:datetime)->dict:
     counts={"eligible_open":0,"new_observations":0,

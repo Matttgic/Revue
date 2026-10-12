@@ -59,9 +59,11 @@ class OddsBoardTests(unittest.TestCase):
             {"name":"New York Rangers","price":2.05}]
         b=build_board(nhl_model,{"NHL":[event]},NOW)
         self.assertEqual(b["events_count"],1)
-        self.assertTrue(all(m["period_rule"]=="overtime_rule_unverified"
-                        for m in b["events"][0]["bookmakers"][0]["markets"]))
-        self.assertEqual(b["events"][0]["bookmakers"][0]["markets"][0]["market"],"h2h")
+        rules={m["market"]:m["period_rule"] for m in b["events"][0]["bookmakers"][0]["markets"]}
+        # Résultat à 2 issues sans nul : forcément le vainqueur final (prolongation
+        # et tirs au but compris). Un total sans libellé reste non vérifié.
+        self.assertEqual(rules["h2h"],"including_ot_confirmed")
+        self.assertTrue(all(v=="overtime_rule_unverified" for k,v in rules.items() if k!="h2h"))
 
     def test_future_quote_timestamp_not_valid(self):
         e=quotes(NOW+timedelta(minutes=1))

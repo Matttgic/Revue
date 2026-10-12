@@ -36,6 +36,31 @@ SHARP_KEYS=(SHARP,"ps3838","orbit_exchange")
 # NHL : les cotes françaises retenues incluent la prolongation ; une référence
 # « 60 minutes » (temps réglementaire seul) n'est pas comparable.
 REGULATION_ONLY=("60 minute","regular time","regulation","tps rég","temps réglementaire")
+NHL_OT_LABELS=("incl ot","including ot","including overtime","overtime included",
+               "prolongation incl","prolongations incl","incluant prolongation",
+               "incl. prolongation","avec prolongation","prolongations et penaltys inclus",
+               "prolongation et tirs au but inclus")
+NOT_FULL_GAME=REGULATION_ONLY+("rembours","draw no bet","dnb")
+
+
+def nhl_includes_overtime(market:dict)->bool:
+    """NHL : la cote couvre-t-elle prolongation et tirs au but ?
+
+    Oui si le libellé ou la période le disent, ou si c'est un marché résultat
+    à 2 issues sans nul : au hockey, sans nul possible, c'est forcément le
+    vainqueur final (prolongation et tirs au but compris) ; 3 issues avec le
+    nul = temps réglementaire. Non si le libellé indique le temps réglementaire
+    ou « remboursé si nul » (2 issues, mais en temps réglementaire).
+    """
+    period=str(market.get("period") or "").upper()
+    label=str(market.get("raw_market_name") or "").lower()
+    if period in ("REGULAR_TIME","REGULATION","REGULATION_TIME") or any(x in label for x in NOT_FULL_GAME):
+        return False
+    if period in ("GAME_INCLUDING_OVERTIME","INCLUDING_OVERTIME") or any(x in label for x in NHL_OT_LABELS):
+        return True
+    outcomes=market.get("outcomes") or []
+    return (market.get("key")=="h2h" and len(outcomes)==2 and
+            not any(str(o.get("name") or "").lower()=="draw" for o in outcomes))
 SOURCED_BOOKS=sorted(FR_BOOKS | {SHARP})
 ODDS_SPORTS={
  "NBA":"basketball_nba","WNBA":"basketball_wnba","NCAAB":"basketball_ncaab",
@@ -265,17 +290,7 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                     # a hockey market includes OT. NHL model uses game incl OT.
                     is_pulse=str(event.get("id") or "").startswith("review:")
                     if league=="NHL" and is_pulse:
-                        label=str(market.get("raw_market_name") or "").lower()
-                        period=str(market.get("period") or "").upper()
-                        explicit_ot=(period in ("GAME_INCLUDING_OVERTIME","INCLUDING_OVERTIME")
-                            or any(fragment in label for fragment in (
-                                "incl ot","including ot","including overtime",
-                                "overtime included","prolongation incl",
-                                "prolongations incl","incluant prolongation",
-                                "incl. prolongation","avec prolongation",
-                                "prolongations et penaltys inclus",
-                                "prolongation et tirs au but inclus")))
-                        if not explicit_ot:
+                        if not nhl_includes_overtime(market):
                             diagnostics["nhl_overtime_market_not_verified"]+=1
                             continue
                     observed=quote_book_valid(book,market,now)
