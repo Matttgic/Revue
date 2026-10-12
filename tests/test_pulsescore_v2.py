@@ -115,9 +115,11 @@ class PulseScoreTests(unittest.TestCase):
     def test_no_future_with_probability_means_no_calls(self):
         m=models()
         m["competitions"]["PL"]["games"][0]["probabilities"]=None
-        with patch("outils.collecte.pulsescore_v2._request") as req:
+        with patch("outils.collecte.pulsescore_v2._request") as req, \
+             patch("outils.collecte.pulsescore_v2._get_json") as catalogue:
             odds,meta=scan("secret",m,NOW)
             req.assert_not_called()
+            catalogue.assert_not_called()
         self.assertEqual(meta["requests"],0)
         self.assertFalse(odds)
 
@@ -212,13 +214,93 @@ class ReferenceAndPacingTests(unittest.TestCase):
         def sleep(seconds):
             self.assertGreater(seconds,0)
             clock[0]+=seconds
+        def no_catalogue(book,sport,suffix,key,params):
+            calls.setdefault(book,[]).append(clock[0])
+            raise RuntimeError("HTTP 404 from PulseScore")
         with patch("outils.collecte.pulsescore_v2._request",side_effect=fake_request), \
+             patch("outils.collecte.pulsescore_v2._get_json",side_effect=no_catalogue), \
              patch("outils.collecte.pulsescore_v2.time.monotonic",side_effect=lambda:clock[0]):
             _,meta=scan("secret",models(),NOW,sleep=sleep)
+        # Catalogue indisponible : retour à la pagination, cadence toujours tenue.
+        self.assertEqual(len(meta["fallback_paging"]),5)
         self.assertGreater(meta["requests"],len(calls))
         for book,times in calls.items():
             for a,b in zip(times,times[1:]):
                 self.assertGreaterEqual(b-a,MIN_INTERVAL_PER_BOOK-1e-9,book)
+
+
+class LeagueModeTests(unittest.TestCase):
+    def fake_get(self,listing,seen):
+        def get(book,sport,suffix,key,params):
+            seen.append((book,suffix))
+            if suffix=="leagues":
+                return {"leagues":listing(book),"hasNextPage":False}
+            return {"events":[event()],"hasNextPage":False}
+        return get
+
+    def test_tracked_leagues_only_and_no_duplicate_quotes(self):
+        seen=[]
+        def listing(book):
+            if book=="ps3838":
+                return [{"name":"Egypt - Premier League"},{"name":"England - Premier League"}]
+            # Deux noms reconnus chez le même bookmaker renvoient le même match.
+            return [{"name":"Premier League","country":"Angleterre"},
+                    {"name":"Angleterre Premier League"},{"name":"Liga MX","country":"Mexique"}]
+        odds,meta=scan("k",models(),NOW,get=self.fake_get(listing,seen),fetch=lambda *a:self.fail("pagination"))
+        self.assertEqual(meta["collection_mode"],"league")
+        self.assertEqual(meta["fallback_paging"],[])
+        queried={(b,x) for b,x in seen if x!="leagues"}
+        self.assertIn(("ps3838","leagues/England%20-%20Premier%20League/events"),queried)
+        self.assertFalse(any("Egypt" in x or "Liga%20MX" in x for _,x in queried))
+        books=[b["key"] for b in odds["PL"][0]["bookmakers"]]
+        self.assertEqual(len(set(books)),len(books))
+        self.assertEqual(len(books),5)
+        self.assertEqual(meta["matched_by_book"],{b:1 for b in [*BOOKMAKERS,"ps3838"]})
+
+    def test_missing_league_falls_back_to_paging(self):
+        seen=[];paged=[]
+        def fetch(book,sport,key,page):
+            paged.append(book)
+            return [event()],False
+        odds,meta=scan("k",models(),NOW,get=self.fake_get(lambda book:[],seen),fetch=fetch)
+        self.assertEqual(len(meta["fallback_paging"]),5)
+        self.assertEqual(len(paged),5)
+        self.assertEqual(len(odds["PL"][0]["bookmakers"]),5)
+
+
+class RateLimitTests(unittest.TestCase):
+    def test_429_is_retried_after_waiting_then_succeeds(self):
+        import io,json as _json
+        from urllib.error import HTTPError
+        from email.message import Message
+        from outils.collecte.pulsescore_v2 import _get_json
+        headers=Message();headers["Retry-After"]="3"
+        answers=[HTTPError("u",429,"Too Many Requests",headers,None),
+                 io.BytesIO(_json.dumps({"leagues":[]}).encode())]
+        def fake_urlopen(request,timeout):
+            item=answers.pop(0)
+            if isinstance(item,Exception):raise item
+            item.__enter__=lambda self=item:self
+            return item
+        waits=[]
+        with patch("outils.collecte.pulsescore_v2.urlopen",side_effect=fake_urlopen), \
+             patch("outils.collecte.pulsescore_v2.time.sleep",side_effect=waits.append):
+            self.assertEqual(_get_json("pmu","soccer","leagues","k",{"page":1}),{"leagues":[]})
+        self.assertEqual(waits,[3.0])
+
+    def test_429_gives_up_after_retries_without_leaking_url(self):
+        from urllib.error import HTTPError
+        from outils.collecte.pulsescore_v2 import _get_json,RETRIES_429
+        calls=[]
+        def always_429(request,timeout):
+            calls.append(request.full_url)
+            raise HTTPError(request.full_url,429,"Too Many Requests",None,None)
+        with patch("outils.collecte.pulsescore_v2.urlopen",side_effect=always_429), \
+             patch("outils.collecte.pulsescore_v2.time.sleep"):
+            with self.assertRaises(RuntimeError) as ctx:
+                _get_json("pmu","soccer","leagues","k",{"page":1})
+        self.assertEqual(len(calls),RETRIES_429+1)
+        self.assertEqual(str(ctx.exception),"HTTP 429 from PulseScore pmu/soccer")
 
 if __name__=="__main__":
     unittest.main()
