@@ -1,6 +1,6 @@
 {
   "version": "revue_prospective_paper_calibration_v1",
-  "generated_at_utc": "2026-10-12T02:38:06.306263+00:00",
+  "generated_at_utc": "2026-10-12T09:43:08.772329+00:00",
   "status": "prospective_probabilities_descriptive_not_calibrated",
   "source": "immutable engine-v2-ledger.json only",
   "predictions_published_before_start_only": true,
@@ -13,17 +13,17 @@
   "selection_outcome_semantics": "won=1, lost=0; push/unknown excluded; evaluate each selected event vs its complement",
   "min_independent_fixtures_for_preliminary_evaluation": 100,
   "total": {
-    "count": 30,
-    "distinct_events": 30,
-    "wins": 12,
-    "observed_frequency": 0.4,
-    "mean_model_probability": 0.460313,
-    "mean_bookmaker_implied_probability": 0.390712,
-    "brier_model": 0.239159,
-    "brier_bookmaker_raw": 0.218083,
-    "log_loss_model": 0.671465,
-    "log_loss_bookmaker_raw": 0.62838,
-    "brier_delta_model_minus_bookmaker": 0.021076,
+    "count": 32,
+    "distinct_events": 32,
+    "wins": 14,
+    "observed_frequency": 0.4375,
+    "mean_model_probability": 0.464703,
+    "mean_bookmaker_implied_probability": 0.396114,
+    "brier_model": 0.238162,
+    "brier_bookmaker_raw": 0.221767,
+    "log_loss_model": 0.669429,
+    "log_loss_bookmaker_raw": 0.635858,
+    "brier_delta_model_minus_bookmaker": 0.016395,
     "status": "insufficient_sample",
     "independent_fixture_count_warning": null
   },
@@ -70,6 +70,20 @@
       "brier_delta_model_minus_bookmaker": 0.017796,
       "status": "insufficient_sample"
     },
+    "MLB": {
+      "count": 1,
+      "distinct_events": 1,
+      "wins": 1,
+      "observed_frequency": 1.0,
+      "mean_model_probability": 0.5837,
+      "mean_bookmaker_implied_probability": 0.537634,
+      "brier_model": 0.173306,
+      "brier_bookmaker_raw": 0.213782,
+      "log_loss_model": 0.538368,
+      "log_loss_bookmaker_raw": 0.620576,
+      "brier_delta_model_minus_bookmaker": -0.040476,
+      "status": "insufficient_sample"
+    },
     "MLS": {
       "count": 5,
       "distinct_events": 5,
@@ -85,17 +99,17 @@
       "status": "insufficient_sample"
     },
     "NFL": {
-      "count": 8,
-      "distinct_events": 8,
-      "wins": 2,
-      "observed_frequency": 0.25,
-      "mean_model_probability": 0.486762,
-      "mean_bookmaker_implied_probability": 0.378132,
-      "brier_model": 0.231089,
-      "brier_bookmaker_raw": 0.161294,
-      "log_loss_model": 0.654997,
-      "log_loss_bookmaker_raw": 0.508888,
-      "brier_delta_model_minus_bookmaker": 0.069795,
+      "count": 9,
+      "distinct_events": 9,
+      "wins": 3,
+      "observed_frequency": 0.333333,
+      "mean_model_probability": 0.485722,
+      "mean_bookmaker_implied_probability": 0.382414,
+      "brier_model": 0.235758,
+      "brier_bookmaker_raw": 0.181181,
+      "log_loss_model": 0.664375,
+      "log_loss_bookmaker_raw": 0.549619,
+      "brier_delta_model_minus_bookmaker": 0.054577,
       "status": "insufficient_sample"
     },
     "PL": {
@@ -129,7 +143,7 @@
   },
   "excluded": {
     "unsafe_or_ambiguous": 13,
-    "pending": 10
+    "pending": 8
   },
   "note": "A descriptive evaluation on prospective, locked, graded simulations. Low Brier/LogLoss is better, but 1/price includes vig. Small, correlated samples cannot demonstrate betting advantage."
 }
