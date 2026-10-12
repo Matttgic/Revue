@@ -78,9 +78,11 @@ class RadarTests(unittest.TestCase):
             compute(models(),NOW,key="fake",scanner=bad)
 
     def test_cap_covers_whole_catalogue_without_runaway(self):
-        # Accès Pro illimité : le plafond couvre tout le catalogue, sans plus.
+        # Accès Pro illimité : le plafond couvre bookmakers français + PS3838 sur
+        # tous les sports (Orbit Exchange ne sert que pour la NHL), sans plus.
         self.assertEqual(MAX_CALLS,PULSE_MAX_CALLS)
-        self.assertEqual(PULSE_MAX_CALLS,len(set(SPORT_GROUPS.values()))*len(SCAN_BOOKS)*MAX_PAGES)
+        self.assertEqual(PULSE_MAX_CALLS,len(set(SPORT_GROUPS.values()))*(len(BOOKMAKERS)+1)*MAX_PAGES)
+        self.assertEqual(len(SCAN_BOOKS),len(BOOKMAKERS)+2)
         self.assertEqual(HORIZON_HOURS,6)
         self.assertEqual(len(BOOKMAKERS),4)
 

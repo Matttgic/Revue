@@ -29,8 +29,18 @@ BOOKMAKERS={
 }
 # Le « netbet » de PulseScore est netbet.co.uk (UK), pas NetBet France : exclu.
 # PS3838 sert uniquement de référence sharp (jamais parié, jamais appelé Pinnacle).
-REFERENCE_BOOKS={"ps3838":"ps3838"}
+# Orbit Exchange (bourse adossée à la liquidité Betfair) : référence pour la NHL,
+# absente de PS3838. Prix « back » de la bourse ; jamais parié.
+REFERENCE_BOOKS={"ps3838":"ps3838","orbit_exchange":"orbitxch"}
 SCAN_BOOKS={**BOOKMAKERS,**REFERENCE_BOOKS}
+# Une référence n'est interrogée que pour les sports où elle sert (appels économisés).
+REFERENCE_SPORTS={"orbit_exchange":{"ice-hockey"}}
+# Bourse : un prix sans au moins 20 £ disponibles n'est pas une référence fiable.
+MIN_EXCHANGE_LIQUIDITY=20.0
+
+
+def books_for(sport:str)->list[str]:
+    return [b for b in SCAN_BOOKS if sport in REFERENCE_SPORTS.get(b,{sport})]
 # Offre Pro : 1 requête par seconde et par bookmaker.
 MIN_INTERVAL_PER_BOOK=1.1
 SPORT_GROUPS={
@@ -175,6 +185,13 @@ def translate_market(m:dict,event:dict,observed:datetime) -> dict|None:
             if not 1.0<price<=100:continue
         except (KeyError,ValueError,TypeError):
             continue
+        back=selection.get("back")
+        if isinstance(back,list) and back:
+            try:
+                liquidity=float(back[0].get("liquidity"))
+            except (AttributeError,TypeError,ValueError):
+                liquidity=None
+            if liquidity is None or liquidity<MIN_EXCHANGE_LIQUIDITY:continue
         record={"name":name,"price":price}
         if market=="totals":
             try:
@@ -266,9 +283,10 @@ def scan(key:str,models:dict,now:datetime,
     sport_order=sorted(sports,key=lambda sport:earliest[sport])
     first="listing" if league_mode else "events"
     # Task = (sport, book, kind, league name or None, page).
-    tasks=(deque((sport,b,first,None,1) for b in SCAN_BOOKS for sport in sport_order)
+    tasks=(deque((sport,b,first,None,1) for b in SCAN_BOOKS for sport in sport_order
+                 if b in books_for(sport))
            if balanced else
-           deque((sport,b,first,None,1) for sport in sport_order for b in SCAN_BOOKS))
+           deque((sport,b,first,None,1) for sport in sport_order for b in books_for(sport)))
     results=defaultdict(dict)
     added=set()
     found=defaultdict(set)

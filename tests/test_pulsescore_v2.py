@@ -188,8 +188,8 @@ class ReferenceAndPacingTests(unittest.TestCase):
                     {"canonicalOutcome":"AWAY","odds":4.80}]}]
             return [e],False
         odds,meta=scan("secret",models(),NOW,fetch=fake)
-        self.assertEqual(set(REFERENCE_BOOKS),{"ps3838"})
-        self.assertNotIn("ps3838",FR_BOOKS)
+        self.assertEqual(set(REFERENCE_BOOKS),{"ps3838","orbit_exchange"})
+        self.assertFalse(set(REFERENCE_BOOKS)&FR_BOOKS)
         self.assertEqual(meta["matched_by_book"].get("ps3838"),1)
         self.assertIn("ps3838",{b["key"] for b in odds["PL"][0]["bookmakers"]})
         with patch("outils.collecte.pulsescore_v2.scan",return_value=(odds,meta)):
@@ -304,3 +304,27 @@ class RateLimitTests(unittest.TestCase):
 
 if __name__=="__main__":
     unittest.main()
+
+
+class ExchangeCollectionTests(unittest.TestCase):
+    def test_exchange_only_queried_for_ice_hockey(self):
+        m=models()
+        m["competitions"]["NHL"]={"games":[{"event_id":"nhl1","home":"Boston Bruins",
+            "away":"New York Rangers","start_utc":when(NOW+timedelta(hours=5)),
+            "status":"prototype_non_calibre","probabilities":{"home_win":.5,"away_win":.5}}]}
+        seen=[]
+        def fake(book,sport,key,page):
+            seen.append((book,sport))
+            return [],False
+        scan("k",m,NOW,fetch=fake)
+        self.assertEqual({s for b,s in seen if b=="orbitxch"},{"ice-hockey"})
+        self.assertEqual({s for b,s in seen if b=="ps3838"},{"soccer","ice-hockey"})
+
+    def test_thin_exchange_prices_are_ignored(self):
+        def selections(liquidity):
+            return [{"canonicalOutcome":o,"odds":p,"back":[{"price":p,"liquidity":liquidity}]}
+                    for o,p in (("HOME",1.9),("DRAW",3.6),("AWAY",4.2))]
+        raw={"canonicalMarket":"MATCH_RESULT","period":"FULL_TIME","rawName":"Match Odds"}
+        ev={"home":"Arsenal","away":"Leeds United"}
+        self.assertIsNone(translate_market({**raw,"selections":selections(5)},ev,NOW))
+        self.assertEqual(len(translate_market({**raw,"selections":selections(250)},ev,NOW)["outcomes"]),3)
