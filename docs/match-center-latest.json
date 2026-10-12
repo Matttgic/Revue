@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-12T18:57:34.977222+00:00",
+  "generated_at_utc": "2026-10-12T19:46:52.876470+00:00",
   "status": "experimental_revue_match_center",
   "source": "Revue first-party independently generated fixture/model/quote snapshots",
   "timezone": "Europe/Paris",
@@ -9,422 +9,28 @@
   "validated_value_bets": 0,
   "real_bets_enabled": false,
   "metrics": {
-    "upcoming_matches": 62,
-    "with_observed_bookmaker_quotes": 5,
-    "with_observed_totals": 5,
+    "upcoming_matches": 60,
+    "with_observed_bookmaker_quotes": 3,
+    "with_observed_totals": 3,
     "with_nhl_player_profiles": 18,
-    "with_comparable_market_prices": 3,
-    "with_research_model": 41,
+    "with_comparable_market_prices": 1,
+    "with_research_model": 39,
     "with_phase10_research": 11,
     "with_verified_espn_goalie_observation": 18,
-    "with_official_mlb_probable_pitchers": 3,
-    "leagues": 10
+    "with_official_mlb_probable_pitchers": 0,
+    "leagues": 8
   },
   "leagues": [
-    "LALIGA",
     "LIIGA",
     "MLB",
     "NBA",
     "NFL",
     "NHL",
-    "PL",
     "UCL",
     "UFC",
     "WNBA"
   ],
   "events": [
-    {
-      "key": "LALIGA:401882852",
-      "league": "LALIGA",
-      "sport": "Football",
-      "event_id": "401882852",
-      "home": "Levante",
-      "away": "Sevilla",
-      "start_utc": "2026-10-12T19:00:00+00:00",
-      "start_paris": "2026-10-12T21:00:00+02:00",
-      "local_day": "2026-10-12",
-      "research": [
-        {
-          "id": "football_espn_advanced_shadow",
-          "label": "Football avancé ESPN",
-          "probabilities": {
-            "home_win_90": 0.39949,
-            "draw_90": 0.25817,
-            "away_win_90": 0.34234,
-            "over_2_5": 0.56627
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:17:14.150105+00:00"
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win_90": 0.3986,
-            "draw_90": 0.2429,
-            "away_win_90": 0.3585,
-            "over_2_5": 0.5754
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:17:10.216638+00:00"
-        }
-      ],
-      "quotes": [
-        {
-          "bookmaker": "pmu_fr",
-          "market": "h2h",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "outcomes": {
-            "home": 2.65,
-            "draw": 3.1,
-            "away": 2.6
-          },
-          "rule_verified": true
-        }
-      ],
-      "totals_quotes": [
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 2.5,
-              "over": 1.94,
-              "under": 1.65
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 1.5,
-              "over": 1.26,
-              "under": 3.05
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 4.5,
-              "over": 7.0,
-              "under": 1.02
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 3.5,
-              "over": 3.45,
-              "under": 1.2
-            }
-          ]
-        }
-      ],
-      "player_profiles": [],
-      "market_status": "observed_price_not_live",
-      "status": "upcoming",
-      "model_status": "prototype_non_calibre",
-      "price_comparison": {
-        "market": "h2h",
-        "rule": "90min",
-        "books_compared": 1,
-        "highest_observed_prices": {
-          "away": {
-            "bookmaker": "pmu_fr",
-            "price": 2.6,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
-          },
-          "draw": {
-            "bookmaker": "pmu_fr",
-            "price": 3.1,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
-          },
-          "home": {
-            "bookmaker": "pmu_fr",
-            "price": 2.65,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
-          }
-        },
-        "lowest_bookmaker_overround": 0.084555,
-        "lowest_overround_bookmaker": "pmu_fr",
-        "no_ev_claim": true,
-        "no_guaranteed_arbitrage": true
-      },
-      "recommendation": null,
-      "ev": null,
-      "qualified_for_real_betting": false
-    },
-    {
-      "key": "PL:401879267",
-      "league": "PL",
-      "sport": "Football",
-      "event_id": "401879267",
-      "home": "Coventry",
-      "away": "Newcastle",
-      "start_utc": "2026-10-12T19:00:00+00:00",
-      "start_paris": "2026-10-12T21:00:00+02:00",
-      "local_day": "2026-10-12",
-      "research": [
-        {
-          "id": "football_espn_advanced_shadow",
-          "label": "Football avancé ESPN",
-          "probabilities": {
-            "home_win_90": 0.25807,
-            "draw_90": 0.2557,
-            "away_win_90": 0.48623,
-            "over_2_5": 0.52189
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:17:14.150105+00:00"
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win_90": 0.2809,
-            "draw_90": 0.2394,
-            "away_win_90": 0.4798,
-            "over_2_5": 0.538
-          },
-          "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:17:10.216638+00:00"
-        }
-      ],
-      "quotes": [
-        {
-          "bookmaker": "betclic_fr",
-          "market": "h2h",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "outcomes": {
-            "home": 3.33,
-            "draw": 3.6,
-            "away": 2.03
-          },
-          "rule_verified": true
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "h2h",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "outcomes": {
-            "home": 3.4,
-            "draw": 3.55,
-            "away": 1.97
-          },
-          "rule_verified": true
-        },
-        {
-          "bookmaker": "unibet_fr",
-          "market": "h2h",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "outcomes": {
-            "home": 3.3,
-            "draw": 3.6,
-            "away": 1.97
-          },
-          "rule_verified": true
-        }
-      ],
-      "totals_quotes": [
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 0.5,
-              "over": 1.02,
-              "under": 15.75
-            }
-          ]
-        },
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 1.5,
-              "over": 1.16,
-              "under": 4.4
-            }
-          ]
-        },
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 2.5,
-              "over": 1.56,
-              "under": 2.18
-            }
-          ]
-        },
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 3.5,
-              "over": 2.35,
-              "under": 1.48
-            }
-          ]
-        },
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 4.5,
-              "over": 3.95,
-              "under": 1.18
-            }
-          ]
-        },
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 5.5,
-              "over": 8.75,
-              "under": 1.06
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 4.5,
-              "over": 4.5,
-              "under": 1.11
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 2.5,
-              "over": 1.55,
-              "under": 2.1
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 1.5,
-              "over": 1.13,
-              "under": 4.3
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "90min",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 3.5,
-              "over": 2.43,
-              "under": 1.4
-            }
-          ]
-        }
-      ],
-      "player_profiles": [],
-      "market_status": "observed_price_not_live",
-      "status": "upcoming",
-      "model_status": "prototype_non_calibre",
-      "price_comparison": {
-        "market": "h2h",
-        "rule": "90min",
-        "books_compared": 3,
-        "highest_observed_prices": {
-          "away": {
-            "bookmaker": "betclic_fr",
-            "price": 2.03,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
-          },
-          "draw": {
-            "bookmaker": "betclic_fr",
-            "price": 3.6,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
-          },
-          "home": {
-            "bookmaker": "pmu_fr",
-            "price": 3.4,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
-          }
-        },
-        "lowest_bookmaker_overround": 0.070689,
-        "lowest_overround_bookmaker": "betclic_fr",
-        "no_ev_claim": true,
-        "no_guaranteed_arbitrage": true
-      },
-      "recommendation": null,
-      "ev": null,
-      "qualified_for_real_betting": false
-    },
     {
       "key": "NBA:401914130",
       "league": "NBA",
@@ -476,7 +82,7 @@
             "away_win": 0.392
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -494,7 +100,7 @@
           "bookmaker": "betclic_fr",
           "market": "h2h",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "outcomes": {
             "home": 2.1,
             "away": 1.72
@@ -505,10 +111,10 @@
           "bookmaker": "pmu_fr",
           "market": "h2h",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "outcomes": {
-            "home": 1.95,
-            "away": 1.6
+            "home": 1.97,
+            "away": 1.58
           },
           "rule_verified": true
         },
@@ -516,7 +122,7 @@
           "bookmaker": "unibet_fr",
           "market": "h2h",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "outcomes": {
             "home": 1.93,
             "away": 1.61
@@ -527,7 +133,7 @@
           "bookmaker": "winamax_fr",
           "market": "h2h",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "outcomes": {
             "home": 2.05,
             "away": 1.7
@@ -540,13 +146,27 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 4.5,
+              "over": 1.27,
+              "under": 3.45
+            }
+          ]
+        },
+        {
+          "bookmaker": "betclic_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 5.5,
-              "over": 1.45,
-              "under": 2.55
+              "over": 1.51,
+              "under": 2.4
             }
           ]
         },
@@ -554,13 +174,13 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 6.5,
-              "over": 1.65,
-              "under": 2.11
+              "over": 1.74,
+              "under": 1.98
             }
           ]
         },
@@ -568,41 +188,41 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 7.5,
+              "over": 2.19,
+              "under": 1.6
+            }
+          ]
+        },
+        {
+          "bookmaker": "betclic_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 8.5,
+              "over": 2.6,
+              "under": 1.43
+            }
+          ]
+        },
+        {
+          "bookmaker": "pmu_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 7.5,
               "over": 2.05,
-              "under": 1.69
-            }
-          ]
-        },
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 8.5,
-              "over": 2.43,
-              "under": 1.49
-            }
-          ]
-        },
-        {
-          "bookmaker": "betclic_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 9.5,
-              "over": 3.15,
-              "under": 1.31
+              "under": 1.52
             }
           ]
         },
@@ -610,27 +230,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 7.5,
-              "over": 1.94,
-              "under": 1.57
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 7.0,
-              "over": 1.72,
-              "under": 1.76
+              "over": 1.81,
+              "under": 1.68
             }
           ]
         },
@@ -638,13 +244,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 8.5,
-              "over": 2.33,
-              "under": 1.38
+              "over": 2.48,
+              "under": 1.34
             }
           ]
         },
@@ -652,13 +258,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 5.5,
-              "over": 1.35,
-              "under": 2.45
+              "over": 1.38,
+              "under": 2.35
             }
           ]
         },
@@ -666,13 +272,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 6.0,
-              "over": 1.42,
-              "under": 2.25
+              "over": 1.46,
+              "under": 2.14
             }
           ]
         },
@@ -680,13 +286,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 6.5,
-              "over": 1.54,
-              "under": 2.0
+              "over": 1.6,
+              "under": 1.9
             }
           ]
         },
@@ -694,13 +300,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 8.0,
-              "over": 2.17,
-              "under": 1.46
+              "over": 2.3,
+              "under": 1.4
             }
           ]
         },
@@ -708,13 +314,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 4.5,
-              "over": 1.15,
-              "under": 3.6
+              "over": 1.16,
+              "under": 3.45
             }
           ]
         },
@@ -722,26 +328,12 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 9.0,
-              "over": 2.8,
-              "under": 1.26
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 9.5,
-              "over": 3.05,
+              "over": 3.0,
               "under": 1.22
             }
           ]
@@ -750,125 +342,139 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 5.0,
-              "over": 1.19,
-              "under": 3.2
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 10.0,
-              "over": 3.55,
-              "under": 1.15
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 10.5,
-              "over": 3.75,
-              "under": 1.13
-            }
-          ]
-        },
-        {
-          "bookmaker": "pmu_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 11.0,
-              "over": 4.6,
-              "under": 1.07
-            }
-          ]
-        },
-        {
-          "bookmaker": "winamax_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 5.5,
-              "over": 1.41,
-              "under": 2.45
-            }
-          ]
-        },
-        {
-          "bookmaker": "winamax_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 6.5,
-              "over": 1.6,
-              "under": 2.0
-            }
-          ]
-        },
-        {
-          "bookmaker": "winamax_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 7.5,
-              "over": 1.98,
-              "under": 1.62
-            }
-          ]
-        },
-        {
-          "bookmaker": "winamax_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
-          "rule_verified": true,
-          "lines": [
-            {
-              "line": 8.5,
-              "over": 2.35,
-              "under": 1.45
-            }
-          ]
-        },
-        {
-          "bookmaker": "winamax_fr",
-          "market": "totals",
-          "rule": "game_result",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": true,
           "lines": [
             {
               "line": 9.5,
-              "over": 3.1,
-              "under": 1.29
+              "over": 3.25,
+              "under": 1.19
+            }
+          ]
+        },
+        {
+          "bookmaker": "pmu_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 5.0,
+              "over": 1.22,
+              "under": 3.05
+            }
+          ]
+        },
+        {
+          "bookmaker": "pmu_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 10.0,
+              "over": 3.85,
+              "under": 1.12
+            }
+          ]
+        },
+        {
+          "bookmaker": "pmu_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 10.5,
+              "over": 4.0,
+              "under": 1.11
+            }
+          ]
+        },
+        {
+          "bookmaker": "pmu_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 11.0,
+              "over": 5.1,
+              "under": 1.05
+            }
+          ]
+        },
+        {
+          "bookmaker": "winamax_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 4.5,
+              "over": 1.24,
+              "under": 3.45
+            }
+          ]
+        },
+        {
+          "bookmaker": "winamax_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 5.5,
+              "over": 1.46,
+              "under": 2.3
+            }
+          ]
+        },
+        {
+          "bookmaker": "winamax_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 6.5,
+              "over": 1.66,
+              "under": 1.92
+            }
+          ]
+        },
+        {
+          "bookmaker": "winamax_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 7.5,
+              "over": 2.1,
+              "under": 1.56
+            }
+          ]
+        },
+        {
+          "bookmaker": "winamax_fr",
+          "market": "totals",
+          "rule": "game_result",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
+          "rule_verified": true,
+          "lines": [
+            {
+              "line": 8.5,
+              "over": 2.5,
+              "under": 1.4
             }
           ]
         }
@@ -877,19 +483,7 @@
       "market_status": "observed_price_not_live",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
-      "observed_mlb_probable_pitchers": {
-        "observed_at_utc": "2026-10-12T07:37:18.255158+00:00",
-        "home": {
-          "name": "Logan Henderson",
-          "status": "probable_unconfirmed"
-        },
-        "away": {
-          "name": "Yoshinobu Yamamoto",
-          "status": "probable_unconfirmed"
-        },
-        "confirmed_actual_starters": false,
-        "model_probabilities_recomputed": false
-      },
+      "observed_mlb_probable_pitchers": null,
       "price_comparison": {
         "market": "h2h",
         "rule": "game_result",
@@ -898,12 +492,12 @@
           "away": {
             "bookmaker": "betclic_fr",
             "price": 1.72,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
+            "quote_at_utc": "2026-10-12T19:46:16.490067+00:00"
           },
           "home": {
             "bookmaker": "betclic_fr",
             "price": 2.1,
-            "quote_at_utc": "2026-10-12T17:47:54.201562+00:00"
+            "quote_at_utc": "2026-10-12T19:46:16.490067+00:00"
           }
         },
         "lowest_bookmaker_overround": 0.057586,
@@ -934,7 +528,7 @@
             "away_win": 0.56665
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -944,7 +538,7 @@
             "away_win": 0.582672
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -954,7 +548,7 @@
             "away_win": 0.602255
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -987,7 +581,7 @@
             "away_win": 0.51538
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -997,7 +591,7 @@
             "away_win": 0.502828
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -1007,7 +601,7 @@
             "away_win": 0.487487
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -1073,7 +667,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1087,7 +681,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1101,7 +695,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1115,7 +709,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1129,7 +723,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1143,7 +737,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1157,7 +751,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1171,7 +765,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1185,7 +779,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1199,7 +793,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1213,7 +807,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1227,13 +821,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
               "line": 5.5,
-              "over": 1.67,
-              "under": 1.78
+              "over": 1.6,
+              "under": 1.85
             }
           ]
         },
@@ -1241,13 +835,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
               "line": 6.5,
-              "over": 2.45,
-              "under": 1.32
+              "over": 2.33,
+              "under": 1.36
             }
           ]
         },
@@ -1255,13 +849,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
               "line": 3.5,
-              "over": 1.07,
-              "under": 4.4
+              "over": 1.05,
+              "under": 4.6
             }
           ]
         },
@@ -1269,13 +863,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
               "line": 7.5,
-              "over": 3.6,
-              "under": 1.13
+              "over": 3.4,
+              "under": 1.15
             }
           ]
         },
@@ -1283,13 +877,13 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
               "line": 8.5,
-              "over": 5.6,
-              "under": 1.01
+              "over": 5.3,
+              "under": 1.03
             }
           ]
         },
@@ -1297,7 +891,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1311,7 +905,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1325,7 +919,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1339,7 +933,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1353,7 +947,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1367,7 +961,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1501,7 +1095,7 @@
             "away_win": 0.45
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -1511,7 +1105,7 @@
             "away_win": 0.429807
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -1521,7 +1115,7 @@
             "away_win": 0.405127
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -1564,7 +1158,7 @@
             "away_win": 0.401
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_multisports_score_model",
@@ -1583,19 +1177,7 @@
       "market_status": "no_verified_quote",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
-      "observed_mlb_probable_pitchers": {
-        "observed_at_utc": "2026-10-12T07:37:18.255158+00:00",
-        "home": {
-          "name": "Drew Rasmussen",
-          "status": "probable_unconfirmed"
-        },
-        "away": {
-          "name": "Foster Griffin",
-          "status": "probable_unconfirmed"
-        },
-        "confirmed_actual_starters": false,
-        "model_probabilities_recomputed": false
-      },
+      "observed_mlb_probable_pitchers": null,
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -1653,7 +1235,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1667,7 +1249,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1681,7 +1263,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1695,7 +1277,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1709,7 +1291,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1723,7 +1305,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1737,7 +1319,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1751,7 +1333,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1765,7 +1347,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1779,7 +1361,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1793,7 +1375,7 @@
           "bookmaker": "betclic_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1807,7 +1389,7 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1821,7 +1403,7 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1835,7 +1417,7 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1849,7 +1431,7 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1863,7 +1445,7 @@
           "bookmaker": "pmu_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1877,7 +1459,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1891,7 +1473,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1905,7 +1487,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1919,7 +1501,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1933,7 +1515,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -1947,7 +1529,7 @@
           "bookmaker": "winamax_fr",
           "market": "totals",
           "rule": "overtime_rule_unverified",
-          "quote_at_utc": "2026-10-12T17:47:54.201562+00:00",
+          "quote_at_utc": "2026-10-12T19:46:16.490067+00:00",
           "rule_verified": false,
           "lines": [
             {
@@ -2204,7 +1786,7 @@
             "away_win": 0.66586
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -2214,7 +1796,7 @@
             "away_win": 0.681541
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -2224,7 +1806,7 @@
             "away_win": 0.700706
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -3303,7 +2885,7 @@
             "away_win": 0.51619
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -3313,7 +2895,7 @@
             "away_win": 0.515659
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -3323,7 +2905,7 @@
             "away_win": 0.515011
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -3356,7 +2938,7 @@
             "away_win": 0.49368
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -3366,7 +2948,7 @@
             "away_win": 0.503653
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -3376,7 +2958,7 @@
             "away_win": 0.515843
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -4419,13 +4001,7 @@
       "market_status": "no_verified_quote",
       "status": "upcoming",
       "model_status": "prototype_non_calibre",
-      "observed_mlb_probable_pitchers": {
-        "observed_at_utc": "2026-10-12T07:37:18.255158+00:00",
-        "home": null,
-        "away": null,
-        "confirmed_actual_starters": false,
-        "model_probabilities_recomputed": false
-      },
+      "observed_mlb_probable_pitchers": null,
       "price_comparison": null,
       "recommendation": null,
       "ev": null,
@@ -4450,7 +4026,7 @@
             "away_win": 0.24069
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -4460,7 +4036,7 @@
             "away_win": 0.244416
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -4470,7 +4046,7 @@
             "away_win": 0.248969
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -5815,7 +5391,7 @@
             "away_win": 0.43848
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -5825,7 +5401,7 @@
             "away_win": 0.428227
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -5835,7 +5411,7 @@
             "away_win": 0.415696
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -5868,7 +5444,7 @@
             "away_win": 0.61638
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_consensus_v1",
@@ -5878,7 +5454,7 @@
             "away_win": 0.616779
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         },
         {
           "id": "revue_nba_prior_elo_regressed_v1",
@@ -5888,7 +5464,7 @@
             "away_win": 0.617266
           },
           "calibrated": false,
-          "source_generated_utc": "2026-10-12T18:57:34.940109+00:00"
+          "source_generated_utc": "2026-10-12T19:46:52.840562+00:00"
         }
       ],
       "quotes": [],
@@ -6878,16 +6454,64 @@
   "official_results_count": 17,
   "scoreboard_observed": [
     {
+      "league": "PL",
+      "event_id": "401879267",
+      "home": "Coventry",
+      "away": "Newcastle",
+      "kickoff_utc": "2026-10-12T19:00:00+00:00",
+      "state": "in_progress",
+      "home_score": 1,
+      "away_score": 0,
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
+      "source": "ESPN scoreboard"
+    },
+    {
+      "league": "LALIGA",
+      "event_id": "401882852",
+      "home": "Levante",
+      "away": "Sevilla",
+      "kickoff_utc": "2026-10-12T19:00:00+00:00",
+      "state": "in_progress",
+      "home_score": 0,
+      "away_score": 1,
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
+      "source": "ESPN scoreboard"
+    },
+    {
+      "league": "SERIEA",
+      "event_id": "401874763",
+      "home": "Torino",
+      "away": "Udinese",
+      "kickoff_utc": "2026-10-12T18:45:00+00:00",
+      "state": "in_progress",
+      "home_score": 1,
+      "away_score": 1,
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
+      "source": "ESPN scoreboard"
+    },
+    {
       "league": "NHL",
       "event_id": "2026020087",
       "home": "BUF",
       "away": "FLA",
       "kickoff_utc": "2026-10-12T17:00:00+00:00",
-      "state": "in_progress",
-      "home_score": 3,
+      "state": "final",
+      "home_score": 5,
       "away_score": 3,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "NHL official scoreboard"
+    },
+    {
+      "league": "SERIEA",
+      "event_id": "401875005",
+      "home": "Atalanta",
+      "away": "Venezia",
+      "kickoff_utc": "2026-10-12T16:30:00+00:00",
+      "state": "final",
+      "home_score": 3,
+      "away_score": 1,
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
+      "source": "ESPN scoreboard"
     },
     {
       "league": "NBA",
@@ -6898,7 +6522,7 @@
       "state": "final",
       "home_score": 133,
       "away_score": 128,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -6910,7 +6534,7 @@
       "state": "final",
       "home_score": 23,
       "away_score": 30,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -6922,7 +6546,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -6934,7 +6558,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 4,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -6946,7 +6570,7 @@
       "state": "final",
       "home_score": 105,
       "away_score": 90,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -6958,7 +6582,7 @@
       "state": "final",
       "home_score": 6,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -6970,7 +6594,7 @@
       "state": "final",
       "home_score": 119,
       "away_score": 105,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -6982,7 +6606,7 @@
       "state": "final",
       "home_score": 6,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -6994,7 +6618,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 5,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "NHL official scoreboard"
     },
     {
@@ -7006,7 +6630,7 @@
       "state": "final",
       "home_score": 29,
       "away_score": 32,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7018,7 +6642,7 @@
       "state": "final",
       "home_score": 21,
       "away_score": 45,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7030,7 +6654,7 @@
       "state": "final",
       "home_score": 17,
       "away_score": 23,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7042,7 +6666,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7054,7 +6678,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7066,7 +6690,7 @@
       "state": "final",
       "home_score": 0,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7078,7 +6702,7 @@
       "state": "final",
       "home_score": 31,
       "away_score": 7,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7090,7 +6714,7 @@
       "state": "final",
       "home_score": 27,
       "away_score": 27,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7102,7 +6726,7 @@
       "state": "final",
       "home_score": 13,
       "away_score": 23,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7114,7 +6738,7 @@
       "state": "final",
       "home_score": 45,
       "away_score": 17,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7126,7 +6750,7 @@
       "state": "final",
       "home_score": 34,
       "away_score": 22,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7138,7 +6762,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 26,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7150,7 +6774,7 @@
       "state": "final",
       "home_score": 17,
       "away_score": 12,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7162,7 +6786,7 @@
       "state": "final",
       "home_score": 24,
       "away_score": 31,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7174,7 +6798,7 @@
       "state": "final",
       "home_score": 5,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7186,7 +6810,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7198,7 +6822,7 @@
       "state": "final",
       "home_score": 0,
       "away_score": 3,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7210,7 +6834,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7222,7 +6846,7 @@
       "state": "final",
       "home_score": 4,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7234,7 +6858,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7246,7 +6870,7 @@
       "state": "final",
       "home_score": 19,
       "away_score": 17,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7258,7 +6882,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7270,7 +6894,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7282,7 +6906,7 @@
       "state": "final",
       "home_score": 1,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7294,7 +6918,7 @@
       "state": "final",
       "home_score": 3,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7306,7 +6930,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 2,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7318,7 +6942,7 @@
       "state": "final",
       "home_score": 2,
       "away_score": 1,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7330,7 +6954,7 @@
       "state": "final",
       "home_score": 0,
       "away_score": 0,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7342,7 +6966,7 @@
       "state": "final",
       "home_score": 0,
       "away_score": 0,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     },
     {
@@ -7354,12 +6978,12 @@
       "state": "final",
       "home_score": 115,
       "away_score": 132,
-      "observed_at_utc": "2026-10-12T18:57:29.502452+00:00",
+      "observed_at_utc": "2026-10-12T19:46:51.903363+00:00",
       "source": "ESPN scoreboard"
     }
   ],
-  "scoreboard_finals": 39,
-  "scoreboard_in_progress": 1,
+  "scoreboard_finals": 41,
+  "scoreboard_in_progress": 3,
   "prospective_nhl_pending": 19,
   "note": "All research probabilities uncalibrated. Market prices are historic observations, not live/bookable. NHL OT rules may be unverified. Do not compute EV, recommend bets or claim profitability."
 }
