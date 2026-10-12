@@ -32,6 +32,7 @@ on:
       - 'Revue - Phase 11 Data Integrity'
       - 'Revue - Phase 14 Finalisation Produit'
       - 'Revue - Phase 6 Original Predictions'
+      - 'Revue - Engine V2 (simulation)'
     types: [completed]
   push:
     branches: [main]
@@ -82,6 +83,7 @@ jobs:
           node --check docs/phase14-ui.js
           node --check docs/phase12-results.js
           node --check docs/phase10-modeles.js
+          node tests/test_value_robuste_ui.js
           python -m outils.controles.phase9_acceptation_production
           python -m unittest discover -s tests -p 'test_arcade_v3_site.py' -v
           node --test tests/test_arcade_v3_data.js tests/test_arcade_v3_radar.js tests/test_arcade_v3_phase3.js tests/test_arcade_v3_phase3_guardrails.js

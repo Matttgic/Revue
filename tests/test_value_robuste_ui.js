@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const {view,selection}=require('../docs/value-robuste.js');
+const now=Date.parse('2026-10-12T12:00:00Z');
+const candidate={quote_at:'2026-10-12T11:59:00Z',start_utc:'2026-10-12T13:00:00Z'};
+const data={status:'fresh_snapshot',scan_at:'2026-10-12T11:59:00Z',rule:{max_quote_age_seconds:300,kickoff_buffer_seconds:1200},candidates:[candidate],watchlist:[]};
+assert.equal(view(data,now).candidates.length,1);
+assert.equal(view(data,now+600000).candidates.length,0);
+assert.equal(view({...data,scan_at:'2026-10-12T12:01:00Z'},now).fresh,false);
+assert.equal(view({...data,candidates:[{...candidate,start_utc:'2026-10-12T12:10:00Z'}]},now).candidates.length,0);
+assert.equal(view({...data,candidates:[{...candidate,quote_at:'2026-10-12T11:54:00Z'}]},now).candidates.length,0);
+assert.equal(view({...data,status:'waiting_for_fresh_scan'},now).candidates.length,0);
+assert.equal(selection({market:'h2h',side:'draw'}),'Match nul');
+assert.equal(selection({market:'h2h',side:'away',away:'Venezia'}),'Victoire Venezia');
+console.log('8 UI assertions passed');

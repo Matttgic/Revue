@@ -18,6 +18,9 @@ on:
       - 'tests/test_historique_cotes_clv.py'
       - 'outils/collecte/tableau_cotes.py'
       - 'tests/test_tableau_cotes.py'
+      - 'outils/suivi/value_robuste.py'
+      - 'experiences/probabilites_marche/comparer.py'
+      - 'tests/test_value_robuste.py'
       - '.github/workflows/revue-engine-v2.yml'
 
 permissions:
@@ -48,6 +51,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_historique_cotes_clv.py' -v
       - name: Tests affichage de toutes les cotes bookmakers avec contrôles de marché
         run: python -m unittest discover -s tests -p 'test_tableau_cotes.py' -v
+      - name: Tests stratégie robuste, exposition et journal indépendant
+        run: python -m unittest tests.test_value_robuste experiences.probabilites_marche.test_comparer
       - name: Mise à jour du registre PAPIER uniquement
         if: github.event_name != 'push'
         env:
@@ -61,12 +66,15 @@ jobs:
             --ledger docs/engine-v2-ledger.json \
             --output docs/engine-v2-latest.json \
             --max-sports 14
+      - name: Suivre la stratégie robuste sur ce même relevé sans appel API
+        if: github.event_name != 'push'
+        run: python -m outils.suivi.value_robuste
       - name: Publier uniquement la simulation et le suivi
         if: github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/engine-v2-ledger.json docs/engine-v2-latest.json
+          git add docs/engine-v2-ledger.json docs/engine-v2-latest.json docs/value-robuste-ledger.json docs/value-robuste-latest.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else

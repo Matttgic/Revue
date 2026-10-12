@@ -576,6 +576,10 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
     # Strictly observed prices with market/time provenance, no extra API calls.
     from outils.collecte.tableau_cotes import build_board
     odds_board=build_board(models,odds,now)
+    # Separate strategy: consumes this same scan, without extra provider calls.
+    from outils.suivi.value_robuste import scan as robust_scan
+    value_scan=robust_scan(models,odds,now)
+    value_scan['provider_status']=meta['status']
     picks,notes=market_recommendations(models,odds,now)
     near_misses=notes.pop("best_sharp_edges",[])
     paper_locks(picks,ledger,now)
@@ -601,6 +605,7 @@ def execute(models:dict,history:dict,ledger:dict,now:datetime,
                     "model_generated_at_utc":models.get("generated_at_utc")},
         "bookmakers_fr":sorted(FR_BOOKS),
         "odds_board":odds_board,
+        "value_scan":value_scan,
         "candidate_count":len(picks),
         "candidates":picks[:100],
         "diagnostics":notes,

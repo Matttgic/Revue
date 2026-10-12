@@ -340,8 +340,10 @@ class SwappedReferenceTests(unittest.TestCase):
     def raw(self,home,away,home_odds,away_odds):
         return {"eventId":"x-"+home,"home":home,"away":away,"startTime":when(NOW+timedelta(hours=5)),
                 "live":False,"markets":[{"canonicalMarket":"MATCH_RESULT","period":"FULL_TIME",
-                "rawName":"Moneyline","selections":[{"canonicalOutcome":"HOME","odds":home_odds},
-                                                    {"canonicalOutcome":"AWAY","odds":away_odds}]}]}
+                "rawName":"Moneyline","selections":[{"canonicalOutcome":"HOME","odds":home_odds,
+                     "back":[{"price":home_odds,"liquidity":250}]},
+                    {"canonicalOutcome":"AWAY","odds":away_odds,
+                     "back":[{"price":away_odds,"liquidity":250}]}]}]}
 
     def test_reference_matched_when_swapped_french_book_never(self):
         def fake(book,sport,key,page):

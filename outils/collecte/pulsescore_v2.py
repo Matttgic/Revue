@@ -12,6 +12,7 @@ from __future__ import annotations
 from collections import defaultdict, deque
 from datetime import datetime, timedelta, timezone
 import json
+import math
 import re
 import time
 from urllib.error import HTTPError, URLError
@@ -165,7 +166,7 @@ def _side(outcome:str,home:str,away:str) -> str|None:
     return val
 
 
-def translate_market(m:dict,event:dict,observed:datetime) -> dict|None:
+def translate_market(m:dict,event:dict,observed:datetime,exchange:bool=False) -> dict|None:
     """Normalize only verified full-game head-to-head/total market structures."""
     if m.get("isActive") is False or m.get("suspended") is True:return None
     period=str(m.get("period") or "").upper()
@@ -202,12 +203,17 @@ def translate_market(m:dict,event:dict,observed:datetime) -> dict|None:
         except (KeyError,ValueError,TypeError):
             continue
         back=selection.get("back")
+        if exchange and (not isinstance(back,list) or not back):continue
         if isinstance(back,list) and back:
             try:
                 liquidity=float(back[0].get("liquidity"))
             except (AttributeError,TypeError,ValueError):
                 liquidity=None
-            if liquidity is None or liquidity<MIN_EXCHANGE_LIQUIDITY:continue
+            if liquidity is None or not math.isfinite(liquidity) or liquidity<MIN_EXCHANGE_LIQUIDITY:continue
+            if exchange:
+                try:back_price=float(back[0]["price"])
+                except (KeyError,TypeError,ValueError):continue
+                if not math.isfinite(back_price) or not math.isclose(price,back_price,abs_tol=1e-9):continue
         record={"name":name,"price":price}
         if market=="totals":
             try:
@@ -247,7 +253,7 @@ def translate_event(raw:dict,book_key:str,observed:datetime)->dict|None:
         return None
     if not raw.get("eventId"):
         return None
-    markets=[x for x in (translate_market(m,raw,observed)
+    markets=[x for x in (translate_market(m,raw,observed,exchange=book_key=="orbit_exchange")
                         for m in (raw.get("markets") or [])) if x]
     if not markets:
         return None

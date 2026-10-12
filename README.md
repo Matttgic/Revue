@@ -18,6 +18,10 @@ Site : [matttgic.github.io/Revue](https://matttgic.github.io/Revue/) · Journal 
 
 [Recherche GitHub du 11 octobre 2026 : 20 nouveaux dossiers et avis comparatifs](recherche/panorama-github-2026-10-11/README.md).
 
+[Passer des dépôts aux expériences](experiences/README.md) : premier comparateur de probabilités exécuté sur les cotes enregistrées.
+
+[Prix et rendement](https://matttgic.github.io/Revue/value-robuste.html) : stratégie football robuste, cote minimale et journal prospectif séparé. [Protocole](experiences/value-robuste/README.md).
+
 ## Organisation
 
 ```text

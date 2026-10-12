@@ -77,7 +77,12 @@ class ArcadeV3Tests(unittest.TestCase):
         with (DOCS/"pulsescore-radar-latest.json").open(encoding="utf8") as f:
             data=json.load(f)
         self.assertEqual(data["version"],"revue_pulsescore_six_hour_radar_v1")
-        self.assertLessEqual(data["requests_used"],8)
+        # The collector's current hard cap supersedes the former 8-call cap.
+        from outils.collecte.pulsescore_radar_six_heures import MAX_CALLS
+        self.assertGreaterEqual(data["request_cap"],1)
+        self.assertLessEqual(data["request_cap"],MAX_CALLS)
+        self.assertGreaterEqual(data["requests_used"],0)
+        self.assertLessEqual(data["requests_used"],data["request_cap"])
         self.assertFalse(data["real_bets_enabled"])
         self.assertFalse(data["positive_ev_verified"])
         self.assertFalse(data["existing_paper_ledger_modified"])
