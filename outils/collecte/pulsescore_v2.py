@@ -41,6 +41,22 @@ MIN_EXCHANGE_LIQUIDITY=20.0
 
 def books_for(sport:str)->list[str]:
     return [b for b in SCAN_BOOKS if sport in REFERENCE_SPORTS.get(b,{sport})]
+
+
+def match_quote(quote:dict,games:list[dict],league:str,book_key:str)->dict|None:
+    """Rattache une cote à un match Revue.
+
+    Les références (jamais pariées) peuvent publier domicile et extérieur
+    inversés : Orbit Exchange donne « Florida - Buffalo » pour Buffalo-Florida
+    (convention Betfair « Extérieur @ Domicile »). Même heure + équipes
+    inversées = même match. Les issues gardent leurs noms d'équipe, donc
+    aucune cote n'est attribuée au mauvais camp. Bookmakers français : strict.
+    """
+    matched=match_fixture(quote,games,league)
+    if matched is None and book_key in REFERENCE_BOOKS:
+        swapped={**quote,"home_team":quote.get("away_team"),"away_team":quote.get("home_team")}
+        matched=match_fixture(swapped,games,league)
+    return matched
 # Offre Pro : 1 requête par seconde et par bookmaker.
 MIN_INTERVAL_PER_BOOK=1.1
 SPORT_GROUPS={
@@ -308,7 +324,7 @@ def scan(key:str,models:dict,now:datetime,
             if not translated:continue
             for league,games in interested.items():
                 if SPORT_GROUPS[league]!=sport:continue
-                matched=match_fixture(translated,games,league)
+                matched=match_quote(translated,games,league,book_key)
                 if matched is None:continue
                 # Match against Revue's stable event rather than aggregating
                 # vendor event ids across different bookmakers.
