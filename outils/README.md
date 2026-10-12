@@ -8,7 +8,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
 | [`collecte/`](#collecte) | Collecte de données | 16 |
-| [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 24 |
+| [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 25 |
 | [`controles/`](#controles) | Contrôles qualité | 15 |
 | [`publication/`](#publication) | Publication du site | 4 |
 
@@ -120,6 +120,7 @@ Documentation : [BACKTESTS_MULTISPORTS.md](suivi/BACKTESTS_MULTISPORTS.md) · [E
 | [revue_engine_v2.py](suivi/revue_engine_v2.py) | Revue Engine V2 — an ORIGINAL, dry-run-only multisport odds and paper ledger. |
 | [suivi_ensemble.py](suivi/suivi_ensemble.py) | Prospective paired model audit: real scores vs frozen 1X2 at pregame time. |
 | [suivi_football_avance.py](suivi/suivi_football_avance.py) | Prospective audit of the independent advanced-football SHADOW model. |
+| [value_robuste.py](suivi/value_robuste.py) | Stratégie prospective originale : prix français contre référence sharp. |
 
 ## controles
 

@@ -314,6 +314,12 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                             fair_p=book_no_vig(sharp,game,mk,outcome,now)
                         if fair_p is None:
                             diagnostics["no_sharp_reference"]+=1
+                            # Motif précis, pour savoir quoi corriger.
+                            same=[z for z in (sharp or {}).get("markets") or [] if z.get("key")==mk]
+                            diagnostics["sharp_book_absent" if not pinnacle else
+                                        "sharp_market_absent" if not same else
+                                        "sharp_quote_stale" if not any(quote_book_valid(sharp,z,now) for z in same) else
+                                        "sharp_line_or_outcome_mismatch"]+=1
                             continue
                         if not 0.28<=fair_p<=0.84:
                             diagnostics["sharp_probability_out_of_range"]+=1

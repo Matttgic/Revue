@@ -121,6 +121,9 @@ class PaperTests(unittest.TestCase):
         out,notes=market_recommendations(models(),{"PL":[event]},NOW)
         self.assertEqual(out,[])
         self.assertGreater(notes["no_sharp_reference"],0)
+        # Résultat : référence périmée ; totaux : la référence n'a pas ce marché.
+        self.assertGreaterEqual(notes["sharp_quote_stale"],1)
+        self.assertEqual(notes["sharp_quote_stale"]+notes["sharp_market_absent"],notes["no_sharp_reference"])
 
     def test_selection_follows_sharp_reference_not_model(self):
         out,_=market_recommendations(models(),{"PL":[quotes()]},NOW)
