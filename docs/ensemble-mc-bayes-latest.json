@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-11T23:50:54.776527+00:00",
+  "generated_at_utc": "2026-10-12T01:45:52.811893+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -15,21 +15,6 @@
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401908941",
-          "league": "NBA",
-          "home": "Nuggets",
-          "away": "Bulls",
-          "start_utc": "2026-10-12T01:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 2,
-            "away": 2
-          },
-          "probabilities": null,
-          "components": null
-        },
         {
           "event_id": "401914130",
           "league": "NBA",
@@ -209,6 +194,66 @@
           },
           "probabilities": null,
           "components": null
+        },
+        {
+          "event_id": "401898722",
+          "league": "NBA",
+          "home": "Spurs",
+          "away": "Suns",
+          "start_utc": "2026-10-15T00:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 2,
+            "away": 3
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401901825",
+          "league": "NBA",
+          "home": "Mavericks",
+          "away": "Pelicans",
+          "start_utc": "2026-10-15T00:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 2,
+            "away": 2
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401908942",
+          "league": "NBA",
+          "home": "Bucks",
+          "away": "Bulls",
+          "start_utc": "2026-10-15T00:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 2,
+            "away": 2
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401914125",
+          "league": "NBA",
+          "home": "Timberwolves",
+          "away": "Pistons",
+          "start_utc": "2026-10-15T00:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 3,
+            "away": 2
+          },
+          "probabilities": null,
+          "components": null
         }
       ],
       "evaluation": {
@@ -319,40 +364,6 @@
     "NFL": {
       "games": [
         {
-          "event_id": "401872993",
-          "league": "NFL",
-          "home": "Falcons",
-          "away": "Ravens",
-          "start_utc": "2026-10-12T00:20:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.47177,
-            "away_win": 0.52823
-          },
-          "components": {
-            "monte_carlo": 0.45833,
-            "bayes": 0.46948,
-            "elo": 0.50182,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 21.23,
-            "away": 22.11
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
-        {
           "event_id": "401872994",
           "league": "NFL",
           "home": "Rams",
@@ -381,70 +392,36 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 22.57,
-            "away": 22.03
+            "home": 22.62,
+            "away": 22.07
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 73,
+        "n": 76,
         "scores": {
           "baseline": {
-            "brier_binary": 0.23703,
-            "logloss_binary": 0.66678
+            "brier_binary": 0.23752,
+            "logloss_binary": 0.66777
           },
           "previous_shadow": {
-            "brier_binary": 0.23705,
-            "logloss_binary": 0.66694
+            "brier_binary": 0.2369,
+            "logloss_binary": 0.66666
           },
           "ensemble": {
-            "brier_binary": 0.23519,
-            "logloss_binary": 0.66322
+            "brier_binary": 0.23485,
+            "logloss_binary": 0.66254
           }
         },
-        "delta_brier_vs_baseline": -0.00184,
-        "delta_brier_vs_previous_shadow": -0.00186,
+        "delta_brier_vs_baseline": -0.00267,
+        "delta_brier_vs_previous_shadow": -0.00205,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
     "MLB": {
       "games": [
-        {
-          "event_id": "401908030",
-          "league": "MLB",
-          "home": "Brewers",
-          "away": "Dodgers",
-          "start_utc": "2026-10-12T00:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 21,
-            "away": 22
-          },
-          "probabilities": {
-            "home_win": 0.53067,
-            "away_win": 0.46933
-          },
-          "components": {
-            "monte_carlo": 0.49479,
-            "bayes": 0.55466,
-            "elo": 0.58321,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 4.31,
-            "away": 4.13
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
         {
           "event_id": "401908031",
           "league": "MLB",
@@ -543,6 +520,40 @@
           },
           "expected_score": {
             "home": 4.44,
+            "away": 4.09
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401908032",
+          "league": "MLB",
+          "home": "Dodgers",
+          "away": "Brewers",
+          "start_utc": "2026-10-15T00:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 22,
+            "away": 21
+          },
+          "probabilities": {
+            "home_win": 0.49227,
+            "away_win": 0.50773
+          },
+          "components": {
+            "monte_carlo": 0.49349,
+            "bayes": 0.49734,
+            "elo": 0.48509,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 4.34,
             "away": 4.09
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
