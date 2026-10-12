@@ -1,10 +1,38 @@
 {
-  "generated_at_utc": "2026-10-12T18:17:10.216638+00:00",
+  "generated_at_utc": "2026-10-12T20:23:44.393502+00:00",
   "date_paris": "2026-10-12",
   "days": 3,
   "status": "prototype_non_calibre",
   "disclaimer": "Probabilités de recherche non calibrées. Sans cotes françaises ni EV. Aucun conseil de pari.",
   "competitions": {
+    "NFL": {
+      "name": "NFL",
+      "sport": "Football américain",
+      "model": "points",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401872994",
+          "home": "Rams",
+          "away": "Bills",
+          "start_utc": "2026-10-13T00:15:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win": 0.5526,
+            "away_win": 0.4474
+          },
+          "expected_score": {
+            "home": 22.4,
+            "away": 22.8
+          },
+          "odds": null,
+          "training_games": {
+            "home": 7,
+            "away": 7
+          }
+        }
+      ]
+    },
     "WNBA": {
       "name": "WNBA",
       "sport": "Basket",
@@ -53,34 +81,6 @@
         }
       ]
     },
-    "NFL": {
-      "name": "NFL",
-      "sport": "Football américain",
-      "model": "points",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401872994",
-          "home": "Rams",
-          "away": "Bills",
-          "start_utc": "2026-10-13T00:15:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.5526,
-            "away_win": 0.4474
-          },
-          "expected_score": {
-            "home": 22.4,
-            "away": 22.8
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        }
-      ]
-    },
     "NCAAB": {
       "name": "NCAA Basketball",
       "sport": "Basket",
@@ -94,19 +94,6 @@
       "model": "points",
       "status": "ok",
       "games": [
-        {
-          "event_id": "401914130",
-          "home": "Trail Blazers",
-          "away": "Lions",
-          "start_utc": "2026-10-12T20:00:00+00:00",
-          "status": "historique_insuffisant",
-          "training_games": {
-            "home": 1,
-            "away": 0
-          },
-          "probabilities": null,
-          "odds": null
-        },
         {
           "event_id": "401898402",
           "home": "Hawks",
@@ -294,95 +281,26 @@
         }
       ]
     },
+    "LALIGA": {
+      "name": "La Liga",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
     "PL": {
       "name": "Premier League",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
-      "games": [
-        {
-          "event_id": "401879267",
-          "home": "Coventry",
-          "away": "Newcastle",
-          "start_utc": "2026-10-12T19:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.2809,
-            "draw_90": 0.2394,
-            "away_win_90": 0.4798,
-            "over_2_5": 0.538
-          },
-          "expected_score": {
-            "home": 1.12,
-            "away": 1.71
-          },
-          "odds": null,
-          "training_games": {
-            "home": 5,
-            "away": 5
-          }
-        }
-      ]
+      "games": []
     },
     "SERIEA": {
       "name": "Serie A",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
-      "games": [
-        {
-          "event_id": "401874763",
-          "home": "Torino",
-          "away": "Udinese",
-          "start_utc": "2026-10-12T18:45:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.4135,
-            "draw_90": 0.2382,
-            "away_win_90": 0.3483,
-            "over_2_5": 0.5968
-          },
-          "expected_score": {
-            "home": 1.62,
-            "away": 1.47
-          },
-          "odds": null,
-          "training_games": {
-            "home": 5,
-            "away": 5
-          }
-        }
-      ]
-    },
-    "LALIGA": {
-      "name": "La Liga",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401882852",
-          "home": "Levante",
-          "away": "Sevilla",
-          "start_utc": "2026-10-12T19:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.3986,
-            "draw_90": 0.2429,
-            "away_win_90": 0.3585,
-            "over_2_5": 0.5754
-          },
-          "expected_score": {
-            "home": 1.55,
-            "away": 1.44
-          },
-          "odds": null,
-          "training_games": {
-            "home": 5,
-            "away": 6
-          }
-        }
-      ]
+      "games": []
     },
     "LIGUE1": {
       "name": "Ligue 1",
@@ -663,18 +581,18 @@
             "home_win": 0.4282,
             "away_win": 0.5718,
             "regulation_draw": 0.1661,
-            "over_4_5": 0.6692,
-            "over_5_5": 0.5009,
-            "over_6_5": 0.3417
+            "over_4_5": 0.669,
+            "over_5_5": 0.5007,
+            "over_6_5": 0.3415
           },
           "expected_score": {
-            "home": 2.519,
-            "away": 3.157
+            "home": 2.518,
+            "away": 3.156
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -687,9 +605,9 @@
             "home_win": 0.5705,
             "away_win": 0.4295,
             "regulation_draw": 0.1709,
-            "over_4_5": 0.6638,
-            "over_5_5": 0.4948,
-            "over_6_5": 0.336
+            "over_4_5": 0.6636,
+            "over_5_5": 0.4946,
+            "over_6_5": 0.3358
           },
           "expected_score": {
             "home": 2.972,
@@ -698,7 +616,7 @@
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -711,18 +629,18 @@
             "home_win": 0.5186,
             "away_win": 0.4814,
             "regulation_draw": 0.1748,
-            "over_4_5": 0.6232,
-            "over_5_5": 0.4501,
-            "over_6_5": 0.2949
+            "over_4_5": 0.623,
+            "over_5_5": 0.4499,
+            "over_6_5": 0.2947
           },
           "expected_score": {
-            "home": 2.864,
-            "away": 2.514
+            "home": 2.863,
+            "away": 2.513
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -732,21 +650,21 @@
           "start_utc": "2026-10-13T22:15:00+00:00",
           "status": "prototype_non_calibre",
           "probabilities": {
-            "home_win": 0.5783,
-            "away_win": 0.4217,
-            "regulation_draw": 0.1672,
-            "over_4_5": 0.6764,
-            "over_5_5": 0.5092,
-            "over_6_5": 0.3496
+            "home_win": 0.5902,
+            "away_win": 0.4098,
+            "regulation_draw": 0.1641,
+            "over_4_5": 0.6947,
+            "over_5_5": 0.5303,
+            "over_6_5": 0.37
           },
           "expected_score": {
-            "home": 3.121,
-            "away": 2.604
+            "home": 3.23,
+            "away": 2.623
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -756,21 +674,21 @@
           "start_utc": "2026-10-13T22:30:00+00:00",
           "status": "prototype_non_calibre",
           "probabilities": {
-            "home_win": 0.5477,
-            "away_win": 0.4523,
-            "regulation_draw": 0.1569,
-            "over_4_5": 0.7896,
-            "over_5_5": 0.6484,
-            "over_6_5": 0.4925
+            "home_win": 0.5332,
+            "away_win": 0.4668,
+            "regulation_draw": 0.1565,
+            "over_4_5": 0.7996,
+            "over_5_5": 0.6617,
+            "over_6_5": 0.5074
           },
           "expected_score": {
-            "home": 3.486,
-            "away": 3.136
+            "home": 3.474,
+            "away": 3.243
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -783,18 +701,18 @@
             "home_win": 0.6374,
             "away_win": 0.3626,
             "regulation_draw": 0.1543,
-            "over_4_5": 0.7535,
-            "over_5_5": 0.6017,
-            "over_6_5": 0.4423
+            "over_4_5": 0.7533,
+            "over_5_5": 0.6015,
+            "over_6_5": 0.4421
           },
           "expected_score": {
-            "home": 3.571,
+            "home": 3.57,
             "away": 2.732
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -807,18 +725,18 @@
             "home_win": 0.4573,
             "away_win": 0.5427,
             "regulation_draw": 0.1576,
-            "over_4_5": 0.6721,
-            "over_5_5": 0.5042,
-            "over_6_5": 0.3449
+            "over_4_5": 0.6719,
+            "over_5_5": 0.504,
+            "over_6_5": 0.3447
           },
           "expected_score": {
             "home": 2.337,
-            "away": 3.358
+            "away": 3.357
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -831,9 +749,9 @@
             "home_win": 0.4653,
             "away_win": 0.5347,
             "regulation_draw": 0.1746,
-            "over_4_5": 0.6413,
-            "over_5_5": 0.4698,
-            "over_6_5": 0.3128
+            "over_4_5": 0.6411,
+            "over_5_5": 0.4696,
+            "over_6_5": 0.3126
           },
           "expected_score": {
             "home": 2.745,
@@ -842,7 +760,7 @@
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -855,18 +773,18 @@
             "home_win": 0.652,
             "away_win": 0.348,
             "regulation_draw": 0.1572,
-            "over_4_5": 0.6851,
-            "over_5_5": 0.5192,
-            "over_6_5": 0.3592
+            "over_4_5": 0.6849,
+            "over_5_5": 0.519,
+            "over_6_5": 0.359
           },
           "expected_score": {
-            "home": 3.388,
+            "home": 3.387,
             "away": 2.397
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -878,19 +796,19 @@
           "probabilities": {
             "home_win": 0.7225,
             "away_win": 0.2775,
-            "regulation_draw": 0.128,
-            "over_4_5": 0.799,
-            "over_5_5": 0.6609,
-            "over_6_5": 0.5065
+            "regulation_draw": 0.1281,
+            "over_4_5": 0.7989,
+            "over_5_5": 0.6607,
+            "over_6_5": 0.5062
           },
           "expected_score": {
             "home": 4.212,
-            "away": 2.499
+            "away": 2.498
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -903,18 +821,18 @@
             "home_win": 0.3311,
             "away_win": 0.6689,
             "regulation_draw": 0.1347,
-            "over_4_5": 0.7633,
-            "over_5_5": 0.6142,
-            "over_6_5": 0.4555
+            "over_4_5": 0.7632,
+            "over_5_5": 0.614,
+            "over_6_5": 0.4553
           },
           "expected_score": {
-            "home": 2.407,
+            "home": 2.406,
             "away": 3.979
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -927,18 +845,18 @@
             "home_win": 0.4263,
             "away_win": 0.5737,
             "regulation_draw": 0.1691,
-            "over_4_5": 0.6305,
-            "over_5_5": 0.458,
-            "over_6_5": 0.3021
+            "over_4_5": 0.6304,
+            "over_5_5": 0.4578,
+            "over_6_5": 0.3019
           },
           "expected_score": {
-            "home": 2.371,
-            "away": 3.054
+            "home": 2.37,
+            "away": 3.053
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -950,19 +868,19 @@
           "probabilities": {
             "home_win": 0.4948,
             "away_win": 0.5052,
-            "regulation_draw": 0.1707,
-            "over_4_5": 0.6718,
-            "over_5_5": 0.5039,
-            "over_6_5": 0.3446
+            "regulation_draw": 0.1708,
+            "over_4_5": 0.6717,
+            "over_5_5": 0.5037,
+            "over_6_5": 0.3444
           },
           "expected_score": {
-            "home": 2.743,
-            "away": 2.951
+            "home": 2.742,
+            "away": 2.95
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -975,18 +893,18 @@
             "home_win": 0.4622,
             "away_win": 0.5378,
             "regulation_draw": 0.1649,
-            "over_4_5": 0.7027,
-            "over_5_5": 0.5398,
-            "over_6_5": 0.3792
+            "over_4_5": 0.7025,
+            "over_5_5": 0.5395,
+            "over_6_5": 0.379
           },
           "expected_score": {
-            "home": 2.709,
-            "away": 3.201
+            "home": 2.708,
+            "away": 3.2
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -998,19 +916,19 @@
           "probabilities": {
             "home_win": 0.6776,
             "away_win": 0.3224,
-            "regulation_draw": 0.145,
-            "over_4_5": 0.7861,
-            "over_5_5": 0.6438,
-            "over_6_5": 0.4875
+            "regulation_draw": 0.1451,
+            "over_4_5": 0.786,
+            "over_5_5": 0.6436,
+            "over_6_5": 0.4873
           },
           "expected_score": {
-            "home": 3.86,
-            "away": 2.73
+            "home": 3.859,
+            "away": 2.729
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -1023,18 +941,18 @@
             "home_win": 0.7383,
             "away_win": 0.2617,
             "regulation_draw": 0.1185,
-            "over_4_5": 0.7846,
-            "over_5_5": 0.6418,
-            "over_6_5": 0.4853
+            "over_4_5": 0.7844,
+            "over_5_5": 0.6416,
+            "over_6_5": 0.485
           },
           "expected_score": {
             "home": 4.299,
-            "away": 2.276
+            "away": 2.275
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -1044,12 +962,12 @@
           "start_utc": "2026-10-14T02:30:00+00:00",
           "status": "prototype_non_calibre",
           "probabilities": {
-            "home_win": 0.3863,
-            "away_win": 0.6137,
-            "regulation_draw": 0.1456,
-            "over_4_5": 0.8134,
-            "over_5_5": 0.6804,
-            "over_6_5": 0.5285
+            "home_win": 0.3864,
+            "away_win": 0.6136,
+            "regulation_draw": 0.1457,
+            "over_4_5": 0.8132,
+            "over_5_5": 0.6802,
+            "over_6_5": 0.5282
           },
           "expected_score": {
             "home": 2.937,
@@ -1058,7 +976,7 @@
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         },
         {
@@ -1071,18 +989,18 @@
             "home_win": 0.4253,
             "away_win": 0.5747,
             "regulation_draw": 0.1541,
-            "over_4_5": 0.7487,
-            "over_5_5": 0.5958,
-            "over_6_5": 0.436
+            "over_4_5": 0.7486,
+            "over_5_5": 0.5956,
+            "over_6_5": 0.4358
           },
           "expected_score": {
-            "home": 2.696,
-            "away": 3.569
+            "home": 2.695,
+            "away": 3.568
           },
           "odds": null,
           "training_games": {
             "previous_season": 1312,
-            "current_season": 86
+            "current_season": 87
           }
         }
       ]
@@ -1294,20 +1212,9 @@
     "feeds_ok": 18,
     "feeds_partial": 0,
     "feeds_failed": 0,
-    "fixtures": 63,
-    "predicted": 33,
+    "fixtures": 59,
+    "predicted": 30,
     "league_feed_diagnostics": {
-      "WNBA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 50,
-        "cache_hits": 43,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 64,
-        "range_min": "2026-08-27",
-        "range_max": "2026-10-14"
-      },
       "NFL": {
         "status": "ok",
         "requests_ok": 7,
@@ -1318,6 +1225,17 @@
         "events": 128,
         "range_min": "2026-08-14",
         "range_max": "2026-10-16"
+      },
+      "WNBA": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 50,
+        "cache_hits": 43,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 64,
+        "range_min": "2026-08-27",
+        "range_max": "2026-10-14"
       },
       "NCAAB": {
         "status": "ok",
@@ -1352,6 +1270,17 @@
         "range_min": "2026-09-09",
         "range_max": "2026-10-17"
       },
+      "LALIGA": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 76,
+        "range_min": "2026-08-17",
+        "range_max": "2026-10-16"
+      },
       "PL": {
         "status": "ok",
         "requests_ok": 7,
@@ -1372,17 +1301,6 @@
         "errors": [],
         "events": 61,
         "range_min": "2026-08-22",
-        "range_max": "2026-10-16"
-      },
-      "LALIGA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 76,
-        "range_min": "2026-08-17",
         "range_max": "2026-10-16"
       },
       "LIGUE1": {
