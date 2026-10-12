@@ -1,6 +1,6 @@
 {
   "version": "revue_clairvoyance_nhl_phase1_acceptance_v1",
-  "generated_at_utc": "2026-10-11T03:15:03.766845+00:00",
+  "generated_at_utc": "2026-10-12T18:59:15.233460+00:00",
   "status": "partially_verified_blocked_by_unavailable_original_inputs",
   "phase1_completed": false,
   "phase1_completion_is_not_functional_coverage_percent": true,
@@ -14,20 +14,20 @@
     "targeted_formula_total": 44,
     "identical_public_5v5_xg_nhl_games": 4,
     "identical_public_kickoff_and_team_games": 5,
-    "public_original_nhl_goalie_matched_games": 12,
-    "public_original_nhl_goalie_names_equal": 24,
-    "public_original_nhl_goalie_statuses_equal": 20,
-    "public_original_nhl_goalie_status_changes": 4,
+    "public_original_nhl_goalie_matched_games": null,
+    "public_original_nhl_goalie_names_equal": null,
+    "public_original_nhl_goalie_statuses_equal": null,
+    "public_original_nhl_goalie_status_changes": null,
     "published_nhl_moneyline_comparisons": 0,
     "published_nhl_moneyline_mean_gap_pp": null,
     "eligible_revue_moneyline_source_elo_updates": 0,
-    "prospective_frontend_locked_games": 15,
-    "prospective_frontend_settled_games": 11,
+    "prospective_frontend_locked_games": 33,
+    "prospective_frontend_settled_games": 14,
     "original_source_data_checks_done": 1,
     "original_source_data_checks_total": 6
   },
   "acceptance_gates": {
-    "public_nhl_goalie_names_cross_source_identity": true,
+    "public_nhl_goalie_names_cross_source_identity": false,
     "public_formula_subset_same_input_parity": true,
     "public_nhl_fixture_and_xg_alignment": true,
     "source_elo_update_algorithm": true,
@@ -38,6 +38,10 @@
     "prospective_nhl_100_outcomes_for_initial_quality": false
   },
   "remaining_requirements": [
+    {
+      "gate": "public_nhl_goalie_names_cross_source_identity",
+      "why": "Public original NHL schedule must match Revue ESPN goalie names by both teams and kickoff; source timestamps may differ."
+    },
     {
       "gate": "original_elo_sql_state_and_settlement_history",
       "why": "Original Elo depends on settled source moneyline picks. Private SQL, first ratings, selection and DB ordering are absent."
