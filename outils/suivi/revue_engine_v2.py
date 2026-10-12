@@ -32,7 +32,10 @@ BASE="https://api.the-odds-api.com/v4"
 FR_BOOKS={"betclic_fr","pmu_fr","unibet_fr","winamax_fr"}
 SHARP="pinnacle"
 # PS3838 (PulseScore) publie des cotes de type Pinnacle ; gardé sous son vrai nom.
-SHARP_KEYS=(SHARP,"ps3838")
+SHARP_KEYS=(SHARP,"ps3838","orbit_exchange")
+# NHL : les cotes françaises retenues incluent la prolongation ; une référence
+# « 60 minutes » (temps réglementaire seul) n'est pas comparable.
+REGULATION_ONLY=("60 minute","regular time","regulation","tps rég","temps réglementaire")
 SOURCED_BOOKS=sorted(FR_BOOKS | {SHARP})
 ODDS_SPORTS={
  "NBA":"basketball_nba","WNBA":"basketball_wnba","NCAAB":"basketball_ncaab",
@@ -240,6 +243,11 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                 continue
             books=event.get("bookmakers") or []
             pinnacle=next((b for key in SHARP_KEYS for b in books if b.get("key")==key),None)
+            sharp=pinnacle
+            if pinnacle and league=="NHL":
+                sharp={**pinnacle,"markets":[m for m in pinnacle.get("markets") or []
+                    if not any(x in str(m.get("raw_market_name") or "").lower()
+                               for x in REGULATION_ONLY)]}
             for book in books:
                 bk=str(book.get("key") or "")
                 if bk not in FR_BOOKS:continue
@@ -288,7 +296,7 @@ def market_recommendations(data:dict, odds:dict,now:datetime,
                         fair_p=None
                         if pinnacle:
                             from outils.controles.consensus_quotations import book_no_vig
-                            fair_p=book_no_vig(pinnacle,game,mk,outcome,now)
+                            fair_p=book_no_vig(sharp,game,mk,outcome,now)
                         if fair_p is None:
                             diagnostics["no_sharp_reference"]+=1
                             continue

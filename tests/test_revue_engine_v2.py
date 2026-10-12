@@ -299,3 +299,40 @@ class PaperTests(unittest.TestCase):
 
 if __name__=="__main__":
     unittest.main()
+
+
+class ExchangeReferenceNHLTests(unittest.TestCase):
+    """NHL : Orbit Exchange (liquidité Betfair) sert de référence, sans marché 60 minutes."""
+    def setUp(self):
+        self.models={"generated_at_utc":iso(AT),"competitions":{"NHL":{"games":[{
+            "event_id":"nhl9","home":"Boston Bruins","away":"New York Rangers",
+            "start_utc":iso(START),"status":"prototype_non_calibre",
+            "probabilities":{"home_win":.55,"away_win":.45,"over_5_5":.5}}]}}}
+        def market(raw,outcomes,key="h2h"):
+            return {"key":key,"last_update":iso(AT),"raw_market_name":raw,"period":"FULL_TIME",
+                    "outcomes":outcomes}
+        self.event={"id":"review:NHL:nhl9","home_team":"Boston Bruins","away_team":"New York Rangers",
+            "commence_time":iso(START),"bookmakers":[
+            {"key":"pmu_fr","last_update":iso(AT),"markets":[
+                market("Moneyline - Including Overtime and penalty shootout",
+                       [{"name":"Boston Bruins","price":2.10},{"name":"New York Rangers","price":1.80}]),
+                market("Total Goals - Including Overtime and Penalty Shootout",
+                       [{"name":"Over","point":5.5,"price":2.30},{"name":"Under","point":5.5,"price":1.62}],"totals")]},
+            {"key":"orbit_exchange","last_update":iso(AT),"markets":[
+                market("60 Minute 3 Way Match Odds",[{"name":"Boston Bruins","price":2.5},
+                       {"name":"New York Rangers","price":2.9},{"name":"Draw","price":4.2}]),
+                market("Moneyline",[{"name":"Boston Bruins","price":1.95},{"name":"New York Rangers","price":2.05}]),
+                market("60 Minute Total Goals",[{"name":"Over","point":5.5,"price":1.9},
+                       {"name":"Under","point":5.5,"price":1.95}],"totals")]}]}
+
+    def test_moneyline_reference_used_and_regulation_totals_ignored(self):
+        out,notes=market_recommendations(self.models,{"NHL":[self.event]},NOW)
+        home=[c for c in out if c["market"]=="h2h" and c["side"]=="home"]
+        self.assertEqual(len(home),1)
+        inv=[1/1.95,1/2.05]
+        self.assertAlmostEqual(home[0]["p_sharp_no_vig"],inv[0]/sum(inv),places=4)
+        self.assertEqual(home[0]["sharp_source"],"orbit_exchange")
+        self.assertEqual(home[0]["bookmaker"],"pmu_fr")
+        # Le total « 60 minutes » de la bourse ne vaut pas pour un total prolongation incluse.
+        self.assertFalse([c for c in out if c["market"]=="totals"])
+        self.assertGreater(notes["no_sharp_reference"],0)

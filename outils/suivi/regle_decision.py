@@ -17,6 +17,9 @@ v2 (2026-10-11) : la sélection des paris passe du modèle Revue à la
 référence sharp (stratégie « sharp_ev_v1 » : cote française meilleure que
 PS3838/Pinnacle sans marge, d'au moins 3 %). Adoptée avant tout résultat de
 cette stratégie ; seuls ses paris comptent, les précédents sont archivés à part.
+2026-10-12 : pour la NHL, absente de PS3838, la référence est Orbit Exchange
+(bourse adossée à Betfair, prix « back », au moins 20 £ disponibles), ajoutée
+avant tout pari NHL de cette stratégie.
 
 Toute modification de RULE = nouvelle version (RULE["version"]) ; le test
 tests/test_regle_decision.py échoue si les seuils changent sans cela.
@@ -47,7 +50,7 @@ CRITERIA = (
     ("volume", "Au moins 300 paris pré-match réglés à cote réellement observée"),
     ("roi", "ROI positif même en bas de son intervalle de confiance à 95 %"),
     ("clv", "Cote prise meilleure que la cote de clôture (CLV > 0, IC 95 %) sur au moins 150 paris"),
-    ("calibration", "Probabilité de référence (PS3838/Pinnacle sans marge) plus juste que le marché français (Brier plus bas) sur les mêmes paris"),
+    ("calibration", "Probabilité de référence (PS3838, ou Orbit Exchange/Betfair en NHL, sans marge) plus juste que le marché français (Brier plus bas) sur les mêmes paris"),
 )
 
 
