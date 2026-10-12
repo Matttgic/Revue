@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-10-12T01:15:23.745659+00:00",
+  "generated_at_utc": "2026-10-12T01:30:50.140177+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -23,10 +23,10 @@
   },
   "metrics": {
     "locked": 93,
-    "settled": 40,
-    "distinct_settled_fixtures": 24,
+    "settled": 43,
+    "distinct_settled_fixtures": 25,
     "paired_comparisons": 3,
-    "paired_observation_overlap_not_independent": 24
+    "paired_observation_overlap_not_independent": 27
   },
   "models": {
     "LALIGA::revue_football_espn_shots_log_pool_v1": {
@@ -515,15 +515,15 @@
     "NBA::revue_nba_espn_previous_standings_prior_v1": {
       "league": "NBA",
       "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "settled": 8,
+      "settled": 9,
       "frozen_locked": 19,
       "raw": {
-        "n": 8,
-        "brier": 0.555119,
-        "logloss": 0.755963
+        "n": 9,
+        "brier": 0.518726,
+        "logloss": 0.717687
       },
       "uniform_reference_same_matches": {
-        "n": 8,
+        "n": 9,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -555,9 +555,9 @@
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 3,
-              "mean_predicted": 0.6875,
-              "observed_rate": 0.66667
+              "n": 4,
+              "mean_predicted": 0.68129,
+              "observed_rate": 0.75
             },
             {
               "lower": 0.8,
@@ -581,9 +581,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 3,
-              "mean_predicted": 0.3125,
-              "observed_rate": 0.33333
+              "n": 4,
+              "mean_predicted": 0.31871,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.4,
@@ -636,15 +636,15 @@
     "NBA::revue_nba_prior_consensus_v1": {
       "league": "NBA",
       "model_id": "revue_nba_prior_consensus_v1",
-      "settled": 8,
+      "settled": 9,
       "frozen_locked": 19,
       "raw": {
-        "n": 8,
-        "brier": 0.54456,
-        "logloss": 0.744624
+        "n": 9,
+        "brier": 0.507124,
+        "logloss": 0.705101
       },
       "uniform_reference_same_matches": {
-        "n": 8,
+        "n": 9,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -676,9 +676,9 @@
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 3,
-              "mean_predicted": 0.68373,
-              "observed_rate": 0.66667
+              "n": 4,
+              "mean_predicted": 0.68225,
+              "observed_rate": 0.75
             },
             {
               "lower": 0.8,
@@ -702,9 +702,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 3,
-              "mean_predicted": 0.31627,
-              "observed_rate": 0.33333
+              "n": 4,
+              "mean_predicted": 0.31775,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.4,
@@ -757,15 +757,15 @@
     "NBA::revue_nba_prior_elo_regressed_v1": {
       "league": "NBA",
       "model_id": "revue_nba_prior_elo_regressed_v1",
-      "settled": 8,
+      "settled": 9,
       "frozen_locked": 19,
       "raw": {
-        "n": 8,
-        "brier": 0.532277,
-        "logloss": 0.73146
+        "n": 9,
+        "brier": 0.493636,
+        "logloss": 0.690411
       },
       "uniform_reference_same_matches": {
-        "n": 8,
+        "n": 9,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -797,9 +797,9 @@
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 4,
-              "mean_predicted": 0.65991,
-              "observed_rate": 0.75
+              "n": 5,
+              "mean_predicted": 0.66719,
+              "observed_rate": 0.8
             },
             {
               "lower": 0.8,
@@ -823,9 +823,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 4,
-              "mean_predicted": 0.34009,
-              "observed_rate": 0.25
+              "n": 5,
+              "mean_predicted": 0.33281,
+              "observed_rate": 0.2
             },
             {
               "lower": 0.4,
@@ -1203,23 +1203,23 @@
       "league": "NBA",
       "reference": "revue_nba_espn_previous_standings_prior_v1",
       "candidate": "revue_nba_prior_consensus_v1",
-      "paired_games": 8,
+      "paired_games": 9,
       "reference_scores": {
-        "n": 8,
-        "brier": 0.555119,
-        "logloss": 0.755963
+        "n": 9,
+        "brier": 0.518726,
+        "logloss": 0.717687
       },
       "candidate_scores": {
-        "n": 8,
-        "brier": 0.54456,
-        "logloss": 0.744624
+        "n": 9,
+        "brier": 0.507124,
+        "logloss": 0.705101
       },
-      "delta_brier_candidate_minus_reference": -0.01056,
-      "delta_logloss_candidate_minus_reference": -0.011339,
+      "delta_brier_candidate_minus_reference": -0.011602,
+      "delta_logloss_candidate_minus_reference": -0.012586,
       "bootstrap_95_brier_delta": null,
       "bootstrap_95_logloss_delta": null,
       "research_status": "insufficient_pairs",
-      "candidate_outperformed_on_games": 5,
+      "candidate_outperformed_on_games": 6,
       "paired_samples_are_distinct_fixtures": true,
       "auto_promote": false
     },
@@ -1227,23 +1227,23 @@
       "league": "NBA",
       "reference": "revue_nba_espn_previous_standings_prior_v1",
       "candidate": "revue_nba_prior_elo_regressed_v1",
-      "paired_games": 8,
+      "paired_games": 9,
       "reference_scores": {
-        "n": 8,
-        "brier": 0.555119,
-        "logloss": 0.755963
+        "n": 9,
+        "brier": 0.518726,
+        "logloss": 0.717687
       },
       "candidate_scores": {
-        "n": 8,
-        "brier": 0.532277,
-        "logloss": 0.73146
+        "n": 9,
+        "brier": 0.493636,
+        "logloss": 0.690411
       },
-      "delta_brier_candidate_minus_reference": -0.022842,
-      "delta_logloss_candidate_minus_reference": -0.024503,
+      "delta_brier_candidate_minus_reference": -0.025091,
+      "delta_logloss_candidate_minus_reference": -0.027276,
       "bootstrap_95_brier_delta": null,
       "bootstrap_95_logloss_delta": null,
       "research_status": "insufficient_pairs",
-      "candidate_outperformed_on_games": 5,
+      "candidate_outperformed_on_games": 6,
       "paired_samples_are_distinct_fixtures": true,
       "auto_promote": false
     },
@@ -1251,23 +1251,23 @@
       "league": "NBA",
       "reference": "revue_nba_prior_consensus_v1",
       "candidate": "revue_nba_prior_elo_regressed_v1",
-      "paired_games": 8,
+      "paired_games": 9,
       "reference_scores": {
-        "n": 8,
-        "brier": 0.54456,
-        "logloss": 0.744624
+        "n": 9,
+        "brier": 0.507124,
+        "logloss": 0.705101
       },
       "candidate_scores": {
-        "n": 8,
-        "brier": 0.532277,
-        "logloss": 0.73146
+        "n": 9,
+        "brier": 0.493636,
+        "logloss": 0.690411
       },
-      "delta_brier_candidate_minus_reference": -0.012283,
-      "delta_logloss_candidate_minus_reference": -0.013164,
+      "delta_brier_candidate_minus_reference": -0.013488,
+      "delta_logloss_candidate_minus_reference": -0.014691,
       "bootstrap_95_brier_delta": null,
       "bootstrap_95_logloss_delta": null,
       "research_status": "insufficient_pairs",
-      "candidate_outperformed_on_games": 5,
+      "candidate_outperformed_on_games": 6,
       "paired_samples_are_distinct_fixtures": true,
       "auto_promote": false
     }
