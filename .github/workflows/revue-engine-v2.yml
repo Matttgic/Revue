@@ -48,6 +48,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_historique_cotes_clv.py' -v
       - name: Tests affichage de toutes les cotes bookmakers avec contrôles de marché
         run: python -m unittest discover -s tests -p 'test_tableau_cotes.py' -v
+      - name: Tests conversion des bonus
+        run: python -m unittest discover -s tests -p 'test_couverture_bonus.py' -v
       - name: Mise à jour du registre PAPIER uniquement
         if: github.event_name != 'push'
         env:
@@ -61,12 +63,15 @@ jobs:
             --ledger docs/engine-v2-ledger.json \
             --output docs/engine-v2-latest.json \
             --max-sports 14
+      - name: Calculer la conversion des bonus (freebets, paris remboursés)
+        if: github.event_name != 'push'
+        run: python -m outils.suivi.couverture_bonus --sortie docs/bonus-latest.json > /dev/null
       - name: Publier uniquement la simulation et le suivi
         if: github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/engine-v2-ledger.json docs/engine-v2-latest.json
+          git add docs/engine-v2-ledger.json docs/engine-v2-latest.json docs/bonus-latest.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else

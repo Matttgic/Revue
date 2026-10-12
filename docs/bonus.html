@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revue — Convertir ses bonus</title>
+<meta name="description" content="Transformer un freebet ou un pari remboursé d'un opérateur français en gain quel que soit le résultat, à partir des cotes observées par Revue.">
+<style>:root{color-scheme:dark;--bg:#0b111a;--card:#172231;--fg:#edf4f2;--dim:#9aafbf;--edge:#2b3c4f;--accent:#d5fa90;--bad:#ffb5a0;--warn:#ffd88a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,sans-serif}
+main{max-width:940px;margin:auto;padding:26px 16px 70px}
+small.eyebrow{color:var(--accent);font-size:11px;letter-spacing:.14em;font-weight:850;text-transform:uppercase}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;letter-spacing:-.05em;margin:8px 0}h2{font-size:1.2rem;margin-top:28px}
+p{color:var(--dim)}a{color:#aacbff}
+.card{border:1px solid var(--edge);padding:16px;border-radius:12px;background:var(--card);margin:12px 0}
+.card h3{margin:0 0 6px;font-size:1rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.gain{color:var(--accent);font-weight:800}.bad{color:var(--bad)}.warn{color:var(--warn)}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+label{display:block;font-size:.85rem;color:var(--dim)}input,select{width:100%;padding:9px;border-radius:8px;border:1px solid var(--edge);background:#0e1824;color:var(--fg);font:inherit}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.85rem}td small{display:block;font-size:.72rem;color:var(--accent)}th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--edge)}th{color:var(--dim);font-weight:600}
+.table-wrap{overflow-x:auto}
+.note{border-left:3px solid var(--accent);padding:12px 14px;background:#1b2521;margin:18px 0}
+footer{border-top:1px solid var(--edge);margin-top:30px;padding-top:18px}
+</style><link rel="stylesheet" href="./theme.css?v=3"><script defer src="./pixel.js?v=1"></script>
+</head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./play.html">MATCHS</a><a href="./pourquoi.html">POURQUOI ?</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav></div></div>
+<main><small class="eyebrow">Revue · Bonus d'opérateurs</small>
+<h1>Convertir ses bonus</h1>
+<p>Aucun modèle testé par Revue ne bat le marché. En revanche, un <strong>freebet</strong> ou un <strong>« 1er pari remboursé »</strong> peut être transformé en gain quel que soit le résultat : on joue le bonus chez l'opérateur qui l'offre et on couvre les autres issues chez un autre opérateur agréé. Calcul fait 3 fois par jour sur les cotes françaises observées (football, résultat à 90 minutes).</p>
+<div id="etat" class="card"><span>Chargement…</span></div>
+<div class="card controls">
+ <div><label for="op">Opérateur qui offre le bonus</label><select id="op"></select></div>
+ <div><label for="type">Type de bonus</label><select id="type"><option value="freebet">Freebet (mise non rendue)</option><option value="pari_rembourse">1er pari remboursé en freebet</option></select></div>
+ <div><label for="montant">Montant (€)</label><input id="montant" type="number" min="1" step="1" value="10"></div>
+</div>
+<div id="plans"></div>
+<div class="note"><strong>Avant de miser :</strong> vérifier que les cotes affichées sont toujours celles du site (elles bougent), lire les conditions de l'offre (cote minimale, délai, montant maximal) et placer d'abord le pari bonus, puis les couvertures tout de suite après. Si une cote a baissé, refaire le calcul. Le gain n'est garanti que si toutes les mises sont acceptées aux cotes indiquées. Réservé aux majeurs, opérateurs agréés ANJ. <a href="https://www.joueurs-info-service.fr/">Joueurs Info Service : 09 74 75 13 13</a>.</div>
+<footer><p><a href="./lab.html">← Lab</a> · <a href="./bonus-latest.json">Données JSON</a> · <a href="./couvertures-mathematiques.html">Surebets</a> · <a href="https://github.com/Matttgic/Revue/blob/main/outils/suivi/couverture_bonus.py">Code du calcul</a></p></footer>
+</main><script>
+"use strict";
+const $=id=>document.getElementById(id);
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=String(text);return e;}
+const eur=x=>(x>=0?"+":"")+x.toFixed(2).replace(".",",")+" €";
+const NOM={betclic_fr:"Betclic",winamax_fr:"Winamax",unibet_fr:"Unibet",pmu_fr:"PMU",netbet_fr:"NetBet"};
+const ISSUE={home:"Domicile",draw:"Nul",away:"Extérieur",over:"Plus de",under:"Moins de"};
+let data=null;
+function issue(k,plan){return (ISSUE[k]||k)+(plan.ligne!=null?" "+String(plan.ligne).replace(".",","):"");}
+function render(){
+ const op=$("op").value,type=$("type").value,montant=Math.max(1,+$("montant").value||0);
+ const box=$("plans");box.replaceChildren();
+ const plans=((data.par_operateur[op]||{})[type])||[];
+ if(!plans.length){box.append(el("p","", "Aucune couverture possible pour cet opérateur avec les cotes actuelles."));return;}
+ for(const p of plans){
+  const k=montant/p.montant_bonus,c=el("div","card"),h=el("h3");
+  h.append(el("span","",`${p.match} · ${p.marche==="h2h"?"1N2":"Total de buts"}`));
+  const g=type==="freebet"?p.benefice_garanti*k:p.benefice_si_freebet_converti*k;
+  h.append(el("span","gain",type==="freebet"?`${eur(g)} garantis`:`${eur(g)} si le freebet est reconverti`));c.append(h);
+  c.append(el("p","",`Coup d'envoi ${new Date(p.debut_utc).toLocaleString("fr-FR",{weekday:"short",hour:"2-digit",minute:"2-digit",day:"numeric",month:"short"})}`+(type==="freebet"?` · conversion ${(100*p.taux_conversion).toFixed(0)} %`:"")));
+  const t=el("table"),hd=el("tr");["Issue","Opérateur","Cote","Mise"].forEach(x=>hd.append(el("th","",x)));t.append(hd);
+  for(const [i,m] of Object.entries(p.mises)){const r=el("tr");
+   const bonus=m.nature!=="argent";
+   const mise=el("td",bonus?"gain":"",(m.mise*k).toFixed(2).replace(".",",")+" €");
+   if(bonus)mise.append(el("small","",type==="freebet"?"freebet":"pari bonus"));
+   r.append(el("td","",issue(i,p)),el("td","",NOM[m.operateur]||m.operateur),el("td","",m.cote.toFixed(2).replace(".",",")),mise);t.append(r);}
+  const w=el("div","table-wrap");w.append(t);c.append(w);
+  if(type==="pari_rembourse")c.append(el("p","warn",`Si le pari bonus perd, vous récupérez un freebet de ${montant} € à reconvertir ici (hypothèse : ${Math.round(100*p.hypothese_conversion_freebet)} %). Avant reconversion, pire cas : ${eur(p.perte_maximale_avant_conversion_du_freebet*k)}.`));
+  box.append(c);
+ }
+}
+fetch("./bonus-latest.json",{cache:"no-store"}).then(r=>r.json()).then(d=>{
+ data=d;const s=d.source_cotes,etat=$("etat");etat.replaceChildren();
+ const quand=new Date(s.genere_le).toLocaleString("fr-FR",{hour:"2-digit",minute:"2-digit",day:"numeric",month:"short"});
+ if(!s.utilisable){etat.append(el("strong","bad","Cotes trop anciennes"),el("p","",`Dernières cotes : ${quand}. ${s.motif||""}`));}
+ else etat.append(el("strong","gain",`Cotes du ${quand}`),el("p","",`${d.marches_complets} marchés complets · ${d.operateurs.map(o=>NOM[o]||o).join(", ")}`));
+ for(const o of d.operateurs){const x=el("option","",NOM[o]||o);x.value=o;$("op").append(x);}
+ ["op","type","montant"].forEach(id=>$(id).addEventListener("input",render));
+ $("type").addEventListener("change",()=>{$("montant").value=$("type").value==="freebet"?d.parametres.freebet:d.parametres.pari_rembourse;render();});
+ render();
+}).catch(()=>{$("etat").textContent="Données indisponibles.";});
+</script></body></html>

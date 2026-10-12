@@ -25,7 +25,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | PulseScore / The Odds API (clé en secret) | Cotes de bookmakers FR observées | `outils/collecte/pulsescore_v2.py`, `outils/suivi/revue_engine_v2.py` |
 | Dépôt public Clairvoyance (lecture seule) | Comparaisons de parité, audits | `outils/clairvoyance/` |
 
-## Inventaire (104 fichiers)
+## Inventaire (105 fichiers)
 
 ### Reproduction Clairvoyance (parité, audits)
 
@@ -171,6 +171,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | Fichier | Généré | Ko | Publié par | Produit par |
 |---|---|---:|---|---|
 | [banc-nhl-cloture.json](../docs/banc-nhl-cloture.json) | — | 20 | — | `outils/suivi/banc_nhl_cloture.py` |
+| [bonus-latest.json](../docs/bonus-latest.json) | — | 26 | revue-engine-v2.yml | — |
 | [etat-donnees-latest.json](../docs/etat-donnees-latest.json) | 2026-10-12 01:03 | 6 | donnees-prioritaires.yml | `outils/controles/etat_donnees_revue.py` |
 | [github-workflows-latest.json](../docs/github-workflows-latest.json) | 2026-10-11 13:11 | 53 | github-actions-monitor.yml | `api_revue/admin_readonly.py`, `outils/controles/github_actions_monitor.py` |
 | [health-latest.json](../docs/health-latest.json) | 2026-10-11 20:22 | 2 | health-revue.yml | `api_revue/operational.py`, `outils/controles/diagnostic_revue.py`, `outils/controles/phase9_acceptation_production.py` |

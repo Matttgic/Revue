@@ -8,7 +8,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
 | [`collecte/`](#collecte) | Collecte de données | 16 |
-| [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 25 |
+| [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 26 |
 | [`controles/`](#controles) | Contrôles qualité | 16 |
 | [`publication/`](#publication) | Publication du site | 4 |
 
@@ -99,6 +99,7 @@ Documentation : [BACKTESTS_MULTISPORTS.md](suivi/BACKTESTS_MULTISPORTS.md) · [E
 | [backtest_multisports.py](suivi/backtest_multisports.py) | Chronological score-only backtests of Revue multisport probability models. |
 | [banc_nhl_cloture.py](suivi/banc_nhl_cloture.py) | Banc d'essai NHL contre la cote de clôture — implémentation originale Revue. |
 | [clairvoyance_nhl_moneypuck_shadow.py](suivi/clairvoyance_nhl_moneypuck_shadow.py) | Clairvoyance NHL predictor on independently acquired, timestamped inputs. |
+| [couverture_bonus.py](suivi/couverture_bonus.py) | Conversion des bonus d'opérateurs français (freebets, paris remboursés) — implémentation originale Revue. |
 | [evaluation_prospective_papier.py](suivi/evaluation_prospective_papier.py) | Strict prospective paper-ledger probability evaluation (not fitted models). |
 | [historique_cotes_clv.py](suivi/historique_cotes_clv.py) | Prospective SAME-BOOK closing price tracking for Revue paper entries. |
 | [individual_prospective_revue.py](suivi/individual_prospective_revue.py) | Immutable independent pre-match individual sports research tracker. |
