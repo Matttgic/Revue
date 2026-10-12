@@ -863,13 +863,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-12T09:06:37.474757+00:00",
+      "home_score": 23,
+      "away_score": 30,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.54622152,
+          "log_loss": 0.73940057
+        },
+        "advanced_team": {
+          "brier": 0.4887243,
+          "log_loss": 0.681871
+        },
+        "montecarlo_bayes": {
+          "brier": 0.44513387,
+          "log_loss": 0.63822348
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -1100,13 +1113,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-12T09:06:37.474757+00:00",
+      "home_score": 2,
+      "away_score": 1,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.33015938,
+          "log_loss": 0.52138114
+        },
+        "advanced_team": {
+          "brier": 0.39340224,
+          "log_loss": 0.58610608
+        },
+        "montecarlo_bayes": {
+          "brier": 0.44123618,
+          "log_loss": 0.63431239
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -3195,6 +3221,57 @@
       "home_after": 1512.0,
       "away_after": 1488.0,
       "observed_home_outcome": 1
+    },
+    "MLB:401908030": {
+      "key": "MLB:401908030",
+      "league": "MLB",
+      "event_id": "401908030",
+      "home": "Brewers",
+      "away": "Dodgers",
+      "start_utc": "2026-10-12T00:00:00+00:00",
+      "observed_at_utc": "2026-10-12T09:06:37.474757+00:00",
+      "home_score": 2,
+      "away_score": 1,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1512.0,
+      "away_after": 1488.0,
+      "observed_home_outcome": 1
+    },
+    "NFL:401872993": {
+      "key": "NFL:401872993",
+      "league": "NFL",
+      "event_id": "401872993",
+      "home": "Falcons",
+      "away": "Ravens",
+      "start_utc": "2026-10-12T00:20:00+00:00",
+      "observed_at_utc": "2026-10-12T09:06:37.474757+00:00",
+      "home_score": 23,
+      "away_score": 30,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1488.0,
+      "away_after": 1512.0,
+      "observed_home_outcome": 0
+    },
+    "NBA:401908941": {
+      "key": "NBA:401908941",
+      "league": "NBA",
+      "event_id": "401908941",
+      "home": "Nuggets",
+      "away": "Bulls",
+      "start_utc": "2026-10-12T01:00:00+00:00",
+      "observed_at_utc": "2026-10-12T09:06:37.474757+00:00",
+      "home_score": 133,
+      "away_score": 128,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1512.0,
+      "away_after": 1488.0,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -3218,11 +3295,15 @@
       "Cavaliers": 1512.0,
       "Magic": 1488.0,
       "Hornets": 1512.0,
-      "Bucks": 1488.0
+      "Bucks": 1488.0,
+      "Nuggets": 1512.0,
+      "Bulls": 1488.0
     },
     "MLB": {
       "Guardians": 1512.0,
-      "White Sox": 1488.0
+      "White Sox": 1488.0,
+      "Brewers": 1512.0,
+      "Dodgers": 1488.0
     },
     "SERIEA": {
       "Como": 1500.0,
@@ -3290,8 +3371,10 @@
       "Cardinals": 1488.0,
       "Lions": 1512.0,
       "Seahawks": 1488.0,
-      "49ers": 1512.0
+      "49ers": 1512.0,
+      "Falcons": 1488.0,
+      "Ravens": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-12T05:48:34.231303+00:00"
+  "updated_at_utc": "2026-10-12T09:36:46.519609+00:00"
 }
