@@ -64,13 +64,8 @@ def selections(market:dict,game:dict,league:str) -> list[dict]:
 
 
 def _nhl_rule(market:dict)->str:
-    period=str(market.get("period") or "").upper()
-    name=str(market.get("raw_market_name") or "").casefold()
-    incl=period in ("GAME_INCLUDING_OVERTIME","INCLUDING_OVERTIME") or any(
-        x in name for x in ("incl ot","including ot","including overtime",
-         "overtime included","prolongation incl","prolongations incl",
-         "incluant prolongation","incl. prolongation","avec prolongation"))
-    return "including_ot_confirmed" if incl else "overtime_rule_unverified"
+    from outils.suivi.revue_engine_v2 import nhl_includes_overtime
+    return "including_ot_confirmed" if nhl_includes_overtime(market) else "overtime_rule_unverified"
 
 
 def build_board(models:dict,odds:dict,now:datetime)->dict:

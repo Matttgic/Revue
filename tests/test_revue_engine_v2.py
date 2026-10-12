@@ -336,3 +336,21 @@ class ExchangeReferenceNHLTests(unittest.TestCase):
         # Le total « 60 minutes » de la bourse ne vaut pas pour un total prolongation incluse.
         self.assertFalse([c for c in out if c["market"]=="totals"])
         self.assertGreater(notes["no_sharp_reference"],0)
+
+
+class NHLOvertimeRuleTests(unittest.TestCase):
+    def test_two_way_result_is_full_game_three_way_is_regulation(self):
+        from outils.suivi.revue_engine_v2 import nhl_includes_overtime as ot
+        two=[{"name":"Boston Bruins","price":1.8},{"name":"New York Rangers","price":2.05}]
+        three=two+[{"name":"Draw","price":4.1}]
+        self.assertTrue(ot({"key":"h2h","raw_market_name":"Résultat","outcomes":two}))
+        self.assertTrue(ot({"key":"h2h","raw_market_name":"Face à Face","outcomes":two}))
+        self.assertFalse(ot({"key":"h2h","raw_market_name":"1 N 2","outcomes":three}))
+        # Libellé explicite de temps réglementaire, ou « remboursé si nul » : refusé.
+        self.assertFalse(ot({"key":"h2h","raw_market_name":"Résultat du match (tps rég.)","outcomes":two}))
+        self.assertFalse(ot({"key":"h2h","raw_market_name":"Vainqueur (remboursé si match nul)","outcomes":two}))
+        self.assertFalse(ot({"key":"h2h","period":"REGULAR_TIME","raw_market_name":"Match","outcomes":two}))
+        # Totaux : toujours 2 issues, il faut un libellé explicite.
+        tot=[{"name":"Over","point":5.5,"price":1.9},{"name":"Under","point":5.5,"price":1.9}]
+        self.assertFalse(ot({"key":"totals","raw_market_name":"Nombre de buts","outcomes":tot}))
+        self.assertTrue(ot({"key":"totals","raw_market_name":"Nombre total de buts (prolongations et penaltys inclus)","outcomes":tot}))
