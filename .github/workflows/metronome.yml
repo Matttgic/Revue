@@ -1,0 +1,31 @@
+name: Revue - Metronome PulseScore
+# GitHub ne déclenche qu'environ un créneau planifié toutes les 4 à 5 heures sur
+# ce dépôt (beaucoup de workflows planifiés). Le métronome relance lui-même, au
+# bon rythme : radar court terme (1 h), relevé complet (2 h) et prédictions
+# (3 h), puis se relance à la fin. Dépôt public : minutes Actions gratuites.
+# Pour l'arrêter : annuler l'exécution en cours (une annulation ne relance pas).
+on:
+  workflow_dispatch:
+  schedule:
+    # Filet de sécurité : redémarre la chaîne si elle s'est interrompue.
+    - cron: '23 1,7,13,19 * * *'
+permissions:
+  actions: write
+  contents: read
+concurrency:
+  group: revue-metronome
+  cancel-in-progress: false
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Relancer radar, relevé complet et prédictions pendant 5 h 30
+        run: bash .github/scripts/metronome.sh 330
+      - name: Se relancer pour la tranche suivante
+        if: success()
+        run: gh workflow run metronome.yml --ref main
