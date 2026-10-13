@@ -55,6 +55,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Installer les dépendances Python
+        run: python -m pip install -r requirements.txt
       - name: Tests hors réseau
         run: python -m unittest discover -s tests -p 'test_multisports_independant.py' -v
       - name: Mettre à jour NHL depuis API officielle
