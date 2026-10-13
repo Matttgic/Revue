@@ -37,7 +37,17 @@ test('NHL browser integration (explicit opt-in)',{skip:process.env.RUN_NHL_BROWS
    const h=await fetch('./nhl-player-history.json').then(r=>r.json());
    return Object.keys(h.players).find(id=>h.players[id].games.length&&document.querySelector(`#athlete option[value="${id}"]`));
   });
+
   assert.ok(collected,'At least one real player history is required for integration verification');
+  await page.fill('#manual-odds','2,40');
+  assert.match(await page.locator('#manual-odds-result').innerText(),/41,67 %/);
+  assert.match(await page.locator('#manual-odds-result').innerText(),/sans modèle calibré/i);
+  await page.selectOption('#stat','goals');
+  assert.equal(await page.locator('#manual-odds').inputValue(),'');
+  await page.fill('#manual-odds','1');
+  assert.match(await page.locator('#manual-odds-result').innerText(),/Cote invalide/);
+  await page.fill('#manual-odds','');
+
   await page.selectOption('#athlete',collected);
   await page.waitForSelector('#performance-chart svg rect');
   for(const metric of ['shots','goals','assists','points']){
