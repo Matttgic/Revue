@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-12T05:49:32.032768+00:00",
+  "generated_at_utc": "2026-10-13T01:59:17.947371+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 17,
+      "settled_samples": 19,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 83,
-      "raw_brier": 0.208973,
-      "raw_logloss": 0.598193,
+      "training_remaining": 81,
+      "raw_brier": 0.218668,
+      "raw_logloss": 0.619787,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -37,9 +37,9 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 4,
-          "predicted_mean": 0.3187,
-          "observed_rate": 0.25
+          "count": 6,
+          "predicted_mean": 0.33,
+          "observed_rate": 0.3333
         },
         {
           "from": 0.4,
@@ -73,12 +73,12 @@
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 0,
+      "settled_samples": 1,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 100,
-      "raw_brier": null,
-      "raw_logloss": null,
+      "training_remaining": 99,
+      "raw_brier": 0.171396,
+      "raw_logloss": 0.534435,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -97,9 +97,9 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 0,
-          "predicted_mean": null,
-          "observed_rate": null
+          "count": 1,
+          "predicted_mean": 0.414,
+          "observed_rate": 0.0
         },
         {
           "from": 0.6,
