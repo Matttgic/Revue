@@ -10,10 +10,12 @@ const P=load("picks-center-latest.json");
 const N=load("nhl-frontend-observed-latest.json");
 const G=load("nhl-espn-goalies-latest.json");
 const NOW=Math.max(...[M,P,N,G].map(x=>Date.parse(x.generated_at_utc)))+120000;
-const kick=M.events.find(x=>x.league==="LIGUE1"&&Date.parse(x.start_utc)>NOW+30*60000)
- ||M.events.find(x=>x.league==="LALIGA"&&Date.parse(x.start_utc)>NOW+30*60000)
- ||M.events.find(x=>x.league==="SERIEA"&&Date.parse(x.start_utc)>NOW+30*60000);
-if(!kick)throw Error("No future soccer event in current GitHub snapshot");
+// Synthetic calendar fixture: unit tests must also run during league breaks.
+const kick={league:"LIGUE1",sport:"football",event_id:"test-radar-fixture",
+ home:"Test Home",away:"Test Away",start_utc:new Date(NOW+2*3600000).toISOString(),
+ qualified_for_real_betting:false,recommendation:null,ev:null};
+M.events.push(kick);
+M.metrics.upcoming_matches=M.events.length;
 const fakeMarket=(pHome,pDraw,pAway,league="LIGUE1")=>({
   market:"h2h",period_rule:"90min",
   quote_at:new Date(NOW-120000).toISOString(),

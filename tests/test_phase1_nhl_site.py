@@ -47,9 +47,9 @@ class Phase1Web(unittest.TestCase):
                          all(phase["acceptance_gates"].values()))
         self.assertEqual(phase["version"],"revue_clairvoyance_nhl_phase1_acceptance_v1")
         self.assertEqual(phase["checkpoint"]["public_original_nhl_goalie_names_equal"],
-                         goalies["matching_names"])
+                         goalies["matching_names"] if phase["acceptance_gates"]["public_nhl_goalie_names_cross_source_identity"] else None)
         self.assertEqual(phase["checkpoint"]["public_original_nhl_goalie_status_changes"],
-                         goalies["different_statuses"])
+                         goalies["different_statuses"] if phase["acceptance_gates"]["public_nhl_goalie_names_cross_source_identity"] else None)
         self.assertEqual(phase["checkpoint"]["eligible_revue_moneyline_source_elo_updates"],
                          elo["eligible_revue_settled_moneyline_updates"])
         if phase["acceptance_gates"]["public_nhl_goalie_names_cross_source_identity"]:

@@ -7,7 +7,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Groupe | Rôle | Scripts |
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
-| [`collecte/`](#collecte) | Collecte de données | 16 |
+| [`collecte/`](#collecte) | Collecte de données | 17 |
 | [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 25 |
 | [`controles/`](#controles) | Contrôles qualité | 15 |
 | [`publication/`](#publication) | Publication du site | 4 |
@@ -78,6 +78,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | [moneypuck_goalies_feed.py](collecte/moneypuck_goalies_feed.py) | Derived MoneyPuck NHL goalie metrics from official non-commercial CSV downloads. |
 | [nhl_espn_goalies.py](collecte/nhl_espn_goalies.py) | Read-only ESPN NHL probable-starting-goalie observations joined to NHL game IDs. |
 | [nhl_official_stats_revue.py](collecte/nhl_official_stats_revue.py) | Read-only official NHL Stats REST source snapshot for Clairvoyance field contracts. |
+| [nhl_player_history.py](collecte/nhl_player_history.py) | Bounded ESPN public game logs, using the existing radar's ESPN athlete IDs. |
 | [probe_espn_football_stats.py](collecte/probe_espn_football_stats.py) | Metadata-only diagnostic of ESPN soccer match statistics; NOT an Opta API. |
 | [probe_espn_hockey.py](collecte/probe_espn_hockey.py) | One-time structure probe for ESPN NHL public stats. |
 | [probe_nba_espn_byteam.py](collecte/probe_nba_espn_byteam.py) | Read-only diagnostic for NBA ESPN regular-season advanced stats. |

@@ -1,14 +1,16 @@
 """Source-only NHL ESPN probable goalie join; missing statuses never promoted."""
-import json
 import unittest
 from copy import deepcopy
 from datetime import datetime,timedelta,timezone
-from pathlib import Path
 from outils.collecte.nhl_espn_goalies import combine,espn_candidate,team_code
 
-SNAP=json.loads((Path(__file__).resolve().parents[1]/"docs"/"nhl-frontend-observed-latest.json").read_text("utf8"))
-T=datetime.fromisoformat(SNAP["generated_at_utc"].replace("Z","+00:00"))+timedelta(minutes=2)
-ONE={**deepcopy(SNAP),"games":[deepcopy(SNAP["games"][0])],"games_emitted":1}
+# Synthetic unit fixture independent of frequently refreshed publication timestamps.
+T=datetime(2026,10,12,12,tzinfo=timezone.utc)
+ONE={"version":"revue_nhl_frontend_observed_v1",
+     "status":"prospective_research_partial_input_frontend_not_parity",
+     "real_bets_enabled":False,"exact_original_frontend_predictions_verified":False,
+     "games_emitted":1,"games":[{"event_id":"test-fixture","home":"BOS","away":"ANA",
+       "start_utc":(T+timedelta(hours=2)).isoformat()}]}
 ROW=ONE["games"][0]
 
 def comp(side,team,name=None,status=None):
@@ -87,6 +89,10 @@ class GoalieFeedTest(unittest.TestCase):
         x=event(home="TB",away="SJ")
         m=combine(base,[{"events":[x]}],T)
         self.assertEqual(m["provider_rows_matched"],1)
+
+    def test_twenty_minute_lead_is_preserved(self):
+        self.assertEqual(combine(ONE,[{"events":[event()]}],T+timedelta(minutes=100))["rows"],[])
+        self.assertEqual(combine(ONE,[{"events":[event()]}],T+timedelta(minutes=99))["provider_rows_matched"],1)
 
     def test_corrupt_fixture_or_provider_returns_no_observation(self):
         self.assertIsNone(espn_candidate({"id":"0"}))
