@@ -1,30 +1,30 @@
 {
-  "generated_at_utc": "2026-10-13T06:53:11.041688+00:00",
+  "generated_at_utc": "2026-10-13T16:06:11.556181+00:00",
   "status": "attention_required",
   "components": {
     "multisports": {
-      "status": "fresh",
-      "age_hours": 4.09,
+      "status": "stale",
+      "age_hours": 13.3,
       "updated_at_utc": "2026-10-13T02:47:58.100383+00:00"
     },
     "scanner": {
       "status": "fresh",
-      "age_hours": 0.08,
-      "updated_at_utc": "2026-10-13T06:48:08.818085+00:00"
+      "age_hours": 0.28,
+      "updated_at_utc": "2026-10-13T15:49:19.590170+00:00"
     },
     "football_shadow": {
-      "status": "fresh",
-      "age_hours": 4.09,
+      "status": "stale",
+      "age_hours": 13.3,
       "updated_at_utc": "2026-10-13T02:48:03.858859+00:00"
     },
     "teams_shadow": {
-      "status": "fresh",
-      "age_hours": 4.09,
+      "status": "stale",
+      "age_hours": 13.3,
       "updated_at_utc": "2026-10-13T02:48:04.399585+00:00"
     },
     "football_boxscores": {
       "status": "fresh",
-      "age_hours": 4.09,
+      "age_hours": 13.3,
       "updated_at_utc": "2026-10-13T02:48:03.604591+00:00"
     }
   },
@@ -32,14 +32,8 @@
     "source_files_audited": 415,
     "multisport_feeds_ok": 18,
     "future_matches": 77,
-    "live_bookmaker_source_status": "active_pulsescore",
-    "quote_matches": [
-      {
-        "provider": "PulseScore",
-        "calls": 34,
-        "matched_events": 64
-      }
-    ],
+    "live_bookmaker_source_status": "disabled_stale_model",
+    "quote_matches": [],
     "paper_total": 53,
     "paper_settled": 35,
     "quote_close_proxy_sample": 4,
@@ -51,6 +45,11 @@
     "real_bets_enabled": false
   },
   "warnings": [
+    "multisports stale",
+    "football_shadow stale",
+    "teams_shadow stale",
+    "PulseScore scanner state: disabled_stale_model",
+    "Some bookmaker feeds returned errors; see scanner details",
     "10 paper entries with uncertain chronology/rule"
   ],
   "note": "This describes operational health, not betting profitability."
