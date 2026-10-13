@@ -46,7 +46,9 @@ permissions:
   id-token: write
 concurrency:
   group: revue-pages
-  cancel-in-progress: true
+  # Avoid cancelling a real Pages deployment when many data workflows finish together.
+  # GitHub will retain one pending refresh while an existing publication finishes.
+  cancel-in-progress: false
 jobs:
   publish:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
