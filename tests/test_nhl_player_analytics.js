@@ -57,3 +57,14 @@ test('duplicate identity representations count once and missing stats reduce act
  const r=hitRate(sample([g,{event_id:'2',date:'2026-10-02T00:00:00Z',shots:null}],'shots'),'shots',2.5,20);
  assert.deepEqual(r,{n:1,hits:1,rate:1,missing:1});
 });
+
+test('manual decimal odds accept comma or dot and return only break-even, never EV',()=>{
+ const {breakEvenOdds,ev}=require('../docs/nhl-player-analytics.js');
+ assert.ok(Math.abs(breakEvenOdds('2,40')-1/2.4)<1e-12);
+ assert.ok(Math.abs(breakEvenOdds('2.40')-1/2.4)<1e-12);
+ assert.ok(Math.abs(breakEvenOdds(' 1,01 ')-1/1.01)<1e-12);
+ for(const invalid of ['1','1,00','1,005','1001','2,40 euros','NaN','','-1','2 40',null,2.4]){
+  assert.equal(breakEvenOdds(invalid),null);
+ }
+ assert.equal(ev,undefined);
+});

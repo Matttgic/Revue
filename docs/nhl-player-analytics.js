@@ -40,7 +40,15 @@
   for(let i=1;i<=Math.floor(line);i++){term*=rate/i;cdf+=term;}
   return Math.max(0,Math.min(1,1-cdf));
  }
- const api={sample,hitRate,poisson,finite,reliability,searchPlayers};
+ // Manual price only gives the break-even percentage; it cannot determine value or EV.
+ function breakEvenOdds(input){
+  if(typeof input!=='string')return null;
+  const text=input.trim();
+  if(!/^\d{1,4}(?:[,.]\d{1,2})?$/.test(text))return null;
+  const odds=Number(text.replace(',','.'));
+  return Number.isFinite(odds)&&odds>=1.01&&odds<=1000?1/odds:null;
+ }
+ const api={sample,hitRate,poisson,finite,reliability,searchPlayers,breakEvenOdds};
  if(typeof module!=='undefined'&&module.exports)module.exports=api;
  else root.NHLAnalytics=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
