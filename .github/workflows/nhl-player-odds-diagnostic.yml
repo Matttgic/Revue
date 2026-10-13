@@ -1,0 +1,27 @@
+name: NHL - diagnostic cotes joueurs (5 appels maximum)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: revue-engine-v2-paper
+  cancel-in-progress: false
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p 'test_nhl_player_odds_diagnostic.py'
+      - name: Diagnostic borné sans export des cotes
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+        run: python -m outils.collecte.diagnostic_nhl_player_odds
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nhl-player-odds-coverage
+          path: docs/nhl-odds-diagnostic.json
+          retention-days: 7
