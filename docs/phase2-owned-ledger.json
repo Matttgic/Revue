@@ -2372,13 +2372,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-13T09:19:28.432544+00:00",
+      "home_score": 34,
+      "away_score": 37,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.61073352,
+          "log_loss": 0.80430223
+        },
+        "advanced_team": {
+          "brier": 0.551271,
+          "log_loss": 0.74446153
+        },
+        "montecarlo_bayes": {
+          "brier": 0.51783629,
+          "log_loss": 0.71098534
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -2428,13 +2441,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-13T09:19:28.432544+00:00",
+      "home_score": 3,
+      "away_score": 7,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.65964098,
+          "log_loss": 0.85402041
+        },
+        "advanced_team": {
+          "brier": 0.62643863,
+          "log_loss": 0.82020812
+        },
+        "montecarlo_bayes": {
+          "brier": 0.61760498,
+          "log_loss": 0.81125527
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -3530,6 +3556,57 @@
       "home_after": 1488.41,
       "away_after": 1523.59,
       "observed_home_outcome": 0
+    },
+    "MLB:401908023": {
+      "key": "MLB:401908023",
+      "league": "MLB",
+      "event_id": "401908023",
+      "home": "Rays",
+      "away": "Guardians",
+      "start_utc": "2026-10-13T00:00:00+00:00",
+      "observed_at_utc": "2026-10-13T09:19:28.432544+00:00",
+      "home_score": 3,
+      "away_score": 7,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1512.0,
+      "home_after": 1488.41,
+      "away_after": 1523.59,
+      "observed_home_outcome": 0
+    },
+    "NFL:401872994": {
+      "key": "NFL:401872994",
+      "league": "NFL",
+      "event_id": "401872994",
+      "home": "Rams",
+      "away": "Bills",
+      "start_utc": "2026-10-13T00:15:00+00:00",
+      "observed_at_utc": "2026-10-13T09:19:28.432544+00:00",
+      "home_score": 34,
+      "away_score": 37,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1488.0,
+      "away_after": 1512.0,
+      "observed_home_outcome": 0
+    },
+    "NBA:401898721": {
+      "key": "NBA:401898721",
+      "league": "NBA",
+      "event_id": "401898721",
+      "home": "Jazz",
+      "away": "Spurs",
+      "start_utc": "2026-10-13T01:00:00+00:00",
+      "observed_at_utc": "2026-10-13T09:19:28.432544+00:00",
+      "home_score": 119,
+      "away_score": 109,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1488.0,
+      "home_after": 1511.59,
+      "away_after": 1476.41,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -3547,7 +3624,7 @@
       "Warriors": 1512.0,
       "Kings": 1488.0,
       "Suns": 1512.0,
-      "Spurs": 1488.0,
+      "Spurs": 1476.41,
       "Rockets": 1488.0,
       "Mavericks": 1512.0,
       "Cavaliers": 1512.0,
@@ -3560,13 +3637,15 @@
       "Lions": 1488.0,
       "Thunder": 1488.41,
       "Nets": 1512.41,
-      "Knicks": 1488.41
+      "Knicks": 1488.41,
+      "Jazz": 1511.59
     },
     "MLB": {
-      "Guardians": 1512.0,
+      "Guardians": 1523.59,
       "White Sox": 1488.0,
       "Brewers": 1523.17,
-      "Dodgers": 1476.83
+      "Dodgers": 1476.83,
+      "Rays": 1488.41
     },
     "SERIEA": {
       "Como": 1500.0,
@@ -3644,8 +3723,10 @@
       "Seahawks": 1488.0,
       "49ers": 1512.0,
       "Falcons": 1488.0,
-      "Ravens": 1512.0
+      "Ravens": 1512.0,
+      "Rams": 1488.0,
+      "Bills": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-13T02:44:06.540290+00:00"
+  "updated_at_utc": "2026-10-13T11:41:55.052716+00:00"
 }
