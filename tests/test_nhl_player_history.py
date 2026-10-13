@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime, timezone
-from outils.collecte.nhl_player_history import parse_log, collect, count, encode_report
+from outils.collecte.nhl_player_history import parse_log, collect, count, encode_report, coverage
 
 NOW = datetime(2026, 10, 13, tzinfo=timezone.utc)
 
@@ -56,7 +56,7 @@ class HistoryTests(unittest.TestCase):
             return fixture()
         profiles = {'season': 20262027, 'teams': {'ANA': [{'player_id': '1'}, {'player_id': '2'}]}}
         report = collect(profiles, {}, NOW, max_players=1, fetch=fetch)
-        self.assertEqual(len(urls), 2)
+        self.assertEqual(len(urls), 4)  # bounded fallback across four regular seasons
         self.assertEqual(len(report['players']), 1)
         self.assertEqual(report['players']['1']['status'], 'partial')
         self.assertNotIn('sensitive', str(report))
@@ -65,12 +65,12 @@ class HistoryTests(unittest.TestCase):
         updated = collect(profiles, report, NOW, max_players=1, fetch=fetch)
         self.assertIn('2', updated['players'])
 
-    def test_rollover_discards_older_season_cache(self):
+    def test_rollover_retains_bounded_older_seasons_only(self):
         profiles = {'season': 20262027, 'teams': {'ANA': [{'player_id': '1'}]}}
         previous = {'players': {'1': {'attempted_at': NOW.isoformat(), 'games': [
-            {'season': 2025}, {'season': 2026}, {'season': 2027}]}}}
+            {'event_id': str(y), 'date': f'{y}-01-01T00:00:00Z', 'season': y} for y in range(2023,2028)]}}}
         report = collect(profiles, previous, NOW, max_players=0)
-        self.assertEqual([g['season'] for g in report['players']['1']['games']], [2026, 2027])
+        self.assertEqual([g['season'] for g in report['players']['1']['games']], [2027,2026,2025,2024])
 
     def test_storage_is_lossless_standard_json_and_stable(self):
         import json
@@ -81,3 +81,80 @@ class HistoryTests(unittest.TestCase):
         self.assertLess(len(encoded.splitlines()), 12)
         with self.assertRaises(ValueError):
             encode_report({'players': {}, 'bad': float('nan')})
+
+    def test_failure_retains_observations_without_refreshing_success_timestamp(self):
+        old_date = '2026-10-12T00:00:00+00:00'
+        game = {'event_id':'old', 'date':'2026-10-01T00:00:00Z', 'season':2027, 'shots':3, 'goals':0, 'assists':0, 'points':0}
+        old = {'players': {'1': {'games':[game], 'season_collected_at': {'2027':old_date}, 'attempted_at':old_date}}}
+        def fail(url):
+            raise TimeoutError('Do not publish exception contents')
+        result = collect({'season':20262027,'teams':{'ANA':[{'player_id':'1'}]}},old,NOW,fetch=fail)
+        player = result['players']['1']
+        self.assertEqual(player['games'],[game])
+        self.assertEqual(player['season_collected_at']['2027'],old_date)
+        self.assertEqual(player['status'],'partial')
+
+    def test_cached_archives_skip_requests_and_duplicates_do_not_inflate_coverage(self):
+        rows = [{'event_id':str(i), 'date':f'2026-01-{i+1:02d}T00:00:00Z', 'season':2026,
+                 'shots':1,'goals':0,'assists':0,'points':0} for i in range(20)]
+        old = {'players': {'1': {'games':rows+[rows[0]], 'season_collected_at':{'2026':NOW.isoformat()}}}}
+        urls=[]
+        def fetch(url):
+            urls.append(url)
+            return fixture()
+        report=collect({'season':20262027,'teams':{'ANA':[{'player_id':'1'}]}},old,NOW,fetch=fetch)
+        self.assertEqual(len(urls),1)
+        self.assertEqual(report['coverage']['observations'],20)
+        self.assertEqual(report['coverage']['players_with_20_complete_observations'],1)
+        self.assertTrue(report['players']['1']['diagnostics'][1]['cached'])
+        report['players']['1']['games'][0]['shots']=None
+        self.assertEqual(coverage(report['players'],1)['players_with_20_complete_observations'],0)
+
+    def test_denied_source_stops_fallback_without_discarding_cache(self):
+        from urllib.error import HTTPError
+        urls=[]
+        def denied(url):
+            urls.append(url)
+            raise HTTPError(url,403,'Denied',{},None)
+        report=collect({'season':20262027,'teams':{'ANA':[{'player_id':'1'}]}},{},NOW,fetch=denied)
+        self.assertEqual(len(urls),1)
+        self.assertEqual(report['players']['1']['status'],'unavailable')
+        self.assertEqual(report['players']['1']['diagnostics'][0]['http_status'],403)
+
+    def test_bounded_older_season_fallback_reaches_twenty_real_rows(self):
+        import re
+        requested=[]
+        def fetch(url):
+            year=int(re.search(r'season=(\d+)',url).group(1))
+            requested.append(year)
+            data=fixture()
+            data['seasonTypes']=[]
+            data['events']={}
+            n={2027:4,2026:0,2025:20}.get(year,0)
+            rows=[]
+            for i in range(n):
+                eid=f'{year}-{i}'
+                rows.append({'eventId':eid,'stats':['0','0','0','2']})
+                data['events'][eid]={'gameDate':f'{year-1}-10-{i+1:02d}T00:00:00Z','gameResult':'W','atVs':'vs','opponent':{'abbreviation':'ANA'}}
+            data['seasonTypes']=[{'displayName':f'{year-1}-{str(year)[-2:]} Regular Season', 'categories':[{'type':'event','events':rows}]}]
+            return data
+        result=collect({'season':20262027,'teams':{'ANA':[{'player_id':'1'}]}},{},NOW,fetch=fetch)
+        self.assertEqual(requested,[2027,2026,2025])
+        self.assertEqual(len(result['players']['1']['games']),24)
+        self.assertEqual(result['coverage']['players_with_20_complete_observations'],1)
+
+    def test_automatic_job_refreshes_full_radar_and_never_publishes_branch_to_main(self):
+        from pathlib import Path
+        import yaml
+        root=Path(__file__).resolve().parents[1]
+        workflow=yaml.safe_load((root/'.github/workflows/multisports-independent.yml').read_text())
+        steps=workflow['jobs']['multisports']['steps']
+        publishing=[s for s in steps if 'git push origin HEAD:main' in s.get('run','')]
+        import inspect
+        self.assertGreaterEqual(inspect.signature(collect).parameters['max_players'].default,256)
+        self.assertTrue(any(s.get('run')=='python -m outils.collecte.nhl_player_history' for s in steps))
+        self.assertEqual(len(publishing),1)
+        self.assertEqual(publishing[0]['if'],"github.ref == 'refs/heads/main'")
+        artifacts=[s for s in steps if s.get('uses')=='actions/upload-artifact@v4']
+        self.assertEqual(artifacts[0]['if'],"github.ref != 'refs/heads/main'")
+        self.assertEqual(artifacts[0]['with']['path'],'docs/nhl-player-history.json')

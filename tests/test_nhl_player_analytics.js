@@ -29,3 +29,31 @@ test('probability is a separate Poisson calculation and no EV exported',()=>{
  assert.equal(poisson(null,.5),null);assert.equal(poisson(-1,.5),null);assert.equal(poisson(1,1),null);
  assert.equal(require('../docs/nhl-player-analytics.js').ev,undefined);
 });
+test('incomplete samples, freshness and failed reads are data quality, never predictive certainty',()=>{
+ const A=require('../docs/nhl-player-analytics.js'),now=Date.parse('2026-10-13T00:00:00Z');
+ const rows=sample(games,'shots');
+ const entry={status:'ok',season_collected_at:{2026:'2026-10-12T23:00:00Z'},diagnostics:[]};
+ assert.equal(A.reliability(rows.slice(0,4),'shots',entry,2026,now).n,4);
+ assert.equal(A.reliability(rows.slice(0,4),'shots',entry,2026,now).label,'Échantillon incomplet');
+ assert.equal(A.reliability(rows,'shots',entry,2026,now).label,'Données bien couvertes');
+ const missingRows=rows.map(g=>({...g,shots:null}));
+ assert.equal(A.reliability(missingRows,'shots',entry,2026,now).n,0);
+ assert.equal(A.reliability(rows,'shots',{...entry,season_collected_at:{2026:'2026-10-10T00:00:00Z'}},2026,now).label,'À actualiser');
+ assert.equal(A.reliability(rows,'shots',{status:'partial'},2026,now).label,'Fraîcheur inconnue');
+ assert.equal(A.reliability(rows,'shots',{...entry,diagnostics:[{season:2026,status:'unavailable'}]},2026,now).label,'Collecte partielle');
+ assert.equal(A.reliability(rows,'shots',entry,2027,now).fresh,true);
+ assert.equal(A.reliability(rows,'shots',{...entry,season_collected_at:{2026:'2026-10-14T00:00:00Z'}},2026,now).fresh,false);
+});
+test('quick name search ignores accents and case, no false matching of unknown names',()=>{
+ const {searchPlayers}=require('../docs/nhl-player-analytics.js');
+ const players=[{name:'Émile Test'},{name:'Autre Joueur'}];
+ assert.deepEqual(searchPlayers(players,' EMILE '),[players[0]]);
+ assert.equal(searchPlayers(players,'').length,2);
+ assert.equal(searchPlayers(players,'absent').length,0);
+});
+test('duplicate identity representations count once and missing stats reduce actual denominator',()=>{
+ const g={event_id:1,date:'2026-10-01T00:00:00Z',shots:3};
+ assert.equal(sample([g,{...g,event_id:'1'}],'shots').length,1);
+ const r=hitRate(sample([g,{event_id:'2',date:'2026-10-02T00:00:00Z',shots:null}],'shots'),'shots',2.5,20);
+ assert.deepEqual(r,{n:1,hits:1,rate:1,missing:1});
+});

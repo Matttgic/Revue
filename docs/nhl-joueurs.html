@@ -24,7 +24,7 @@ a{color:#a9ccf2}
 .analytics{margin:20px 0 32px;min-width:0}.analytics .controls label{max-width:100%;min-width:0}.analytics select{max-width:100%;min-width:0}.analytics p{overflow-wrap:anywhere}.controls label{display:flex;flex-direction:column;gap:5px;color:var(--dim);font-size:.85rem}
 input{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:11px;font:inherit;width:100px}
 .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0}.summary-grid strong{display:block;color:var(--accent);font-size:1.2rem}
-.chart{width:100%;min-width:620px;height:auto}.chart text{fill:var(--dim);font:12px system-ui}.chart .threshold{stroke:#ffce71;stroke-dasharray:5 4}.table-scroll,#performance-chart{overflow:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:9px;border-bottom:1px solid var(--line)}
+.chart{width:100%;height:auto;max-height:360px}.chart .gridline{stroke:var(--line);stroke-opacity:.35}.chart-legend{font-size:.85rem}#player-search{width:240px;max-width:100%}#performance-chart{overscroll-behavior-inline:contain}.analytics select,.analytics input{min-height:44px}@media(max-width:480px){.analytics .summary-grid{grid-template-columns:1fr}.analytics .controls{gap:12px}.analytics .controls label{flex:1 1 140px}.chart text{font-size:13px}}.chart text{fill:var(--dim);font:12px system-ui}.chart .threshold{stroke:#ffce71;stroke-dasharray:5 4}.table-scroll,#performance-chart{overflow:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:9px;border-bottom:1px solid var(--line)}
 button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 </style><link rel="stylesheet" href="./theme.css?v=3"><script defer src="./pixel.js?v=1"></script>
@@ -38,6 +38,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <h2 id="analytics-title">Analyse des performances</h2>
 <p>Fréquence de dépassement du seuil actuel, après filtres. Saison régulière uniquement. L5/L10/L20 : dernières apparitions du joueur dans la sélection ; les statistiques manquantes sont exclues sans remplacement.</p>
 <div class="controls">
+<label>Recherche joueur <input id="player-search" type="search" placeholder="Nom du joueur…" autocomplete="off" aria-describedby="search-count"><span id="search-count" role="status"></span></label>
 <label>Joueur <select id="athlete"></select></label>
 <label>Statistique <select id="stat"><option value="shots">Tirs cadrés</option><option value="goals">Buts</option><option value="assists">Passes</option><option value="points">Points</option></select></label>
 <label>Seuil Over <input id="line" type="number" min="0.5" max="50.5" step="1" value="2.5"></label>
@@ -45,9 +46,12 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <label>Lieu <select id="venue"><option value="">Tous</option><option value="home">Domicile</option><option value="away">Extérieur</option></select></label>
 <label>Adversaire <select id="opponent"><option value="">Tous</option></select></label>
 </div>
+<div id="data-quality" class="summary-grid" aria-live="polite"></div>
 <p id="history-status" role="status" aria-live="polite">Chargement des historiques…</p>
 <div id="hit-rates" class="summary-grid"></div>
-<div id="performance-chart"></div>
+<div class="controls"><label>Graphique <select id="chart-window"><option value="10">10 derniers matchs</option><option value="20">20 derniers matchs</option><option value="5">5 derniers matchs</option></select></label></div>
+<p class="chart-legend">Vert : au-dessus du seuil · Gris : en dessous · N/D : statistique absente. Faites défiler horizontalement pour voir tous les matchs.</p>
+<div id="performance-chart" tabindex="0" role="region" aria-label="Graphique des performances, défilement horizontal"></div>
 <div id="estimates" class="summary-grid"></div>
 <p id="odds-status">Cotes françaises : Données indisponibles — aucun marché joueur PulseScore vérifié.</p>
 <details><summary>Voir les matchs et données sources</summary><div class="table-scroll"><table><thead><tr><th>Date</th><th>Adversaire</th><th>Lieu</th><th>Valeur</th><th>Résultat au seuil actuel</th></tr></thead><tbody id="game-rows"></tbody></table></div></details>

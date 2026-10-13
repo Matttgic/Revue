@@ -32,7 +32,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | Fichier | Généré | Ko | Publié par | Produit par |
 |---|---|---:|---|---|
 | [clairvoyance-code-audit.json](../docs/clairvoyance-code-audit.json) | 2026-10-12 15:18 | 127 | audit-clairvoyance.yml | `outils/clairvoyance/audit_clairvoyance_complet.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/controles/diagnostic_revue.py` |
-| [clairvoyance-elo-source-audit.json](../docs/clairvoyance-elo-source-audit.json) | 2026-10-12 18:59 | 2 | phase1-nhl-fidelity.yml | `outils/clairvoyance/clairvoyance_elo_settlement_replay.py`, `outils/clairvoyance/verifier_phase1_nhl.py` |
+| [clairvoyance-elo-source-audit.json](../docs/clairvoyance-elo-source-audit.json) | 2026-10-13 02:43 | 2 | phase1-nhl-fidelity.yml | `outils/clairvoyance/clairvoyance_elo_settlement_replay.py`, `outils/clairvoyance/verifier_phase1_nhl.py` |
 | [clairvoyance-fixture-reconciliation.json](../docs/clairvoyance-fixture-reconciliation.json) | 2026-10-12 13:34 | 8 | original-fixtures.yml | `outils/clairvoyance/reconcile_reference_fixtures.js` |
 | [clairvoyance-nba-advanced-ratings.json](../docs/clairvoyance-nba-advanced-ratings.json) | 2026-10-12 16:55 | 19 | clairvoyance-nba-advanced.yml | `outils/clairvoyance/audit_entrees_clairvoyance.py`, `outils/clairvoyance/nba_ratings_clairvoyance_advanced.py`, `outils/controles/phase11_data_quality.py` |
 | [clairvoyance-nba-espn-advanced-cache.json](../docs/clairvoyance-nba-espn-advanced-cache.json) | — | 14 | clairvoyance-nba-advanced.yml | `outils/clairvoyance/nba_ratings_clairvoyance_advanced.py` |
@@ -52,9 +52,9 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [parite-elo-mlb-source.json](../docs/parite-elo-mlb-source.json) | 2026-10-11 03:14 | 1 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/verifier_parite_elo_mlb_source.py` |
 | [parite-modeles-clairvoyance.json](../docs/parite-modeles-clairvoyance.json) | 2026-10-11 03:14 | 21 | parite-clairvoyance-predictor.yml | `outils/clairvoyance/audit_reproduction_exacte.py`, `outils/clairvoyance/catalogue_parite_modeles.py`, `outils/clairvoyance/pin_source_parity.py` |
 | [parite-nhl-espn-id-map.json](../docs/parite-nhl-espn-id-map.json) | 2026-10-11 03:14 | 3 | parite-clairvoyance-predictor.yml, parite-exacte-clairvoyance.yml | `api_revue/fixtures.py`, `api_revue/paper_picks.py`, `api_revue/research_predictions.py` |
-| [parite-nhl-gardiens-publics.json](../docs/parite-nhl-gardiens-publics.json) | 2026-10-12 18:59 | 17 | phase1-nhl-fidelity.yml | `outils/clairvoyance/parite_nhl_gardiens_publics.py`, `outils/clairvoyance/verifier_phase1_nhl.py` |
+| [parite-nhl-gardiens-publics.json](../docs/parite-nhl-gardiens-publics.json) | 2026-10-13 02:43 | 17 | phase1-nhl-fidelity.yml | `outils/clairvoyance/parite_nhl_gardiens_publics.py`, `outils/clairvoyance/verifier_phase1_nhl.py` |
 | [parite-nhl-source-style.json](../docs/parite-nhl-source-style.json) | 2026-10-12 22:13 | 1 | parite-nhl-source-style.yml | `outils/clairvoyance/verifier_parite_nhl_source_style.py` |
-| [phase1-nhl-fidelity.json](../docs/phase1-nhl-fidelity.json) | 2026-10-12 18:59 | 3 | phase1-nhl-fidelity.yml | `outils/clairvoyance/verifier_phase1_nhl.py` |
+| [phase1-nhl-fidelity.json](../docs/phase1-nhl-fidelity.json) | 2026-10-13 02:43 | 3 | phase1-nhl-fidelity.yml | `outils/clairvoyance/verifier_phase1_nhl.py` |
 | [phase4-evidence-latest.json](../docs/phase4-evidence-latest.json) | 2026-10-11 11:34 | 2 | phase4-parite-reelle.yml | `outils/clairvoyance/phase4_parite_reelle.py` |
 | [phase6-predictions-latest.json](../docs/phase6-predictions-latest.json) | 2026-10-13 02:07 | 34 | phase6-predictions.yml | `outils/clairvoyance/phase6_comparaison_pregame.py`, `outils/controles/phase9_acceptation_production.py` |
 | [phase6-pregame-ledger.json](../docs/phase6-pregame-ledger.json) | — | 34 | phase6-predictions.yml | `outils/clairvoyance/phase6_comparaison_pregame.py`, `outils/controles/phase7_cotes_et_bilan.py` |
@@ -70,14 +70,14 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [nhl-backend-source-style-latest.json](../docs/nhl-backend-source-style-latest.json) | 2026-10-12 22:07 | 24 | nhl-backend-source-style.yml, parite-nhl-source-style.yml | `outils/clairvoyance/nhl_backend_source_style.py`, `outils/clairvoyance/phase4_parite_reelle.py`, `outils/clairvoyance/verifier_parite_nhl_source_style.py` |
 | [nhl-calibration-latest.json](../docs/nhl-calibration-latest.json) | 2026-10-13 01:59 | 3 | nhl-settlement-officiel.yml | `outils/suivi/nhl_calibration_prospective.py` |
 | [nhl-clairvoyance-shadow-latest.json](../docs/nhl-clairvoyance-shadow-latest.json) | 2026-10-12 23:38 | 36 | nhl-clairvoyance-moneypuck-shadow.yml | `api_revue/research_predictions.py`, `outils/clairvoyance/clairvoyance_nhl_forensics.py`, `outils/clairvoyance/clairvoyance_nhl_scenarios.py` |
-| [nhl-espn-goalies-latest.json](../docs/nhl-espn-goalies-latest.json) | 2026-10-12 21:52 | 15 | nhl-espn-goalies.yml | `outils/clairvoyance/parite_nhl_gardiens_publics.py`, `outils/collecte/nhl_espn_goalies.py`, `outils/controles/etat_donnees_revue.py` |
+| [nhl-espn-goalies-latest.json](../docs/nhl-espn-goalies-latest.json) | 2026-10-13 02:43 | 15 | nhl-espn-goalies.yml | `outils/clairvoyance/parite_nhl_gardiens_publics.py`, `outils/collecte/nhl_espn_goalies.py`, `outils/controles/etat_donnees_revue.py` |
 | [nhl-frontend-observed-latest.json](../docs/nhl-frontend-observed-latest.json) | 2026-10-12 23:38 | 40 | nhl-frontend-observed.yml | `outils/collecte/nhl_espn_goalies.py`, `outils/controles/etat_donnees_revue.py`, `outils/suivi/nhl_frontend_observed.js` |
 | [nhl-frontend-prospective-ledger.json](../docs/nhl-frontend-prospective-ledger.json) | 2026-10-13 02:06 | 38 | nhl-frontend-prospective.yml | `outils/suivi/nhl_frontend_tracker.py` |
 | [nhl-frontend-prospective-performance.json](../docs/nhl-frontend-prospective-performance.json) | 2026-10-13 02:06 | 1 | nhl-frontend-prospective.yml | `outils/clairvoyance/verifier_phase1_nhl.py`, `outils/controles/etat_donnees_revue.py`, `outils/suivi/nhl_frontend_tracker.py` |
-| [nhl-model-latest.json](../docs/nhl-model-latest.json) | 2026-10-13 02:10 | 21 | multisports-independent.yml, nhl-independent.yml | `modeles/simulations/multisports_independant.py`, `modeles/simulations/nhl_independant.py`, `modeles/simulations/nhl_joueurs_independant.py` |
+| [nhl-model-latest.json](../docs/nhl-model-latest.json) | 2026-10-13 02:47 | 21 | multisports-independent.yml, nhl-independent.yml | `modeles/simulations/multisports_independant.py`, `modeles/simulations/nhl_independant.py`, `modeles/simulations/nhl_joueurs_independant.py` |
 | [nhl-official-stats-latest.json](../docs/nhl-official-stats-latest.json) | 2026-10-13 02:06 | 312 | nhl-official-stats.yml | `api_revue/nhl_stats.py`, `api_revue/operational.py`, `outils/clairvoyance/nhl_backend_source_style.py` |
-| [nhl-player-history.json](../docs/nhl-player-history.json) | 2026-10-13 02:15 | 2439 | multisports-independent.yml | `outils/collecte/nhl_player_history.py` |
-| [nhl-players-latest.json](../docs/nhl-players-latest.json) | 2026-10-13 02:11 | 162 | multisports-independent.yml | `modeles/simulations/nhl_joueurs_independant.py`, `outils/collecte/nhl_player_history.py`, `outils/publication/match_center_revue.py` |
+| [nhl-player-history.json](../docs/nhl-player-history.json) | 2026-10-13 02:55 | 2475 | multisports-independent.yml | `outils/collecte/nhl_player_history.py` |
+| [nhl-players-latest.json](../docs/nhl-players-latest.json) | 2026-10-13 02:47 | 162 | multisports-independent.yml | `modeles/simulations/nhl_joueurs_independant.py`, `outils/collecte/nhl_player_history.py`, `outils/publication/match_center_revue.py` |
 | [nhl-shadow-ledger.json](../docs/nhl-shadow-ledger.json) | 2026-10-13 01:59 | 51 | nhl-clairvoyance-moneypuck-shadow.yml, nhl-settlement-officiel.yml | `outils/publication/match_center_revue.py`, `outils/suivi/clairvoyance_nhl_moneypuck_shadow.py`, `outils/suivi/nhl_calibration_prospective.py` |
 | [nhl-shadow-performance.json](../docs/nhl-shadow-performance.json) | 2026-10-13 01:59 | 1 | nhl-clairvoyance-moneypuck-shadow.yml, nhl-settlement-officiel.yml | `outils/suivi/clairvoyance_nhl_moneypuck_shadow.py`, `outils/suivi/nhl_settlement_officiel.py` |
 | [nhl-source-input-delta.json](../docs/nhl-source-input-delta.json) | 2026-10-12 21:23 | 27 | nhl-source-input-gap.yml | `outils/clairvoyance/nhl_source_input_gap.py` |
@@ -86,11 +86,11 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 
 | Fichier | Généré | Ko | Publié par | Produit par |
 |---|---|---:|---|---|
-| [football-advanced-shadow.json](../docs/football-advanced-shadow.json) | 2026-10-13 02:11 | 27 | multisports-independent.yml | `modeles/simulations/football_avance_independant.py`, `outils/controles/diagnostic_revue.py`, `outils/controles/phase11_data_quality.py` |
-| [football-espn-stat-cache.json](../docs/football-espn-stat-cache.json) | 2026-10-13 02:11 | 338 | multisports-independent.yml | `modeles/simulations/football_espn_statistiques.py` |
-| [football-espn-team-features.json](../docs/football-espn-team-features.json) | 2026-10-13 02:11 | 72 | multisports-independent.yml | `modeles/simulations/football_avance_independant.py`, `modeles/simulations/football_espn_statistiques.py`, `outils/clairvoyance/audit_entrees_clairvoyance.py` |
+| [football-advanced-shadow.json](../docs/football-advanced-shadow.json) | 2026-10-13 02:48 | 27 | multisports-independent.yml | `modeles/simulations/football_avance_independant.py`, `outils/controles/diagnostic_revue.py`, `outils/controles/phase11_data_quality.py` |
+| [football-espn-stat-cache.json](../docs/football-espn-stat-cache.json) | 2026-10-13 02:48 | 338 | multisports-independent.yml | `modeles/simulations/football_espn_statistiques.py` |
+| [football-espn-team-features.json](../docs/football-espn-team-features.json) | 2026-10-13 02:48 | 72 | multisports-independent.yml | `modeles/simulations/football_avance_independant.py`, `modeles/simulations/football_espn_statistiques.py`, `outils/clairvoyance/audit_entrees_clairvoyance.py` |
 | [football-shadow-ledger.json](../docs/football-shadow-ledger.json) | — | 36 | multisports-independent.yml | `outils/suivi/suivi_football_avance.py` |
-| [football-shadow-performance.json](../docs/football-shadow-performance.json) | 2026-10-13 02:11 | 3 | multisports-independent.yml | `outils/suivi/suivi_football_avance.py` |
+| [football-shadow-performance.json](../docs/football-shadow-performance.json) | 2026-10-13 02:48 | 3 | multisports-independent.yml | `outils/suivi/suivi_football_avance.py` |
 
 ### NBA / MLB
 
@@ -98,7 +98,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 |---|---|---:|---|---|
 | [mlb-official-probable-pitchers-latest.json](../docs/mlb-official-probable-pitchers-latest.json) | 2026-10-12 21:47 | 2 | phase11-data-quality.yml | `outils/collecte/mlb_official_pitchers.py`, `outils/controles/phase11_data_quality.py`, `outils/publication/match_center_revue.py` |
 | [mlb-source-elo-gap.json](../docs/mlb-source-elo-gap.json) | 2026-10-12 21:25 | 3 | mlb-source-elo-gap.yml | `outils/clairvoyance/mlb_source_elo_gap.py`, `outils/controles/phase11_data_quality.py`, `outils/controles/phase5_donnees_multisports.py` |
-| [nba-prior-shadow.json](../docs/nba-prior-shadow.json) | 2026-10-13 02:11 | 11 | multisports-independent.yml | `modeles/simulations/nba_prior_espn.py`, `outils/suivi/phase10_modeles_multisports.py` |
+| [nba-prior-shadow.json](../docs/nba-prior-shadow.json) | 2026-10-13 02:48 | 11 | multisports-independent.yml | `modeles/simulations/nba_prior_espn.py`, `outils/suivi/phase10_modeles_multisports.py` |
 | [nba-prior-standings.json](../docs/nba-prior-standings.json) | — | 8 | multisports-independent.yml | `modeles/simulations/nba_prior_espn.py`, `outils/clairvoyance/nba_ratings_clairvoyance_advanced.py`, `outils/clairvoyance/nba_ratings_clairvoyance_live.py` |
 
 ### Hockey européen
@@ -114,9 +114,9 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | Fichier | Généré | Ko | Publié par | Produit par |
 |---|---|---:|---|---|
 | [individual-history.json](../docs/individual-history.json) | — | 382 | multisports-independent.yml | `modeles/simulations/sports_individuels_et_liiga.py`, `outils/suivi/individual_prospective_revue.py` |
-| [individual-latest.json](../docs/individual-latest.json) | 2026-10-13 02:11 | 4 | multisports-independent.yml | `modeles/simulations/multisports_independant.py`, `modeles/simulations/sports_individuels_et_liiga.py`, `outils/suivi/individual_prospective_revue.py` |
+| [individual-latest.json](../docs/individual-latest.json) | 2026-10-13 02:47 | 4 | multisports-independent.yml | `modeles/simulations/multisports_independant.py`, `modeles/simulations/sports_individuels_et_liiga.py`, `outils/suivi/individual_prospective_revue.py` |
 | [individual-prospective-ledger.json](../docs/individual-prospective-ledger.json) | — | 6 | individual-prospective.yml, multisports-independent.yml | `outils/suivi/individual_prospective_revue.py` |
-| [individual-prospective-performance.json](../docs/individual-prospective-performance.json) | 2026-10-13 02:15 | 1 | individual-prospective.yml, multisports-independent.yml | `outils/suivi/individual_prospective_revue.py` |
+| [individual-prospective-performance.json](../docs/individual-prospective-performance.json) | 2026-10-13 02:47 | 1 | individual-prospective.yml, multisports-independent.yml | `outils/suivi/individual_prospective_revue.py` |
 
 ### Cotes et journal papier
 
@@ -138,34 +138,34 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 
 | Fichier | Généré | Ko | Publié par | Produit par |
 |---|---|---:|---|---|
-| [backtests-multisports.json](../docs/backtests-multisports.json) | 2026-10-13 02:11 | 6 | multisports-independent.yml | `outils/clairvoyance/audit_clairvoyance_complet.py`, `outils/suivi/backtest_multisports.py` |
-| [ensemble-mc-bayes-latest.json](../docs/ensemble-mc-bayes-latest.json) | 2026-10-13 02:11 | 16 | multisports-independent.yml | `modeles/simulations/ensemble_montecarlo_bayes.py`, `outils/publication/match_center_revue.py`, `outils/suivi/phase2_historique_autonome.py` |
+| [backtests-multisports.json](../docs/backtests-multisports.json) | 2026-10-13 02:48 | 6 | multisports-independent.yml | `outils/clairvoyance/audit_clairvoyance_complet.py`, `outils/suivi/backtest_multisports.py` |
+| [ensemble-mc-bayes-latest.json](../docs/ensemble-mc-bayes-latest.json) | 2026-10-13 02:48 | 16 | multisports-independent.yml | `modeles/simulations/ensemble_montecarlo_bayes.py`, `outils/publication/match_center_revue.py`, `outils/suivi/phase2_historique_autonome.py` |
 | [ensemble-mc-bayes-ledger.json](../docs/ensemble-mc-bayes-ledger.json) | — | 20 | multisports-independent.yml | `outils/suivi/suivi_ensemble.py` |
-| [ensemble-mc-bayes-performance.json](../docs/ensemble-mc-bayes-performance.json) | 2026-10-13 02:11 | 2 | multisports-independent.yml | `outils/suivi/suivi_ensemble.py` |
-| [equipes-avance-shadow.json](../docs/equipes-avance-shadow.json) | 2026-10-13 02:11 | 13 | multisports-independent.yml | `modeles/simulations/equipes_avance_multisports.py`, `outils/controles/diagnostic_revue.py`, `outils/suivi/phase2_historique_autonome.py` |
+| [ensemble-mc-bayes-performance.json](../docs/ensemble-mc-bayes-performance.json) | 2026-10-13 02:48 | 2 | multisports-independent.yml | `outils/suivi/suivi_ensemble.py` |
+| [equipes-avance-shadow.json](../docs/equipes-avance-shadow.json) | 2026-10-13 02:48 | 13 | multisports-independent.yml | `modeles/simulations/equipes_avance_multisports.py`, `outils/controles/diagnostic_revue.py`, `outils/suivi/phase2_historique_autonome.py` |
 | [multisport-prospective-ledger.json](../docs/multisport-prospective-ledger.json) | — | 60 | match-center-revue.yml | `outils/publication/revue_match_dossiers.py`, `outils/suivi/prospectif_multisports_revue.py` |
-| [multisport-prospective-performance.json](../docs/multisport-prospective-performance.json) | 2026-10-13 02:11 | 1 | match-center-revue.yml | `outils/suivi/prospectif_multisports_revue.py` |
+| [multisport-prospective-performance.json](../docs/multisport-prospective-performance.json) | 2026-10-13 02:44 | 1 | match-center-revue.yml | `outils/suivi/prospectif_multisports_revue.py` |
 | [multisports-history.json](../docs/multisports-history.json) | — | 202 | multisports-independent.yml, revue-engine-v2.yml | `api_revue/mlb_elo.py`, `modeles/simulations/ensemble_montecarlo_bayes.py`, `modeles/simulations/equipes_avance_multisports.py` |
-| [multisports-latest.json](../docs/multisports-latest.json) | 2026-10-13 02:11 | 45 | multisports-independent.yml, revue-engine-v2.yml | `api_revue/app.py`, `api_revue/fixtures.py`, `api_revue/operational.py` |
-| [phase10-modeles-multisports-latest.json](../docs/phase10-modeles-multisports-latest.json) | 2026-10-13 02:11 | 43 | match-center-revue.yml | `outils/publication/match_center_revue.py`, `outils/suivi/phase10_modeles_multisports.py`, `outils/suivi/phase10_validation_prospective.py` |
-| [phase10-modeles-performance.json](../docs/phase10-modeles-performance.json) | 2026-10-13 02:11 | 3 | match-center-revue.yml | `outils/controles/phase11_data_quality.py`, `outils/controles/phase14_reception.py`, `outils/suivi/phase10_validation_prospective.py` |
+| [multisports-latest.json](../docs/multisports-latest.json) | 2026-10-13 02:47 | 45 | multisports-independent.yml, revue-engine-v2.yml | `api_revue/app.py`, `api_revue/fixtures.py`, `api_revue/operational.py` |
+| [phase10-modeles-multisports-latest.json](../docs/phase10-modeles-multisports-latest.json) | 2026-10-13 02:44 | 43 | match-center-revue.yml | `outils/publication/match_center_revue.py`, `outils/suivi/phase10_modeles_multisports.py`, `outils/suivi/phase10_validation_prospective.py` |
+| [phase10-modeles-performance.json](../docs/phase10-modeles-performance.json) | 2026-10-13 02:44 | 3 | match-center-revue.yml | `outils/controles/phase11_data_quality.py`, `outils/controles/phase14_reception.py`, `outils/suivi/phase10_validation_prospective.py` |
 | [phase10-modeles-prospectif-ledger.json](../docs/phase10-modeles-prospectif-ledger.json) | — | 127 | match-center-revue.yml | `outils/suivi/phase10_validation_prospective.py`, `outils/suivi/phase12_audit.py`, `outils/suivi/phase12_official_finals.py` |
-| [phase12-official-finals-latest.json](../docs/phase12-official-finals-latest.json) | 2026-10-13 02:11 | 1 | match-center-revue.yml | `outils/suivi/phase10_validation_prospective.py`, `outils/suivi/phase12_official_finals.py` |
-| [phase12-reconciliation-latest.json](../docs/phase12-reconciliation-latest.json) | 2026-10-13 02:11 | 1 | match-center-revue.yml | `outils/suivi/phase10_validation_prospective.py`, `outils/suivi/phase12_audit.py` |
-| [phase12-result-integrity-latest.json](../docs/phase12-result-integrity-latest.json) | 2026-10-13 02:11 | 3 | match-center-revue.yml | `outils/controles/phase14_reception.py`, `outils/suivi/phase12_audit.py`, `outils/suivi/phase13_comparaison_modeles.py` |
-| [phase13-modeles-evaluation-latest.json](../docs/phase13-modeles-evaluation-latest.json) | 2026-10-13 02:11 | 33 | match-center-revue.yml | `outils/controles/phase14_reception.py`, `outils/suivi/phase13_comparaison_modeles.py` |
-| [phase2-owned-ledger.json](../docs/phase2-owned-ledger.json) | 2026-10-13 02:13 | 99 | phase2-historique-autonome.yml | `outils/suivi/phase2_historique_autonome.py` |
-| [phase2-owned-performance.json](../docs/phase2-owned-performance.json) | 2026-10-13 02:13 | 11 | phase2-historique-autonome.yml | `outils/controles/etat_donnees_revue.py`, `outils/controles/phase9_acceptation_production.py`, `outils/suivi/phase2_historique_autonome.py` |
+| [phase12-official-finals-latest.json](../docs/phase12-official-finals-latest.json) | 2026-10-13 02:44 | 1 | match-center-revue.yml | `outils/suivi/phase10_validation_prospective.py`, `outils/suivi/phase12_official_finals.py` |
+| [phase12-reconciliation-latest.json](../docs/phase12-reconciliation-latest.json) | 2026-10-13 02:44 | 1 | match-center-revue.yml | `outils/suivi/phase10_validation_prospective.py`, `outils/suivi/phase12_audit.py` |
+| [phase12-result-integrity-latest.json](../docs/phase12-result-integrity-latest.json) | 2026-10-13 02:44 | 3 | match-center-revue.yml | `outils/controles/phase14_reception.py`, `outils/suivi/phase12_audit.py`, `outils/suivi/phase13_comparaison_modeles.py` |
+| [phase13-modeles-evaluation-latest.json](../docs/phase13-modeles-evaluation-latest.json) | 2026-10-13 02:44 | 33 | match-center-revue.yml | `outils/controles/phase14_reception.py`, `outils/suivi/phase13_comparaison_modeles.py` |
+| [phase2-owned-ledger.json](../docs/phase2-owned-ledger.json) | 2026-10-13 02:44 | 99 | phase2-historique-autonome.yml | `outils/suivi/phase2_historique_autonome.py` |
+| [phase2-owned-performance.json](../docs/phase2-owned-performance.json) | 2026-10-13 02:44 | 11 | phase2-historique-autonome.yml | `outils/controles/etat_donnees_revue.py`, `outils/controles/phase9_acceptation_production.py`, `outils/suivi/phase2_historique_autonome.py` |
 | [revue-model-quality-latest.json](../docs/revue-model-quality-latest.json) | 2026-10-13 02:13 | 5 | donnees-prioritaires.yml | `outils/controles/etat_donnees_revue.py`, `outils/suivi/evaluation_prospective_papier.py` |
-| [scoreboard-revue-latest.json](../docs/scoreboard-revue-latest.json) | 2026-10-13 02:13 | 7 | donnees-prioritaires.yml, match-center-revue.yml | `api_revue/fixtures.py`, `outils/collecte/scoreboard_revue.py`, `outils/controles/etat_donnees_revue.py` |
+| [scoreboard-revue-latest.json](../docs/scoreboard-revue-latest.json) | 2026-10-13 02:44 | 7 | donnees-prioritaires.yml, match-center-revue.yml | `api_revue/fixtures.py`, `outils/collecte/scoreboard_revue.py`, `outils/controles/etat_donnees_revue.py` |
 
 ### Écrans et dossiers de match
 
 | Fichier | Généré | Ko | Publié par | Produit par |
 |---|---|---:|---|---|
-| [arcade-v3-qa.json](../docs/arcade-v3-qa.json) | 2026-10-12 11:06 | 1 | arcade-v3-tests.yml | — |
-| [match-center-latest.json](../docs/match-center-latest.json) | 2026-10-13 02:13 | 309 | donnees-prioritaires.yml, match-center-revue.yml | `api_revue/operational.py`, `outils/clairvoyance/clairvoyance_real_output_gap.py`, `outils/clairvoyance/phase6_comparaison_pregame.py` |
-| [match-dossiers-latest.json](../docs/match-dossiers-latest.json) | 2026-10-13 02:13 | 518 | donnees-prioritaires.yml, match-center-revue.yml | `api_revue/game_dossiers.py`, `outils/publication/revue_match_dossiers.py` |
+| [arcade-v3-qa.json](../docs/arcade-v3-qa.json) | 2026-10-13 02:43 | 1 | arcade-v3-tests.yml | — |
+| [match-center-latest.json](../docs/match-center-latest.json) | 2026-10-13 02:44 | 310 | donnees-prioritaires.yml, match-center-revue.yml | `api_revue/operational.py`, `outils/clairvoyance/clairvoyance_real_output_gap.py`, `outils/clairvoyance/phase6_comparaison_pregame.py` |
+| [match-dossiers-latest.json](../docs/match-dossiers-latest.json) | 2026-10-13 02:44 | 519 | donnees-prioritaires.yml, match-center-revue.yml | `api_revue/game_dossiers.py`, `outils/publication/revue_match_dossiers.py` |
 
 ### État du dépôt et recette
 
@@ -175,7 +175,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [github-workflows-latest.json](../docs/github-workflows-latest.json) | 2026-10-12 15:50 | 61 | github-actions-monitor.yml | `api_revue/admin_readonly.py`, `outils/controles/github_actions_monitor.py` |
 | [health-latest.json](../docs/health-latest.json) | 2026-10-12 18:01 | 1 | health-revue.yml | `api_revue/operational.py`, `outils/controles/diagnostic_revue.py`, `outils/controles/phase9_acceptation_production.py` |
 | [phase11-source-quality-latest.json](../docs/phase11-source-quality-latest.json) | 2026-10-12 21:47 | 19 | phase11-data-quality.yml | `outils/controles/phase11_data_quality.py`, `outils/controles/phase14_reception.py` |
-| [phase14-readiness-latest.json](../docs/phase14-readiness-latest.json) | 2026-10-13 02:36 | 2 | phase14-finalisation.yml | `outils/controles/phase14_reception.py` |
+| [phase14-readiness-latest.json](../docs/phase14-readiness-latest.json) | 2026-10-13 02:44 | 2 | phase14-finalisation.yml | `outils/controles/phase14_reception.py` |
 | [phase5-sources-latest.json](../docs/phase5-sources-latest.json) | 2026-10-12 22:29 | 4 | phase5-donnees-multisports.yml | `outils/controles/phase11_data_quality.py`, `outils/controles/phase5_donnees_multisports.py` |
 | [phase9-readiness-latest.json](../docs/phase9-readiness-latest.json) | 2026-10-12 11:17 | 1 | phase9-acceptation-production.yml | `outils/controles/phase14_reception.py`, `outils/controles/phase9_acceptation_production.py` |
 | [progression-revue.json](../docs/progression-revue.json) | 2026-10-10 17:16 | 28 | — | — |

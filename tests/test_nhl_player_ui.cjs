@@ -11,6 +11,26 @@ test('NHL browser integration (explicit opt-in)',{skip:process.env.RUN_NHL_BROWS
   await page.waitForFunction(()=>document.querySelectorAll('#athlete option').length>0&&document.querySelectorAll('#hit-rates .card').length===3);
   assert.equal(await page.locator('#estimates .card').count(),3);
   assert.match(await page.locator('#estimates').innerText(),/EV[\s\S]*Données indisponibles/);
+  assert.equal(await page.locator('#season').inputValue(),'');
+  assert.match(await page.locator('#data-quality').innerText(),/sans garantie prédictive/);
+  assert.match(await page.locator('#hit-rates').innerText(),/sur 20 visés/);
+  const name=await page.locator('#athlete option').first().textContent();
+  await page.fill('#player-search',name.split(' · ')[0]);
+  assert.ok(await page.locator('#athlete option').count()<=3);
+  await page.fill('#player-search','zzzz-joueur-inexistant');
+  assert.equal(await page.locator('#athlete option').count(),0);
+  assert.match(await page.locator('#search-count').innerText(),/Aucun joueur/);
+  await page.fill('#player-search','');
+  await page.selectOption('#season','');
+  // Reproduce the reported four-game case using real current-season observations.
+  const fourGame=await page.evaluate(async()=>{
+   const h=await fetch('./nhl-player-history.json').then(r=>r.json()),year=Number(String(window.nhlProfileSeason).slice(-4));
+   return {year,id:Object.keys(h.players).find(id=>h.players[id].games.filter(g=>g.season===year&&typeof g.shots==='number').length===4)};
+  });
+  assert.ok(fourGame.id);
+  await page.selectOption('#athlete',fourGame.id);await page.selectOption('#season',String(fourGame.year));
+  assert.match(await page.locator('#hit-rates').innerText(),/4 matchs exploitables sur 20 visés/);
+  assert.match(await page.locator('#hit-rates').innerText(),/Échantillon incomplet/);
   await page.selectOption('#season','');
   // Pick a real player whose collected history exists; never mock real performance data.
   const collected=await page.evaluate(async()=>{
@@ -31,6 +51,13 @@ test('NHL browser integration (explicit opt-in)',{skip:process.env.RUN_NHL_BROWS
   const opponents=await page.locator('#opponent option').evaluateAll(nodes=>nodes.map(n=>n.value).filter(Boolean));
   if(opponents.length){await page.selectOption('#opponent',opponents[0]);const names=await page.locator('#game-rows tr td:nth-child(2)').allTextContents();assert.ok(names.every(n=>n===opponents[0]));}
   await page.setViewportSize({width:390,height:844});
+  await page.selectOption('#venue','');await page.selectOption('#opponent','');
+  await page.selectOption('#chart-window','5');
+  assert.ok(await page.locator('#performance-chart svg rect').count()<=5);
+  assert.ok(await page.locator('#performance-chart').evaluate(el=>el.clientWidth>=300));
+  await page.selectOption('#chart-window','20');
+  assert.ok(await page.locator('#performance-chart').evaluate(el=>el.scrollWidth>el.clientWidth));
+  assert.match(await page.locator('#hit-rates').innerText(),/sur 20 visés/);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),'No page-level horizontal overflow: '+JSON.stringify(await page.evaluate(()=>[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1).map(e=>({tag:e.tagName,id:e.id,cls:e.className,width:e.getBoundingClientRect().width,right:e.getBoundingClientRect().right})).slice(0,12))));
   await page.route('**/nhl-player-history.json',r=>r.fulfill({status:503,body:'Unavailable'}));
   await page.reload();await page.waitForFunction(()=>document.querySelector('#history-status').textContent.includes('historique non chargé'));
