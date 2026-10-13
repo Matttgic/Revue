@@ -7,7 +7,7 @@ communiqué par l’utilisateur, pas une nouvelle mesure de ce diagnostic.
 ## Exécution
 
 Le workflow existant `nhl-player-odds-diagnostic.yml` propose le mode explicite
-`pmu-private`. Ce mode exclut le diagnostic général à quatre appels. Il exécute
+`pmu-private`, sélectionné par défaut sur cette branche. Ce mode exclut le diagnostic général à quatre appels. Il exécute
 `outils.collecte.diagnostic_nhl_pmu_structure` avec les alias de secrets existants.
 Une seule tentative HTTP PMU, première page de 30 événements NHL maximum,
 sans redirection, pagination ou retry, y compris sur HTTP 429/403. Ne pas relancer
@@ -17,7 +17,7 @@ Les données API restent en mémoire. Aucun fichier brut, aucune sortie d’exce
 aucune cote, nom, ID ou valeur de seuil/horodatage n’est exporté. L’artefact ne
 contient que `/tmp/nhl-pmu-structure.json`, agrégé, avec rétention d’un jour.
 Il n’est pas publié au site ou commité. Sa visibilité dépend des permissions du
- dépôt GitHub ; un artefact d’un dépôt public ne doit pas être considéré confidentiel.
+dépôt GitHub ; un artefact d’un dépôt public ne doit pas être considéré confidentiel.
 
 ## Classification et lecture
 
@@ -53,3 +53,13 @@ section 5 : redistribution/sous-licence interdites sans consentement écrit pré
 L’abonnement Pro ne démontre pas cette autorisation. Aucun prix n’est intégré au
 site, aucun EV calculé, aucun modèle sportif modifié. L’accès technique et les
 droits de publication restent deux validations distinctes.
+
+## Résultat d’exécution sur cette branche
+
+Tests complets : 940 tests Python réussis, dont sept tests dédiés à ce diagnostic.
+La tentative unique de lancement via Actions a été refusée avec HTTP 403
+`Resource not accessible by integration` sur l’endpoint de dispatch.
+Aucun appel API PulseScore supplémentaire n’a été effectué. Les décompositions
+réelles des 666 marchés restent donc inconnues ; aucun résultat synthétique
+ne leur est substitué. Le workflow est prêt pour un lancement unique par un
+acteur GitHub autorisé, avec le mode `pmu-private` et la référence de cette branche.
