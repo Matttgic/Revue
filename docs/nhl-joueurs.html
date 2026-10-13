@@ -27,6 +27,7 @@ input{background:var(--panel);color:var(--fg);border:1px solid var(--line);borde
 .chart{width:100%;height:auto;max-height:360px}.chart .gridline{stroke:var(--line);stroke-opacity:.35}.chart-legend{font-size:.85rem}#player-search{width:240px;max-width:100%}#performance-chart{overscroll-behavior-inline:contain}.analytics select,.analytics input{min-height:44px}@media(max-width:480px){.analytics .summary-grid{grid-template-columns:1fr}.analytics .controls{gap:12px}.analytics .controls label{flex:1 1 140px}.chart text{font-size:13px}}.chart text{fill:var(--dim);font:12px system-ui}.chart .threshold{stroke:#ffce71;stroke-dasharray:5 4}.table-scroll,#performance-chart{overflow:auto}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:9px;border-bottom:1px solid var(--line)}
 button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
+.manual-quote{margin:18px 0 22px;padding:16px;background:#111b27;border:1px solid var(--line);border-radius:12px}.manual-quote h3{margin:0 0 4px}.manual-quote label{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-weight:650}.manual-quote input{min-width:140px;width:160px;max-width:100%;min-height:44px}.manual-quote p{margin:9px 0}.manual-quote ul{margin:8px 0;padding-left:22px}.manual-quote strong{color:var(--accent)}@media(max-width:480px){.manual-quote label{align-items:stretch;flex-direction:column}.manual-quote input{width:100%}}
 </style><link rel="stylesheet" href="./theme.css?v=3"><script defer src="./pixel.js?v=1"></script>
 </head><body class="rv-subpage"><div class="rv-topbar"><div class="rv-top-inner"><a class="rv-brand" href="./index.html" aria-label="Retour à Revue"><span class="rv-emblem">R</span>REVUE<span class="rv-brand-dot">.</span></a><nav class="rv-nav" aria-label="Navigation principale"><a href="./play.html">MATCHS</a><a href="./pourquoi.html">POURQUOI ?</a><a href="./bilan.html">BILAN</a><a href="./lab.html">LAB</a></nav><span class="rv-top-tag"><i class="rv-led" aria-hidden="true"></i>LAB ONLINE</span></div></div><main>
 <header><small>Revue · Modélisation NHL joueurs</small><h1>Joueurs <span>Radar</span></h1><p>Buteur, passeur, point et tirs. Projections expérimentales issues de données NHL.</p></header>
@@ -54,6 +55,13 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 <div id="performance-chart" tabindex="0" role="region" aria-label="Graphique des performances, défilement horizontal"></div>
 <div id="estimates" class="summary-grid"></div>
 <p id="odds-status">Cotes françaises : Données indisponibles — marchés joueurs PulseScore non vérifiés pour Betclic, Winamax, Unibet FR et PMU. L’affichage nécessite une association exacte joueur/match/marché/seuil, des règles de règlement vérifiées et les droits de réutilisation. Aucun calcul EV.</p>
+<div class="manual-quote" aria-labelledby="manual-odds-title">
+ <h3 id="manual-odds-title">Comparer une cote de votre bookmaker</h3>
+ <p>La cote est saisie manuellement : aucun bookmaker n'est interrogé, aucune cote ni information n'est envoyée ou enregistrée.</p>
+ <label for="manual-odds">Cote décimale du joueur et du seuil sélectionnés <input id="manual-odds" type="text" inputmode="decimal" placeholder="Ex. 2,40" autocomplete="off" aria-describedby="manual-odds-hint"></label>
+ <p id="manual-odds-hint">Vérifiez que le marché, le seuil et les règles de règlement correspondent. La cote sera effacée si vous changez de joueur, de statistique ou de seuil.</p>
+ <div id="manual-odds-result" role="status" aria-live="polite"><p>Entrez une cote pour afficher son seuil de rentabilité théorique.</p></div>
+</div>
 <details><summary>Voir les matchs et données sources</summary><div class="table-scroll"><table><thead><tr><th>Date</th><th>Adversaire</th><th>Lieu</th><th>Valeur</th><th>Résultat au seuil actuel</th></tr></thead><tbody id="game-rows"></tbody></table></div></details>
 </section>
 <h2>Radar des probabilités expérimentales</h2><p>Modèle saisonnier non calibré ; distinct des fréquences ci-dessus.</p>
