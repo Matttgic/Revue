@@ -40,11 +40,30 @@
   $('performance-chart').append(svg);
   recent.forEach(g=>{const tr=node('tr');[g.date.slice(0,10),g.opponent||missing,g.home===true?'Domicile':g.home===false?'Extérieur':missing,A.finite(g[metric])?g[metric]:missing,A.finite(g[metric])?(g[metric]>line?'Au-dessus':'En dessous'):missing].forEach(v=>tr.append(node('td',v)));$('game-rows').append(tr);});
  }
+ function renderManualQuote(games,metric,line){
+  const out=$('manual-odds-result');if(!out)return;
+  out.replaceChildren();
+  const raw=$('manual-odds').value.trim();
+  if(!raw){out.append(node('p','Entrez une cote pour afficher son seuil de rentabilité théorique.'));return;}
+  const threshold=A.breakEvenOdds(raw);
+  if(threshold===null){out.append(node('p','Cote invalide. Utilisez une cote décimale de 1,01 à 1000 (ex. 2,40).'));return;}
+  const pct=(100*threshold).toLocaleString('fr-FR',{maximumFractionDigits:2});
+  out.append(node('p','Cote saisie : '+raw+' · Probabilité minimale de rentabilité théorique : '+pct+' % (hors frais).'));
+  const ul=node('ul');
+  for(const size of [5,10,20]){
+   const result=A.hitRate(games,metric,line,size);
+   const rate=result.rate===null?'données indisponibles':(100*result.rate).toLocaleString('fr-FR',{maximumFractionDigits:1})+' %';
+   ul.append(node('li','L'+size+' : '+rate+' · '+result.hits+'/'+result.n+' matchs exploitables sur '+size+' visés'+(result.n<size?' · échantillon incomplet':'')+'.'));
+  }
+  out.append(ul);
+  out.append(node('p','Ces fréquences historiques ne sont pas des probabilités futures. Sans modèle calibré, impossible de conclure à une value bet ou à une EV positive.'));
+ }
  function render(){
   const pid=$('athlete').value,p=profiles.find(p=>p.player_id===pid),entry=history.players[pid],metric=$('stat').value,line=Number($('line').value);
   $('hit-rates').replaceChildren();$('estimates').replaceChildren();$('data-quality').replaceChildren();
-  if(!$('line').value||!A.finite(line)||line%1!==.5||line>50.5){$('history-status').textContent='Choisissez un seuil entre 0,5 et 50,5, par pas de 1 (sans égalité possible).';chart([],metric,0);return;}
+  if(!$('line').value||!A.finite(line)||line%1!==.5||line>50.5){$('history-status').textContent='Choisissez un seuil entre 0,5 et 50,5, par pas de 1 (sans égalité possible).';$('manual-odds-result').replaceChildren(node('p','Choisissez un seuil valide pour comparer une cote.'));chart([],metric,0);return;}
   const games=A.sample(entry?.games,metric,{venue:$('venue').value,opponent:$('opponent').value,season:$('season').value});
+  renderManualQuote(games,metric,line);
   $('history-status').textContent=loadError?missing+' — historique non chargé.':!entry?missing+' — historique pas encore collecté.':`${games.length} apparitions dans la sélection · Source : ESPN · Dernière tentative : ${entry.attempted_at||missing} · ${entry.status==='ok'?'lectures sources réussies':'collecte partielle ou indisponible'}`;
   const quality=A.reliability(games,metric,entry,Number(String(window.nhlProfileSeason).slice(-4)));
   const span=games.slice(0,20);
@@ -65,6 +84,7 @@
   const old=$('athlete').value,filtered=A.searchPlayers(profiles,$('player-search').value);
   $('athlete').replaceChildren();filtered.forEach(p=>option($('athlete'),p.player_id,`${p.name} · ${p.team}`));
   if(filtered.some(p=>p.player_id===old))$('athlete').value=old;
+  if($('athlete').value!==old)$('manual-odds').value='';
   $('search-count').textContent=filtered.length?`${filtered.length} joueur(s)`:'Aucun joueur trouvé';
   fillOpponents();render();
  }
@@ -82,8 +102,9 @@
   window.nhlProfileSeason=event.detail.season;
   const map=new Map();Object.values(event.detail.teams||{}).flat().forEach(p=>{if(!map.has(String(p.player_id))||p.current_team_observed)map.set(String(p.player_id),{...p,player_id:String(p.player_id)});});profiles=[...map.values()].sort((a,b)=>a.name.localeCompare(b.name));setup();
  });
- ['athlete','season'].forEach(id=>$(id).addEventListener('change',()=>{fillOpponents();render();}));
+ ['athlete','season'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='athlete')$('manual-odds').value='';fillOpponents();render();}));
  $('player-search').addEventListener('input',fillPlayers);
- ['stat','line','venue','opponent','chart-window'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='stat')$('line').value=$('stat').value==='shots'?'2.5':'0.5';render();}));
+ ['stat','line','venue','opponent','chart-window'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='stat')$('line').value=$('stat').value==='shots'?'2.5':'0.5';if(id==='stat'||id==='line')$('manual-odds').value='';render();}));
+ $('manual-odds').addEventListener('input',render);
  fetch('./nhl-player-history.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Unavailable');return r.json();}).then(data=>{if(!data||!data.players||typeof data.players!=='object'||Array.isArray(data.players))throw Error('Unsupported history schema');history=data;setup();}).catch(()=>{loadError=true;setup();});
 })();
