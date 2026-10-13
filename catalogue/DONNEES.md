@@ -25,7 +25,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | PulseScore / The Odds API (clé en secret) | Cotes de bookmakers FR observées | `outils/collecte/pulsescore_v2.py`, `outils/suivi/revue_engine_v2.py` |
 | Dépôt public Clairvoyance (lecture seule) | Comparaisons de parité, audits | `outils/clairvoyance/` |
 
-## Inventaire (106 fichiers)
+## Inventaire (107 fichiers)
 
 ### Reproduction Clairvoyance (parité, audits)
 
@@ -75,6 +75,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [nhl-frontend-prospective-ledger.json](../docs/nhl-frontend-prospective-ledger.json) | 2026-10-13 02:06 | 38 | nhl-frontend-prospective.yml | `outils/suivi/nhl_frontend_tracker.py` |
 | [nhl-frontend-prospective-performance.json](../docs/nhl-frontend-prospective-performance.json) | 2026-10-13 02:06 | 1 | nhl-frontend-prospective.yml | `outils/clairvoyance/verifier_phase1_nhl.py`, `outils/controles/etat_donnees_revue.py`, `outils/suivi/nhl_frontend_tracker.py` |
 | [nhl-model-latest.json](../docs/nhl-model-latest.json) | 2026-10-13 02:47 | 21 | multisports-independent.yml, nhl-independent.yml | `modeles/simulations/multisports_independant.py`, `modeles/simulations/nhl_independant.py`, `modeles/simulations/nhl_joueurs_independant.py` |
+| [nhl-odds-diagnostic.json](../docs/nhl-odds-diagnostic.json) | — | 1 | nhl-player-odds-diagnostic.yml | `outils/collecte/diagnostic_nhl_player_odds.py` |
 | [nhl-official-stats-latest.json](../docs/nhl-official-stats-latest.json) | 2026-10-13 02:06 | 312 | nhl-official-stats.yml | `api_revue/nhl_stats.py`, `api_revue/operational.py`, `outils/clairvoyance/nhl_backend_source_style.py` |
 | [nhl-player-history.json](../docs/nhl-player-history.json) | 2026-10-13 02:55 | 2475 | multisports-independent.yml | `outils/collecte/nhl_player_history.py` |
 | [nhl-players-latest.json](../docs/nhl-players-latest.json) | 2026-10-13 02:47 | 162 | multisports-independent.yml | `modeles/simulations/nhl_joueurs_independant.py`, `outils/collecte/nhl_player_history.py`, `outils/publication/match_center_revue.py` |

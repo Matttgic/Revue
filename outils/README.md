@@ -7,7 +7,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Groupe | Rôle | Scripts |
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
-| [`collecte/`](#collecte) | Collecte de données | 17 |
+| [`collecte/`](#collecte) | Collecte de données | 18 |
 | [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 25 |
 | [`controles/`](#controles) | Contrôles qualité | 15 |
 | [`publication/`](#publication) | Publication du site | 4 |
@@ -72,6 +72,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Script | Objet |
 |---|---|
 | [check_pulsescore_connection.py](collecte/check_pulsescore_connection.py) | One-request PulseScore credential/entitlement smoke test. |
+| [diagnostic_nhl_player_odds.py](collecte/diagnostic_nhl_player_odds.py) | Read-only NHL coverage probe. |
 | [diagnostic_pulsescore.py](collecte/diagnostic_pulsescore.py) | Diagnostic PulseScore : pourquoi un bookmaker ne se rattache pas aux matchs Revue. |
 | [mlb_official_pitchers.py](collecte/mlb_official_pitchers.py) | Phase 11: no-cost read-only MLB Stats API prospective probable pitchers. |
 | [moneypuck_feed.py](collecte/moneypuck_feed.py) | MoneyPuck official-download NHL team metrics for Revue (personal, non-commercial). |
