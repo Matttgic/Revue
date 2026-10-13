@@ -144,6 +144,17 @@ class CrossBookTests(unittest.TestCase):
         self.assertEqual(out["source_snapshots"]["full_scan"]["status"],
                          "missing_or_stale")
 
+    def test_unobserved_radar_cannot_supply_covers_even_with_quotes(self):
+        for status in ("model_stale_or_invalid", "no_api_key", "unknown"):
+            with self.subTest(status=status):
+                snapshot=radar(event())
+                snapshot["status"]=status
+                self.assertEqual(source_rows(snapshot,NOW),([],"invalid_provenance"))
+                out=analyze({"radar_6h":snapshot},NOW)
+                self.assertEqual(out["potential_snapshot_cover_count"],0)
+                self.assertEqual(out["source_event_snapshots_audited"],0)
+                self.assertEqual(out["potential_snapshot_covers"],[])
+
     def test_real_repo_observations_do_not_invent_covers(self):
         root=Path(__file__).resolve().parents[1]/"docs"
         full=json.loads((root/"engine-v2-latest.json").read_text("utf8"))
@@ -152,8 +163,17 @@ class CrossBookTests(unittest.TestCase):
         out=analyze({"radar_6h":short,"full_scan":full},now)
         self.assertIn("source_event_snapshots_audited",out)
         self.assertEqual(out["status"],"math_only_quotes_observed_no_bookable_confirmation")
-        self.assertEqual(out["source_snapshots"]["radar_6h"]["status"],
-                         "validated_snapshot_radar")
+        expected=("validated_snapshot_radar" if short.get("status")=="observed"
+                  else "invalid_provenance")
+        self.assertEqual(out["source_snapshots"]["radar_6h"]["status"],expected)
+        if short.get("status") != "observed":
+            self.assertEqual(source_rows(short,now),([],"invalid_provenance"))
+            # Isolate the blocked radar: a separate full scan must not hide its
+            # exclusion or get misattributed to this unsuccessful collection.
+            radar_only=analyze({"radar_6h":short},now)
+            self.assertEqual(radar_only["source_event_snapshots_audited"],0)
+            self.assertEqual(radar_only["potential_snapshot_cover_count"],0)
+            self.assertEqual(radar_only["potential_snapshot_covers"],[])
         for candidate in out["potential_snapshot_covers"]:
             self.assertIn(candidate["league"],{"PL","LALIGA","SERIEA","BUNDESLIGA","LIGUE1","MLS"})
             self.assertEqual(candidate["period_rule"],"90min")

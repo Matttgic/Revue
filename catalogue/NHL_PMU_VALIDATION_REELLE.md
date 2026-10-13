@@ -132,3 +132,23 @@ les nouveaux compteurs en mémoire ; aucun second appel fournisseur n'est ajout�
 Le budget est une tentative PulseScore PMU, hors rafraîchissement public NHL/ESPN
 inchangé. Ne pas rejouer le run. Examiner les agrégats, les rejets et la cardinalité
 avant d'adapter le champ d'identité du moteur. Les probabilités et EV restent inchangés.
+
+### Correction des tests CI après le run 38403506153
+
+Les échecs `test_real_docs_if_available` et
+`test_real_repo_observations_do_not_invent_covers` se reproduisent sur `main`
+(e9fa742). Le radar publié à 12:18 UTC sur la base du run, puis à 13:18 UTC
+sur main, porte `model_stale_or_invalid` : modèle trop ancien, zéro requête,
+zéro observation. Ce statut est produit volontairement par le collecteur ;
+il ne constitue pas une collecte observée. Les consommateurs refusent correctement
+cette provenance. Les tests d'intégration supposaient à tort que le dernier
+fichier avait toujours le statut `observed`.
+
+Les tests vérifient désormais explicitement le rejet du radar non observé,
+l'absence de contribution aux couvertures et le maintien des assertions sur les
+radars observés. Deux tests synthétiques supplémentaires exigent le rejet des
+statuts `model_stale_or_invalid`, `no_api_key` et inconnu, même avec des cotes
+synthétiques présentes. Aucun contrôle de production ni fichier de cotes n'est
+modifié pour rendre un radar invalide acceptable. La branche est synchronisée
+avec main pour exécuter ces contrôles sur les données actuelles. Aucun appel
+PulseScore supplémentaire n'est réalisé.
