@@ -81,7 +81,7 @@ def update(stats, market, event):
         stats["selections_with_odds_line_player_id_update"] += odds and line and player and stamp
 
 
-def diagnose(key, fetch=None):
+def diagnose(key, fetch=None, *, references=None):
     result = {"schema_version": 1, "bookmaker": "pmu_fr", "max_calls": 1,
               "calls": 0, "status": "missing_secret", "nhl_events": None,
               "has_next_page": None, "malformed_market_entries": None,
@@ -121,6 +121,10 @@ def diagnose(key, fetch=None):
                 update(result["categories"][category], market, event)
                 stats = result["canonical_counts"].setdefault(canonical, empty_stats())
                 update(stats, market, event)
+        if references is not None:
+            # Same in-memory payload, never a second PulseScore request.
+            from outils.collecte.diagnostic_nhl_live_matching import analyze_payload
+            result["matching"] = analyze_payload(payload, *references)
         # raw and payload remain in process memory only, never persisted/logged.
     except HTTPError as exc:
         result.update(status="http_error", http_status=exc.code)
