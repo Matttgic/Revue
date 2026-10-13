@@ -16,6 +16,10 @@ on:
       - 'tests/test_individual_prospective_revue.py'
       - 'modeles/simulations/nhl_joueurs_independant.py'
       - 'tests/test_nhl_joueurs_independant.py'
+      - 'outils/collecte/nhl_player_history.py'
+      - 'tests/test_nhl_player_history.py'
+      - 'tests/test_nhl_player_analytics.js'
+      - 'docs/nhl-player-analytics.js'
       - 'outils/collecte/probe_espn_hockey.py'
       - 'outils/suivi/backtest_multisports.py'
       - 'tests/test_backtest_multisports.py'
@@ -60,6 +64,12 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_nhl_joueurs_independant.py' -v
       - name: Calculer les profils buteurs, passeurs et tirs NHL
         run: python modeles/simulations/nhl_joueurs_independant.py --nhl-file docs/nhl-model-latest.json
+      - name: Tester les historiques et fréquences joueurs NHL
+        run: |
+          python -m unittest discover -s tests -p 'test_nhl_player_history.py' -v
+          node tests/test_nhl_player_analytics.js
+      - name: Actualiser les historiques NHL (16 joueurs les plus anciens, deux saisons)
+        run: python -m outils.collecte.nhl_player_history
       - name: Tester tennis UFC Liiga sans réseau
         run: python -m unittest discover -s tests -p 'test_sports_individuels_et_liiga.py' -v
       - name: Tennis UFC Liiga depuis données réelles
@@ -106,7 +116,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/individual-prospective-ledger.json docs/individual-prospective-performance.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json docs/football-espn-stat-cache.json docs/football-espn-team-features.json docs/football-shadow-ledger.json docs/football-shadow-performance.json docs/equipes-avance-shadow.json docs/ensemble-mc-bayes-latest.json docs/ensemble-mc-bayes-ledger.json docs/ensemble-mc-bayes-performance.json docs/nba-prior-standings.json docs/nba-prior-shadow.json
+          git add docs/nhl-player-history.json docs/nhl-model-latest.json docs/multisports-latest.json docs/multisports-history.json docs/individual-latest.json docs/individual-history.json docs/individual-prospective-ledger.json docs/individual-prospective-performance.json docs/nhl-players-latest.json docs/backtests-multisports.json docs/football-advanced-shadow.json docs/football-espn-stat-cache.json docs/football-espn-team-features.json docs/football-shadow-ledger.json docs/football-shadow-performance.json docs/equipes-avance-shadow.json docs/ensemble-mc-bayes-latest.json docs/ensemble-mc-bayes-ledger.json docs/ensemble-mc-bayes-performance.json docs/nba-prior-standings.json docs/nba-prior-shadow.json
           if git diff --cached --quiet; then
             echo "Aucun changement"
           else
