@@ -1,4 +1,4 @@
-name: NHL - validation privée correspondances PMU (manuel)
+name: NHL - formats privés et correspondances PMU (manuel)
 on:
   workflow_dispatch:
     inputs:
@@ -25,6 +25,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_nhl_player_matching.py'
           python -m unittest discover -s tests -p 'test_nhl_pmu_structure.py'
           python -m unittest discover -s tests -p 'test_nhl_live_matching.py'
+          python -m unittest discover -s tests -p 'test_nhl_label_formats.py'
       - name: Diagnostic désactivé par défaut
         if: ${{ !inputs.authorize_one_call }}
         run: python -m outils.collecte.diagnostic_nhl_live_matching

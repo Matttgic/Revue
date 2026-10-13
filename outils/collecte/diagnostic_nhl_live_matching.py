@@ -48,6 +48,7 @@ def rejection_groups(report):
 
 
 def analyze_payload(payload, profiles, fixtures):
+    from outils.collecte.diagnostic_nhl_label_formats import analyze_formats
     matching = summarize(payload, profiles, fixtures)
     players = [p for group in profiles.get("teams", {}).values() if isinstance(group, list)
                for p in group if isinstance(p, dict)]
@@ -56,6 +57,7 @@ def analyze_payload(payload, profiles, fixtures):
     audit = {"eligible_events": 0, "selection_objects": 0, "market_objects": 0,
              "market_selection_cardinality": {"zero": 0, "one": 0, "many": 0, "invalid": 0},
              "identity_candidates": identity,
+             "label_formats": analyze_formats(payload, profiles),
              "event_fields_present": dict.fromkeys(EVENT_FIELDS, 0),
              "event_fields_valid": dict.fromkeys(EVENT_FIELDS, 0),
              "selection_fields_present": dict.fromkeys(SELECTION_FIELDS, 0),
