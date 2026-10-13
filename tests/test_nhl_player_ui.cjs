@@ -1,7 +1,8 @@
 /* Browser integration check: serve docs on 127.0.0.1:8765, then run with Playwright installed. */
 const assert=require('node:assert/strict');
-const {chromium}=require('playwright');
-(async()=>{
+const {test}=require('node:test');
+test('NHL browser integration (explicit opt-in)',{skip:process.env.RUN_NHL_BROWSER_TESTS!=='1'},async()=>{
+ const {chromium}=require('playwright');
  const browser=await chromium.launch({headless:true,...(process.env.CHROMIUM_PATH?{executablePath:process.env.CHROMIUM_PATH}:{}),args:['--no-sandbox']});
  try{
   const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -40,4 +41,4 @@ const {chromium}=require('playwright');
   assert.match(await page.locator('#hit-rates').innerText(),/Données indisponibles/);
   assert.deepEqual(errors,[]);console.log('PASS: real graphs, 4 metrics, context filters, threshold, mobile, missing feed, no JS errors');
  }finally{await browser.close();}
-})().catch(e=>{console.error(e);process.exitCode=1;});
+});

@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime, timezone
-from outils.collecte.nhl_player_history import parse_log, collect, count
+from outils.collecte.nhl_player_history import parse_log, collect, count, encode_report
 
 NOW = datetime(2026, 10, 13, tzinfo=timezone.utc)
 
@@ -71,3 +71,13 @@ class HistoryTests(unittest.TestCase):
             {'season': 2025}, {'season': 2026}, {'season': 2027}]}}}
         report = collect(profiles, previous, NOW, max_players=0)
         self.assertEqual([g['season'] for g in report['players']['1']['games']], [2026, 2027])
+
+    def test_storage_is_lossless_standard_json_and_stable(self):
+        import json
+        report = {'source': 'Données NHL', 'players': {'2': {'games': [{'shots': 0, 'home': False, 'opponent': None}]}, '1': {'games': []}}, 'odds': []}
+        encoded = encode_report(report)
+        self.assertEqual(json.loads(encoded), report)
+        self.assertEqual(encode_report(json.loads(encoded)), encoded)
+        self.assertLess(len(encoded.splitlines()), 12)
+        with self.assertRaises(ValueError):
+            encode_report({'players': {}, 'bad': float('nan')})

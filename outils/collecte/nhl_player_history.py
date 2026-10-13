@@ -84,6 +84,20 @@ def collect(profiles, previous, as_of, max_players=16, fetch=None):
             'odds_status': 'unavailable_no_verified_player_market_feed', 'odds': []}
 
 
+def encode_report(report):
+    """Lossless standard JSON: one player per line, stable and diffable."""
+    compact = lambda value: json.dumps(value, ensure_ascii=False, allow_nan=False, separators=(',', ':'))
+    fields = []
+    for key, value in report.items():
+        if key == 'players':
+            rows = [f'    {compact(pid)}:{compact(player)}' for pid, player in sorted(value.items())]
+            encoded = '{\n' + ',\n'.join(rows) + '\n  }'
+        else:
+            encoded = compact(value)
+        fields.append(f'  {compact(key)}:{encoded}')
+    return '{\n' + ',\n'.join(fields) + '\n}\n'
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--profiles', default='docs/nhl-players-latest.json')
@@ -93,7 +107,7 @@ def main():
     path = Path(args.output)
     old = json.loads(path.read_text()) if path.exists() else {}
     report = collect(json.loads(Path(args.profiles).read_text()), old, datetime.now(timezone.utc), args.max_players)
-    path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+    path.write_text(encode_report(report), encoding='utf-8')
     print(json.dumps(report['coverage']))
 
 
