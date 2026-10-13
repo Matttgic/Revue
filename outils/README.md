@@ -7,7 +7,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Groupe | Rôle | Scripts |
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
-| [`collecte/`](#collecte) | Collecte de données | 19 |
+| [`collecte/`](#collecte) | Collecte de données | 21 |
 | [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 25 |
 | [`controles/`](#controles) | Contrôles qualité | 15 |
 | [`publication/`](#publication) | Publication du site | 4 |
@@ -72,6 +72,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Script | Objet |
 |---|---|
 | [check_pulsescore_connection.py](collecte/check_pulsescore_connection.py) | One-request PulseScore credential/entitlement smoke test. |
+| [diagnostic_nhl_player_matching.py](collecte/diagnostic_nhl_player_matching.py) | Offline private aggregation hook for an authorized PMU response in memory. |
 | [diagnostic_nhl_player_odds.py](collecte/diagnostic_nhl_player_odds.py) | Read-only NHL coverage probe. |
 | [diagnostic_nhl_pmu_structure.py](collecte/diagnostic_nhl_pmu_structure.py) | PMU-only, one-request in-memory probe; export aggregate structure only. |
 | [diagnostic_pulsescore.py](collecte/diagnostic_pulsescore.py) | Diagnostic PulseScore : pourquoi un bookmaker ne se rattache pas aux matchs Revue. |
@@ -81,6 +82,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | [nhl_espn_goalies.py](collecte/nhl_espn_goalies.py) | Read-only ESPN NHL probable-starting-goalie observations joined to NHL game IDs. |
 | [nhl_official_stats_revue.py](collecte/nhl_official_stats_revue.py) | Read-only official NHL Stats REST source snapshot for Clairvoyance field contracts. |
 | [nhl_player_history.py](collecte/nhl_player_history.py) | Bounded ESPN public game logs, using the existing radar's ESPN athlete IDs. |
+| [nhl_player_matching.py](collecte/nhl_player_matching.py) | Conservative identity matching, independent of odds/pricing and sport models. |
 | [probe_espn_football_stats.py](collecte/probe_espn_football_stats.py) | Metadata-only diagnostic of ESPN soccer match statistics; NOT an Opta API. |
 | [probe_espn_hockey.py](collecte/probe_espn_hockey.py) | One-time structure probe for ESPN NHL public stats. |
 | [probe_nba_espn_byteam.py](collecte/probe_nba_espn_byteam.py) | Read-only diagnostic for NBA ESPN regular-season advanced stats. |
