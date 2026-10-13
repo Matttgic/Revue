@@ -1182,13 +1182,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-13T01:59:23.807832+00:00",
+      "home_score": 7,
+      "away_score": 4,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.33015938,
+          "log_loss": 0.52138114
+        },
+        "advanced_team": {
+          "brier": 0.39340224,
+          "log_loss": 0.58610608
+        },
+        "montecarlo_bayes": {
+          "brier": 0.39301205,
+          "log_loss": 0.58571082
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -3449,6 +3462,23 @@
       "home_after": 1512.0,
       "away_after": 1488.0,
       "observed_home_outcome": 1
+    },
+    "MLB:401908031": {
+      "key": "MLB:401908031",
+      "league": "MLB",
+      "event_id": "401908031",
+      "home": "Brewers",
+      "away": "Dodgers",
+      "start_utc": "2026-10-12T21:00:00+00:00",
+      "observed_at_utc": "2026-10-13T01:59:23.807832+00:00",
+      "home_score": 7,
+      "away_score": 4,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1512.0,
+      "away_before": 1488.0,
+      "home_after": 1523.17,
+      "away_after": 1476.83,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -3481,8 +3511,8 @@
     "MLB": {
       "Guardians": 1512.0,
       "White Sox": 1488.0,
-      "Brewers": 1512.0,
-      "Dodgers": 1488.0
+      "Brewers": 1523.17,
+      "Dodgers": 1476.83
     },
     "SERIEA": {
       "Como": 1500.0,
@@ -3563,5 +3593,5 @@
       "Ravens": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-13T01:59:09.311724+00:00"
+  "updated_at_utc": "2026-10-13T02:11:37.320147+00:00"
 }
