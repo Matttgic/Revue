@@ -92,3 +92,63 @@ partielles, anciennes ou futures, champs alternatifs non devinés, groupes de re
 homonymes, absence de fuite et rafraîchissement limité aux identités.
 La prochaine étape est le lancement manuel autorisé, puis la lecture de ses seuls
 compteurs et indicateurs avant toute modification du contrat fournisseur.
+
+## Investigation après #64 — run 38345350425
+
+Artefact agrégé du run du 13 octobre 2026 : 661 joueurs de référence,
+101 rencontres, 16 événements PMU éligibles, 575 marchés ANYTIME_GOALSCORER
+FULL_TIME, chacun avec une sélection. Les 575 `selection.rawName` sont présents
+et normalisables, mais les 575 observations échouent avec `player_not_found`.
+Les contrôles de rencontre sont donc franchis ; aucune équipe ni aucun playerId
+n'est fourni dans ces sélections. La présence d'un texte normalisable n'établit
+pas qu'il s'agit d'un nom de joueur. Le statut historique `structurally_observed`
+ne prouve pas le contrat sémantique. Les champs de nom des marchés n'avaient pas
+été observés : le run ne permet pas de confirmer où se trouve l'identité.
+
+Le diagnostic supplémentaire `schema.identity_candidates` sépare `market` et
+`selection`, avec une liste fixe de champs à observer : rawName, name, playerName,
+participantName, label, title. Ce sont des candidats, pas un schéma présumé.
+Pour chacun : présence, types, texte normalisable, nombre de sélections candidates,
+correspondances exactes normalisées par le moteur existant, ambiguïtés et motifs
+de rejet. Présence/type marché compte une fois par marché ; résultats candidats
+comptent par sélection. `market_objects` et `market_selection_cardinality`
+explicitent cette différence, y compris marchés vides ou malformés.
+Aucun champ inconnu, nom, identifiant, cote, réponse ou extrait n'est exporté.
+Les objets imbriqués ne sont pas parcourus ; une absence de résultat sur cette
+liste ne permet pas de conclure à l'absence d'identité dans tout le schéma.
+
+Chaque essai change seulement le nom candidat, en conservant les contraintes
+événement et les éventuels équipe/ID de la sélection. Aucun nom n'est extrait
+d'un libellé composé, aucun rapprochement approximatif ni alias n'est ajouté.
+Les résultats candidats ne sont jamais utilisés comme repli du moteur actif.
+Même une correspondance exacte de libellé marché reste une preuve à examiner,
+particulièrement pour un marché portant plusieurs sélections ou des issues
+oui/non : l'identité du joueur ne prouve pas la sémantique de chaque issue.
+
+Prochain test : lancer manuellement `nhl-pmu-matching-validation.yml` sur la
+branche de la PR avec `authorize_one_call=true`, uniquement après autorisation
+explicite pour cette nouvelle tentative. La réponse unique déjà bornée alimente
+les nouveaux compteurs en mémoire ; aucun second appel fournisseur n'est ajouté.
+Le budget est une tentative PulseScore PMU, hors rafraîchissement public NHL/ESPN
+inchangé. Ne pas rejouer le run. Examiner les agrégats, les rejets et la cardinalité
+avant d'adapter le champ d'identité du moteur. Les probabilités et EV restent inchangés.
+
+### Correction des tests CI après le run 38403506153
+
+Les échecs `test_real_docs_if_available` et
+`test_real_repo_observations_do_not_invent_covers` se reproduisent sur `main`
+(e9fa742). Le radar publié à 12:18 UTC sur la base du run, puis à 13:18 UTC
+sur main, porte `model_stale_or_invalid` : modèle trop ancien, zéro requête,
+zéro observation. Ce statut est produit volontairement par le collecteur ;
+il ne constitue pas une collecte observée. Les consommateurs refusent correctement
+cette provenance. Les tests d'intégration supposaient à tort que le dernier
+fichier avait toujours le statut `observed`.
+
+Les tests vérifient désormais explicitement le rejet du radar non observé,
+l'absence de contribution aux couvertures et le maintien des assertions sur les
+radars observés. Deux tests synthétiques supplémentaires exigent le rejet des
+statuts `model_stale_or_invalid`, `no_api_key` et inconnu, même avec des cotes
+synthétiques présentes. Aucun contrôle de production ni fichier de cotes n'est
+modifié pour rendre un radar invalide acceptable. La branche est synchronisée
+avec main pour exécuter ces contrôles sur les données actuelles. Aucun appel
+PulseScore supplémentaire n'est réalisé.

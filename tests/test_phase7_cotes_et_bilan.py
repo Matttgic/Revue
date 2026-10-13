@@ -89,6 +89,14 @@ class Tests(unittest.TestCase):
         r=build(*x,NOW)
         self.assertEqual(r["quote_sources"]["fixtures"],0)
         self.assertTrue(r["CFB_excluded"])
+    def test_unobserved_radar_rejected_even_with_quotes(self):
+        for status in ("model_stale_or_invalid", "no_api_key", "unknown"):
+            with self.subTest(status=status):
+                x=sample()
+                x[0]["status"]=status
+                with self.assertRaisesRegex(ValueError, "Invalid PulseScore source"):
+                    build(*x,NOW)
+
     def test_real_docs_if_available(self):
         from pathlib import Path
         import json
@@ -96,6 +104,12 @@ class Tests(unittest.TestCase):
         files=["pulsescore-radar-latest.json","phase6-pregame-ledger.json","picks-center-latest.json"]
         if not all((d/f).is_file() for f in files):self.skipTest("No real source snapshots")
         x=[json.loads((d/f).read_text()) for f in files]
+        # A latest snapshot may truthfully record a blocked collection. Such a
+        # snapshot must remain rejected, rather than be relabelled as observed.
+        if x[0].get("status") != "observed":
+            with self.assertRaisesRegex(ValueError, "Invalid PulseScore source"):
+                build(*x,datetime.now(timezone.utc))
+            return
         r=build(*x,datetime.now(timezone.utc))
         self.assertFalse(r["verified_live_quotes"])
         self.assertFalse(r["profitable_strategy_proven"])

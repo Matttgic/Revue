@@ -170,3 +170,55 @@ class LiveMatchingTests(unittest.TestCase):
         self.assertEqual(result["schema"]["events_invalid_date"], 1)
         self.assertEqual(result["schema"]["event_fields_valid"]["startDate"], 1)
         self.assertEqual(result["counts"]["matched"], 0)
+
+
+class MarketIdentityStructureTests(unittest.TestCase):
+    def test_market_identity_does_not_activate_fallback_or_mutate_payload(self):
+        payload = deepcopy(PAYLOAD)
+        market = payload["events"][0]["markets"][0]
+        market["rawName"] = PLAYER["name"]
+        market["private-field-name"] = "private-value"
+        market["selections"][0]["rawName"] = "Oui"
+        before = deepcopy(payload)
+        report = analyze_payload(payload, PROFILES, FIXTURES)
+        audit = report["schema"]
+        self.assertEqual(report["counts"]["reasons"], {"player_not_found": 1})
+        self.assertEqual(audit["market_objects"], 1)
+        self.assertEqual(audit["market_selection_cardinality"]["one"], 1)
+        candidates = audit["identity_candidates"]
+        self.assertEqual(candidates["market"]["rawName"]["matched"], 1)
+        self.assertEqual(candidates["selection"]["rawName"]["matched"], 0)
+        self.assertEqual(payload, before)
+        for value in [PLAYER["name"], "private-field-name", "private-value", "Oui", "9.876", "private-pmu-player"]:
+            self.assertNotIn(value, json.dumps(report, ensure_ascii=False))
+
+    def test_candidates_reject_approximation_ambiguity_and_context_conflicts(self):
+        for label, profiles, change, reason in [
+            ("Émile Testeu", PROFILES, {}, "player_not_found"),
+            (PLAYER["name"], {"teams": {"MTL": [PLAYER, {**PLAYER, "player_id": "second"}]}}, {}, "multiple_players"),
+            (PLAYER["name"], PROFILES, {"team": "BOS"}, "team_conflict"),
+        ]:
+            payload = deepcopy(PAYLOAD)
+            market = payload["events"][0]["markets"][0]
+            market["playerName"] = label
+            market["selections"][0].update(change)
+            report = analyze_payload(payload, profiles, FIXTURES)
+            stats = report["schema"]["identity_candidates"]["market"]["playerName"]
+            self.assertEqual(stats["reasons"], {reason: 1})
+            self.assertEqual(stats["matched"], 0)
+
+    def test_types_cardinality_and_scope_without_parsing_nested_values(self):
+        payload = deepcopy(PAYLOAD)
+        market = payload["events"][0]["markets"][0]
+        market.update(rawName={"private": PLAYER["name"]}, name=None, playerName=True,
+                      participantName=123, label=[], title="Private title")
+        market["selections"].append({"rawName": "Unknown"})
+        report = analyze_payload(payload, PROFILES, FIXTURES)
+        audit = report["schema"]
+        self.assertEqual(audit["market_selection_cardinality"]["many"], 1)
+        for field, kind in zip(("rawName", "name", "playerName", "participantName", "label", "title"),
+                               ("object", "null", "boolean", "number", "array", "string")):
+            self.assertEqual(audit["identity_candidates"]["market"][field]["types"][kind], 1)
+        self.assertEqual(audit["identity_candidates"]["market"]["title"]["candidate_selections"], 2)
+        self.assertEqual(audit["identity_candidates"]["selection"]["rawName"]["present"], 2)
+        self.assertNotIn("Private title", json.dumps(report))

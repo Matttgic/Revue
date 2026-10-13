@@ -13,6 +13,8 @@ from outils.collecte.check_pulsescore_connection import KEYS
 from outils.collecte.diagnostic_nhl_player_matching import summarize
 from outils.collecte.diagnostic_nhl_pmu_structure import diagnose as probe, identifier
 from outils.collecte.nhl_player_matching import name_key, team_code
+from outils.collecte.diagnostic_nhl_identity_structure import (
+    NAME_FIELDS, field_stats, observe_fields, candidate_evidence)
 from outils.collecte.pulsescore_v2 import league_matches
 from outils.suivi.revue_engine_v2 import timestamp
 
@@ -47,7 +49,13 @@ def rejection_groups(report):
 
 def analyze_payload(payload, profiles, fixtures):
     matching = summarize(payload, profiles, fixtures)
-    audit = {"eligible_events": 0, "selection_objects": 0,
+    players = [p for group in profiles.get("teams", {}).values() if isinstance(group, list)
+               for p in group if isinstance(p, dict)]
+    identity = {"market": {f: field_stats() for f in NAME_FIELDS},
+                "selection": {f: field_stats() for f in NAME_FIELDS}}
+    audit = {"eligible_events": 0, "selection_objects": 0, "market_objects": 0,
+             "market_selection_cardinality": {"zero": 0, "one": 0, "many": 0, "invalid": 0},
+             "identity_candidates": identity,
              "event_fields_present": dict.fromkeys(EVENT_FIELDS, 0),
              "event_fields_valid": dict.fromkeys(EVENT_FIELDS, 0),
              "selection_fields_present": dict.fromkeys(SELECTION_FIELDS, 0),
@@ -78,13 +86,20 @@ def analyze_payload(payload, profiles, fixtures):
         audit["events_invalid_date"] += event.get("startTime") is not None and timestamp(event.get("startTime")) is None
         audit["events_unknown_teams"] += not team_code(event.get("home")) or not team_code(event.get("away"))
         for market in eligible:
+            audit["market_objects"] += 1
+            observe_fields(market, identity["market"])
             selections = market.get("selections")
+            cardinality = ("invalid" if not isinstance(selections, list) else
+                           "zero" if not selections else "one" if len(selections) == 1 else "many")
+            audit["market_selection_cardinality"][cardinality] += 1
             if not isinstance(selections, list):
                 continue
             for selection in selections:
                 if not isinstance(selection, dict):
                     continue
                 audit["selection_objects"] += 1
+                observe_fields(selection, identity["selection"])
+                candidate_evidence(event, market, selection, players, fixtures.get("games", []), identity)
                 for field in SELECTION_FIELDS:
                     audit["selection_fields_present"][field] += field in selection
                     valid = identifier(selection.get(field)) if field == "playerId" else bool(name_key(selection.get(field)))
