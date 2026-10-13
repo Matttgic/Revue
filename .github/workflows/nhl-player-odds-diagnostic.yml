@@ -1,6 +1,12 @@
 name: NHL - diagnostic cotes joueurs (5 appels maximum)
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Diagnostic à exécuter (PMU privé = un seul appel)
+        type: choice
+        options: [coverage, pmu-private]
+        default: pmu-private
 permissions:
   contents: read
 concurrency:
@@ -16,12 +22,26 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s tests -p 'test_nhl_player_odds_diagnostic.py'
+      - run: python -m unittest discover -s tests -p 'test_nhl_pmu_structure.py'
       - name: Diagnostic borné sans export des cotes
+        if: inputs.mode != 'pmu-private'
         env:
           PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
         run: python -m outils.collecte.diagnostic_nhl_player_odds
+      - name: Structure PMU privée en mémoire (un seul appel)
+        if: inputs.mode == 'pmu-private'
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+        run: python -m outils.collecte.diagnostic_nhl_pmu_structure
       - uses: actions/upload-artifact@v4
+        if: inputs.mode != 'pmu-private'
         with:
           name: nhl-player-odds-coverage
           path: docs/nhl-odds-diagnostic.json
           retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'pmu-private'
+        with:
+          name: nhl-pmu-structure-aggregates
+          path: /tmp/nhl-pmu-structure.json
+          retention-days: 1

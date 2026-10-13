@@ -75,7 +75,7 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [nhl-frontend-prospective-ledger.json](../docs/nhl-frontend-prospective-ledger.json) | 2026-10-13 02:06 | 38 | nhl-frontend-prospective.yml | `outils/suivi/nhl_frontend_tracker.py` |
 | [nhl-frontend-prospective-performance.json](../docs/nhl-frontend-prospective-performance.json) | 2026-10-13 02:06 | 1 | nhl-frontend-prospective.yml | `outils/clairvoyance/verifier_phase1_nhl.py`, `outils/controles/etat_donnees_revue.py`, `outils/suivi/nhl_frontend_tracker.py` |
 | [nhl-model-latest.json](../docs/nhl-model-latest.json) | 2026-10-13 02:47 | 21 | multisports-independent.yml, nhl-independent.yml | `modeles/simulations/multisports_independant.py`, `modeles/simulations/nhl_independant.py`, `modeles/simulations/nhl_joueurs_independant.py` |
-| [nhl-odds-diagnostic.json](../docs/nhl-odds-diagnostic.json) | — | 1 | nhl-player-odds-diagnostic.yml | `outils/collecte/diagnostic_nhl_player_odds.py` |
+| [nhl-odds-diagnostic.json](../docs/nhl-odds-diagnostic.json) | — | 3 | nhl-player-odds-diagnostic.yml | `outils/collecte/diagnostic_nhl_player_odds.py` |
 | [nhl-official-stats-latest.json](../docs/nhl-official-stats-latest.json) | 2026-10-13 02:06 | 312 | nhl-official-stats.yml | `api_revue/nhl_stats.py`, `api_revue/operational.py`, `outils/clairvoyance/nhl_backend_source_style.py` |
 | [nhl-player-history.json](../docs/nhl-player-history.json) | 2026-10-13 02:55 | 2475 | multisports-independent.yml | `outils/collecte/nhl_player_history.py` |
 | [nhl-players-latest.json](../docs/nhl-players-latest.json) | 2026-10-13 02:47 | 162 | multisports-independent.yml | `modeles/simulations/nhl_joueurs_independant.py`, `outils/collecte/nhl_player_history.py`, `outils/publication/match_center_revue.py` |
@@ -123,14 +123,14 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 
 | Fichier | Généré | Ko | Publié par | Produit par |
 |---|---|---:|---|---|
-| [engine-v2-latest.json](../docs/engine-v2-latest.json) | 2026-10-13 01:58 | 202 | revue-engine-v2.yml | `api_revue/operational.py`, `outils/clairvoyance/audit_entrees_clairvoyance.py`, `outils/controles/controle_couverture_cotes.py` |
+| [engine-v2-latest.json](../docs/engine-v2-latest.json) | 2026-10-13 03:17 | 229 | revue-engine-v2.yml | `api_revue/operational.py`, `outils/clairvoyance/audit_entrees_clairvoyance.py`, `outils/controles/controle_couverture_cotes.py` |
 | [engine-v2-ledger.json](../docs/engine-v2-ledger.json) | — | 92 | donnees-prioritaires.yml, revue-engine-v2.yml | `api_revue/operational.py`, `api_revue/paper_picks.py`, `outils/clairvoyance/clairvoyance_elo_settlement_replay.py` |
 | [paper-score-settlement-latest.json](../docs/paper-score-settlement-latest.json) | 2026-10-13 02:13 | 1 | donnees-prioritaires.yml | `outils/controles/etat_donnees_revue.py`, `outils/suivi/reglement_multisport_officiel.py` |
 | [phase7-prices-performance-latest.json](../docs/phase7-prices-performance-latest.json) | 2026-10-12 19:59 | 19 | phase7-cotes-et-bilan.yml | `outils/controles/phase7_cotes_et_bilan.py`, `outils/controles/phase9_acceptation_production.py` |
 | [picks-center-latest.json](../docs/picks-center-latest.json) | 2026-10-13 02:13 | 39 | donnees-prioritaires.yml, picks-center-revue.yml | `outils/controles/etat_donnees_revue.py`, `outils/controles/phase11_data_quality.py`, `outils/controles/phase14_reception.py` |
 | [pulsescore-connection-status.json](../docs/pulsescore-connection-status.json) | — | 0 | check-pulsescore.yml | `outils/collecte/check_pulsescore_connection.py` |
 | [pulsescore-diagnostic-latest.json](../docs/pulsescore-diagnostic-latest.json) | 2026-10-12 02:08 | 154 | diagnostic-pulsescore.yml | `outils/collecte/diagnostic_pulsescore.py` |
-| [pulsescore-radar-latest.json](../docs/pulsescore-radar-latest.json) | 2026-10-13 02:17 | 1 | pulsescore-radar-6h.yml | `outils/collecte/pulsescore_radar_six_heures.py`, `outils/controles/controle_couverture_cotes.py`, `outils/controles/etat_donnees_revue.py` |
+| [pulsescore-radar-latest.json](../docs/pulsescore-radar-latest.json) | 2026-10-13 03:17 | 1 | pulsescore-radar-6h.yml | `outils/collecte/pulsescore_radar_six_heures.py`, `outils/controles/controle_couverture_cotes.py`, `outils/controles/etat_donnees_revue.py` |
 | [revue-control-ledger-latest.json](../docs/revue-control-ledger-latest.json) | 2026-10-13 02:13 | 39 | donnees-prioritaires.yml, revue-control-export.yml | `outils/controles/etat_donnees_revue.py`, `outils/publication/picks_center_revue.py`, `outils/publication/publier_revue_control.py` |
 | [revue-control-state-latest.json](../docs/revue-control-state-latest.json) | 2026-10-13 02:13 | 2 | donnees-prioritaires.yml, revue-control-export.yml | `outils/publication/publier_revue_control.py` |
 | [revue-crossbook-latest.json](../docs/revue-crossbook-latest.json) | 2026-10-13 02:13 | 1 | donnees-prioritaires.yml | `outils/controles/controle_couverture_cotes.py`, `outils/controles/etat_donnees_revue.py` |
@@ -181,5 +181,5 @@ Documenter : propriétaire, URL, licence/CGU, autorisation d'extraction, sports 
 | [phase9-readiness-latest.json](../docs/phase9-readiness-latest.json) | 2026-10-12 11:17 | 1 | phase9-acceptation-production.yml | `outils/controles/phase14_reception.py`, `outils/controles/phase9_acceptation_production.py` |
 | [progression-revue.json](../docs/progression-revue.json) | 2026-10-10 17:16 | 28 | — | — |
 | [regle-decision-latest.json](../docs/regle-decision-latest.json) | 2026-10-12 19:33 | 2 | regle-decision.yml | `outils/suivi/regle_decision.py` |
-| [value-robuste-latest.json](../docs/value-robuste-latest.json) | 2026-10-13 01:59 | 1 | revue-engine-v2.yml | `outils/suivi/value_robuste.py` |
+| [value-robuste-latest.json](../docs/value-robuste-latest.json) | 2026-10-13 03:17 | 1 | revue-engine-v2.yml | `outils/suivi/value_robuste.py` |
 | [value-robuste-ledger.json](../docs/value-robuste-ledger.json) | — | 1 | revue-engine-v2.yml | `outils/suivi/value_robuste.py` |
