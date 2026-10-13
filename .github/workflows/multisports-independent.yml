@@ -68,7 +68,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_nhl_player_history.py' -v
           node tests/test_nhl_player_analytics.js
-      - name: Actualiser les historiques NHL (16 joueurs les plus anciens, deux saisons)
+      - name: Actualiser tous les historiques NHL (archives en cache, repli borné)
         run: python -m outils.collecte.nhl_player_history
       - name: Tester tennis UFC Liiga sans réseau
         run: python -m unittest discover -s tests -p 'test_sports_individuels_et_liiga.py' -v
@@ -112,7 +112,15 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_backtest_multisports.py' -v
       - name: Brier et log loss historiques par compétition
         run: python outils/suivi/backtest_multisports.py --history docs/multisports-history.json --output docs/backtests-multisports.json
+      - name: Archiver la collecte de validation hors main
+        if: github.ref != 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: nhl-player-history-validation
+          path: docs/nhl-player-history.json
+          retention-days: 7
       - name: Enregistrer uniquement les prédictions calculées
+        if: github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

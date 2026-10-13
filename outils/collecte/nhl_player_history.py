@@ -1,5 +1,5 @@
 """Bounded ESPN public game logs, using the existing radar's ESPN athlete IDs.
-No odds or inferred missing statistics. Regular season only, previous + current.
+No odds or inferred missing statistics. Regular seasons, bounded older-season fallback.
 """
 import argparse
 import json
@@ -56,31 +56,84 @@ def parse_log(payload, season, as_of):
     return sorted(found.values(), key=lambda r: (r['date'], r['event_id']), reverse=True)
 
 
-def collect(profiles, previous, as_of, max_players=16, fetch=None):
+def unique_games(games):
+    """A player appearance is counted only once across cache and responses."""
+    found = {str(g['event_id']): g for g in games if g.get('event_id')}
+    return sorted(found.values(), key=lambda g: (g['date'], str(g['event_id'])), reverse=True)
+
+
+def coverage(players, requested):
+    counts = {metric: sum(sum(count(g.get(metric)) is not None for g in unique_games(p.get('games', []))) >= 20
+                         for p in players.values()) for metric in FIELDS}
+    complete = sum(sum(all(count(g.get(m)) is not None for m in FIELDS) for g in unique_games(p.get('games', []))) >= 20
+                   for p in players.values())
+    return {'requested_players': requested, 'players_with_games': sum(bool(p.get('games')) for p in players.values()),
+            'observations': sum(len(unique_games(p.get('games', []))) for p in players.values()),
+            'players_with_20_complete_observations': complete,
+            'proportion_with_20_complete_observations': complete / requested if requested else None,
+            'players_with_20_by_metric': counts}
+
+
+def collect(profiles, previous, as_of, max_players=256, fetch=None):
     def network(url):
         with urlopen(Request(url, headers={'Accept': 'application/json'}), timeout=20) as response:
             return json.load(response)
     fetch = fetch or network
     season = int(str(profiles['season'])[-4:])
     ids = {str(p['player_id']) for rows in profiles.get('teams', {}).values() for p in rows}
-    cache = {pid: {**value, 'games': [g for g in value.get('games', []) if g.get('season') in (season, season-1)]}
-             for pid, value in previous.get('players', {}).items() if pid in ids}
+    cache = {}
+    for pid, value in previous.get('players', {}).items():
+        if pid not in ids:
+            continue
+        # Retain bounded older seasons used to complete a recent 20-game sample.
+        games = [g for g in value.get('games', []) if g.get('season') in range(season-3, season+1)]
+        stamps = dict(value.get('season_collected_at') or {})
+        for diag in value.get('diagnostics', []):
+            if diag.get('status') == 'ok' and value.get('attempted_at'):
+                stamps.setdefault(str(diag['season']), value['attempted_at'])
+        cache[pid] = {**value, 'games': unique_games(games), 'season_collected_at': stamps}
     ordered = sorted(ids, key=lambda pid: (cache.get(pid, {}).get('attempted_at', ''), pid))
+    requests = 0
     for pid in ordered[:max_players]:
-        logs, diagnostics = [], []
-        for year in (season, season-1):
+        old = cache.get(pid, {})
+        logs = list(old.get('games', []))
+        stamps = dict(old.get('season_collected_at', {}))
+        diagnostics = []
+        # Current + previous season, then at most two older seasons when needed.
+        for year in range(season, season-4, -1):
+            if year < season-1 and sum(all(count(g.get(m)) is not None for m in FIELDS) for g in unique_games(logs)) >= 20:
+                break
+            stamp = stamps.get(str(year))
+            try:
+                age = (as_of-datetime.fromisoformat(stamp.replace('Z', '+00:00'))).total_seconds() if stamp else None
+            except (ValueError, TypeError):
+                age = None
+            if year < season and age is not None and 0 <= age < 7*86400:
+                diagnostics.append({'season': year, 'status': 'ok', 'cached': True})
+                continue
+            requests += 1
             try:
                 body = fetch(f'{SOURCE}/{pid}/gamelog?season={year}&seasontype=2')
-                logs.extend(parse_log(body, year, as_of))
-                diagnostics.append({'season': year, 'status': 'ok'})
+                observed = parse_log(body, year, as_of)
+                # A short response must not erase previously observed appearances.
+                logs = unique_games(logs + observed)
+                stamps[str(year)] = as_of.isoformat()
+                diagnostics.append({'season': year, 'status': 'ok', 'observations': len(observed)})
             except Exception as error:
-                # Do not expose URLs, headers or server response bodies.
-                diagnostics.append({'season': year, 'status': 'unavailable', 'error': type(error).__name__})
-        cache[pid] = {'attempted_at': as_of.isoformat(), 'games': sorted(logs, key=lambda g: (g['date'], g['event_id']), reverse=True),
-                      'diagnostics': diagnostics, 'status': 'ok' if all(d['status'] == 'ok' for d in diagnostics) else 'partial' if logs else 'unavailable'}
-    return {'schema_version': 1, 'generated_at_utc': as_of.isoformat(), 'source': 'ESPN public NHL game logs',
-            'season_type': 'regular', 'players': cache,
-            'coverage': {'requested_players': len(ids), 'players_with_games': sum(bool(p['games']) for p in cache.values())},
+                diagnostic = {'season': year, 'status': 'unavailable', 'error': type(error).__name__}
+                if getattr(error, 'code', None) in (403, 404, 429):
+                    diagnostic['http_status'] = error.code
+                diagnostics.append(diagnostic)
+                # Respect denied/rate-limited access; do not try older URLs for that player.
+                if getattr(error, 'code', None) in (403, 429):
+                    break
+        cache[pid] = {'attempted_at': as_of.isoformat(), 'games': unique_games(logs),
+                      'season_collected_at': stamps, 'diagnostics': diagnostics,
+                      'status': 'ok' if all(d['status'] == 'ok' for d in diagnostics) else 'partial' if logs else 'unavailable'}
+    return {'schema_version': 2, 'generated_at_utc': as_of.isoformat(), 'source': 'ESPN public NHL game logs',
+            'season_type': 'regular', 'players': cache, 'requests_made': requests,
+            'players_attempted': min(max_players, len(ids)),
+            'coverage': coverage(cache, len(ids)),
             'odds_status': 'unavailable_no_verified_player_market_feed', 'odds': []}
 
 
@@ -102,13 +155,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--profiles', default='docs/nhl-players-latest.json')
     parser.add_argument('--output', default='docs/nhl-player-history.json')
-    parser.add_argument('--max-players', type=int, default=16)
+    parser.add_argument('--max-players', type=int, default=256)
     args = parser.parse_args()
     path = Path(args.output)
     old = json.loads(path.read_text()) if path.exists() else {}
     report = collect(json.loads(Path(args.profiles).read_text()), old, datetime.now(timezone.utc), args.max_players)
-    path.write_text(encode_report(report), encoding='utf-8')
-    print(json.dumps(report['coverage']))
+    temporary = path.with_suffix('.tmp')
+    temporary.write_text(encode_report(report), encoding='utf-8')
+    temporary.replace(path)
+    print(json.dumps({**report['coverage'], 'players_attempted': report['players_attempted'], 'requests_made': report['requests_made']}))
 
 
 if __name__ == '__main__':
