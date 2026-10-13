@@ -1393,13 +1393,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-13T01:15:35.355610+00:00",
+      "home_score": 4,
+      "away_score": 1,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.80755296,
+          "log_loss": 1.27439527
+        },
+        "football_advanced": {
+          "brier": 0.85535082,
+          "log_loss": 1.35953559
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -1659,13 +1668,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-13T01:15:35.355610+00:00",
+      "home_score": 3,
+      "away_score": 3,
+      "result": "draw",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.86174474,
+          "log_loss": 1.41551722
+        },
+        "football_advanced": {
+          "brier": 0.82536371,
+          "log_loss": 1.35220216
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -2035,13 +2053,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-13T01:15:35.355610+00:00",
+      "home_score": 2,
+      "away_score": 1,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.52170458,
+          "log_loss": 0.88261421
+        },
+        "football_advanced": {
+          "brier": 0.53940687,
+          "log_loss": 0.90945409
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -2553,6 +2580,62 @@
           "training_games": {
             "home": 22,
             "away": 22
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "MLB:401908032": {
+      "event_id": "401908032",
+      "league": "MLB",
+      "home": "Dodgers",
+      "away": "Brewers",
+      "start_utc": "2026-10-15T00:00:00+00:00",
+      "locked_at_utc": "2026-10-13T01:59:09.311724+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.4656,
+            0.5344
+          ],
+          "published_at_utc": "2026-10-12T23:47:44.552694+00:00",
+          "training_games": {
+            "home": 22,
+            "away": 21
+          }
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.48452,
+            0.51548
+          ],
+          "published_at_utc": "2026-10-12T23:47:49.157680+00:00",
+          "training_games": {
+            "home": 22,
+            "away": 21
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.48055,
+            0.51945
+          ],
+          "published_at_utc": "2026-10-12T23:47:49.636031+00:00",
+          "training_games": {
+            "home": 22,
+            "away": 21
           }
         }
       },
@@ -3298,6 +3381,74 @@
       "home_after": 1512.0,
       "away_after": 1488.0,
       "observed_home_outcome": 1
+    },
+    "SERIEA:401874763": {
+      "key": "SERIEA:401874763",
+      "league": "SERIEA",
+      "event_id": "401874763",
+      "home": "Torino",
+      "away": "Udinese",
+      "start_utc": "2026-10-12T18:45:00+00:00",
+      "observed_at_utc": "2026-10-13T01:15:35.355610+00:00",
+      "home_score": 2,
+      "away_score": 1,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1512.0,
+      "away_after": 1488.0,
+      "observed_home_outcome": 1
+    },
+    "LALIGA:401882852": {
+      "key": "LALIGA:401882852",
+      "league": "LALIGA",
+      "event_id": "401882852",
+      "home": "Levante",
+      "away": "Sevilla",
+      "start_utc": "2026-10-12T19:00:00+00:00",
+      "observed_at_utc": "2026-10-13T01:15:35.355610+00:00",
+      "home_score": 3,
+      "away_score": 3,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1500.0,
+      "away_after": 1500.0,
+      "observed_home_outcome": 0.5
+    },
+    "PL:401879267": {
+      "key": "PL:401879267",
+      "league": "PL",
+      "event_id": "401879267",
+      "home": "Coventry",
+      "away": "Newcastle",
+      "start_utc": "2026-10-12T19:00:00+00:00",
+      "observed_at_utc": "2026-10-13T01:15:35.355610+00:00",
+      "home_score": 4,
+      "away_score": 1,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1512.0,
+      "away_after": 1488.0,
+      "observed_home_outcome": 1
+    },
+    "NBA:401914130": {
+      "key": "NBA:401914130",
+      "league": "NBA",
+      "event_id": "401914130",
+      "home": "Trail Blazers",
+      "away": "Lions",
+      "start_utc": "2026-10-12T20:00:00+00:00",
+      "observed_at_utc": "2026-10-13T01:15:35.355610+00:00",
+      "home_score": 119,
+      "away_score": 66,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1512.0,
+      "away_after": 1488.0,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -3323,7 +3474,9 @@
       "Hornets": 1512.0,
       "Bucks": 1488.0,
       "Nuggets": 1512.0,
-      "Bulls": 1488.0
+      "Bulls": 1488.0,
+      "Trail Blazers": 1512.0,
+      "Lions": 1488.0
     },
     "MLB": {
       "Guardians": 1512.0,
@@ -3343,7 +3496,9 @@
       "Cagliari": 1500.0,
       "Juventus": 1500.0,
       "Atalanta": 1512.0,
-      "Venezia": 1488.0
+      "Venezia": 1488.0,
+      "Torino": 1512.0,
+      "Udinese": 1488.0
     },
     "LALIGA": {
       "Elche": 1500.0,
@@ -3353,7 +3508,9 @@
       "Betis": 1512.0,
       "Osasuna": 1488.0,
       "Racing": 1500.0,
-      "Valencia": 1500.0
+      "Valencia": 1500.0,
+      "Levante": 1500.0,
+      "Sevilla": 1500.0
     },
     "LIGUE1": {
       "Nice": 1512.0,
@@ -3369,7 +3526,9 @@
       "C Palace": 1512.0,
       "Nottm Forest": 1488.0,
       "Liverpool": 1488.0,
-      "Man City": 1512.0
+      "Man City": 1512.0,
+      "Coventry": 1512.0,
+      "Newcastle": 1488.0
     },
     "BUNDESLIGA": {
       "Cologne": 1512.0,
@@ -3404,5 +3563,5 @@
       "Ravens": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-12T20:24:03.899239+00:00"
+  "updated_at_utc": "2026-10-13T01:59:09.311724+00:00"
 }
