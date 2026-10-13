@@ -52,8 +52,12 @@ def match_selection(observation, players, games, *, aliases=None, player_crosswa
         return reject("unsupported_market")
     home, away = team_code(observation.get("home")), team_code(observation.get("away"))
     start = timestamp(observation.get("start_utc"))
-    if not home or not away or home == away or start is None:
+    if not observation.get("home") or not observation.get("away") or observation.get("start_utc") is None:
         return reject("missing_event_context")
+    if not home or not away or home == away:
+        return reject("event_team_conflict")
+    if start is None:
+        return reject("invalid_event_date")
     fixtures = []
     for game in games:
         if not isinstance(game, dict):
@@ -64,6 +68,9 @@ def match_selection(observation, players, games, *, aliases=None, player_crosswa
                 and isinstance(game.get("event_id"), str) and game["event_id"]):
             fixtures.append(game)
     if not fixtures:
+        if any(isinstance(g, dict) and team_code(g.get("home")) == home
+               and team_code(g.get("away")) == away for g in games):
+            return reject("event_date_mismatch")
         return reject("event_not_found")
     # Duplicate/conflicting fixtures are never silently collapsed.
     if len(fixtures) != 1:

@@ -7,7 +7,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Groupe | Rôle | Scripts |
 |---|---|---:|
 | [`clairvoyance/`](#clairvoyance) | Reproduction et audit de Clairvoyance | 46 |
-| [`collecte/`](#collecte) | Collecte de données | 21 |
+| [`collecte/`](#collecte) | Collecte de données | 22 |
 | [`suivi/`](#suivi) | Suivi prospectif, règlement et évaluation | 25 |
 | [`controles/`](#controles) | Contrôles qualité | 15 |
 | [`publication/`](#publication) | Publication du site | 4 |
@@ -72,6 +72,7 @@ Scripts **écrits pour Revue** (aucun code tiers recopié), rangés par fonction
 | Script | Objet |
 |---|---|
 | [check_pulsescore_connection.py](collecte/check_pulsescore_connection.py) | One-request PulseScore credential/entitlement smoke test. |
+| [diagnostic_nhl_live_matching.py](collecte/diagnostic_nhl_live_matching.py) | Manually authorized PMU probe, one attempt, aggregated private validation. |
 | [diagnostic_nhl_player_matching.py](collecte/diagnostic_nhl_player_matching.py) | Offline private aggregation hook for an authorized PMU response in memory. |
 | [diagnostic_nhl_player_odds.py](collecte/diagnostic_nhl_player_odds.py) | Read-only NHL coverage probe. |
 | [diagnostic_nhl_pmu_structure.py](collecte/diagnostic_nhl_pmu_structure.py) | PMU-only, one-request in-memory probe; export aggregate structure only. |

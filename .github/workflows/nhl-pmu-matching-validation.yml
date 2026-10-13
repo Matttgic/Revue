@@ -1,0 +1,40 @@
+name: NHL - validation privée correspondances PMU (manuel)
+on:
+  workflow_dispatch:
+    inputs:
+      authorize_one_call:
+        description: Autoriser une seule tentative PulseScore PMU (ne pas relancer)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: revue-engine-v2-paper
+  cancel-in-progress: false
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Tests hors réseau du diagnostic
+        run: |
+          python -m unittest discover -s tests -p 'test_nhl_player_matching.py'
+          python -m unittest discover -s tests -p 'test_nhl_pmu_structure.py'
+          python -m unittest discover -s tests -p 'test_nhl_live_matching.py'
+      - name: Diagnostic désactivé par défaut
+        if: ${{ !inputs.authorize_one_call }}
+        run: python -m outils.collecte.diagnostic_nhl_live_matching
+      - name: Référentiels actualisés et une tentative PMU autorisée
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.authorize_one_call }}
+        env:
+          PULSESCORE_API_KEY: ${{ secrets.PULSESCORE_API_KEY || secrets.PULSESCORE_PRO_KEY || secrets.PULSE_SCORE_API_KEY || '' }}
+        run: python -m outils.collecte.diagnostic_nhl_live_matching --authorize-one-call
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nhl-pmu-matching-aggregates
+          path: /tmp/nhl-pmu-matching-validation.json
+          retention-days: 1
