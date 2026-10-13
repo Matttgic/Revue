@@ -28,8 +28,23 @@ Il appelle la première page NHL de chaque bookmaker (30 événements maximum),
 soit quatre requêtes maximum, sous la limite demandée de cinq. Aucun retry,
 redirection ou pagination cachée. Pas d’export de prix, noms, IDs, libellés,
 réponses ou exceptions brutes. Le rapport contient uniquement les statuts,
-compteurs et limites de couverture. Un préfixe canonique `PLAYER_` est un simple
-candidat à examiner, jamais une preuve de disponibilité exploitable.
+compteurs et limites de couverture. Le schéma 2 distingue quatre compteurs
+`market_count` par bookmaker : `goals`, `shots`, `points`, `assists`. Ils comptent
+les objets marchés, jamais les sélections ou joueurs. Sans réponse valide, les
+compteurs restent `null` ; un échantillon valide sans catégorie reconnue donne
+zéro et conserve le statut `unverified`, sans conclure à une absence générale.
+
+La classification exige `period=FULL_TIME` et une clé canonique exacte :
+`ANYTIME_GOALSCORER` ou `PLAYER_GOALS` pour buteur/buts joueur,
+`PLAYER_SHOTS_ON_GOAL` pour tirs cadrés, `PLAYER_POINTS` pour points,
+`PLAYER_ASSISTS` ou `PLAYER_TO_ASSIST` pour passes. Ces règles s’appliquent
+uniquement si la réponse contient réellement ces clés ; leur prise en charge
+ne prouve pas qu’un opérateur les propose. Aucun rapprochement approximatif avec
+`rawName`. `PLAYER_SHOTS`, les combinés, les périodes partielles ou inconnues
+restent non vérifiés. `unverified_player_markets` compte les candidats non classés.
+Le statut `category_observed` signifie seulement une catégorie reconnue dans
+l’échantillon NHL, jamais une cote exploitable ou un seuil validé. Les fixtures
+des tests sont synthétiques, pas des observations de production.
 
 Workflow manuel `nhl-player-odds-diagnostic.yml` : mêmes alias de secrets Actions,
 même groupe de concurrence que les collectes PulseScore pour éviter un conflit

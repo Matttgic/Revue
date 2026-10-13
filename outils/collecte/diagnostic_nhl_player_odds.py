@@ -15,6 +15,26 @@ from outils.collecte.check_pulsescore_connection import KEYS
 
 MARKETS = ("goals", "shots", "points", "assists")
 MAX_CALLS = 5
+# Exact semantic categories only, never substring or rawName guessing. These
+# rules apply only when the API actually returns the key; they are not claims
+# that these categories are offered by any bookmaker. PLAYER_SHOTS is ambiguous
+# (attempts vs on-goal), as is PLAYER_TO_SCORE_OR_ASSIST (combined outcome).
+CANONICAL_CATEGORIES = {
+    "ANYTIME_GOALSCORER": "goals",
+    "PLAYER_GOALS": "goals",
+    "PLAYER_SHOTS_ON_GOAL": "shots",
+    "PLAYER_POINTS": "points",
+    "PLAYER_ASSISTS": "assists",
+    "PLAYER_TO_ASSIST": "assists",
+}
+
+
+def category(market):
+    """Identify a full-game category, not a verified tradable player quote."""
+    label = market.get("canonicalMarket")
+    if not isinstance(label, str) or market.get("period") != "FULL_TIME":
+        return None
+    return CANONICAL_CATEGORIES.get(label)
 
 
 class NoRedirect(HTTPRedirectHandler):
@@ -24,13 +44,14 @@ class NoRedirect(HTTPRedirectHandler):
 
 def diagnose(key, fetch=None):
     fetch = fetch or build_opener(NoRedirect()).open
-    report = {"checked_at_utc": datetime.now(timezone.utc).isoformat(),
+    report = {"schema_version": 2, "checked_at_utc": datetime.now(timezone.utc).isoformat(),
               "calls": 0, "max_calls": MAX_CALLS, "books": {},
               "publication": "blocked_pending_reuse_rights_and_market_validation"}
     for book, slug in BOOKMAKERS.items():
         row = {"status": "missing_secret", "nhl_events": None,
                "has_next_page": None, "player_label_candidates": 0,
-               "markets": {m: "unverified" for m in MARKETS}}
+               "unverified_player_markets": None,
+               "markets": {m: {"status": "unverified", "market_count": None} for m in MARKETS}}
         report["books"][book] = row
         if not key:
             continue
@@ -52,6 +73,9 @@ def diagnose(key, fetch=None):
                       and league_matches(e["league"], "", "NHL")]
             row.update(status="sampled", nhl_events=len(events),
                        has_next_page=payload.get("hasNextPage") if isinstance(payload.get("hasNextPage"), bool) else None)
+            row["unverified_player_markets"] = 0
+            for stats in row["markets"].values():
+                stats["market_count"] = 0
             for event in events:
                 markets = event.get("markets", [])
                 if not isinstance(markets, list):
@@ -60,8 +84,17 @@ def diagnose(key, fetch=None):
                     if not isinstance(market, dict):
                         continue
                     label = market.get("canonicalMarket")
-                    if isinstance(label, str) and label.startswith("PLAYER_"):
+                    player_candidate = isinstance(label, str) and (
+                        label.startswith("PLAYER_") or "GOALSCORER" in label)
+                    if player_candidate:
                         row["player_label_candidates"] += 1
+                    identified = category(market)
+                    if identified is not None:
+                        stats = row["markets"][identified]
+                        stats["market_count"] += 1
+                        stats["status"] = "category_observed"
+                    elif player_candidate:
+                        row["unverified_player_markets"] += 1
             # Candidates are not verified odds. No names, prices, labels, IDs or
             # provider payloads are written to the public repository/artifact.
         except HTTPError as exc:
