@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-14T18:49:25.167420+00:00",
+  "generated_at_utc": "2026-10-14T19:52:51.572807+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -337,7 +337,42 @@
       }
     },
     "WNBA": {
-      "games": [],
+      "games": [
+        {
+          "event_id": "401918305",
+          "league": "WNBA",
+          "home": "Valkyries",
+          "away": "Dream",
+          "start_utc": "2026-10-17T19:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 11,
+            "away": 11
+          },
+          "probabilities": {
+            "home_win": 0.50607,
+            "away_win": 0.49393
+          },
+          "components": {
+            "monte_carlo": 0.48828,
+            "bayes": 0.50193,
+            "elo": 0.54689,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 84.48,
+            "away": 84.88
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        }
+      ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
         "n": 8,
@@ -501,7 +536,7 @@
           "league": "MLB",
           "home": "Dodgers",
           "away": "Brewers",
-          "start_utc": "2026-10-16T01:00:00+00:00",
+          "start_utc": "2026-10-16T00:00:00+00:00",
           "model": "mc_bayes_elo_shadow_v1",
           "status": "shadow_non_calibre",
           "training_games": {
@@ -509,11 +544,11 @@
             "away": 21
           },
           "probabilities": {
-            "home_win": 0.46782,
-            "away_win": 0.53218
+            "home_win": 0.47865,
+            "away_win": 0.52135
           },
           "components": {
-            "monte_carlo": 0.48568,
+            "monte_carlo": 0.50651,
             "bayes": 0.46313,
             "elo": 0.43499,
             "weights": {
