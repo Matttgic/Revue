@@ -1,8 +1,8 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-14T20:44:26.741308+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-14T18:52:31.268764+00:00",
+  "generated_at_utc": "2026-10-14T21:37:38.649585+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-14T20:44:26.790439+00:00",
   "models": [
     {
       "event_id": "761860",
@@ -1030,29 +1030,6 @@
       "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
     },
     {
-      "event_id": "401908033",
-      "league": "MLB",
-      "home": "Dodgers",
-      "away": "Brewers",
-      "start_utc": "2026-10-16T01:00:00+00:00",
-      "model_id": "revue_mlb_espn_history_elo_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.406,
-        "away_win": 0.594
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-14T17:37:36.552519+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-14T17:37:36.552519+00:00"
-      },
-      "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
-    },
-    {
       "event_id": "401884770",
       "league": "BUNDESLIGA",
       "home": "Frankfurt",
@@ -1158,23 +1135,22 @@
     }
   ],
   "metrics": {
-    "candidates": 48,
-    "events_covered": 30,
+    "candidates": 47,
+    "events_covered": 29,
     "models_by_league": {
       "MLS": 15,
       "NBA": 27,
-      "MLB": 2,
+      "MLB": 1,
       "BUNDESLIGA": 1,
       "LIGUE1": 1,
       "SERIEA": 1,
       "LALIGA": 1
     },
     "decisions": {
-      "not_pregame_20m": 7,
       "football_correlated_research_pool": 19,
       "nba_prior_both_available": 9,
-      "mlb_history_elo": 2,
-      "mlb_no_identical_history_fixture": 1
+      "mlb_history_elo": 1,
+      "mlb_no_identical_history_fixture": 2
     }
   },
   "calibrated": false,
