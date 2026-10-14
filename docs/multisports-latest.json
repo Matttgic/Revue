@@ -1,19 +1,40 @@
 {
-  "generated_at_utc": "2026-10-14T06:20:56.786610+00:00",
+  "generated_at_utc": "2026-10-14T07:55:51.055407+00:00",
   "date_paris": "2026-10-14",
   "days": 3,
   "status": "prototype_non_calibre",
   "disclaimer": "Probabilités de recherche non calibrées. Sans cotes françaises ni EV. Aucun conseil de pari.",
   "competitions": {
-    "NCAAB": {
-      "name": "NCAA Basketball",
-      "sport": "Basket",
+    "NFL": {
+      "name": "NFL",
+      "sport": "Football américain",
       "model": "points",
       "status": "ok",
-      "games": []
+      "games": [
+        {
+          "event_id": "401872995",
+          "home": "Broncos",
+          "away": "Seahawks",
+          "start_utc": "2026-10-16T00:15:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win": 0.6134,
+            "away_win": 0.3866
+          },
+          "expected_score": {
+            "home": 20.1,
+            "away": 20.2
+          },
+          "odds": null,
+          "training_games": {
+            "home": 8,
+            "away": 8
+          }
+        }
+      ]
     },
-    "WNBA": {
-      "name": "WNBA",
+    "NCAAB": {
+      "name": "NCAA Basketball",
       "sport": "Basket",
       "model": "points",
       "status": "ok",
@@ -144,33 +165,12 @@
         }
       ]
     },
-    "NFL": {
-      "name": "NFL",
-      "sport": "Football américain",
+    "WNBA": {
+      "name": "WNBA",
+      "sport": "Basket",
       "model": "points",
       "status": "ok",
-      "games": [
-        {
-          "event_id": "401872995",
-          "home": "Broncos",
-          "away": "Seahawks",
-          "start_utc": "2026-10-16T00:15:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.6134,
-            "away_win": 0.3866
-          },
-          "expected_score": {
-            "home": 20.1,
-            "away": 20.2
-          },
-          "odds": null,
-          "training_games": {
-            "home": 8,
-            "away": 8
-          }
-        }
-      ]
+      "games": []
     },
     "MLB": {
       "name": "MLB",
@@ -1456,6 +1456,17 @@
     "fixtures": 65,
     "predicted": 47,
     "league_feed_diagnostics": {
+      "NFL": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 65,
+        "cache_hits": 58,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 140,
+        "range_min": "2026-08-14",
+        "range_max": "2026-10-19"
+      },
       "NCAAB": {
         "status": "ok",
         "requests_ok": 7,
@@ -1466,17 +1477,6 @@
         "events": 0,
         "range_min": null,
         "range_max": null
-      },
-      "WNBA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 50,
-        "cache_hits": 43,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 61,
-        "range_min": "2026-08-29",
-        "range_max": "2026-10-17"
       },
       "NBA": {
         "status": "ok",
@@ -1489,16 +1489,16 @@
         "range_min": "2026-10-04",
         "range_max": "2026-10-17"
       },
-      "NFL": {
+      "WNBA": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 65,
-        "cache_hits": 58,
+        "requests_total": 50,
+        "cache_hits": 43,
         "requests_failed": 0,
         "errors": [],
-        "events": 140,
-        "range_min": "2026-08-14",
-        "range_max": "2026-10-19"
+        "events": 61,
+        "range_min": "2026-08-29",
+        "range_max": "2026-10-17"
       },
       "MLB": {
         "status": "ok",
