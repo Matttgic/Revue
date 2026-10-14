@@ -2622,13 +2622,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-14T04:45:03.787217+00:00",
+      "home_score": 3,
+      "away_score": 1,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.36261128,
+          "log_loss": 0.55477751
+        },
+        "advanced_team": {
+          "brier": 0.38799241,
+          "log_loss": 0.58062239
+        },
+        "montecarlo_bayes": {
+          "brier": 0.44575682,
+          "log_loss": 0.63884841
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -3993,13 +4006,81 @@
       "home_after": 1523.19,
       "away_after": 1477.22,
       "observed_home_outcome": 1
+    },
+    "MLB:401908024": {
+      "key": "MLB:401908024",
+      "league": "MLB",
+      "event_id": "401908024",
+      "home": "Rays",
+      "away": "Guardians",
+      "start_utc": "2026-10-14T00:00:00+00:00",
+      "observed_at_utc": "2026-10-14T04:45:03.787217+00:00",
+      "home_score": 3,
+      "away_score": 1,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.41,
+      "away_before": 1523.59,
+      "home_after": 1501.62,
+      "away_after": 1510.38,
+      "observed_home_outcome": 1
+    },
+    "NBA:401908621": {
+      "key": "NBA:401908621",
+      "league": "NBA",
+      "event_id": "401908621",
+      "home": "Thunder",
+      "away": "Pacers",
+      "start_utc": "2026-10-14T00:00:00+00:00",
+      "observed_at_utc": "2026-10-14T04:45:03.787217+00:00",
+      "home_score": 114,
+      "away_score": 112,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.41,
+      "away_before": 1488.0,
+      "home_after": 1500.4,
+      "away_after": 1476.01,
+      "observed_home_outcome": 1
+    },
+    "NBA:401898718": {
+      "key": "NBA:401898718",
+      "league": "NBA",
+      "event_id": "401898718",
+      "home": "Lakers",
+      "away": "Warriors",
+      "start_utc": "2026-10-14T02:00:00+00:00",
+      "observed_at_utc": "2026-10-14T04:45:03.787217+00:00",
+      "home_score": 89,
+      "away_score": 101,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1512.0,
+      "home_after": 1488.41,
+      "away_after": 1523.59,
+      "observed_home_outcome": 0
+    },
+    "NBA:401901826": {
+      "key": "NBA:401901826",
+      "league": "NBA",
+      "event_id": "401901826",
+      "home": "Kings",
+      "away": "Trail Blazers",
+      "start_utc": "2026-10-14T02:00:00+00:00",
+      "observed_at_utc": "2026-10-14T04:45:03.787217+00:00",
+      "home_score": 98,
+      "away_score": 110,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.0,
+      "away_before": 1512.0,
+      "home_after": 1476.83,
+      "away_after": 1523.17,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
     "NBA": {
       "Raptors": 1523.19,
       "Clippers": 1488.0,
-      "Pacers": 1488.0,
+      "Pacers": 1476.01,
       "Hawks": 1523.59,
       "Wizards": 1499.59,
       "Pistons": 1488.0,
@@ -4007,8 +4088,8 @@
       "Timberwolves": 1523.59,
       "Celtics": 1512.0,
       "76ers": 1488.0,
-      "Warriors": 1512.0,
-      "Kings": 1488.0,
+      "Warriors": 1523.59,
+      "Kings": 1476.83,
       "Suns": 1512.0,
       "Spurs": 1476.41,
       "Rockets": 1488.0,
@@ -4019,19 +4100,20 @@
       "Bucks": 1488.0,
       "Nuggets": 1512.0,
       "Bulls": 1488.0,
-      "Trail Blazers": 1512.0,
+      "Trail Blazers": 1523.17,
       "Lions": 1488.0,
-      "Thunder": 1488.41,
+      "Thunder": 1500.4,
       "Nets": 1512.41,
       "Knicks": 1477.22,
-      "Jazz": 1511.59
+      "Jazz": 1511.59,
+      "Lakers": 1488.41
     },
     "MLB": {
-      "Guardians": 1523.59,
+      "Guardians": 1510.38,
       "White Sox": 1488.0,
       "Brewers": 1523.17,
       "Dodgers": 1476.83,
-      "Rays": 1488.41
+      "Rays": 1501.62
     },
     "SERIEA": {
       "Como": 1500.0,
@@ -4114,5 +4196,5 @@
       "Bills": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-14T02:08:43.551514+00:00"
+  "updated_at_utc": "2026-10-14T04:46:13.774048+00:00"
 }
