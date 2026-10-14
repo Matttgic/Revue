@@ -1,39 +1,45 @@
 {
-  "generated_at_utc": "2026-10-13T21:20:26.393740+00:00",
+  "generated_at_utc": "2026-10-14T05:02:46.870216+00:00",
   "status": "attention_required",
   "components": {
     "multisports": {
-      "status": "stale",
-      "age_hours": 18.54,
-      "updated_at_utc": "2026-10-13T02:47:58.100383+00:00"
+      "status": "fresh",
+      "age_hours": 1.69,
+      "updated_at_utc": "2026-10-14T03:21:10.677291+00:00"
     },
     "scanner": {
       "status": "fresh",
-      "age_hours": 0.01,
-      "updated_at_utc": "2026-10-13T21:20:07.071226+00:00"
+      "age_hours": 0.21,
+      "updated_at_utc": "2026-10-14T04:50:25.558698+00:00"
     },
     "football_shadow": {
-      "status": "stale",
-      "age_hours": 18.54,
-      "updated_at_utc": "2026-10-13T02:48:03.858859+00:00"
+      "status": "fresh",
+      "age_hours": 1.69,
+      "updated_at_utc": "2026-10-14T03:21:13.948565+00:00"
     },
     "teams_shadow": {
-      "status": "stale",
-      "age_hours": 18.54,
-      "updated_at_utc": "2026-10-13T02:48:04.399585+00:00"
+      "status": "fresh",
+      "age_hours": 1.69,
+      "updated_at_utc": "2026-10-14T03:21:14.270734+00:00"
     },
     "football_boxscores": {
-      "status": "stale",
-      "age_hours": 18.54,
-      "updated_at_utc": "2026-10-13T02:48:03.604591+00:00"
+      "status": "fresh",
+      "age_hours": 1.69,
+      "updated_at_utc": "2026-10-14T03:21:13.776436+00:00"
     }
   },
   "facts": {
     "source_files_audited": 415,
     "multisport_feeds_ok": 18,
-    "future_matches": 77,
-    "live_bookmaker_source_status": "disabled_stale_model",
-    "quote_matches": [],
+    "future_matches": 67,
+    "live_bookmaker_source_status": "active_pulsescore",
+    "quote_matches": [
+      {
+        "provider": "PulseScore",
+        "calls": 44,
+        "matched_events": 69
+      }
+    ],
     "paper_total": 53,
     "paper_settled": 35,
     "quote_close_proxy_sample": 4,
@@ -45,12 +51,6 @@
     "real_bets_enabled": false
   },
   "warnings": [
-    "multisports stale",
-    "football_shadow stale",
-    "teams_shadow stale",
-    "football_boxscores stale",
-    "PulseScore scanner state: disabled_stale_model",
-    "Some bookmaker feeds returned errors; see scanner details",
     "10 paper entries with uncertain chronology/rule"
   ],
   "note": "This describes operational health, not betting profitability."
