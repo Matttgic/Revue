@@ -1,39 +1,55 @@
 {
   "version": "revue_phase7_price_integrity_v1",
-  "generated_at_utc": "2026-10-15T15:20:19.618570+00:00",
+  "generated_at_utc": "2026-10-15T21:47:37.502282+00:00",
   "status": "observed_quote_provenance_and_separate_paper_audit_only",
   "quote_sources": {
-    "observed_at_utc": "2026-10-15T14:52:59.909934+00:00",
-    "age_minutes": 27.3,
-    "fixtures": 0,
-    "market_rows": 0,
-    "market_rows_by_kind": {},
-    "market_rows_by_bookmaker": {},
-    "bookmakers_observed": [],
+    "observed_at_utc": "2026-10-15T21:44:30.769279+00:00",
+    "age_minutes": 3.1,
+    "fixtures": 13,
+    "market_rows": 397,
+    "market_rows_by_kind": {
+      "totals": 378,
+      "h2h": 19
+    },
+    "market_rows_by_bookmaker": {
+      "betclic_fr": 159,
+      "winamax_fr": 115,
+      "pmu_fr": 121,
+      "unibet_fr": 2
+    },
+    "bookmakers_observed": [
+      "betclic_fr",
+      "pmu_fr",
+      "unibet_fr",
+      "winamax_fr"
+    ],
     "bookmakers_supported": [
       "betclic_fr",
       "pmu_fr",
       "unibet_fr",
       "winamax_fr"
     ],
-    "bookmakers_without_quotes": [
-      "betclic_fr",
-      "pmu_fr",
-      "unibet_fr",
-      "winamax_fr"
-    ],
-    "period_rules": {},
-    "quote_timestamp_source": {},
+    "bookmakers_without_quotes": [],
+    "period_rules": {
+      "overtime_rule_unverified": 241,
+      "including_ot_confirmed": 11,
+      "game_result": 145
+    },
+    "quote_timestamp_source": {
+      "fetch_observation": 397
+    },
     "bookability_verified": false
   },
   "phase6_join": {
     "source_predictions_checked": 76,
-    "same_selection_historical_market_rows": 0,
-    "source_selections_with_exact_archived_prices": 0,
+    "same_selection_historical_market_rows": 40,
+    "source_selections_with_exact_archived_prices": 18,
     "verified_bookable_market_prices": 0,
     "verified_positive_ev": 0,
     "statuses": {
-      "no_same_event_quote": 76
+      "no_same_event_quote": 56,
+      "quote_not_observed_near_lock": 18,
+      "no_identical_selection_and_line": 2
     }
   },
   "paper_performance": {
@@ -914,9 +930,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.4776,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.86,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -929,9 +950,14 @@
       "line": null,
       "source_original_probability": 0.543,
       "revue_comparison_probability": 0.547,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.92,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -944,7 +970,7 @@
       "line": 1.5,
       "source_original_probability": 0.664,
       "revue_comparison_probability": null,
-      "status": "no_same_event_quote",
+      "status": "no_identical_selection_and_line",
       "matching_quotes": 0,
       "best_historical_quote": null,
       "verified_positive_ev": false,
@@ -959,9 +985,14 @@
       "line": 5.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.5175,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "betclic_fr",
+        "decimal_odds": 1.78,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -974,9 +1005,14 @@
       "line": null,
       "source_original_probability": 0.486,
       "revue_comparison_probability": 0.358,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 2.2,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -989,9 +1025,14 @@
       "line": 5.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.5849,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "betclic_fr",
+        "decimal_odds": 1.87,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1004,9 +1045,14 @@
       "line": null,
       "source_original_probability": 0.63,
       "revue_comparison_probability": 0.444,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.64,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1019,9 +1065,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.6018,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.6,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1034,9 +1085,14 @@
       "line": null,
       "source_original_probability": 0.412,
       "revue_comparison_probability": 0.371,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 3.2,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1049,9 +1105,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.465,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.6,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1064,9 +1125,14 @@
       "line": null,
       "source_original_probability": 0.406,
       "revue_comparison_probability": 0.05,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 3.15,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1079,9 +1145,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.6941,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.6,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1094,9 +1165,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.6426,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.6,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1109,9 +1185,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.5453,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.66,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1124,9 +1205,14 @@
       "line": 5.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.4803,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "betclic_fr",
+        "decimal_odds": 1.96,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1139,9 +1225,14 @@
       "line": null,
       "source_original_probability": 0.494,
       "revue_comparison_probability": 0.424,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 2.05,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1154,9 +1245,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.4239,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.84,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1169,7 +1265,7 @@
       "line": 1.5,
       "source_original_probability": 0.512,
       "revue_comparison_probability": null,
-      "status": "no_same_event_quote",
+      "status": "no_identical_selection_and_line",
       "matching_quotes": 0,
       "best_historical_quote": null,
       "verified_positive_ev": false,
@@ -1184,9 +1280,14 @@
       "line": 6.5,
       "source_original_probability": 0.56,
       "revue_comparison_probability": 0.5652,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 3,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 1.64,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     },
@@ -1199,9 +1300,14 @@
       "line": null,
       "source_original_probability": 0.432,
       "revue_comparison_probability": 0.195,
-      "status": "no_same_event_quote",
-      "matching_quotes": 0,
-      "best_historical_quote": null,
+      "status": "quote_not_observed_near_lock",
+      "matching_quotes": 1,
+      "best_historical_quote": {
+        "bookmaker": "winamax_fr",
+        "decimal_odds": 2.95,
+        "quote_at_utc": "2026-10-15T21:44:30.769279+00:00",
+        "not_a_bookable_offer": true
+      },
       "verified_positive_ev": false,
       "automatic_real_bet": false
     }
