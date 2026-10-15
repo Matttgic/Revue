@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-15T01:41:18.917845+00:00",
+  "generated_at_utc": "2026-10-15T04:22:33.452569+00:00",
   "status": "prospective_football_score_audit_only",
   "source": "ESPN final scores; only verified pre-match frozen predictions",
   "prediction_source": "Revue independent baseline and shadow model",
@@ -20,6 +20,14 @@
         }
       },
       "brier_delta_candidate_minus_baseline": -0.008213
+    },
+    "BUNDESLIGA": {
+      "n_recorded": 7,
+      "n_settled": 0,
+      "n_pending": 7,
+      "n_invalid": 0,
+      "scores": {},
+      "brier_delta_candidate_minus_baseline": null
     },
     "PL": {
       "n_recorded": 15,
@@ -55,23 +63,6 @@
       },
       "brier_delta_candidate_minus_baseline": -0.019939
     },
-    "SERIEA": {
-      "n_recorded": 14,
-      "n_settled": 10,
-      "n_pending": 4,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.583826,
-          "logloss": 0.988745
-        },
-        "shadow_metrics": {
-          "brier": 0.579914,
-          "logloss": 0.981746
-        }
-      },
-      "brier_delta_candidate_minus_baseline": -0.003912
-    },
     "LIGUE1": {
       "n_recorded": 12,
       "n_settled": 8,
@@ -89,13 +80,22 @@
       },
       "brier_delta_candidate_minus_baseline": -0.000138
     },
-    "BUNDESLIGA": {
-      "n_recorded": 7,
-      "n_settled": 0,
-      "n_pending": 7,
+    "SERIEA": {
+      "n_recorded": 14,
+      "n_settled": 10,
+      "n_pending": 4,
       "n_invalid": 0,
-      "scores": {},
-      "brier_delta_candidate_minus_baseline": null
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.583826,
+          "logloss": 0.988745
+        },
+        "shadow_metrics": {
+          "brier": 0.579914,
+          "logloss": 0.981746
+        }
+      },
+      "brier_delta_candidate_minus_baseline": -0.003912
     },
     "WITH_ESPN_SHOTS": {
       "n_recorded": 33,
