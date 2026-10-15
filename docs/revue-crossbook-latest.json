@@ -1,21 +1,21 @@
 {
   "version": "revue_quotations_crossbook_coverage_v1",
-  "generated_at_utc": "2026-10-15T17:19:22.244817+00:00",
+  "generated_at_utc": "2026-10-15T20:31:12.417832+00:00",
   "status": "math_only_quotes_observed_no_bookable_confirmation",
   "source_snapshots": {
     "radar_6h": {
       "status": "validated_snapshot_radar",
-      "events_considered": 0,
-      "observed_at_utc": "2026-10-15T16:53:07.623925+00:00"
+      "events_considered": 13,
+      "observed_at_utc": "2026-10-15T20:23:24.544161+00:00"
     },
     "full_scan": {
-      "status": "missing_or_stale",
-      "events_considered": 0,
-      "observed_at_utc": "2026-10-15T15:53:25.911973+00:00"
+      "status": "validated_snapshot_full",
+      "events_considered": 16,
+      "observed_at_utc": "2026-10-15T19:24:08.678844+00:00"
     }
   },
-  "source_event_snapshots_audited": 0,
-  "complete_cross_book_markets_checked": 0,
+  "source_event_snapshots_audited": 3,
+  "complete_cross_book_markets_checked": 17,
   "potential_snapshot_covers": [],
   "potential_snapshot_cover_count": 0,
   "minimum_theoretical_excess_pct": 0.5,
@@ -30,6 +30,11 @@
     "real_bets_enabled": false,
     "paid_api_calls_for_this_audit": 0
   },
-  "diagnostics": {},
+  "diagnostics": {
+    "unsupported_or_ambiguous_settlement": 26,
+    "complete_cross_book_markets": 17,
+    "no_math_cover": 17,
+    "not_enough_books": 12
+  },
   "note": "Snapshot arithmetic only. Prices may disappear, drift, be restricted, be rejected, or settle differently. Require independent live bookmaker checks to execute; no bets recommended."
 }
