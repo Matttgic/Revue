@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-16T15:26:42.320314+00:00",
+  "generated_at_utc": "2026-10-16T16:33:22.542885+00:00",
   "strategy": "football_robust_sharp_v1",
   "rule": {
     "id": "football_robust_sharp_v1",
@@ -34,15 +34,149 @@
     "min_settled_for_assessment": 300
   },
   "rule_hash": "4d487f0a9d82292affe0e1e958108bff83d1341a0a0856fbb8cafaec81cb38c7",
-  "scan_at": "2026-10-16T15:25:48.703998+00:00",
+  "scan_at": "2026-10-16T16:32:38.082015+00:00",
   "status": "fresh_snapshot",
   "provider_status": "active_pulsescore",
   "candidates": [],
-  "watchlist": [],
+  "watchlist": [
+    {
+      "selection_rule": "football_robust_sharp_v1",
+      "rule_hash": "4d487f0a9d82292affe0e1e958108bff83d1341a0a0856fbb8cafaec81cb38c7",
+      "selection_id": "PL|401879258|h2h|home|unibet_fr",
+      "league": "PL",
+      "event_id": "401879258",
+      "home": "Newcastle",
+      "away": "Aston Villa",
+      "start_utc": "2026-10-17T16:30:00+00:00",
+      "market": "h2h",
+      "side": "home",
+      "line": null,
+      "bookmaker": "unibet_fr",
+      "bookmaker_price": 2.15,
+      "quote_at": "2026-10-16T16:32:38.082015+00:00",
+      "quote_time_source": "fetch_observation",
+      "reference_evidence": [
+        {
+          "bookmaker": "ps3838",
+          "market": "h2h",
+          "line": null,
+          "keys": [
+            "home",
+            "draw",
+            "away"
+          ],
+          "prices": [
+            2.26,
+            3.72,
+            3.06
+          ],
+          "quote_at": "2026-10-16T16:32:10.491000+00:00",
+          "quote_time_source": "provider",
+          "probabilities": {
+            "multiplicative": [
+              0.4262412940912155,
+              0.25895304425971694,
+              0.31480566164906765
+            ],
+            "puissance": [
+              0.42968556416570136,
+              0.2564064606571596,
+              0.3139079751771391
+            ],
+            "additive": [
+              0.4297803874301331,
+              0.2561197156250136,
+              0.3140998969448534
+            ],
+            "shin": [
+              0.42887385254408233,
+              0.25685039714287844,
+              0.31427575031303945
+            ]
+          }
+        }
+      ],
+      "p_min": 0.4262412940912155,
+      "p_max": 0.4297803874301331,
+      "edge_min": -0.08358121770388682,
+      "edge_max": -0.07597216702521392,
+      "minimum_required_price": 2.416471642420409,
+      "observed_at": "2026-10-16T16:32:38.082015+00:00",
+      "market_rule_verified": true,
+      "paper_stake_units": 1.0
+    },
+    {
+      "selection_rule": "football_robust_sharp_v1",
+      "rule_hash": "4d487f0a9d82292affe0e1e958108bff83d1341a0a0856fbb8cafaec81cb38c7",
+      "selection_id": "PL|401879258|h2h|away|unibet_fr",
+      "league": "PL",
+      "event_id": "401879258",
+      "home": "Newcastle",
+      "away": "Aston Villa",
+      "start_utc": "2026-10-17T16:30:00+00:00",
+      "market": "h2h",
+      "side": "away",
+      "line": null,
+      "bookmaker": "unibet_fr",
+      "bookmaker_price": 2.9,
+      "quote_at": "2026-10-16T16:32:38.082015+00:00",
+      "quote_time_source": "fetch_observation",
+      "reference_evidence": [
+        {
+          "bookmaker": "ps3838",
+          "market": "h2h",
+          "line": null,
+          "keys": [
+            "home",
+            "draw",
+            "away"
+          ],
+          "prices": [
+            2.26,
+            3.72,
+            3.06
+          ],
+          "quote_at": "2026-10-16T16:32:10.491000+00:00",
+          "quote_time_source": "provider",
+          "probabilities": {
+            "multiplicative": [
+              0.4262412940912155,
+              0.25895304425971694,
+              0.31480566164906765
+            ],
+            "puissance": [
+              0.42968556416570136,
+              0.2564064606571596,
+              0.3139079751771391
+            ],
+            "additive": [
+              0.4297803874301331,
+              0.2561197156250136,
+              0.3140998969448534
+            ],
+            "shin": [
+              0.42887385254408233,
+              0.25685039714287844,
+              0.31427575031303945
+            ]
+          }
+        }
+      ],
+      "p_min": 0.3139079751771391,
+      "p_max": 0.31480566164906765,
+      "edge_min": -0.08966687198629664,
+      "edge_max": -0.08706358121770386,
+      "minimum_required_price": 3.2812164119715925,
+      "observed_at": "2026-10-16T16:32:38.082015+00:00",
+      "market_rule_verified": true,
+      "paper_stake_units": 1.0
+    }
+  ],
   "diagnostics": {
-    "stale_quote": 36,
-    "no_complete_fresh_sharp_reference": 155,
-    "incomplete_or_unsupported_market": 23
+    "stale_quote": 40,
+    "no_complete_fresh_sharp_reference": 175,
+    "below_robust_threshold": 2,
+    "incomplete_or_unsupported_market": 28
   },
   "performance": {
     "settled": 0,
