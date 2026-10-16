@@ -2760,13 +2760,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-16T04:23:15.038650+00:00",
+      "home_score": 17,
+      "away_score": 14,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.29891912,
+          "log_loss": 0.48873803
+        },
+        "advanced_team": {
+          "brier": 0.3934732,
+          "log_loss": 0.58617796
+        },
+        "montecarlo_bayes": {
+          "brier": 0.41205042,
+          "log_loss": 0.60495317
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -6934,11 +6947,79 @@
       "home_after": 1522.08,
       "away_after": 1489.92,
       "observed_home_outcome": 1
+    },
+    "NBA:401908945": {
+      "key": "NBA:401908945",
+      "league": "NBA",
+      "event_id": "401908945",
+      "home": "Knicks",
+      "away": "Raptors",
+      "start_utc": "2026-10-15T23:30:00+00:00",
+      "observed_at_utc": "2026-10-16T04:23:15.038650+00:00",
+      "home_score": 122,
+      "away_score": 120,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1477.22,
+      "away_before": 1523.19,
+      "home_after": 1490.8,
+      "away_after": 1509.61,
+      "observed_home_outcome": 1
+    },
+    "MLB:401908033": {
+      "key": "MLB:401908033",
+      "league": "MLB",
+      "event_id": "401908033",
+      "home": "Dodgers",
+      "away": "Brewers",
+      "start_utc": "2026-10-16T00:00:00+00:00",
+      "observed_at_utc": "2026-10-16T04:23:15.038650+00:00",
+      "home_score": 4,
+      "away_score": 6,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1466.42,
+      "away_before": 1533.58,
+      "home_after": 1456.71,
+      "away_after": 1543.29,
+      "observed_home_outcome": 0
+    },
+    "NFL:401872995": {
+      "key": "NFL:401872995",
+      "league": "NFL",
+      "event_id": "401872995",
+      "home": "Broncos",
+      "away": "Seahawks",
+      "start_utc": "2026-10-16T00:15:00+00:00",
+      "observed_at_utc": "2026-10-16T04:23:15.038650+00:00",
+      "home_score": 17,
+      "away_score": 14,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1512.0,
+      "away_before": 1488.0,
+      "home_after": 1523.17,
+      "away_after": 1476.83,
+      "observed_home_outcome": 1
+    },
+    "NBA:401908622": {
+      "key": "NBA:401908622",
+      "league": "NBA",
+      "event_id": "401908622",
+      "home": "Rockets",
+      "away": "Thunder",
+      "start_utc": "2026-10-16T00:30:00+00:00",
+      "observed_at_utc": "2026-10-16T04:23:15.038650+00:00",
+      "home_score": 116,
+      "away_score": 89,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.0,
+      "away_before": 1500.4,
+      "home_after": 1500.43,
+      "away_after": 1487.97,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
     "NBA": {
-      "Raptors": 1523.19,
+      "Raptors": 1509.61,
       "Clippers": 1500.83,
       "Pacers": 1476.01,
       "Hawks": 1523.59,
@@ -6952,7 +7033,7 @@
       "Kings": 1476.83,
       "Suns": 1498.78,
       "Spurs": 1489.63,
-      "Rockets": 1488.0,
+      "Rockets": 1500.43,
       "Mavericks": 1499.59,
       "Cavaliers": 1499.17,
       "Magic": 1500.83,
@@ -6962,9 +7043,9 @@
       "Bulls": 1500.0,
       "Trail Blazers": 1523.17,
       "Lions": 1488.0,
-      "Thunder": 1500.4,
+      "Thunder": 1487.97,
       "Nets": 1499.57,
-      "Knicks": 1477.22,
+      "Knicks": 1490.8,
       "Jazz": 1511.59,
       "Lakers": 1488.41,
       "Pelicans": 1512.41
@@ -6972,8 +7053,8 @@
     "MLB": {
       "Guardians": 1522.08,
       "White Sox": 1488.0,
-      "Brewers": 1533.58,
-      "Dodgers": 1466.42,
+      "Brewers": 1543.29,
+      "Dodgers": 1456.71,
       "Rays": 1489.92
     },
     "SERIEA": {
@@ -7046,10 +7127,10 @@
       "Packers": 1512.0,
       "Bears": 1488.0,
       "Chargers": 1488.0,
-      "Broncos": 1512.0,
+      "Broncos": 1523.17,
       "Cardinals": 1488.0,
       "Lions": 1512.0,
-      "Seahawks": 1488.0,
+      "Seahawks": 1476.83,
       "49ers": 1512.0,
       "Falcons": 1488.0,
       "Ravens": 1512.0,
@@ -7057,5 +7138,5 @@
       "Bills": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-16T01:37:52.455227+00:00"
+  "updated_at_utc": "2026-10-16T04:23:39.922563+00:00"
 }
