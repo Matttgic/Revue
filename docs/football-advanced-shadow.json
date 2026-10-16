@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-16T18:56:55.340534+00:00",
+  "generated_at_utc": "2026-10-16T21:26:46.748923+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -313,37 +313,6 @@
     "LALIGA": {
       "name": "La Liga",
       "games": [
-        {
-          "event_id": "401882844",
-          "home": "Deportivo",
-          "away": "Levante",
-          "start_utc": "2026-10-16T19:00:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.45118,
-            "draw_90": 0.23447,
-            "away_win_90": 0.31435,
-            "over_2_5": 0.66056
-          },
-          "expected_score": {
-            "home": 1.875,
-            "away": 1.527
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-12T04:45:54.815521+00:00",
-            "away": "2026-10-13T22:22:25.362203+00:00"
-          }
-        },
         {
           "event_id": "401882843",
           "home": "Espanyol",
@@ -832,17 +801,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 10,
+        "n": 11,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.57539,
-          "logloss": 0.97577
+          "brier": 0.56474,
+          "logloss": 0.96
         },
         "baseline": {
-          "brier": 0.58372,
-          "logloss": 0.98858
+          "brier": 0.57287,
+          "logloss": 0.97227
         },
-        "shadow_brier_delta_vs_baseline": -0.00833,
+        "shadow_brier_delta_vs_baseline": -0.00813,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -1099,8 +1068,19 @@
         }
       ],
       "evaluation": {
-        "status": "insufficient_history",
-        "n": 0
+        "status": "small_historical_score_backtest",
+        "n": 1,
+        "licensed_features_used_in_backtest": 0,
+        "shadow": {
+          "brier": 0.59353,
+          "logloss": 0.96296
+        },
+        "baseline": {
+          "brier": 0.58528,
+          "logloss": 0.95062
+        },
+        "shadow_brier_delta_vs_baseline": 0.00825,
+        "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "LIGUE1": {
@@ -1357,17 +1337,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 9,
+        "n": 10,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.5989,
-          "logloss": 0.99612
+          "brier": 0.60632,
+          "logloss": 1.00453
         },
         "baseline": {
-          "brier": 0.59703,
-          "logloss": 0.99207
+          "brier": 0.60332,
+          "logloss": 0.99862
         },
-        "shadow_brier_delta_vs_baseline": 0.00187,
+        "shadow_brier_delta_vs_baseline": 0.003,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },

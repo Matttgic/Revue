@@ -1,42 +1,59 @@
 {
-  "generated_at_utc": "2026-10-16T18:56:55.622124+00:00",
+  "generated_at_utc": "2026-10-16T21:26:47.001586+00:00",
   "status": "prospective_football_score_audit_only",
   "source": "ESPN final scores; only verified pre-match frozen predictions",
   "prediction_source": "Revue independent baseline and shadow model",
   "performance": {
     "ALL": {
       "n_recorded": 82,
-      "n_settled": 37,
-      "n_pending": 45,
+      "n_settled": 40,
+      "n_pending": 42,
       "n_invalid": 0,
       "scores": {
         "baseline_metrics": {
-          "brier": 0.601879,
-          "logloss": 1.010218
+          "brier": 0.599477,
+          "logloss": 1.004885
         },
         "shadow_metrics": {
-          "brier": 0.593666,
-          "logloss": 0.99624
+          "brier": 0.592266,
+          "logloss": 0.992659
         }
       },
-      "brier_delta_candidate_minus_baseline": -0.008213
+      "brier_delta_candidate_minus_baseline": -0.007211
     },
-    "SERIEA": {
-      "n_recorded": 18,
-      "n_settled": 10,
+    "LIGUE1": {
+      "n_recorded": 17,
+      "n_settled": 9,
       "n_pending": 8,
       "n_invalid": 0,
       "scores": {
         "baseline_metrics": {
-          "brier": 0.583826,
-          "logloss": 0.988745
+          "brier": 0.583945,
+          "logloss": 0.972916
         },
         "shadow_metrics": {
-          "brier": 0.579914,
-          "logloss": 0.981746
+          "brier": 0.585303,
+          "logloss": 0.975682
         }
       },
-      "brier_delta_candidate_minus_baseline": -0.003912
+      "brier_delta_candidate_minus_baseline": 0.001358
+    },
+    "BUNDESLIGA": {
+      "n_recorded": 9,
+      "n_settled": 1,
+      "n_pending": 8,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.585285,
+          "logloss": 0.950723
+        },
+        "shadow_metrics": {
+          "brier": 0.593532,
+          "logloss": 0.962963
+        }
+      },
+      "brier_delta_candidate_minus_baseline": 0.008247
     },
     "PL": {
       "n_recorded": 19,
@@ -55,31 +72,6 @@
       },
       "brier_delta_candidate_minus_baseline": -0.008421
     },
-    "LIGUE1": {
-      "n_recorded": 17,
-      "n_settled": 8,
-      "n_pending": 9,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.574457,
-          "logloss": 0.962347
-        },
-        "shadow_metrics": {
-          "brier": 0.574319,
-          "logloss": 0.962614
-        }
-      },
-      "brier_delta_candidate_minus_baseline": -0.000138
-    },
-    "BUNDESLIGA": {
-      "n_recorded": 9,
-      "n_settled": 0,
-      "n_pending": 9,
-      "n_invalid": 0,
-      "scores": {},
-      "brier_delta_candidate_minus_baseline": null
-    },
     "LALIGA": {
       "n_recorded": 19,
       "n_settled": 9,
@@ -97,22 +89,39 @@
       },
       "brier_delta_candidate_minus_baseline": -0.019939
     },
-    "WITH_ESPN_SHOTS": {
-      "n_recorded": 52,
-      "n_settled": 7,
-      "n_pending": 45,
+    "SERIEA": {
+      "n_recorded": 18,
+      "n_settled": 11,
+      "n_pending": 7,
       "n_invalid": 0,
       "scores": {
         "baseline_metrics": {
-          "brier": 0.643784,
-          "logloss": 1.067363
+          "brier": 0.572971,
+          "logloss": 0.972416
         },
         "shadow_metrics": {
-          "brier": 0.646335,
-          "logloss": 1.069326
+          "brier": 0.568857,
+          "logloss": 0.96543
         }
       },
-      "brier_delta_candidate_minus_baseline": 0.002551
+      "brier_delta_candidate_minus_baseline": -0.004114
+    },
+    "WITH_ESPN_SHOTS": {
+      "n_recorded": 52,
+      "n_settled": 10,
+      "n_pending": 42,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.621604,
+          "logloss": 1.028886
+        },
+        "shadow_metrics": {
+          "brier": 0.624934,
+          "logloss": 1.033073
+        }
+      },
+      "brier_delta_candidate_minus_baseline": 0.00333
     },
     "WITHOUT_ESPN_SHOTS": {
       "n_recorded": 30,
