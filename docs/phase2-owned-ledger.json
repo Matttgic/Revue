@@ -3934,13 +3934,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-17T17:31:56.398444+00:00",
+      "home_score": 1,
+      "away_score": 3,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.54110439,
+          "log_loss": 0.9034745
+        },
+        "football_advanced": {
+          "brier": 0.52203781,
+          "log_loss": 0.88063405
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -8015,6 +8024,23 @@
       "home_after": 1500.0,
       "away_after": 1500.0,
       "observed_home_outcome": 0.5
+    },
+    "LIGUE1:401876432": {
+      "key": "LIGUE1:401876432",
+      "league": "LIGUE1",
+      "event_id": "401876432",
+      "home": "Strasbourg",
+      "away": "PSG",
+      "start_utc": "2026-10-17T15:15:00+00:00",
+      "observed_at_utc": "2026-10-17T17:31:56.398444+00:00",
+      "home_score": 1,
+      "away_score": 3,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.0,
+      "away_before": 1500.0,
+      "home_after": 1476.41,
+      "away_after": 1511.59,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -8093,13 +8119,14 @@
     },
     "LIGUE1": {
       "Nice": 1512.0,
-      "Strasbourg": 1488.0,
+      "Strasbourg": 1476.41,
       "Rennes": 1512.0,
       "Auxerre": 1488.0,
       "Troyes": 1488.0,
       "Marseille": 1512.0,
       "Le Mans": 1488.0,
-      "Toulouse": 1512.0
+      "Toulouse": 1512.0,
+      "PSG": 1511.59
     },
     "PL": {
       "Hull": 1488.0,
@@ -8160,5 +8187,5 @@
       "Bills": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-17T17:27:03.331671+00:00"
+  "updated_at_utc": "2026-10-17T17:32:09.505036+00:00"
 }
