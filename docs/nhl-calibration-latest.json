@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-16T04:24:47.275313+00:00",
+  "generated_at_utc": "2026-10-17T04:18:08.297947+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 48,
+      "settled_samples": 50,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 52,
-      "raw_brier": 0.227677,
-      "raw_logloss": 0.640606,
+      "training_remaining": 50,
+      "raw_brier": 0.222249,
+      "raw_logloss": 0.628946,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -51,16 +51,16 @@
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 14,
-          "predicted_mean": 0.6727,
-          "observed_rate": 0.6429
+          "count": 15,
+          "predicted_mean": 0.6691,
+          "observed_rate": 0.6667
         },
         {
           "from": 0.8,
           "to": 1.0,
-          "count": 5,
-          "predicted_mean": 0.9078,
-          "observed_rate": 0.8
+          "count": 6,
+          "predicted_mean": 0.8907,
+          "observed_rate": 0.8333
         }
       ],
       "calibration_status": "insufficient_training",
@@ -73,12 +73,12 @@
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 30,
+      "settled_samples": 32,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 70,
-      "raw_brier": 0.233344,
-      "raw_logloss": 0.656791,
+      "training_remaining": 68,
+      "raw_brier": 0.2256,
+      "raw_logloss": 0.640714,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -104,9 +104,9 @@
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 6,
-          "predicted_mean": 0.6565,
-          "observed_rate": 0.6667
+          "count": 8,
+          "predicted_mean": 0.6604,
+          "observed_rate": 0.75
         },
         {
           "from": 0.8,
