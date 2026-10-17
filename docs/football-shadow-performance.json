@@ -1,25 +1,93 @@
 {
-  "generated_at_utc": "2026-10-17T19:27:47.509884+00:00",
+  "generated_at_utc": "2026-10-17T19:39:35.504922+00:00",
   "status": "prospective_football_score_audit_only",
   "source": "ESPN final scores; only verified pre-match frozen predictions",
   "prediction_source": "Revue independent baseline and shadow model",
   "performance": {
     "ALL": {
       "n_recorded": 86,
-      "n_settled": 54,
-      "n_pending": 32,
+      "n_settled": 58,
+      "n_pending": 28,
       "n_invalid": 0,
       "scores": {
         "baseline_metrics": {
-          "brier": 0.629555,
-          "logloss": 1.046594
+          "brier": 0.61827,
+          "logloss": 1.030171
         },
         "shadow_metrics": {
-          "brier": 0.625869,
-          "logloss": 1.039292
+          "brier": 0.612489,
+          "logloss": 1.020495
         }
       },
-      "brier_delta_candidate_minus_baseline": -0.003686
+      "brier_delta_candidate_minus_baseline": -0.005781
+    },
+    "SERIEA": {
+      "n_recorded": 20,
+      "n_settled": 13,
+      "n_pending": 7,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.585222,
+          "logloss": 0.986858
+        },
+        "shadow_metrics": {
+          "brier": 0.582412,
+          "logloss": 0.983962
+        }
+      },
+      "brier_delta_candidate_minus_baseline": -0.00281
+    },
+    "LALIGA": {
+      "n_recorded": 20,
+      "n_settled": 13,
+      "n_pending": 7,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.619435,
+          "logloss": 1.050137
+        },
+        "shadow_metrics": {
+          "brier": 0.59654,
+          "logloss": 1.011223
+        }
+      },
+      "brier_delta_candidate_minus_baseline": -0.022895
+    },
+    "BUNDESLIGA": {
+      "n_recorded": 9,
+      "n_settled": 7,
+      "n_pending": 2,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.694096,
+          "logloss": 1.128093
+        },
+        "shadow_metrics": {
+          "brier": 0.697182,
+          "logloss": 1.125953
+        }
+      },
+      "brier_delta_candidate_minus_baseline": 0.003086
+    },
+    "PL": {
+      "n_recorded": 20,
+      "n_settled": 15,
+      "n_pending": 5,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.636255,
+          "logloss": 1.047508
+        },
+        "shadow_metrics": {
+          "brier": 0.635195,
+          "logloss": 1.047191
+        }
+      },
+      "brier_delta_candidate_minus_baseline": -0.00106
     },
     "LIGUE1": {
       "n_recorded": 17,
@@ -38,90 +106,22 @@
       },
       "brier_delta_candidate_minus_baseline": -0.000684
     },
-    "LALIGA": {
-      "n_recorded": 20,
-      "n_settled": 12,
-      "n_pending": 8,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.645384,
-          "logloss": 1.087608
-        },
-        "shadow_metrics": {
-          "brier": 0.626478,
-          "logloss": 1.053325
-        }
-      },
-      "brier_delta_candidate_minus_baseline": -0.018906
-    },
-    "PL": {
-      "n_recorded": 20,
-      "n_settled": 14,
-      "n_pending": 6,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.629034,
-          "logloss": 1.039111
-        },
-        "shadow_metrics": {
-          "brier": 0.625268,
-          "logloss": 1.034487
-        }
-      },
-      "brier_delta_candidate_minus_baseline": -0.003766
-    },
-    "SERIEA": {
-      "n_recorded": 20,
-      "n_settled": 12,
-      "n_pending": 8,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.60196,
-          "logloss": 1.010412
-        },
-        "shadow_metrics": {
-          "brier": 0.60257,
-          "logloss": 1.012039
-        }
-      },
-      "brier_delta_candidate_minus_baseline": 0.00061
-    },
-    "BUNDESLIGA": {
-      "n_recorded": 9,
-      "n_settled": 6,
-      "n_pending": 3,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.737461,
-          "logloss": 1.188759
-        },
-        "shadow_metrics": {
-          "brier": 0.750807,
-          "logloss": 1.198802
-        }
-      },
-      "brier_delta_candidate_minus_baseline": 0.013346
-    },
     "WITH_ESPN_SHOTS": {
       "n_recorded": 56,
-      "n_settled": 24,
-      "n_pending": 32,
+      "n_settled": 28,
+      "n_pending": 28,
       "n_invalid": 0,
       "scores": {
         "baseline_metrics": {
-          "brier": 0.676373,
-          "logloss": 1.108731
+          "brier": 0.646308,
+          "logloss": 1.065836
         },
         "shadow_metrics": {
-          "brier": 0.681485,
-          "logloss": 1.114423
+          "brier": 0.645824,
+          "logloss": 1.064754
         }
       },
-      "brier_delta_candidate_minus_baseline": 0.005112
+      "brier_delta_candidate_minus_baseline": -0.000484
     },
     "WITHOUT_ESPN_SHOTS": {
       "n_recorded": 30,
