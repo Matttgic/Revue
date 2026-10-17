@@ -2795,7 +2795,7 @@
       "away": "Dream",
       "kickoff_utc": "2026-10-17T19:30:00+00:00",
       "locked_at_utc": "2026-10-14T23:23:30.049940+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_ensemble_mc_bayes_elo": {
           "p_home": 0.48814,
@@ -2806,11 +2806,20 @@
           "source_generated_utc": "2026-10-14T23:23:01.854679+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 1,
+      "score": {
+        "home": 68,
+        "away": 64
+      },
+      "resolved_at_utc": "2026-10-17T22:12:12.078560+00:00",
+      "brier_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.262001,
+        "revue_multisports_score_model": 0.220055
+      },
+      "logloss_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.717153,
+        "revue_multisports_score_model": 0.633182
+      },
       "real_bet": false,
       "staked_units": 0
     },
