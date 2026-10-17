@@ -1,6 +1,6 @@
 {
   "version": "nhl_clairvoyance_moneypuck_shadow_v1",
-  "updated_at_utc": "2026-10-17T04:18:08.092311+00:00",
+  "updated_at_utc": "2026-10-17T11:38:53.555471+00:00",
   "rule": "Immutable predictions only if created >=20 minutes before kickoff",
   "evaluation": "2-way NHL final including OT/SO; Brier mean; no wagers/ROI",
   "events": [
@@ -2255,13 +2255,13 @@
         "selection_rule": "Most games played, not projected/confirmed starters"
       },
       "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
-      "status": "pending",
-      "resolved_at_utc": null,
-      "result": null,
-      "home_goals": null,
-      "away_goals": null,
-      "brier": null,
-      "research_brier": null
+      "status": "settled",
+      "resolved_at_utc": "2026-10-17T11:38:53.555471+00:00",
+      "result": 0,
+      "home_goals": 2,
+      "away_goals": 4,
+      "brier": 0.145161,
+      "research_brier": 0.201601
     },
     {
       "event_id": "2026020121",
@@ -2881,6 +2881,96 @@
           "name": "Arturs Silovs",
           "games": 4,
           "save_pct": 0.8854
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "status": "pending",
+      "resolved_at_utc": null,
+      "result": null,
+      "home_goals": null,
+      "away_goals": null,
+      "brier": null,
+      "research_brier": null
+    },
+    {
+      "event_id": "2026020135",
+      "home": "MIN",
+      "away": "CBJ",
+      "kickoff_utc": "2026-10-18T22:00:00+00:00",
+      "locked_at_utc": "2026-10-17T11:38:53.555471+00:00",
+      "source_prediction_at_utc": "2026-10-17T11:38:53.555471+00:00",
+      "home_win_probability": 0.701,
+      "away_win_probability": 0.299,
+      "research_home_win_probability": 0.649,
+      "research_model_id": "revue_nhl_low_sample_shrink_v1",
+      "source_updated_utc": {
+        "teams": "2026-10-17T10:32:07+00:00",
+        "goalies": "2026-10-17T10:32:07+00:00"
+      },
+      "source_snapshot_utc": {
+        "teams": "2026-10-17T11:07:37.711919+00:00",
+        "goalies": "2026-10-17T11:07:37.970773+00:00"
+      },
+      "xg_games_observed": {
+        "home": 8,
+        "away": 5
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Jesper Wallstedt",
+          "games": 7,
+          "save_pct": 0.9202
+        },
+        "away": {
+          "name": "Jet Greaves",
+          "games": 4,
+          "save_pct": 0.8736
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "status": "pending",
+      "resolved_at_utc": null,
+      "result": null,
+      "home_goals": null,
+      "away_goals": null,
+      "brier": null,
+      "research_brier": null
+    },
+    {
+      "event_id": "2026020136",
+      "home": "CGY",
+      "away": "CAR",
+      "kickoff_utc": "2026-10-19T00:00:00+00:00",
+      "locked_at_utc": "2026-10-17T11:38:53.555471+00:00",
+      "source_prediction_at_utc": "2026-10-17T11:38:53.555471+00:00",
+      "home_win_probability": 0.205,
+      "away_win_probability": 0.795,
+      "research_home_win_probability": 0.25,
+      "research_model_id": "revue_nhl_low_sample_shrink_v1",
+      "source_updated_utc": {
+        "teams": "2026-10-17T10:32:07+00:00",
+        "goalies": "2026-10-17T10:32:07+00:00"
+      },
+      "source_snapshot_utc": {
+        "teams": "2026-10-17T11:07:37.711919+00:00",
+        "goalies": "2026-10-17T11:07:37.970773+00:00"
+      },
+      "xg_games_observed": {
+        "home": 7,
+        "away": 8
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Dustin Wolf",
+          "games": 5,
+          "save_pct": 0.8345
+        },
+        "away": {
+          "name": "Brandon Bussi",
+          "games": 4,
+          "save_pct": 0.871
         },
         "selection_rule": "Most games played, not projected/confirmed starters"
       },
