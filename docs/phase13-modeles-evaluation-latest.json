@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-10-17T13:38:19.236532+00:00",
+  "generated_at_utc": "2026-10-17T16:39:34.138147+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -22,9 +22,9 @@
     "no_auto_model_selection": true
   },
   "metrics": {
-    "locked": 241,
-    "settled": 150,
-    "distinct_settled_fixtures": 70,
+    "locked": 243,
+    "settled": 161,
+    "distinct_settled_fixtures": 81,
     "paired_comparisons": 3,
     "paired_observation_overlap_not_independent": 120
   },
@@ -32,15 +32,15 @@
     "BUNDESLIGA::revue_football_espn_shots_log_pool_v1": {
       "league": "BUNDESLIGA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
-      "settled": 1,
+      "settled": 6,
       "frozen_locked": 9,
       "raw": {
-        "n": 1,
-        "brier": 0.589817,
-        "logloss": 0.957441
+        "n": 6,
+        "brier": 0.744439,
+        "logloss": 1.193759
       },
       "uniform_reference_same_matches": {
-        "n": 1,
+        "n": 6,
         "brier": 0.666667,
         "logloss": 1.098612
       },
@@ -58,16 +58,16 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 1,
-              "mean_predicted": 0.38387,
-              "observed_rate": 1.0
+              "n": 5,
+              "mean_predicted": 0.32081,
+              "observed_rate": 0.6
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 0,
-              "mean_predicted": null,
-              "observed_rate": null
+              "n": 1,
+              "mean_predicted": 0.50043,
+              "observed_rate": 0.0
             },
             {
               "lower": 0.6,
@@ -91,16 +91,16 @@
             {
               "lower": 0.0,
               "upper": 0.2,
-              "n": 0,
-              "mean_predicted": null,
-              "observed_rate": null
+              "n": 1,
+              "mean_predicted": 0.17882,
+              "observed_rate": 1.0
             },
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 1,
-              "mean_predicted": 0.20707,
-              "observed_rate": 0.0
+              "n": 5,
+              "mean_predicted": 0.22406,
+              "observed_rate": 0.2
             },
             {
               "lower": 0.4,
@@ -138,23 +138,23 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 0,
-              "mean_predicted": null,
-              "observed_rate": null
+              "n": 1,
+              "mean_predicted": 0.26411,
+              "observed_rate": 0.0
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 1,
-              "mean_predicted": 0.40906,
-              "observed_rate": 0.0
+              "n": 4,
+              "mean_predicted": 0.42809,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 0,
-              "mean_predicted": null,
-              "observed_rate": null
+              "n": 1,
+              "mean_predicted": 0.61998,
+              "observed_rate": 0.0
             },
             {
               "lower": 0.8,
@@ -193,15 +193,15 @@
     "LALIGA::revue_football_espn_shots_log_pool_v1": {
       "league": "LALIGA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
-      "settled": 6,
+      "settled": 8,
       "frozen_locked": 15,
       "raw": {
-        "n": 6,
-        "brier": 0.744076,
-        "logloss": 1.231017
+        "n": 8,
+        "brier": 0.724763,
+        "logloss": 1.202406
       },
       "uniform_reference_same_matches": {
-        "n": 6,
+        "n": 8,
         "brier": 0.666667,
         "logloss": 1.098612
       },
@@ -219,16 +219,16 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 3,
-              "mean_predicted": 0.34004,
-              "observed_rate": 0.33333
+              "n": 4,
+              "mean_predicted": 0.32292,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 3,
-              "mean_predicted": 0.48034,
-              "observed_rate": 0.33333
+              "n": 4,
+              "mean_predicted": 0.48815,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.6,
@@ -259,9 +259,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 6,
-              "mean_predicted": 0.24525,
-              "observed_rate": 0.66667
+              "n": 8,
+              "mean_predicted": 0.2405,
+              "observed_rate": 0.625
             },
             {
               "lower": 0.4,
@@ -299,16 +299,16 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 4,
-              "mean_predicted": 0.31147,
+              "n": 5,
+              "mean_predicted": 0.3034,
               "observed_rate": 0.0
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 2,
-              "mean_predicted": 0.41074,
-              "observed_rate": 0.0
+              "n": 3,
+              "mean_predicted": 0.43824,
+              "observed_rate": 0.33333
             },
             {
               "lower": 0.6,
@@ -516,7 +516,7 @@
       "league": "MLB",
       "model_id": "revue_mlb_espn_history_elo_v1",
       "settled": 6,
-      "frozen_locked": 11,
+      "frozen_locked": 13,
       "raw": {
         "n": 6,
         "brier": 0.378281,
@@ -1039,15 +1039,15 @@
     "PL::revue_football_espn_shots_log_pool_v1": {
       "league": "PL",
       "model_id": "revue_football_espn_shots_log_pool_v1",
-      "settled": 5,
+      "settled": 8,
       "frozen_locked": 14,
       "raw": {
-        "n": 5,
-        "brier": 0.692815,
-        "logloss": 1.124384
+        "n": 8,
+        "brier": 0.651504,
+        "logloss": 1.069686
       },
       "uniform_reference_same_matches": {
-        "n": 5,
+        "n": 8,
         "brier": 0.666667,
         "logloss": 1.098612
       },
@@ -1065,23 +1065,23 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 4,
-              "mean_predicted": 0.33204,
-              "observed_rate": 0.5
+              "n": 5,
+              "mean_predicted": 0.32891,
+              "observed_rate": 0.6
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 1,
-              "mean_predicted": 0.45037,
+              "n": 2,
+              "mean_predicted": 0.46881,
               "observed_rate": 0.0
             },
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 0,
-              "mean_predicted": null,
-              "observed_rate": null
+              "n": 1,
+              "mean_predicted": 0.64418,
+              "observed_rate": 1.0
             },
             {
               "lower": 0.8,
@@ -1098,16 +1098,16 @@
             {
               "lower": 0.0,
               "upper": 0.2,
-              "n": 0,
-              "mean_predicted": null,
-              "observed_rate": null
+              "n": 1,
+              "mean_predicted": 0.17755,
+              "observed_rate": 0.0
             },
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 5,
-              "mean_predicted": 0.26354,
-              "observed_rate": 0.2
+              "n": 7,
+              "mean_predicted": 0.26339,
+              "observed_rate": 0.14286
             },
             {
               "lower": 0.4,
@@ -1138,22 +1138,22 @@
             {
               "lower": 0.0,
               "upper": 0.2,
-              "n": 0,
-              "mean_predicted": null,
-              "observed_rate": null
+              "n": 1,
+              "mean_predicted": 0.17827,
+              "observed_rate": 0.0
             },
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 4,
-              "mean_predicted": 0.35488,
-              "observed_rate": 0.5
+              "n": 5,
+              "mean_predicted": 0.33601,
+              "observed_rate": 0.6
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 1,
-              "mean_predicted": 0.48429,
+              "n": 2,
+              "mean_predicted": 0.44702,
               "observed_rate": 0.0
             },
             {
@@ -1200,15 +1200,15 @@
     "SERIEA::revue_football_espn_shots_log_pool_v1": {
       "league": "SERIEA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
-      "settled": 8,
+      "settled": 9,
       "frozen_locked": 17,
       "raw": {
-        "n": 8,
-        "brier": 0.597617,
-        "logloss": 1.01082
+        "n": 9,
+        "brier": 0.636774,
+        "logloss": 1.063065
       },
       "uniform_reference_same_matches": {
-        "n": 8,
+        "n": 9,
         "brier": 0.666667,
         "logloss": 1.098612
       },
@@ -1226,9 +1226,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 4,
-              "mean_predicted": 0.3471,
-              "observed_rate": 0.0
+              "n": 5,
+              "mean_predicted": 0.32316,
+              "observed_rate": 0.2
             },
             {
               "lower": 0.4,
@@ -1266,9 +1266,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 8,
-              "mean_predicted": 0.25208,
-              "observed_rate": 0.375
+              "n": 9,
+              "mean_predicted": 0.24862,
+              "observed_rate": 0.33333
             },
             {
               "lower": 0.4,
@@ -1313,8 +1313,8 @@
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 2,
-              "mean_predicted": 0.44196,
+              "n": 3,
+              "mean_predicted": 0.47853,
               "observed_rate": 0.0
             },
             {
