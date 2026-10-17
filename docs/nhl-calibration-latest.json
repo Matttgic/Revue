@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-17T04:18:08.297947+00:00",
+  "generated_at_utc": "2026-10-17T22:15:08.413415+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 50,
+      "settled_samples": 52,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 50,
-      "raw_brier": 0.222249,
-      "raw_logloss": 0.628946,
+      "training_remaining": 48,
+      "raw_brier": 0.219615,
+      "raw_logloss": 0.623899,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -37,16 +37,16 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 12,
-          "predicted_mean": 0.3429,
-          "observed_rate": 0.3333
+          "count": 13,
+          "predicted_mean": 0.3458,
+          "observed_rate": 0.3077
         },
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 17,
-          "predicted_mean": 0.4962,
-          "observed_rate": 0.4706
+          "count": 18,
+          "predicted_mean": 0.5018,
+          "observed_rate": 0.5
         },
         {
           "from": 0.6,
@@ -73,12 +73,12 @@
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 32,
+      "settled_samples": 34,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 68,
-      "raw_brier": 0.2256,
-      "raw_logloss": 0.640714,
+      "training_remaining": 66,
+      "raw_brier": 0.223179,
+      "raw_logloss": 0.636023,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -97,9 +97,9 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 20,
-          "predicted_mean": 0.4937,
-          "observed_rate": 0.4
+          "count": 22,
+          "predicted_mean": 0.4961,
+          "observed_rate": 0.4091
         },
         {
           "from": 0.6,
