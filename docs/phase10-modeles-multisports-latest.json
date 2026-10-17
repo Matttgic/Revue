@@ -1,35 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-17T19:39:59.373293+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-17T19:26:52.891671+00:00",
+  "generated_at_utc": "2026-10-17T20:31:13.478526+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-17T19:41:53.316460+00:00",
   "models": [
-    {
-      "event_id": "761876",
-      "league": "MLS",
-      "home": "Minnesota",
-      "away": "St. Louis",
-      "start_utc": "2026-10-17T20:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.252477,
-        "draw_90": 0.165415,
-        "away_win_90": 0.582108,
-        "over_2_5": 0.881215
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-17T19:39:31.827472+00:00",
-        "espn_shots_shadow": "2026-10-17T19:39:35.257576+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.03195
-    },
     {
       "event_id": "761877",
       "league": "MLS",
@@ -1037,10 +1011,10 @@
     }
   ],
   "metrics": {
-    "candidates": 40,
-    "events_covered": 40,
+    "candidates": 39,
+    "events_covered": 39,
     "models_by_league": {
-      "MLS": 14,
+      "MLS": 13,
       "MLB": 3,
       "SERIEA": 6,
       "LALIGA": 5,
@@ -1049,7 +1023,8 @@
       "BUNDESLIGA": 2
     },
     "decisions": {
-      "football_correlated_research_pool": 37,
+      "not_pregame_20m": 1,
+      "football_correlated_research_pool": 36,
       "mlb_history_elo": 3
     }
   },
