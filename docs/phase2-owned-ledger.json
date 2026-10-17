@@ -3161,13 +3161,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-17T22:12:12.078560+00:00",
+      "home_score": 68,
+      "away_score": 64,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.44010962,
+          "log_loss": 0.6331816
+        },
+        "advanced_team": {
+          "brier": 0.4724892,
+          "log_loss": 0.66562929
+        },
+        "montecarlo_bayes": {
+          "brier": 0.52400132,
+          "log_loss": 0.71715303
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -8249,6 +8262,23 @@
       "home_after": 1500.0,
       "away_after": 1500.0,
       "observed_home_outcome": 0.5
+    },
+    "WNBA:401918305": {
+      "key": "WNBA:401918305",
+      "league": "WNBA",
+      "event_id": "401918305",
+      "home": "Valkyries",
+      "away": "Dream",
+      "start_utc": "2026-10-17T19:30:00+00:00",
+      "observed_at_utc": "2026-10-17T22:12:12.078560+00:00",
+      "home_score": 68,
+      "away_score": 64,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1512.0,
+      "away_after": 1488.0,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -8403,7 +8433,11 @@
       "Ravens": 1512.0,
       "Rams": 1488.0,
       "Bills": 1512.0
+    },
+    "WNBA": {
+      "Valkyries": 1512.0,
+      "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-17T21:44:39.147535+00:00"
+  "updated_at_utc": "2026-10-17T22:14:19.230804+00:00"
 }
