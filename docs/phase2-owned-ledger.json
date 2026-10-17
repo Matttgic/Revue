@@ -3503,13 +3503,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-17T14:24:06.687793+00:00",
+      "home_score": 0,
+      "away_score": 2,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.71481041,
+          "log_loss": 1.13434674
+        },
+        "football_advanced": {
+          "brier": 0.73241715,
+          "log_loss": 1.1641433
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -7703,6 +7712,23 @@
       "home_after": 1476.78,
       "away_after": 1510.8,
       "observed_home_outcome": 0
+    },
+    "PL:401878771": {
+      "key": "PL:401878771",
+      "league": "PL",
+      "event_id": "401878771",
+      "home": "Everton",
+      "away": "Chelsea",
+      "start_utc": "2026-10-17T11:30:00+00:00",
+      "observed_at_utc": "2026-10-17T14:24:06.687793+00:00",
+      "home_score": 0,
+      "away_score": 2,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1488.0,
+      "away_after": 1512.0,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -7787,13 +7813,14 @@
     },
     "PL": {
       "Hull": 1500.0,
-      "Everton": 1500.0,
+      "Everton": 1488.0,
       "C Palace": 1512.0,
       "Nottm Forest": 1488.0,
       "Liverpool": 1488.0,
       "Man City": 1512.0,
       "Coventry": 1512.0,
-      "Newcastle": 1488.0
+      "Newcastle": 1488.0,
+      "Chelsea": 1512.0
     },
     "BUNDESLIGA": {
       "Cologne": 1499.59,
@@ -7831,5 +7858,5 @@
       "Bills": 1512.0
     }
   },
-  "updated_at_utc": "2026-10-17T12:20:50.929288+00:00"
+  "updated_at_utc": "2026-10-17T14:24:21.238169+00:00"
 }
