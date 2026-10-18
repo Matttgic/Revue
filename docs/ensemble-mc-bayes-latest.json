@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-18T01:24:29.353003+00:00",
+  "generated_at_utc": "2026-10-18T03:58:11.980901+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -44,6 +44,21 @@
           },
           "probabilities": null,
           "components": null
+        },
+        {
+          "event_id": "401909090",
+          "league": "NBA",
+          "home": "Spurs",
+          "away": "Thunder",
+          "start_utc": "2026-10-21T01:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 5,
+            "away": 5
+          },
+          "probabilities": null,
+          "components": null
         }
       ],
       "evaluation": {
@@ -62,17 +77,17 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "shadow_non_calibre",
           "training_games": {
-            "home": 10,
-            "away": 9
+            "home": 11,
+            "away": 10
           },
           "probabilities": {
-            "home_win": 0.4673,
-            "away_win": 0.5327
+            "home_win": 0.48686,
+            "away_win": 0.51314
           },
           "components": {
-            "monte_carlo": 0.43099,
-            "bayes": 0.484,
-            "elo": 0.52747,
+            "monte_carlo": 0.44271,
+            "bayes": 0.51026,
+            "elo": 0.55717,
             "weights": {
               "monte_carlo": 0.52,
               "bayes": 0.23,
@@ -82,8 +97,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 84.08,
-            "away": 85.31
+            "home": 83.25,
+            "away": 84.21
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
