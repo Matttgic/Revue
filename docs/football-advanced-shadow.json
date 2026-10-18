@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-18T11:59:12.049545+00:00",
+  "generated_at_utc": "2026-10-18T12:45:11.565743+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -189,37 +189,6 @@
     "LALIGA": {
       "name": "La Liga",
       "games": [
-        {
-          "event_id": "401882840",
-          "home": "Osasuna",
-          "away": "Racing",
-          "start_utc": "2026-10-18T12:00:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 8,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win_90": 0.42055,
-            "draw_90": 0.22384,
-            "away_win_90": 0.35561,
-            "over_2_5": 0.7225
-          },
-          "expected_score": {
-            "home": 1.953,
-            "away": 1.794
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-12T04:45:54.815521+00:00",
-            "away": "2026-10-12T07:16:19.862015+00:00"
-          }
-        },
         {
           "event_id": "401882845",
           "home": "Celta Vigo",
@@ -522,17 +491,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 7,
+        "n": 8,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.54993,
-          "logloss": 0.93843
+          "brier": 0.57879,
+          "logloss": 0.97494
         },
         "baseline": {
-          "brier": 0.55351,
-          "logloss": 0.94128
+          "brier": 0.57366,
+          "logloss": 0.96512
         },
-        "shadow_brier_delta_vs_baseline": -0.00358,
+        "shadow_brier_delta_vs_baseline": 0.00513,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -833,14 +802,14 @@
         "n": 73,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.64027,
-          "logloss": 1.06358
+          "brier": 0.64067,
+          "logloss": 1.06412
         },
         "baseline": {
           "brier": 0.64201,
           "logloss": 1.06792
         },
-        "shadow_brier_delta_vs_baseline": -0.00174,
+        "shadow_brier_delta_vs_baseline": -0.00134,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
