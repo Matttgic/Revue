@@ -1,58 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-18T20:33:08.885411+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-18T19:45:56.274458+00:00",
+  "generated_at_utc": "2026-10-18T21:01:55.865920+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-18T20:33:08.928265+00:00",
   "models": [
-    {
-      "event_id": "401930515",
-      "league": "MLB",
-      "home": "Guardians",
-      "away": "Rays",
-      "start_utc": "2026-10-18T21:00:00+00:00",
-      "model_id": "revue_mlb_espn_history_elo_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.548,
-        "away_win": 0.452
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-18T16:09:08.785323+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-18T16:09:08.785323+00:00"
-      },
-      "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
-    },
-    {
-      "event_id": "761889",
-      "league": "MLS",
-      "home": "Cincinnati",
-      "away": "Columbus",
-      "start_utc": "2026-10-18T21:00:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.31908,
-        "draw_90": 0.209169,
-        "away_win_90": 0.471751,
-        "over_2_5": 0.744298
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-18T20:29:12.570004+00:00",
-        "espn_shots_shadow": "2026-10-18T20:29:15.310191+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.00646
-    },
     {
       "event_id": "401908035",
       "league": "MLB",
@@ -296,19 +247,19 @@
     }
   ],
   "metrics": {
-    "candidates": 12,
-    "events_covered": 10,
+    "candidates": 10,
+    "events_covered": 8,
     "models_by_league": {
-      "MLB": 4,
-      "MLS": 1,
+      "MLB": 3,
       "SERIEA": 2,
       "LALIGA": 1,
       "PL": 1,
       "NBA": 3
     },
     "decisions": {
-      "mlb_history_elo": 4,
-      "football_correlated_research_pool": 5,
+      "not_pregame_20m": 2,
+      "mlb_history_elo": 3,
+      "football_correlated_research_pool": 4,
       "football_model_inputs_missing": 9,
       "nba_prior_both_available": 1
     }
