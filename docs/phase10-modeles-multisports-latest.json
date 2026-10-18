@@ -1,35 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-18T15:48:02.793366+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-18T14:29:50.206830+00:00",
+  "generated_at_utc": "2026-10-18T16:53:54.307973+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-18T15:48:02.844270+00:00",
   "models": [
-    {
-      "event_id": "401882841",
-      "league": "LALIGA",
-      "home": "Málaga",
-      "away": "Real Sociedad",
-      "start_utc": "2026-10-18T16:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.320389,
-        "draw_90": 0.256058,
-        "away_win_90": 0.423553,
-        "over_2_5": 0.539674
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-18T14:59:10.934899+00:00",
-        "espn_shots_shadow": "2026-10-18T14:59:15.756068+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01874
-    },
     {
       "event_id": "401876434",
       "league": "LIGUE1",
@@ -117,8 +91,8 @@
       "model_id": "revue_mlb_espn_history_elo_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win": 0.597,
-        "away_win": 0.403
+        "home_win": 0.548,
+        "away_win": 0.452
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -126,8 +100,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-17T15:58:05.281491+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-17T15:58:05.281491+00:00"
+        "espn_elo_replay": "2026-10-18T16:09:08.785323+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-18T16:09:08.785323+00:00"
       },
       "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
     },
@@ -166,8 +140,8 @@
       "model_id": "revue_mlb_espn_history_elo_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win": 0.724,
-        "away_win": 0.276
+        "home_win": 0.723,
+        "away_win": 0.277
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -175,8 +149,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-17T15:58:05.281491+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-17T15:58:05.281491+00:00"
+        "espn_elo_replay": "2026-10-18T16:09:08.785323+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-18T16:09:08.785323+00:00"
       },
       "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
     },
@@ -285,6 +259,52 @@
       "model_disagreement_tv": 0.0209
     },
     {
+      "event_id": "401908028",
+      "league": "MLB",
+      "home": "Rays",
+      "away": "Guardians",
+      "start_utc": "2026-10-20T00:00:00+00:00",
+      "model_id": "revue_mlb_espn_history_elo_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.553,
+        "away_win": 0.447
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "espn_elo_replay": "2026-10-18T16:09:08.785323+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-18T16:09:08.785323+00:00"
+      },
+      "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
+    },
+    {
+      "event_id": "401908036",
+      "league": "MLB",
+      "home": "Brewers",
+      "away": "Dodgers",
+      "start_utc": "2026-10-20T00:00:00+00:00",
+      "model_id": "revue_mlb_espn_history_elo_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.723,
+        "away_win": 0.277
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "espn_elo_replay": "2026-10-18T16:09:08.785323+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-18T16:09:08.785323+00:00"
+      },
+      "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
+    },
+    {
       "event_id": "401909088",
       "league": "NBA",
       "home": "Pistons",
@@ -354,22 +374,21 @@
     }
   ],
   "metrics": {
-    "candidates": 14,
-    "events_covered": 12,
+    "candidates": 15,
+    "events_covered": 13,
     "models_by_league": {
-      "LALIGA": 3,
       "LIGUE1": 1,
       "SERIEA": 3,
-      "MLB": 2,
+      "LALIGA": 2,
+      "MLB": 4,
       "MLS": 1,
       "PL": 1,
       "NBA": 3
     },
     "decisions": {
-      "not_pregame_20m": 6,
-      "football_correlated_research_pool": 9,
-      "mlb_history_elo": 2,
-      "mlb_no_identical_history_fixture": 2,
+      "not_pregame_20m": 2,
+      "football_correlated_research_pool": 8,
+      "mlb_history_elo": 4,
       "football_model_inputs_missing": 9,
       "nba_prior_both_available": 1
     }
