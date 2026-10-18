@@ -1,87 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-18T18:01:00.992029+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-18T17:31:42.091106+00:00",
+  "generated_at_utc": "2026-10-18T18:44:27.229005+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-18T18:01:01.038554+00:00",
   "models": [
-    {
-      "event_id": "401876434",
-      "league": "LIGUE1",
-      "home": "Lyon",
-      "away": "Nice",
-      "start_utc": "2026-10-18T18:45:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.514308,
-        "draw_90": 0.248844,
-        "away_win_90": 0.236848,
-        "over_2_5": 0.498486
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-18T17:29:48.547343+00:00",
-        "espn_shots_shadow": "2026-10-18T17:29:52.187952+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.03313
-    },
-    {
-      "event_id": "401874765",
-      "league": "SERIEA",
-      "home": "Juventus",
-      "away": "Lazio",
-      "start_utc": "2026-10-18T18:45:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.361456,
-        "draw_90": 0.280021,
-        "away_win_90": 0.358523,
-        "over_2_5": 0.449944
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-18T17:29:48.547343+00:00",
-        "espn_shots_shadow": "2026-10-18T17:29:52.187952+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.02173
-    },
-    {
-      "event_id": "401882839",
-      "league": "LALIGA",
-      "home": "Real Madrid",
-      "away": "Sevilla",
-      "start_utc": "2026-10-18T19:00:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.587257,
-        "draw_90": 0.203173,
-        "away_win_90": 0.20957,
-        "over_2_5": 0.646496
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-18T17:29:48.547343+00:00",
-        "espn_shots_shadow": "2026-10-18T17:29:52.187952+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.03269
-    },
     {
       "event_id": "401930515",
       "league": "MLB",
@@ -348,19 +270,19 @@
     }
   ],
   "metrics": {
-    "candidates": 14,
-    "events_covered": 12,
+    "candidates": 11,
+    "events_covered": 9,
     "models_by_league": {
-      "LIGUE1": 1,
-      "SERIEA": 3,
-      "LALIGA": 2,
       "MLB": 4,
       "MLS": 1,
+      "SERIEA": 2,
+      "LALIGA": 1,
       "NBA": 3
     },
     "decisions": {
-      "football_correlated_research_pool": 7,
+      "not_pregame_20m": 3,
       "mlb_history_elo": 4,
+      "football_correlated_research_pool": 4,
       "football_model_inputs_missing": 9,
       "nba_prior_both_available": 1
     }
