@@ -5744,13 +5744,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-18T19:27:36.450593+00:00",
+      "home_score": 2,
+      "away_score": 5,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.53517966,
+          "log_loss": 0.90485635
+        },
+        "football_advanced": {
+          "brier": 0.52252335,
+          "log_loss": 0.89045243
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -8985,6 +8994,23 @@
       "home_after": 1512.41,
       "away_after": 1499.59,
       "observed_home_outcome": 1
+    },
+    "LALIGA:401882841": {
+      "key": "LALIGA:401882841",
+      "league": "LALIGA",
+      "event_id": "401882841",
+      "home": "Málaga",
+      "away": "Real Sociedad",
+      "start_utc": "2026-10-18T16:30:00+00:00",
+      "observed_at_utc": "2026-10-18T19:27:36.450593+00:00",
+      "home_score": 2,
+      "away_score": 5,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1512.0,
+      "home_after": 1488.41,
+      "away_after": 1523.59,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -9052,7 +9078,7 @@
     "LALIGA": {
       "Elche": 1500.0,
       "Celta Vigo": 1512.0,
-      "Real Sociedad": 1512.0,
+      "Real Sociedad": 1523.59,
       "Deportivo": 1488.41,
       "Betis": 1499.59,
       "Osasuna": 1500.41,
@@ -9065,7 +9091,8 @@
       "Villarreal": 1500.0,
       "Barcelona": 1512.41,
       "Athletic": 1500.0,
-      "Alavés": 1488.0
+      "Alavés": 1488.0,
+      "Málaga": 1488.41
     },
     "LIGUE1": {
       "Nice": 1512.0,
@@ -9160,5 +9187,5 @@
       "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-18T18:35:56.875865+00:00"
+  "updated_at_utc": "2026-10-18T19:36:07.812834+00:00"
 }
