@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-17T22:32:36.328594+00:00",
+  "generated_at_utc": "2026-10-18T00:57:54.733061+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -15,6 +15,21 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 4,
+            "away": 4
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401909089",
+          "league": "NBA",
+          "home": "Knicks",
+          "away": "76ers",
+          "start_utc": "2026-10-20T23:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 5,
             "away": 4
           },
           "probabilities": null,
@@ -408,30 +423,6 @@
     "MLB": {
       "games": [
         {
-          "event_id": "401908027",
-          "league": "MLB",
-          "home": "Guardians",
-          "away": "Rays",
-          "start_utc": "2026-10-18T00:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 20,
-            "away": 19
-          },
-          "probabilities": {
-            "home_win": 0.56743,
-            "away_win": 0.43257
-          },
-          "odds": null,
-          "expected_margin_home": 0.478,
-          "components": {
-            "elo_probability": 0.5711,
-            "margin_probability": 0.5612,
-            "last_games_form": 5
-          }
-        },
-        {
           "event_id": "401930515",
           "league": "MLB",
           "home": "Guardians",
@@ -524,6 +515,30 @@
           "components": {
             "elo_probability": 0.6658,
             "margin_probability": 0.5747,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401908029",
+          "league": "MLB",
+          "home": "Rays",
+          "away": "Guardians",
+          "start_utc": "2026-10-21T00:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 19,
+            "away": 20
+          },
+          "probabilities": {
+            "home_win": 0.49636,
+            "away_win": 0.50364
+          },
+          "odds": null,
+          "expected_margin_home": -0.044,
+          "components": {
+            "elo_probability": 0.4975,
+            "margin_probability": 0.4944,
             "last_games_form": 5
           }
         }
