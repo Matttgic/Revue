@@ -5533,13 +5533,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-18T18:01:00.393216+00:00",
+      "home_score": 3,
+      "away_score": 2,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.38519375,
+          "log_loss": 0.70653777
+        },
+        "football_advanced": {
+          "brier": 0.36351325,
+          "log_loss": 0.67766761
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -8959,6 +8968,23 @@
       "home_after": 1476.41,
       "away_after": 1511.59,
       "observed_home_outcome": 0
+    },
+    "SERIEA:401874978": {
+      "key": "SERIEA:401874978",
+      "league": "SERIEA",
+      "event_id": "401874978",
+      "home": "Milan",
+      "away": "Atalanta",
+      "start_utc": "2026-10-18T16:00:00+00:00",
+      "observed_at_utc": "2026-10-18T18:01:00.393216+00:00",
+      "home_score": 3,
+      "away_score": 2,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1512.0,
+      "home_after": 1512.41,
+      "away_after": 1499.59,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -9010,10 +9036,10 @@
       "Lazio": 1512.0,
       "Monza": 1488.0,
       "Sassuolo": 1488.0,
-      "Milan": 1500.0,
+      "Milan": 1512.41,
       "Cagliari": 1500.0,
       "Juventus": 1500.0,
-      "Atalanta": 1512.0,
+      "Atalanta": 1499.59,
       "Venezia": 1500.41,
       "Torino": 1512.0,
       "Udinese": 1476.0,
@@ -9134,5 +9160,5 @@
       "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-18T17:31:53.960253+00:00"
+  "updated_at_utc": "2026-10-18T18:35:56.875865+00:00"
 }
