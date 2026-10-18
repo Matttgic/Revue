@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-18T19:35:50.820344+00:00",
+  "generated_at_utc": "2026-10-18T20:29:16.302564+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -135,108 +135,6 @@
     "NFL": {
       "games": [
         {
-          "event_id": "401873004",
-          "league": "NFL",
-          "home": "Rams",
-          "away": "Cardinals",
-          "start_utc": "2026-10-18T20:05:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.61522,
-            "away_win": 0.38478
-          },
-          "components": {
-            "monte_carlo": 0.61068,
-            "bayes": 0.61078,
-            "elo": 0.62875,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 25.66,
-            "away": 21.75
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
-        {
-          "event_id": "401873005",
-          "league": "NFL",
-          "home": "Raiders",
-          "away": "Bills",
-          "start_utc": "2026-10-18T20:25:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.49522,
-            "away_win": 0.50478
-          },
-          "components": {
-            "monte_carlo": 0.50651,
-            "bayes": 0.46948,
-            "elo": 0.49541,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 23.82,
-            "away": 24.2
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
-        {
-          "event_id": "401873006",
-          "league": "NFL",
-          "home": "Chiefs",
-          "away": "Chargers",
-          "start_utc": "2026-10-18T20:25:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 6,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.65363,
-            "away_win": 0.34637
-          },
-          "components": {
-            "monte_carlo": 0.62891,
-            "bayes": 0.67134,
-            "elo": 0.68874,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 24.18,
-            "away": 20.29
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
-        {
           "event_id": "401873007",
           "league": "NFL",
           "home": "Packers",
@@ -307,23 +205,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 64,
+        "n": 70,
         "scores": {
           "baseline": {
-            "brier_binary": 0.24147,
-            "logloss_binary": 0.67562
+            "brier_binary": 0.24613,
+            "logloss_binary": 0.68523
           },
           "previous_shadow": {
-            "brier_binary": 0.23946,
-            "logloss_binary": 0.67173
+            "brier_binary": 0.24293,
+            "logloss_binary": 0.67877
           },
           "ensemble": {
-            "brier_binary": 0.23567,
-            "logloss_binary": 0.66407
+            "brier_binary": 0.23948,
+            "logloss_binary": 0.6718
           }
         },
-        "delta_brier_vs_baseline": -0.0058,
-        "delta_brier_vs_previous_shadow": -0.00379,
+        "delta_brier_vs_baseline": -0.00665,
+        "delta_brier_vs_previous_shadow": -0.00345,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },

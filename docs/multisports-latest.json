@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-18T19:35:46.573472+00:00",
+  "generated_at_utc": "2026-10-18T20:29:12.570004+00:00",
   "date_paris": "2026-10-18",
   "days": 3,
   "status": "prototype_non_calibre",
@@ -33,79 +33,12 @@
         }
       ]
     },
-    "NCAAB": {
-      "name": "NCAA Basketball",
-      "sport": "Basket",
-      "model": "points",
-      "status": "ok",
-      "games": []
-    },
     "NFL": {
       "name": "NFL",
       "sport": "Football américain",
       "model": "points",
       "status": "ok",
       "games": [
-        {
-          "event_id": "401873004",
-          "home": "Rams",
-          "away": "Cardinals",
-          "start_utc": "2026-10-18T20:05:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.649,
-            "away_win": 0.351
-          },
-          "expected_score": {
-            "home": 29.2,
-            "away": 21.3
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        },
-        {
-          "event_id": "401873005",
-          "home": "Raiders",
-          "away": "Bills",
-          "start_utc": "2026-10-18T20:25:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.5165,
-            "away_win": 0.4835
-          },
-          "expected_score": {
-            "home": 24.3,
-            "away": 27.6
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        },
-        {
-          "event_id": "401873006",
-          "home": "Chiefs",
-          "away": "Chargers",
-          "start_utc": "2026-10-18T20:25:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.7064,
-            "away_win": 0.2936
-          },
-          "expected_score": {
-            "home": 25.2,
-            "away": 17.8
-          },
-          "odds": null,
-          "training_games": {
-            "home": 6,
-            "away": 7
-          }
-        },
         {
           "event_id": "401873007",
           "home": "Packers",
@@ -148,6 +81,13 @@
         }
       ]
     },
+    "NCAAB": {
+      "name": "NCAA Basketball",
+      "sport": "Basket",
+      "model": "points",
+      "status": "ok",
+      "games": []
+    },
     "NBA": {
       "name": "NBA",
       "sport": "Basket",
@@ -166,6 +106,36 @@
           },
           "probabilities": null,
           "odds": null
+        }
+      ]
+    },
+    "PL": {
+      "name": "Premier League",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401879257",
+          "home": "Spurs",
+          "away": "Coventry",
+          "start_utc": "2026-10-19T19:00:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.3864,
+            "draw_90": 0.2785,
+            "away_win_90": 0.3351,
+            "over_2_5": 0.4209
+          },
+          "expected_score": {
+            "home": 1.24,
+            "away": 1.12
+          },
+          "odds": null,
+          "training_games": {
+            "home": 5,
+            "away": 5
+          }
         }
       ]
     },
@@ -287,36 +257,6 @@
         }
       ]
     },
-    "PL": {
-      "name": "Premier League",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401879257",
-          "home": "Spurs",
-          "away": "Coventry",
-          "start_utc": "2026-10-19T19:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.3864,
-            "draw_90": 0.2785,
-            "away_win_90": 0.3351,
-            "over_2_5": 0.4209
-          },
-          "expected_score": {
-            "home": 1.24,
-            "away": 1.12
-          },
-          "odds": null,
-          "training_games": {
-            "home": 5,
-            "away": 5
-          }
-        }
-      ]
-    },
     "SERIEA": {
       "name": "Serie A",
       "sport": "Football",
@@ -369,6 +309,13 @@
         }
       ]
     },
+    "LIGUE1": {
+      "name": "Ligue 1",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
     "BUNDESLIGA": {
       "name": "Bundesliga",
       "sport": "Football",
@@ -405,13 +352,6 @@
           }
         }
       ]
-    },
-    "LIGUE1": {
-      "name": "Ligue 1",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
     },
     "UCL": {
       "name": "Ligue des champions",
@@ -964,8 +904,8 @@
     "feeds_ok": 18,
     "feeds_partial": 0,
     "feeds_failed": 0,
-    "fixtures": 37,
-    "predicted": 36,
+    "fixtures": 34,
+    "predicted": 33,
     "league_feed_diagnostics": {
       "WNBA": {
         "status": "ok",
@@ -978,17 +918,6 @@
         "range_min": "2026-09-18",
         "range_max": "2026-10-22"
       },
-      "NCAAB": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 40,
-        "cache_hits": 33,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 0,
-        "range_min": null,
-        "range_max": null
-      },
       "NFL": {
         "status": "ok",
         "requests_ok": 7,
@@ -1000,6 +929,17 @@
         "range_min": "2026-08-21",
         "range_max": "2026-10-23"
       },
+      "NCAAB": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 40,
+        "cache_hits": 33,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 0,
+        "range_min": null,
+        "range_max": null
+      },
       "NBA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1010,6 +950,17 @@
         "events": 83,
         "range_min": "2026-10-04",
         "range_max": "2026-10-23"
+      },
+      "PL": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 64,
+        "range_min": "2026-08-23",
+        "range_max": "2026-10-19"
       },
       "LALIGA": {
         "status": "ok",
@@ -1033,17 +984,6 @@
         "range_min": "2026-09-15",
         "range_max": "2026-10-21"
       },
-      "PL": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 64,
-        "range_min": "2026-08-23",
-        "range_max": "2026-10-19"
-      },
       "SERIEA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1054,6 +994,17 @@
         "events": 66,
         "range_min": "2026-08-23",
         "range_max": "2026-10-19"
+      },
+      "LIGUE1": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 57,
+        "range_min": "2026-08-23",
+        "range_max": "2026-10-18"
       },
       "BUNDESLIGA": {
         "status": "ok",
@@ -1076,17 +1027,6 @@
         "events": 152,
         "range_min": "2026-08-23",
         "range_max": "2026-10-22"
-      },
-      "LIGUE1": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 57,
-        "range_min": "2026-08-23",
-        "range_max": "2026-10-18"
       },
       "UCL": {
         "status": "ok",
