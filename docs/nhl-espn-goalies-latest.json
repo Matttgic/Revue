@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-10-18T12:01:52.590163+00:00",
+  "generated_at_utc": "2026-10-18T12:05:08.504536+00:00",
   "status": "espn_probable_goalies_observed_not_part_of_model",
   "source": "ESPN NHL scoreboard, separate from official NHL IDs",
-  "requests_count": 1,
+  "requests_count": 2,
   "verified_current_starters": 1,
-  "projected_starters": 1,
-  "provider_rows_matched": 1,
+  "projected_starters": 9,
+  "provider_rows_matched": 5,
   "diagnostics": {
-    "provider_responses": 1,
-    "matched_fixtures": 1
+    "provider_responses": 2,
+    "matched_fixtures": 5
   },
   "confirmed_is_not_a_guarantee_of_start": true,
   "used_in_prediction_model": false,
@@ -21,7 +21,7 @@
       "away": "CBJ",
       "start_utc": "2026-10-18T22:00:00+00:00",
       "espn_event_id": "401892533",
-      "observed_at_utc": "2026-10-18T12:01:52.590163+00:00",
+      "observed_at_utc": "2026-10-18T12:05:08.504536+00:00",
       "home_goalie": {
         "name": "Jesper Wallstedt",
         "status": "confirmed",
@@ -37,11 +37,104 @@
       "used_in_model_probabilities": false,
       "injuries_verified": false,
       "sportsbook_prices_verified": false
+    },
+    {
+      "event_id": "2026020136",
+      "home": "CGY",
+      "away": "CAR",
+      "start_utc": "2026-10-19T00:00:00+00:00",
+      "espn_event_id": "401892534",
+      "observed_at_utc": "2026-10-18T12:05:08.504536+00:00",
+      "home_goalie": {
+        "name": "Dustin Wolf",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "away_goalie": {
+        "name": "Brandon Bussi",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "starter_status_provenance": "ESPN probableStartingGoalie: confirmed vs projected",
+      "matched_by": "both team codes and <=10min verified kickoff",
+      "used_in_model_probabilities": false,
+      "injuries_verified": false,
+      "sportsbook_prices_verified": false
+    },
+    {
+      "event_id": "2026020137",
+      "home": "NYR",
+      "away": "ANA",
+      "start_utc": "2026-10-19T23:00:00+00:00",
+      "espn_event_id": "401892535",
+      "observed_at_utc": "2026-10-18T12:05:08.504536+00:00",
+      "home_goalie": {
+        "name": "Dylan Garand",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "away_goalie": {
+        "name": "Lukas Dostal",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "starter_status_provenance": "ESPN probableStartingGoalie: confirmed vs projected",
+      "matched_by": "both team codes and <=10min verified kickoff",
+      "used_in_model_probabilities": false,
+      "injuries_verified": false,
+      "sportsbook_prices_verified": false
+    },
+    {
+      "event_id": "2026020139",
+      "home": "TOR",
+      "away": "SJS",
+      "start_utc": "2026-10-19T23:30:00+00:00",
+      "espn_event_id": "401892537",
+      "observed_at_utc": "2026-10-18T12:05:08.504536+00:00",
+      "home_goalie": {
+        "name": "Sergei Bobrovsky",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "away_goalie": {
+        "name": "Yaroslav Askarov",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "starter_status_provenance": "ESPN probableStartingGoalie: confirmed vs projected",
+      "matched_by": "both team codes and <=10min verified kickoff",
+      "used_in_model_probabilities": false,
+      "injuries_verified": false,
+      "sportsbook_prices_verified": false
+    },
+    {
+      "event_id": "2026020140",
+      "home": "UTA",
+      "away": "PIT",
+      "start_utc": "2026-10-20T01:00:00+00:00",
+      "espn_event_id": "401892538",
+      "observed_at_utc": "2026-10-18T12:05:08.504536+00:00",
+      "home_goalie": {
+        "name": "Karel Vejmelka",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "away_goalie": {
+        "name": "Arturs Silovs",
+        "status": "projected",
+        "source": "ESPN probableStartingGoalie"
+      },
+      "starter_status_provenance": "ESPN probableStartingGoalie: confirmed vs projected",
+      "matched_by": "both team codes and <=10min verified kickoff",
+      "used_in_model_probabilities": false,
+      "injuries_verified": false,
+      "sportsbook_prices_verified": false
     }
   ],
   "note": "ESPN explicitly confirms or projects only when those statuses are present. Blank ≠ confirmed. No starter assumptions affect model outputs; do not reinterpret research probabilities as validated.",
   "scoreboard_dates_attempted": [
-    "2026-10-18"
+    "2026-10-18",
+    "2026-10-19"
   ],
   "errors": [],
   "complete_coverage_verified": true
