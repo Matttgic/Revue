@@ -5127,13 +5127,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-18T04:21:45.301028+00:00",
+      "home_score": 3,
+      "away_score": 7,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.65574152,
+          "log_loss": 0.85003494
+        },
+        "own_elo": {
+          "brier": 0.59656015,
+          "log_loss": 0.78998904
+        },
+        "advanced_team": {
+          "brier": 0.59629752,
+          "log_loss": 0.78972416
+        },
+        "montecarlo_bayes": {
+          "brier": 0.54348653,
+          "log_loss": 0.73666029
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -8531,6 +8548,23 @@
       "home_after": 1512.0,
       "away_after": 1488.0,
       "observed_home_outcome": 1
+    },
+    "MLB:401908027": {
+      "key": "MLB:401908027",
+      "league": "MLB",
+      "event_id": "401908027",
+      "home": "Guardians",
+      "away": "Rays",
+      "start_utc": "2026-10-18T00:00:00+00:00",
+      "observed_at_utc": "2026-10-18T04:21:45.301028+00:00",
+      "home_score": 3,
+      "away_score": 7,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1522.08,
+      "away_before": 1489.92,
+      "home_after": 1508.97,
+      "away_after": 1503.03,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -8568,11 +8602,11 @@
       "Grizzlies": 1512.0
     },
     "MLB": {
-      "Guardians": 1522.08,
+      "Guardians": 1508.97,
       "White Sox": 1488.0,
       "Brewers": 1543.29,
       "Dodgers": 1456.71,
-      "Rays": 1489.92
+      "Rays": 1503.03
     },
     "SERIEA": {
       "Como": 1500.0,
@@ -8691,5 +8725,5 @@
       "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-18T01:24:46.567010+00:00"
+  "updated_at_utc": "2026-10-18T04:22:31.709744+00:00"
 }
