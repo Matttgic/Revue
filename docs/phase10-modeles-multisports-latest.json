@@ -1,8 +1,8 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-18T22:32:50.202006+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-18T21:58:07.949587+00:00",
+  "generated_at_utc": "2026-10-18T22:33:02.369065+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-18T22:32:50.232630+00:00",
   "models": [
     {
       "event_id": "401908035",
@@ -244,23 +244,186 @@
         "advanced_previous_season": "2026-10-18T12:09:07.855958+00:00"
       },
       "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
+    },
+    {
+      "event_id": "401909089",
+      "league": "NBA",
+      "home": "Knicks",
+      "away": "76ers",
+      "start_utc": "2026-10-20T23:00:00+00:00",
+      "model_id": "revue_nba_espn_previous_standings_prior_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.56059,
+        "away_win": 0.43941
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "previous_standings": "2026-10-18T22:32:22.352485+00:00"
+      },
+      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
+    },
+    {
+      "event_id": "401909089",
+      "league": "NBA",
+      "home": "Knicks",
+      "away": "76ers",
+      "start_utc": "2026-10-20T23:00:00+00:00",
+      "model_id": "revue_nba_prior_consensus_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.598898,
+        "away_win": 0.401102
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "previous_standings": "2026-10-18T22:32:22.352485+00:00",
+        "advanced_previous_season": "2026-10-18T12:09:07.855958+00:00"
+      },
+      "method": "Experimental correlated-prior average: standings 55%, regressed Elo 45%; NOT three independent models"
+    },
+    {
+      "event_id": "401909089",
+      "league": "NBA",
+      "home": "Knicks",
+      "away": "76ers",
+      "start_utc": "2026-10-20T23:00:00+00:00",
+      "model_id": "revue_nba_prior_elo_regressed_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.64572,
+        "away_win": 0.35428
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "previous_standings": "2026-10-18T22:32:22.352485+00:00",
+        "advanced_previous_season": "2026-10-18T12:09:07.855958+00:00"
+      },
+      "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
+    },
+    {
+      "event_id": "401909090",
+      "league": "NBA",
+      "home": "Spurs",
+      "away": "Thunder",
+      "start_utc": "2026-10-21T01:30:00+00:00",
+      "model_id": "revue_nba_espn_previous_standings_prior_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.57031,
+        "away_win": 0.42969
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "previous_standings": "2026-10-18T22:32:22.352485+00:00"
+      },
+      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
+    },
+    {
+      "event_id": "401909090",
+      "league": "NBA",
+      "home": "Spurs",
+      "away": "Thunder",
+      "start_utc": "2026-10-21T01:30:00+00:00",
+      "model_id": "revue_nba_prior_consensus_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.536793,
+        "away_win": 0.463207
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "previous_standings": "2026-10-18T22:32:22.352485+00:00",
+        "advanced_previous_season": "2026-10-18T12:09:07.855958+00:00"
+      },
+      "method": "Experimental correlated-prior average: standings 55%, regressed Elo 45%; NOT three independent models"
+    },
+    {
+      "event_id": "401909090",
+      "league": "NBA",
+      "home": "Spurs",
+      "away": "Thunder",
+      "start_utc": "2026-10-21T01:30:00+00:00",
+      "model_id": "revue_nba_prior_elo_regressed_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win": 0.495827,
+        "away_win": 0.504173
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "previous_standings": "2026-10-18T22:32:22.352485+00:00",
+        "advanced_previous_season": "2026-10-18T12:09:07.855958+00:00"
+      },
+      "method": "ESPN 2025-26 advanced net-rating-derived Elo; home +55 Elo; 42% neutral regression; no player availability"
+    },
+    {
+      "event_id": "401882870",
+      "league": "LALIGA",
+      "home": "Levante",
+      "away": "Athletic",
+      "start_utc": "2026-10-21T18:00:00+00:00",
+      "model_id": "revue_football_espn_shots_log_pool_v1",
+      "status": "shadow_research_only_unvalidated",
+      "probabilities": {
+        "home_win_90": 0.340037,
+        "draw_90": 0.274761,
+        "away_win_90": 0.385202,
+        "over_2_5": 0.467904
+      },
+      "calibrated": false,
+      "source_sql_parity": false,
+      "bookable_price_verified": false,
+      "EV": null,
+      "betting_recommendation": null,
+      "inputs_observed_utc": {
+        "multisports": "2026-10-18T22:32:19.719437+00:00",
+        "espn_shots_shadow": "2026-10-18T22:32:23.009496+00:00"
+      },
+      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
+      "model_disagreement_tv": 0.01679
     }
   ],
   "metrics": {
-    "candidates": 10,
-    "events_covered": 8,
+    "candidates": 17,
+    "events_covered": 11,
     "models_by_league": {
       "MLB": 3,
       "SERIEA": 2,
-      "LALIGA": 1,
+      "LALIGA": 2,
       "PL": 1,
-      "NBA": 3
+      "NBA": 9
     },
     "decisions": {
       "mlb_history_elo": 3,
-      "football_correlated_research_pool": 4,
-      "football_model_inputs_missing": 9,
-      "nba_prior_both_available": 1
+      "football_correlated_research_pool": 5,
+      "football_model_inputs_missing": 18,
+      "nba_prior_both_available": 3,
+      "mlb_no_identical_history_fixture": 1
     }
   },
   "calibrated": false,
