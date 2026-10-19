@@ -5118,13 +5118,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T01:06:26.515760+00:00",
+      "home_score": 30,
+      "away_score": 33,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.53375112,
+          "log_loss": 0.72691081
+        },
+        "advanced_team": {
+          "brier": 0.49888063,
+          "log_loss": 0.69202781
+        },
+        "montecarlo_bayes": {
+          "brier": 0.4904857,
+          "log_loss": 0.68363259
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -5174,13 +5187,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T01:06:26.515760+00:00",
+      "home_score": 22,
+      "away_score": 6,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.17240192,
+          "log_loss": 0.34757363
+        },
+        "advanced_team": {
+          "brier": 0.23428382,
+          "log_loss": 0.41894556
+        },
+        "montecarlo_bayes": {
+          "brier": 0.23995821,
+          "log_loss": 0.42522914
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -6686,13 +6712,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T01:06:26.515760+00:00",
+      "home_score": 1,
+      "away_score": 3,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.67233608,
+          "log_loss": 0.86702449
+        },
+        "own_elo": {
+          "brier": 0.59656015,
+          "log_loss": 0.78998904
+        },
+        "advanced_team": {
+          "brier": 0.64395361,
+          "log_loss": 0.83801112
+        },
+        "montecarlo_bayes": {
+          "brier": 0.59461694,
+          "log_loss": 0.78802945
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -9445,6 +9488,57 @@
       "home_after": 1476.0,
       "away_after": 1500.0,
       "observed_home_outcome": 0
+    },
+    "NFL:401873005": {
+      "key": "NFL:401873005",
+      "league": "NFL",
+      "event_id": "401873005",
+      "home": "Raiders",
+      "away": "Bills",
+      "start_utc": "2026-10-18T20:25:00+00:00",
+      "observed_at_utc": "2026-10-19T01:06:26.515760+00:00",
+      "home_score": 30,
+      "away_score": 33,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.0,
+      "away_before": 1512.0,
+      "home_after": 1476.83,
+      "away_after": 1523.17,
+      "observed_home_outcome": 0
+    },
+    "NFL:401873006": {
+      "key": "NFL:401873006",
+      "league": "NFL",
+      "event_id": "401873006",
+      "home": "Chiefs",
+      "away": "Chargers",
+      "start_utc": "2026-10-18T20:25:00+00:00",
+      "observed_at_utc": "2026-10-19T01:06:26.515760+00:00",
+      "home_score": 22,
+      "away_score": 6,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1488.0,
+      "home_after": 1511.59,
+      "away_after": 1476.41,
+      "observed_home_outcome": 1
+    },
+    "MLB:401930515": {
+      "key": "MLB:401930515",
+      "league": "MLB",
+      "event_id": "401930515",
+      "home": "Guardians",
+      "away": "Rays",
+      "start_utc": "2026-10-18T21:00:00+00:00",
+      "observed_at_utc": "2026-10-19T01:06:26.515760+00:00",
+      "home_score": 1,
+      "away_score": 3,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1508.97,
+      "away_before": 1503.03,
+      "home_after": 1496.76,
+      "away_after": 1515.24,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -9482,11 +9576,11 @@
       "Grizzlies": 1512.0
     },
     "MLB": {
-      "Guardians": 1508.97,
+      "Guardians": 1496.76,
       "White Sox": 1488.0,
       "Brewers": 1543.29,
       "Dodgers": 1456.71,
-      "Rays": 1503.03
+      "Rays": 1515.24
     },
     "SERIEA": {
       "Como": 1512.0,
@@ -9602,12 +9696,12 @@
       "Steelers": 1523.59,
       "Colts": 1476.0,
       "Patriots": 1524.0,
-      "Raiders": 1488.0,
+      "Raiders": 1476.83,
       "Saints": 1500.41,
       "Vikings": 1512.0,
       "Packers": 1512.0,
       "Bears": 1500.0,
-      "Chargers": 1488.0,
+      "Chargers": 1476.41,
       "Broncos": 1523.17,
       "Cardinals": 1500.0,
       "Lions": 1512.0,
@@ -9616,15 +9710,16 @@
       "Falcons": 1476.0,
       "Ravens": 1499.17,
       "Rams": 1476.0,
-      "Bills": 1512.0,
+      "Bills": 1523.17,
       "Panthers": 1511.59,
       "Giants": 1487.59,
-      "Buccaneers": 1488.41
+      "Buccaneers": 1488.41,
+      "Chiefs": 1511.59
     },
     "WNBA": {
       "Valkyries": 1512.0,
       "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-19T00:27:09.468123+00:00"
+  "updated_at_utc": "2026-10-19T01:32:47.185927+00:00"
 }
