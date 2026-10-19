@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-19T10:01:16.133496+00:00",
+  "generated_at_utc": "2026-10-19T13:00:47.598609+00:00",
   "date_paris": "2026-10-19",
   "days": 3,
   "status": "prototype_non_calibre",
@@ -39,6 +39,34 @@
       "model": "points",
       "status": "ok",
       "games": []
+    },
+    "WNBA": {
+      "name": "WNBA",
+      "sport": "Basket",
+      "model": "points",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401918306",
+          "home": "Valkyries",
+          "away": "Dream",
+          "start_utc": "2026-10-20T00:00:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win": 0.5599,
+            "away_win": 0.4401
+          },
+          "expected_score": {
+            "home": 78.8,
+            "away": 82.7
+          },
+          "odds": null,
+          "training_games": {
+            "home": 11,
+            "away": 10
+          }
+        }
+      ]
     },
     "NBA": {
       "name": "NBA",
@@ -84,34 +112,6 @@
           },
           "probabilities": null,
           "odds": null
-        }
-      ]
-    },
-    "WNBA": {
-      "name": "WNBA",
-      "sport": "Basket",
-      "model": "points",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401918306",
-          "home": "Valkyries",
-          "away": "Dream",
-          "start_utc": "2026-10-20T00:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.5599,
-            "away_win": 0.4401
-          },
-          "expected_score": {
-            "home": 78.8,
-            "away": 82.7
-          },
-          "odds": null,
-          "training_games": {
-            "home": 11,
-            "away": 10
-          }
         }
       ]
     },
@@ -317,15 +317,15 @@
         }
       ]
     },
-    "BUNDESLIGA": {
-      "name": "Bundesliga",
+    "LIGUE1": {
+      "name": "Ligue 1",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
       "games": []
     },
-    "LIGUE1": {
-      "name": "Ligue 1",
+    "BUNDESLIGA": {
+      "name": "Bundesliga",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -1372,17 +1372,6 @@
         "range_min": null,
         "range_max": null
       },
-      "NBA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 35,
-        "cache_hits": 28,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 95,
-        "range_min": "2026-10-04",
-        "range_max": "2026-10-24"
-      },
       "WNBA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1393,6 +1382,17 @@
         "events": 53,
         "range_min": "2026-09-18",
         "range_max": "2026-10-22"
+      },
+      "NBA": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 35,
+        "cache_hits": 28,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 95,
+        "range_min": "2026-10-04",
+        "range_max": "2026-10-24"
       },
       "MLB": {
         "status": "ok",
@@ -1438,7 +1438,7 @@
         "range_min": "2026-08-24",
         "range_max": "2026-10-23"
       },
-      "BUNDESLIGA": {
+      "LIGUE1": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
@@ -1449,7 +1449,7 @@
         "range_min": "2026-08-28",
         "range_max": "2026-10-23"
       },
-      "LIGUE1": {
+      "BUNDESLIGA": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
