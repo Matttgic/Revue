@@ -6388,13 +6388,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T05:15:32.462911+00:00",
+      "home_score": 23,
+      "away_score": 13,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.26996552,
+          "log_loss": 0.45791697
+        },
+        "advanced_team": {
+          "brier": 0.35569552,
+          "log_loss": 0.5476971
+        },
+        "montecarlo_bayes": {
+          "brier": 0.40527005,
+          "log_loss": 0.59810977
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -9539,6 +9552,23 @@
       "home_after": 1496.76,
       "away_after": 1515.24,
       "observed_home_outcome": 0
+    },
+    "NFL:401873007": {
+      "key": "NFL:401873007",
+      "league": "NFL",
+      "event_id": "401873007",
+      "home": "Packers",
+      "away": "Cowboys",
+      "start_utc": "2026-10-19T00:20:00+00:00",
+      "observed_at_utc": "2026-10-19T05:15:32.462911+00:00",
+      "home_score": 23,
+      "away_score": 13,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1512.0,
+      "away_before": 1500.0,
+      "home_after": 1523.59,
+      "away_after": 1488.41,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -9699,7 +9729,7 @@
       "Raiders": 1476.83,
       "Saints": 1500.41,
       "Vikings": 1512.0,
-      "Packers": 1512.0,
+      "Packers": 1523.59,
       "Bears": 1500.0,
       "Chargers": 1476.41,
       "Broncos": 1523.17,
@@ -9714,12 +9744,13 @@
       "Panthers": 1511.59,
       "Giants": 1487.59,
       "Buccaneers": 1488.41,
-      "Chiefs": 1511.59
+      "Chiefs": 1511.59,
+      "Cowboys": 1488.41
     },
     "WNBA": {
       "Valkyries": 1512.0,
       "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-19T04:32:14.314201+00:00"
+  "updated_at_utc": "2026-10-19T05:15:46.627878+00:00"
 }
