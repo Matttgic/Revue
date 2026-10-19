@@ -1,32 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-18T23:00:39.866224+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-18T22:33:02.415279+00:00",
+  "generated_at_utc": "2026-10-19T01:06:27.146818+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-19T00:26:56.285211+00:00",
   "models": [
-    {
-      "event_id": "401908035",
-      "league": "MLB",
-      "home": "Brewers",
-      "away": "Dodgers",
-      "start_utc": "2026-10-19T00:00:00+00:00",
-      "model_id": "revue_mlb_espn_history_elo_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.723,
-        "away_win": 0.277
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-18T16:09:08.785323+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-18T16:09:08.785323+00:00"
-      },
-      "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
-    },
     {
       "event_id": "401874762",
       "league": "SERIEA",
@@ -409,18 +386,18 @@
     }
   ],
   "metrics": {
-    "candidates": 17,
-    "events_covered": 11,
+    "candidates": 16,
+    "events_covered": 10,
     "models_by_league": {
-      "MLB": 3,
       "SERIEA": 2,
       "LALIGA": 2,
       "PL": 1,
+      "MLB": 2,
       "NBA": 9
     },
     "decisions": {
-      "mlb_history_elo": 3,
       "football_correlated_research_pool": 5,
+      "mlb_history_elo": 2,
       "football_model_inputs_missing": 18,
       "nba_prior_both_available": 3,
       "mlb_no_identical_history_fixture": 1
