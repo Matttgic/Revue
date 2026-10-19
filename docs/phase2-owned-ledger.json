@@ -5049,13 +5049,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T00:26:54.675197+00:00",
+      "home_score": 16,
+      "away_score": 18,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.84162338,
+          "log_loss": 1.04611472
+        },
+        "advanced_team": {
+          "brier": 0.74781558,
+          "log_loss": 0.94541063
+        },
+        "montecarlo_bayes": {
+          "brier": 0.75676983,
+          "log_loss": 0.95484966
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -5899,13 +5912,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T00:26:54.675197+00:00",
+      "home_score": 4,
+      "away_score": 1,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.30461864,
+          "log_loss": 0.5982007
+        },
+        "football_advanced": {
+          "brier": 0.26404071,
+          "log_loss": 0.54396161
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -9389,6 +9411,40 @@
       "home_after": 1488.41,
       "away_after": 1523.59,
       "observed_home_outcome": 0
+    },
+    "LALIGA:401882839": {
+      "key": "LALIGA:401882839",
+      "league": "LALIGA",
+      "event_id": "401882839",
+      "home": "Real Madrid",
+      "away": "Sevilla",
+      "start_utc": "2026-10-18T19:00:00+00:00",
+      "observed_at_utc": "2026-10-19T00:26:54.675197+00:00",
+      "home_score": 4,
+      "away_score": 1,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1512.0,
+      "away_after": 1488.0,
+      "observed_home_outcome": 1
+    },
+    "NFL:401873004": {
+      "key": "NFL:401873004",
+      "league": "NFL",
+      "event_id": "401873004",
+      "home": "Rams",
+      "away": "Cardinals",
+      "start_utc": "2026-10-18T20:05:00+00:00",
+      "observed_at_utc": "2026-10-19T00:26:54.675197+00:00",
+      "home_score": 16,
+      "away_score": 18,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.0,
+      "away_before": 1488.0,
+      "home_after": 1476.0,
+      "away_after": 1500.0,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -9463,14 +9519,15 @@
       "Racing": 1487.59,
       "Valencia": 1500.0,
       "Levante": 1499.59,
-      "Sevilla": 1500.0,
+      "Sevilla": 1488.0,
       "Espanyol": 1488.0,
       "Atlético": 1512.0,
       "Villarreal": 1500.0,
       "Barcelona": 1512.41,
       "Athletic": 1500.0,
       "Alavés": 1488.0,
-      "Málaga": 1488.41
+      "Málaga": 1488.41,
+      "Real Madrid": 1512.0
     },
     "LIGUE1": {
       "Nice": 1499.59,
@@ -9552,13 +9609,13 @@
       "Bears": 1500.0,
       "Chargers": 1488.0,
       "Broncos": 1523.17,
-      "Cardinals": 1488.0,
+      "Cardinals": 1500.0,
       "Lions": 1512.0,
       "Seahawks": 1476.83,
       "49ers": 1512.0,
       "Falcons": 1476.0,
       "Ravens": 1499.17,
-      "Rams": 1488.0,
+      "Rams": 1476.0,
       "Bills": 1512.0,
       "Panthers": 1511.59,
       "Giants": 1487.59,
@@ -9569,5 +9626,5 @@
       "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-18T22:32:39.618776+00:00"
+  "updated_at_utc": "2026-10-19T00:27:09.468123+00:00"
 }
