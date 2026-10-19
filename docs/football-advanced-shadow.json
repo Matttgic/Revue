@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-19T15:48:30.146345+00:00",
+  "generated_at_utc": "2026-10-19T18:31:00.692533+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -148,37 +148,6 @@
       "name": "Serie A",
       "games": [
         {
-          "event_id": "401874762",
-          "home": "Monza",
-          "away": "Cagliari",
-          "start_utc": "2026-10-19T16:30:00+00:00",
-          "league": "SERIEA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.34394,
-            "draw_90": 0.27236,
-            "away_win_90": 0.38371,
-            "over_2_5": 0.50686
-          },
-          "expected_score": {
-            "home": 1.3,
-            "away": 1.402
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-12T01:45:50.590667+00:00",
-            "away": "2026-10-12T07:16:19.862015+00:00"
-          }
-        },
-        {
           "event_id": "401874784",
           "home": "Parma",
           "away": "Torino",
@@ -212,17 +181,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 8,
+        "n": 9,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.51314,
-          "logloss": 0.87724
+          "brier": 0.52855,
+          "logloss": 0.89835
         },
         "baseline": {
-          "brier": 0.50725,
-          "logloss": 0.86495
+          "brier": 0.52586,
+          "logloss": 0.89036
         },
-        "shadow_brier_delta_vs_baseline": 0.00589,
+        "shadow_brier_delta_vs_baseline": 0.00269,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
