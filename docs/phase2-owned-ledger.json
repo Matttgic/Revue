@@ -6447,13 +6447,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T21:34:14.546145+00:00",
+      "home_score": 3,
+      "away_score": 1,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.63731336,
+          "log_loss": 1.04867992
+        },
+        "football_advanced": {
+          "brier": 0.64719815,
+          "log_loss": 1.06714269
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -6563,13 +6572,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T21:34:14.546145+00:00",
+      "home_score": 1,
+      "away_score": 1,
+      "result": "draw",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.83437544,
+          "log_loss": 1.36570773
+        },
+        "football_advanced": {
+          "brier": 0.79487799,
+          "log_loss": 1.29938299
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -6664,13 +6682,22 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-19T21:34:14.546145+00:00",
+      "home_score": 0,
+      "away_score": 3,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.56784642,
+          "log_loss": 0.95088218
+        },
+        "football_advanced": {
+          "brier": 0.57475541,
+          "log_loss": 0.96373928
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -9595,6 +9622,57 @@
       "home_after": 1500.41,
       "away_after": 1487.59,
       "observed_home_outcome": 1
+    },
+    "SERIEA:401874784": {
+      "key": "SERIEA:401874784",
+      "league": "SERIEA",
+      "event_id": "401874784",
+      "home": "Parma",
+      "away": "Torino",
+      "start_utc": "2026-10-19T18:45:00+00:00",
+      "observed_at_utc": "2026-10-19T21:34:14.546145+00:00",
+      "home_score": 0,
+      "away_score": 3,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1512.0,
+      "home_after": 1488.41,
+      "away_after": 1523.59,
+      "observed_home_outcome": 0
+    },
+    "LALIGA:401882842": {
+      "key": "LALIGA:401882842",
+      "league": "LALIGA",
+      "event_id": "401882842",
+      "home": "Getafe",
+      "away": "Rayo",
+      "start_utc": "2026-10-19T19:00:00+00:00",
+      "observed_at_utc": "2026-10-19T21:34:14.546145+00:00",
+      "home_score": 1,
+      "away_score": 1,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1500.0,
+      "home_after": 1500.0,
+      "away_after": 1500.0,
+      "observed_home_outcome": 0.5
+    },
+    "PL:401879257": {
+      "key": "PL:401879257",
+      "league": "PL",
+      "event_id": "401879257",
+      "home": "Spurs",
+      "away": "Coventry",
+      "start_utc": "2026-10-19T19:00:00+00:00",
+      "observed_at_utc": "2026-10-19T21:34:14.546145+00:00",
+      "home_score": 3,
+      "away_score": 1,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1512.0,
+      "home_after": 1512.41,
+      "away_after": 1499.59,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -9651,13 +9729,14 @@
       "Juventus": 1488.41,
       "Atalanta": 1499.59,
       "Venezia": 1500.41,
-      "Torino": 1512.0,
+      "Torino": 1523.59,
       "Udinese": 1476.0,
       "Frosinone": 1512.0,
       "Napoli": 1487.59,
       "Inter Milan": 1512.41,
       "Genoa": 1488.0,
-      "Fiorentina": 1488.0
+      "Fiorentina": 1488.0,
+      "Parma": 1488.41
     },
     "LALIGA": {
       "Elche": 1500.0,
@@ -9677,7 +9756,9 @@
       "Athletic": 1500.0,
       "Alavés": 1488.0,
       "Málaga": 1488.41,
-      "Real Madrid": 1512.0
+      "Real Madrid": 1512.0,
+      "Getafe": 1500.0,
+      "Rayo": 1500.0
     },
     "LIGUE1": {
       "Nice": 1499.59,
@@ -9706,7 +9787,7 @@
       "Nottm Forest": 1476.41,
       "Liverpool": 1500.41,
       "Man City": 1523.59,
-      "Coventry": 1512.0,
+      "Coventry": 1499.59,
       "Newcastle": 1476.41,
       "Chelsea": 1512.0,
       "Fulham": 1512.0,
@@ -9718,7 +9799,8 @@
       "Brighton": 1512.41,
       "Bournemouth": 1512.0,
       "Sunderland": 1488.0,
-      "Arsenal": 1511.59
+      "Arsenal": 1511.59,
+      "Spurs": 1512.41
     },
     "BUNDESLIGA": {
       "Cologne": 1499.59,
@@ -9778,5 +9860,5 @@
       "Dream": 1488.0
     }
   },
-  "updated_at_utc": "2026-10-19T21:01:05.539611+00:00"
+  "updated_at_utc": "2026-10-19T21:41:20.042878+00:00"
 }
