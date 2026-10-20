@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T19:04:20.622350+00:00",
+  "generated_at_utc": "2026-10-20T22:03:52.448929+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -13,7 +13,39 @@
   "competitions": {
     "PL": {
       "name": "Premier League",
-      "games": [],
+      "games": [
+        {
+          "event_id": "401879253",
+          "home": "Ipswich",
+          "away": "Nottm Forest",
+          "start_utc": "2026-10-23T19:00:00+00:00",
+          "league": "PL",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 6,
+            "away": 6
+          },
+          "probabilities": {
+            "home_win_90": 0.4018,
+            "draw_90": 0.26327,
+            "away_win_90": 0.33494,
+            "over_2_5": 0.54382
+          },
+          "expected_score": {
+            "home": 1.499,
+            "away": 1.357
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-18T03:58:08.913782+00:00",
+            "away": "2026-10-19T04:30:46.925715+00:00"
+          }
+        }
+      ],
       "evaluation": {
         "status": "small_historical_score_backtest",
         "n": 10,
@@ -45,14 +77,14 @@
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.33793,
-            "draw_90": 0.27096,
-            "away_win_90": 0.39111,
-            "over_2_5": 0.51065
+            "home_win_90": 0.33808,
+            "draw_90": 0.27083,
+            "away_win_90": 0.39109,
+            "over_2_5": 0.51122
           },
           "expected_score": {
-            "home": 1.284,
-            "away": 1.434
+            "home": 1.285,
+            "away": 1.435
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -63,27 +95,90 @@
             "home": "2026-10-17T07:08:51.778184+00:00",
             "away": "2026-10-18T07:22:31.401087+00:00"
           }
+        },
+        {
+          "event_id": "401882836",
+          "home": "Alavés",
+          "away": "Málaga",
+          "start_utc": "2026-10-23T19:00:00+00:00",
+          "league": "LALIGA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 7,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win_90": 0.53699,
+            "draw_90": 0.24733,
+            "away_win_90": 0.21568,
+            "over_2_5": 0.51156
+          },
+          "expected_score": {
+            "home": 1.76,
+            "away": 0.961
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-19T04:30:46.925715+00:00",
+            "away": "2026-10-19T04:30:46.925715+00:00"
+          }
         }
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 19,
+        "n": 18,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.57807,
-          "logloss": 0.9836
+          "brier": 0.58017,
+          "logloss": 0.98863
         },
         "baseline": {
-          "brier": 0.59528,
-          "logloss": 1.01161
+          "brier": 0.59874,
+          "logloss": 1.01903
         },
-        "shadow_brier_delta_vs_baseline": -0.01721,
+        "shadow_brier_delta_vs_baseline": -0.01857,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "SERIEA": {
       "name": "Serie A",
-      "games": [],
+      "games": [
+        {
+          "event_id": "401874957",
+          "home": "Torino",
+          "away": "Monza",
+          "start_utc": "2026-10-23T18:45:00+00:00",
+          "league": "SERIEA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 6,
+            "away": 6
+          },
+          "probabilities": {
+            "home_win_90": 0.43026,
+            "draw_90": 0.24348,
+            "away_win_90": 0.32626,
+            "over_2_5": 0.62701
+          },
+          "expected_score": {
+            "home": 1.737,
+            "away": 1.496
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-20T07:51:20.439269+00:00",
+            "away": "2026-10-20T05:32:22.554742+00:00"
+          }
+        }
+      ],
       "evaluation": {
         "status": "small_historical_score_backtest",
         "n": 10,
@@ -102,7 +197,39 @@
     },
     "BUNDESLIGA": {
       "name": "Bundesliga",
-      "games": [],
+      "games": [
+        {
+          "event_id": "401884761",
+          "home": "Stuttgart",
+          "away": "Gladbach",
+          "start_utc": "2026-10-23T18:30:00+00:00",
+          "league": "BUNDESLIGA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 6,
+            "away": 6
+          },
+          "probabilities": {
+            "home_win_90": 0.579,
+            "draw_90": 0.19558,
+            "away_win_90": 0.22541,
+            "over_2_5": 0.7455
+          },
+          "expected_score": {
+            "home": 2.457,
+            "away": 1.435
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-18T03:58:08.913782+00:00",
+            "away": "2026-10-19T04:30:46.925715+00:00"
+          }
+        }
+      ],
       "evaluation": {
         "status": "small_historical_score_backtest",
         "n": 9,
@@ -121,7 +248,39 @@
     },
     "LIGUE1": {
       "name": "Ligue 1",
-      "games": [],
+      "games": [
+        {
+          "event_id": "401876428",
+          "home": "Brest",
+          "away": "Nice",
+          "start_utc": "2026-10-23T18:45:00+00:00",
+          "league": "LIGUE1",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 6,
+            "away": 6
+          },
+          "probabilities": {
+            "home_win_90": 0.51449,
+            "draw_90": 0.24295,
+            "away_win_90": 0.24256,
+            "over_2_5": 0.56256
+          },
+          "expected_score": {
+            "home": 1.817,
+            "away": 1.121
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-18T07:22:31.401087+00:00",
+            "away": "2026-10-19T07:30:16.595898+00:00"
+          }
+        }
+      ],
       "evaluation": {
         "status": "small_historical_score_backtest",
         "n": 9,

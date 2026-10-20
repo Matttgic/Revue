@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T19:04:21.147265+00:00",
+  "generated_at_utc": "2026-10-20T22:03:53.005543+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -229,6 +229,21 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401909848",
+          "league": "NBA",
+          "home": "Bucks",
+          "away": "Bulls",
+          "start_utc": "2026-10-23T20:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 5,
+            "away": 5
+          },
+          "probabilities": null,
+          "odds": null
         }
       ],
       "evaluation": {
@@ -338,34 +353,34 @@
           "status": "shadow_non_calibre",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 21,
+            "home": 19,
             "away": 20
           },
           "probabilities": {
-            "home_win": 0.5868,
-            "away_win": 0.4132
+            "home_win": 0.57539,
+            "away_win": 0.42461
           },
           "odds": null,
-          "expected_margin_home": 0.62,
+          "expected_margin_home": 0.563,
           "components": {
-            "elo_probability": 0.5912,
-            "margin_probability": 0.5793,
+            "elo_probability": 0.5774,
+            "margin_probability": 0.572,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 79,
+        "n": 64,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24453,
-          "logloss_binary": 0.68218
+          "brier_binary": 0.24623,
+          "logloss_binary": 0.68568
         },
         "baseline": {
-          "brier_binary": 0.24101,
-          "logloss_binary": 0.67495
+          "brier_binary": 0.24254,
+          "logloss_binary": 0.67813
         },
-        "brier_delta_candidate_minus_baseline": 0.00352,
+        "brier_delta_candidate_minus_baseline": 0.00369,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     }
