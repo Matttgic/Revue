@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-19T21:41:02.960656+00:00",
+  "generated_at_utc": "2026-10-20T00:02:34.159872+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -19,14 +19,14 @@
         "n": 10,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.56192,
-          "logloss": 0.94881
+          "brier": 0.56316,
+          "logloss": 0.95085
         },
         "baseline": {
-          "brier": 0.56141,
-          "logloss": 0.94575
+          "brier": 0.56284,
+          "logloss": 0.94817
         },
-        "shadow_brier_delta_vs_baseline": 0.00051,
+        "shadow_brier_delta_vs_baseline": 0.00032,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -41,18 +41,18 @@
           "league": "LALIGA",
           "model": "advanced_shadow_v1",
           "training_games": {
-            "home": 7,
+            "home": 6,
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.33462,
-            "draw_90": 0.28205,
-            "away_win_90": 0.38333,
-            "over_2_5": 0.46629
+            "home_win_90": 0.33806,
+            "draw_90": 0.27089,
+            "away_win_90": 0.39105,
+            "over_2_5": 0.51096
           },
           "expected_score": {
-            "home": 1.202,
-            "away": 1.337
+            "home": 1.284,
+            "away": 1.434
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -67,17 +67,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 21,
+        "n": 19,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.6007,
-          "logloss": 1.01575
+          "brier": 0.5779,
+          "logloss": 0.98335
         },
         "baseline": {
-          "brier": 0.61897,
-          "logloss": 1.04623
+          "brier": 0.59528,
+          "logloss": 1.01161
         },
-        "shadow_brier_delta_vs_baseline": -0.01827,
+        "shadow_brier_delta_vs_baseline": -0.01738,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -89,14 +89,14 @@
         "n": 10,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.53238,
-          "logloss": 0.9037
+          "brier": 0.55042,
+          "logloss": 0.92794
         },
         "baseline": {
-          "brier": 0.52944,
-          "logloss": 0.8954
+          "brier": 0.54723,
+          "logloss": 0.91891
         },
-        "shadow_brier_delta_vs_baseline": 0.00294,
+        "shadow_brier_delta_vs_baseline": 0.00319,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -140,20 +140,52 @@
     },
     "MLS": {
       "name": "MLS",
-      "games": [],
+      "games": [
+        {
+          "event_id": "761773",
+          "home": "Cincinnati",
+          "away": "D.C. United",
+          "start_utc": "2026-10-21T23:00:00+00:00",
+          "league": "MLS",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 8,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win_90": 0.39157,
+            "draw_90": 0.2301,
+            "away_win_90": 0.37833,
+            "over_2_5": 0.69654
+          },
+          "expected_score": {
+            "home": 1.812,
+            "away": 1.784
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-10-19T10:01:18.906657+00:00",
+            "away": "2026-10-18T11:59:11.089740+00:00"
+          }
+        }
+      ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 60,
+        "n": 59,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.63201,
-          "logloss": 1.05159
+          "brier": 0.6298,
+          "logloss": 1.04872
         },
         "baseline": {
-          "brier": 0.63516,
-          "logloss": 1.0579
+          "brier": 0.63321,
+          "logloss": 1.05563
         },
-        "shadow_brier_delta_vs_baseline": -0.00315,
+        "shadow_brier_delta_vs_baseline": -0.00341,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },

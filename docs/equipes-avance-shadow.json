@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-19T21:41:03.492647+00:00",
+  "generated_at_utc": "2026-10-20T00:02:34.586596+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -214,6 +214,21 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401909093",
+          "league": "NBA",
+          "home": "76ers",
+          "away": "Cavaliers",
+          "start_utc": "2026-10-22T23:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 4,
+            "away": 3
+          },
+          "probabilities": null,
+          "odds": null
         }
       ],
       "evaluation": {
@@ -223,30 +238,6 @@
     },
     "WNBA": {
       "games": [
-        {
-          "event_id": "401918306",
-          "league": "WNBA",
-          "home": "Valkyries",
-          "away": "Dream",
-          "start_utc": "2026-10-20T00:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 11,
-            "away": 10
-          },
-          "probabilities": {
-            "home_win": 0.53626,
-            "away_win": 0.46374
-          },
-          "odds": null,
-          "expected_margin_home": 0.018,
-          "components": {
-            "elo_probability": 0.5572,
-            "margin_probability": 0.5007,
-            "last_games_form": 5
-          }
-        },
         {
           "event_id": "401918307",
           "league": "WNBA",
@@ -339,54 +330,6 @@
     "MLB": {
       "games": [
         {
-          "event_id": "401908028",
-          "league": "MLB",
-          "home": "Rays",
-          "away": "Guardians",
-          "start_utc": "2026-10-20T00:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 21,
-            "away": 21
-          },
-          "probabilities": {
-            "home_win": 0.55244,
-            "away_win": 0.44756
-          },
-          "odds": null,
-          "expected_margin_home": 0.313,
-          "components": {
-            "elo_probability": 0.5596,
-            "margin_probability": 0.5402,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401908036",
-          "league": "MLB",
-          "home": "Brewers",
-          "away": "Dodgers",
-          "start_utc": "2026-10-20T00:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 20,
-            "away": 20
-          },
-          "probabilities": {
-            "home_win": 0.63529,
-            "away_win": 0.36471
-          },
-          "odds": null,
-          "expected_margin_home": 0.611,
-          "components": {
-            "elo_probability": 0.6689,
-            "margin_probability": 0.5781,
-            "last_games_form": 5
-          }
-        },
-        {
           "event_id": "401908029",
           "league": "MLB",
           "home": "Rays",
@@ -395,34 +338,34 @@
           "status": "shadow_non_calibre",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 21,
-            "away": 21
+            "home": 20,
+            "away": 19
           },
           "probabilities": {
-            "home_win": 0.55244,
-            "away_win": 0.44756
+            "home_win": 0.55658,
+            "away_win": 0.44342
           },
           "odds": null,
-          "expected_margin_home": 0.313,
+          "expected_margin_home": 0.338,
           "components": {
-            "elo_probability": 0.5596,
-            "margin_probability": 0.5402,
+            "elo_probability": 0.5643,
+            "margin_probability": 0.5435,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 98,
+        "n": 78,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24467,
-          "logloss_binary": 0.68236
+          "brier_binary": 0.24514,
+          "logloss_binary": 0.68341
         },
         "baseline": {
-          "brier_binary": 0.24251,
-          "logloss_binary": 0.67778
+          "brier_binary": 0.24177,
+          "logloss_binary": 0.67647
         },
-        "brier_delta_candidate_minus_baseline": 0.00216,
+        "brier_delta_candidate_minus_baseline": 0.00337,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     }

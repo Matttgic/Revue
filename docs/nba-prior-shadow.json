@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-19T21:41:02.464271+00:00",
+  "generated_at_utc": "2026-10-20T00:02:33.759911+00:00",
   "status": "shadow_nba_prior_only",
   "source": "ESPN public previous-season NBA standings",
   "previous_season_end_year": 2026,
@@ -410,8 +410,37 @@
       "previous_season": 2026,
       "data_observed_at": "2026-10-09T21:56:07.353586+00:00",
       "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
+    },
+    {
+      "event_id": "401909093",
+      "league": "NBA",
+      "home": "76ers",
+      "away": "Cavaliers",
+      "start_utc": "2026-10-22T23:00:00+00:00",
+      "model": "independent_nba_prior_strength_v1",
+      "status": "shadow_prior_not_calibrated",
+      "probabilities": {
+        "home_win": 0.47826,
+        "away_win": 0.52174
+      },
+      "components": {
+        "elo": 0.4573,
+        "margin": 0.49762,
+        "prior_wins": 0.48948
+      },
+      "strength": {
+        "home": -1.279,
+        "away": 1.664
+      },
+      "current_games": {
+        "home": 4,
+        "away": 3
+      },
+      "previous_season": 2026,
+      "data_observed_at": "2026-10-09T21:56:07.353586+00:00",
+      "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
     }
   ],
-  "ready": 14,
+  "ready": 15,
   "disclaimer": "Prior-season standings are NOT the current lineups. No historical look-ahead backtest from a newly collected snapshot."
 }
