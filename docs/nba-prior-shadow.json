@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T00:02:33.759911+00:00",
+  "generated_at_utc": "2026-10-20T02:00:54.656089+00:00",
   "status": "shadow_nba_prior_only",
   "source": "ESPN public previous-season NBA standings",
   "previous_season_end_year": 2026,
@@ -439,8 +439,37 @@
       "previous_season": 2026,
       "data_observed_at": "2026-10-09T21:56:07.353586+00:00",
       "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
+    },
+    {
+      "event_id": "401909094",
+      "league": "NBA",
+      "home": "Thunder",
+      "away": "Nuggets",
+      "start_utc": "2026-10-23T01:30:00+00:00",
+      "model": "independent_nba_prior_strength_v1",
+      "status": "shadow_prior_not_calibrated",
+      "probabilities": {
+        "home_win": 0.57489,
+        "away_win": 0.42511
+      },
+      "components": {
+        "elo": 0.58673,
+        "margin": 0.5658,
+        "prior_wins": 0.5636
+      },
+      "strength": {
+        "home": 4.105,
+        "away": 2.928
+      },
+      "current_games": {
+        "home": 5,
+        "away": 5
+      },
+      "previous_season": 2026,
+      "data_observed_at": "2026-10-09T21:56:07.353586+00:00",
+      "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
     }
   ],
-  "ready": 15,
+  "ready": 16,
   "disclaimer": "Prior-season standings are NOT the current lineups. No historical look-ahead backtest from a newly collected snapshot."
 }
