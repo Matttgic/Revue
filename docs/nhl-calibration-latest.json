@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-20T04:42:07.159626+00:00",
+  "generated_at_utc": "2026-10-21T04:38:05.747448+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 71,
+      "settled_samples": 80,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 29,
-      "raw_brier": 0.220968,
-      "raw_logloss": 0.627486,
+      "training_remaining": 20,
+      "raw_brier": 0.234282,
+      "raw_logloss": 0.658411,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -44,23 +44,23 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 26,
-          "predicted_mean": 0.5037,
-          "observed_rate": 0.5769
+          "count": 31,
+          "predicted_mean": 0.5044,
+          "observed_rate": 0.6452
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 19,
-          "predicted_mean": 0.6638,
-          "observed_rate": 0.7368
+          "count": 22,
+          "predicted_mean": 0.6683,
+          "observed_rate": 0.6818
         },
         {
           "from": 0.8,
           "to": 1.0,
-          "count": 7,
-          "predicted_mean": 0.8991,
-          "observed_rate": 0.8571
+          "count": 8,
+          "predicted_mean": 0.8891,
+          "observed_rate": 0.75
         }
       ],
       "calibration_status": "insufficient_training",
@@ -73,12 +73,12 @@
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 53,
+      "settled_samples": 62,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 47,
-      "raw_brier": 0.22506,
-      "raw_logloss": 0.639952,
+      "training_remaining": 38,
+      "raw_brier": 0.237905,
+      "raw_logloss": 0.667547,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -97,16 +97,16 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 31,
-          "predicted_mean": 0.5001,
-          "observed_rate": 0.5161
+          "count": 37,
+          "predicted_mean": 0.5036,
+          "observed_rate": 0.5946
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 11,
-          "predicted_mean": 0.6497,
-          "observed_rate": 0.8182
+          "count": 14,
+          "predicted_mean": 0.6584,
+          "observed_rate": 0.6429
         },
         {
           "from": 0.8,
