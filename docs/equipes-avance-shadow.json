@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-21T20:06:01.423599+00:00",
+  "generated_at_utc": "2026-10-21T22:37:04.960409+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -379,6 +379,21 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401909853",
+          "league": "NBA",
+          "home": "Hornets",
+          "away": "Heat",
+          "start_utc": "2026-10-24T22:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 4,
+            "away": 5
+          },
+          "probabilities": null,
+          "odds": null
         }
       ],
       "evaluation": {
@@ -474,30 +489,30 @@
             "away": 8
           },
           "probabilities": {
-            "home_win": 0.5393,
-            "away_win": 0.4607
+            "home_win": 0.53958,
+            "away_win": 0.46042
           },
           "odds": null,
           "expected_margin_home": 0.589,
           "components": {
-            "elo_probability": 0.5518,
+            "elo_probability": 0.5522,
             "margin_probability": 0.5181,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 76,
+        "n": 73,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.2408,
-          "logloss_binary": 0.67433
+          "brier_binary": 0.24342,
+          "logloss_binary": 0.67972
         },
         "baseline": {
-          "brier_binary": 0.24356,
-          "logloss_binary": 0.67968
+          "brier_binary": 0.24599,
+          "logloss_binary": 0.68475
         },
-        "brier_delta_candidate_minus_baseline": -0.00276,
+        "brier_delta_candidate_minus_baseline": -0.00257,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -516,30 +531,30 @@
             "away": 19
           },
           "probabilities": {
-            "home_win": 0.59375,
-            "away_win": 0.40625
+            "home_win": 0.59446,
+            "away_win": 0.40554
           },
           "odds": null,
           "expected_margin_home": 0.324,
           "components": {
-            "elo_probability": 0.6244,
+            "elo_probability": 0.6255,
             "margin_probability": 0.5416,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 64,
+        "n": 62,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24623,
-          "logloss_binary": 0.68568
+          "brier_binary": 0.24627,
+          "logloss_binary": 0.68574
         },
         "baseline": {
-          "brier_binary": 0.24254,
-          "logloss_binary": 0.67813
+          "brier_binary": 0.24204,
+          "logloss_binary": 0.67706
         },
-        "brier_delta_candidate_minus_baseline": 0.00369,
+        "brier_delta_candidate_minus_baseline": 0.00423,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     }
