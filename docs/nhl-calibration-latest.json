@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-21T04:38:05.747448+00:00",
+  "generated_at_utc": "2026-10-22T04:35:56.604295+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,18 +20,18 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 80,
+      "settled_samples": 84,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 20,
-      "raw_brier": 0.234282,
-      "raw_logloss": 0.658411,
+      "training_remaining": 16,
+      "raw_brier": 0.231435,
+      "raw_logloss": 0.651,
       "reliability_bins": [
         {
           "from": 0.0,
           "to": 0.2,
-          "count": 1,
-          "predicted_mean": 0.199,
+          "count": 2,
+          "predicted_mean": 0.1245,
           "observed_rate": 0.0
         },
         {
@@ -44,16 +44,16 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 31,
-          "predicted_mean": 0.5044,
-          "observed_rate": 0.6452
+          "count": 33,
+          "predicted_mean": 0.5067,
+          "observed_rate": 0.6061
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 22,
-          "predicted_mean": 0.6683,
-          "observed_rate": 0.6818
+          "count": 23,
+          "predicted_mean": 0.6686,
+          "observed_rate": 0.6957
         },
         {
           "from": 0.8,
@@ -73,19 +73,19 @@
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 62,
+      "settled_samples": 66,
       "training_required": 100,
       "holdout_required": 40,
-      "training_remaining": 38,
-      "raw_brier": 0.237905,
-      "raw_logloss": 0.667547,
+      "training_remaining": 34,
+      "raw_brier": 0.234719,
+      "raw_logloss": 0.659607,
       "reliability_bins": [
         {
           "from": 0.0,
           "to": 0.2,
-          "count": 0,
-          "predicted_mean": null,
-          "observed_rate": null
+          "count": 1,
+          "predicted_mean": 0.104,
+          "observed_rate": 0.0
         },
         {
           "from": 0.2,
@@ -97,16 +97,16 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 37,
-          "predicted_mean": 0.5036,
-          "observed_rate": 0.5946
+          "count": 39,
+          "predicted_mean": 0.5059,
+          "observed_rate": 0.5641
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 14,
-          "predicted_mean": 0.6584,
-          "observed_rate": 0.6429
+          "count": 15,
+          "predicted_mean": 0.6577,
+          "observed_rate": 0.6667
         },
         {
           "from": 0.8,
