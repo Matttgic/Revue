@@ -1,87 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-23T17:57:45.990571+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-23T15:25:38.922417+00:00",
+  "generated_at_utc": "2026-10-23T18:27:40.692778+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-23T17:57:46.031218+00:00",
   "models": [
-    {
-      "event_id": "401884761",
-      "league": "BUNDESLIGA",
-      "home": "Stuttgart",
-      "away": "Gladbach",
-      "start_utc": "2026-10-23T18:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.566234,
-        "draw_90": 0.196153,
-        "away_win_90": 0.237613,
-        "over_2_5": 0.734295
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-23T16:09:40.024619+00:00",
-        "espn_shots_shadow": "2026-10-23T16:09:43.721721+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.0287
-    },
-    {
-      "event_id": "401876428",
-      "league": "LIGUE1",
-      "home": "Brest",
-      "away": "Nice",
-      "start_utc": "2026-10-23T18:45:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.50373,
-        "draw_90": 0.240085,
-        "away_win_90": 0.256185,
-        "over_2_5": 0.558033
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-23T16:09:40.024619+00:00",
-        "espn_shots_shadow": "2026-10-23T16:09:43.721721+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.03094
-    },
-    {
-      "event_id": "401874957",
-      "league": "SERIEA",
-      "home": "Torino",
-      "away": "Monza",
-      "start_utc": "2026-10-23T18:45:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.435997,
-        "draw_90": 0.238273,
-        "away_win_90": 0.32573,
-        "over_2_5": 0.623585
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-23T16:09:40.024619+00:00",
-        "espn_shots_shadow": "2026-10-23T16:09:43.721721+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01274
-    },
     {
       "event_id": "401882836",
       "league": "LALIGA",
@@ -2122,20 +2044,21 @@
     }
   ],
   "metrics": {
-    "candidates": 85,
-    "events_covered": 85,
+    "candidates": 82,
+    "events_covered": 82,
     "models_by_league": {
-      "BUNDESLIGA": 9,
-      "LIGUE1": 9,
-      "SERIEA": 10,
       "LALIGA": 9,
       "PL": 10,
       "NBA": 22,
       "MLB": 2,
-      "MLS": 14
+      "SERIEA": 9,
+      "BUNDESLIGA": 8,
+      "MLS": 14,
+      "LIGUE1": 8
     },
     "decisions": {
-      "football_correlated_research_pool": 61,
+      "not_pregame_20m": 3,
+      "football_correlated_research_pool": 58,
       "nba_advanced_prior_mode_unverified": 22,
       "mlb_history_elo": 2
     }
