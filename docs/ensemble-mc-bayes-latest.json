@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-22T23:37:42.545764+00:00",
+  "generated_at_utc": "2026-10-23T02:08:51.624569+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -15,21 +15,6 @@
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401909094",
-          "league": "NBA",
-          "home": "Thunder",
-          "away": "Nuggets",
-          "start_utc": "2026-10-23T01:30:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 6,
-            "away": 5
-          },
-          "probabilities": null,
-          "components": null
-        },
         {
           "event_id": "401909848",
           "league": "NBA",
@@ -419,6 +404,21 @@
           },
           "probabilities": null,
           "components": null
+        },
+        {
+          "event_id": "401909867",
+          "league": "NBA",
+          "home": "Kings",
+          "away": "Grizzlies",
+          "start_utc": "2026-10-26T01:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 6,
+            "away": 5
+          },
+          "probabilities": null,
+          "components": null
         }
       ],
       "evaluation": {
@@ -494,40 +494,6 @@
     },
     "NFL": {
       "games": [
-        {
-          "event_id": "401873010",
-          "league": "NFL",
-          "home": "Bears",
-          "away": "Patriots",
-          "start_utc": "2026-10-23T00:15:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 8,
-            "away": 8
-          },
-          "probabilities": {
-            "home_win": 0.54023,
-            "away_win": 0.45977
-          },
-          "components": {
-            "monte_carlo": 0.54167,
-            "bayes": 0.526,
-            "elo": 0.55034,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 23.2,
-            "away": 21.79
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
         {
           "event_id": "401873011",
           "league": "NFL",
@@ -899,6 +865,40 @@
           "expected_score": {
             "home": 23.74,
             "away": 22.96
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873022",
+          "league": "NFL",
+          "home": "Seahawks",
+          "away": "Chiefs",
+          "start_utc": "2026-10-26T00:20:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 8,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win": 0.49239,
+            "away_win": 0.50761
+          },
+          "components": {
+            "monte_carlo": 0.51562,
+            "bayes": 0.45278,
+            "elo": 0.4805,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 21.87,
+            "away": 21.86
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
