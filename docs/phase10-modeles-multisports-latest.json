@@ -1,119 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-23T21:39:48.502554+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-23T20:29:53.874888+00:00",
+  "generated_at_utc": "2026-10-23T23:03:26.849458+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-23T22:39:34.609233+00:00",
   "models": [
-    {
-      "event_id": "401909095",
-      "league": "NBA",
-      "home": "Celtics",
-      "away": "Knicks",
-      "start_utc": "2026-10-23T23:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.69293,
-        "away_win": 0.30707
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-23T21:39:38.468708+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401909843",
-      "league": "NBA",
-      "home": "Hornets",
-      "away": "Hawks",
-      "start_utc": "2026-10-23T23:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.49378,
-        "away_win": 0.50622
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-23T21:39:38.468708+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401909844",
-      "league": "NBA",
-      "home": "Pacers",
-      "away": "Mavericks",
-      "start_utc": "2026-10-23T23:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.56375,
-        "away_win": 0.43625
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-23T21:39:38.468708+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401909845",
-      "league": "NBA",
-      "home": "Magic",
-      "away": "Timberwolves",
-      "start_utc": "2026-10-23T23:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.5229,
-        "away_win": 0.4771
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-23T21:39:38.468708+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401909846",
-      "league": "NBA",
-      "home": "Wizards",
-      "away": "Raptors",
-      "start_utc": "2026-10-23T23:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.32733,
-        "away_win": 0.67267
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-23T21:39:38.468708+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
     {
       "event_id": "401908042",
       "league": "MLB",
@@ -1944,11 +1834,11 @@
     }
   ],
   "metrics": {
-    "candidates": 78,
-    "events_covered": 78,
+    "candidates": 73,
+    "events_covered": 73,
     "models_by_league": {
-      "NBA": 21,
       "MLB": 2,
+      "NBA": 16,
       "PL": 9,
       "LALIGA": 8,
       "SERIEA": 9,
@@ -1957,8 +1847,9 @@
       "LIGUE1": 7
     },
     "decisions": {
-      "nba_advanced_prior_mode_unverified": 21,
+      "not_pregame_20m": 5,
       "mlb_history_elo": 2,
+      "nba_advanced_prior_mode_unverified": 16,
       "football_correlated_research_pool": 55
     }
   },
