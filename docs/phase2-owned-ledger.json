@@ -7323,13 +7323,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-23T04:35:30.655751+00:00",
+      "home_score": 30,
+      "away_score": 24,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.36534152,
+          "log_loss": 0.55756789
+        },
+        "advanced_team": {
+          "brier": 0.42448898,
+          "log_loss": 0.61748328
+        },
+        "montecarlo_bayes": {
+          "brier": 0.4221151,
+          "log_loss": 0.61509414
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -10398,6 +10411,52 @@
       "model_scores": null,
       "real_bet": false,
       "stake_units": 0
+    },
+    "NBA:401909855": {
+      "event_id": "401909855",
+      "league": "NBA",
+      "home": "76ers",
+      "away": "Bucks",
+      "start_utc": "2026-10-24T23:30:00+00:00",
+      "locked_at_utc": "2026-10-23T04:40:03.258975+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.6011,
+            0.3989
+          ],
+          "published_at_utc": "2026-10-23T02:08:46.774353+00:00",
+          "training_games": {
+            "home": 6,
+            "away": 6
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.519720041,
+            0.480279959
+          ],
+          "published_at_utc": "2026-10-23T04:40:03.258975+00:00",
+          "training_games": {
+            "home": 3,
+            "away": 4
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
     }
   },
   "elo_events": {
@@ -13239,6 +13298,57 @@
       "home_after": 1511.61,
       "away_after": 1454.49,
       "observed_home_outcome": 1
+    },
+    "NBA:401909093": {
+      "key": "NBA:401909093",
+      "league": "NBA",
+      "event_id": "401909093",
+      "home": "76ers",
+      "away": "Cavaliers",
+      "start_utc": "2026-10-22T23:00:00+00:00",
+      "observed_at_utc": "2026-10-23T04:35:30.655751+00:00",
+      "home_score": 114,
+      "away_score": 106,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1489.71,
+      "away_before": 1499.17,
+      "home_after": 1502.04,
+      "away_after": 1486.84,
+      "observed_home_outcome": 1
+    },
+    "NFL:401873010": {
+      "key": "NFL:401873010",
+      "league": "NFL",
+      "event_id": "401873010",
+      "home": "Bears",
+      "away": "Patriots",
+      "start_utc": "2026-10-23T00:15:00+00:00",
+      "observed_at_utc": "2026-10-23T04:35:30.655751+00:00",
+      "home_score": 30,
+      "away_score": 24,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1524.0,
+      "home_after": 1512.83,
+      "away_after": 1511.17,
+      "observed_home_outcome": 1
+    },
+    "NBA:401909094": {
+      "key": "NBA:401909094",
+      "league": "NBA",
+      "event_id": "401909094",
+      "home": "Thunder",
+      "away": "Nuggets",
+      "start_utc": "2026-10-23T01:30:00+00:00",
+      "observed_at_utc": "2026-10-23T04:35:30.655751+00:00",
+      "home_score": 96,
+      "away_score": 84,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.43,
+      "away_before": 1510.8,
+      "home_after": 1512.79,
+      "away_after": 1498.44,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -13252,22 +13362,22 @@
       "Heat": 1477.16,
       "Timberwolves": 1509.69,
       "Celtics": 1522.03,
-      "76ers": 1489.71,
+      "76ers": 1502.04,
       "Warriors": 1521.57,
       "Kings": 1454.49,
       "Suns": 1476.05,
       "Spurs": 1488.73,
       "Rockets": 1512.02,
       "Mavericks": 1476.83,
-      "Cavaliers": 1499.17,
+      "Cavaliers": 1486.84,
       "Magic": 1501.59,
       "Hornets": 1500.4,
       "Bucks": 1476.0,
-      "Nuggets": 1510.8,
+      "Nuggets": 1498.44,
       "Bulls": 1499.84,
       "Trail Blazers": 1522.35,
       "Lions": 1488.0,
-      "Thunder": 1500.43,
+      "Thunder": 1512.79,
       "Nets": 1487.17,
       "Knicks": 1478.33,
       "Jazz": 1510.77,
@@ -13399,12 +13509,12 @@
       "Texans": 1524.0,
       "Steelers": 1523.59,
       "Colts": 1476.0,
-      "Patriots": 1524.0,
+      "Patriots": 1511.17,
       "Raiders": 1476.83,
       "Saints": 1500.41,
       "Vikings": 1512.0,
       "Packers": 1523.59,
-      "Bears": 1500.0,
+      "Bears": 1512.83,
       "Chargers": 1476.41,
       "Broncos": 1523.17,
       "Cardinals": 1500.0,
@@ -13427,5 +13537,5 @@
       "Dream": 1512.77
     }
   },
-  "updated_at_utc": "2026-10-23T00:10:17.000411+00:00"
+  "updated_at_utc": "2026-10-23T04:40:03.258975+00:00"
 }
