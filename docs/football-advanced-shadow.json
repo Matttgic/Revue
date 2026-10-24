@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-24T12:52:45.193138+00:00",
+  "generated_at_utc": "2026-10-24T14:11:16.871123+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -14,68 +14,6 @@
     "PL": {
       "name": "Premier League",
       "games": [
-        {
-          "event_id": "401878768",
-          "home": "Arsenal",
-          "away": "Everton",
-          "start_utc": "2026-10-24T14:00:00+00:00",
-          "league": "PL",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.45499,
-            "draw_90": 0.2901,
-            "away_win_90": 0.2549,
-            "over_2_5": 0.40658
-          },
-          "expected_score": {
-            "home": 1.368,
-            "away": 0.941
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-19T04:30:46.925715+00:00",
-            "away": "2026-10-18T00:57:53.802569+00:00"
-          }
-        },
-        {
-          "event_id": "401879255",
-          "home": "Coventry",
-          "away": "Fulham",
-          "start_utc": "2026-10-24T14:00:00+00:00",
-          "league": "PL",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.35502,
-            "draw_90": 0.29037,
-            "away_win_90": 0.35461,
-            "over_2_5": 0.43736
-          },
-          "expected_score": {
-            "home": 1.201,
-            "away": 1.226
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-20T07:51:20.439269+00:00",
-            "away": "2026-10-18T03:58:08.913782+00:00"
-          }
-        },
         {
           "event_id": "401878767",
           "home": "Chelsea",
@@ -265,17 +203,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 9,
+        "n": 10,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.67282,
-          "logloss": 1.10523
+          "brier": 0.68433,
+          "logloss": 1.12014
         },
         "baseline": {
-          "brier": 0.66822,
-          "logloss": 1.09785
+          "brier": 0.6755,
+          "logloss": 1.10613
         },
-        "shadow_brier_delta_vs_baseline": 0.0046,
+        "shadow_brier_delta_vs_baseline": 0.00883,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -533,85 +471,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 15,
+        "n": 16,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.56358,
-          "logloss": 0.96059
+          "brier": 0.56571,
+          "logloss": 0.96207
         },
         "baseline": {
-          "brier": 0.58131,
-          "logloss": 0.98903
+          "brier": 0.58118,
+          "logloss": 0.9869
         },
-        "shadow_brier_delta_vs_baseline": -0.01773,
+        "shadow_brier_delta_vs_baseline": -0.01547,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "SERIEA": {
       "name": "Serie A",
       "games": [
-        {
-          "event_id": "401874958",
-          "home": "Cagliari",
-          "away": "Bologna",
-          "start_utc": "2026-10-24T13:00:00+00:00",
-          "league": "SERIEA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.4042,
-            "draw_90": 0.29433,
-            "away_win_90": 0.30147,
-            "over_2_5": 0.41578
-          },
-          "expected_score": {
-            "home": 1.274,
-            "away": 1.071
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-20T05:32:22.554742+00:00",
-            "away": "2026-10-18T06:28:44.283669+00:00"
-          }
-        },
-        {
-          "event_id": "401874961",
-          "home": "Como",
-          "away": "Sassuolo",
-          "start_utc": "2026-10-24T13:00:00+00:00",
-          "league": "SERIEA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.53846,
-            "draw_90": 0.21666,
-            "away_win_90": 0.24488,
-            "over_2_5": 0.67982
-          },
-          "expected_score": {
-            "home": 2.15,
-            "away": 1.353
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-19T01:32:29.222108+00:00",
-            "away": "2026-10-17T07:08:51.778184+00:00"
-          }
-        },
         {
           "event_id": "401874948",
           "home": "Napoli",
@@ -849,161 +725,6 @@
     "BUNDESLIGA": {
       "name": "Bundesliga",
       "games": [
-        {
-          "event_id": "401884755",
-          "home": "Paderborn",
-          "away": "Hamburg",
-          "start_utc": "2026-10-24T13:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.45804,
-            "draw_90": 0.25618,
-            "away_win_90": 0.28579,
-            "over_2_5": 0.54712
-          },
-          "expected_score": {
-            "home": 1.656,
-            "away": 1.214
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-18T03:58:08.913782+00:00",
-            "away": "2026-10-18T03:58:08.913782+00:00"
-          }
-        },
-        {
-          "event_id": "401884756",
-          "home": "Cologne",
-          "away": "Schalke",
-          "start_utc": "2026-10-24T13:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.41856,
-            "draw_90": 0.27703,
-            "away_win_90": 0.30441,
-            "over_2_5": 0.47858
-          },
-          "expected_score": {
-            "home": 1.421,
-            "away": 1.167
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-17T07:08:51.778184+00:00",
-            "away": "2026-10-18T03:58:08.913782+00:00"
-          }
-        },
-        {
-          "event_id": "401884757",
-          "home": "Mainz",
-          "away": "Bremen",
-          "start_utc": "2026-10-24T13:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.51332,
-            "draw_90": 0.1996,
-            "away_win_90": 0.28708,
-            "over_2_5": 0.7907
-          },
-          "expected_score": {
-            "home": 2.444,
-            "away": 1.763
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-18T03:58:08.913782+00:00",
-            "away": "2026-10-18T03:58:08.913782+00:00"
-          }
-        },
-        {
-          "event_id": "401884758",
-          "home": "Augsburg",
-          "away": "Union Berlin",
-          "start_utc": "2026-10-24T13:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.70326,
-            "draw_90": 0.14135,
-            "away_win_90": 0.15538,
-            "over_2_5": 0.82318
-          },
-          "expected_score": {
-            "home": 3.176,
-            "away": 1.296
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-18T03:58:08.913782+00:00",
-            "away": "2026-10-18T03:58:08.913782+00:00"
-          }
-        },
-        {
-          "event_id": "401884762",
-          "home": "RB Leipzig",
-          "away": "Elversberg",
-          "start_utc": "2026-10-24T13:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.51482,
-            "draw_90": 0.19681,
-            "away_win_90": 0.28837,
-            "over_2_5": 0.80238
-          },
-          "expected_score": {
-            "home": 2.497,
-            "away": 1.801
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-18T06:28:44.283669+00:00",
-            "away": "2026-10-18T03:58:08.913782+00:00"
-          }
-        },
         {
           "event_id": "401884763",
           "home": "Dortmund",
