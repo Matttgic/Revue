@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-24T17:31:48.973947+00:00",
+  "generated_at_utc": "2026-10-24T19:42:17.292738+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -26,10 +26,10 @@
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.25122,
+            "home_win_90": 0.25124,
             "draw_90": 0.23716,
-            "away_win_90": 0.51162,
-            "over_2_5": 0.58292
+            "away_win_90": 0.51159,
+            "over_2_5": 0.58295
           },
           "expected_score": {
             "home": 1.146,
@@ -57,14 +57,14 @@
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.35132,
-            "draw_90": 0.27899,
+            "home_win_90": 0.35133,
+            "draw_90": 0.27898,
             "away_win_90": 0.36969,
-            "over_2_5": 0.48081
+            "over_2_5": 0.48085
           },
           "expected_score": {
-            "home": 1.265,
-            "away": 1.331
+            "home": 1.266,
+            "away": 1.332
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -88,10 +88,10 @@
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.48488,
+            "home_win_90": 0.48487,
             "draw_90": 0.24263,
-            "away_win_90": 0.27248,
-            "over_2_5": 0.59572
+            "away_win_90": 0.2725,
+            "over_2_5": 0.59574
           },
           "expected_score": {
             "home": 1.814,
@@ -122,7 +122,7 @@
             "home_win_90": 0.4473,
             "draw_90": 0.23429,
             "away_win_90": 0.31841,
-            "over_2_5": 0.66363
+            "over_2_5": 0.66365
           },
           "expected_score": {
             "home": 1.87,
@@ -150,10 +150,10 @@
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.27961,
-            "draw_90": 0.27365,
-            "away_win_90": 0.44674,
-            "over_2_5": 0.47239
+            "home_win_90": 0.27964,
+            "draw_90": 0.27364,
+            "away_win_90": 0.44672,
+            "over_2_5": 0.47244
           },
           "expected_score": {
             "home": 1.069,
@@ -172,54 +172,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 12,
+        "n": 13,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.6597,
-          "logloss": 1.08547
+          "brier": 0.67188,
+          "logloss": 1.10129
         },
         "baseline": {
-          "brier": 0.6519,
-          "logloss": 1.07292
+          "brier": 0.66138,
+          "logloss": 1.08437
         },
-        "shadow_brier_delta_vs_baseline": 0.0078,
+        "shadow_brier_delta_vs_baseline": 0.0105,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "LALIGA": {
       "name": "La Liga",
       "games": [
-        {
-          "event_id": "401882834",
-          "home": "Atlético",
-          "away": "Deportivo",
-          "start_utc": "2026-10-24T19:00:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win_90": 0.56125,
-            "draw_90": 0.22604,
-            "away_win_90": 0.21271,
-            "over_2_5": 0.59918
-          },
-          "expected_score": {
-            "home": 1.999,
-            "away": 1.103
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-18T00:57:53.802569+00:00",
-            "away": "2026-10-17T07:08:51.778184+00:00"
-          }
-        },
         {
           "event_id": "401882835",
           "home": "Athletic",
@@ -356,14 +325,14 @@
             "away": 7
           },
           "probabilities": {
-            "home_win_90": 0.47988,
-            "draw_90": 0.23353,
-            "away_win_90": 0.2866,
-            "over_2_5": 0.64657
+            "home_win_90": 0.47954,
+            "draw_90": 0.23345,
+            "away_win_90": 0.28701,
+            "over_2_5": 0.64725
           },
           "expected_score": {
-            "home": 1.917,
-            "away": 1.413
+            "home": 1.918,
+            "away": 1.416
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -378,54 +347,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 17,
+        "n": 18,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.57281,
-          "logloss": 0.97031
+          "brier": 0.56529,
+          "logloss": 0.95952
         },
         "baseline": {
-          "brier": 0.58628,
-          "logloss": 0.99179
+          "brier": 0.57968,
+          "logloss": 0.9819
         },
-        "shadow_brier_delta_vs_baseline": -0.01347,
+        "shadow_brier_delta_vs_baseline": -0.01439,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "SERIEA": {
       "name": "Serie A",
       "games": [
-        {
-          "event_id": "401874955",
-          "home": "Lazio",
-          "away": "Parma",
-          "start_utc": "2026-10-24T18:45:00+00:00",
-          "league": "SERIEA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.67522,
-            "draw_90": 0.1888,
-            "away_win_90": 0.13598,
-            "over_2_5": 0.58486
-          },
-          "expected_score": {
-            "home": 2.251,
-            "away": 0.785
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-19T07:30:16.595898+00:00",
-            "away": "2026-10-20T07:51:20.439269+00:00"
-          }
-        },
         {
           "event_id": "401875036",
           "home": "Inter Milan",
@@ -584,17 +522,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 11,
+        "n": 12,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.53182,
-          "logloss": 0.9042
+          "brier": 0.55414,
+          "logloss": 0.93641
         },
         "baseline": {
-          "brier": 0.52961,
-          "logloss": 0.89701
+          "brier": 0.55444,
+          "logloss": 0.93391
         },
-        "shadow_brier_delta_vs_baseline": 0.00221,
+        "shadow_brier_delta_vs_baseline": -0.0003,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -666,54 +604,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 13,
+        "n": 14,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.73195,
-          "logloss": 1.17951
+          "brier": 0.6946,
+          "logloss": 1.12864
         },
         "baseline": {
-          "brier": 0.72428,
-          "logloss": 1.17289
+          "brier": 0.69015,
+          "logloss": 1.12619
         },
-        "shadow_brier_delta_vs_baseline": 0.00767,
+        "shadow_brier_delta_vs_baseline": 0.00445,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "LIGUE1": {
       "name": "Ligue 1",
       "games": [
-        {
-          "event_id": "401876427",
-          "home": "Lens",
-          "away": "Paris FC",
-          "start_utc": "2026-10-24T18:45:00+00:00",
-          "league": "LIGUE1",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.34941,
-            "draw_90": 0.2505,
-            "away_win_90": 0.40008,
-            "over_2_5": 0.60045
-          },
-          "expected_score": {
-            "home": 1.484,
-            "away": 1.624
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-18T07:22:31.401087+00:00",
-            "away": "2026-10-19T04:30:46.925715+00:00"
-          }
-        },
         {
           "event_id": "401876425",
           "home": "Monaco",
@@ -951,37 +858,6 @@
     "MLS": {
       "name": "MLS",
       "games": [
-        {
-          "event_id": "761890",
-          "home": "Columbus",
-          "away": "Toronto",
-          "start_utc": "2026-10-24T19:30:00+00:00",
-          "league": "MLS",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 9,
-            "away": 9
-          },
-          "probabilities": {
-            "home_win_90": 0.53986,
-            "draw_90": 0.21522,
-            "away_win_90": 0.24492,
-            "over_2_5": 0.68147
-          },
-          "expected_score": {
-            "home": 2.168,
-            "away": 1.344
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-19T10:01:18.906657+00:00",
-            "away": "2026-10-18T11:59:11.089740+00:00"
-          }
-        },
         {
           "event_id": "761891",
           "home": "Red Bull NY",
