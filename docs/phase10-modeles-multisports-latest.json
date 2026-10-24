@@ -1,87 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-24T16:02:25.117241+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-24T14:58:41.023228+00:00",
+  "generated_at_utc": "2026-10-24T16:32:09.530625+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-24T16:02:25.169695+00:00",
   "models": [
-    {
-      "event_id": "401884763",
-      "league": "BUNDESLIGA",
-      "home": "Dortmund",
-      "away": "Frankfurt",
-      "start_utc": "2026-10-24T16:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.612745,
-        "draw_90": 0.189824,
-        "away_win_90": 0.197431,
-        "over_2_5": 0.68371
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-24T14:11:13.574285+00:00",
-        "espn_shots_shadow": "2026-10-24T14:11:16.871123+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.032
-    },
-    {
-      "event_id": "401882827",
-      "league": "LALIGA",
-      "home": "Valencia",
-      "away": "Villarreal",
-      "start_utc": "2026-10-24T16:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.295842,
-        "draw_90": 0.250947,
-        "away_win_90": 0.453211,
-        "over_2_5": 0.541056
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-24T14:11:13.574285+00:00",
-        "espn_shots_shadow": "2026-10-24T14:11:16.871123+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.02972
-    },
-    {
-      "event_id": "401878767",
-      "league": "PL",
-      "home": "Chelsea",
-      "away": "Spurs",
-      "start_utc": "2026-10-24T16:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.479037,
-        "draw_90": 0.237234,
-        "away_win_90": 0.283729,
-        "over_2_5": 0.601414
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-24T14:11:13.574285+00:00",
-        "espn_shots_shadow": "2026-10-24T14:11:16.871123+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01977
-    },
     {
       "event_id": "761903",
       "league": "MLS",
@@ -417,8 +339,8 @@
       "model_id": "revue_mlb_espn_history_elo_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win": 0.65,
-        "away_win": 0.35
+        "home_win": 0.681,
+        "away_win": 0.319
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -426,8 +348,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-23T17:29:05.825144+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-23T17:29:05.825144+00:00"
+        "espn_elo_replay": "2026-10-24T16:16:10.582911+00:00",
+        "last_eligible_history_cutoff_utc": "2026-10-24T16:16:10.582911+00:00"
       },
       "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
     },
@@ -1529,21 +1451,21 @@
     }
   ],
   "metrics": {
-    "candidates": 61,
-    "events_covered": 61,
+    "candidates": 58,
+    "events_covered": 58,
     "models_by_league": {
-      "BUNDESLIGA": 3,
-      "LALIGA": 7,
-      "PL": 6,
       "MLS": 15,
       "LIGUE1": 8,
       "SERIEA": 6,
+      "LALIGA": 6,
       "NBA": 15,
-      "MLB": 1
+      "MLB": 1,
+      "PL": 5,
+      "BUNDESLIGA": 2
     },
     "decisions": {
-      "not_pregame_20m": 1,
-      "football_correlated_research_pool": 45,
+      "not_pregame_20m": 3,
+      "football_correlated_research_pool": 42,
       "nba_advanced_prior_mode_unverified": 15,
       "mlb_history_elo": 1
     }
