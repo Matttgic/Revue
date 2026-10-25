@@ -5631,7 +5631,7 @@
       "away": "Steelers",
       "kickoff_utc": "2026-10-25T13:30:00+00:00",
       "locked_at_utc": "2026-10-22T23:31:49.393266+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_ensemble_mc_bayes_elo": {
           "p_home": 0.50218,
@@ -5642,11 +5642,20 @@
           "source_generated_utc": "2026-10-22T23:31:24.656656+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 0,
+      "score": {
+        "home": 10,
+        "away": 16
+      },
+      "resolved_at_utc": "2026-10-25T17:13:24.942892+00:00",
+      "brier_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.252185,
+        "revue_multisports_score_model": 0.295066
+      },
+      "logloss_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.697517,
+        "revue_multisports_score_model": 0.78351
+      },
       "real_bet": false,
       "staked_units": 0
     },
