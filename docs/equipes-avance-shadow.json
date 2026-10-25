@@ -1,40 +1,10 @@
 {
-  "generated_at_utc": "2026-10-25T20:13:21.830733+00:00",
+  "generated_at_utc": "2026-10-25T22:45:00.584209+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401909861",
-          "league": "NBA",
-          "home": "Jazz",
-          "away": "Lakers",
-          "start_utc": "2026-10-25T21:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 7
-          },
-          "probabilities": null,
-          "odds": null
-        },
-        {
-          "event_id": "401909862",
-          "league": "NBA",
-          "home": "Nets",
-          "away": "Pacers",
-          "start_utc": "2026-10-25T22:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": null,
-          "odds": null
-        },
         {
           "event_id": "401909863",
           "league": "NBA",
@@ -417,54 +387,6 @@
     "NFL": {
       "games": [
         {
-          "event_id": "401873020",
-          "league": "NFL",
-          "home": "Lions",
-          "away": "Packers",
-          "start_utc": "2026-10-25T20:25:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.53525,
-            "away_win": 0.46475
-          },
-          "odds": null,
-          "expected_margin_home": 0.875,
-          "components": {
-            "elo_probability": 0.5402,
-            "margin_probability": 0.5268,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401873021",
-          "league": "NFL",
-          "home": "Raiders",
-          "away": "Rams",
-          "start_utc": "2026-10-25T20:25:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win": 0.5335,
-            "away_win": 0.4665
-          },
-          "odds": null,
-          "expected_margin_home": 0.114,
-          "components": {
-            "elo_probability": 0.5511,
-            "margin_probability": 0.5035,
-            "last_games_form": 5
-          }
-        },
-        {
           "event_id": "401873022",
           "league": "NFL",
           "home": "Seahawks",
@@ -514,17 +436,17 @@
         }
       ],
       "evaluation": {
-        "n": 66,
+        "n": 69,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24152,
-          "logloss_binary": 0.67589
+          "brier_binary": 0.24212,
+          "logloss_binary": 0.6771
         },
         "baseline": {
-          "brier_binary": 0.24494,
-          "logloss_binary": 0.68262
+          "brier_binary": 0.24537,
+          "logloss_binary": 0.68349
         },
-        "brier_delta_candidate_minus_baseline": -0.00342,
+        "brier_delta_candidate_minus_baseline": -0.00325,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
