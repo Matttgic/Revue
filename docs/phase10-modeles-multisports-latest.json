@@ -1,61 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-25T16:01:27.509570+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-25T13:19:36.449511+00:00",
+  "generated_at_utc": "2026-10-25T16:13:18.841437+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-25T16:01:27.557753+00:00",
   "models": [
-    {
-      "event_id": "401884759",
-      "league": "BUNDESLIGA",
-      "home": "Freiburg",
-      "away": "Bayern",
-      "start_utc": "2026-10-25T16:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.360608,
-        "draw_90": 0.221794,
-        "away_win_90": 0.417598,
-        "over_2_5": 0.706487
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-25T14:43:02.153527+00:00",
-        "espn_shots_shadow": "2026-10-25T14:43:07.340349+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.03609
-    },
-    {
-      "event_id": "401878764",
-      "league": "PL",
-      "home": "Sunderland",
-      "away": "Leeds",
-      "start_utc": "2026-10-25T16:30:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.286515,
-        "draw_90": 0.265448,
-        "away_win_90": 0.448037,
-        "over_2_5": 0.477741
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-25T14:43:02.153527+00:00",
-        "espn_shots_shadow": "2026-10-25T14:43:07.340349+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01813
-    },
     {
       "event_id": "401874772",
       "league": "SERIEA",
@@ -670,11 +618,9 @@
     }
   ],
   "metrics": {
-    "candidates": 28,
-    "events_covered": 28,
+    "candidates": 26,
+    "events_covered": 26,
     "models_by_league": {
-      "BUNDESLIGA": 1,
-      "PL": 1,
       "SERIEA": 5,
       "LALIGA": 3,
       "NBA": 16,
@@ -682,8 +628,8 @@
       "LIGUE1": 1
     },
     "decisions": {
-      "not_pregame_20m": 14,
-      "football_correlated_research_pool": 12,
+      "not_pregame_20m": 7,
+      "football_correlated_research_pool": 10,
       "nba_advanced_prior_mode_unverified": 16,
       "mlb_no_identical_history_fixture": 1
     }
