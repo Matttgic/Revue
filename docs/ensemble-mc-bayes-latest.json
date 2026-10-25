@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-25T09:12:08.587844+00:00",
+  "generated_at_utc": "2026-10-25T12:12:39.180108+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -89,8 +89,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 114.86,
-            "away": 115.28
+            "home": 114.93,
+            "away": 115.34
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
@@ -168,8 +168,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 111.95,
-            "away": 113.66
+            "home": 112.02,
+            "away": 113.73
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
@@ -232,8 +232,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 117.12,
-            "away": 115.52
+            "home": 117.18,
+            "away": 115.58
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
@@ -259,13 +259,32 @@
           "away": "Suns",
           "start_utc": "2026-10-27T00:00:00+00:00",
           "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
+          "status": "shadow_non_calibre",
           "training_games": {
             "home": 7,
-            "away": 6
+            "away": 7
           },
-          "probabilities": null,
-          "components": null
+          "probabilities": {
+            "home_win": 0.57315,
+            "away_win": 0.42685
+          },
+          "components": {
+            "monte_carlo": 0.56771,
+            "bayes": 0.55426,
+            "elo": 0.60184,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 114.25,
+            "away": 112.15
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
         {
           "event_id": "401909874",
@@ -307,16 +326,16 @@
           "status": "shadow_non_calibre",
           "training_games": {
             "home": 7,
-            "away": 8
+            "away": 9
           },
           "probabilities": {
-            "home_win": 0.53922,
-            "away_win": 0.46078
+            "home_win": 0.55129,
+            "away_win": 0.44871
           },
           "components": {
-            "monte_carlo": 0.51432,
-            "bayes": 0.54013,
-            "elo": 0.59016,
+            "monte_carlo": 0.52474,
+            "bayes": 0.55313,
+            "elo": 0.60482,
             "weights": {
               "monte_carlo": 0.52,
               "bayes": 0.23,
@@ -326,8 +345,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 113.84,
-            "away": 113.48
+            "home": 114.36,
+            "away": 113.76
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
@@ -390,8 +409,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 115.54,
-            "away": 111.18
+            "home": 115.6,
+            "away": 111.25
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
