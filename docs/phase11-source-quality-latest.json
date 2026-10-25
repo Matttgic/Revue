@@ -1,6 +1,6 @@
 {
   "version": "revue_phase11_source_quality_v1",
-  "generated_at_utc": "2026-10-25T17:08:01.482377+00:00",
+  "generated_at_utc": "2026-10-25T21:57:34.242143+00:00",
   "status": "input_gates_verified_missing_original_model_sources",
   "sports": {
     "NBA": {
@@ -12,8 +12,8 @@
       "original_sql_parity_proven": false
     },
     "NHL": {
-      "goalie_observations": 6,
-      "both_sides_confirmed_by_ESPN": 0,
+      "goalie_observations": 4,
+      "both_sides_confirmed_by_ESPN": 1,
       "actual_starters_verified": false,
       "missing": [
         "actual_starting_goalies_independently_confirmed",
@@ -47,51 +47,26 @@
   "NHL_espn_observations": {
     "source_report_valid": true,
     "source_age": {
-      "age_hours": 0.1,
+      "age_hours": 0.24,
       "status": "recent",
       "max_age_hours": 12
     },
-    "future_nhl_fixtures": 8,
-    "matched_upcoming_fixtures": 6,
-    "goalie_sides_confirmed_by_espn": 2,
-    "goalie_sides_projected_by_espn": 10,
-    "fixtures_with_both_espn_confirmed": 0,
+    "future_nhl_fixtures": 7,
+    "matched_upcoming_fixtures": 4,
+    "goalie_sides_confirmed_by_espn": 3,
+    "goalie_sides_projected_by_espn": 5,
+    "fixtures_with_both_espn_confirmed": 1,
     "actual_game_starts_independently_verified": 0,
     "used_in_prediction": false,
     "fixtures": [
       {
         "league": "NHL",
-        "event_id": "2026020180",
-        "home": "CHI",
-        "away": "FLA",
-        "source_observed_utc": "2026-10-25T17:02:16.609608+00:00",
-        "home_goalie": {
-          "name": "Spencer Knight",
-          "status": "projected"
-        },
-        "away_goalie": {
-          "name": "Akira Schmid",
-          "status": "confirmed"
-        },
-        "both_reported_confirmed": false,
-        "source_ready_for_lineup_dependent_models": false,
-        "probabilities_modified": false,
-        "note": "ESPN status is observed provider wording, not a guarantee of actual starting lineup."
-      },
-      {
-        "league": "NHL",
         "event_id": "2026020181",
         "home": "DAL",
         "away": "NYI",
-        "source_observed_utc": "2026-10-25T17:02:16.609608+00:00",
-        "home_goalie": {
-          "name": "Jake Oettinger",
-          "status": "projected"
-        },
-        "away_goalie": {
-          "name": "Ilya Sorokin",
-          "status": "projected"
-        },
+        "source_observed_utc": null,
+        "home_goalie": null,
+        "away_goalie": null,
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -115,14 +90,14 @@
         "event_id": "2026020183",
         "home": "NSH",
         "away": "COL",
-        "source_observed_utc": "2026-10-25T17:02:16.609608+00:00",
+        "source_observed_utc": "2026-10-25T21:43:11.664261+00:00",
         "home_goalie": {
           "name": "Justus Annunen",
           "status": "projected"
         },
         "away_goalie": {
-          "name": "Mackenzie Blackwood",
-          "status": "projected"
+          "name": "Scott Wedgewood",
+          "status": "confirmed"
         },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
@@ -134,16 +109,16 @@
         "event_id": "2026020184",
         "home": "VAN",
         "away": "MIN",
-        "source_observed_utc": "2026-10-25T17:02:16.609608+00:00",
+        "source_observed_utc": "2026-10-25T21:43:11.664261+00:00",
         "home_goalie": {
           "name": "Leevi Merilainen",
-          "status": "projected"
+          "status": "confirmed"
         },
         "away_goalie": {
           "name": "Calvin Pickard",
           "status": "confirmed"
         },
-        "both_reported_confirmed": false,
+        "both_reported_confirmed": true,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
         "note": "ESPN status is observed provider wording, not a guarantee of actual starting lineup."
@@ -153,7 +128,7 @@
         "event_id": "2026020185",
         "home": "NYR",
         "away": "LAK",
-        "source_observed_utc": "2026-10-25T17:02:16.609608+00:00",
+        "source_observed_utc": "2026-10-25T21:43:11.664261+00:00",
         "home_goalie": {
           "name": "Dylan Garand",
           "status": "projected"
@@ -185,7 +160,7 @@
         "event_id": "2026020187",
         "home": "EDM",
         "away": "DET",
-        "source_observed_utc": "2026-10-25T17:02:16.609608+00:00",
+        "source_observed_utc": "2026-10-25T21:43:11.664261+00:00",
         "home_goalie": {
           "name": "Tristan Jarry",
           "status": "projected"
@@ -322,39 +297,39 @@
     "not_in_real_or_paper_settled_roi": true
   },
   "phase10_validation": {
-    "locked_predictions": 424,
-    "officially_settled": 321,
+    "locked_predictions": 425,
+    "officially_settled": 333,
     "models_calibrated": false,
     "prospective_evidence_not_historical_backfill": true
   },
   "freshness": {
     "goalies": {
-      "age_hours": 0.1,
+      "age_hours": 0.24,
       "status": "recent",
       "max_age_hours": 12
     },
     "nba": {
-      "age_hours": 4.43,
+      "age_hours": 9.25,
       "status": "recent",
       "max_age_hours": 48
     },
     "mlb": {
-      "age_hours": 0.29,
+      "age_hours": 5.12,
       "status": "recent",
       "max_age_hours": 48
     },
     "football": {
-      "age_hours": 2.42,
+      "age_hours": 1.74,
       "status": "recent",
       "max_age_hours": 48
     },
     "center": {
-      "age_hours": 0.91,
+      "age_hours": 0.29,
       "status": "recent",
       "max_age_hours": 12
     },
     "picks": {
-      "age_hours": 0.72,
+      "age_hours": 1.13,
       "status": "recent",
       "max_age_hours": 24
     }
