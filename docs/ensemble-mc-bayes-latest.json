@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-25T06:42:20.690929+00:00",
+  "generated_at_utc": "2026-10-25T07:46:04.539518+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -39,7 +39,7 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 5,
+            "home": 6,
             "away": 6
           },
           "probabilities": null,
@@ -89,8 +89,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 114.57,
-            "away": 114.99
+            "home": 114.67,
+            "away": 115.09
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
@@ -118,7 +118,7 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 6,
+            "home": 7,
             "away": 6
           },
           "probabilities": null,
@@ -163,7 +163,7 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 4,
+            "home": 5,
             "away": 8
           },
           "probabilities": null,
@@ -208,7 +208,7 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 7,
+            "home": 8,
             "away": 6
           },
           "probabilities": null,
@@ -284,7 +284,7 @@
           "status": "insufficient_history",
           "training_games": {
             "home": 6,
-            "away": 5
+            "away": 6
           },
           "probabilities": null,
           "components": null
@@ -333,8 +333,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 115.02,
-            "away": 111.05
+            "home": 115.12,
+            "away": 111.15
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
@@ -965,23 +965,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 29,
+        "n": 30,
         "scores": {
           "baseline": {
-            "brier_binary": 0.24578,
-            "logloss_binary": 0.68474
+            "brier_binary": 0.24213,
+            "logloss_binary": 0.67729
           },
           "previous_shadow": {
-            "brier_binary": 0.24684,
-            "logloss_binary": 0.6868
+            "brier_binary": 0.24406,
+            "logloss_binary": 0.68117
           },
           "ensemble": {
-            "brier_binary": 0.24601,
-            "logloss_binary": 0.68512
+            "brier_binary": 0.24383,
+            "logloss_binary": 0.68073
           }
         },
-        "delta_brier_vs_baseline": 0.00023,
-        "delta_brier_vs_previous_shadow": -0.00083,
+        "delta_brier_vs_baseline": 0.0017,
+        "delta_brier_vs_previous_shadow": -0.00023,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     }
