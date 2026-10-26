@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-26T01:30:58.122831+00:00",
+  "generated_at_utc": "2026-10-26T01:44:21.248255+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -567,8 +567,25 @@
         }
       ],
       "evaluation": {
-        "status": "history_insufficient",
-        "n": 0
+        "status": "chronological_score_backtest_no_odds",
+        "n": 1,
+        "scores": {
+          "baseline": {
+            "brier_binary": 0.165,
+            "logloss_binary": 0.52121
+          },
+          "previous_shadow": {
+            "brier_binary": 0.19905,
+            "logloss_binary": 0.59086
+          },
+          "ensemble": {
+            "brier_binary": 0.2406,
+            "logloss_binary": 0.67435
+          }
+        },
+        "delta_brier_vs_baseline": 0.0756,
+        "delta_brier_vs_previous_shadow": 0.04155,
+        "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
     "WNBA": {
@@ -676,23 +693,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 69,
+        "n": 72,
         "scores": {
           "baseline": {
-            "brier_binary": 0.24537,
-            "logloss_binary": 0.68349
+            "brier_binary": 0.24573,
+            "logloss_binary": 0.68424
           },
           "previous_shadow": {
-            "brier_binary": 0.24212,
-            "logloss_binary": 0.6771
+            "brier_binary": 0.24202,
+            "logloss_binary": 0.67691
           },
           "ensemble": {
-            "brier_binary": 0.2399,
-            "logloss_binary": 0.67263
+            "brier_binary": 0.24002,
+            "logloss_binary": 0.6729
           }
         },
-        "delta_brier_vs_baseline": -0.00547,
-        "delta_brier_vs_previous_shadow": -0.00222,
+        "delta_brier_vs_baseline": -0.00571,
+        "delta_brier_vs_previous_shadow": -0.002,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-26T01:30:57.801912+00:00",
+  "generated_at_utc": "2026-10-26T01:44:20.852731+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -457,8 +457,18 @@
         }
       ],
       "evaluation": {
-        "n": 0,
-        "status": "insufficient_history"
+        "n": 1,
+        "status": "small_walk_forward_scores_only",
+        "candidate": {
+          "brier_binary": 0.19905,
+          "logloss_binary": 0.59086
+        },
+        "baseline": {
+          "brier_binary": 0.165,
+          "logloss_binary": 0.52121
+        },
+        "brier_delta_candidate_minus_baseline": 0.03405,
+        "note": "No historical sportsbook odds; not a profit claim."
       }
     },
     "WNBA": {
@@ -538,17 +548,17 @@
         }
       ],
       "evaluation": {
-        "n": 69,
+        "n": 72,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24212,
-          "logloss_binary": 0.6771
+          "brier_binary": 0.24202,
+          "logloss_binary": 0.67691
         },
         "baseline": {
-          "brier_binary": 0.24537,
-          "logloss_binary": 0.68349
+          "brier_binary": 0.24573,
+          "logloss_binary": 0.68424
         },
-        "brier_delta_candidate_minus_baseline": -0.00325,
+        "brier_delta_candidate_minus_baseline": -0.00371,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
