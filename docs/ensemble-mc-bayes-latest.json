@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-26T18:15:09.803771+00:00",
+  "generated_at_utc": "2026-10-26T21:15:05.372635+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -769,6 +769,40 @@
           "expected_score": {
             "home": 81.27,
             "away": 83.39
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401918310",
+          "league": "WNBA",
+          "home": "Dream",
+          "away": "Valkyries",
+          "start_utc": "2026-10-29T16:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 13,
+            "away": 14
+          },
+          "probabilities": {
+            "home_win": 0.60041,
+            "away_win": 0.39959
+          },
+          "components": {
+            "monte_carlo": 0.61589,
+            "bayes": 0.56186,
+            "elo": 0.6037,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 84.16,
+            "away": 80.5
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
