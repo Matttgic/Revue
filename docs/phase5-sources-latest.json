@@ -1,37 +1,35 @@
 {
   "version": "revue_phase5_source_gate_v1",
-  "generated_at_utc": "2026-10-19T20:34:11.510299+00:00",
+  "generated_at_utc": "2026-10-26T20:27:11.571303+00:00",
   "status": "independent_sports_inputs_observed_not_original_data_parity",
   "four_sports_with_observed_data": 4,
   "sports_with_identical_original_deployed_inputs_verified": 0,
   "sports": {
     "NBA": {
       "source": "ESPN verified regular-season advanced by-team parser",
-      "observed_at_utc": "2026-10-19T14:54:18.478610+00:00",
+      "observed_at_utc": "2026-10-26T14:29:17.196090+00:00",
       "fresh_36h": true,
       "previous_season": 2026,
       "current_season": 2027,
       "prior_advanced_teams": 30,
-      "current_advanced_teams": 0,
-      "mode": "prior_only",
+      "current_advanced_teams": 30,
+      "mode": "current_regular",
       "preseason_used_as_regular": false,
       "same_original_sql_or_injury_inputs_verified": false,
-      "blockers": [
-        "Current regular-season advanced inputs missing or incomplete"
-      ]
+      "blockers": []
     },
     "NHL": {
       "source": "MoneyPuck observations + NHL official regular-season goalie summaries",
-      "observed_at_utc": "2026-10-19T13:52:49.460215+00:00",
+      "observed_at_utc": "2026-10-26T13:29:33.039744+00:00",
       "fresh_36h": true,
-      "official_goalies_observed_at_utc": "2026-10-19T15:43:39.022550+00:00",
-      "source_style_observed_at_utc": "2026-10-19T19:53:19.393757+00:00",
+      "official_goalies_observed_at_utc": "2026-10-26T15:17:48.816704+00:00",
+      "source_style_observed_at_utc": "2026-10-26T19:54:29.996722+00:00",
       "season": "2026-2027",
       "game_type_id": 2,
       "all_situation_teams": 32,
       "five_on_five_teams": 32,
-      "unique_most_played_goalie_teams": 28,
-      "teams_with_both_situations_and_goalie": 28,
+      "unique_most_played_goalie_teams": 29,
+      "teams_with_both_situations_and_goalie": 29,
       "historical_pregame_compatible_scenarios": 0,
       "backend_xg_situation": "all",
       "frontend_shadow_xg_situation": "5on5",
@@ -49,10 +47,10 @@
     },
     "MLB": {
       "source": "ESPN independent historic Elo replay, original Elo=1500 fallback arithmetic",
-      "observed_at_utc": "2026-10-19T18:50:53.996606+00:00",
+      "observed_at_utc": "2026-10-26T18:52:33.006502+00:00",
       "fresh_36h": true,
-      "historical_espn_finals": 208,
-      "conditional_fixtures": 3,
+      "historical_espn_finals": 123,
+      "conditional_fixtures": 2,
       "original_sql_ratings_verified": false,
       "history_is_pregame_locked_bets": false,
       "market_moneylines_verified": false,
@@ -62,41 +60,41 @@
     },
     "FOOTBALL": {
       "source": "ESPN soccer observed shot counts, NOT Opta xG",
-      "observed_at_utc": "2026-10-19T18:31:00.436009+00:00",
+      "observed_at_utc": "2026-10-26T18:15:08.576314+00:00",
       "fresh_36h": true,
-      "football_shadow_observed_at_utc": "2026-10-19T18:31:00.692533+00:00",
-      "ESPN_observed_teams": 126,
-      "shadow_fixtures": 22,
-      "with_ESPN_boxscores": 4,
+      "football_shadow_observed_at_utc": "2026-10-26T18:15:08.845082+00:00",
+      "ESPN_observed_teams": 162,
+      "shadow_fixtures": 10,
+      "with_ESPN_boxscores": 10,
       "authorized_Opta_xG_fixtures": 0,
       "licensed_xG_source_available": false,
       "per_league": {
         "PL": {
-          "shadow_games": 1,
-          "with_ESPN_boxscore_data": 1
+          "shadow_games": 0,
+          "with_ESPN_boxscore_data": 0
         },
         "LALIGA": {
-          "shadow_games": 2,
-          "with_ESPN_boxscore_data": 2
-        },
-        "SERIEA": {
           "shadow_games": 1,
           "with_ESPN_boxscore_data": 1
+        },
+        "SERIEA": {
+          "shadow_games": 8,
+          "with_ESPN_boxscore_data": 8
         },
         "BUNDESLIGA": {
           "shadow_games": 0,
           "with_ESPN_boxscore_data": 0
         },
         "LIGUE1": {
-          "shadow_games": 0,
-          "with_ESPN_boxscore_data": 0
+          "shadow_games": 1,
+          "with_ESPN_boxscore_data": 1
         },
         "MLS": {
           "shadow_games": 0,
           "with_ESPN_boxscore_data": 0
         },
         "UCL": {
-          "shadow_games": 18,
+          "shadow_games": 0,
           "with_ESPN_boxscore_data": 0
         }
       },
