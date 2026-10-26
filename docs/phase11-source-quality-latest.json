@@ -1,6 +1,6 @@
 {
   "version": "revue_phase11_source_quality_v1",
-  "generated_at_utc": "2026-10-26T14:26:52.872309+00:00",
+  "generated_at_utc": "2026-10-26T23:13:04.597873+00:00",
   "status": "input_gates_verified_missing_original_model_sources",
   "sports": {
     "NBA": {
@@ -12,8 +12,8 @@
       "original_sql_parity_proven": false
     },
     "NHL": {
-      "goalie_observations": 11,
-      "both_sides_confirmed_by_ESPN": 0,
+      "goalie_observations": 10,
+      "both_sides_confirmed_by_ESPN": 1,
       "actual_starters_verified": false,
       "missing": [
         "actual_starting_goalies_independently_confirmed",
@@ -22,7 +22,7 @@
       "original_sql_parity_proven": false
     },
     "MLB": {
-      "ESPN_completed_games_used_for_diagnostic": 127,
+      "ESPN_completed_games_used_for_diagnostic": 123,
       "pitchers_verified_from_current_feed": false,
       "official_probable_pitcher_feed_available": true,
       "official_probable_pitcher_sides_observed": 2,
@@ -52,10 +52,10 @@
       "max_age_hours": 12
     },
     "future_nhl_fixtures": 14,
-    "matched_upcoming_fixtures": 11,
-    "goalie_sides_confirmed_by_espn": 0,
-    "goalie_sides_projected_by_espn": 22,
-    "fixtures_with_both_espn_confirmed": 0,
+    "matched_upcoming_fixtures": 10,
+    "goalie_sides_confirmed_by_espn": 2,
+    "goalie_sides_projected_by_espn": 18,
+    "fixtures_with_both_espn_confirmed": 1,
     "actual_game_starts_independently_verified": 0,
     "used_in_prediction": false,
     "fixtures": [
@@ -64,15 +64,9 @@
         "event_id": "2026020185",
         "home": "NYR",
         "away": "LAK",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
-        "home_goalie": {
-          "name": "Dylan Garand",
-          "status": "projected"
-        },
-        "away_goalie": {
-          "name": "Darcy Kuemper",
-          "status": "projected"
-        },
+        "source_observed_utc": null,
+        "home_goalie": null,
+        "away_goalie": null,
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -96,16 +90,16 @@
         "event_id": "2026020187",
         "home": "EDM",
         "away": "DET",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Tristan Jarry",
-          "status": "projected"
+          "status": "confirmed"
         },
         "away_goalie": {
-          "name": "John Gibson",
-          "status": "projected"
+          "name": "Michal Postava",
+          "status": "confirmed"
         },
-        "both_reported_confirmed": false,
+        "both_reported_confirmed": true,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
         "note": "ESPN status is observed provider wording, not a guarantee of actual starting lineup."
@@ -115,7 +109,7 @@
         "event_id": "2026020188",
         "home": "PHI",
         "away": "CBJ",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Dan Vladar",
           "status": "projected"
@@ -134,7 +128,7 @@
         "event_id": "2026020189",
         "home": "CAR",
         "away": "BOS",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Pyotr Kochetkov",
           "status": "projected"
@@ -153,7 +147,7 @@
         "event_id": "2026020190",
         "home": "CHI",
         "away": "LAK",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Spencer Knight",
           "status": "projected"
@@ -172,7 +166,7 @@
         "event_id": "2026020191",
         "home": "STL",
         "away": "MTL",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Joel Hofer",
           "status": "projected"
@@ -191,13 +185,13 @@
         "event_id": "2026020192",
         "home": "NSH",
         "away": "NYI",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Juuse Saros",
           "status": "projected"
         },
         "away_goalie": {
-          "name": "Ilya Sorokin",
+          "name": "Semyon Varlamov",
           "status": "projected"
         },
         "both_reported_confirmed": false,
@@ -210,7 +204,7 @@
         "event_id": "2026020193",
         "home": "DAL",
         "away": "NJD",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Jake Oettinger",
           "status": "projected"
@@ -242,7 +236,7 @@
         "event_id": "2026020195",
         "home": "UTA",
         "away": "MIN",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Karel Vejmelka",
           "status": "projected"
@@ -261,7 +255,7 @@
         "event_id": "2026020196",
         "home": "VGK",
         "away": "OTT",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Carter Hart",
           "status": "projected"
@@ -293,13 +287,13 @@
         "event_id": "2026020198",
         "home": "SJS",
         "away": "BUF",
-        "source_observed_utc": "2026-10-26T14:19:33.030339+00:00",
+        "source_observed_utc": "2026-10-26T23:06:05.214982+00:00",
         "home_goalie": {
           "name": "Yaroslav Askarov",
           "status": "projected"
         },
         "away_goalie": {
-          "name": "Ukko-Pekka Luukkonen",
+          "name": "Colten Ellis",
           "status": "projected"
         },
         "both_reported_confirmed": false,
@@ -430,7 +424,7 @@
     "not_in_real_or_paper_settled_roi": true
   },
   "phase10_validation": {
-    "locked_predictions": 434,
+    "locked_predictions": 435,
     "officially_settled": 341,
     "models_calibrated": false,
     "prospective_evidence_not_historical_backfill": true
@@ -442,27 +436,27 @@
       "max_age_hours": 12
     },
     "nba": {
-      "age_hours": 25.74,
+      "age_hours": 8.73,
       "status": "recent",
       "max_age_hours": 48
     },
     "mlb": {
-      "age_hours": 21.6,
+      "age_hours": 4.34,
       "status": "recent",
       "max_age_hours": 48
     },
     "football": {
-      "age_hours": 1.69,
+      "age_hours": 1.43,
       "status": "recent",
       "max_age_hours": 48
     },
     "center": {
-      "age_hours": 0.12,
+      "age_hours": 1.42,
       "status": "recent",
       "max_age_hours": 12
     },
     "picks": {
-      "age_hours": 1.26,
+      "age_hours": 0.56,
       "status": "recent",
       "max_age_hours": 24
     }
