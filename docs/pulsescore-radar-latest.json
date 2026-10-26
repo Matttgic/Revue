@@ -1,11 +1,11 @@
 {
   "version": "revue_pulsescore_six_hour_radar_v1",
-  "generated_at_utc": "2026-10-26T01:35:45.814472+00:00",
-  "source_model_generated_at_utc": "2026-10-26T01:30:53.267129+00:00",
+  "generated_at_utc": "2026-10-26T02:13:03.420761+00:00",
+  "source_model_generated_at_utc": "2026-10-26T01:44:15.950155+00:00",
   "status": "observed",
   "horizon_hours": 6,
   "request_cap": 100,
-  "requests_used": 12,
+  "requests_used": 0,
   "provider": "PulseScore",
   "scope": "FR observed snapshots, no currently bookable odds guaranteed",
   "bookmakers_supported": [
@@ -24,30 +24,13 @@
   "market_rows_observed": 0,
   "observations": [],
   "diagnostics": {
-    "sport_groups_attempted": [
-      "ice-hockey"
-    ],
-    "calls_by_sport": {
-      "ice-hockey": 12
-    },
+    "sport_groups_attempted": [],
+    "calls_by_sport": {},
     "allocation_mode": "sport_balanced",
     "matched_events": 0,
     "matched_leagues": {},
     "truncated": false,
-    "errors": {
-      "betclic_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
-      "winamax_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
-      "unibet_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
-      "pmu_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
-      "ps3838:ice-hockey:listing:p1": "RuntimeError: no valid feed",
-      "orbit_exchange:ice-hockey:listing:p1": "RuntimeError: no valid feed",
-      "betclic_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
-      "winamax_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
-      "unibet_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
-      "pmu_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
-      "ps3838:ice-hockey:events:p1": "RuntimeError: no valid feed",
-      "orbit_exchange:ice-hockey:events:p1": "RuntimeError: no valid feed"
-    }
+    "errors": {}
   },
   "note": "Only existing pregame forecasted events <=6 h are queried; at most 100 authenticated calls (PulseScore Pro). Differences across French books are not a calibrated fair price, proven positive EV, or a current offer."
 }
