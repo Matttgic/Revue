@@ -1,6 +1,6 @@
 {
   "status": "public_original_source_fixture_and_nhl_output_diagnostic",
-  "generated_at_utc": "2026-10-19T11:13:31.793980+00:00",
+  "generated_at_utc": "2026-10-26T11:30:47.730380+00:00",
   "reference_repository": "Purple-Wraith/clairvoyance-backend",
   "target_repository": "Matttgic/Revue",
   "real_bets_enabled": false,
@@ -10,51 +10,51 @@
   "source_inputs": {
     "data": {
       "status": "fresh",
-      "observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "age_hours": 0.48,
-      "events": 15
+      "observed_at_utc": "2026-10-26T11:05:03.192521+00:00",
+      "age_hours": 0.43,
+      "events": 14
     },
     "soccer": {
       "status": "fresh",
-      "observed_at_utc": "2026-10-19T06:45:00+00:00",
-      "age_hours": 4.48,
-      "events": 4
+      "observed_at_utc": "2026-10-26T06:55:00+00:00",
+      "age_hours": 4.6,
+      "events": 1
     },
     "nfl": {
       "status": "fresh",
-      "observed_at_utc": "2026-10-19T10:57:00+00:00",
-      "age_hours": 0.28,
+      "observed_at_utc": "2026-10-26T11:22:00+00:00",
+      "age_hours": 0.15,
       "events": 305
     },
     "nba": {
       "status": "fresh",
-      "observed_at_utc": "2026-10-19T10:57:00+00:00",
-      "age_hours": 0.28,
-      "events": 71
+      "observed_at_utc": "2026-10-26T11:22:00+00:00",
+      "age_hours": 0.15,
+      "events": 87
     }
   },
-  "source_fixture_total": 395,
-  "revue_fixture_total": 54,
-  "strict_event_matches": 23,
+  "source_fixture_total": 407,
+  "revue_fixture_total": 49,
+  "strict_event_matches": 29,
   "source_ambiguous_event_ids": [],
   "revue_ambiguous_event_ids": [],
   "identity_rejections": {},
   "reference_unmatched_by_league": {
-    "NBA": 68,
+    "NBA": 74,
     "NFL": 304
   },
   "by_league": {
     "NHL": {
-      "source_fixtures": 15,
-      "identical_id_and_kickoff": 15,
+      "source_fixtures": 14,
+      "identical_id_and_kickoff": 14,
       "unmatched": 0,
       "identity_match_percent": 100.0
     },
     "NBA": {
-      "source_fixtures": 71,
-      "identical_id_and_kickoff": 3,
-      "unmatched": 68,
-      "identity_match_percent": 4.2
+      "source_fixtures": 87,
+      "identical_id_and_kickoff": 13,
+      "unmatched": 74,
+      "identity_match_percent": 14.9
     },
     "MLB": {
       "source_fixtures": 0,
@@ -69,10 +69,10 @@
       "identity_match_percent": 0.3
     },
     "PL": {
-      "source_fixtures": 1,
-      "identical_id_and_kickoff": 1,
+      "source_fixtures": 0,
+      "identical_id_and_kickoff": 0,
       "unmatched": 0,
-      "identity_match_percent": 100.0
+      "identity_match_percent": null
     },
     "LALIGA": {
       "source_fixtures": 1,
@@ -93,111 +93,90 @@
       "identity_match_percent": null
     },
     "SERIEA": {
-      "source_fixtures": 2,
-      "identical_id_and_kickoff": 2,
+      "source_fixtures": 0,
+      "identical_id_and_kickoff": 0,
       "unmatched": 0,
-      "identity_match_percent": 100.0
+      "identity_match_percent": null
     }
   },
   "matched_fixtures": [
     {
-      "key": "LALIGA:401882842",
+      "key": "LALIGA:401882828",
       "league": "LALIGA",
-      "event_id": "401882842",
-      "kickoff_utc": "2026-10-19T19:00:00+00:00",
+      "event_id": "401882828",
+      "kickoff_utc": "2026-10-26T20:00:00+00:00",
       "original": {
-        "home": "Getafe",
-        "away": "Rayo Vallecano",
+        "home": "Sevilla",
+        "away": "Osasuna",
         "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-19T06:45:00+00:00"
+        "observed_at_utc": "2026-10-26T06:55:00+00:00"
       },
       "revue": {
-        "home": "Getafe",
-        "away": "Rayo",
+        "home": "Sevilla",
+        "away": "Osasuna",
         "models_available": 3,
         "bookmaker_prices_verified_live": false
       },
-      "identical_names": false,
+      "identical_names": true,
       "id_and_kickoff_verified": true,
       "model_output_parity_verified": false
     },
     {
-      "key": "NBA:401909088",
+      "key": "NBA:401909868",
       "league": "NBA",
-      "event_id": "401909088",
-      "kickoff_utc": "2026-10-20T19:00:00+00:00",
+      "event_id": "401909868",
+      "kickoff_utc": "2026-10-26T23:00:00+00:00",
       "original": {
-        "home": "DET",
-        "away": "BOS",
-        "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-19T10:57:00+00:00"
-      },
-      "revue": {
-        "home": "Pistons",
-        "away": "Celtics",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NBA:401909089",
-      "league": "NBA",
-      "event_id": "401909089",
-      "kickoff_utc": "2026-10-20T23:00:00+00:00",
-      "original": {
-        "home": "NY",
-        "away": "PHI",
-        "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-19T10:57:00+00:00"
-      },
-      "revue": {
-        "home": "Knicks",
-        "away": "76ers",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NBA:401909090",
-      "league": "NBA",
-      "event_id": "401909090",
-      "kickoff_utc": "2026-10-21T01:30:00+00:00",
-      "original": {
-        "home": "SA",
-        "away": "OKC",
-        "source": "nba_schedule.json",
-        "observed_at_utc": "2026-10-19T10:57:00+00:00"
-      },
-      "revue": {
-        "home": "Spurs",
-        "away": "Thunder",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": false,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NFL:401873008",
-      "league": "NFL",
-      "event_id": "401873008",
-      "kickoff_utc": "2026-10-20T00:15:00+00:00",
-      "original": {
-        "home": "SF",
+        "home": "CHA",
         "away": "WSH",
-        "source": "nfl_schedule.json",
-        "observed_at_utc": "2026-10-19T10:57:00+00:00"
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
       },
       "revue": {
-        "home": "49ers",
-        "away": "Commanders",
+        "home": "Hornets",
+        "away": "Wizards",
+        "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909869",
+      "league": "NBA",
+      "event_id": "401909869",
+      "kickoff_utc": "2026-10-26T23:00:00+00:00",
+      "original": {
+        "home": "CLE",
+        "away": "MIN",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Cavaliers",
+        "away": "Timberwolves",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909870",
+      "league": "NBA",
+      "event_id": "401909870",
+      "kickoff_utc": "2026-10-26T23:30:00+00:00",
+      "original": {
+        "home": "BOS",
+        "away": "CHI",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Celtics",
+        "away": "Bulls",
         "models_available": 2,
         "bookmaker_prices_verified_live": false
       },
@@ -206,334 +185,19 @@
       "model_output_parity_verified": false
     },
     {
-      "key": "NHL:2026020137",
-      "league": "NHL",
-      "event_id": "2026020137",
-      "kickoff_utc": "2026-10-19T23:00:00+00:00",
+      "key": "NBA:401909871",
+      "league": "NBA",
+      "event_id": "401909871",
+      "kickoff_utc": "2026-10-26T23:30:00+00:00",
       "original": {
-        "home": "NYR",
-        "away": "ANA",
-        "source": "data.json:today",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
+        "home": "MIA",
+        "away": "DAL",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
       },
       "revue": {
-        "home": "NYR",
-        "away": "ANA",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020138",
-      "league": "NHL",
-      "event_id": "2026020138",
-      "kickoff_utc": "2026-10-19T23:00:00+00:00",
-      "original": {
-        "home": "PHI",
-        "away": "COL",
-        "source": "data.json:today",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "PHI",
-        "away": "COL",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020139",
-      "league": "NHL",
-      "event_id": "2026020139",
-      "kickoff_utc": "2026-10-19T23:30:00+00:00",
-      "original": {
-        "home": "TOR",
-        "away": "SJS",
-        "source": "data.json:today",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "TOR",
-        "away": "SJS",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020140",
-      "league": "NHL",
-      "event_id": "2026020140",
-      "kickoff_utc": "2026-10-20T01:00:00+00:00",
-      "original": {
-        "home": "UTA",
-        "away": "PIT",
-        "source": "data.json:today",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "UTA",
-        "away": "PIT",
-        "models_available": 3,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020141",
-      "league": "NHL",
-      "event_id": "2026020141",
-      "kickoff_utc": "2026-10-20T23:00:00+00:00",
-      "original": {
-        "home": "MTL",
-        "away": "SJS",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "MTL",
-        "away": "SJS",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020142",
-      "league": "NHL",
-      "event_id": "2026020142",
-      "kickoff_utc": "2026-10-20T23:00:00+00:00",
-      "original": {
-        "home": "NJD",
-        "away": "COL",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "NJD",
-        "away": "COL",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020143",
-      "league": "NHL",
-      "event_id": "2026020143",
-      "kickoff_utc": "2026-10-20T23:00:00+00:00",
-      "original": {
-        "home": "NYI",
-        "away": "ANA",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "NYI",
-        "away": "ANA",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020144",
-      "league": "NHL",
-      "event_id": "2026020144",
-      "kickoff_utc": "2026-10-20T23:00:00+00:00",
-      "original": {
-        "home": "WSH",
-        "away": "LAK",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "WSH",
-        "away": "LAK",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020145",
-      "league": "NHL",
-      "event_id": "2026020145",
-      "kickoff_utc": "2026-10-20T23:00:00+00:00",
-      "original": {
-        "home": "CBJ",
-        "away": "TOR",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "CBJ",
-        "away": "TOR",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020146",
-      "league": "NHL",
-      "event_id": "2026020146",
-      "kickoff_utc": "2026-10-21T00:00:00+00:00",
-      "original": {
-        "home": "STL",
-        "away": "WPG",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "STL",
-        "away": "WPG",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020147",
-      "league": "NHL",
-      "event_id": "2026020147",
-      "kickoff_utc": "2026-10-21T00:00:00+00:00",
-      "original": {
-        "home": "DAL",
-        "away": "BOS",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "DAL",
-        "away": "BOS",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020148",
-      "league": "NHL",
-      "event_id": "2026020148",
-      "kickoff_utc": "2026-10-21T01:00:00+00:00",
-      "original": {
-        "home": "EDM",
-        "away": "MIN",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "EDM",
-        "away": "MIN",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020149",
-      "league": "NHL",
-      "event_id": "2026020149",
-      "kickoff_utc": "2026-10-21T01:40:00+00:00",
-      "original": {
-        "home": "SEA",
-        "away": "DET",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "SEA",
-        "away": "DET",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020150",
-      "league": "NHL",
-      "event_id": "2026020150",
-      "kickoff_utc": "2026-10-21T02:00:00+00:00",
-      "original": {
-        "home": "VAN",
-        "away": "CAR",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "VAN",
-        "away": "CAR",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "NHL:2026020151",
-      "league": "NHL",
-      "event_id": "2026020151",
-      "kickoff_utc": "2026-10-21T02:30:00+00:00",
-      "original": {
-        "home": "VGK",
-        "away": "TBL",
-        "source": "data.json:tomorrow",
-        "observed_at_utc": "2026-10-19T10:44:55.303777+00:00"
-      },
-      "revue": {
-        "home": "VGK",
-        "away": "TBL",
-        "models_available": 1,
-        "bookmaker_prices_verified_live": false
-      },
-      "identical_names": true,
-      "id_and_kickoff_verified": true,
-      "model_output_parity_verified": false
-    },
-    {
-      "key": "PL:401879257",
-      "league": "PL",
-      "event_id": "401879257",
-      "kickoff_utc": "2026-10-19T19:00:00+00:00",
-      "original": {
-        "home": "Tottenham Hotspur",
-        "away": "Coventry City",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-19T06:45:00+00:00"
-      },
-      "revue": {
-        "home": "Spurs",
-        "away": "Coventry",
+        "home": "Heat",
+        "away": "Mavericks",
         "models_available": 3,
         "bookmaker_prices_verified_live": false
       },
@@ -542,19 +206,229 @@
       "model_output_parity_verified": false
     },
     {
-      "key": "SERIEA:401874762",
-      "league": "SERIEA",
-      "event_id": "401874762",
-      "kickoff_utc": "2026-10-19T16:30:00+00:00",
+      "key": "NBA:401909872",
+      "league": "NBA",
+      "event_id": "401909872",
+      "kickoff_utc": "2026-10-27T00:00:00+00:00",
       "original": {
-        "home": "Monza",
-        "away": "Cagliari",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-19T06:45:00+00:00"
+        "home": "MIL",
+        "away": "IND",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
       },
       "revue": {
-        "home": "Monza",
-        "away": "Cagliari",
+        "home": "Bucks",
+        "away": "Pacers",
+        "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909873",
+      "league": "NBA",
+      "event_id": "401909873",
+      "kickoff_utc": "2026-10-27T00:00:00+00:00",
+      "original": {
+        "home": "OKC",
+        "away": "PHX",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Thunder",
+        "away": "Suns",
+        "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909874",
+      "league": "NBA",
+      "event_id": "401909874",
+      "kickoff_utc": "2026-10-27T00:30:00+00:00",
+      "original": {
+        "home": "HOU",
+        "away": "ATL",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Rockets",
+        "away": "Hawks",
+        "models_available": 2,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909875",
+      "league": "NBA",
+      "event_id": "401909875",
+      "kickoff_utc": "2026-10-27T01:00:00+00:00",
+      "original": {
+        "home": "UTAH",
+        "away": "MEM",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Jazz",
+        "away": "Grizzlies",
+        "models_available": 2,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909876",
+      "league": "NBA",
+      "event_id": "401909876",
+      "kickoff_utc": "2026-10-27T02:00:00+00:00",
+      "original": {
+        "home": "DEN",
+        "away": "GS",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Nuggets",
+        "away": "Warriors",
+        "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909877",
+      "league": "NBA",
+      "event_id": "401909877",
+      "kickoff_utc": "2026-10-27T23:30:00+00:00",
+      "original": {
+        "home": "BOS",
+        "away": "BKN",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Celtics",
+        "away": "Nets",
+        "models_available": 2,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909878",
+      "league": "NBA",
+      "event_id": "401909878",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "NY",
+        "away": "DET",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Knicks",
+        "away": "Pistons",
+        "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909879",
+      "league": "NBA",
+      "event_id": "401909879",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "SA",
+        "away": "SAC",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Spurs",
+        "away": "Kings",
+        "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NBA:401909880",
+      "league": "NBA",
+      "event_id": "401909880",
+      "kickoff_utc": "2026-10-28T03:00:00+00:00",
+      "original": {
+        "home": "LAL",
+        "away": "POR",
+        "source": "nba_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Lakers",
+        "away": "Trail Blazers",
+        "models_available": 2,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NFL:401873009",
+      "league": "NFL",
+      "event_id": "401873009",
+      "kickoff_utc": "2026-10-27T00:15:00+00:00",
+      "original": {
+        "home": "PHI",
+        "away": "DAL",
+        "source": "nfl_schedule.json",
+        "observed_at_utc": "2026-10-26T11:22:00+00:00"
+      },
+      "revue": {
+        "home": "Eagles",
+        "away": "Cowboys",
+        "models_available": 2,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": false,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020185",
+      "league": "NHL",
+      "event_id": "2026020185",
+      "kickoff_utc": "2026-10-26T23:00:00+00:00",
+      "original": {
+        "home": "NYR",
+        "away": "LAK",
+        "source": "data.json:today",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "NYR",
+        "away": "LAK",
         "models_available": 3,
         "bookmaker_prices_verified_live": false
       },
@@ -563,20 +437,272 @@
       "model_output_parity_verified": false
     },
     {
-      "key": "SERIEA:401874784",
-      "league": "SERIEA",
-      "event_id": "401874784",
-      "kickoff_utc": "2026-10-19T18:45:00+00:00",
+      "key": "NHL:2026020186",
+      "league": "NHL",
+      "event_id": "2026020186",
+      "kickoff_utc": "2026-10-27T00:30:00+00:00",
       "original": {
-        "home": "Parma",
-        "away": "Torino",
-        "source": "soccer_schedule.json",
-        "observed_at_utc": "2026-10-19T06:45:00+00:00"
+        "home": "CGY",
+        "away": "TOR",
+        "source": "data.json:today",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
       },
       "revue": {
-        "home": "Parma",
-        "away": "Torino",
+        "home": "CGY",
+        "away": "TOR",
         "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020187",
+      "league": "NHL",
+      "event_id": "2026020187",
+      "kickoff_utc": "2026-10-27T01:30:00+00:00",
+      "original": {
+        "home": "EDM",
+        "away": "DET",
+        "source": "data.json:today",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "EDM",
+        "away": "DET",
+        "models_available": 3,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020188",
+      "league": "NHL",
+      "event_id": "2026020188",
+      "kickoff_utc": "2026-10-27T23:00:00+00:00",
+      "original": {
+        "home": "PHI",
+        "away": "CBJ",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "PHI",
+        "away": "CBJ",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020189",
+      "league": "NHL",
+      "event_id": "2026020189",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "CAR",
+        "away": "BOS",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "CAR",
+        "away": "BOS",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020190",
+      "league": "NHL",
+      "event_id": "2026020190",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "CHI",
+        "away": "LAK",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "CHI",
+        "away": "LAK",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020191",
+      "league": "NHL",
+      "event_id": "2026020191",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "STL",
+        "away": "MTL",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "STL",
+        "away": "MTL",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020192",
+      "league": "NHL",
+      "event_id": "2026020192",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "NSH",
+        "away": "NYI",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "NSH",
+        "away": "NYI",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020193",
+      "league": "NHL",
+      "event_id": "2026020193",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "DAL",
+        "away": "NJD",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "DAL",
+        "away": "NJD",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020194",
+      "league": "NHL",
+      "event_id": "2026020194",
+      "kickoff_utc": "2026-10-28T00:00:00+00:00",
+      "original": {
+        "home": "WPG",
+        "away": "FLA",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "WPG",
+        "away": "FLA",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020195",
+      "league": "NHL",
+      "event_id": "2026020195",
+      "kickoff_utc": "2026-10-28T01:00:00+00:00",
+      "original": {
+        "home": "UTA",
+        "away": "MIN",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "UTA",
+        "away": "MIN",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020196",
+      "league": "NHL",
+      "event_id": "2026020196",
+      "kickoff_utc": "2026-10-28T02:00:00+00:00",
+      "original": {
+        "home": "VGK",
+        "away": "OTT",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "VGK",
+        "away": "OTT",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020197",
+      "league": "NHL",
+      "event_id": "2026020197",
+      "kickoff_utc": "2026-10-28T02:00:00+00:00",
+      "original": {
+        "home": "ANA",
+        "away": "VAN",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "ANA",
+        "away": "VAN",
+        "models_available": 1,
+        "bookmaker_prices_verified_live": false
+      },
+      "identical_names": true,
+      "id_and_kickoff_verified": true,
+      "model_output_parity_verified": false
+    },
+    {
+      "key": "NHL:2026020198",
+      "league": "NHL",
+      "event_id": "2026020198",
+      "kickoff_utc": "2026-10-28T02:30:00+00:00",
+      "original": {
+        "home": "SJS",
+        "away": "BUF",
+        "source": "data.json:tomorrow",
+        "observed_at_utc": "2026-10-26T11:05:03.192521+00:00"
+      },
+      "revue": {
+        "home": "SJS",
+        "away": "BUF",
+        "models_available": 1,
         "bookmaker_prices_verified_live": false
       },
       "identical_names": true,
@@ -584,29 +710,29 @@
       "model_output_parity_verified": false
     }
   ],
-  "original_nhl_best_bets_reported": 8,
-  "nhl_same_market_model_comparisons": 7,
+  "original_nhl_best_bets_reported": 6,
+  "nhl_same_market_model_comparisons": 5,
   "nhl_model_comparison_outcomes": {
-    "compared": 7,
+    "compared": 5,
     "unsupported_market_spread_or_prop": 1
   },
-  "nhl_mean_abs_probability_difference_pp": 7.65,
+  "nhl_mean_abs_probability_difference_pp": 6.92,
   "nhl_source_vs_revue": [
     {
       "league": "NHL",
-      "key": "NHL:2026020138",
-      "kickoff_utc": "2026-10-19T23:00:00+00:00",
-      "home": "PHI",
-      "away": "COL",
+      "key": "NHL:2026020186",
+      "kickoff_utc": "2026-10-27T00:30:00+00:00",
+      "home": "CGY",
+      "away": "TOR",
       "market": "moneyline_including_overtime",
       "side": "home",
       "line": null,
-      "original_probability": 0.408,
-      "revue_probability": 0.388,
-      "difference_revue_minus_original_pp": -2.0,
+      "original_probability": 0.541,
+      "revue_probability": 0.569,
+      "difference_revue_minus_original_pp": 2.8,
       "status": "compared",
-      "original_observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "revue_observed_at_utc": "2026-10-18T19:27:06.368993+00:00",
+      "original_observed_at_utc": "2026-10-26T11:05:03.192521+00:00",
+      "revue_observed_at_utc": "2026-10-25T19:40:16.215803+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -615,19 +741,19 @@
     },
     {
       "league": "NHL",
-      "key": "NHL:2026020140",
-      "kickoff_utc": "2026-10-20T01:00:00+00:00",
-      "home": "UTA",
-      "away": "PIT",
+      "key": "NHL:2026020187",
+      "kickoff_utc": "2026-10-27T01:30:00+00:00",
+      "home": "EDM",
+      "away": "DET",
       "market": "moneyline_including_overtime",
       "side": "away",
       "line": null,
-      "original_probability": 0.456,
-      "revue_probability": 0.374,
-      "difference_revue_minus_original_pp": -8.2,
+      "original_probability": 0.485,
+      "revue_probability": 0.314,
+      "difference_revue_minus_original_pp": -17.1,
       "status": "compared",
-      "original_observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "revue_observed_at_utc": "2026-10-18T19:27:06.368993+00:00",
+      "original_observed_at_utc": "2026-10-26T11:05:03.192521+00:00",
+      "revue_observed_at_utc": "2026-10-25T19:40:16.215803+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -636,19 +762,19 @@
     },
     {
       "league": "NHL",
-      "key": "NHL:2026020137",
-      "kickoff_utc": "2026-10-19T23:00:00+00:00",
+      "key": "NHL:2026020185",
+      "kickoff_utc": "2026-10-26T23:00:00+00:00",
       "home": "NYR",
-      "away": "ANA",
+      "away": "LAK",
       "market": "full_game_total",
       "side": "under",
-      "line": 6.5,
+      "line": 5.5,
       "original_probability": 0.56,
-      "revue_probability": 0.6333,
-      "difference_revue_minus_original_pp": 7.33,
+      "revue_probability": 0.5253,
+      "difference_revue_minus_original_pp": -3.47,
       "status": "compared",
-      "original_observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "revue_observed_at_utc": "2026-10-19T10:00:10.494410+00:00",
+      "original_observed_at_utc": "2026-10-26T11:05:03.192521+00:00",
+      "revue_observed_at_utc": "2026-10-26T10:13:39.078367+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -657,19 +783,19 @@
     },
     {
       "league": "NHL",
-      "key": "NHL:2026020138",
-      "kickoff_utc": "2026-10-19T23:00:00+00:00",
-      "home": "PHI",
-      "away": "COL",
+      "key": "NHL:2026020186",
+      "kickoff_utc": "2026-10-27T00:30:00+00:00",
+      "home": "CGY",
+      "away": "TOR",
       "market": "full_game_total",
       "side": "under",
       "line": 6.5,
       "original_probability": 0.56,
-      "revue_probability": 0.6423,
-      "difference_revue_minus_original_pp": 8.23,
+      "revue_probability": 0.5306,
+      "difference_revue_minus_original_pp": -2.94,
       "status": "compared",
-      "original_observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "revue_observed_at_utc": "2026-10-19T10:00:10.494410+00:00",
+      "original_observed_at_utc": "2026-10-26T11:05:03.192521+00:00",
+      "revue_observed_at_utc": "2026-10-26T10:13:39.078367+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -678,61 +804,19 @@
     },
     {
       "league": "NHL",
-      "key": "NHL:2026020139",
-      "kickoff_utc": "2026-10-19T23:30:00+00:00",
-      "home": "TOR",
-      "away": "SJS",
+      "key": "NHL:2026020187",
+      "kickoff_utc": "2026-10-27T01:30:00+00:00",
+      "home": "EDM",
+      "away": "DET",
       "market": "full_game_total",
       "side": "under",
       "line": 6.5,
       "original_probability": 0.56,
-      "revue_probability": 0.4658,
-      "difference_revue_minus_original_pp": -9.42,
+      "revue_probability": 0.4771,
+      "difference_revue_minus_original_pp": -8.29,
       "status": "compared",
-      "original_observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "revue_observed_at_utc": "2026-10-19T10:00:10.494410+00:00",
-      "same_scheduled_fixture_and_market": true,
-      "identical_features_verified": false,
-      "identical_model_configuration_verified": false,
-      "source_quote_is_french_live_verified": false,
-      "calibration_verified": false
-    },
-    {
-      "league": "NHL",
-      "key": "NHL:2026020140",
-      "kickoff_utc": "2026-10-20T01:00:00+00:00",
-      "home": "UTA",
-      "away": "PIT",
-      "market": "full_game_total",
-      "side": "under",
-      "line": 6.5,
-      "original_probability": 0.56,
-      "revue_probability": 0.457,
-      "difference_revue_minus_original_pp": -10.3,
-      "status": "compared",
-      "original_observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "revue_observed_at_utc": "2026-10-19T10:00:10.494410+00:00",
-      "same_scheduled_fixture_and_market": true,
-      "identical_features_verified": false,
-      "identical_model_configuration_verified": false,
-      "source_quote_is_french_live_verified": false,
-      "calibration_verified": false
-    },
-    {
-      "league": "NHL",
-      "key": "NHL:2026020137",
-      "kickoff_utc": "2026-10-19T23:00:00+00:00",
-      "home": "NYR",
-      "away": "ANA",
-      "market": "moneyline_including_overtime",
-      "side": "away",
-      "line": null,
-      "original_probability": 0.465,
-      "revue_probability": 0.384,
-      "difference_revue_minus_original_pp": -8.1,
-      "status": "compared",
-      "original_observed_at_utc": "2026-10-19T10:44:55.303777+00:00",
-      "revue_observed_at_utc": "2026-10-18T19:27:06.368993+00:00",
+      "original_observed_at_utc": "2026-10-26T11:05:03.192521+00:00",
+      "revue_observed_at_utc": "2026-10-26T10:13:39.078367+00:00",
       "same_scheduled_fixture_and_market": true,
       "identical_features_verified": false,
       "identical_model_configuration_verified": false,
@@ -746,12 +830,12 @@
   "reference_historic_lock_timing": {
     "status": "observed",
     "original_source_basis": "all locks (including picks locked after the game started)",
-    "observed_classified_total": 4320,
-    "pre_start_recorded": 1491,
-    "locked_after_start_included": 215,
-    "unknown_lock_timing_included": 2614,
-    "pre_start_fraction_pct": 34.51,
-    "non_pre_match_proven_or_unknown": 2829,
+    "observed_classified_total": 4709,
+    "pre_start_recorded": 1852,
+    "locked_after_start_included": 222,
+    "unknown_lock_timing_included": 2635,
+    "pre_start_fraction_pct": 39.33,
+    "non_pre_match_proven_or_unknown": 2857,
     "may_not_be_claimed_as_reproducible_roi": true,
     "note": "Original source figures count all locks, including late and unknown lock times. Do not compare published overall returns to Revue's verified pre-match paper ledger."
   }
