@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-27T19:17:09.809139+00:00",
+  "generated_at_utc": "2026-10-27T21:28:12.116742+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -52,68 +52,6 @@
     "SERIEA": {
       "name": "Serie A",
       "games": [
-        {
-          "event_id": "401874780",
-          "home": "AS Roma",
-          "away": "Cagliari",
-          "start_utc": "2026-10-27T19:45:00+00:00",
-          "league": "SERIEA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.53921,
-            "draw_90": 0.24886,
-            "away_win_90": 0.21193,
-            "over_2_5": 0.50126
-          },
-          "expected_score": {
-            "home": 1.743,
-            "away": 0.936
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-25T06:42:19.135479+00:00",
-            "away": "2026-10-25T01:11:54.851319+00:00"
-          }
-        },
-        {
-          "event_id": "401874786",
-          "home": "Torino",
-          "away": "Como",
-          "start_utc": "2026-10-27T19:45:00+00:00",
-          "league": "SERIEA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.36842,
-            "draw_90": 0.2653,
-            "away_win_90": 0.36628,
-            "over_2_5": 0.53818
-          },
-          "expected_score": {
-            "home": 1.405,
-            "away": 1.428
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-24T07:32:59.287339+00:00",
-            "away": "2026-10-25T01:11:54.851319+00:00"
-          }
-        },
         {
           "event_id": "401874773",
           "home": "Venezia",
@@ -334,17 +272,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 10,
+        "n": 11,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.5139,
-          "logloss": 0.89022
+          "brier": 0.49671,
+          "logloss": 0.86616
         },
         "baseline": {
-          "brier": 0.52368,
-          "logloss": 0.9035
+          "brier": 0.50689,
+          "logloss": 0.87984
         },
-        "shadow_brier_delta_vs_baseline": -0.00978,
+        "shadow_brier_delta_vs_baseline": -0.01018,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
