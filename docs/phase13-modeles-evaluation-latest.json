@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-10-28T02:31:36.520710+00:00",
+  "generated_at_utc": "2026-10-28T05:38:08.749665+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -23,8 +23,8 @@
   },
   "metrics": {
     "locked": 472,
-    "settled": 357,
-    "distinct_settled_fixtures": 223,
+    "settled": 359,
+    "distinct_settled_fixtures": 225,
     "paired_comparisons": 3,
     "paired_observation_overlap_not_independent": 201
   },
@@ -515,15 +515,15 @@
     "MLB::revue_mlb_espn_history_elo_v1": {
       "league": "MLB",
       "model_id": "revue_mlb_espn_history_elo_v1",
-      "settled": 12,
+      "settled": 13,
       "frozen_locked": 21,
       "raw": {
-        "n": 12,
-        "brier": 0.403435,
-        "logloss": 0.594337
+        "n": 13,
+        "brier": 0.428342,
+        "logloss": 0.619682
       },
       "uniform_reference_same_matches": {
-        "n": 12,
+        "n": 13,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -541,9 +541,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 1,
-              "mean_predicted": 0.39,
-              "observed_rate": 0.0
+              "n": 2,
+              "mean_predicted": 0.3935,
+              "observed_rate": 0.5
             },
             {
               "lower": 0.4,
@@ -595,9 +595,9 @@
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 1,
-              "mean_predicted": 0.61,
-              "observed_rate": 1.0
+              "n": 2,
+              "mean_predicted": 0.6065,
+              "observed_rate": 0.5
             },
             {
               "lower": 0.8,
@@ -676,15 +676,15 @@
     "NBA::revue_nba_espn_previous_standings_prior_v1": {
       "league": "NBA",
       "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "settled": 93,
+      "settled": 94,
       "frozen_locked": 111,
       "raw": {
-        "n": 93,
-        "brier": 0.441043,
-        "logloss": 0.631339
+        "n": 94,
+        "brier": 0.444108,
+        "logloss": 0.634472
       },
       "uniform_reference_same_matches": {
-        "n": 93,
+        "n": 94,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -702,9 +702,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 8,
-              "mean_predicted": 0.34458,
-              "observed_rate": 0.25
+              "n": 9,
+              "mean_predicted": 0.35031,
+              "observed_rate": 0.33333
             },
             {
               "lower": 0.4,
@@ -756,9 +756,9 @@
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 8,
-              "mean_predicted": 0.65542,
-              "observed_rate": 0.75
+              "n": 9,
+              "mean_predicted": 0.64969,
+              "observed_rate": 0.66667
             },
             {
               "lower": 0.8,
@@ -1453,29 +1453,29 @@
   ],
   "NHL": {
     "locked": 133,
-    "settled": 118,
-    "paired_settled": 100,
+    "settled": 129,
+    "paired_settled": 111,
     "reference_score": {
-      "n": 118,
-      "brier": 0.481362,
-      "logloss": 0.671915
+      "n": 129,
+      "brier": 0.489431,
+      "logloss": 0.680477
     },
     "paired": {
-      "games": 100,
+      "games": 111,
       "reference": {
-        "n": 100,
-        "brier": 0.487816,
-        "logloss": 0.679897
+        "n": 111,
+        "brier": 0.496555,
+        "logloss": 0.689056
       },
       "candidate": {
-        "n": 100,
-        "brier": 0.479196,
-        "logloss": 0.670256
+        "n": 111,
+        "brier": 0.488385,
+        "logloss": 0.67998
       },
       "comparison_validated": true,
-      "delta_brier_candidate_minus_reference": -0.008621
+      "delta_brier_candidate_minus_reference": -0.00817
     },
-    "native_binary_scalar_brier": 0.240681,
+    "native_binary_scalar_brier": 0.244716,
     "separate_official_NHL_source": true,
     "original_sql_parity_proven": false,
     "automatically_deployed": false
