@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-28T00:48:20.404492+00:00",
+  "generated_at_utc": "2026-10-28T02:31:11.634637+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -526,20 +526,68 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401909285",
+          "league": "NBA",
+          "home": "Warriors",
+          "away": "Lakers",
+          "start_utc": "2026-10-31T02:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 10,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.53918,
+            "away_win": 0.46082
+          },
+          "odds": null,
+          "expected_margin_home": 0.561,
+          "components": {
+            "elo_probability": 0.5512,
+            "margin_probability": 0.5186,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401909286",
+          "league": "NBA",
+          "home": "Suns",
+          "away": "Nuggets",
+          "start_utc": "2026-10-31T02:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 8,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.50915,
+            "away_win": 0.49085
+          },
+          "odds": null,
+          "expected_margin_home": -0.506,
+          "components": {
+            "elo_probability": 0.5244,
+            "margin_probability": 0.4832,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 7,
+        "n": 8,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24732,
-          "logloss_binary": 0.68771
+          "brier_binary": 0.2316,
+          "logloss_binary": 0.65533
         },
         "baseline": {
-          "brier_binary": 0.2427,
-          "logloss_binary": 0.67846
+          "brier_binary": 0.22805,
+          "logloss_binary": 0.64831
         },
-        "brier_delta_candidate_minus_baseline": 0.00462,
+        "brier_delta_candidate_minus_baseline": 0.00355,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
