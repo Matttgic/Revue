@@ -1,98 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-27T22:16:43.682706+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-27T21:33:29.362267+00:00",
+  "generated_at_utc": "2026-10-28T01:11:06.242127+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-28T00:47:06.146928+00:00",
   "models": [
-    {
-      "event_id": "401909877",
-      "league": "NBA",
-      "home": "Celtics",
-      "away": "Nets",
-      "start_utc": "2026-10-27T23:30:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.78476,
-        "away_win": 0.21524
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401908045",
-      "league": "MLB",
-      "home": "Rays",
-      "away": "Brewers",
-      "start_utc": "2026-10-28T00:00:00+00:00",
-      "model_id": "revue_mlb_espn_history_elo_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.346,
-        "away_win": 0.654
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "espn_elo_replay": "2026-10-27T18:20:12.254513+00:00",
-        "last_eligible_history_cutoff_utc": "2026-10-27T18:20:12.254513+00:00"
-      },
-      "method": "Revue Elo replay from verified ESPN finals; pitcher, injuries, private Clairvoyance SQL state absent"
-    },
-    {
-      "event_id": "401909878",
-      "league": "NBA",
-      "home": "Knicks",
-      "away": "Pistons",
-      "start_utc": "2026-10-28T00:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.385,
-        "away_win": 0.615
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
-    {
-      "event_id": "401909879",
-      "league": "NBA",
-      "home": "Spurs",
-      "away": "Kings",
-      "start_utc": "2026-10-28T00:00:00+00:00",
-      "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win": 0.79221,
-        "away_win": 0.20779
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
-      },
-      "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
-    },
     {
       "event_id": "401909880",
       "league": "NBA",
@@ -111,7 +22,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -124,10 +35,10 @@
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win_90": 0.21682,
-        "draw_90": 0.184074,
-        "away_win_90": 0.599106,
-        "over_2_5": 0.745169
+        "home_win_90": 0.217073,
+        "draw_90": 0.18417,
+        "away_win_90": 0.598757,
+        "over_2_5": 0.745259
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -135,11 +46,11 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.05485
+      "model_disagreement_tv": 0.05565
     },
     {
       "event_id": "401874965",
@@ -150,10 +61,10 @@
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win_90": 0.453403,
-        "draw_90": 0.248727,
-        "away_win_90": 0.29787,
-        "over_2_5": 0.56372
+        "home_win_90": 0.453406,
+        "draw_90": 0.248635,
+        "away_win_90": 0.297959,
+        "over_2_5": 0.56426
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -161,11 +72,11 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01582
+      "model_disagreement_tv": 0.01602
     },
     {
       "event_id": "401874993",
@@ -176,10 +87,10 @@
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win_90": 0.504869,
-        "draw_90": 0.24135,
-        "away_win_90": 0.253781,
-        "over_2_5": 0.554674
+        "home_win_90": 0.504782,
+        "draw_90": 0.241307,
+        "away_win_90": 0.253911,
+        "over_2_5": 0.555169
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -187,11 +98,11 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.02953
+      "model_disagreement_tv": 0.02983
     },
     {
       "event_id": "401874799",
@@ -202,10 +113,10 @@
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win_90": 0.412569,
-        "draw_90": 0.23142,
-        "away_win_90": 0.356011,
-        "over_2_5": 0.66377
+        "home_win_90": 0.412634,
+        "draw_90": 0.231339,
+        "away_win_90": 0.356027,
+        "over_2_5": 0.66404
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -213,11 +124,11 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01024
+      "model_disagreement_tv": 0.01029
     },
     {
       "event_id": "401874988",
@@ -228,10 +139,10 @@
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win_90": 0.345365,
-        "draw_90": 0.265879,
-        "away_win_90": 0.388756,
-        "over_2_5": 0.504758
+        "home_win_90": 0.345514,
+        "draw_90": 0.265754,
+        "away_win_90": 0.388732,
+        "over_2_5": 0.505343
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -239,11 +150,11 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.02348
+      "model_disagreement_tv": 0.02383
     },
     {
       "event_id": "401909881",
@@ -263,7 +174,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -285,7 +196,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -307,7 +218,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -329,7 +240,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -353,8 +264,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01492
@@ -379,8 +290,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.02498
@@ -405,8 +316,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01495
@@ -431,8 +342,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.02022
@@ -457,8 +368,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01213
@@ -481,7 +392,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -526,7 +437,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -548,7 +459,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -570,7 +481,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -592,7 +503,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -616,8 +527,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01483
@@ -642,8 +553,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.00322
@@ -668,8 +579,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01072
@@ -694,8 +605,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.02308
@@ -720,8 +631,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01915
@@ -746,8 +657,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.02594
@@ -770,7 +681,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -792,7 +703,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -816,8 +727,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.0214
@@ -842,8 +753,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01649
@@ -868,8 +779,8 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
       "model_disagreement_tv": 0.01004
@@ -892,7 +803,7 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "previous_standings": "2026-10-27T21:47:05.313315+00:00"
+        "previous_standings": "2026-10-28T00:48:19.372873+00:00"
       },
       "method": "ESPN prior-season standings with early-season regression; no confirmed lineups"
     },
@@ -905,10 +816,10 @@
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win_90": 0.517904,
-        "draw_90": 0.213143,
-        "away_win_90": 0.268953,
-        "over_2_5": 0.698285
+        "home_win_90": 0.517815,
+        "draw_90": 0.213144,
+        "away_win_90": 0.269041,
+        "over_2_5": 0.69851
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -916,11 +827,11 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.0254
+      "model_disagreement_tv": 0.0256
     },
     {
       "event_id": "401874969",
@@ -931,10 +842,10 @@
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "status": "shadow_research_only_unvalidated",
       "probabilities": {
-        "home_win_90": 0.433221,
-        "draw_90": 0.216643,
-        "away_win_90": 0.350136,
-        "over_2_5": 0.732317
+        "home_win_90": 0.433266,
+        "draw_90": 0.216642,
+        "away_win_90": 0.350092,
+        "over_2_5": 0.732452
       },
       "calibrated": false,
       "source_sql_parity": false,
@@ -942,26 +853,26 @@
       "EV": null,
       "betting_recommendation": null,
       "inputs_observed_utc": {
-        "multisports": "2026-10-27T21:47:02.954807+00:00",
-        "espn_shots_shadow": "2026-10-27T21:47:05.844109+00:00"
+        "multisports": "2026-10-28T00:48:15.793491+00:00",
+        "espn_shots_shadow": "2026-10-28T00:48:19.877177+00:00"
       },
       "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.0081
+      "model_disagreement_tv": 0.008
     }
   ],
   "metrics": {
-    "candidates": 39,
-    "events_covered": 39,
+    "candidates": 35,
+    "events_covered": 35,
     "models_by_league": {
-      "NBA": 16,
-      "MLB": 2,
+      "NBA": 13,
       "SERIEA": 7,
-      "MLS": 14
+      "MLS": 14,
+      "MLB": 1
     },
     "decisions": {
-      "nba_advanced_prior_mode_unverified": 16,
-      "mlb_history_elo": 2,
-      "football_correlated_research_pool": 21
+      "nba_advanced_prior_mode_unverified": 13,
+      "football_correlated_research_pool": 21,
+      "mlb_history_elo": 1
     }
   },
   "calibrated": false,
