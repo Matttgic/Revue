@@ -1,11 +1,11 @@
 {
   "version": "revue_pulsescore_six_hour_radar_v1",
-  "generated_at_utc": "2026-10-28T16:48:12.460517+00:00",
-  "source_model_generated_at_utc": "2026-10-28T14:19:13.115058+00:00",
+  "generated_at_utc": "2026-10-28T17:48:14.113268+00:00",
+  "source_model_generated_at_utc": "2026-10-28T17:18:51.941540+00:00",
   "status": "observed",
   "horizon_hours": 6,
   "request_cap": 100,
-  "requests_used": 10,
+  "requests_used": 32,
   "provider": "PulseScore",
   "scope": "FR observed snapshots, no currently bookable odds guaranteed",
   "bookmakers_supported": [
@@ -25,10 +25,14 @@
   "observations": [],
   "diagnostics": {
     "sport_groups_attempted": [
-      "soccer"
+      "soccer",
+      "basketball",
+      "ice-hockey"
     ],
     "calls_by_sport": {
-      "soccer": 10
+      "soccer": 10,
+      "basketball": 10,
+      "ice-hockey": 12
     },
     "allocation_mode": "sport_balanced",
     "matched_events": 0,
@@ -36,15 +40,37 @@
     "truncated": false,
     "errors": {
       "betclic_fr:soccer:listing:p1": "RuntimeError: no valid feed",
+      "betclic_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "betclic_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
       "winamax_fr:soccer:listing:p1": "RuntimeError: no valid feed",
+      "winamax_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "winamax_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
       "unibet_fr:soccer:listing:p1": "RuntimeError: no valid feed",
+      "unibet_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "unibet_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
       "pmu_fr:soccer:listing:p1": "RuntimeError: no valid feed",
+      "pmu_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "pmu_fr:ice-hockey:listing:p1": "RuntimeError: no valid feed",
       "ps3838:soccer:listing:p1": "RuntimeError: no valid feed",
+      "ps3838:basketball:listing:p1": "RuntimeError: no valid feed",
+      "ps3838:ice-hockey:listing:p1": "RuntimeError: no valid feed",
+      "orbit_exchange:ice-hockey:listing:p1": "RuntimeError: no valid feed",
       "betclic_fr:soccer:events:p1": "RuntimeError: no valid feed",
+      "betclic_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "betclic_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
       "winamax_fr:soccer:events:p1": "RuntimeError: no valid feed",
+      "winamax_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "winamax_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
       "unibet_fr:soccer:events:p1": "RuntimeError: no valid feed",
+      "unibet_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "unibet_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
       "pmu_fr:soccer:events:p1": "RuntimeError: no valid feed",
-      "ps3838:soccer:events:p1": "RuntimeError: no valid feed"
+      "pmu_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "pmu_fr:ice-hockey:events:p1": "RuntimeError: no valid feed",
+      "ps3838:soccer:events:p1": "RuntimeError: no valid feed",
+      "ps3838:basketball:events:p1": "RuntimeError: no valid feed",
+      "ps3838:ice-hockey:events:p1": "RuntimeError: no valid feed",
+      "orbit_exchange:ice-hockey:events:p1": "RuntimeError: no valid feed"
     }
   },
   "note": "Only existing pregame forecasted events <=6 h are queried; at most 100 authenticated calls (PulseScore Pro). Differences across French books are not a calibrated fair price, proven positive EV, or a current offer."
