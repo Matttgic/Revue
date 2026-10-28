@@ -12647,13 +12647,22 @@
           "home_advantage_added": false
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-28T02:31:34.084994+00:00",
+      "home_score": 125,
+      "away_score": 124,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.27855648,
+          "log_loss": 0.46712777
+        },
+        "own_elo": {
+          "brier": 0.34974939,
+          "log_loss": 0.54159453
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -12763,13 +12772,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-28T02:31:34.084994+00:00",
+      "home_score": 130,
+      "away_score": 103,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.26703432,
+          "log_loss": 0.4547604
+        },
+        "own_elo": {
+          "brier": 0.37919803,
+          "log_loss": 0.57169035
+        },
+        "advanced_team": {
+          "brier": 0.25896965,
+          "log_loss": 0.44603713
+        },
+        "montecarlo_bayes": {
+          "brier": 0.2737852,
+          "log_loss": 0.46201959
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -19243,6 +19269,40 @@
       "home_after": 1522.39,
       "away_after": 1535.57,
       "observed_home_outcome": 0
+    },
+    "NBA:401909877": {
+      "key": "NBA:401909877",
+      "league": "NBA",
+      "event_id": "401909877",
+      "home": "Celtics",
+      "away": "Nets",
+      "start_utc": "2026-10-27T23:30:00+00:00",
+      "observed_at_utc": "2026-10-28T02:31:34.084994+00:00",
+      "home_score": 125,
+      "away_score": 124,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1543.35,
+      "away_before": 1462.84,
+      "home_after": 1552.62,
+      "away_after": 1453.57,
+      "observed_home_outcome": 1
+    },
+    "NBA:401909879": {
+      "key": "NBA:401909879",
+      "league": "NBA",
+      "event_id": "401909879",
+      "home": "Spurs",
+      "away": "Kings",
+      "start_utc": "2026-10-28T00:00:00+00:00",
+      "observed_at_utc": "2026-10-28T02:31:34.084994+00:00",
+      "home_score": 130,
+      "away_score": 103,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1489.92,
+      "away_before": 1435.89,
+      "home_after": 1500.07,
+      "away_after": 1425.74,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -19255,12 +19315,12 @@
       "Pistons": 1547.74,
       "Heat": 1444.36,
       "Timberwolves": 1520.22,
-      "Celtics": 1543.35,
+      "Celtics": 1552.62,
       "76ers": 1501.58,
       "Warriors": 1508.99,
-      "Kings": 1435.89,
+      "Kings": 1425.74,
       "Suns": 1478.42,
-      "Spurs": 1489.92,
+      "Spurs": 1500.07,
       "Rockets": 1548.6,
       "Mavericks": 1487.76,
       "Cavaliers": 1512.04,
@@ -19272,7 +19332,7 @@
       "Trail Blazers": 1532.04,
       "Lions": 1488.0,
       "Thunder": 1535.1,
-      "Nets": 1462.84,
+      "Nets": 1453.57,
       "Knicks": 1456.59,
       "Jazz": 1499.29,
       "Lakers": 1516.17,
@@ -19431,5 +19491,5 @@
       "Dream": 1487.9
     }
   },
-  "updated_at_utc": "2026-10-28T02:31:30.278481+00:00"
+  "updated_at_utc": "2026-10-28T05:30:27.156955+00:00"
 }
