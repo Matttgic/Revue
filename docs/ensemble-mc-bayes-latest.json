@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-28T19:48:55.585311+00:00",
+  "generated_at_utc": "2026-10-28T22:49:46.963852+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -820,6 +820,40 @@
           "expected_score": {
             "home": 113.08,
             "away": 115.77
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401909897",
+          "league": "NBA",
+          "home": "Hornets",
+          "away": "76ers",
+          "start_utc": "2026-10-31T22:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 8,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.50905,
+            "away_win": 0.49095
+          },
+          "components": {
+            "monte_carlo": 0.46745,
+            "bayes": 0.526,
+            "elo": 0.57999,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 111.91,
+            "away": 112.87
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }

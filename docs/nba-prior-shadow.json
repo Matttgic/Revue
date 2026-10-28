@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-28T19:48:54.185554+00:00",
+  "generated_at_utc": "2026-10-28T22:49:45.593219+00:00",
   "status": "shadow_nba_prior_only",
   "source": "ESPN public previous-season NBA standings",
   "previous_season_end_year": 2026,
@@ -758,8 +758,37 @@
       "previous_season": 2026,
       "data_observed_at": "2026-10-09T21:56:07.353586+00:00",
       "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
+    },
+    {
+      "event_id": "401909897",
+      "league": "NBA",
+      "home": "Hornets",
+      "away": "76ers",
+      "start_utc": "2026-10-31T22:00:00+00:00",
+      "model": "independent_nba_prior_strength_v1",
+      "status": "shadow_prior_not_calibrated",
+      "probabilities": {
+        "home_win": 0.53285,
+        "away_win": 0.46715
+      },
+      "components": {
+        "elo": 0.53405,
+        "margin": 0.53795,
+        "prior_wins": 0.51564
+      },
+      "strength": {
+        "home": -1.135,
+        "away": -0.621
+      },
+      "current_games": {
+        "home": 8,
+        "away": 8
+      },
+      "previous_season": 2026,
+      "data_observed_at": "2026-10-09T21:56:07.353586+00:00",
+      "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
     }
   ],
-  "ready": 26,
+  "ready": 27,
   "disclaimer": "Prior-season standings are NOT the current lineups. No historical look-ahead backtest from a newly collected snapshot."
 }
