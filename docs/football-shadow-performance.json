@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-29T00:13:45.007415+00:00",
+  "generated_at_utc": "2026-10-29T01:19:39.405824+00:00",
   "status": "prospective_football_score_audit_only",
   "source": "ESPN final scores; only verified pre-match frozen predictions",
   "prediction_source": "Revue independent baseline and shadow model",
@@ -55,6 +55,23 @@
       },
       "brier_delta_candidate_minus_baseline": 0.001309
     },
+    "LIGUE1": {
+      "n_recorded": 30,
+      "n_settled": 25,
+      "n_pending": 5,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.634429,
+          "logloss": 1.050899
+        },
+        "shadow_metrics": {
+          "brier": 0.632477,
+          "logloss": 1.047055
+        }
+      },
+      "brier_delta_candidate_minus_baseline": -0.001952
+    },
     "BUNDESLIGA": {
       "n_recorded": 25,
       "n_settled": 18,
@@ -88,23 +105,6 @@
         }
       },
       "brier_delta_candidate_minus_baseline": -0.014614
-    },
-    "LIGUE1": {
-      "n_recorded": 30,
-      "n_settled": 25,
-      "n_pending": 5,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.634429,
-          "logloss": 1.050899
-        },
-        "shadow_metrics": {
-          "brier": 0.632477,
-          "logloss": 1.047055
-        }
-      },
-      "brier_delta_candidate_minus_baseline": -0.001952
     },
     "WITH_ESPN_SHOTS": {
       "n_recorded": 142,
