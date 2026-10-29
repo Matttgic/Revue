@@ -7893,7 +7893,7 @@
       "away": "Valkyries",
       "kickoff_utc": "2026-10-29T16:30:00+00:00",
       "locked_at_utc": "2026-10-26T23:56:54.537762+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_ensemble_mc_bayes_elo": {
           "p_home": 0.60041,
@@ -7904,11 +7904,20 @@
           "source_generated_utc": "2026-10-26T23:46:27.161551+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 1,
+      "score": {
+        "home": 80,
+        "away": 69
+      },
+      "resolved_at_utc": "2026-10-29T19:12:39.618798+00:00",
+      "brier_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.159672,
+        "revue_multisports_score_model": 0.15745
+      },
+      "logloss_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.510143,
+        "revue_multisports_score_model": 0.505506
+      },
       "real_bet": false,
       "staked_units": 0
     },
