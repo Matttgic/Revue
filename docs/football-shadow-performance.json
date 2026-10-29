@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-29T06:49:39.338531+00:00",
+  "generated_at_utc": "2026-10-29T08:46:01.671490+00:00",
   "status": "prospective_football_score_audit_only",
   "source": "ESPN final scores; only verified pre-match frozen predictions",
   "prediction_source": "Revue independent baseline and shadow model",
@@ -20,6 +20,40 @@
         }
       },
       "brier_delta_candidate_minus_baseline": -0.00483
+    },
+    "SERIEA": {
+      "n_recorded": 43,
+      "n_settled": 38,
+      "n_pending": 5,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.546428,
+          "logloss": 0.930374
+        },
+        "shadow_metrics": {
+          "brier": 0.538324,
+          "logloss": 0.920125
+        }
+      },
+      "brier_delta_candidate_minus_baseline": -0.008104
+    },
+    "LALIGA": {
+      "n_recorded": 36,
+      "n_settled": 30,
+      "n_pending": 6,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.608479,
+          "logloss": 1.02132
+        },
+        "shadow_metrics": {
+          "brier": 0.593865,
+          "logloss": 0.996748
+        }
+      },
+      "brier_delta_candidate_minus_baseline": -0.014614
     },
     "BUNDESLIGA": {
       "n_recorded": 25,
@@ -55,23 +89,6 @@
       },
       "brier_delta_candidate_minus_baseline": 0.001309
     },
-    "SERIEA": {
-      "n_recorded": 43,
-      "n_settled": 38,
-      "n_pending": 5,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.546428,
-          "logloss": 0.930374
-        },
-        "shadow_metrics": {
-          "brier": 0.538324,
-          "logloss": 0.920125
-        }
-      },
-      "brier_delta_candidate_minus_baseline": -0.008104
-    },
     "LIGUE1": {
       "n_recorded": 30,
       "n_settled": 25,
@@ -88,23 +105,6 @@
         }
       },
       "brier_delta_candidate_minus_baseline": -0.001952
-    },
-    "LALIGA": {
-      "n_recorded": 36,
-      "n_settled": 30,
-      "n_pending": 6,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.608479,
-          "logloss": 1.02132
-        },
-        "shadow_metrics": {
-          "brier": 0.593865,
-          "logloss": 0.996748
-        }
-      },
-      "brier_delta_candidate_minus_baseline": -0.014614
     },
     "WITH_ESPN_SHOTS": {
       "n_recorded": 142,
