@@ -1,11 +1,11 @@
 {
   "version": "revue_pulsescore_six_hour_radar_v1",
-  "generated_at_utc": "2026-10-29T10:19:29.992627+00:00",
+  "generated_at_utc": "2026-10-29T11:19:33.560390+00:00",
   "source_model_generated_at_utc": "2026-10-29T09:49:50.380682+00:00",
   "status": "observed",
   "horizon_hours": 6,
   "request_cap": 100,
-  "requests_used": 0,
+  "requests_used": 10,
   "provider": "PulseScore",
   "scope": "FR observed snapshots, no currently bookable odds guaranteed",
   "bookmakers_supported": [
@@ -24,13 +24,28 @@
   "market_rows_observed": 0,
   "observations": [],
   "diagnostics": {
-    "sport_groups_attempted": [],
-    "calls_by_sport": {},
+    "sport_groups_attempted": [
+      "basketball"
+    ],
+    "calls_by_sport": {
+      "basketball": 10
+    },
     "allocation_mode": "sport_balanced",
     "matched_events": 0,
     "matched_leagues": {},
     "truncated": false,
-    "errors": {}
+    "errors": {
+      "betclic_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "winamax_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "unibet_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "pmu_fr:basketball:listing:p1": "RuntimeError: no valid feed",
+      "ps3838:basketball:listing:p1": "RuntimeError: no valid feed",
+      "betclic_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "winamax_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "unibet_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "pmu_fr:basketball:events:p1": "RuntimeError: no valid feed",
+      "ps3838:basketball:events:p1": "RuntimeError: no valid feed"
+    }
   },
   "note": "Only existing pregame forecasted events <=6 h are queried; at most 100 authenticated calls (PulseScore Pro). Differences across French books are not a calibrated fair price, proven positive EV, or a current offer."
 }
