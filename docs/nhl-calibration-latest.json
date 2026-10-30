@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-29T05:39:57.448219+00:00",
+  "generated_at_utc": "2026-10-30T05:39:28.065566+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 133,
+      "settled_samples": 144,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.242577,
-      "raw_logloss": 0.676191,
+      "raw_brier": 0.242283,
+      "raw_logloss": 0.675816,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -37,23 +37,23 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 23,
-          "predicted_mean": 0.336,
-          "observed_rate": 0.4348
+          "count": 24,
+          "predicted_mean": 0.3332,
+          "observed_rate": 0.4583
         },
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 60,
-          "predicted_mean": 0.4993,
-          "observed_rate": 0.6167
+          "count": 66,
+          "predicted_mean": 0.4975,
+          "observed_rate": 0.5909
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 38,
-          "predicted_mean": 0.672,
-          "observed_rate": 0.6316
+          "count": 42,
+          "predicted_mean": 0.673,
+          "observed_rate": 0.6429
         },
         {
           "from": 0.8,
@@ -63,7 +63,7 @@
           "observed_rate": 0.6667
         }
       ],
-      "calibration_status": "awaiting_future_holdout",
+      "calibration_status": "experimental_holdout_not_better",
       "parameters": {
         "intercept": 0.31646632,
         "slope": 0.5037676,
@@ -72,19 +72,27 @@
       },
       "training_cutoff_utc": "2026-10-24T22:26:52.254583+00:00",
       "training_samples": 100,
-      "holdout_samples": 33,
-      "holdout_metrics": null,
-      "approved_for_betting": false,
-      "holdout_remaining": 7
+      "holdout_samples": 44,
+      "holdout_metrics": {
+        "raw_brier": 0.242376,
+        "calibrated_brier": 0.24481,
+        "raw_logloss": 0.675118,
+        "calibrated_logloss": 0.681705,
+        "train_only_base_rate": 0.6,
+        "train_only_baseline_brier": 0.255455,
+        "brier_improvement": -0.002434,
+        "logloss_improvement": -0.006587
+      },
+      "approved_for_betting": false
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 115,
+      "settled_samples": 126,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.241537,
-      "raw_logloss": 0.674644,
+      "raw_brier": 0.240399,
+      "raw_logloss": 0.672323,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -96,23 +104,23 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 11,
-          "predicted_mean": 0.3467,
-          "observed_rate": 0.5455
+          "count": 12,
+          "predicted_mean": 0.3451,
+          "observed_rate": 0.5833
         },
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 70,
-          "predicted_mean": 0.5004,
-          "observed_rate": 0.5857
+          "count": 75,
+          "predicted_mean": 0.498,
+          "observed_rate": 0.56
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 29,
-          "predicted_mean": 0.6618,
-          "observed_rate": 0.6207
+          "count": 34,
+          "predicted_mean": 0.6627,
+          "observed_rate": 0.6471
         },
         {
           "from": 0.8,
@@ -131,10 +139,10 @@
       },
       "training_cutoff_utc": "2026-10-27T04:56:45.312217+00:00",
       "training_samples": 100,
-      "holdout_samples": 15,
+      "holdout_samples": 26,
       "holdout_metrics": null,
       "approved_for_betting": false,
-      "holdout_remaining": 25
+      "holdout_remaining": 14
     }
   }
 }
