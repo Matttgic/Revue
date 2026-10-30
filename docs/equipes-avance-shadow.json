@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-30T04:51:40.425609+00:00",
+  "generated_at_utc": "2026-10-30T07:51:39.132866+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -511,17 +511,17 @@
         }
       ],
       "evaluation": {
-        "n": 22,
+        "n": 23,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.24726,
-          "logloss_binary": 0.6874
+          "brier_binary": 0.24953,
+          "logloss_binary": 0.69197
         },
         "baseline": {
-          "brier_binary": 0.24955,
-          "logloss_binary": 0.69221
+          "brier_binary": 0.252,
+          "logloss_binary": 0.69714
         },
-        "brier_delta_candidate_minus_baseline": -0.00229,
+        "brier_delta_candidate_minus_baseline": -0.00247,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -575,6 +575,21 @@
           "home": "Villanova",
           "away": "Notre Dame",
           "start_utc": "2026-11-01T14:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401920409",
+          "league": "NCAAB",
+          "home": "High Point",
+          "away": "Liberty",
+          "start_utc": "2026-11-02T04:59:00+00:00",
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {

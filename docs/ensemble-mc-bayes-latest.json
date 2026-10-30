@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-30T04:51:40.793506+00:00",
+  "generated_at_utc": "2026-10-30T07:51:39.520631+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -732,23 +732,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 22,
+        "n": 23,
         "scores": {
           "baseline": {
-            "brier_binary": 0.24955,
-            "logloss_binary": 0.69221
+            "brier_binary": 0.252,
+            "logloss_binary": 0.69714
           },
           "previous_shadow": {
-            "brier_binary": 0.24726,
-            "logloss_binary": 0.6874
+            "brier_binary": 0.24953,
+            "logloss_binary": 0.69197
           },
           "ensemble": {
-            "brier_binary": 0.24705,
-            "logloss_binary": 0.68705
+            "brier_binary": 0.24949,
+            "logloss_binary": 0.69195
           }
         },
-        "delta_brier_vs_baseline": -0.0025,
-        "delta_brier_vs_previous_shadow": -0.00021,
+        "delta_brier_vs_baseline": -0.00251,
+        "delta_brier_vs_previous_shadow": -4e-05,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -819,6 +819,21 @@
           "home": "Villanova",
           "away": "Notre Dame",
           "start_utc": "2026-11-01T14:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401920409",
+          "league": "NCAAB",
+          "home": "High Point",
+          "away": "Liberty",
+          "start_utc": "2026-11-02T04:59:00+00:00",
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
