@@ -14549,13 +14549,22 @@
           "home_advantage_added": false
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-30T03:00:01.572477+00:00",
+      "home_score": 114,
+      "away_score": 111,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.29907378,
+          "log_loss": 0.48890107
+        },
+        "own_elo": {
+          "brier": 0.44683325,
+          "log_loss": 0.63992813
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -14619,13 +14628,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-30T03:00:01.572477+00:00",
+      "home_score": 132,
+      "away_score": 120,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.21372722,
+          "log_loss": 0.39586137
+        },
+        "own_elo": {
+          "brier": 0.36709443,
+          "log_loss": 0.55935801
+        },
+        "advanced_team": {
+          "brier": 0.2491474,
+          "log_loss": 0.43533171
+        },
+        "montecarlo_bayes": {
+          "brier": 0.29555747,
+          "log_loss": 0.48519037
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -23931,6 +23957,40 @@
       "home_after": 1477.64,
       "away_after": 1499.22,
       "observed_home_outcome": 0.5
+    },
+    "NBA:401909893": {
+      "key": "NBA:401909893",
+      "league": "NBA",
+      "event_id": "401909893",
+      "home": "Hawks",
+      "away": "Cavaliers",
+      "start_utc": "2026-10-30T00:00:00+00:00",
+      "observed_at_utc": "2026-10-30T03:00:01.572477+00:00",
+      "home_score": 114,
+      "away_score": 111,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1516.12,
+      "away_before": 1523.25,
+      "home_after": 1528.37,
+      "away_after": 1511.0,
+      "observed_home_outcome": 1
+    },
+    "NBA:401909894": {
+      "key": "NBA:401909894",
+      "league": "NBA",
+      "event_id": "401909894",
+      "home": "Pelicans",
+      "away": "Kings",
+      "start_utc": "2026-10-30T00:00:00+00:00",
+      "observed_at_utc": "2026-10-30T03:00:01.572477+00:00",
+      "home_score": 132,
+      "away_score": 120,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1474.38,
+      "away_before": 1425.74,
+      "home_after": 1484.71,
+      "away_after": 1415.41,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -23938,7 +23998,7 @@
       "Raptors": 1521.21,
       "Clippers": 1475.97,
       "Pacers": 1454.74,
-      "Hawks": 1516.12,
+      "Hawks": 1528.37,
       "Wizards": 1477.94,
       "Pistons": 1543.99,
       "Heat": 1459.29,
@@ -23946,12 +24006,12 @@
       "Celtics": 1552.62,
       "76ers": 1512.34,
       "Warriors": 1521.38,
-      "Kings": 1425.74,
+      "Kings": 1415.41,
       "Suns": 1478.42,
       "Spurs": 1512.04,
       "Rockets": 1557.83,
       "Mavericks": 1501.39,
-      "Cavaliers": 1523.25,
+      "Cavaliers": 1511.0,
       "Magic": 1489.4,
       "Hornets": 1501.84,
       "Bucks": 1457.71,
@@ -23964,7 +24024,7 @@
       "Knicks": 1484.21,
       "Jazz": 1487.32,
       "Lakers": 1516.12,
-      "Pelicans": 1474.38,
+      "Pelicans": 1484.71,
       "Grizzlies": 1555.98
     },
     "MLB": {
@@ -24119,5 +24179,5 @@
       "Dream": 1500.73
     }
   },
-  "updated_at_utc": "2026-10-30T02:49:23.491459+00:00"
+  "updated_at_utc": "2026-10-30T03:00:18.926115+00:00"
 }
