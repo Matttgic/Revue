@@ -14503,13 +14503,26 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-30T10:26:01.374675+00:00",
+      "home_score": 27,
+      "away_score": 19,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.3419645,
+          "log_loss": 0.53358261
+        },
+        "advanced_team": {
+          "brier": 0.40235832,
+          "log_loss": 0.59516784
+        },
+        "montecarlo_bayes": {
+          "brier": 0.41899689,
+          "log_loss": 0.61195437
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -14691,13 +14704,22 @@
           "home_advantage_added": false
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-10-30T10:26:01.374675+00:00",
+      "home_score": 103,
+      "away_score": 124,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.57630848,
+          "log_loss": 0.76959635
+        },
+        "own_elo": {
+          "brier": 0.43357043,
+          "log_loss": 0.62661439
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -23991,6 +24013,40 @@
       "home_after": 1484.71,
       "away_after": 1415.41,
       "observed_home_outcome": 1
+    },
+    "NFL:401873023": {
+      "key": "NFL:401873023",
+      "league": "NFL",
+      "event_id": "401873023",
+      "home": "Packers",
+      "away": "Panthers",
+      "start_utc": "2026-10-30T00:15:00+00:00",
+      "observed_at_utc": "2026-10-30T10:26:01.374675+00:00",
+      "home_score": 27,
+      "away_score": 19,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1511.19,
+      "away_before": 1498.79,
+      "home_after": 1522.76,
+      "away_after": 1487.22,
+      "observed_home_outcome": 1
+    },
+    "NBA:401909895": {
+      "key": "NBA:401909895",
+      "league": "NBA",
+      "event_id": "401909895",
+      "home": "Trail Blazers",
+      "away": "Grizzlies",
+      "start_utc": "2026-10-30T02:00:00+00:00",
+      "observed_at_utc": "2026-10-30T10:26:01.374675+00:00",
+      "home_score": 103,
+      "away_score": 124,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1543.49,
+      "away_before": 1555.98,
+      "home_after": 1531.92,
+      "away_after": 1567.55,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -24017,7 +24073,7 @@
       "Bucks": 1457.71,
       "Nuggets": 1509.53,
       "Bulls": 1474.88,
-      "Trail Blazers": 1543.49,
+      "Trail Blazers": 1531.92,
       "Lions": 1488.0,
       "Thunder": 1521.47,
       "Nets": 1453.57,
@@ -24025,7 +24081,7 @@
       "Jazz": 1487.32,
       "Lakers": 1516.12,
       "Pelicans": 1484.71,
-      "Grizzlies": 1555.98
+      "Grizzlies": 1567.55
     },
     "MLB": {
       "Guardians": 1485.4,
@@ -24155,7 +24211,7 @@
       "Raiders": 1464.8,
       "Saints": 1489.21,
       "Vikings": 1522.76,
-      "Packers": 1511.19,
+      "Packers": 1522.76,
       "Bears": 1512.83,
       "Chargers": 1476.41,
       "Broncos": 1534.37,
@@ -24167,7 +24223,7 @@
       "Ravens": 1487.61,
       "Rams": 1488.03,
       "Bills": 1523.17,
-      "Panthers": 1498.79,
+      "Panthers": 1487.22,
       "Giants": 1500.84,
       "Buccaneers": 1501.21,
       "Chiefs": 1498.39,
@@ -24179,5 +24235,5 @@
       "Dream": 1500.73
     }
   },
-  "updated_at_utc": "2026-10-30T05:38:35.934187+00:00"
+  "updated_at_utc": "2026-10-30T10:26:15.804206+00:00"
 }
