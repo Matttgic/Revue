@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-30T19:37:12.646871+00:00",
+  "generated_at_utc": "2026-10-30T21:23:22.364285+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -313,37 +313,6 @@
     "LALIGA": {
       "name": "La Liga",
       "games": [
-        {
-          "event_id": "401882817",
-          "home": "Villarreal",
-          "away": "Espanyol",
-          "start_utc": "2026-10-30T20:00:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win_90": 0.50146,
-            "draw_90": 0.25672,
-            "away_win_90": 0.24182,
-            "over_2_5": 0.51164
-          },
-          "expected_score": {
-            "home": 1.672,
-            "away": 1.05
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-25T06:42:19.135479+00:00",
-            "away": "2026-10-25T03:42:08.703564+00:00"
-          }
-        },
         {
           "event_id": "401882820",
           "home": "Levante",
@@ -1149,37 +1118,6 @@
       "name": "Ligue 1",
       "games": [
         {
-          "event_id": "401876420",
-          "home": "Lille",
-          "away": "Lens",
-          "start_utc": "2026-10-30T20:05:00+00:00",
-          "league": "LIGUE1",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.40055,
-            "draw_90": 0.27553,
-            "away_win_90": 0.32393,
-            "over_2_5": 0.49075
-          },
-          "expected_score": {
-            "home": 1.403,
-            "away": 1.234
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-26T04:43:52.377329+00:00",
-            "away": "2026-10-25T07:46:02.602916+00:00"
-          }
-        },
-        {
           "event_id": "401876413",
           "home": "Troyes",
           "away": "Le Mans",
@@ -1337,17 +1275,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 7,
+        "n": 9,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.62494,
-          "logloss": 1.041
+          "brier": 0.58392,
+          "logloss": 0.98254
         },
         "baseline": {
-          "brier": 0.63105,
-          "logloss": 1.0509
+          "brier": 0.58929,
+          "logloss": 0.99073
         },
-        "shadow_brier_delta_vs_baseline": -0.00611,
+        "shadow_brier_delta_vs_baseline": -0.00537,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
