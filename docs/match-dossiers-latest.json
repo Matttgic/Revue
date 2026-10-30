@@ -1,1679 +1,21 @@
 {
-  "generated_at_utc": "2026-10-30T21:41:00.588630+00:00",
+  "generated_at_utc": "2026-10-30T23:37:58.916269+00:00",
   "status": "source_audited_static_match_dossiers_not_live",
-  "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-  "source_history_as_of_utc": "2026-10-30T21:41:00.588630+00:00",
+  "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
+  "source_history_as_of_utc": "2026-10-30T23:37:58.916269+00:00",
   "historical_data_not_point_in_time_forecasts": true,
   "real_bets_enabled": false,
   "original_clairvoyance_equivalence_verified": false,
   "bookmaker_prices_are_live": false,
   "validated_value_bets": 0,
   "source": "Revue Match Center, stored ESPN finals and Revue frozen prospective ledger",
-  "count": 149,
+  "count": 142,
   "historical_finals_in_available_archive": 872,
   "with_observed_prices": 0,
   "with_comparable_markets": 0,
-  "with_locked_forecasts": 49,
-  "with_descriptive_team_history": 83,
+  "with_locked_forecasts": 42,
+  "with_descriptive_team_history": 78,
   "games": [
-    {
-      "key": "NHL:2026020214",
-      "league": "NHL",
-      "event_id": "2026020214",
-      "sport": "Hockey",
-      "home": "VGK",
-      "away": "NJD",
-      "start_utc": "2026-10-30T22:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-      "home_history": {
-        "team": "VGK",
-        "games": 0,
-        "wins": 0,
-        "draws": 0,
-        "losses": 0,
-        "scored": 0,
-        "conceded": 0,
-        "recent": [],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "away_history": {
-        "team": "NJD",
-        "games": 0,
-        "wins": 0,
-        "draws": 0,
-        "losses": 0,
-        "scored": 0,
-        "conceded": 0,
-        "recent": [],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "historical_odds": {
-        "observations": [],
-        "market_groups": [],
-        "invalid_quote_count": 0,
-        "verified_comparable_groups": 0,
-        "source_note": "Historical FR bookmaker quotes only; market rules must match; no EV, no live availability"
-      },
-      "research_models": [
-        {
-          "id": "clairvoyance_nhl_formula_revue_inputs",
-          "label": "Clairvoyance / formule NHL",
-          "probabilities": {
-            "home_win": 0.517,
-            "away_win": 0.483
-          },
-          "source_generated_utc": "2026-10-30T21:31:16.321433+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win": 0.5802,
-            "away_win": 0.4198,
-            "regulation_draw": 0.1574,
-            "over_4_5": 0.7352,
-            "over_5_5": 0.5789,
-            "over_6_5": 0.4186
-          },
-          "source_generated_utc": "2026-10-30T21:23:20.012050+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_nhl_low_sample_shrink_v1",
-          "label": "Revue NHL prudent",
-          "probabilities": {
-            "home_win": 0.525,
-            "away_win": 0.475
-          },
-          "source_generated_utc": "2026-10-30T21:31:16.321433+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        }
-      ],
-      "historical_player_profiles": [
-        {
-          "name": "Mark Stone",
-          "team": "VGK",
-          "games_current": 14,
-          "probabilities": {
-            "but": 0.4028,
-            "passe": 0.4866,
-            "point": 0.6934,
-            "tir_cadre_2_plus": 0.6261,
-            "tir_cadre_3_plus": 0.3564
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Jack Eichel",
-          "team": "VGK",
-          "games_current": 14,
-          "probabilities": {
-            "but": 0.3481,
-            "passe": 0.5883,
-            "point": 0.7316,
-            "tir_cadre_2_plus": 0.8209,
-            "tir_cadre_3_plus": 0.6075
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Victor Olofsson",
-          "team": "VGK",
-          "games_current": 4,
-          "probabilities": {
-            "but": 0.2835,
-            "passe": 0.2091,
-            "point": 0.4333,
-            "tir_cadre_2_plus": 0.5824,
-            "tir_cadre_3_plus": 0.3119
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Tomas Hertl",
-          "team": "VGK",
-          "games_current": 14,
-          "probabilities": {
-            "but": 0.2759,
-            "passe": 0.2747,
-            "point": 0.4748,
-            "tir_cadre_2_plus": 0.6946,
-            "tir_cadre_3_plus": 0.4339
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Brett Howden",
-          "team": "VGK",
-          "games_current": 14,
-          "probabilities": {
-            "but": 0.242,
-            "passe": 0.1747,
-            "point": 0.3744,
-            "tir_cadre_2_plus": 0.3874,
-            "tir_cadre_3_plus": 0.1523
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        }
-      ],
-      "locked_forecast": {
-        "status": "pending",
-        "locked_at_utc": "2026-10-28T01:11:06.327468+00:00",
-        "models": {
-          "revue_multisports_score_model": {
-            "p_home": 0.5707,
-            "source_generated_utc": "2026-10-28T00:48:15.793491+00:00"
-          }
-        },
-        "official_result_if_verified": null,
-        "score_if_settled": null,
-        "not_a_real_bet": true
-      },
-      "no_real_betting": true,
-      "exact_clairvoyance_source_equivalence": false
-    },
-    {
-      "key": "NBA:401909277",
-      "league": "NBA",
-      "event_id": "401909277",
-      "sport": "Basket",
-      "home": "Wizards",
-      "away": "Hornets",
-      "start_utc": "2026-10-30T23:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-      "home_history": {
-        "team": "Wizards",
-        "games": 5,
-        "wins": 2,
-        "draws": 0,
-        "losses": 3,
-        "scored": 568,
-        "conceded": 579,
-        "recent": [
-          {
-            "event_id": "401909882",
-            "league": "NBA",
-            "home": "Cavaliers",
-            "away": "Wizards",
-            "start_utc": "2026-10-28T23:00:00+00:00",
-            "home_score": 121,
-            "away_score": 111,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 111,
-            "opponent_score": 121,
-            "outcome": "L",
-            "opponent": "Cavaliers"
-          },
-          {
-            "event_id": "401909868",
-            "league": "NBA",
-            "home": "Hornets",
-            "away": "Wizards",
-            "start_utc": "2026-10-26T23:00:00+00:00",
-            "home_score": 110,
-            "away_score": 103,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 103,
-            "opponent_score": 110,
-            "outcome": "L",
-            "opponent": "Hornets"
-          },
-          {
-            "event_id": "401909857",
-            "league": "NBA",
-            "home": "Bulls",
-            "away": "Wizards",
-            "start_utc": "2026-10-25T00:00:00+00:00",
-            "home_score": 120,
-            "away_score": 124,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 124,
-            "opponent_score": 120,
-            "outcome": "W",
-            "opponent": "Bulls"
-          },
-          {
-            "event_id": "401909846",
-            "league": "NBA",
-            "home": "Wizards",
-            "away": "Raptors",
-            "start_utc": "2026-10-23T23:00:00+00:00",
-            "home_score": 102,
-            "away_score": 112,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 102,
-            "opponent_score": 112,
-            "outcome": "L",
-            "opponent": "Raptors"
-          },
-          {
-            "event_id": "401909835",
-            "league": "NBA",
-            "home": "Wizards",
-            "away": "Bucks",
-            "start_utc": "2026-10-21T23:00:00+00:00",
-            "home_score": 128,
-            "away_score": 116,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 128,
-            "opponent_score": 116,
-            "outcome": "W",
-            "opponent": "Bucks"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "away_history": {
-        "team": "Hornets",
-        "games": 5,
-        "wins": 3,
-        "draws": 0,
-        "losses": 2,
-        "scored": 505,
-        "conceded": 541,
-        "recent": [
-          {
-            "event_id": "401909883",
-            "league": "NBA",
-            "home": "Pistons",
-            "away": "Hornets",
-            "start_utc": "2026-10-28T23:00:00+00:00",
-            "home_score": 97,
-            "away_score": 89,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 89,
-            "opponent_score": 97,
-            "outcome": "L",
-            "opponent": "Pistons"
-          },
-          {
-            "event_id": "401909868",
-            "league": "NBA",
-            "home": "Hornets",
-            "away": "Wizards",
-            "start_utc": "2026-10-26T23:00:00+00:00",
-            "home_score": 110,
-            "away_score": 103,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 110,
-            "opponent_score": 103,
-            "outcome": "W",
-            "opponent": "Wizards"
-          },
-          {
-            "event_id": "401909853",
-            "league": "NBA",
-            "home": "Hornets",
-            "away": "Heat",
-            "start_utc": "2026-10-24T22:00:00+00:00",
-            "home_score": 115,
-            "away_score": 110,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 115,
-            "opponent_score": 110,
-            "outcome": "W",
-            "opponent": "Heat"
-          },
-          {
-            "event_id": "401909843",
-            "league": "NBA",
-            "home": "Hornets",
-            "away": "Hawks",
-            "start_utc": "2026-10-23T23:00:00+00:00",
-            "home_score": 81,
-            "away_score": 128,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 81,
-            "opponent_score": 128,
-            "outcome": "L",
-            "opponent": "Hawks"
-          },
-          {
-            "event_id": "401909836",
-            "league": "NBA",
-            "home": "Nets",
-            "away": "Hornets",
-            "start_utc": "2026-10-21T23:30:00+00:00",
-            "home_score": 103,
-            "away_score": 110,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 110,
-            "opponent_score": 103,
-            "outcome": "W",
-            "opponent": "Nets"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "historical_odds": {
-        "observations": [],
-        "market_groups": [],
-        "invalid_quote_count": 0,
-        "verified_comparable_groups": 0,
-        "source_note": "Historical FR bookmaker quotes only; market rules must match; no EV, no live availability"
-      },
-      "research_models": [
-        {
-          "id": "revue_ensemble_mc_bayes_elo",
-          "label": "Revue Monte-Carlo / Bayes / Elo",
-          "probabilities": {
-            "home_win": 0.57723,
-            "away_win": 0.42277
-          },
-          "source_generated_utc": "2026-10-30T21:23:23.292032+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win": 0.5635,
-            "away_win": 0.4365
-          },
-          "source_generated_utc": "2026-10-30T21:23:20.012050+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_nba_espn_previous_standings_prior_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.43752,
-            "away_win": 0.56248
-          },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        }
-      ],
-      "historical_player_profiles": [],
-      "locked_forecast": {
-        "status": "pending",
-        "locked_at_utc": "2026-10-29T00:14:11.620416+00:00",
-        "models": {
-          "revue_ensemble_mc_bayes_elo": {
-            "p_home": 0.579,
-            "source_generated_utc": "2026-10-29T00:13:45.627426+00:00"
-          },
-          "revue_multisports_score_model": {
-            "p_home": 0.5651,
-            "source_generated_utc": "2026-10-29T00:13:40.498506+00:00"
-          }
-        },
-        "official_result_if_verified": null,
-        "score_if_settled": null,
-        "not_a_real_bet": true
-      },
-      "no_real_betting": true,
-      "exact_clairvoyance_source_equivalence": false
-    },
-    {
-      "key": "NHL:2026020215",
-      "league": "NHL",
-      "event_id": "2026020215",
-      "sport": "Hockey",
-      "home": "FLA",
-      "away": "WPG",
-      "start_utc": "2026-10-30T23:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-      "home_history": {
-        "team": "FLA",
-        "games": 0,
-        "wins": 0,
-        "draws": 0,
-        "losses": 0,
-        "scored": 0,
-        "conceded": 0,
-        "recent": [],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "away_history": {
-        "team": "WPG",
-        "games": 0,
-        "wins": 0,
-        "draws": 0,
-        "losses": 0,
-        "scored": 0,
-        "conceded": 0,
-        "recent": [],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "historical_odds": {
-        "observations": [],
-        "market_groups": [],
-        "invalid_quote_count": 0,
-        "verified_comparable_groups": 0,
-        "source_note": "Historical FR bookmaker quotes only; market rules must match; no EV, no live availability"
-      },
-      "research_models": [
-        {
-          "id": "clairvoyance_nhl_formula_revue_inputs",
-          "label": "Clairvoyance / formule NHL",
-          "probabilities": {
-            "home_win": 0.618,
-            "away_win": 0.382
-          },
-          "source_generated_utc": "2026-10-30T21:31:16.321433+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win": 0.6405,
-            "away_win": 0.3595,
-            "regulation_draw": 0.1638,
-            "over_4_5": 0.6766,
-            "over_5_5": 0.5093,
-            "over_6_5": 0.3497
-          },
-          "source_generated_utc": "2026-10-30T21:23:20.012050+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_nhl_low_sample_shrink_v1",
-          "label": "Revue NHL prudent",
-          "probabilities": {
-            "home_win": 0.626,
-            "away_win": 0.374
-          },
-          "source_generated_utc": "2026-10-30T21:31:16.321433+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        }
-      ],
-      "historical_player_profiles": [
-        {
-          "name": "Brad Marchand",
-          "team": "FLA",
-          "games_current": 2,
-          "probabilities": {
-            "but": 0.4037,
-            "passe": 0.3697,
-            "point": 0.6242,
-            "tir_cadre_2_plus": 0.7396,
-            "tir_cadre_3_plus": 0.4908
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Brady Tkachuk",
-          "team": "FLA",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.3801,
-            "passe": 0.441,
-            "point": 0.6535,
-            "tir_cadre_2_plus": 0.8545,
-            "tir_cadre_3_plus": 0.6625
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Sam Reinhart",
-          "team": "FLA",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.3668,
-            "passe": 0.3389,
-            "point": 0.5813,
-            "tir_cadre_2_plus": 0.7648,
-            "tir_cadre_3_plus": 0.5248
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Carter Verhaeghe",
-          "team": "FLA",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.3655,
-            "passe": 0.2727,
-            "point": 0.5386,
-            "tir_cadre_2_plus": 0.6459,
-            "tir_cadre_3_plus": 0.3778
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Matthew Tkachuk",
-          "team": "FLA",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.3088,
-            "passe": 0.6037,
-            "point": 0.726,
-            "tir_cadre_2_plus": 0.7121,
-            "tir_cadre_3_plus": 0.4555
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Kyle Connor",
-          "team": "WPG",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.4551,
-            "passe": 0.3901,
-            "point": 0.6677,
-            "tir_cadre_2_plus": 0.8874,
-            "tir_cadre_3_plus": 0.7213
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Mark Scheifele",
-          "team": "WPG",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.2674,
-            "passe": 0.5329,
-            "point": 0.6578,
-            "tir_cadre_2_plus": 0.6313,
-            "tir_cadre_3_plus": 0.362
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Cole Perfetti",
-          "team": "WPG",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.2623,
-            "passe": 0.2844,
-            "point": 0.4722,
-            "tir_cadre_2_plus": 0.6945,
-            "tir_cadre_3_plus": 0.4339
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Gabriel Vilardi",
-          "team": "WPG",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.2105,
-            "passe": 0.3526,
-            "point": 0.4889,
-            "tir_cadre_2_plus": 0.5379,
-            "tir_cadre_3_plus": 0.27
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        },
-        {
-          "name": "Alex Iafallo",
-          "team": "WPG",
-          "games_current": 13,
-          "probabilities": {
-            "but": 0.1765,
-            "passe": 0.1653,
-            "point": 0.3127,
-            "tir_cadre_2_plus": 0.414,
-            "tir_cadre_3_plus": 0.1706
-          },
-          "lineup_confirmed": false,
-          "research_only": true
-        }
-      ],
-      "locked_forecast": {
-        "status": "pending",
-        "locked_at_utc": "2026-10-29T00:14:11.620416+00:00",
-        "models": {
-          "revue_multisports_score_model": {
-            "p_home": 0.6324,
-            "source_generated_utc": "2026-10-29T00:13:40.498506+00:00"
-          }
-        },
-        "official_result_if_verified": null,
-        "score_if_settled": null,
-        "not_a_real_bet": true
-      },
-      "no_real_betting": true,
-      "exact_clairvoyance_source_equivalence": false
-    },
-    {
-      "key": "NBA:401909278",
-      "league": "NBA",
-      "event_id": "401909278",
-      "sport": "Basket",
-      "home": "Celtics",
-      "away": "Bulls",
-      "start_utc": "2026-10-30T23:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-      "home_history": {
-        "team": "Celtics",
-        "games": 5,
-        "wins": 4,
-        "draws": 0,
-        "losses": 1,
-        "scored": 604,
-        "conceded": 567,
-        "recent": [
-          {
-            "event_id": "401909877",
-            "league": "NBA",
-            "home": "Celtics",
-            "away": "Nets",
-            "start_utc": "2026-10-27T23:30:00+00:00",
-            "home_score": 125,
-            "away_score": 124,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 125,
-            "opponent_score": 124,
-            "outcome": "W",
-            "opponent": "Nets"
-          },
-          {
-            "event_id": "401909870",
-            "league": "NBA",
-            "home": "Celtics",
-            "away": "Bulls",
-            "start_utc": "2026-10-26T23:30:00+00:00",
-            "home_score": 134,
-            "away_score": 99,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 134,
-            "opponent_score": 99,
-            "outcome": "W",
-            "opponent": "Bulls"
-          },
-          {
-            "event_id": "401909095",
-            "league": "NBA",
-            "home": "Celtics",
-            "away": "Knicks",
-            "start_utc": "2026-10-23T23:00:00+00:00",
-            "home_score": 107,
-            "away_score": 103,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 107,
-            "opponent_score": 103,
-            "outcome": "W",
-            "opponent": "Knicks"
-          },
-          {
-            "event_id": "401909088",
-            "league": "NBA",
-            "home": "Pistons",
-            "away": "Celtics",
-            "start_utc": "2026-10-20T19:00:00+00:00",
-            "home_score": 121,
-            "away_score": 113,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 113,
-            "opponent_score": 121,
-            "outcome": "L",
-            "opponent": "Pistons"
-          },
-          {
-            "event_id": "401898407",
-            "league": "NBA",
-            "home": "76ers",
-            "away": "Celtics",
-            "start_utc": "2026-10-16T23:00:00+00:00",
-            "home_score": 120,
-            "away_score": 125,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 125,
-            "opponent_score": 120,
-            "outcome": "W",
-            "opponent": "76ers"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "away_history": {
-        "team": "Bulls",
-        "games": 5,
-        "wins": 1,
-        "draws": 0,
-        "losses": 4,
-        "scored": 570,
-        "conceded": 651,
-        "recent": [
-          {
-            "event_id": "401909886",
-            "league": "NBA",
-            "home": "Bulls",
-            "away": "Knicks",
-            "start_utc": "2026-10-29T00:00:00+00:00",
-            "home_score": 127,
-            "away_score": 133,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 127,
-            "opponent_score": 133,
-            "outcome": "L",
-            "opponent": "Knicks"
-          },
-          {
-            "event_id": "401909870",
-            "league": "NBA",
-            "home": "Celtics",
-            "away": "Bulls",
-            "start_utc": "2026-10-26T23:30:00+00:00",
-            "home_score": 134,
-            "away_score": 99,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 99,
-            "opponent_score": 134,
-            "outcome": "L",
-            "opponent": "Celtics"
-          },
-          {
-            "event_id": "401909857",
-            "league": "NBA",
-            "home": "Bulls",
-            "away": "Wizards",
-            "start_utc": "2026-10-25T00:00:00+00:00",
-            "home_score": 120,
-            "away_score": 124,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 120,
-            "opponent_score": 124,
-            "outcome": "L",
-            "opponent": "Wizards"
-          },
-          {
-            "event_id": "401909848",
-            "league": "NBA",
-            "home": "Bucks",
-            "away": "Bulls",
-            "start_utc": "2026-10-23T20:00:00+00:00",
-            "home_score": 125,
-            "away_score": 132,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 132,
-            "opponent_score": 125,
-            "outcome": "W",
-            "opponent": "Bucks"
-          },
-          {
-            "event_id": "401909837",
-            "league": "NBA",
-            "home": "Raptors",
-            "away": "Bulls",
-            "start_utc": "2026-10-21T23:30:00+00:00",
-            "home_score": 135,
-            "away_score": 92,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 92,
-            "opponent_score": 135,
-            "outcome": "L",
-            "opponent": "Raptors"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "historical_odds": {
-        "observations": [],
-        "market_groups": [],
-        "invalid_quote_count": 0,
-        "verified_comparable_groups": 0,
-        "source_note": "Historical FR bookmaker quotes only; market rules must match; no EV, no live availability"
-      },
-      "research_models": [
-        {
-          "id": "revue_ensemble_mc_bayes_elo",
-          "label": "Revue Monte-Carlo / Bayes / Elo",
-          "probabilities": {
-            "home_win": 0.65709,
-            "away_win": 0.34291
-          },
-          "source_generated_utc": "2026-10-30T21:23:23.292032+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win": 0.6781,
-            "away_win": 0.3219
-          },
-          "source_generated_utc": "2026-10-30T21:23:20.012050+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_nba_espn_previous_standings_prior_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.76023,
-            "away_win": 0.23977
-          },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        }
-      ],
-      "historical_player_profiles": [],
-      "locked_forecast": {
-        "status": "pending",
-        "locked_at_utc": "2026-10-29T00:14:11.620416+00:00",
-        "models": {
-          "revue_ensemble_mc_bayes_elo": {
-            "p_home": 0.64723,
-            "source_generated_utc": "2026-10-29T00:13:45.627426+00:00"
-          },
-          "revue_multisports_score_model": {
-            "p_home": 0.6615,
-            "source_generated_utc": "2026-10-29T00:13:40.498506+00:00"
-          }
-        },
-        "official_result_if_verified": null,
-        "score_if_settled": null,
-        "not_a_real_bet": true
-      },
-      "no_real_betting": true,
-      "exact_clairvoyance_source_equivalence": false
-    },
-    {
-      "key": "NBA:401909279",
-      "league": "NBA",
-      "event_id": "401909279",
-      "sport": "Basket",
-      "home": "Nets",
-      "away": "Pistons",
-      "start_utc": "2026-10-30T23:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-      "home_history": {
-        "team": "Nets",
-        "games": 5,
-        "wins": 0,
-        "draws": 0,
-        "losses": 5,
-        "scored": 585,
-        "conceded": 640,
-        "recent": [
-          {
-            "event_id": "401909877",
-            "league": "NBA",
-            "home": "Celtics",
-            "away": "Nets",
-            "start_utc": "2026-10-27T23:30:00+00:00",
-            "home_score": 125,
-            "away_score": 124,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 124,
-            "opponent_score": 125,
-            "outcome": "L",
-            "opponent": "Celtics"
-          },
-          {
-            "event_id": "401909862",
-            "league": "NBA",
-            "home": "Nets",
-            "away": "Pacers",
-            "start_utc": "2026-10-25T22:00:00+00:00",
-            "home_score": 109,
-            "away_score": 136,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 109,
-            "opponent_score": 136,
-            "outcome": "L",
-            "opponent": "Pacers"
-          },
-          {
-            "event_id": "401909854",
-            "league": "NBA",
-            "home": "Cavaliers",
-            "away": "Nets",
-            "start_utc": "2026-10-24T23:30:00+00:00",
-            "home_score": 125,
-            "away_score": 121,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 121,
-            "opponent_score": 125,
-            "outcome": "L",
-            "opponent": "Cavaliers"
-          },
-          {
-            "event_id": "401909836",
-            "league": "NBA",
-            "home": "Nets",
-            "away": "Hornets",
-            "start_utc": "2026-10-21T23:30:00+00:00",
-            "home_score": 103,
-            "away_score": 110,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 103,
-            "opponent_score": 110,
-            "outcome": "L",
-            "opponent": "Hornets"
-          },
-          {
-            "event_id": "401898404",
-            "league": "NBA",
-            "home": "Heat",
-            "away": "Nets",
-            "start_utc": "2026-10-14T23:30:00+00:00",
-            "home_score": 144,
-            "away_score": 128,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 128,
-            "opponent_score": 144,
-            "outcome": "L",
-            "opponent": "Heat"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "away_history": {
-        "team": "Pistons",
-        "games": 5,
-        "wins": 4,
-        "draws": 0,
-        "losses": 1,
-        "scored": 549,
-        "conceded": 517,
-        "recent": [
-          {
-            "event_id": "401909883",
-            "league": "NBA",
-            "home": "Pistons",
-            "away": "Hornets",
-            "start_utc": "2026-10-28T23:00:00+00:00",
-            "home_score": 97,
-            "away_score": 89,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 97,
-            "opponent_score": 89,
-            "outcome": "W",
-            "opponent": "Hornets"
-          },
-          {
-            "event_id": "401909878",
-            "league": "NBA",
-            "home": "Knicks",
-            "away": "Pistons",
-            "start_utc": "2026-10-28T00:00:00+00:00",
-            "home_score": 111,
-            "away_score": 97,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 97,
-            "opponent_score": 111,
-            "outcome": "L",
-            "opponent": "Knicks"
-          },
-          {
-            "event_id": "401909866",
-            "league": "NBA",
-            "home": "76ers",
-            "away": "Pistons",
-            "start_utc": "2026-10-25T23:30:00+00:00",
-            "home_score": 93,
-            "away_score": 106,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 106,
-            "opponent_score": 93,
-            "outcome": "W",
-            "opponent": "76ers"
-          },
-          {
-            "event_id": "401909847",
-            "league": "NBA",
-            "home": "Heat",
-            "away": "Pistons",
-            "start_utc": "2026-10-24T00:00:00+00:00",
-            "home_score": 111,
-            "away_score": 128,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 128,
-            "opponent_score": 111,
-            "outcome": "W",
-            "opponent": "Heat"
-          },
-          {
-            "event_id": "401909088",
-            "league": "NBA",
-            "home": "Pistons",
-            "away": "Celtics",
-            "start_utc": "2026-10-20T19:00:00+00:00",
-            "home_score": 121,
-            "away_score": 113,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 121,
-            "opponent_score": 113,
-            "outcome": "W",
-            "opponent": "Celtics"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "historical_odds": {
-        "observations": [],
-        "market_groups": [],
-        "invalid_quote_count": 0,
-        "verified_comparable_groups": 0,
-        "source_note": "Historical FR bookmaker quotes only; market rules must match; no EV, no live availability"
-      },
-      "research_models": [
-        {
-          "id": "revue_ensemble_mc_bayes_elo",
-          "label": "Revue Monte-Carlo / Bayes / Elo",
-          "probabilities": {
-            "home_win": 0.47848,
-            "away_win": 0.52152
-          },
-          "source_generated_utc": "2026-10-30T21:23:23.292032+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win": 0.4683,
-            "away_win": 0.5317
-          },
-          "source_generated_utc": "2026-10-30T21:23:20.012050+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_nba_espn_previous_standings_prior_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.31558,
-            "away_win": 0.68442
-          },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        }
-      ],
-      "historical_player_profiles": [],
-      "locked_forecast": {
-        "status": "pending",
-        "locked_at_utc": "2026-10-29T00:14:11.620416+00:00",
-        "models": {
-          "revue_ensemble_mc_bayes_elo": {
-            "p_home": 0.48593,
-            "source_generated_utc": "2026-10-29T00:13:45.627426+00:00"
-          },
-          "revue_multisports_score_model": {
-            "p_home": 0.4811,
-            "source_generated_utc": "2026-10-29T00:13:40.498506+00:00"
-          }
-        },
-        "official_result_if_verified": null,
-        "score_if_settled": null,
-        "not_a_real_bet": true
-      },
-      "no_real_betting": true,
-      "exact_clairvoyance_source_equivalence": false
-    },
-    {
-      "key": "NBA:401909280",
-      "league": "NBA",
-      "event_id": "401909280",
-      "sport": "Basket",
-      "home": "76ers",
-      "away": "Knicks",
-      "start_utc": "2026-10-30T23:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-      "home_history": {
-        "team": "76ers",
-        "games": 5,
-        "wins": 4,
-        "draws": 0,
-        "losses": 1,
-        "scored": 554,
-        "conceded": 537,
-        "recent": [
-          {
-            "event_id": "401909884",
-            "league": "NBA",
-            "home": "Pacers",
-            "away": "76ers",
-            "start_utc": "2026-10-28T23:00:00+00:00",
-            "home_score": 109,
-            "away_score": 114,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 114,
-            "opponent_score": 109,
-            "outcome": "W",
-            "opponent": "Pacers"
-          },
-          {
-            "event_id": "401909866",
-            "league": "NBA",
-            "home": "76ers",
-            "away": "Pistons",
-            "start_utc": "2026-10-25T23:30:00+00:00",
-            "home_score": 93,
-            "away_score": 106,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 93,
-            "opponent_score": 106,
-            "outcome": "L",
-            "opponent": "Pistons"
-          },
-          {
-            "event_id": "401909855",
-            "league": "NBA",
-            "home": "76ers",
-            "away": "Bucks",
-            "start_utc": "2026-10-24T23:30:00+00:00",
-            "home_score": 127,
-            "away_score": 116,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 127,
-            "opponent_score": 116,
-            "outcome": "W",
-            "opponent": "Bucks"
-          },
-          {
-            "event_id": "401909093",
-            "league": "NBA",
-            "home": "76ers",
-            "away": "Cavaliers",
-            "start_utc": "2026-10-22T23:00:00+00:00",
-            "home_score": 114,
-            "away_score": 106,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 114,
-            "opponent_score": 106,
-            "outcome": "W",
-            "opponent": "Cavaliers"
-          },
-          {
-            "event_id": "401909089",
-            "league": "NBA",
-            "home": "Knicks",
-            "away": "76ers",
-            "start_utc": "2026-10-20T23:00:00+00:00",
-            "home_score": 100,
-            "away_score": 106,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 106,
-            "opponent_score": 100,
-            "outcome": "W",
-            "opponent": "Knicks"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "away_history": {
-        "team": "Knicks",
-        "games": 5,
-        "wins": 2,
-        "draws": 0,
-        "losses": 3,
-        "scored": 549,
-        "conceded": 548,
-        "recent": [
-          {
-            "event_id": "401909886",
-            "league": "NBA",
-            "home": "Bulls",
-            "away": "Knicks",
-            "start_utc": "2026-10-29T00:00:00+00:00",
-            "home_score": 127,
-            "away_score": 133,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 133,
-            "opponent_score": 127,
-            "outcome": "W",
-            "opponent": "Bulls"
-          },
-          {
-            "event_id": "401909878",
-            "league": "NBA",
-            "home": "Knicks",
-            "away": "Pistons",
-            "start_utc": "2026-10-28T00:00:00+00:00",
-            "home_score": 111,
-            "away_score": 97,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 111,
-            "opponent_score": 97,
-            "outcome": "W",
-            "opponent": "Pistons"
-          },
-          {
-            "event_id": "401909863",
-            "league": "NBA",
-            "home": "Knicks",
-            "away": "Magic",
-            "start_utc": "2026-10-25T23:00:00+00:00",
-            "home_score": 102,
-            "away_score": 111,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 102,
-            "opponent_score": 111,
-            "outcome": "L",
-            "opponent": "Magic"
-          },
-          {
-            "event_id": "401909095",
-            "league": "NBA",
-            "home": "Celtics",
-            "away": "Knicks",
-            "start_utc": "2026-10-23T23:00:00+00:00",
-            "home_score": 107,
-            "away_score": 103,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 103,
-            "opponent_score": 107,
-            "outcome": "L",
-            "opponent": "Celtics"
-          },
-          {
-            "event_id": "401909089",
-            "league": "NBA",
-            "home": "Knicks",
-            "away": "76ers",
-            "start_utc": "2026-10-20T23:00:00+00:00",
-            "home_score": 100,
-            "away_score": 106,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 100,
-            "opponent_score": 106,
-            "outcome": "L",
-            "opponent": "76ers"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "historical_odds": {
-        "observations": [],
-        "market_groups": [],
-        "invalid_quote_count": 0,
-        "verified_comparable_groups": 0,
-        "source_note": "Historical FR bookmaker quotes only; market rules must match; no EV, no live availability"
-      },
-      "research_models": [
-        {
-          "id": "revue_ensemble_mc_bayes_elo",
-          "label": "Revue Monte-Carlo / Bayes / Elo",
-          "probabilities": {
-            "home_win": 0.61056,
-            "away_win": 0.38944
-          },
-          "source_generated_utc": "2026-10-30T21:23:23.292032+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win": 0.632,
-            "away_win": 0.368
-          },
-          "source_generated_utc": "2026-10-30T21:23:20.012050+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_nba_espn_previous_standings_prior_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.54218,
-            "away_win": 0.45782
-          },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        }
-      ],
-      "historical_player_profiles": [],
-      "locked_forecast": {
-        "status": "pending",
-        "locked_at_utc": "2026-10-29T00:14:11.620416+00:00",
-        "models": {
-          "revue_ensemble_mc_bayes_elo": {
-            "p_home": 0.61839,
-            "source_generated_utc": "2026-10-29T00:13:45.627426+00:00"
-          },
-          "revue_multisports_score_model": {
-            "p_home": 0.6344,
-            "source_generated_utc": "2026-10-29T00:13:40.498506+00:00"
-          }
-        },
-        "official_result_if_verified": null,
-        "score_if_settled": null,
-        "not_a_real_bet": true
-      },
-      "no_real_betting": true,
-      "exact_clairvoyance_source_equivalence": false
-    },
-    {
-      "key": "NBA:401909281",
-      "league": "NBA",
-      "event_id": "401909281",
-      "sport": "Basket",
-      "home": "Raptors",
-      "away": "Magic",
-      "start_utc": "2026-10-30T23:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
-      "home_history": {
-        "team": "Raptors",
-        "games": 5,
-        "wins": 3,
-        "draws": 0,
-        "losses": 2,
-        "scored": 595,
-        "conceded": 539,
-        "recent": [
-          {
-            "event_id": "401909885",
-            "league": "NBA",
-            "home": "Raptors",
-            "away": "Magic",
-            "start_utc": "2026-10-28T23:30:00+00:00",
-            "home_score": 129,
-            "away_score": 99,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 129,
-            "opponent_score": 99,
-            "outcome": "W",
-            "opponent": "Magic"
-          },
-          {
-            "event_id": "401909864",
-            "league": "NBA",
-            "home": "Timberwolves",
-            "away": "Raptors",
-            "start_utc": "2026-10-25T23:00:00+00:00",
-            "home_score": 117,
-            "away_score": 94,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 94,
-            "opponent_score": 117,
-            "outcome": "L",
-            "opponent": "Timberwolves"
-          },
-          {
-            "event_id": "401909846",
-            "league": "NBA",
-            "home": "Wizards",
-            "away": "Raptors",
-            "start_utc": "2026-10-23T23:00:00+00:00",
-            "home_score": 102,
-            "away_score": 112,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 112,
-            "opponent_score": 102,
-            "outcome": "W",
-            "opponent": "Wizards"
-          },
-          {
-            "event_id": "401909837",
-            "league": "NBA",
-            "home": "Raptors",
-            "away": "Bulls",
-            "start_utc": "2026-10-21T23:30:00+00:00",
-            "home_score": 135,
-            "away_score": 92,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 135,
-            "opponent_score": 92,
-            "outcome": "W",
-            "opponent": "Bulls"
-          },
-          {
-            "event_id": "401908946",
-            "league": "NBA",
-            "home": "Pistons",
-            "away": "Raptors",
-            "start_utc": "2026-10-16T23:00:00+00:00",
-            "home_score": 129,
-            "away_score": 125,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 125,
-            "opponent_score": 129,
-            "outcome": "L",
-            "opponent": "Pistons"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "away_history": {
-        "team": "Magic",
-        "games": 5,
-        "wins": 2,
-        "draws": 0,
-        "losses": 3,
-        "scored": 564,
-        "conceded": 593,
-        "recent": [
-          {
-            "event_id": "401909885",
-            "league": "NBA",
-            "home": "Raptors",
-            "away": "Magic",
-            "start_utc": "2026-10-28T23:30:00+00:00",
-            "home_score": 129,
-            "away_score": 99,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 99,
-            "opponent_score": 129,
-            "outcome": "L",
-            "opponent": "Raptors"
-          },
-          {
-            "event_id": "401909863",
-            "league": "NBA",
-            "home": "Knicks",
-            "away": "Magic",
-            "start_utc": "2026-10-25T23:00:00+00:00",
-            "home_score": 102,
-            "away_score": 111,
-            "source": "Revue stored ESPN historical results",
-            "side": "away",
-            "team_score": 111,
-            "opponent_score": 102,
-            "outcome": "W",
-            "opponent": "Knicks"
-          },
-          {
-            "event_id": "401909845",
-            "league": "NBA",
-            "home": "Magic",
-            "away": "Timberwolves",
-            "start_utc": "2026-10-23T23:00:00+00:00",
-            "home_score": 93,
-            "away_score": 115,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 93,
-            "opponent_score": 115,
-            "outcome": "L",
-            "opponent": "Timberwolves"
-          },
-          {
-            "event_id": "401909834",
-            "league": "NBA",
-            "home": "Magic",
-            "away": "Hawks",
-            "start_utc": "2026-10-21T23:00:00+00:00",
-            "home_score": 125,
-            "away_score": 132,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 125,
-            "opponent_score": 132,
-            "outcome": "L",
-            "opponent": "Hawks"
-          },
-          {
-            "event_id": "401898406",
-            "league": "NBA",
-            "home": "Magic",
-            "away": "Heat",
-            "start_utc": "2026-10-16T23:00:00+00:00",
-            "home_score": 136,
-            "away_score": 115,
-            "source": "Revue stored ESPN historical results",
-            "side": "home",
-            "team_score": 136,
-            "opponent_score": 115,
-            "outcome": "W",
-            "opponent": "Heat"
-          }
-        ],
-        "is_point_in_time_feature": false,
-        "not_pre_game_verified": true,
-        "interpretation": "Descriptive completed ESPN results now in archive; no historic feed snapshot proof"
-      },
-      "historical_odds": {
-        "observations": [],
-        "market_groups": [],
-        "invalid_quote_count": 0,
-        "verified_comparable_groups": 0,
-        "source_note": "Historical FR bookmaker quotes only; market rules must match; no EV, no live availability"
-      },
-      "research_models": [
-        {
-          "id": "revue_ensemble_mc_bayes_elo",
-          "label": "Revue Monte-Carlo / Bayes / Elo",
-          "probabilities": {
-            "home_win": 0.58578,
-            "away_win": 0.41422
-          },
-          "source_generated_utc": "2026-10-30T21:23:23.292032+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_multisports_score_model",
-          "label": "Revue multisports",
-          "probabilities": {
-            "home_win": 0.5885,
-            "away_win": 0.4115
-          },
-          "source_generated_utc": "2026-10-30T21:23:20.012050+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        },
-        {
-          "id": "revue_nba_espn_previous_standings_prior_v1",
-          "label": "Revue ESPN · NBA · recherche",
-          "probabilities": {
-            "home_win": 0.64497,
-            "away_win": 0.35503
-          },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
-          "calibrated": false,
-          "is_verified_future_pre_game_output": false
-        }
-      ],
-      "historical_player_profiles": [],
-      "locked_forecast": {
-        "status": "pending",
-        "locked_at_utc": "2026-10-29T00:14:11.620416+00:00",
-        "models": {
-          "revue_ensemble_mc_bayes_elo": {
-            "p_home": 0.55181,
-            "source_generated_utc": "2026-10-29T00:13:45.627426+00:00"
-          },
-          "revue_multisports_score_model": {
-            "p_home": 0.5594,
-            "source_generated_utc": "2026-10-29T00:13:40.498506+00:00"
-          }
-        },
-        "official_result_if_verified": null,
-        "score_if_settled": null,
-        "not_a_real_bet": true
-      },
-      "no_real_betting": true,
-      "exact_clairvoyance_source_equivalence": false
-    },
     {
       "key": "MLB:401908047",
       "league": "MLB",
@@ -1682,7 +24,7 @@
       "home": "Brewers",
       "away": "Rays",
       "start_utc": "2026-10-31T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Brewers",
         "games": 5,
@@ -1887,7 +229,7 @@
             "home_win": 0.686,
             "away_win": 0.314
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -1932,7 +274,7 @@
       "home": "Heat",
       "away": "Pacers",
       "start_utc": "2026-10-31T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Heat",
         "games": 5,
@@ -2148,7 +490,7 @@
             "home_win": 0.63565,
             "away_win": 0.36435
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -2182,7 +524,7 @@
       "home": "Mavericks",
       "away": "Rockets",
       "start_utc": "2026-10-31T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Mavericks",
         "games": 5,
@@ -2398,7 +740,7 @@
             "home_win": 0.34234,
             "away_win": 0.65766
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -2432,7 +774,7 @@
       "home": "Timberwolves",
       "away": "Clippers",
       "start_utc": "2026-10-31T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Timberwolves",
         "games": 5,
@@ -2648,7 +990,7 @@
             "home_win": 0.60036,
             "away_win": 0.39964
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -2678,7 +1020,7 @@
       "home": "CGY",
       "away": "SEA",
       "start_utc": "2026-10-31T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "CGY",
         "games": 0,
@@ -2917,7 +1259,7 @@
       "home": "Warriors",
       "away": "Lakers",
       "start_utc": "2026-10-31T02:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Warriors",
         "games": 5,
@@ -3133,7 +1475,7 @@
             "home_win": 0.52238,
             "away_win": 0.47762
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -3167,7 +1509,7 @@
       "home": "Suns",
       "away": "Nuggets",
       "start_utc": "2026-10-31T02:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Suns",
         "games": 5,
@@ -3383,7 +1725,7 @@
             "home_win": 0.45333,
             "away_win": 0.54667
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -3417,7 +1759,7 @@
       "home": "Hong Yi Cody Wong",
       "away": "Himeno Sakatsume",
       "start_utc": "2026-10-31T02:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Hong Yi Cody Wong",
         "games": 0,
@@ -3465,7 +1807,7 @@
       "home": "Hayu Kinoshita",
       "away": "Tatiana Prozorova",
       "start_utc": "2026-10-31T02:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Hayu Kinoshita",
         "games": 0,
@@ -3513,7 +1855,7 @@
       "home": "Alevtina Ibragimova",
       "away": "Mika Stojsavljevic",
       "start_utc": "2026-10-31T02:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Alevtina Ibragimova",
         "games": 0,
@@ -3561,7 +1903,7 @@
       "home": "Heather Watson",
       "away": "Emerson Jones",
       "start_utc": "2026-10-31T03:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Heather Watson",
         "games": 0,
@@ -3609,7 +1951,7 @@
       "home": "Cheuk Ying Shek",
       "away": "Aliaksandra Sasnovich",
       "start_utc": "2026-10-31T03:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Cheuk Ying Shek",
         "games": 0,
@@ -3657,7 +1999,7 @@
       "home": "Ekaterine Gorgodze",
       "away": "Elena Pridankina",
       "start_utc": "2026-10-31T03:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Ekaterine Gorgodze",
         "games": 0,
@@ -3705,7 +2047,7 @@
       "home": "Alexandra Shubladze",
       "away": "Zhang Ying",
       "start_utc": "2026-10-31T05:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Alexandra Shubladze",
         "games": 0,
@@ -3753,7 +2095,7 @@
       "home": "Carol Young Suh Lee",
       "away": "Ching Laam Lai",
       "start_utc": "2026-10-31T05:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Carol Young Suh Lee",
         "games": 0,
@@ -3801,7 +2143,7 @@
       "home": "Ekaterina Yashina",
       "away": "Aliona Falei",
       "start_utc": "2026-10-31T09:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Ekaterina Yashina",
         "games": 0,
@@ -3849,7 +2191,7 @@
       "home": "Rada Zolotareva",
       "away": "Mariia Tkacheva",
       "start_utc": "2026-10-31T09:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Rada Zolotareva",
         "games": 0,
@@ -3897,7 +2239,7 @@
       "home": "Diya Ramesh Ramesh",
       "away": "Kyoka Okamura",
       "start_utc": "2026-10-31T09:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Diya Ramesh Ramesh",
         "games": 0,
@@ -3945,7 +2287,7 @@
       "home": "Mattia Bellucci",
       "away": "Pablo Carreno Busta",
       "start_utc": "2026-10-31T10:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Mattia Bellucci",
         "games": 0,
@@ -3993,7 +2335,7 @@
       "home": "Zachary Svajda",
       "away": "Thiago Agustin Tirante",
       "start_utc": "2026-10-31T10:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Zachary Svajda",
         "games": 0,
@@ -4041,7 +2383,7 @@
       "home": "Rinky Hijikata",
       "away": "Jaime Faria",
       "start_utc": "2026-10-31T10:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Rinky Hijikata",
         "games": 0,
@@ -4089,7 +2431,7 @@
       "home": "Vit Kopriva",
       "away": "Hugo Gaston",
       "start_utc": "2026-10-31T11:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Vit Kopriva",
         "games": 0,
@@ -4137,7 +2479,7 @@
       "home": "Momoko Kobori",
       "away": "Rinko Matsuda",
       "start_utc": "2026-10-31T11:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Momoko Kobori",
         "games": 0,
@@ -4185,7 +2527,7 @@
       "home": "Shrivalli Bhamidipaty",
       "away": "Viktoria Morvayova",
       "start_utc": "2026-10-31T11:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Shrivalli Bhamidipaty",
         "games": 0,
@@ -4233,7 +2575,7 @@
       "home": "Weronika Falkowska",
       "away": "Jensi Dipakbhai Kanabar",
       "start_utc": "2026-10-31T11:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Weronika Falkowska",
         "games": 0,
@@ -4281,7 +2623,7 @@
       "home": "Aleksandar Kovacevic",
       "away": "Juan Manuel Cerundolo",
       "start_utc": "2026-10-31T11:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Aleksandar Kovacevic",
         "games": 0,
@@ -4329,7 +2671,7 @@
       "home": "Miomir Kecmanovic",
       "away": "James Duckworth",
       "start_utc": "2026-10-31T11:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Miomir Kecmanovic",
         "games": 0,
@@ -4377,7 +2719,7 @@
       "home": "Martin Landaluce",
       "away": "Tomas Machac",
       "start_utc": "2026-10-31T11:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Martin Landaluce",
         "games": 0,
@@ -4425,7 +2767,7 @@
       "home": "Benjamin Bonzi",
       "away": "Tallon Griekspoor",
       "start_utc": "2026-10-31T12:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Benjamin Bonzi",
         "games": 0,
@@ -4473,7 +2815,7 @@
       "home": "Chelsea",
       "away": "Man Utd",
       "start_utc": "2026-10-31T12:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Chelsea",
         "games": 5,
@@ -4622,7 +2964,7 @@
             "away_win_90": 0.273543,
             "over_2_5": 0.543735
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -4653,7 +2995,7 @@
       "home": "Zeel Desai",
       "away": "Mei Yamaguchi",
       "start_utc": "2026-10-31T12:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Zeel Desai",
         "games": 0,
@@ -4701,7 +3043,7 @@
       "home": "Yelyzaveta Kotliar",
       "away": "Zhibek Kulambayeva",
       "start_utc": "2026-10-31T12:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Yelyzaveta Kotliar",
         "games": 0,
@@ -4749,7 +3091,7 @@
       "home": "Damir Dzumhur",
       "away": "Sebastian Baez",
       "start_utc": "2026-10-31T13:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Damir Dzumhur",
         "games": 0,
@@ -4797,7 +3139,7 @@
       "home": "Jaume Munar",
       "away": "Lorenzo Sonego",
       "start_utc": "2026-10-31T13:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Jaume Munar",
         "games": 0,
@@ -4845,7 +3187,7 @@
       "home": "Yannick Hanfmann",
       "away": "Felix Balshaw",
       "start_utc": "2026-10-31T13:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Yannick Hanfmann",
         "games": 0,
@@ -4893,7 +3235,7 @@
       "home": "Levante",
       "away": "Atlético",
       "start_utc": "2026-10-31T13:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Levante",
         "games": 5,
@@ -5102,7 +3444,7 @@
             "away_win_90": 0.49619,
             "over_2_5": 0.597257
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -5133,7 +3475,7 @@
       "home": "Bologna",
       "away": "Monza",
       "start_utc": "2026-10-31T14:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Bologna",
         "games": 5,
@@ -5342,7 +3684,7 @@
             "away_win_90": 0.293866,
             "over_2_5": 0.698525
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -5373,7 +3715,7 @@
       "home": "Grigor Dimitrov",
       "away": "Adolfo Daniel Vallejo",
       "start_utc": "2026-10-31T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Grigor Dimitrov",
         "games": 0,
@@ -5421,7 +3763,7 @@
       "home": "Daniel Altmaier",
       "away": "Alex Molcan",
       "start_utc": "2026-10-31T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Daniel Altmaier",
         "games": 0,
@@ -5469,7 +3811,7 @@
       "home": "Schalke",
       "away": "RB Leipzig",
       "start_utc": "2026-10-31T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Schalke",
         "games": 5,
@@ -5678,7 +4020,7 @@
             "away_win_90": 0.411069,
             "over_2_5": 0.556435
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -5709,7 +4051,7 @@
       "home": "Bremen",
       "away": "Hoffenheim",
       "start_utc": "2026-10-31T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Bremen",
         "games": 5,
@@ -5918,7 +4260,7 @@
             "away_win_90": 0.304447,
             "over_2_5": 0.754105
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -5949,7 +4291,7 @@
       "home": "Gladbach",
       "away": "Paderborn",
       "start_utc": "2026-10-31T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Gladbach",
         "games": 5,
@@ -6158,7 +4500,7 @@
             "away_win_90": 0.389102,
             "over_2_5": 0.69096
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -6189,7 +4531,7 @@
       "home": "Augsburg",
       "away": "Freiburg",
       "start_utc": "2026-10-31T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Augsburg",
         "games": 5,
@@ -6398,7 +4740,7 @@
             "away_win_90": 0.394903,
             "over_2_5": 0.745381
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -6429,7 +4771,7 @@
       "home": "Leverkusen",
       "away": "Stuttgart",
       "start_utc": "2026-10-31T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Leverkusen",
         "games": 5,
@@ -6638,7 +4980,7 @@
             "away_win_90": 0.281197,
             "over_2_5": 0.648328
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -6669,7 +5011,7 @@
       "home": "Adrian Mannarino",
       "away": "Nuno Borges",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Adrian Mannarino",
         "games": 0,
@@ -6717,7 +5059,7 @@
       "home": "Ilves",
       "away": "KalPa",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Ilves",
         "games": 0,
@@ -6779,7 +5121,7 @@
       "home": "JYP",
       "away": "Jokerit",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "JYP",
         "games": 0,
@@ -6841,7 +5183,7 @@
       "home": "KooKoo",
       "away": "HIFK",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "KooKoo",
         "games": 0,
@@ -6903,7 +5245,7 @@
       "home": "Kärpät",
       "away": "Jukurit",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Kärpät",
         "games": 0,
@@ -6965,7 +5307,7 @@
       "home": "Pelicans",
       "away": "K-Espoo",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Pelicans",
         "games": 0,
@@ -7027,7 +5369,7 @@
       "home": "Sport",
       "away": "Ässät",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Sport",
         "games": 0,
@@ -7089,7 +5431,7 @@
       "home": "Hull",
       "away": "Ipswich",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Hull",
         "games": 5,
@@ -7298,7 +5640,7 @@
             "away_win_90": 0.33521,
             "over_2_5": 0.498293
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -7329,7 +5671,7 @@
       "home": "Man City",
       "away": "Brighton",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Man City",
         "games": 5,
@@ -7538,7 +5880,7 @@
             "away_win_90": 0.426931,
             "over_2_5": 0.61318
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -7569,7 +5911,7 @@
       "home": "Coventry",
       "away": "Sunderland",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Coventry",
         "games": 5,
@@ -7778,7 +6120,7 @@
             "away_win_90": 0.283819,
             "over_2_5": 0.496607
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -7809,7 +6151,7 @@
       "home": "Brentford",
       "away": "Nottm Forest",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Brentford",
         "games": 5,
@@ -8018,7 +6360,7 @@
             "away_win_90": 0.256654,
             "over_2_5": 0.452944
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -8049,7 +6391,7 @@
       "home": "Bournemouth",
       "away": "Leeds",
       "start_utc": "2026-10-31T15:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Bournemouth",
         "games": 5,
@@ -8258,7 +6600,7 @@
             "away_win_90": 0.350552,
             "over_2_5": 0.492709
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -8289,7 +6631,7 @@
       "home": "Rayo",
       "away": "Celta Vigo",
       "start_utc": "2026-10-31T15:15:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Rayo",
         "games": 5,
@@ -8498,7 +6840,7 @@
             "away_win_90": 0.464792,
             "over_2_5": 0.502448
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -8529,7 +6871,7 @@
       "home": "Charlotte",
       "away": "Orlando",
       "start_utc": "2026-10-31T17:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Charlotte",
         "games": 5,
@@ -8738,7 +7080,7 @@
             "away_win_90": 0.370426,
             "over_2_5": 0.796082
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -8769,7 +7111,7 @@
       "home": "BOS",
       "away": "CHI",
       "start_utc": "2026-10-31T17:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "BOS",
         "games": 0,
@@ -9008,7 +7350,7 @@
       "home": "DET",
       "away": "STL",
       "start_utc": "2026-10-31T17:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "DET",
         "games": 0,
@@ -9247,7 +7589,7 @@
       "home": "Udinese",
       "away": "AS Roma",
       "start_utc": "2026-10-31T17:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Udinese",
         "games": 5,
@@ -9456,7 +7798,7 @@
             "away_win_90": 0.578641,
             "over_2_5": 0.606702
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -9487,7 +7829,7 @@
       "home": "Bayern",
       "away": "Dortmund",
       "start_utc": "2026-10-31T17:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Bayern",
         "games": 5,
@@ -9696,7 +8038,7 @@
             "away_win_90": 0.241897,
             "over_2_5": 0.628626
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -9727,7 +8069,7 @@
       "home": "Betis",
       "away": "Málaga",
       "start_utc": "2026-10-31T17:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Betis",
         "games": 5,
@@ -9936,7 +8278,7 @@
             "away_win_90": 0.220111,
             "over_2_5": 0.553916
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -9967,7 +8309,7 @@
       "home": "Spurs",
       "away": "C Palace",
       "start_utc": "2026-10-31T17:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Spurs",
         "games": 5,
@@ -10176,7 +8518,7 @@
             "away_win_90": 0.23209,
             "over_2_5": 0.544091
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -10207,7 +8549,7 @@
       "home": "Cincinnati",
       "away": "Philadelphia",
       "start_utc": "2026-10-31T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Cincinnati",
         "games": 5,
@@ -10416,7 +8758,7 @@
             "away_win_90": 0.57748,
             "over_2_5": 0.769776
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -10447,7 +8789,7 @@
       "home": "Columbus",
       "away": "D.C. United",
       "start_utc": "2026-10-31T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Columbus",
         "games": 5,
@@ -10656,7 +8998,7 @@
             "away_win_90": 0.157884,
             "over_2_5": 0.661668
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -10687,7 +9029,7 @@
       "home": "NYCFC",
       "away": "CF Montréal",
       "start_utc": "2026-10-31T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "NYCFC",
         "games": 5,
@@ -10896,7 +9238,7 @@
             "away_win_90": 0.212413,
             "over_2_5": 0.446979
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -10927,7 +9269,7 @@
       "home": "NSH",
       "away": "TBL",
       "start_utc": "2026-10-31T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "NSH",
         "games": 0,
@@ -11096,7 +9438,7 @@
       "home": "NYI",
       "away": "EDM",
       "start_utc": "2026-10-31T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "NYI",
         "games": 0,
@@ -11335,7 +9677,7 @@
       "home": "St. Louis",
       "away": "San Diego",
       "start_utc": "2026-10-31T19:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "St. Louis",
         "games": 5,
@@ -11544,7 +9886,7 @@
             "away_win_90": 0.180305,
             "over_2_5": 0.866439
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -11575,7 +9917,7 @@
       "home": "Kansas City",
       "away": "Dallas",
       "start_utc": "2026-10-31T19:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Kansas City",
         "games": 5,
@@ -11784,7 +10126,7 @@
             "away_win_90": 0.49549,
             "over_2_5": 0.713124
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -11815,7 +10157,7 @@
       "home": "Jazz",
       "away": "Trail Blazers",
       "start_utc": "2026-10-31T19:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Jazz",
         "games": 5,
@@ -12031,7 +10373,7 @@
             "home_win": 0.36705,
             "away_win": 0.63295
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -12065,7 +10407,7 @@
       "home": "Troyes",
       "away": "Le Mans",
       "start_utc": "2026-10-31T19:45:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Troyes",
         "games": 5,
@@ -12274,7 +10616,7 @@
             "away_win_90": 0.448182,
             "over_2_5": 0.536798
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -12305,7 +10647,7 @@
       "home": "Milan",
       "away": "Inter Milan",
       "start_utc": "2026-10-31T19:45:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Milan",
         "games": 5,
@@ -12514,7 +10856,7 @@
             "away_win_90": 0.434347,
             "over_2_5": 0.722474
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -12545,7 +10887,7 @@
       "home": "Barcelona",
       "away": "Alavés",
       "start_utc": "2026-10-31T20:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Barcelona",
         "games": 5,
@@ -12754,7 +11096,7 @@
             "away_win_90": 0.152876,
             "over_2_5": 0.783191
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -12785,7 +11127,7 @@
       "home": "LAK",
       "away": "BUF",
       "start_utc": "2026-10-31T20:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "LAK",
         "games": 0,
@@ -12954,7 +11296,7 @@
       "home": "SJS",
       "away": "OTT",
       "start_utc": "2026-10-31T20:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "SJS",
         "games": 0,
@@ -13123,7 +11465,7 @@
       "home": "Aston Villa",
       "away": "Fulham",
       "start_utc": "2026-10-31T20:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Aston Villa",
         "games": 5,
@@ -13332,7 +11674,7 @@
             "away_win_90": 0.292913,
             "over_2_5": 0.429862
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -13363,7 +11705,7 @@
       "home": "LA Galaxy",
       "away": "Austin",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "LA Galaxy",
         "games": 5,
@@ -13572,7 +11914,7 @@
             "away_win_90": 0.296161,
             "over_2_5": 0.701884
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -13603,7 +11945,7 @@
       "home": "San Jose",
       "away": "Salt Lake",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "San Jose",
         "games": 5,
@@ -13812,7 +12154,7 @@
             "away_win_90": 0.328657,
             "over_2_5": 0.551684
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -13843,7 +12185,7 @@
       "home": "Tainara Lisboa",
       "away": "Lucia Szabová",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Tainara Lisboa",
         "games": 0,
@@ -13903,7 +12245,7 @@
       "home": "Joe Kropschot",
       "away": "Nick Klein",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Joe Kropschot",
         "games": 0,
@@ -13963,7 +12305,7 @@
       "home": "Piera Rodriguez",
       "away": "Talita Alencar",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Piera Rodriguez",
         "games": 0,
@@ -14023,7 +12365,7 @@
       "home": "Theodor Berggren",
       "away": "Rodrigo Sezinando",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Theodor Berggren",
         "games": 0,
@@ -14083,7 +12425,7 @@
       "home": "Julian Erosa",
       "away": "JeongYeong Lee",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Julian Erosa",
         "games": 0,
@@ -14143,7 +12485,7 @@
       "home": "Dakota Hope",
       "away": "Francis Marshall",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Dakota Hope",
         "games": 0,
@@ -14203,7 +12545,7 @@
       "home": "Mickey Gall",
       "away": "Zach Reese",
       "start_utc": "2026-10-31T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Mickey Gall",
         "games": 0,
@@ -14263,7 +12605,7 @@
       "home": "Hornets",
       "away": "76ers",
       "start_utc": "2026-10-31T22:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Hornets",
         "games": 5,
@@ -14479,7 +12821,7 @@
             "home_win": 0.52321,
             "away_win": 0.47679
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -14513,7 +12855,7 @@
       "home": "Pelicans",
       "away": "Hawks",
       "start_utc": "2026-10-31T23:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Pelicans",
         "games": 5,
@@ -14729,7 +13071,7 @@
             "home_win": 0.42363,
             "away_win": 0.57637
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -14763,7 +13105,7 @@
       "home": "MTL",
       "away": "PIT",
       "start_utc": "2026-10-31T23:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "MTL",
         "games": 0,
@@ -15002,7 +13344,7 @@
       "home": "VAN",
       "away": "TOR",
       "start_utc": "2026-10-31T23:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "VAN",
         "games": 0,
@@ -15241,7 +13583,7 @@
       "home": "Brewers",
       "away": "Rays",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Brewers",
         "games": 5,
@@ -15446,7 +13788,7 @@
             "home_win": 0.686,
             "away_win": 0.314
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -15491,7 +13833,7 @@
       "home": "Grizzlies",
       "away": "Kings",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Grizzlies",
         "games": 5,
@@ -15707,7 +14049,7 @@
             "home_win": 0.71394,
             "away_win": 0.28606
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -15741,7 +14083,7 @@
       "home": "Bucks",
       "away": "Cavaliers",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Bucks",
         "games": 5,
@@ -15957,7 +14299,7 @@
             "home_win": 0.37058,
             "away_win": 0.62942
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -15991,7 +14333,7 @@
       "home": "Spurs",
       "away": "Timberwolves",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Spurs",
         "games": 5,
@@ -16207,7 +14549,7 @@
             "home_win": 0.60421,
             "away_win": 0.39579
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -16241,7 +14583,7 @@
       "home": "DAL",
       "away": "CBJ",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "DAL",
         "games": 0,
@@ -16480,7 +14822,7 @@
       "home": "Renato Moicano",
       "away": "Tom Nolan",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Renato Moicano",
         "games": 0,
@@ -16540,7 +14882,7 @@
       "home": "Yana Santos",
       "away": "Luana Santos",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Yana Santos",
         "games": 0,
@@ -16600,7 +14942,7 @@
       "home": "Jean-Paul Lebosnoyani",
       "away": "Farman Hasanov",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Jean-Paul Lebosnoyani",
         "games": 0,
@@ -16648,7 +14990,7 @@
       "home": "Ode' Osbourne",
       "away": "Cody Durden",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Ode' Osbourne",
         "games": 0,
@@ -16708,7 +15050,7 @@
       "home": "Randy Brown",
       "away": "Jacobe Smith",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Randy Brown",
         "games": 0,
@@ -16768,7 +15110,7 @@
       "home": "Valkyries",
       "away": "Dream",
       "start_utc": "2026-11-01T00:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Valkyries",
         "games": 5,
@@ -17007,7 +15349,7 @@
       "home": "Rockets",
       "away": "Thunder",
       "start_utc": "2026-11-01T00:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Rockets",
         "games": 5,
@@ -17223,7 +15565,7 @@
             "home_win": 0.57999,
             "away_win": 0.42001
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -17257,7 +15599,7 @@
       "home": "Colorado",
       "away": "Chicago",
       "start_utc": "2026-11-01T01:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Colorado",
         "games": 5,
@@ -17466,7 +15808,7 @@
             "away_win_90": 0.342638,
             "over_2_5": 0.605514
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -17497,7 +15839,7 @@
       "home": "COL",
       "away": "CGY",
       "start_utc": "2026-11-01T02:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "COL",
         "games": 0,
@@ -17736,7 +16078,7 @@
       "home": "Como",
       "away": "Venezia",
       "start_utc": "2026-11-01T11:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Como",
         "games": 5,
@@ -17945,7 +16287,7 @@
             "away_win_90": 0.155718,
             "over_2_5": 0.610349
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -17976,7 +16318,7 @@
       "home": "Getafe",
       "away": "Sevilla",
       "start_utc": "2026-11-01T13:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Getafe",
         "games": 5,
@@ -18185,7 +16527,7 @@
             "away_win_90": 0.416724,
             "over_2_5": 0.464983
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -18216,7 +16558,7 @@
       "home": "Tappara",
       "away": "HPK",
       "start_utc": "2026-11-01T13:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Tappara",
         "games": 0,
@@ -18278,7 +16620,7 @@
       "home": "Strasbourg",
       "away": "Auxerre",
       "start_utc": "2026-11-01T14:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Strasbourg",
         "games": 5,
@@ -18487,7 +16829,7 @@
             "away_win_90": 0.377193,
             "over_2_5": 0.666672
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -18518,7 +16860,7 @@
       "home": "Frosinone",
       "away": "Torino",
       "start_utc": "2026-11-01T14:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Frosinone",
         "games": 5,
@@ -18727,7 +17069,7 @@
             "away_win_90": 0.299056,
             "over_2_5": 0.74946
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -18758,7 +17100,7 @@
       "home": "Lazio",
       "away": "Cagliari",
       "start_utc": "2026-11-01T14:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Lazio",
         "games": 5,
@@ -18967,7 +17309,7 @@
             "away_win_90": 0.161404,
             "over_2_5": 0.676921
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -18998,7 +17340,7 @@
       "home": "Union Berlin",
       "away": "Cologne",
       "start_utc": "2026-11-01T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Union Berlin",
         "games": 5,
@@ -19207,7 +17549,7 @@
             "away_win_90": 0.421457,
             "over_2_5": 0.490843
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -19238,7 +17580,7 @@
       "home": "Villanova",
       "away": "Notre Dame",
       "start_utc": "2026-11-01T14:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Villanova",
         "games": 0,
@@ -19286,7 +17628,7 @@
       "home": "Racing",
       "away": "Real Madrid",
       "start_utc": "2026-11-01T15:15:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Racing",
         "games": 5,
@@ -19495,7 +17837,7 @@
             "away_win_90": 0.590327,
             "over_2_5": 0.754907
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -19526,7 +17868,7 @@
       "home": "Paris FC",
       "away": "Monaco",
       "start_utc": "2026-11-01T16:15:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Paris FC",
         "games": 5,
@@ -19735,7 +18077,7 @@
             "away_win_90": 0.331073,
             "over_2_5": 0.537257
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -19766,7 +18108,7 @@
       "home": "Lyon",
       "away": "Angers",
       "start_utc": "2026-11-01T16:15:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Lyon",
         "games": 5,
@@ -19975,7 +18317,7 @@
             "away_win_90": 0.215061,
             "over_2_5": 0.56239
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -20006,7 +18348,7 @@
       "home": "Frankfurt",
       "away": "Hamburg",
       "start_utc": "2026-11-01T16:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Frankfurt",
         "games": 5,
@@ -20215,7 +18557,7 @@
             "away_win_90": 0.323313,
             "over_2_5": 0.642945
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -20246,7 +18588,7 @@
       "home": "Liverpool",
       "away": "Arsenal",
       "start_utc": "2026-11-01T16:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Liverpool",
         "games": 5,
@@ -20455,7 +18797,7 @@
             "away_win_90": 0.323759,
             "over_2_5": 0.369642
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -20486,7 +18828,7 @@
       "home": "Lecce",
       "away": "Genoa",
       "start_utc": "2026-11-01T17:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Lecce",
         "games": 5,
@@ -20695,7 +19037,7 @@
             "away_win_90": 0.388536,
             "over_2_5": 0.54781
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -20726,7 +19068,7 @@
       "home": "Elche",
       "away": "Valencia",
       "start_utc": "2026-11-01T17:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Elche",
         "games": 5,
@@ -20935,7 +19277,7 @@
             "away_win_90": 0.219208,
             "over_2_5": 0.532236
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -20966,7 +19308,7 @@
       "home": "Cowboys",
       "away": "Cardinals",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Cowboys",
         "games": 5,
@@ -21205,7 +19547,7 @@
       "home": "Buccaneers",
       "away": "Falcons",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Buccaneers",
         "games": 5,
@@ -21444,7 +19786,7 @@
       "home": "Bills",
       "away": "Ravens",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Bills",
         "games": 5,
@@ -21683,7 +20025,7 @@
       "home": "Steelers",
       "away": "Browns",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Steelers",
         "games": 5,
@@ -21922,7 +20264,7 @@
       "home": "Jaguars",
       "away": "Colts",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Jaguars",
         "games": 5,
@@ -22161,7 +20503,7 @@
       "home": "Jets",
       "away": "Raiders",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Jets",
         "games": 5,
@@ -22400,7 +20742,7 @@
       "home": "Lions",
       "away": "Vikings",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Lions",
         "games": 5,
@@ -22639,7 +20981,7 @@
       "home": "Bengals",
       "away": "Titans",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Bengals",
         "games": 5,
@@ -22878,7 +21220,7 @@
       "home": "CAR",
       "away": "WPG",
       "start_utc": "2026-11-01T18:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "CAR",
         "games": 0,
@@ -23117,7 +21459,7 @@
       "home": "Marseille",
       "away": "Toulouse",
       "start_utc": "2026-11-01T19:45:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Marseille",
         "games": 5,
@@ -23326,7 +21668,7 @@
             "away_win_90": 0.369992,
             "over_2_5": 0.697566
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -23357,7 +21699,7 @@
       "home": "Juventus",
       "away": "Napoli",
       "start_utc": "2026-11-01T19:45:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Juventus",
         "games": 5,
@@ -23566,7 +21908,7 @@
             "away_win_90": 0.423124,
             "over_2_5": 0.56506
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -23597,7 +21939,7 @@
       "home": "Athletic",
       "away": "Real Sociedad",
       "start_utc": "2026-11-01T20:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Athletic",
         "games": 5,
@@ -23806,7 +22148,7 @@
             "away_win_90": 0.320989,
             "over_2_5": 0.635651
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -23837,7 +22179,7 @@
       "home": "Vancouver",
       "away": "Seattle",
       "start_utc": "2026-11-01T20:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Vancouver",
         "games": 5,
@@ -24046,7 +22388,7 @@
             "away_win_90": 0.354645,
             "over_2_5": 0.518505
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -24077,7 +22419,7 @@
       "home": "Magic",
       "away": "Celtics",
       "start_utc": "2026-11-01T20:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Magic",
         "games": 5,
@@ -24293,7 +22635,7 @@
             "home_win": 0.3716,
             "away_win": 0.6284
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
@@ -24327,7 +22669,7 @@
       "home": "WSH",
       "away": "MIN",
       "start_utc": "2026-11-01T20:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "WSH",
         "games": 0,
@@ -24566,7 +22908,7 @@
       "home": "PHI",
       "away": "UTA",
       "start_utc": "2026-11-01T21:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "PHI",
         "games": 0,
@@ -24735,7 +23077,7 @@
       "home": "Rams",
       "away": "Chargers",
       "start_utc": "2026-11-01T21:05:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Rams",
         "games": 5,
@@ -24974,7 +23316,7 @@
       "home": "Broncos",
       "away": "Chiefs",
       "start_utc": "2026-11-01T21:25:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Broncos",
         "games": 5,
@@ -25213,7 +23555,7 @@
       "home": "Dolphins",
       "away": "Patriots",
       "start_utc": "2026-11-01T21:25:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Dolphins",
         "games": 5,
@@ -25452,7 +23794,7 @@
       "home": "Nashville",
       "away": "Red Bull NY",
       "start_utc": "2026-11-01T21:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Nashville",
         "games": 5,
@@ -25661,7 +24003,7 @@
             "away_win_90": 0.193209,
             "over_2_5": 0.469427
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -25692,7 +24034,7 @@
       "home": "Atlanta",
       "away": "Toronto",
       "start_utc": "2026-11-01T21:30:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Atlanta",
         "games": 5,
@@ -25901,7 +24243,7 @@
             "away_win_90": 0.348721,
             "over_2_5": 0.722449
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         },
@@ -25932,7 +24274,7 @@
       "home": "Pacers",
       "away": "Nets",
       "start_utc": "2026-11-01T22:00:00+00:00",
-      "source_match_center_at_utc": "2026-10-30T21:41:00.519064+00:00",
+      "source_match_center_at_utc": "2026-10-30T23:37:56.764549+00:00",
       "home_history": {
         "team": "Pacers",
         "games": 5,
@@ -26148,7 +24490,7 @@
             "home_win": 0.57474,
             "away_win": 0.42526
           },
-          "source_generated_utc": "2026-10-30T21:31:51.352346+00:00",
+          "source_generated_utc": "2026-10-30T23:37:56.714377+00:00",
           "calibrated": false,
           "is_verified_future_pre_game_output": false
         }
