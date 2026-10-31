@@ -1,61 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-31T20:37:58.106217+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-31T20:28:28.095448+00:00",
+  "generated_at_utc": "2026-10-31T21:24:49.042884+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-31T20:37:58.154235+00:00",
   "models": [
-    {
-      "event_id": "761925",
-      "league": "MLS",
-      "home": "LA Galaxy",
-      "away": "Austin",
-      "start_utc": "2026-10-31T21:00:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.485888,
-        "draw_90": 0.217952,
-        "away_win_90": 0.29616,
-        "over_2_5": 0.702019
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-31T20:37:30.143143+00:00",
-        "espn_shots_shadow": "2026-10-31T20:37:34.883193+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.02347
-    },
-    {
-      "event_id": "761929",
-      "league": "MLS",
-      "home": "San Jose",
-      "away": "Salt Lake",
-      "start_utc": "2026-10-31T21:00:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.416804,
-        "draw_90": 0.254539,
-        "away_win_90": 0.328657,
-        "over_2_5": 0.551819
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-31T20:37:30.143143+00:00",
-        "espn_shots_shadow": "2026-10-31T20:37:34.883193+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01905
-    },
     {
       "event_id": "401909897",
       "league": "NBA",
@@ -1006,11 +954,11 @@
     }
   ],
   "metrics": {
-    "candidates": 40,
-    "events_covered": 40,
+    "candidates": 38,
+    "events_covered": 38,
     "models_by_league": {
-      "MLS": 9,
       "NBA": 10,
+      "MLS": 7,
       "SERIEA": 7,
       "LALIGA": 5,
       "LIGUE1": 5,
@@ -1018,9 +966,10 @@
       "PL": 2
     },
     "decisions": {
-      "football_correlated_research_pool": 30,
+      "not_pregame_20m": 2,
       "nba_advanced_prior_mode_unverified": 10,
-      "mlb_inadequate_elo_history": 1
+      "mlb_inadequate_elo_history": 1,
+      "football_correlated_research_pool": 28
     }
   },
   "calibrated": false,
