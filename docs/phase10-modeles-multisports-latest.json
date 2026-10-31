@@ -1,87 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-10-31T17:38:36.345842+00:00",
-  "fixture_inventory_source_at_utc": "2026-10-31T16:15:56.409872+00:00",
+  "generated_at_utc": "2026-10-31T17:55:37.544551+00:00",
+  "fixture_inventory_source_at_utc": "2026-10-31T17:38:36.376824+00:00",
   "models": [
-    {
-      "event_id": "761919",
-      "league": "MLS",
-      "home": "Cincinnati",
-      "away": "Philadelphia",
-      "start_utc": "2026-10-31T18:00:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.238232,
-        "draw_90": 0.184288,
-        "away_win_90": 0.57748,
-        "over_2_5": 0.769776
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-31T16:55:02.930811+00:00",
-        "espn_shots_shadow": "2026-10-31T16:55:07.287790+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01091
-    },
-    {
-      "event_id": "761924",
-      "league": "MLS",
-      "home": "Columbus",
-      "away": "D.C. United",
-      "start_utc": "2026-10-31T18:00:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.665003,
-        "draw_90": 0.177113,
-        "away_win_90": 0.157884,
-        "over_2_5": 0.661668
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-31T16:55:02.930811+00:00",
-        "espn_shots_shadow": "2026-10-31T16:55:07.287790+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.0372
-    },
-    {
-      "event_id": "761930",
-      "league": "MLS",
-      "home": "NYCFC",
-      "away": "CF Montréal",
-      "start_utc": "2026-10-31T18:00:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.530902,
-        "draw_90": 0.256685,
-        "away_win_90": 0.212413,
-        "over_2_5": 0.446979
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-10-31T16:55:02.930811+00:00",
-        "espn_shots_shadow": "2026-10-31T16:55:07.287790+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.02608
-    },
     {
       "event_id": "761926",
       "league": "MLS",
@@ -1262,10 +1184,10 @@
     }
   ],
   "metrics": {
-    "candidates": 50,
-    "events_covered": 50,
+    "candidates": 47,
+    "events_covered": 47,
     "models_by_league": {
-      "MLS": 14,
+      "MLS": 11,
       "NBA": 11,
       "LIGUE1": 6,
       "SERIEA": 8,
@@ -1274,8 +1196,8 @@
       "BUNDESLIGA": 2
     },
     "decisions": {
-      "not_pregame_20m": 5,
-      "football_correlated_research_pool": 39,
+      "not_pregame_20m": 3,
+      "football_correlated_research_pool": 36,
       "nba_advanced_prior_mode_unverified": 11,
       "mlb_inadequate_elo_history": 1
     }
