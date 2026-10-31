@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-31T02:54:04.283772+00:00",
+  "generated_at_utc": "2026-10-31T05:53:52.894553+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -796,27 +796,129 @@
             "away": 115.09
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401909919",
+          "league": "NBA",
+          "home": "Warriors",
+          "away": "Suns",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 11,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.61816,
+            "away_win": 0.38184
+          },
+          "components": {
+            "monte_carlo": 0.61589,
+            "bayes": 0.5922,
+            "elo": 0.64678,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 115.86,
+            "away": 112.46
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401909920",
+          "league": "NBA",
+          "home": "Clippers",
+          "away": "Raptors",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 7,
+            "away": 9
+          },
+          "probabilities": {
+            "home_win": 0.48752,
+            "away_win": 0.51248
+          },
+          "components": {
+            "monte_carlo": 0.45833,
+            "bayes": 0.49887,
+            "elo": 0.53779,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 112.86,
+            "away": 114.09
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401909921",
+          "league": "NBA",
+          "home": "Lakers",
+          "away": "Heat",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 10,
+            "away": 10
+          },
+          "probabilities": {
+            "home_win": 0.57698,
+            "away_win": 0.42302
+          },
+          "components": {
+            "monte_carlo": 0.55078,
+            "bayes": 0.576,
+            "elo": 0.63237,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 116.65,
+            "away": 115.03
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 31,
+        "n": 33,
         "scores": {
           "baseline": {
-            "brier_binary": 0.23844,
-            "logloss_binary": 0.66936
+            "brier_binary": 0.23746,
+            "logloss_binary": 0.66743
           },
           "previous_shadow": {
-            "brier_binary": 0.23913,
-            "logloss_binary": 0.67084
+            "brier_binary": 0.23831,
+            "logloss_binary": 0.66923
           },
           "ensemble": {
-            "brier_binary": 0.24102,
-            "logloss_binary": 0.67468
+            "brier_binary": 0.23978,
+            "logloss_binary": 0.67223
           }
         },
-        "delta_brier_vs_baseline": 0.00258,
-        "delta_brier_vs_previous_shadow": 0.00189,
+        "delta_brier_vs_baseline": 0.00232,
+        "delta_brier_vs_previous_shadow": 0.00147,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -1142,6 +1244,36 @@
           "home": "Houston",
           "away": "La Salle",
           "start_utc": "2026-11-03T02:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401909738",
+          "league": "NCAAB",
+          "home": "UCLA",
+          "away": "Arizona",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401926771",
+          "league": "NCAAB",
+          "home": "USC",
+          "away": "Milwaukee",
+          "start_utc": "2026-11-03T03:30:00+00:00",
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {

@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-31T02:54:04.053436+00:00",
+  "generated_at_utc": "2026-10-31T05:53:52.508005+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -556,20 +556,92 @@
             "margin_probability": 0.4876,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401909919",
+          "league": "NBA",
+          "home": "Warriors",
+          "away": "Suns",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 11,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.62742,
+            "away_win": 0.37258
+          },
+          "odds": null,
+          "expected_margin_home": 2.869,
+          "components": {
+            "elo_probability": 0.6468,
+            "margin_probability": 0.5945,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401909920",
+          "league": "NBA",
+          "home": "Clippers",
+          "away": "Raptors",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 7,
+            "away": 9
+          },
+          "probabilities": {
+            "home_win": 0.5125,
+            "away_win": 0.4875
+          },
+          "odds": null,
+          "expected_margin_home": -0.92,
+          "components": {
+            "elo_probability": 0.5378,
+            "margin_probability": 0.4694,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401909921",
+          "league": "NBA",
+          "home": "Lakers",
+          "away": "Heat",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 10,
+            "away": 10
+          },
+          "probabilities": {
+            "home_win": 0.61965,
+            "away_win": 0.38035
+          },
+          "odds": null,
+          "expected_margin_home": 2.978,
+          "components": {
+            "elo_probability": 0.6324,
+            "margin_probability": 0.598,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 31,
+        "n": 33,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23913,
-          "logloss_binary": 0.67084
+          "brier_binary": 0.23831,
+          "logloss_binary": 0.66923
         },
         "baseline": {
-          "brier_binary": 0.23844,
-          "logloss_binary": 0.66936
+          "brier_binary": 0.23746,
+          "logloss_binary": 0.66743
         },
-        "brier_delta_candidate_minus_baseline": 0.00069,
+        "brier_delta_candidate_minus_baseline": 0.00085,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -878,6 +950,36 @@
           "home": "Houston",
           "away": "La Salle",
           "start_utc": "2026-11-03T02:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401909738",
+          "league": "NCAAB",
+          "home": "UCLA",
+          "away": "Arizona",
+          "start_utc": "2026-11-03T03:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401926771",
+          "league": "NCAAB",
+          "home": "USC",
+          "away": "Milwaukee",
+          "start_utc": "2026-11-03T03:30:00+00:00",
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
