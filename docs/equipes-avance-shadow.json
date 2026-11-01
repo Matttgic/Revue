@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-01T02:28:00.366567+00:00",
+  "generated_at_utc": "2026-11-01T03:55:33.982683+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -351,17 +351,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 10,
-            "away": 9
+            "away": 10
           },
           "probabilities": {
-            "home_win": 0.59803,
-            "away_win": 0.40197
+            "home_win": 0.60985,
+            "away_win": 0.39015
           },
           "odds": null,
-          "expected_margin_home": 3.167,
+          "expected_margin_home": 3.365,
           "components": {
-            "elo_probability": 0.5945,
-            "margin_probability": 0.6041,
+            "elo_probability": 0.6095,
+            "margin_probability": 0.6104,
             "last_games_form": 5
           }
         },
@@ -375,17 +375,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 10,
-            "away": 8
+            "away": 9
           },
           "probabilities": {
-            "home_win": 0.52668,
-            "away_win": 0.47332
+            "home_win": 0.50608,
+            "away_win": 0.49392
           },
           "odds": null,
-          "expected_margin_home": -0.533,
+          "expected_margin_home": -1.413,
           "components": {
-            "elo_probability": 0.5528,
-            "margin_probability": 0.4823,
+            "elo_probability": 0.5372,
+            "margin_probability": 0.4531,
             "last_games_form": 5
           }
         },
@@ -463,34 +463,34 @@
         }
       ],
       "evaluation": {
-        "n": 37,
+        "n": 40,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23864,
-          "logloss_binary": 0.66995
+          "brier_binary": 0.2317,
+          "logloss_binary": 0.65527
         },
         "baseline": {
-          "brier_binary": 0.23934,
-          "logloss_binary": 0.67126
+          "brier_binary": 0.23123,
+          "logloss_binary": 0.65394
         },
-        "brier_delta_candidate_minus_baseline": -0.0007,
+        "brier_delta_candidate_minus_baseline": 0.00047,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
     "WNBA": {
       "games": [],
       "evaluation": {
-        "n": 11,
+        "n": 12,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23319,
-          "logloss_binary": 0.65938
+          "brier_binary": 0.2342,
+          "logloss_binary": 0.66141
         },
         "baseline": {
-          "brier_binary": 0.22732,
-          "logloss_binary": 0.64744
+          "brier_binary": 0.22591,
+          "logloss_binary": 0.64464
         },
-        "brier_delta_candidate_minus_baseline": 0.00587,
+        "brier_delta_candidate_minus_baseline": 0.00829,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
