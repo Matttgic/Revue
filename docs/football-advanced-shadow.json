@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-01T21:20:50.379254+00:00",
+  "generated_at_utc": "2026-11-01T22:56:36.904758+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -99,17 +99,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 16,
+        "n": 17,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.5832,
-          "logloss": 0.98212
+          "brier": 0.58156,
+          "logloss": 0.97893
         },
         "baseline": {
-          "brier": 0.57717,
-          "logloss": 0.96966
+          "brier": 0.57534,
+          "logloss": 0.9663
         },
-        "shadow_brier_delta_vs_baseline": 0.00603,
+        "shadow_brier_delta_vs_baseline": 0.00622,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -128,14 +128,14 @@
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.37045,
-            "draw_90": 0.21834,
-            "away_win_90": 0.41121,
-            "over_2_5": 0.74797
+            "home_win_90": 0.37036,
+            "draw_90": 0.21831,
+            "away_win_90": 0.41133,
+            "over_2_5": 0.74807
           },
           "expected_score": {
             "home": 1.878,
-            "away": 2.029
+            "away": 2.03
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -159,14 +159,14 @@
             "away": 7
           },
           "probabilities": {
-            "home_win_90": 0.52683,
-            "draw_90": 0.22574,
-            "away_win_90": 0.24742,
-            "over_2_5": 0.64025
+            "home_win_90": 0.52698,
+            "draw_90": 0.22572,
+            "away_win_90": 0.24729,
+            "over_2_5": 0.64015
           },
           "expected_score": {
             "home": 2.026,
-            "away": 1.273
+            "away": 1.272
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -181,17 +181,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 21,
+        "n": 22,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.49136,
-          "logloss": 0.85515
+          "brier": 0.50351,
+          "logloss": 0.87145
         },
         "baseline": {
-          "brier": 0.499,
-          "logloss": 0.86431
+          "brier": 0.50897,
+          "logloss": 0.87731
         },
-        "shadow_brier_delta_vs_baseline": -0.00764,
+        "shadow_brier_delta_vs_baseline": -0.00546,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -229,14 +229,14 @@
             "away": 5
           },
           "probabilities": {
-            "home_win_90": 0.38965,
-            "draw_90": 0.28375,
-            "away_win_90": 0.3266,
-            "over_2_5": 0.46076
+            "home_win_90": 0.38986,
+            "draw_90": 0.28334,
+            "away_win_90": 0.3268,
+            "over_2_5": 0.46235
           },
           "expected_score": {
-            "home": 1.313,
-            "away": 1.205
+            "home": 1.316,
+            "away": 1.208
           },
           "xg_used": false,
           "espn_stats_used": true,
@@ -251,85 +251,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 8,
+        "n": 9,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.51238,
-          "logloss": 0.87476
+          "brier": 0.51533,
+          "logloss": 0.87774
         },
         "baseline": {
-          "brier": 0.50971,
-          "logloss": 0.86753
+          "brier": 0.51354,
+          "logloss": 0.87176
         },
-        "shadow_brier_delta_vs_baseline": 0.00267,
+        "shadow_brier_delta_vs_baseline": 0.00179,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "MLS": {
       "name": "MLS",
       "games": [
-        {
-          "event_id": "761920",
-          "home": "Nashville",
-          "away": "Red Bull NY",
-          "start_utc": "2026-11-01T21:30:00+00:00",
-          "league": "MLS",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 9,
-            "away": 10
-          },
-          "probabilities": {
-            "home_win_90": 0.5837,
-            "draw_90": 0.23294,
-            "away_win_90": 0.18336,
-            "over_2_5": 0.51834
-          },
-          "expected_score": {
-            "home": 1.876,
-            "away": 0.873
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-29T15:20:16.804893+00:00",
-            "away": "2026-10-29T12:20:53.328795+00:00"
-          }
-        },
-        {
-          "event_id": "761931",
-          "home": "Atlanta",
-          "away": "Toronto",
-          "start_utc": "2026-11-01T21:30:00+00:00",
-          "league": "MLS",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 10,
-            "away": 10
-          },
-          "probabilities": {
-            "home_win_90": 0.43531,
-            "draw_90": 0.22136,
-            "away_win_90": 0.34332,
-            "over_2_5": 0.7284
-          },
-          "expected_score": {
-            "home": 2.027,
-            "away": 1.756
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-29T12:20:53.328795+00:00",
-            "away": "2026-10-29T12:20:53.328795+00:00"
-          }
-        },
         {
           "event_id": "761932",
           "home": "New England",
