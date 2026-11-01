@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-01T09:36:22.148340+00:00",
+  "generated_at_utc": "2026-11-01T11:55:39.302971+00:00",
   "status": "prospective_football_score_audit_only",
   "source": "ESPN final scores; only verified pre-match frozen predictions",
   "prediction_source": "Revue independent baseline and shadow model",
@@ -20,6 +20,23 @@
         }
       },
       "brier_delta_candidate_minus_baseline": -0.004327
+    },
+    "BUNDESLIGA": {
+      "n_recorded": 27,
+      "n_settled": 25,
+      "n_pending": 2,
+      "n_invalid": 0,
+      "scores": {
+        "baseline_metrics": {
+          "brier": 0.668508,
+          "logloss": 1.09197
+        },
+        "shadow_metrics": {
+          "brier": 0.675256,
+          "logloss": 1.098144
+        }
+      },
+      "brier_delta_candidate_minus_baseline": 0.006748
     },
     "LALIGA": {
       "n_recorded": 41,
@@ -71,23 +88,6 @@
         }
       },
       "brier_delta_candidate_minus_baseline": -0.007901
-    },
-    "BUNDESLIGA": {
-      "n_recorded": 27,
-      "n_settled": 25,
-      "n_pending": 2,
-      "n_invalid": 0,
-      "scores": {
-        "baseline_metrics": {
-          "brier": 0.668508,
-          "logloss": 1.09197
-        },
-        "shadow_metrics": {
-          "brier": 0.675256,
-          "logloss": 1.098144
-        }
-      },
-      "brier_delta_candidate_minus_baseline": 0.006748
     },
     "PL": {
       "n_recorded": 40,
