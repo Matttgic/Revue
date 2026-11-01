@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-01T00:55:46.467152+00:00",
+  "generated_at_utc": "2026-11-01T02:28:00.366567+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -463,17 +463,17 @@
         }
       ],
       "evaluation": {
-        "n": 35,
+        "n": 37,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23827,
-          "logloss_binary": 0.66918
-        },
-        "baseline": {
-          "brier_binary": 0.2387,
+          "brier_binary": 0.23864,
           "logloss_binary": 0.66995
         },
-        "brier_delta_candidate_minus_baseline": -0.00043,
+        "baseline": {
+          "brier_binary": 0.23934,
+          "logloss_binary": 0.67126
+        },
+        "brier_delta_candidate_minus_baseline": -0.0007,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -847,6 +847,21 @@
           "home": "Virginia",
           "away": "Drexel",
           "start_utc": "2026-11-04T00:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401929372",
+          "league": "NCAAB",
+          "home": "Arkansas",
+          "away": "AR-Pine Bluff",
+          "start_utc": "2026-11-04T01:00:00+00:00",
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
