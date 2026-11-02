@@ -1,6 +1,6 @@
 {
   "version": "revue_phase11_source_quality_v1",
-  "generated_at_utc": "2026-11-02T07:52:19.441280+00:00",
+  "generated_at_utc": "2026-11-02T22:23:36.714329+00:00",
   "status": "input_gates_verified_missing_original_model_sources",
   "sports": {
     "NBA": {
@@ -12,8 +12,8 @@
       "original_sql_parity_proven": false
     },
     "NHL": {
-      "goalie_observations": 3,
-      "both_sides_confirmed_by_ESPN": 0,
+      "goalie_observations": 12,
+      "both_sides_confirmed_by_ESPN": 1,
       "actual_starters_verified": false,
       "missing": [
         "actual_starting_goalies_independently_confirmed",
@@ -22,7 +22,7 @@
       "original_sql_parity_proven": false
     },
     "MLB": {
-      "ESPN_completed_games_used_for_diagnostic": 40,
+      "ESPN_completed_games_used_for_diagnostic": 38,
       "pitchers_verified_from_current_feed": false,
       "official_probable_pitcher_feed_available": true,
       "official_probable_pitcher_sides_observed": 0,
@@ -47,15 +47,15 @@
   "NHL_espn_observations": {
     "source_report_valid": true,
     "source_age": {
-      "age_hours": 0.24,
+      "age_hours": 0.1,
       "status": "recent",
       "max_age_hours": 12
     },
     "future_nhl_fixtures": 15,
-    "matched_upcoming_fixtures": 3,
-    "goalie_sides_confirmed_by_espn": 0,
-    "goalie_sides_projected_by_espn": 6,
-    "fixtures_with_both_espn_confirmed": 0,
+    "matched_upcoming_fixtures": 12,
+    "goalie_sides_confirmed_by_espn": 5,
+    "goalie_sides_projected_by_espn": 19,
+    "fixtures_with_both_espn_confirmed": 1,
     "actual_game_starts_independently_verified": 0,
     "used_in_prediction": false,
     "fixtures": [
@@ -64,10 +64,10 @@
         "event_id": "2026020232",
         "home": "BOS",
         "away": "VGK",
-        "source_observed_utc": "2026-11-02T07:38:10.616596+00:00",
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
         "home_goalie": {
           "name": "Jeremy Swayman",
-          "status": "projected"
+          "status": "confirmed"
         },
         "away_goalie": {
           "name": "Carter Hart",
@@ -83,16 +83,16 @@
         "event_id": "2026020233",
         "home": "FLA",
         "away": "DET",
-        "source_observed_utc": "2026-11-02T07:38:10.616596+00:00",
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
         "home_goalie": {
-          "name": "Akira Schmid",
-          "status": "projected"
+          "name": "Jacob Markstrom",
+          "status": "confirmed"
         },
         "away_goalie": {
-          "name": "John Gibson",
-          "status": "projected"
+          "name": "Daniil Tarasov",
+          "status": "confirmed"
         },
-        "both_reported_confirmed": false,
+        "both_reported_confirmed": true,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
         "note": "ESPN status is observed provider wording, not a guarantee of actual starting lineup."
@@ -102,10 +102,10 @@
         "event_id": "2026020234",
         "home": "CHI",
         "away": "COL",
-        "source_observed_utc": "2026-11-02T07:38:10.616596+00:00",
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
         "home_goalie": {
           "name": "Spencer Knight",
-          "status": "projected"
+          "status": "confirmed"
         },
         "away_goalie": {
           "name": "Mackenzie Blackwood",
@@ -134,9 +134,15 @@
         "event_id": "2026020236",
         "home": "TOR",
         "away": "UTA",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Sergei Bobrovsky",
+          "status": "confirmed"
+        },
+        "away_goalie": {
+          "name": "Karel Vejmelka",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -147,9 +153,15 @@
         "event_id": "2026020237",
         "home": "MTL",
         "away": "WPG",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Jacob Fowler",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Stuart Skinner",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -160,9 +172,15 @@
         "event_id": "2026020238",
         "home": "TBL",
         "away": "DET",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Andrei Vasilevskiy",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "John Gibson",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -173,9 +191,15 @@
         "event_id": "2026020240",
         "home": "NYR",
         "away": "STL",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Dylan Garand",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Joel Hofer",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -199,9 +223,15 @@
         "event_id": "2026020242",
         "home": "PIT",
         "away": "VGK",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Arturs Silovs",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Adin Hill",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -212,9 +242,15 @@
         "event_id": "2026020243",
         "home": "WSH",
         "away": "DAL",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Logan Thompson",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Jake Oettinger",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -225,9 +261,15 @@
         "event_id": "2026020244",
         "home": "CBJ",
         "away": "COL",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Jet Greaves",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Scott Wedgewood",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -251,9 +293,15 @@
         "event_id": "2026020245",
         "home": "NSH",
         "away": "CAR",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Juuse Saros",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Pyotr Kochetkov",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -264,9 +312,15 @@
         "event_id": "2026020246",
         "home": "VAN",
         "away": "ANA",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-02T22:17:25.712282+00:00",
+        "home_goalie": {
+          "name": "Leevi Merilainen",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Lukas Dostal",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -402,32 +456,32 @@
   },
   "freshness": {
     "goalies": {
-      "age_hours": 0.24,
+      "age_hours": 0.1,
       "status": "recent",
       "max_age_hours": 12
     },
     "nba": {
-      "age_hours": 17.43,
+      "age_hours": 5.04,
       "status": "recent",
       "max_age_hours": 48
     },
     "mlb": {
-      "age_hours": 13.74,
+      "age_hours": 0.45,
       "status": "recent",
       "max_age_hours": 48
     },
     "football": {
-      "age_hours": 0.42,
+      "age_hours": 1.4,
       "status": "recent",
       "max_age_hours": 48
     },
     "center": {
-      "age_hours": 1.85,
+      "age_hours": 3.59,
       "status": "recent",
       "max_age_hours": 12
     },
     "picks": {
-      "age_hours": 1.85,
+      "age_hours": 1.6,
       "status": "recent",
       "max_age_hours": 24
     }
