@@ -1,10 +1,45 @@
 {
-  "generated_at_utc": "2026-11-02T18:29:00.791946+00:00",
+  "generated_at_utc": "2026-11-02T20:59:45.702925+00:00",
   "date_paris": "2026-11-02",
   "days": 3,
   "status": "prototype_non_calibre",
   "disclaimer": "Probabilités de recherche non calibrées. Sans cotes françaises ni EV. Aucun conseil de pari.",
   "competitions": {
+    "WNBA": {
+      "name": "WNBA",
+      "sport": "Basket",
+      "model": "points",
+      "status": "ok",
+      "games": []
+    },
+    "NFL": {
+      "name": "NFL",
+      "sport": "Football américain",
+      "model": "points",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401873036",
+          "home": "Seahawks",
+          "away": "Bears",
+          "start_utc": "2026-11-03T01:15:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win": 0.5415,
+            "away_win": 0.4585
+          },
+          "expected_score": {
+            "home": 22.2,
+            "away": 21.7
+          },
+          "odds": null,
+          "training_games": {
+            "home": 7,
+            "away": 7
+          }
+        }
+      ]
+    },
     "NBA": {
       "name": "NBA",
       "sport": "Basket",
@@ -313,41 +348,6 @@
         }
       ]
     },
-    "NFL": {
-      "name": "NFL",
-      "sport": "Football américain",
-      "model": "points",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401873036",
-          "home": "Seahawks",
-          "away": "Bears",
-          "start_utc": "2026-11-03T01:15:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.5415,
-            "away_win": 0.4585
-          },
-          "expected_score": {
-            "home": 22.2,
-            "away": 21.7
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        }
-      ]
-    },
-    "WNBA": {
-      "name": "WNBA",
-      "sport": "Basket",
-      "model": "points",
-      "status": "ok",
-      "games": []
-    },
     "NCAAB": {
       "name": "NCAA Basketball",
       "sport": "Basket",
@@ -655,6 +655,20 @@
         }
       ]
     },
+    "LALIGA": {
+      "name": "La Liga",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
+    "PL": {
+      "name": "Premier League",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
     "MLB": {
       "name": "MLB",
       "sport": "Baseball",
@@ -662,95 +676,12 @@
       "status": "ok",
       "games": []
     },
-    "LALIGA": {
-      "name": "La Liga",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401882824",
-          "home": "Deportivo",
-          "away": "Osasuna",
-          "start_utc": "2026-11-02T20:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.4702,
-            "draw_90": 0.25,
-            "away_win_90": 0.2798,
-            "over_2_5": 0.4999
-          },
-          "expected_score": {
-            "home": 1.59,
-            "away": 1.08
-          },
-          "odds": null,
-          "training_games": {
-            "home": 6,
-            "away": 6
-          }
-        }
-      ]
-    },
-    "PL": {
-      "name": "Premier League",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401878762",
-          "home": "Newcastle",
-          "away": "Everton",
-          "start_utc": "2026-11-02T20:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.397,
-            "draw_90": 0.2684,
-            "away_win_90": 0.3347,
-            "over_2_5": 0.4603
-          },
-          "expected_score": {
-            "home": 1.32,
-            "away": 1.19
-          },
-          "odds": null,
-          "training_games": {
-            "home": 5,
-            "away": 5
-          }
-        }
-      ]
-    },
     "SERIEA": {
       "name": "Serie A",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
-      "games": [
-        {
-          "event_id": "401874971",
-          "home": "Atalanta",
-          "away": "Parma",
-          "start_utc": "2026-11-02T19:45:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.5041,
-            "draw_90": 0.2171,
-            "away_win_90": 0.2788,
-            "over_2_5": 0.6469
-          },
-          "expected_score": {
-            "home": 1.99,
-            "away": 1.34
-          },
-          "odds": null,
-          "training_games": {
-            "home": 6,
-            "away": 6
-          }
-        }
-      ]
+      "games": []
     },
     "BUNDESLIGA": {
       "name": "Bundesliga",
@@ -764,30 +695,7 @@
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
-      "games": [
-        {
-          "event_id": "401876419",
-          "home": "Lorient",
-          "away": "Brest",
-          "start_utc": "2026-11-02T19:45:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.4112,
-            "draw_90": 0.2674,
-            "away_win_90": 0.3214,
-            "over_2_5": 0.4627
-          },
-          "expected_score": {
-            "home": 1.34,
-            "away": 1.18
-          },
-          "odds": null,
-          "training_games": {
-            "home": 5,
-            "away": 5
-          }
-        }
-      ]
+      "games": []
     },
     "MLS": {
       "name": "MLS",
@@ -1628,19 +1536,19 @@
     "feeds_ok": 18,
     "feeds_partial": 0,
     "feeds_failed": 0,
-    "fixtures": 76,
-    "predicted": 53,
+    "fixtures": 72,
+    "predicted": 49,
     "league_feed_diagnostics": {
-      "NBA": {
+      "WNBA": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 35,
-        "cache_hits": 28,
+        "requests_total": 50,
+        "cache_hits": 43,
         "requests_failed": 0,
         "errors": [],
-        "events": 199,
-        "range_min": "2026-10-04",
-        "range_max": "2026-11-07"
+        "events": 57,
+        "range_min": "2026-09-18",
+        "range_max": "2026-11-01"
       },
       "NFL": {
         "status": "ok",
@@ -1653,16 +1561,16 @@
         "range_min": "2026-09-10",
         "range_max": "2026-11-06"
       },
-      "WNBA": {
+      "NBA": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 50,
-        "cache_hits": 43,
+        "requests_total": 35,
+        "cache_hits": 28,
         "requests_failed": 0,
         "errors": [],
-        "events": 57,
-        "range_min": "2026-09-18",
-        "range_max": "2026-11-01"
+        "events": 199,
+        "range_min": "2026-10-04",
+        "range_max": "2026-11-07"
       },
       "NCAAB": {
         "status": "ok",
@@ -1674,17 +1582,6 @@
         "events": 68,
         "range_min": "2026-11-01",
         "range_max": "2026-11-07"
-      },
-      "MLB": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 37,
-        "cache_hits": 30,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 45,
-        "range_min": "2026-09-30",
-        "range_max": "2026-11-01"
       },
       "LALIGA": {
         "status": "ok",
@@ -1707,6 +1604,17 @@
         "events": 61,
         "range_min": "2026-09-12",
         "range_max": "2026-11-06"
+      },
+      "MLB": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 37,
+        "cache_hits": 30,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 45,
+        "range_min": "2026-09-30",
+        "range_max": "2026-11-01"
       },
       "SERIEA": {
         "status": "ok",
