@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-04T20:03:55.681579+00:00",
+  "generated_at_utc": "2026-11-04T20:55:09.368542+00:00",
   "date_paris": "2026-11-04",
   "days": 3,
   "status": "prototype_non_calibre",
@@ -831,35 +831,12 @@
         }
       ]
     },
-    "LALIGA": {
-      "name": "La Liga",
-      "sport": "Football",
-      "model": "soccer",
+    "MLB": {
+      "name": "MLB",
+      "sport": "Baseball",
+      "model": "runs",
       "status": "ok",
-      "games": [
-        {
-          "event_id": "401882809",
-          "home": "Sevilla",
-          "away": "Alavés",
-          "start_utc": "2026-11-06T20:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.5053,
-            "draw_90": 0.2317,
-            "away_win_90": 0.263,
-            "over_2_5": 0.5716
-          },
-          "expected_score": {
-            "home": 1.8,
-            "away": 1.18
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        }
-      ]
+      "games": []
     },
     "PL": {
       "name": "Premier League",
@@ -891,12 +868,35 @@
         }
       ]
     },
-    "MLB": {
-      "name": "MLB",
-      "sport": "Baseball",
-      "model": "runs",
+    "LALIGA": {
+      "name": "La Liga",
+      "sport": "Football",
+      "model": "soccer",
       "status": "ok",
-      "games": []
+      "games": [
+        {
+          "event_id": "401882809",
+          "home": "Sevilla",
+          "away": "Alavés",
+          "start_utc": "2026-11-06T20:00:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.5053,
+            "draw_90": 0.2317,
+            "away_win_90": 0.263,
+            "over_2_5": 0.5716
+          },
+          "expected_score": {
+            "home": 1.8,
+            "away": 1.18
+          },
+          "odds": null,
+          "training_games": {
+            "home": 7,
+            "away": 7
+          }
+        }
+      ]
     },
     "SERIEA": {
       "name": "Serie A",
@@ -924,6 +924,36 @@
           "training_games": {
             "home": 7,
             "away": 7
+          }
+        }
+      ]
+    },
+    "BUNDESLIGA": {
+      "name": "Bundesliga",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401884739",
+          "home": "Hamburg",
+          "away": "Gladbach",
+          "start_utc": "2026-11-06T19:30:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.4537,
+            "draw_90": 0.2238,
+            "away_win_90": 0.3225,
+            "over_2_5": 0.6598
+          },
+          "expected_score": {
+            "home": 1.86,
+            "away": 1.54
+          },
+          "odds": null,
+          "training_games": {
+            "home": 6,
+            "away": 6
           }
         }
       ]
@@ -958,45 +988,15 @@
         }
       ]
     },
-    "MLS": {
-      "name": "MLS",
+    "UCL": {
+      "name": "Ligue des champions",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
       "games": []
     },
-    "BUNDESLIGA": {
-      "name": "Bundesliga",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401884739",
-          "home": "Hamburg",
-          "away": "Gladbach",
-          "start_utc": "2026-11-06T19:30:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.4537,
-            "draw_90": 0.2238,
-            "away_win_90": 0.3225,
-            "over_2_5": 0.6598
-          },
-          "expected_score": {
-            "home": 1.86,
-            "away": 1.54
-          },
-          "odds": null,
-          "training_games": {
-            "home": 6,
-            "away": 6
-          }
-        }
-      ]
-    },
-    "UCL": {
-      "name": "Ligue des champions",
+    "MLS": {
+      "name": "MLS",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -1477,16 +1477,16 @@
         "range_min": "2026-10-04",
         "range_max": "2026-11-09"
       },
-      "LALIGA": {
+      "MLB": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
+        "requests_total": 37,
+        "cache_hits": 30,
         "requests_failed": 0,
         "errors": [],
-        "events": 79,
-        "range_min": "2026-09-11",
-        "range_max": "2026-11-08"
+        "events": 39,
+        "range_min": "2026-10-02",
+        "range_max": "2026-11-01"
       },
       "PL": {
         "status": "ok",
@@ -1499,16 +1499,16 @@
         "range_min": "2026-09-12",
         "range_max": "2026-11-08"
       },
-      "MLB": {
+      "LALIGA": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 37,
-        "cache_hits": 30,
+        "requests_total": 60,
+        "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 39,
-        "range_min": "2026-10-02",
-        "range_max": "2026-11-01"
+        "events": 79,
+        "range_min": "2026-09-11",
+        "range_max": "2026-11-08"
       },
       "SERIEA": {
         "status": "ok",
@@ -1521,7 +1521,7 @@
         "range_min": "2026-09-11",
         "range_max": "2026-11-08"
       },
-      "LIGUE1": {
+      "BUNDESLIGA": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
@@ -1532,18 +1532,7 @@
         "range_min": "2026-09-11",
         "range_max": "2026-11-08"
       },
-      "MLS": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 167,
-        "range_min": "2026-09-10",
-        "range_max": "2026-11-08"
-      },
-      "BUNDESLIGA": {
+      "LIGUE1": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
@@ -1564,6 +1553,17 @@
         "events": 72,
         "range_min": "2026-09-08",
         "range_max": "2026-11-04"
+      },
+      "MLS": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 167,
+        "range_min": "2026-09-10",
+        "range_max": "2026-11-08"
       },
       "NHL": {
         "status": "ok",
