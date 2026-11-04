@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-04T14:33:05.430634+00:00",
+  "generated_at_utc": "2026-11-04T17:03:11.577333+00:00",
   "date_paris": "2026-11-04",
   "days": 3,
   "status": "prototype_non_calibre",
@@ -11,6 +11,34 @@
       "model": "points",
       "status": "ok",
       "games": []
+    },
+    "NFL": {
+      "name": "NFL",
+      "sport": "Football américain",
+      "model": "points",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401873037",
+          "home": "Ravens",
+          "away": "Jaguars",
+          "start_utc": "2026-11-06T01:15:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win": 0.5342,
+            "away_win": 0.4658
+          },
+          "expected_score": {
+            "home": 19.4,
+            "away": 26.6
+          },
+          "odds": null,
+          "training_games": {
+            "home": 8,
+            "away": 7
+          }
+        }
+      ]
     },
     "NBA": {
       "name": "NBA",
@@ -803,34 +831,6 @@
         }
       ]
     },
-    "NFL": {
-      "name": "NFL",
-      "sport": "Football américain",
-      "model": "points",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401873037",
-          "home": "Ravens",
-          "away": "Jaguars",
-          "start_utc": "2026-11-06T01:15:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.5342,
-            "away_win": 0.4658
-          },
-          "expected_score": {
-            "home": 19.4,
-            "away": 26.6
-          },
-          "odds": null,
-          "training_games": {
-            "home": 8,
-            "away": 7
-          }
-        }
-      ]
-    },
     "MLB": {
       "name": "MLB",
       "sport": "Baseball",
@@ -838,32 +838,32 @@
       "status": "ok",
       "games": []
     },
-    "PL": {
-      "name": "Premier League",
+    "LALIGA": {
+      "name": "La Liga",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
       "games": [
         {
-          "event_id": "401879242",
-          "home": "Everton",
-          "away": "Coventry",
+          "event_id": "401882809",
+          "home": "Sevilla",
+          "away": "Alavés",
           "start_utc": "2026-11-06T20:00:00+00:00",
           "status": "prototype_non_calibre",
           "probabilities": {
-            "home_win_90": 0.3941,
-            "draw_90": 0.2703,
-            "away_win_90": 0.3356,
-            "over_2_5": 0.4529
+            "home_win_90": 0.5053,
+            "draw_90": 0.2317,
+            "away_win_90": 0.263,
+            "over_2_5": 0.5716
           },
           "expected_score": {
-            "home": 1.3,
-            "away": 1.19
+            "home": 1.8,
+            "away": 1.18
           },
           "odds": null,
           "training_games": {
-            "home": 6,
-            "away": 6
+            "home": 7,
+            "away": 7
           }
         }
       ]
@@ -898,57 +898,27 @@
         }
       ]
     },
-    "LALIGA": {
-      "name": "La Liga",
+    "PL": {
+      "name": "Premier League",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
       "games": [
         {
-          "event_id": "401882809",
-          "home": "Sevilla",
-          "away": "Alavés",
+          "event_id": "401879242",
+          "home": "Everton",
+          "away": "Coventry",
           "start_utc": "2026-11-06T20:00:00+00:00",
           "status": "prototype_non_calibre",
           "probabilities": {
-            "home_win_90": 0.5053,
-            "draw_90": 0.2317,
-            "away_win_90": 0.263,
-            "over_2_5": 0.5716
+            "home_win_90": 0.3941,
+            "draw_90": 0.2703,
+            "away_win_90": 0.3356,
+            "over_2_5": 0.4529
           },
           "expected_score": {
-            "home": 1.8,
-            "away": 1.18
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        }
-      ]
-    },
-    "LIGUE1": {
-      "name": "Ligue 1",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401876405",
-          "home": "Toulouse",
-          "away": "Strasbourg",
-          "start_utc": "2026-11-06T19:45:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.4959,
-            "draw_90": 0.2233,
-            "away_win_90": 0.2808,
-            "over_2_5": 0.6287
-          },
-          "expected_score": {
-            "home": 1.9,
-            "away": 1.34
+            "home": 1.3,
+            "away": 1.19
           },
           "odds": null,
           "training_games": {
@@ -957,13 +927,6 @@
           }
         }
       ]
-    },
-    "MLS": {
-      "name": "MLS",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
     },
     "BUNDESLIGA": {
       "name": "Bundesliga",
@@ -1197,6 +1160,43 @@
           "training_games": {
             "home": 3,
             "away": 3
+          }
+        }
+      ]
+    },
+    "MLS": {
+      "name": "MLS",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
+    "LIGUE1": {
+      "name": "Ligue 1",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401876405",
+          "home": "Toulouse",
+          "away": "Strasbourg",
+          "start_utc": "2026-11-06T19:45:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.4959,
+            "draw_90": 0.2233,
+            "away_win_90": 0.2808,
+            "over_2_5": 0.6287
+          },
+          "expected_score": {
+            "home": 1.9,
+            "away": 1.34
+          },
+          "odds": null,
+          "training_games": {
+            "home": 6,
+            "away": 6
           }
         }
       ]
@@ -1643,6 +1643,17 @@
         "range_min": "2026-09-19",
         "range_max": "2026-11-01"
       },
+      "NFL": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 65,
+        "cache_hits": 58,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 135,
+        "range_min": "2026-09-10",
+        "range_max": "2026-11-09"
+      },
       "NBA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1665,17 +1676,6 @@
         "range_min": "2026-11-01",
         "range_max": "2026-11-09"
       },
-      "NFL": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 65,
-        "cache_hits": 58,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 135,
-        "range_min": "2026-09-10",
-        "range_max": "2026-11-09"
-      },
       "MLB": {
         "status": "ok",
         "requests_ok": 7,
@@ -1687,15 +1687,15 @@
         "range_min": "2026-10-02",
         "range_max": "2026-11-01"
       },
-      "PL": {
+      "LALIGA": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
         "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 70,
-        "range_min": "2026-09-12",
+        "events": 79,
+        "range_min": "2026-09-11",
         "range_max": "2026-11-08"
       },
       "SERIEA": {
@@ -1709,37 +1709,15 @@
         "range_min": "2026-09-11",
         "range_max": "2026-11-08"
       },
-      "LALIGA": {
+      "PL": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
         "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 79,
-        "range_min": "2026-09-11",
-        "range_max": "2026-11-08"
-      },
-      "LIGUE1": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 63,
-        "range_min": "2026-09-11",
-        "range_max": "2026-11-08"
-      },
-      "MLS": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 167,
-        "range_min": "2026-09-10",
+        "events": 70,
+        "range_min": "2026-09-12",
         "range_max": "2026-11-08"
       },
       "BUNDESLIGA": {
@@ -1763,6 +1741,28 @@
         "events": 72,
         "range_min": "2026-09-08",
         "range_max": "2026-11-04"
+      },
+      "MLS": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 167,
+        "range_min": "2026-09-10",
+        "range_max": "2026-11-08"
+      },
+      "LIGUE1": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 63,
+        "range_min": "2026-09-11",
+        "range_max": "2026-11-08"
       },
       "NHL": {
         "status": "ok",
