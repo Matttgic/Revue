@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-03T22:01:07.734291+00:00",
+  "generated_at_utc": "2026-11-04T00:32:13.768441+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -388,6 +388,78 @@
             "margin_probability": 0.5884,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401909287",
+          "league": "NBA",
+          "home": "Hawks",
+          "away": "Wizards",
+          "start_utc": "2026-11-07T00:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 13,
+            "away": 11
+          },
+          "probabilities": {
+            "home_win": 0.56438,
+            "away_win": 0.43562
+          },
+          "odds": null,
+          "expected_margin_home": 0.315,
+          "components": {
+            "elo_probability": 0.596,
+            "margin_probability": 0.5105,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401909288",
+          "league": "NBA",
+          "home": "Hornets",
+          "away": "Celtics",
+          "start_utc": "2026-11-07T00:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 12,
+            "away": 11
+          },
+          "probabilities": {
+            "home_win": 0.41579,
+            "away_win": 0.58421
+          },
+          "odds": null,
+          "expected_margin_home": -3.394,
+          "components": {
+            "elo_probability": 0.4317,
+            "margin_probability": 0.3886,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401909289",
+          "league": "NBA",
+          "home": "Cavaliers",
+          "away": "76ers",
+          "start_utc": "2026-11-07T00:30:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 10,
+            "away": 12
+          },
+          "probabilities": {
+            "home_win": 0.52426,
+            "away_win": 0.47574
+          },
+          "odds": null,
+          "expected_margin_home": 0.982,
+          "components": {
+            "elo_probability": 0.5193,
+            "margin_probability": 0.5326,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
@@ -408,82 +480,22 @@
     "WNBA": {
       "games": [],
       "evaluation": {
-        "n": 12,
+        "n": 10,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.2342,
-          "logloss_binary": 0.66141
+          "brier_binary": 0.24216,
+          "logloss_binary": 0.67777
         },
         "baseline": {
-          "brier_binary": 0.22591,
-          "logloss_binary": 0.64464
+          "brier_binary": 0.23587,
+          "logloss_binary": 0.66517
         },
-        "brier_delta_candidate_minus_baseline": 0.00829,
+        "brier_delta_candidate_minus_baseline": 0.00629,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
     "NCAAB": {
       "games": [
-        {
-          "event_id": "401906848",
-          "league": "NCAAB",
-          "home": "Tennessee",
-          "away": "Wofford",
-          "start_utc": "2026-11-03T23:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 0,
-            "away": 0
-          },
-          "probabilities": null,
-          "odds": null
-        },
-        {
-          "event_id": "401921801",
-          "league": "NCAAB",
-          "home": "Kentucky",
-          "away": "Manhattan",
-          "start_utc": "2026-11-04T00:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 0,
-            "away": 0
-          },
-          "probabilities": null,
-          "odds": null
-        },
-        {
-          "event_id": "401906757",
-          "league": "NCAAB",
-          "home": "Alabama",
-          "away": "Sam Houston",
-          "start_utc": "2026-11-04T00:30:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 0,
-            "away": 0
-          },
-          "probabilities": null,
-          "odds": null
-        },
-        {
-          "event_id": "401920422",
-          "league": "NCAAB",
-          "home": "Virginia",
-          "away": "Drexel",
-          "start_utc": "2026-11-04T00:30:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 0,
-            "away": 0
-          },
-          "probabilities": null,
-          "odds": null
-        },
         {
           "event_id": "401929372",
           "league": "NCAAB",
@@ -1023,6 +1035,36 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401921802",
+          "league": "NCAAB",
+          "home": "Kentucky",
+          "away": "James Madison",
+          "start_utc": "2026-11-07T00:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401906758",
+          "league": "NCAAB",
+          "home": "Alabama",
+          "away": "Arkansas St",
+          "start_utc": "2026-11-07T00:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 0
+          },
+          "probabilities": null,
+          "odds": null
         }
       ],
       "evaluation": {
@@ -1078,14 +1120,14 @@
         "n": 8,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22828,
-          "logloss_binary": 0.64955
+          "brier_binary": 0.2286,
+          "logloss_binary": 0.65018
         },
         "baseline": {
-          "brier_binary": 0.22116,
-          "logloss_binary": 0.63497
+          "brier_binary": 0.22165,
+          "logloss_binary": 0.63596
         },
-        "brier_delta_candidate_minus_baseline": 0.00712,
+        "brier_delta_candidate_minus_baseline": 0.00695,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     }
