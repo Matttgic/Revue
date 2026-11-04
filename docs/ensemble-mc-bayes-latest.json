@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-04T20:55:19.933247+00:00",
+  "generated_at_utc": "2026-11-04T22:33:10.818621+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -864,6 +864,40 @@
             "away": 116.09
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401909938",
+          "league": "NBA",
+          "home": "Pacers",
+          "away": "Nuggets",
+          "start_utc": "2026-11-07T22:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 12,
+            "away": 11
+          },
+          "probabilities": {
+            "home_win": 0.48054,
+            "away_win": 0.51946
+          },
+          "components": {
+            "monte_carlo": 0.50391,
+            "bayes": 0.44432,
+            "elo": 0.46528,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 114.83,
+            "away": 114.36
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
       ],
       "evaluation": {
@@ -1565,6 +1599,21 @@
           "home": "Louisville",
           "away": "Morehead St",
           "start_utc": "2026-11-07T17:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 1,
+            "away": 0
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401928788",
+          "league": "NCAAB",
+          "home": "Gonzaga",
+          "away": "New Mexico St",
+          "start_utc": "2026-11-07T22:00:00+00:00",
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
