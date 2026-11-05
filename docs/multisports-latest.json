@@ -1,10 +1,45 @@
 {
-  "generated_at_utc": "2026-11-05T20:35:56.788289+00:00",
+  "generated_at_utc": "2026-11-05T21:11:11.277856+00:00",
   "date_paris": "2026-11-05",
   "days": 3,
   "status": "prototype_non_calibre",
   "disclaimer": "Probabilités de recherche non calibrées. Sans cotes françaises ni EV. Aucun conseil de pari.",
   "competitions": {
+    "WNBA": {
+      "name": "WNBA",
+      "sport": "Basket",
+      "model": "points",
+      "status": "ok",
+      "games": []
+    },
+    "NFL": {
+      "name": "NFL",
+      "sport": "Football américain",
+      "model": "points",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401873037",
+          "home": "Ravens",
+          "away": "Jaguars",
+          "start_utc": "2026-11-06T01:15:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win": 0.5342,
+            "away_win": 0.4658
+          },
+          "expected_score": {
+            "home": 19.4,
+            "away": 26.6
+          },
+          "odds": null,
+          "training_games": {
+            "home": 8,
+            "away": 7
+          }
+        }
+      ]
+    },
     "NBA": {
       "name": "NBA",
       "sport": "Basket",
@@ -252,41 +287,6 @@
           }
         }
       ]
-    },
-    "NFL": {
-      "name": "NFL",
-      "sport": "Football américain",
-      "model": "points",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401873037",
-          "home": "Ravens",
-          "away": "Jaguars",
-          "start_utc": "2026-11-06T01:15:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.5342,
-            "away_win": 0.4658
-          },
-          "expected_score": {
-            "home": 19.4,
-            "away": 26.6
-          },
-          "odds": null,
-          "training_games": {
-            "home": 8,
-            "away": 7
-          }
-        }
-      ]
-    },
-    "WNBA": {
-      "name": "WNBA",
-      "sport": "Basket",
-      "model": "points",
-      "status": "ok",
-      "games": []
     },
     "NCAAB": {
       "name": "NCAA Basketball",
@@ -543,6 +543,13 @@
         }
       ]
     },
+    "MLB": {
+      "name": "MLB",
+      "sport": "Baseball",
+      "model": "runs",
+      "status": "ok",
+      "games": []
+    },
     "PL": {
       "name": "Premier League",
       "sport": "Football",
@@ -660,131 +667,6 @@
           }
         }
       ]
-    },
-    "LALIGA": {
-      "name": "La Liga",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401882809",
-          "home": "Sevilla",
-          "away": "Alavés",
-          "start_utc": "2026-11-06T20:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.5053,
-            "draw_90": 0.2317,
-            "away_win_90": 0.263,
-            "over_2_5": 0.5716
-          },
-          "expected_score": {
-            "home": 1.8,
-            "away": 1.18
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        },
-        {
-          "event_id": "401882812",
-          "home": "Málaga",
-          "away": "Racing",
-          "start_utc": "2026-11-07T13:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.4744,
-            "draw_90": 0.2184,
-            "away_win_90": 0.3073,
-            "over_2_5": 0.6634
-          },
-          "expected_score": {
-            "home": 1.97,
-            "away": 1.45
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        },
-        {
-          "event_id": "401882813",
-          "home": "Espanyol",
-          "away": "Deportivo",
-          "start_utc": "2026-11-07T15:15:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.3947,
-            "draw_90": 0.2787,
-            "away_win_90": 0.3266,
-            "over_2_5": 0.4192
-          },
-          "expected_score": {
-            "home": 1.25,
-            "away": 1.11
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        },
-        {
-          "event_id": "401882811",
-          "home": "Osasuna",
-          "away": "Athletic",
-          "start_utc": "2026-11-07T17:30:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.2638,
-            "draw_90": 0.2431,
-            "away_win_90": 0.4932,
-            "over_2_5": 0.5051
-          },
-          "expected_score": {
-            "home": 1.02,
-            "away": 1.67
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 6
-          }
-        },
-        {
-          "event_id": "401882808",
-          "home": "Valencia",
-          "away": "Real Madrid",
-          "start_utc": "2026-11-07T20:00:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.2788,
-            "draw_90": 0.2424,
-            "away_win_90": 0.4788,
-            "over_2_5": 0.5307
-          },
-          "expected_score": {
-            "home": 1.13,
-            "away": 1.67
-          },
-          "odds": null,
-          "training_games": {
-            "home": 7,
-            "away": 7
-          }
-        }
-      ]
-    },
-    "MLB": {
-      "name": "MLB",
-      "sport": "Baseball",
-      "model": "runs",
-      "status": "ok",
-      "games": []
     },
     "SERIEA": {
       "name": "Serie A",
@@ -904,76 +786,120 @@
         }
       ]
     },
-    "LIGUE1": {
-      "name": "Ligue 1",
+    "LALIGA": {
+      "name": "La Liga",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
       "games": [
         {
-          "event_id": "401876405",
-          "home": "Toulouse",
-          "away": "Strasbourg",
-          "start_utc": "2026-11-06T19:45:00+00:00",
+          "event_id": "401882809",
+          "home": "Sevilla",
+          "away": "Alavés",
+          "start_utc": "2026-11-06T20:00:00+00:00",
           "status": "prototype_non_calibre",
           "probabilities": {
-            "home_win_90": 0.4959,
-            "draw_90": 0.2233,
-            "away_win_90": 0.2808,
-            "over_2_5": 0.6287
+            "home_win_90": 0.5053,
+            "draw_90": 0.2317,
+            "away_win_90": 0.263,
+            "over_2_5": 0.5716
           },
           "expected_score": {
-            "home": 1.9,
-            "away": 1.34
+            "home": 1.8,
+            "away": 1.18
           },
           "odds": null,
           "training_games": {
-            "home": 6,
+            "home": 7,
+            "away": 7
+          }
+        },
+        {
+          "event_id": "401882812",
+          "home": "Málaga",
+          "away": "Racing",
+          "start_utc": "2026-11-07T13:00:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.4744,
+            "draw_90": 0.2184,
+            "away_win_90": 0.3073,
+            "over_2_5": 0.6634
+          },
+          "expected_score": {
+            "home": 1.97,
+            "away": 1.45
+          },
+          "odds": null,
+          "training_games": {
+            "home": 7,
+            "away": 7
+          }
+        },
+        {
+          "event_id": "401882813",
+          "home": "Espanyol",
+          "away": "Deportivo",
+          "start_utc": "2026-11-07T15:15:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.3947,
+            "draw_90": 0.2787,
+            "away_win_90": 0.3266,
+            "over_2_5": 0.4192
+          },
+          "expected_score": {
+            "home": 1.25,
+            "away": 1.11
+          },
+          "odds": null,
+          "training_games": {
+            "home": 7,
+            "away": 7
+          }
+        },
+        {
+          "event_id": "401882811",
+          "home": "Osasuna",
+          "away": "Athletic",
+          "start_utc": "2026-11-07T17:30:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.2638,
+            "draw_90": 0.2431,
+            "away_win_90": 0.4932,
+            "over_2_5": 0.5051
+          },
+          "expected_score": {
+            "home": 1.02,
+            "away": 1.67
+          },
+          "odds": null,
+          "training_games": {
+            "home": 7,
             "away": 6
           }
         },
         {
-          "event_id": "401876411",
-          "home": "Auxerre",
-          "away": "Paris FC",
-          "start_utc": "2026-11-07T18:00:00+00:00",
+          "event_id": "401882808",
+          "home": "Valencia",
+          "away": "Real Madrid",
+          "start_utc": "2026-11-07T20:00:00+00:00",
           "status": "prototype_non_calibre",
           "probabilities": {
-            "home_win_90": 0.3624,
-            "draw_90": 0.2334,
-            "away_win_90": 0.4042,
-            "over_2_5": 0.6195
+            "home_win_90": 0.2788,
+            "draw_90": 0.2424,
+            "away_win_90": 0.4788,
+            "over_2_5": 0.5307
           },
           "expected_score": {
-            "home": 1.51,
-            "away": 1.69
+            "home": 1.13,
+            "away": 1.67
           },
           "odds": null,
           "training_games": {
-            "home": 6,
-            "away": 6
-          }
-        },
-        {
-          "event_id": "401876407",
-          "home": "PSG",
-          "away": "Troyes",
-          "start_utc": "2026-11-07T20:05:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win_90": 0.6508,
-            "draw_90": 0.1902,
-            "away_win_90": 0.159,
-            "over_2_5": 0.5495
-          },
-          "expected_score": {
-            "home": 2.12,
-            "away": 0.76
-          },
-          "odds": null,
-          "training_games": {
-            "home": 6,
-            "away": 6
+            "home": 7,
+            "away": 7
           }
         }
       ]
@@ -1109,6 +1035,80 @@
           "expected_score": {
             "home": 1.6,
             "away": 1.68
+          },
+          "odds": null,
+          "training_games": {
+            "home": 6,
+            "away": 6
+          }
+        }
+      ]
+    },
+    "LIGUE1": {
+      "name": "Ligue 1",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401876405",
+          "home": "Toulouse",
+          "away": "Strasbourg",
+          "start_utc": "2026-11-06T19:45:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.4959,
+            "draw_90": 0.2233,
+            "away_win_90": 0.2808,
+            "over_2_5": 0.6287
+          },
+          "expected_score": {
+            "home": 1.9,
+            "away": 1.34
+          },
+          "odds": null,
+          "training_games": {
+            "home": 6,
+            "away": 6
+          }
+        },
+        {
+          "event_id": "401876411",
+          "home": "Auxerre",
+          "away": "Paris FC",
+          "start_utc": "2026-11-07T18:00:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.3624,
+            "draw_90": 0.2334,
+            "away_win_90": 0.4042,
+            "over_2_5": 0.6195
+          },
+          "expected_score": {
+            "home": 1.51,
+            "away": 1.69
+          },
+          "odds": null,
+          "training_games": {
+            "home": 6,
+            "away": 6
+          }
+        },
+        {
+          "event_id": "401876407",
+          "home": "PSG",
+          "away": "Troyes",
+          "start_utc": "2026-11-07T20:05:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win_90": 0.6508,
+            "draw_90": 0.1902,
+            "away_win_90": 0.159,
+            "over_2_5": 0.5495
+          },
+          "expected_score": {
+            "home": 2.12,
+            "away": 0.76
           },
           "odds": null,
           "training_games": {
@@ -1942,16 +1942,16 @@
     "fixtures": 90,
     "predicted": 71,
     "league_feed_diagnostics": {
-      "NBA": {
+      "WNBA": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 35,
-        "cache_hits": 28,
+        "requests_total": 50,
+        "cache_hits": 43,
         "requests_failed": 0,
         "errors": [],
-        "events": 220,
-        "range_min": "2026-10-05",
-        "range_max": "2026-11-10"
+        "events": 48,
+        "range_min": "2026-09-20",
+        "range_max": "2026-11-01"
       },
       "NFL": {
         "status": "ok",
@@ -1964,16 +1964,16 @@
         "range_min": "2026-09-10",
         "range_max": "2026-11-10"
       },
-      "WNBA": {
+      "NBA": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 50,
-        "cache_hits": 43,
+        "requests_total": 35,
+        "cache_hits": 28,
         "requests_failed": 0,
         "errors": [],
-        "events": 48,
-        "range_min": "2026-09-20",
-        "range_max": "2026-11-01"
+        "events": 220,
+        "range_min": "2026-10-05",
+        "range_max": "2026-11-10"
       },
       "NCAAB": {
         "status": "ok",
@@ -1986,6 +1986,17 @@
         "range_min": "2026-11-01",
         "range_max": "2026-11-10"
       },
+      "MLB": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 37,
+        "cache_hits": 30,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 38,
+        "range_min": "2026-10-03",
+        "range_max": "2026-11-01"
+      },
       "PL": {
         "status": "ok",
         "requests_ok": 7,
@@ -1995,6 +2006,17 @@
         "errors": [],
         "events": 70,
         "range_min": "2026-09-12",
+        "range_max": "2026-11-08"
+      },
+      "SERIEA": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 80,
+        "range_min": "2026-09-11",
         "range_max": "2026-11-08"
       },
       "LALIGA": {
@@ -2008,29 +2030,7 @@
         "range_min": "2026-09-11",
         "range_max": "2026-11-08"
       },
-      "MLB": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 37,
-        "cache_hits": 30,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 38,
-        "range_min": "2026-10-03",
-        "range_max": "2026-11-01"
-      },
-      "SERIEA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 80,
-        "range_min": "2026-09-11",
-        "range_max": "2026-11-08"
-      },
-      "LIGUE1": {
+      "BUNDESLIGA": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
@@ -2041,7 +2041,7 @@
         "range_min": "2026-09-11",
         "range_max": "2026-11-08"
       },
-      "BUNDESLIGA": {
+      "LIGUE1": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
