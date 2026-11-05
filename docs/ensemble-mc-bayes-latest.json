@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-05T15:05:27.057273+00:00",
+  "generated_at_utc": "2026-11-05T18:05:38.072520+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -960,6 +960,36 @@
           },
           "probabilities": null,
           "components": null
+        },
+        {
+          "event_id": "401924646",
+          "league": "NCAAB",
+          "home": "St John's",
+          "away": "Iona",
+          "start_utc": "2026-11-08T17:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 1,
+            "away": 0
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401920424",
+          "league": "NCAAB",
+          "home": "Virginia",
+          "away": "Arkansas",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 1,
+            "away": 1
+          },
+          "probabilities": null,
+          "components": null
         }
       ],
       "evaluation": {
@@ -1034,6 +1064,244 @@
           "expected_score": {
             "home": 23.45,
             "away": 24.25
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873039",
+          "league": "NFL",
+          "home": "Saints",
+          "away": "Browns",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 7,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.47929,
+            "away_win": 0.52071
+          },
+          "components": {
+            "monte_carlo": 0.48958,
+            "bayes": 0.45653,
+            "elo": 0.47883,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 23.6,
+            "away": 22.68
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873040",
+          "league": "NFL",
+          "home": "Colts",
+          "away": "Cowboys",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 8,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.47781,
+            "away_win": 0.52219
+          },
+          "components": {
+            "monte_carlo": 0.44401,
+            "bayes": 0.49892,
+            "elo": 0.52868,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 24.0,
+            "away": 24.77
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873041",
+          "league": "NFL",
+          "home": "Panthers",
+          "away": "Broncos",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 7,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.48093,
+            "away_win": 0.51907
+          },
+          "components": {
+            "monte_carlo": 0.49479,
+            "bayes": 0.4577,
+            "elo": 0.47346,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 23.82,
+            "away": 23.48
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873042",
+          "league": "NFL",
+          "home": "Dolphins",
+          "away": "Lions",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 7,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win": 0.42508,
+            "away_win": 0.57492
+          },
+          "components": {
+            "monte_carlo": 0.42448,
+            "bayes": 0.41296,
+            "elo": 0.4375,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 23.19,
+            "away": 24.57
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873043",
+          "league": "NFL",
+          "home": "Commanders",
+          "away": "Rams",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 7,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.49347,
+            "away_win": 0.50653
+          },
+          "components": {
+            "monte_carlo": 0.47656,
+            "bayes": 0.49645,
+            "elo": 0.52591,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 23.4,
+            "away": 23.74
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873044",
+          "league": "NFL",
+          "home": "Eagles",
+          "away": "Giants",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 8,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win": 0.46276,
+            "away_win": 0.53724
+          },
+          "components": {
+            "monte_carlo": 0.47135,
+            "bayes": 0.44229,
+            "elo": 0.46371,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 22.68,
+            "away": 23.44
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873045",
+          "league": "NFL",
+          "home": "Chiefs",
+          "away": "Jets",
+          "start_utc": "2026-11-08T18:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 7,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.62043,
+            "away_win": 0.37957
+          },
+          "components": {
+            "monte_carlo": 0.60677,
+            "bayes": 0.62256,
+            "elo": 0.64686,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 24.11,
+            "away": 21.8
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
