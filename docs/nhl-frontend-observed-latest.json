@@ -1,11 +1,11 @@
 {
   "version": "revue_nhl_frontend_observed_v1",
-  "generated_at_utc": "2026-11-07T14:05:31.174Z",
+  "generated_at_utc": "2026-11-07T18:17:01.319Z",
   "source_snapshot_utc": {
     "shadow": "2026-11-07T14:05:19.347Z",
     "moneypuck": "2026-11-07T13:29:08.814Z",
     "moneyPuckGoalies": "2026-11-07T13:29:09.278Z",
-    "official": "2026-11-07T00:09:11.439Z",
+    "official": "2026-11-07T14:56:51.181Z",
     "moneypuckProvider": "2026-11-07T11:37:20.000Z",
     "goalieProvider": "2026-11-07T11:37:20.000Z"
   },
@@ -41,71 +41,12 @@
   "paper_bets_auto_created": false,
   "updated_frozen_ledgers": false,
   "games_evaluated": 18,
-  "games_emitted": 14,
+  "games_emitted": 13,
   "skipped": {
-    "missing_observed_team_or_unique_goalie": 4
+    "not_upcoming": 2,
+    "missing_observed_team_or_unique_goalie": 3
   },
   "games": [
-    {
-      "event_id": "2026020266",
-      "home": "NSH",
-      "away": "STL",
-      "start_utc": "2026-11-07T18:00:00+00:00",
-      "original_shadow_home_win": 0.499,
-      "research": {
-        "ensemble_home": 0.50625,
-        "ensemble_raw_home": 0.50625,
-        "monte_carlo_home": 0.53678,
-        "monte_carlo_total_expected": 3.1583,
-        "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.09832,
-        "p_home_puck_line_minus_1_5": 0.24433,
-        "simulation_draws": 25000,
-        "market_blended": false,
-        "calibrated": false,
-        "actionable": false
-      },
-      "observed": {
-        "home": {
-          "games": 16,
-          "official_games": 16,
-          "goalie_name": "Juuse Saros",
-          "goalie_games": 11,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.48,
-          "xg_for_60": 2.4782,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        },
-        "away": {
-          "games": 16,
-          "official_games": 16,
-          "goalie_name": "Joel Hofer",
-          "goalie_games": 11,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.49,
-          "xg_for_60": 2.6153,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        }
-      },
-      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
-      "pending_inputs": [
-        "NHL Edge zone/speed",
-        "high-danger chances",
-        "Clairvoyance situational HV",
-        "verified player injuries",
-        "goalie availability/confirmed starter",
-        "recent-game form",
-        "original calibration coefficients",
-        "NHL markets and confirmed bookmaker quotes",
-        "original frontend goals-per-60 calculation",
-        "original frontend xGF5 base rate (xGF/60 proxy used)"
-      ],
-      "injuries_verified": false,
-      "starting_goalies_verified": false,
-      "bookmaker_quotes_available": false,
-      "source_equivalent_predictions": false,
-      "retroactive_prediction": false
-    },
     {
       "event_id": "2026020267",
       "home": "SEA",
@@ -353,13 +294,13 @@
       "start_utc": "2026-11-08T01:00:00+00:00",
       "original_shadow_home_win": 0.744,
       "research": {
-        "ensemble_home": 0.58195,
-        "ensemble_raw_home": 0.58195,
-        "monte_carlo_home": 0.57838,
-        "monte_carlo_total_expected": 2.7906,
+        "ensemble_home": 0.59071,
+        "ensemble_raw_home": 0.59071,
+        "monte_carlo_home": 0.59206,
+        "monte_carlo_total_expected": 2.757,
         "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.06552,
-        "p_home_puck_line_minus_1_5": 0.26481,
+        "probability_over_reference_line": 0.06264,
+        "p_home_puck_line_minus_1_5": 0.27369,
         "simulation_draws": 25000,
         "market_blended": false,
         "calibrated": false,
@@ -378,7 +319,7 @@
         },
         "away": {
           "games": 18,
-          "official_games": 17,
+          "official_games": 18,
           "goalie_name": "Yaroslav Askarov",
           "goalie_games": 12,
           "goalie_is_confirmed_starter": false,
@@ -413,13 +354,13 @@
       "start_utc": "2026-11-08T01:00:00+00:00",
       "original_shadow_home_win": 0.605,
       "research": {
-        "ensemble_home": 0.52976,
-        "ensemble_raw_home": 0.52976,
-        "monte_carlo_home": 0.54076,
-        "monte_carlo_total_expected": 3.7453,
+        "ensemble_home": 0.53458,
+        "ensemble_raw_home": 0.53458,
+        "monte_carlo_home": 0.54828,
+        "monte_carlo_total_expected": 3.7702,
         "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.17516,
-        "p_home_puck_line_minus_1_5": 0.27321,
+        "probability_over_reference_line": 0.17828,
+        "p_home_puck_line_minus_1_5": 0.28141,
         "simulation_draws": 25000,
         "market_blended": false,
         "calibrated": false,
@@ -428,7 +369,7 @@
       "observed": {
         "home": {
           "games": 18,
-          "official_games": 17,
+          "official_games": 18,
           "goalie_name": "Jesper Wallstedt",
           "goalie_games": 16,
           "goalie_is_confirmed_starter": false,
@@ -653,13 +594,13 @@
       "start_utc": "2026-11-08T20:30:00+00:00",
       "original_shadow_home_win": 0.524,
       "research": {
-        "ensemble_home": 0.44041,
-        "ensemble_raw_home": 0.44041,
-        "monte_carlo_home": 0.45734,
-        "monte_carlo_total_expected": 3.5678,
+        "ensemble_home": 0.44792,
+        "ensemble_raw_home": 0.44792,
+        "monte_carlo_home": 0.46908,
+        "monte_carlo_total_expected": 3.6343,
         "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.15092,
-        "p_home_puck_line_minus_1_5": 0.20149,
+        "probability_over_reference_line": 0.16008,
+        "p_home_puck_line_minus_1_5": 0.21382,
         "simulation_draws": 25000,
         "market_blended": false,
         "calibrated": false,
@@ -668,7 +609,7 @@
       "observed": {
         "home": {
           "games": 16,
-          "official_games": 15,
+          "official_games": 16,
           "goalie_name": "Ukko-Pekka Luukkonen",
           "goalie_games": 11,
           "goalie_is_confirmed_starter": false,
@@ -833,13 +774,13 @@
       "start_utc": "2026-11-09T01:00:00+00:00",
       "original_shadow_home_win": 0.549,
       "research": {
-        "ensemble_home": 0.50572,
-        "ensemble_raw_home": 0.50572,
-        "monte_carlo_home": 0.59068,
-        "monte_carlo_total_expected": 3.9545,
+        "ensemble_home": 0.51042,
+        "ensemble_raw_home": 0.51042,
+        "monte_carlo_home": 0.59802,
+        "monte_carlo_total_expected": 4.0067,
         "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.20968,
-        "p_home_puck_line_minus_1_5": 0.33042,
+        "probability_over_reference_line": 0.21708,
+        "p_home_puck_line_minus_1_5": 0.33932,
         "simulation_draws": 25000,
         "market_blended": false,
         "calibrated": false,
@@ -848,7 +789,7 @@
       "observed": {
         "home": {
           "games": 17,
-          "official_games": 16,
+          "official_games": 17,
           "goalie_name": "Lukas Dostal",
           "goalie_games": 10,
           "goalie_is_confirmed_starter": false,
