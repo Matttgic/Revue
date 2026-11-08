@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-11-08T19:31:05.290862+00:00",
+  "generated_at_utc": "2026-11-08T21:12:51.361596+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -23,8 +23,8 @@
   },
   "metrics": {
     "locked": 678,
-    "settled": 541,
-    "distinct_settled_fixtures": 407,
+    "settled": 544,
+    "distinct_settled_fixtures": 410,
     "paired_comparisons": 3,
     "paired_observation_overlap_not_independent": 201
   },
@@ -32,15 +32,15 @@
     "BUNDESLIGA::revue_football_espn_shots_log_pool_v1": {
       "league": "BUNDESLIGA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
-      "settled": 35,
+      "settled": 36,
       "frozen_locked": 36,
       "raw": {
-        "n": 35,
-        "brier": 0.61746,
-        "logloss": 1.022413
+        "n": 36,
+        "brier": 0.612904,
+        "logloss": 1.016179
       },
       "uniform_reference_same_matches": {
-        "n": 35,
+        "n": 36,
         "brier": 0.666667,
         "logloss": 1.098612
       },
@@ -65,9 +65,9 @@
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 15,
-              "mean_predicted": 0.49055,
-              "observed_rate": 0.53333
+              "n": 16,
+              "mean_predicted": 0.48803,
+              "observed_rate": 0.5625
             },
             {
               "lower": 0.6,
@@ -98,9 +98,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 26,
-              "mean_predicted": 0.2287,
-              "observed_rate": 0.23077
+              "n": 27,
+              "mean_predicted": 0.23018,
+              "observed_rate": 0.22222
             },
             {
               "lower": 0.4,
@@ -138,9 +138,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 19,
-              "mean_predicted": 0.29477,
-              "observed_rate": 0.26316
+              "n": 20,
+              "mean_predicted": 0.29409,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.4,
@@ -193,15 +193,15 @@
     "LALIGA::revue_football_espn_shots_log_pool_v1": {
       "league": "LALIGA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
-      "settled": 43,
+      "settled": 45,
       "frozen_locked": 46,
       "raw": {
-        "n": 43,
-        "brier": 0.608298,
-        "logloss": 1.017743
+        "n": 45,
+        "brier": 0.610399,
+        "logloss": 1.020787
       },
       "uniform_reference_same_matches": {
-        "n": 43,
+        "n": 45,
         "brier": 0.666667,
         "logloss": 1.098612
       },
@@ -226,9 +226,9 @@
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 23,
-              "mean_predicted": 0.49487,
-              "observed_rate": 0.47826
+              "n": 25,
+              "mean_predicted": 0.49572,
+              "observed_rate": 0.48
             },
             {
               "lower": 0.6,
@@ -259,9 +259,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 38,
-              "mean_predicted": 0.24667,
-              "observed_rate": 0.31579
+              "n": 40,
+              "mean_predicted": 0.24679,
+              "observed_rate": 0.325
             },
             {
               "lower": 0.4,
@@ -299,9 +299,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 28,
-              "mean_predicted": 0.28747,
-              "observed_rate": 0.21429
+              "n": 30,
+              "mean_predicted": 0.28467,
+              "observed_rate": 0.2
             },
             {
               "lower": 0.4,
@@ -1471,29 +1471,29 @@
   ],
   "NHL": {
     "locked": 216,
-    "settled": 207,
-    "paired_settled": 189,
+    "settled": 208,
+    "paired_settled": 190,
     "reference_score": {
-      "n": 207,
-      "brier": 0.465881,
-      "logloss": 0.65665
+      "n": 208,
+      "brier": 0.464714,
+      "logloss": 0.655447
     },
     "paired": {
-      "games": 189,
+      "games": 190,
       "reference": {
-        "n": 189,
-        "brier": 0.467822,
-        "logloss": 0.659419
+        "n": 190,
+        "brier": 0.466534,
+        "logloss": 0.658088
       },
       "candidate": {
-        "n": 189,
-        "brier": 0.460934,
-        "logloss": 0.651494
+        "n": 190,
+        "brier": 0.45985,
+        "logloss": 0.650389
       },
       "comparison_validated": true,
-      "delta_brier_candidate_minus_reference": -0.006888
+      "delta_brier_candidate_minus_reference": -0.006684
     },
-    "native_binary_scalar_brier": 0.232941,
+    "native_binary_scalar_brier": 0.232357,
     "separate_official_NHL_source": true,
     "original_sql_parity_proven": false,
     "automatically_deployed": false

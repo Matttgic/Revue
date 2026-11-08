@@ -13482,7 +13482,7 @@
       "away": "Lions",
       "kickoff_utc": "2026-11-08T18:00:00+00:00",
       "locked_at_utc": "2026-11-06T02:15:08.609711+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_ensemble_mc_bayes_elo": {
           "p_home": 0.42508,
@@ -13493,11 +13493,20 @@
           "source_generated_utc": "2026-11-06T02:06:08.684607+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 0,
+      "score": {
+        "home": 9,
+        "away": 19
+      },
+      "resolved_at_utc": "2026-11-08T21:12:48.247948+00:00",
+      "brier_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.180693,
+        "revue_multisports_score_model": 0.210222
+      },
+      "logloss_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.553524,
+        "revue_multisports_score_model": 0.613412
+      },
       "real_bet": false,
       "staked_units": 0
     },
@@ -13590,18 +13599,25 @@
       "away": "FLA",
       "kickoff_utc": "2026-11-08T18:00:00+00:00",
       "locked_at_utc": "2026-11-06T02:15:08.609711+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_multisports_score_model": {
           "p_home": 0.652,
           "source_generated_utc": "2026-11-06T02:06:08.684607+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 1,
+      "score": {
+        "home": 4,
+        "away": 1
+      },
+      "resolved_at_utc": "2026-11-08T21:12:48.247948+00:00",
+      "brier_by_model": {
+        "revue_multisports_score_model": 0.121104
+      },
+      "logloss_by_model": {
+        "revue_multisports_score_model": 0.427711
+      },
       "real_bet": false,
       "staked_units": 0
     },
