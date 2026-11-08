@@ -26617,13 +26617,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-08T07:11:11.504057+00:00",
+      "home_score": 103,
+      "away_score": 125,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.78927048,
+          "log_loss": 0.9893992
+        },
+        "own_elo": {
+          "brier": 0.54999574,
+          "log_loss": 0.74318314
+        },
+        "advanced_team": {
+          "brier": 0.69693179,
+          "log_loss": 0.8923545
+        },
+        "montecarlo_bayes": {
+          "brier": 0.70912141,
+          "log_loss": 0.90497994
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -37915,6 +37932,23 @@
       "home_after": 1477.43,
       "away_after": 1538.86,
       "observed_home_outcome": 1
+    },
+    "NBA:401909944": {
+      "key": "NBA:401909944",
+      "league": "NBA",
+      "event_id": "401909944",
+      "home": "Trail Blazers",
+      "away": "Spurs",
+      "start_utc": "2026-11-08T03:00:00+00:00",
+      "observed_at_utc": "2026-11-08T07:11:11.504057+00:00",
+      "home_score": 103,
+      "away_score": 125,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1549.48,
+      "away_before": 1553.15,
+      "home_after": 1537.61,
+      "away_after": 1565.02,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -37932,7 +37966,7 @@
       "Warriors": 1570.42,
       "Kings": 1407.67,
       "Suns": 1477.43,
-      "Spurs": 1553.15,
+      "Spurs": 1565.02,
       "Rockets": 1538.86,
       "Mavericks": 1499.81,
       "Cavaliers": 1498.76,
@@ -37941,7 +37975,7 @@
       "Bucks": 1419.82,
       "Nuggets": 1530.32,
       "Bulls": 1444.85,
-      "Trail Blazers": 1549.48,
+      "Trail Blazers": 1537.61,
       "Lions": 1488.0,
       "Thunder": 1556.23,
       "Nets": 1448.91,
@@ -38222,5 +38256,5 @@
       "New Mexico St": 1488.41
     }
   },
-  "updated_at_utc": "2026-11-08T06:39:50.375101+00:00"
+  "updated_at_utc": "2026-11-08T09:22:04.400022+00:00"
 }
