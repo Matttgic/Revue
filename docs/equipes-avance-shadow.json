@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-08T03:39:57.627536+00:00",
+  "generated_at_utc": "2026-11-08T06:40:02.205387+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -279,17 +279,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 13,
-            "away": 13
+            "away": 14
           },
           "probabilities": {
-            "home_win": 0.60735,
-            "away_win": 0.39265
+            "home_win": 0.61925,
+            "away_win": 0.38075
           },
           "odds": null,
-          "expected_margin_home": 2.262,
+          "expected_margin_home": 2.518,
           "components": {
-            "elo_probability": 0.6265,
-            "margin_probability": 0.5748,
+            "elo_probability": 0.6405,
+            "margin_probability": 0.5831,
             "last_games_form": 5
           }
         },
@@ -303,17 +303,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 12,
-            "away": 10
+            "away": 11
           },
           "probabilities": {
-            "home_win": 0.60967,
-            "away_win": 0.39033
+            "home_win": 0.59053,
+            "away_win": 0.40947
           },
           "odds": null,
-          "expected_margin_home": 2.636,
+          "expected_margin_home": 1.796,
           "components": {
-            "elo_probability": 0.623,
-            "margin_probability": 0.5869,
+            "elo_probability": 0.6088,
+            "margin_probability": 0.5595,
             "last_games_form": 5
           }
         },
@@ -484,20 +484,44 @@
             "margin_probability": 0.4947,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401909965",
+          "league": "NBA",
+          "home": "Trail Blazers",
+          "away": "Thunder",
+          "start_utc": "2026-11-11T04:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 12,
+            "away": 13
+          },
+          "probabilities": {
+            "home_win": 0.59459,
+            "away_win": 0.40541
+          },
+          "odds": null,
+          "expected_margin_home": 2.291,
+          "components": {
+            "elo_probability": 0.6057,
+            "margin_probability": 0.5757,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 78,
+        "n": 81,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23088,
-          "logloss_binary": 0.65457
+          "brier_binary": 0.23184,
+          "logloss_binary": 0.65644
         },
         "baseline": {
-          "brier_binary": 0.23196,
-          "logloss_binary": 0.65682
+          "brier_binary": 0.2332,
+          "logloss_binary": 0.65923
         },
-        "brier_delta_candidate_minus_baseline": -0.00108,
+        "brier_delta_candidate_minus_baseline": -0.00136,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -786,6 +810,21 @@
           "training_games": {
             "home": 2,
             "away": 2
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401930177",
+          "league": "NCAAB",
+          "home": "UCLA",
+          "away": "AR-Pine Bluff",
+          "start_utc": "2026-11-11T05:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 2,
+            "away": 1
           },
           "probabilities": null,
           "odds": null
