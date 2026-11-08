@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-08T17:12:42.615624+00:00",
+  "generated_at_utc": "2026-11-08T17:40:57.772260+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -34,68 +34,6 @@
       "name": "La Liga",
       "games": [
         {
-          "event_id": "401882807",
-          "home": "Villarreal",
-          "away": "Getafe",
-          "start_utc": "2026-11-08T17:30:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win_90": 0.49809,
-            "draw_90": 0.27172,
-            "away_win_90": 0.23019,
-            "over_2_5": 0.44059
-          },
-          "expected_score": {
-            "home": 1.537,
-            "away": 0.903
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-10-31T08:23:45.953700+00:00",
-            "away": "2026-11-02T01:58:28.332257+00:00"
-          }
-        },
-        {
-          "event_id": "401882815",
-          "home": "Celta Vigo",
-          "away": "Levante",
-          "start_utc": "2026-11-08T17:30:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 7
-          },
-          "probabilities": {
-            "home_win_90": 0.52186,
-            "draw_90": 0.23852,
-            "away_win_90": 0.23962,
-            "over_2_5": 0.58167
-          },
-          "expected_score": {
-            "home": 1.867,
-            "away": 1.155
-          },
-          "xg_used": false,
-          "espn_stats_used": true,
-          "status": "shadow_non_calibre",
-          "odds": null,
-          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
-          "espn_features_published_at": {
-            "home": "2026-11-01T03:55:31.605585+00:00",
-            "away": "2026-11-01T02:27:59.433340+00:00"
-          }
-        },
-        {
           "event_id": "401882816",
           "home": "Atlético",
           "away": "Barcelona",
@@ -129,17 +67,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 15,
+        "n": 16,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.58222,
-          "logloss": 0.9823
+          "brier": 0.57378,
+          "logloss": 0.96995
         },
         "baseline": {
-          "brier": 0.58291,
-          "logloss": 0.98154
+          "brier": 0.5766,
+          "logloss": 0.97196
         },
-        "shadow_brier_delta_vs_baseline": -0.00069,
+        "shadow_brier_delta_vs_baseline": -0.00282,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
