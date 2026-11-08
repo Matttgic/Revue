@@ -1,61 +1,9 @@
 {
   "version": "revue_phase10_multisport_model_candidates_v1",
   "status": "shadow_research_only_unvalidated",
-  "generated_at_utc": "2026-11-08T18:56:41.164359+00:00",
-  "fixture_inventory_source_at_utc": "2026-11-08T18:29:48.192333+00:00",
+  "generated_at_utc": "2026-11-08T19:31:03.691426+00:00",
+  "fixture_inventory_source_at_utc": "2026-11-08T19:05:18.316666+00:00",
   "models": [
-    {
-      "event_id": "401876404",
-      "league": "LIGUE1",
-      "home": "Lens",
-      "away": "Marseille",
-      "start_utc": "2026-11-08T19:45:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.360487,
-        "draw_90": 0.229527,
-        "away_win_90": 0.409986,
-        "over_2_5": 0.671847
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-11-08T17:40:55.219188+00:00",
-        "espn_shots_shadow": "2026-11-08T17:40:57.772260+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.00809
-    },
-    {
-      "event_id": "401875003",
-      "league": "SERIEA",
-      "home": "Fiorentina",
-      "away": "Juventus",
-      "start_utc": "2026-11-08T19:45:00+00:00",
-      "model_id": "revue_football_espn_shots_log_pool_v1",
-      "status": "shadow_research_only_unvalidated",
-      "probabilities": {
-        "home_win_90": 0.39338,
-        "draw_90": 0.246599,
-        "away_win_90": 0.360021,
-        "over_2_5": 0.593148
-      },
-      "calibrated": false,
-      "source_sql_parity": false,
-      "bookable_price_verified": false,
-      "EV": null,
-      "betting_recommendation": null,
-      "inputs_observed_utc": {
-        "multisports": "2026-11-08T17:40:55.219188+00:00",
-        "espn_shots_shadow": "2026-11-08T17:40:57.772260+00:00"
-      },
-      "method": "Correlated ESPN score/shot feature models, geometric pool 45/55, requires >=3 team-history matches; not Opta xG",
-      "model_disagreement_tv": 0.01709
-    },
     {
       "event_id": "401882816",
       "league": "LALIGA",
@@ -414,17 +362,15 @@
     }
   ],
   "metrics": {
-    "candidates": 18,
-    "events_covered": 18,
+    "candidates": 16,
+    "events_covered": 16,
     "models_by_league": {
-      "LIGUE1": 1,
-      "SERIEA": 1,
       "LALIGA": 1,
       "NBA": 15
     },
     "decisions": {
-      "not_pregame_20m": 1,
-      "football_correlated_research_pool": 3,
+      "not_pregame_20m": 2,
+      "football_correlated_research_pool": 1,
       "nba_advanced_prior_mode_unverified": 15
     }
   },
