@@ -26832,13 +26832,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-08T23:46:16.450299+00:00",
+      "home_score": 121,
+      "away_score": 127,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.36705312,
+          "log_loss": 0.55931583
+        },
+        "own_elo": {
+          "brier": 0.23756368,
+          "log_loss": 0.42258188
+        },
+        "advanced_team": {
+          "brier": 0.35965377,
+          "log_loss": 0.55175179
+        },
+        "montecarlo_bayes": {
+          "brier": 0.41039988,
+          "log_loss": 0.6032882
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -29269,6 +29286,426 @@
           "training_games": {
             "home": 7,
             "away": 7
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NBA:401909960": {
+      "event_id": "401909960",
+      "league": "NBA",
+      "home": "Knicks",
+      "away": "Bucks",
+      "start_utc": "2026-11-11T00:30:00+00:00",
+      "locked_at_utc": "2026-11-09T02:54:18.627575+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.6685,
+            0.3315
+          ],
+          "published_at_utc": "2026-11-09T02:53:57.541026+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 12
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.624460852,
+            0.375539148
+          ],
+          "published_at_utc": "2026-11-09T02:54:18.627575+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 12
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.66124,
+            0.33876
+          ],
+          "published_at_utc": "2026-11-09T02:54:01.936019+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 12
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.62196,
+            0.37804
+          ],
+          "published_at_utc": "2026-11-09T02:54:02.344708+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 12
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NBA:401909961": {
+      "event_id": "401909961",
+      "league": "NBA",
+      "home": "76ers",
+      "away": "Celtics",
+      "start_utc": "2026-11-11T01:00:00+00:00",
+      "locked_at_utc": "2026-11-09T02:54:18.627575+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.5205,
+            0.4795
+          ],
+          "published_at_utc": "2026-11-09T02:53:57.541026+00:00",
+          "training_games": {
+            "home": 14,
+            "away": 13
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.452437559,
+            0.547562441
+          ],
+          "published_at_utc": "2026-11-09T02:54:18.627575+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 12
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.489,
+            0.511
+          ],
+          "published_at_utc": "2026-11-09T02:54:01.936019+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 13
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.41889,
+            0.58111
+          ],
+          "published_at_utc": "2026-11-09T02:54:02.344708+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 13
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NBA:401909962": {
+      "event_id": "401909962",
+      "league": "NBA",
+      "home": "Suns",
+      "away": "Clippers",
+      "start_utc": "2026-11-11T02:00:00+00:00",
+      "locked_at_utc": "2026-11-09T02:54:18.627575+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.6224,
+            0.3776
+          ],
+          "published_at_utc": "2026-11-09T02:53:57.541026+00:00",
+          "training_games": {
+            "home": 11,
+            "away": 10
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.563112189,
+            0.436887811
+          ],
+          "published_at_utc": "2026-11-09T02:54:18.627575+00:00",
+          "training_games": {
+            "home": 11,
+            "away": 10
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.60018,
+            0.39982
+          ],
+          "published_at_utc": "2026-11-09T02:54:01.936019+00:00",
+          "training_games": {
+            "home": 11,
+            "away": 10
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.56253,
+            0.43747
+          ],
+          "published_at_utc": "2026-11-09T02:54:02.344708+00:00",
+          "training_games": {
+            "home": 11,
+            "away": 10
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NBA:401909963": {
+      "event_id": "401909963",
+      "league": "NBA",
+      "home": "Jazz",
+      "away": "Heat",
+      "start_utc": "2026-11-11T02:00:00+00:00",
+      "locked_at_utc": "2026-11-09T02:54:18.627575+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.5251,
+            0.4749
+          ],
+          "published_at_utc": "2026-11-09T02:53:57.541026+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 13
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.474607082,
+            0.525392918
+          ],
+          "published_at_utc": "2026-11-09T02:54:18.627575+00:00",
+          "training_games": {
+            "home": 11,
+            "away": 12
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.51279,
+            0.48721
+          ],
+          "published_at_utc": "2026-11-09T02:54:01.936019+00:00",
+          "training_games": {
+            "home": 11,
+            "away": 13
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.51405,
+            0.48595
+          ],
+          "published_at_utc": "2026-11-09T02:54:02.344708+00:00",
+          "training_games": {
+            "home": 11,
+            "away": 13
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NBA:401909964": {
+      "event_id": "401909964",
+      "league": "NBA",
+      "home": "Kings",
+      "away": "Magic",
+      "start_utc": "2026-11-11T03:00:00+00:00",
+      "locked_at_utc": "2026-11-09T02:54:18.627575+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.4933,
+            0.5067
+          ],
+          "published_at_utc": "2026-11-09T02:53:57.541026+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 12
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.427254523,
+            0.572745477
+          ],
+          "published_at_utc": "2026-11-09T02:54:18.627575+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 12
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.49208,
+            0.50792
+          ],
+          "published_at_utc": "2026-11-09T02:54:01.936019+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 12
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.46468,
+            0.53532
+          ],
+          "published_at_utc": "2026-11-09T02:54:02.344708+00:00",
+          "training_games": {
+            "home": 13,
+            "away": 12
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NBA:401909965": {
+      "event_id": "401909965",
+      "league": "NBA",
+      "home": "Trail Blazers",
+      "away": "Thunder",
+      "start_utc": "2026-11-11T04:00:00+00:00",
+      "locked_at_utc": "2026-11-09T02:54:18.627575+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.5507,
+            0.4493
+          ],
+          "published_at_utc": "2026-11-09T02:53:57.541026+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 13
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.473229291,
+            0.526770709
+          ],
+          "published_at_utc": "2026-11-09T02:54:18.627575+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 13
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.53914,
+            0.46086
+          ],
+          "published_at_utc": "2026-11-09T02:54:01.936019+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 13
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.54418,
+            0.45582
+          ],
+          "published_at_utc": "2026-11-09T02:54:02.344708+00:00",
+          "training_games": {
+            "home": 12,
+            "away": 13
           }
         }
       },
@@ -38871,6 +39308,23 @@
       "home_after": 1521.62,
       "away_after": 1524.74,
       "observed_home_outcome": 0
+    },
+    "NBA:401909945": {
+      "key": "NBA:401909945",
+      "league": "NBA",
+      "event_id": "401909945",
+      "home": "Bulls",
+      "away": "76ers",
+      "start_utc": "2026-11-08T20:30:00+00:00",
+      "observed_at_utc": "2026-11-08T23:46:16.450299+00:00",
+      "home_score": 121,
+      "away_score": 127,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1444.85,
+      "away_before": 1542.46,
+      "home_after": 1436.14,
+      "away_after": 1551.17,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -38884,7 +39338,7 @@
       "Heat": 1462.86,
       "Timberwolves": 1542.0,
       "Celtics": 1575.61,
-      "76ers": 1542.46,
+      "76ers": 1551.17,
       "Warriors": 1570.42,
       "Kings": 1407.67,
       "Suns": 1477.43,
@@ -38896,7 +39350,7 @@
       "Hornets": 1447.65,
       "Bucks": 1419.82,
       "Nuggets": 1530.32,
-      "Bulls": 1444.85,
+      "Bulls": 1436.14,
       "Trail Blazers": 1537.61,
       "Lions": 1488.0,
       "Thunder": 1556.23,
@@ -39179,5 +39633,5 @@
       "Iona": 1488.41
     }
   },
-  "updated_at_utc": "2026-11-08T23:06:35.685656+00:00"
+  "updated_at_utc": "2026-11-09T02:54:18.627575+00:00"
 }
