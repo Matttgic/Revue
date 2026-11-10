@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-10T02:44:10.210215+00:00",
+  "generated_at_utc": "2026-11-10T05:15:01.022341+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -15,40 +15,6 @@
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401909959",
-          "league": "NBA",
-          "home": "Warriors",
-          "away": "Pelicans",
-          "start_utc": "2026-11-10T03:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 13,
-            "away": 12
-          },
-          "probabilities": {
-            "home_win": 0.61311,
-            "away_win": 0.38689
-          },
-          "components": {
-            "monte_carlo": 0.59245,
-            "bayes": 0.60445,
-            "elo": 0.66405,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 116.17,
-            "away": 113.83
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
         {
           "event_id": "401909960",
           "league": "NBA",
@@ -732,23 +698,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 79,
+        "n": 84,
         "scores": {
           "baseline": {
-            "brier_binary": 0.22982,
-            "logloss_binary": 0.65218
+            "brier_binary": 0.22672,
+            "logloss_binary": 0.64578
           },
           "previous_shadow": {
-            "brier_binary": 0.23016,
-            "logloss_binary": 0.65291
+            "brier_binary": 0.22743,
+            "logloss_binary": 0.6473
           },
           "ensemble": {
-            "brier_binary": 0.23039,
-            "logloss_binary": 0.65329
+            "brier_binary": 0.22784,
+            "logloss_binary": 0.64811
           }
         },
-        "delta_brier_vs_baseline": 0.00057,
-        "delta_brier_vs_previous_shadow": 0.00023,
+        "delta_brier_vs_baseline": 0.00112,
+        "delta_brier_vs_previous_shadow": 0.00041,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -1078,23 +1044,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 86,
+        "n": 87,
         "scores": {
           "baseline": {
-            "brier_binary": 0.24737,
-            "logloss_binary": 0.6874
+            "brier_binary": 0.24825,
+            "logloss_binary": 0.68917
           },
           "previous_shadow": {
-            "brier_binary": 0.24205,
-            "logloss_binary": 0.67694
+            "brier_binary": 0.24257,
+            "logloss_binary": 0.678
           },
           "ensemble": {
-            "brier_binary": 0.23957,
-            "logloss_binary": 0.67194
+            "brier_binary": 0.24011,
+            "logloss_binary": 0.67301
           }
         },
-        "delta_brier_vs_baseline": -0.0078,
-        "delta_brier_vs_previous_shadow": -0.00248,
+        "delta_brier_vs_baseline": -0.00814,
+        "delta_brier_vs_previous_shadow": -0.00246,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
