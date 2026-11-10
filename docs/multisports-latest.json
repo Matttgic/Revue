@@ -1,10 +1,17 @@
 {
-  "generated_at_utc": "2026-11-10T10:14:53.594927+00:00",
+  "generated_at_utc": "2026-11-10T10:45:28.520593+00:00",
   "date_paris": "2026-11-10",
   "days": 3,
   "status": "prototype_non_calibre",
   "disclaimer": "Probabilités de recherche non calibrées. Sans cotes françaises ni EV. Aucun conseil de pari.",
   "competitions": {
+    "NFL": {
+      "name": "NFL",
+      "sport": "Football américain",
+      "model": "points",
+      "status": "ok",
+      "games": []
+    },
     "WNBA": {
       "name": "WNBA",
       "sport": "Basket",
@@ -227,20 +234,6 @@
           "odds": null
         }
       ]
-    },
-    "MLB": {
-      "name": "MLB",
-      "sport": "Baseball",
-      "model": "runs",
-      "status": "ok",
-      "games": []
-    },
-    "PL": {
-      "name": "Premier League",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
     },
     "NBA": {
       "name": "NBA",
@@ -570,22 +563,15 @@
         }
       ]
     },
+    "MLB": {
+      "name": "MLB",
+      "sport": "Baseball",
+      "model": "runs",
+      "status": "ok",
+      "games": []
+    },
     "LALIGA": {
       "name": "La Liga",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
-    },
-    "NFL": {
-      "name": "NFL",
-      "sport": "Football américain",
-      "model": "points",
-      "status": "ok",
-      "games": []
-    },
-    "BUNDESLIGA": {
-      "name": "Bundesliga",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -598,8 +584,22 @@
       "status": "ok",
       "games": []
     },
+    "PL": {
+      "name": "Premier League",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
     "LIGUE1": {
       "name": "Ligue 1",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
+    "BUNDESLIGA": {
+      "name": "Bundesliga",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -1159,6 +1159,17 @@
     "fixtures": 52,
     "predicted": 36,
     "league_feed_diagnostics": {
+      "NFL": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 65,
+        "cache_hits": 58,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 137,
+        "range_min": "2026-09-10",
+        "range_max": "2026-11-13"
+      },
       "WNBA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1181,28 +1192,6 @@
         "range_min": "2026-11-01",
         "range_max": "2026-11-14"
       },
-      "MLB": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 37,
-        "cache_hits": 30,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 27,
-        "range_min": "2026-10-08",
-        "range_max": "2026-11-01"
-      },
-      "PL": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 60,
-        "range_min": "2026-09-18",
-        "range_max": "2026-11-08"
-      },
       "NBA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1214,6 +1203,17 @@
         "range_min": "2026-10-10",
         "range_max": "2026-11-15"
       },
+      "MLB": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 37,
+        "cache_hits": 30,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 27,
+        "range_min": "2026-10-08",
+        "range_max": "2026-11-01"
+      },
       "LALIGA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1223,28 +1223,6 @@
         "errors": [],
         "events": 69,
         "range_min": "2026-09-15",
-        "range_max": "2026-11-08"
-      },
-      "NFL": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 65,
-        "cache_hits": 58,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 137,
-        "range_min": "2026-09-10",
-        "range_max": "2026-11-13"
-      },
-      "BUNDESLIGA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 54,
-        "range_min": "2026-09-18",
         "range_max": "2026-11-08"
       },
       "SERIEA": {
@@ -1258,7 +1236,29 @@
         "range_min": "2026-09-18",
         "range_max": "2026-11-08"
       },
+      "PL": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 60,
+        "range_min": "2026-09-18",
+        "range_max": "2026-11-08"
+      },
       "LIGUE1": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 54,
+        "range_min": "2026-09-18",
+        "range_max": "2026-11-08"
+      },
+      "BUNDESLIGA": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
