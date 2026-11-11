@@ -1,10 +1,17 @@
 {
-  "generated_at_utc": "2026-11-11T11:46:30.717510+00:00",
+  "generated_at_utc": "2026-11-11T14:17:45.504323+00:00",
   "date_paris": "2026-11-11",
   "days": 3,
   "status": "prototype_non_calibre",
   "disclaimer": "Probabilités de recherche non calibrées. Sans cotes françaises ni EV. Aucun conseil de pari.",
   "competitions": {
+    "WNBA": {
+      "name": "WNBA",
+      "sport": "Basket",
+      "model": "points",
+      "status": "ok",
+      "games": []
+    },
     "NCAAB": {
       "name": "NCAA Basketball",
       "sport": "Basket",
@@ -157,20 +164,6 @@
           }
         }
       ]
-    },
-    "WNBA": {
-      "name": "WNBA",
-      "sport": "Basket",
-      "model": "points",
-      "status": "ok",
-      "games": []
-    },
-    "PL": {
-      "name": "Premier League",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
     },
     "NBA": {
       "name": "NBA",
@@ -467,8 +460,15 @@
       "status": "ok",
       "games": []
     },
-    "LIGUE1": {
-      "name": "Ligue 1",
+    "LALIGA": {
+      "name": "La Liga",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
+    "PL": {
+      "name": "Premier League",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -481,15 +481,15 @@
       "status": "ok",
       "games": []
     },
-    "BUNDESLIGA": {
-      "name": "Bundesliga",
+    "LIGUE1": {
+      "name": "Ligue 1",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
       "games": []
     },
-    "LALIGA": {
-      "name": "La Liga",
+    "BUNDESLIGA": {
+      "name": "Bundesliga",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -1275,6 +1275,17 @@
     "fixtures": 54,
     "predicted": 45,
     "league_feed_diagnostics": {
+      "WNBA": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 50,
+        "cache_hits": 43,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 27,
+        "range_min": "2026-09-27",
+        "range_max": "2026-11-01"
+      },
       "NCAAB": {
         "status": "ok",
         "requests_ok": 7,
@@ -1296,28 +1307,6 @@
         "events": 148,
         "range_min": "2026-09-11",
         "range_max": "2026-11-16"
-      },
-      "WNBA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 50,
-        "cache_hits": 43,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 27,
-        "range_min": "2026-09-27",
-        "range_max": "2026-11-01"
-      },
-      "PL": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 60,
-        "range_min": "2026-09-18",
-        "range_max": "2026-11-08"
       },
       "NBA": {
         "status": "ok",
@@ -1341,14 +1330,25 @@
         "range_min": "2026-10-09",
         "range_max": "2026-11-01"
       },
-      "LIGUE1": {
+      "LALIGA": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
         "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 54,
+        "events": 66,
+        "range_min": "2026-09-16",
+        "range_max": "2026-11-08"
+      },
+      "PL": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 60,
+        "cache_hits": 53,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 60,
         "range_min": "2026-09-18",
         "range_max": "2026-11-08"
       },
@@ -1363,7 +1363,7 @@
         "range_min": "2026-09-18",
         "range_max": "2026-11-08"
       },
-      "BUNDESLIGA": {
+      "LIGUE1": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
@@ -1374,15 +1374,15 @@
         "range_min": "2026-09-18",
         "range_max": "2026-11-08"
       },
-      "LALIGA": {
+      "BUNDESLIGA": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
         "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 66,
-        "range_min": "2026-09-16",
+        "events": 54,
+        "range_min": "2026-09-18",
         "range_max": "2026-11-08"
       },
       "UCL": {
