@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-12T01:59:26.924180+00:00",
+  "generated_at_utc": "2026-11-12T04:19:06.758107+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -15,108 +15,6 @@
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401909973",
-          "league": "NBA",
-          "home": "Jazz",
-          "away": "Magic",
-          "start_utc": "2026-11-12T02:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 13,
-            "away": 13
-          },
-          "probabilities": {
-            "home_win": 0.49007,
-            "away_win": 0.50993
-          },
-          "components": {
-            "monte_carlo": 0.48177,
-            "bayes": 0.48117,
-            "elo": 0.5155,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 113.2,
-            "away": 113.5
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
-        {
-          "event_id": "401909974",
-          "league": "NBA",
-          "home": "Rockets",
-          "away": "Warriors",
-          "start_utc": "2026-11-12T02:30:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 12,
-            "away": 13
-          },
-          "probabilities": {
-            "home_win": 0.53807,
-            "away_win": 0.46193
-          },
-          "components": {
-            "monte_carlo": 0.53776,
-            "bayes": 0.51719,
-            "elo": 0.55793,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 113.7,
-            "away": 112.68
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
-        {
-          "event_id": "401909975",
-          "league": "NBA",
-          "home": "Trail Blazers",
-          "away": "Thunder",
-          "start_utc": "2026-11-12T03:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 13,
-            "away": 14
-          },
-          "probabilities": {
-            "home_win": 0.57111,
-            "away_win": 0.42889
-          },
-          "components": {
-            "monte_carlo": 0.57943,
-            "bayes": 0.5387,
-            "elo": 0.58363,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 113.9,
-            "away": 111.17
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
         {
           "event_id": "401909976",
           "league": "NBA",
@@ -732,23 +630,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 81,
+        "n": 88,
         "scores": {
           "baseline": {
-            "brier_binary": 0.22821,
-            "logloss_binary": 0.64878
+            "brier_binary": 0.2306,
+            "logloss_binary": 0.65366
           },
           "previous_shadow": {
-            "brier_binary": 0.22795,
-            "logloss_binary": 0.64836
+            "brier_binary": 0.22921,
+            "logloss_binary": 0.65086
           },
           "ensemble": {
-            "brier_binary": 0.22708,
-            "logloss_binary": 0.64672
+            "brier_binary": 0.22795,
+            "logloss_binary": 0.64841
           }
         },
-        "delta_brier_vs_baseline": -0.00113,
-        "delta_brier_vs_previous_shadow": -0.00087,
+        "delta_brier_vs_baseline": -0.00265,
+        "delta_brier_vs_previous_shadow": -0.00126,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -778,51 +676,6 @@
     },
     "NCAAB": {
       "games": [
-        {
-          "event_id": "401926062",
-          "league": "NCAAB",
-          "home": "Nebraska",
-          "away": "Lindenwood",
-          "start_utc": "2026-11-12T02:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 0,
-            "away": 0
-          },
-          "probabilities": null,
-          "components": null
-        },
-        {
-          "event_id": "401930177",
-          "league": "NCAAB",
-          "home": "UCLA",
-          "away": "AR-Pine Bluff",
-          "start_utc": "2026-11-12T02:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 2,
-            "away": 1
-          },
-          "probabilities": null,
-          "components": null
-        },
-        {
-          "event_id": "401918054",
-          "league": "NCAAB",
-          "home": "California",
-          "away": "USC",
-          "start_utc": "2026-11-12T04:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 2,
-            "away": 2
-          },
-          "probabilities": null,
-          "components": null
-        },
         {
           "event_id": "401921741",
           "league": "NCAAB",
