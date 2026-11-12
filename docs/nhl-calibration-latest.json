@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-11T06:03:58.964076+00:00",
+  "generated_at_utc": "2026-11-12T07:03:43.487153+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 223,
+      "settled_samples": 229,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.232662,
-      "raw_logloss": 0.656143,
+      "raw_brier": 0.231565,
+      "raw_logloss": 0.653916,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -44,16 +44,16 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 104,
-          "predicted_mean": 0.4957,
-          "observed_rate": 0.5192
+          "count": 109,
+          "predicted_mean": 0.4958,
+          "observed_rate": 0.5046
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 63,
-          "predicted_mean": 0.6768,
-          "observed_rate": 0.6984
+          "count": 64,
+          "predicted_mean": 0.6773,
+          "observed_rate": 0.7031
         },
         {
           "from": 0.8,
@@ -72,27 +72,27 @@
       },
       "training_cutoff_utc": "2026-10-24T22:26:52.254583+00:00",
       "training_samples": 100,
-      "holdout_samples": 123,
+      "holdout_samples": 129,
       "holdout_metrics": {
-        "raw_brier": 0.224874,
-        "calibrated_brier": 0.235316,
-        "raw_logloss": 0.639899,
-        "calibrated_logloss": 0.661723,
+        "raw_brier": 0.223288,
+        "calibrated_brier": 0.23613,
+        "raw_logloss": 0.636701,
+        "calibrated_logloss": 0.663347,
         "train_only_base_rate": 0.6,
-        "train_only_baseline_brier": 0.254309,
-        "brier_improvement": -0.010442,
-        "logloss_improvement": -0.021824
+        "train_only_baseline_brier": 0.256124,
+        "brier_improvement": -0.012842,
+        "logloss_improvement": -0.026646
       },
       "approved_for_betting": false
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 205,
+      "settled_samples": 211,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.230543,
-      "raw_logloss": 0.651767,
+      "raw_brier": 0.229906,
+      "raw_logloss": 0.650494,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -111,16 +111,16 @@
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 114,
-          "predicted_mean": 0.5003,
-          "observed_rate": 0.5088
+          "count": 119,
+          "predicted_mean": 0.5008,
+          "observed_rate": 0.4958
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 55,
-          "predicted_mean": 0.6694,
-          "observed_rate": 0.7091
+          "count": 56,
+          "predicted_mean": 0.6696,
+          "observed_rate": 0.7143
         },
         {
           "from": 0.8,
@@ -139,16 +139,16 @@
       },
       "training_cutoff_utc": "2026-10-27T04:56:45.312217+00:00",
       "training_samples": 100,
-      "holdout_samples": 105,
+      "holdout_samples": 111,
       "holdout_metrics": {
-        "raw_brier": 0.22192,
-        "calibrated_brier": 0.236359,
-        "raw_logloss": 0.634159,
-        "calibrated_logloss": 0.662864,
+        "raw_brier": 0.221175,
+        "calibrated_brier": 0.238001,
+        "raw_logloss": 0.632691,
+        "calibrated_logloss": 0.666163,
         "train_only_base_rate": 0.61,
-        "train_only_baseline_brier": 0.256862,
-        "brier_improvement": -0.014439,
-        "logloss_improvement": -0.028705
+        "train_only_baseline_brier": 0.259127,
+        "brier_improvement": -0.016826,
+        "logloss_improvement": -0.033472
       },
       "approved_for_betting": false
     }
