@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-12T12:18:52.230525+00:00",
+  "generated_at_utc": "2026-11-12T15:20:05.105469+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -955,6 +955,40 @@
           "expected_score": {
             "home": 24.28,
             "away": 22.37
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401873053",
+          "league": "NFL",
+          "home": "Lions",
+          "away": "Patriots",
+          "start_utc": "2026-11-15T14:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 8,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.55158,
+            "away_win": 0.44842
+          },
+          "components": {
+            "monte_carlo": 0.53646,
+            "bayes": 0.55308,
+            "elo": 0.58163,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 25.08,
+            "away": 23.52
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
