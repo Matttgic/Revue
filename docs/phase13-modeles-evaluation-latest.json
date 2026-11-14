@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-11-14T03:03:53.293700+00:00",
+  "generated_at_utc": "2026-11-14T06:12:57.683694+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -23,8 +23,8 @@
   },
   "metrics": {
     "locked": 721,
-    "settled": 584,
-    "distinct_settled_fixtures": 450,
+    "settled": 591,
+    "distinct_settled_fixtures": 457,
     "paired_comparisons": 3,
     "paired_observation_overlap_not_independent": 201
   },
@@ -676,15 +676,15 @@
     "NBA::revue_nba_espn_previous_standings_prior_v1": {
       "league": "NBA",
       "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "settled": 215,
+      "settled": 222,
       "frozen_locked": 237,
       "raw": {
-        "n": 215,
-        "brier": 0.425596,
-        "logloss": 0.615139
+        "n": 222,
+        "brier": 0.425722,
+        "logloss": 0.61512
       },
       "uniform_reference_same_matches": {
-        "n": 215,
+        "n": 222,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -702,23 +702,23 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 34,
-              "mean_predicted": 0.34193,
-              "observed_rate": 0.20588
+              "n": 36,
+              "mean_predicted": 0.34122,
+              "observed_rate": 0.22222
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 110,
-              "mean_predicted": 0.50674,
-              "observed_rate": 0.50909
+              "n": 113,
+              "mean_predicted": 0.50518,
+              "observed_rate": 0.51327
             },
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 70,
-              "mean_predicted": 0.66817,
-              "observed_rate": 0.74286
+              "n": 72,
+              "mean_predicted": 0.66954,
+              "observed_rate": 0.75
             },
             {
               "lower": 0.8,
@@ -742,23 +742,23 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 70,
-              "mean_predicted": 0.33183,
-              "observed_rate": 0.25714
+              "n": 72,
+              "mean_predicted": 0.33046,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 110,
-              "mean_predicted": 0.49326,
-              "observed_rate": 0.49091
+              "n": 113,
+              "mean_predicted": 0.49482,
+              "observed_rate": 0.48673
             },
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 34,
-              "mean_predicted": 0.65807,
-              "observed_rate": 0.79412
+              "n": 36,
+              "mean_predicted": 0.65878,
+              "observed_rate": 0.77778
             },
             {
               "lower": 0.8,
@@ -774,7 +774,7 @@
         "training_required": 100,
         "holdout_required": 40,
         "training_n": 100,
-        "holdout_n": 108,
+        "holdout_n": 115,
         "training_cutoff_utc": "2026-10-29T06:57:01.290920+00:00",
         "frozen_temperature": 0.65,
         "temperature_candidates": [
@@ -788,22 +788,22 @@
         ],
         "holdout": {
           "raw": {
-            "n": 108,
-            "brier": 0.406152,
-            "logloss": 0.594831
+            "n": 115,
+            "brier": 0.407577,
+            "logloss": 0.596032
           },
           "temperature_scaled": {
-            "n": 108,
-            "brier": 0.38748,
-            "logloss": 0.570659
+            "n": 115,
+            "brier": 0.390469,
+            "logloss": 0.573213
           },
           "uniform_reference": {
-            "n": 108,
+            "n": 115,
             "brier": 0.5,
             "logloss": 0.693147
           },
-          "brier_delta_scaled_minus_raw": -0.018672,
-          "logloss_delta_scaled_minus_raw": -0.024172
+          "brier_delta_scaled_minus_raw": -0.017108,
+          "logloss_delta_scaled_minus_raw": -0.022819
         },
         "status": "holdout_exploratory_improved"
       },
