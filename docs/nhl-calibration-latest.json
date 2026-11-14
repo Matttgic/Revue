@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-14T11:24:47.196928+00:00",
+  "generated_at_utc": "2026-11-14T23:52:00.977994+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 242,
+      "settled_samples": 244,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.23141,
-      "raw_logloss": 0.653569,
+      "raw_brier": 0.230245,
+      "raw_logloss": 0.650991,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -37,9 +37,9 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 43,
-          "predicted_mean": 0.3244,
-          "observed_rate": 0.4186
+          "count": 44,
+          "predicted_mean": 0.3257,
+          "observed_rate": 0.4091
         },
         {
           "from": 0.4,
@@ -58,9 +58,9 @@
         {
           "from": 0.8,
           "to": 1.0,
-          "count": 14,
-          "predicted_mean": 0.8664,
-          "observed_rate": 0.7143
+          "count": 15,
+          "predicted_mean": 0.8636,
+          "observed_rate": 0.7333
         }
       ],
       "calibration_status": "experimental_holdout_not_better",
@@ -72,27 +72,27 @@
       },
       "training_cutoff_utc": "2026-10-24T22:26:52.254583+00:00",
       "training_samples": 100,
-      "holdout_samples": 142,
+      "holdout_samples": 144,
       "holdout_metrics": {
-        "raw_brier": 0.223782,
-        "calibrated_brier": 0.238614,
-        "raw_logloss": 0.637687,
-        "calibrated_logloss": 0.668619,
+        "raw_brier": 0.221913,
+        "calibrated_brier": 0.237612,
+        "raw_logloss": 0.633539,
+        "calibrated_logloss": 0.66643,
         "train_only_base_rate": 0.6,
         "train_only_baseline_brier": 0.26,
-        "brier_improvement": -0.014832,
-        "logloss_improvement": -0.030932
+        "brier_improvement": -0.015699,
+        "logloss_improvement": -0.032891
       },
       "approved_for_betting": false
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 224,
+      "settled_samples": 226,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.230255,
-      "raw_logloss": 0.651265,
+      "raw_brier": 0.229069,
+      "raw_logloss": 0.648693,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -104,9 +104,9 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 32,
-          "predicted_mean": 0.34,
-          "observed_rate": 0.4375
+          "count": 33,
+          "predicted_mean": 0.3414,
+          "observed_rate": 0.4242
         },
         {
           "from": 0.4,
@@ -118,9 +118,9 @@
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 58,
-          "predicted_mean": 0.6698,
-          "observed_rate": 0.7069
+          "count": 59,
+          "predicted_mean": 0.6719,
+          "observed_rate": 0.7119
         },
         {
           "from": 0.8,
@@ -139,16 +139,16 @@
       },
       "training_cutoff_utc": "2026-10-27T04:56:45.312217+00:00",
       "training_samples": 100,
-      "holdout_samples": 124,
+      "holdout_samples": 126,
       "holdout_metrics": {
-        "raw_brier": 0.22272,
-        "calibrated_brier": 0.241803,
-        "raw_logloss": 0.635949,
-        "calibrated_logloss": 0.67439,
+        "raw_brier": 0.220714,
+        "calibrated_brier": 0.240467,
+        "raw_logloss": 0.631579,
+        "calibrated_logloss": 0.671412,
         "train_only_base_rate": 0.61,
-        "train_only_baseline_brier": 0.263874,
-        "brier_improvement": -0.019083,
-        "logloss_improvement": -0.038441
+        "train_only_baseline_brier": 0.263846,
+        "brier_improvement": -0.019753,
+        "logloss_improvement": -0.039833
       },
       "approved_for_betting": false
     }
