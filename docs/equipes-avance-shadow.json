@@ -1,58 +1,10 @@
 {
-  "generated_at_utc": "2026-11-14T02:52:51.167096+00:00",
+  "generated_at_utc": "2026-11-14T05:52:25.519705+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401909303",
-          "league": "NBA",
-          "home": "Kings",
-          "away": "Trail Blazers",
-          "start_utc": "2026-11-14T03:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 13,
-            "away": 13
-          },
-          "probabilities": {
-            "home_win": 0.38324,
-            "away_win": 0.61676
-          },
-          "odds": null,
-          "expected_margin_home": -2.285,
-          "components": {
-            "elo_probability": 0.359,
-            "margin_probability": 0.4245,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401909304",
-          "league": "NBA",
-          "home": "Clippers",
-          "away": "Thunder",
-          "start_utc": "2026-11-14T03:30:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 11,
-            "away": 14
-          },
-          "probabilities": {
-            "home_win": 0.44681,
-            "away_win": 0.55319
-          },
-          "odds": null,
-          "expected_margin_home": -1.281,
-          "components": {
-            "elo_probability": 0.4405,
-            "margin_probability": 0.4575,
-            "last_games_form": 5
-          }
-        },
         {
           "event_id": "401909980",
           "league": "NBA",
@@ -583,17 +535,17 @@
         }
       ],
       "evaluation": {
-        "n": 90,
+        "n": 97,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22146,
-          "logloss_binary": 0.63519
+          "brier_binary": 0.21996,
+          "logloss_binary": 0.63198
         },
         "baseline": {
-          "brier_binary": 0.22097,
-          "logloss_binary": 0.63412
+          "brier_binary": 0.21874,
+          "logloss_binary": 0.62927
         },
-        "brier_delta_candidate_minus_baseline": 0.00049,
+        "brier_delta_candidate_minus_baseline": 0.00122,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -747,6 +699,21 @@
           "training_games": {
             "home": 3,
             "away": 1
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401924265",
+          "league": "NCAAB",
+          "home": "UCLA",
+          "away": "Long Beach St",
+          "start_utc": "2026-11-17T03:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 3,
+            "away": 0
           },
           "probabilities": null,
           "odds": null
