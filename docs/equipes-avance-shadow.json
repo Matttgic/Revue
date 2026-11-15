@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-15T02:57:53.645151+00:00",
+  "generated_at_utc": "2026-11-15T03:54:23.997888+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -484,20 +484,44 @@
             "margin_probability": 0.6063,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401910006",
+          "league": "NBA",
+          "home": "Clippers",
+          "away": "Jazz",
+          "start_utc": "2026-11-18T03:30:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 12,
+            "away": 14
+          },
+          "probabilities": {
+            "home_win": 0.62192,
+            "away_win": 0.37808
+          },
+          "odds": null,
+          "expected_margin_home": 2.511,
+          "components": {
+            "elo_probability": 0.6448,
+            "margin_probability": 0.5829,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 92,
+        "n": 96,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.21931,
-          "logloss_binary": 0.63055
+          "brier_binary": 0.22068,
+          "logloss_binary": 0.63352
         },
         "baseline": {
-          "brier_binary": 0.2185,
-          "logloss_binary": 0.62867
+          "brier_binary": 0.21984,
+          "logloss_binary": 0.63151
         },
-        "brier_delta_candidate_minus_baseline": 0.00081,
+        "brier_delta_candidate_minus_baseline": 0.00084,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },

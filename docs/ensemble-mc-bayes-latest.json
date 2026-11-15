@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-15T02:57:53.947359+00:00",
+  "generated_at_utc": "2026-11-15T03:54:24.404621+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -694,27 +694,61 @@
             "away": 112.21
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
+        },
+        {
+          "event_id": "401910006",
+          "league": "NBA",
+          "home": "Clippers",
+          "away": "Jazz",
+          "start_utc": "2026-11-18T03:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 12,
+            "away": 14
+          },
+          "probabilities": {
+            "home_win": 0.57539,
+            "away_win": 0.42461
+          },
+          "components": {
+            "monte_carlo": 0.53646,
+            "bayes": 0.5879,
+            "elo": 0.64485,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 115.47,
+            "away": 112.86
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         }
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 92,
+        "n": 96,
         "scores": {
           "baseline": {
-            "brier_binary": 0.2185,
-            "logloss_binary": 0.62867
+            "brier_binary": 0.21984,
+            "logloss_binary": 0.63151
           },
           "previous_shadow": {
-            "brier_binary": 0.21931,
-            "logloss_binary": 0.63055
+            "brier_binary": 0.22068,
+            "logloss_binary": 0.63352
           },
           "ensemble": {
-            "brier_binary": 0.21798,
-            "logloss_binary": 0.62793
+            "brier_binary": 0.21919,
+            "logloss_binary": 0.63048
           }
         },
-        "delta_brier_vs_baseline": -0.00052,
-        "delta_brier_vs_previous_shadow": -0.00133,
+        "delta_brier_vs_baseline": -0.00065,
+        "delta_brier_vs_previous_shadow": -0.00149,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
