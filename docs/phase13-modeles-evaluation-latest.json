@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-11-15T19:54:52.228696+00:00",
+  "generated_at_utc": "2026-11-15T21:40:16.770804+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -23,8 +23,8 @@
   },
   "metrics": {
     "locked": 729,
-    "settled": 596,
-    "distinct_settled_fixtures": 462,
+    "settled": 597,
+    "distinct_settled_fixtures": 463,
     "paired_comparisons": 3,
     "paired_observation_overlap_not_independent": 201
   },
@@ -676,15 +676,15 @@
     "NBA::revue_nba_espn_previous_standings_prior_v1": {
       "league": "NBA",
       "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "settled": 227,
+      "settled": 228,
       "frozen_locked": 245,
       "raw": {
-        "n": 227,
-        "brier": 0.428106,
-        "logloss": 0.617797
+        "n": 228,
+        "brier": 0.427349,
+        "logloss": 0.617027
       },
       "uniform_reference_same_matches": {
-        "n": 227,
+        "n": 228,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -716,9 +716,9 @@
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 75,
-              "mean_predicted": 0.66989,
-              "observed_rate": 0.74667
+              "n": 76,
+              "mean_predicted": 0.66953,
+              "observed_rate": 0.75
             },
             {
               "lower": 0.8,
@@ -742,9 +742,9 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 75,
-              "mean_predicted": 0.33011,
-              "observed_rate": 0.25333
+              "n": 76,
+              "mean_predicted": 0.33047,
+              "observed_rate": 0.25
             },
             {
               "lower": 0.4,
@@ -774,7 +774,7 @@
         "training_required": 100,
         "holdout_required": 40,
         "training_n": 100,
-        "holdout_n": 120,
+        "holdout_n": 121,
         "training_cutoff_utc": "2026-10-29T06:57:01.290920+00:00",
         "frozen_temperature": 0.65,
         "temperature_candidates": [
@@ -788,22 +788,22 @@
         ],
         "holdout": {
           "raw": {
-            "n": 120,
-            "brier": 0.412844,
-            "logloss": 0.601891
+            "n": 121,
+            "brier": 0.411544,
+            "logloss": 0.600572
           },
           "temperature_scaled": {
-            "n": 120,
-            "brier": 0.398058,
-            "logloss": 0.58275
+            "n": 121,
+            "brier": 0.396145,
+            "logloss": 0.580747
           },
           "uniform_reference": {
-            "n": 120,
+            "n": 121,
             "brier": 0.5,
             "logloss": 0.693147
           },
-          "brier_delta_scaled_minus_raw": -0.014786,
-          "logloss_delta_scaled_minus_raw": -0.019141
+          "brier_delta_scaled_minus_raw": -0.015399,
+          "logloss_delta_scaled_minus_raw": -0.019825
         },
         "status": "holdout_exploratory_improved"
       },
