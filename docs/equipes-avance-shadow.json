@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-15T03:54:23.997888+00:00",
+  "generated_at_utc": "2026-11-15T06:24:48.430578+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -508,20 +508,44 @@
             "margin_probability": 0.5829,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401910005",
+          "league": "NBA",
+          "home": "Lakers",
+          "away": "Hornets",
+          "start_utc": "2026-11-18T04:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 14,
+            "away": 14
+          },
+          "probabilities": {
+            "home_win": 0.72039,
+            "away_win": 0.27961
+          },
+          "odds": null,
+          "expected_margin_home": 5.574,
+          "components": {
+            "elo_probability": 0.7448,
+            "margin_probability": 0.6789,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 96,
+        "n": 97,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22068,
-          "logloss_binary": 0.63352
+          "brier_binary": 0.22113,
+          "logloss_binary": 0.63443
         },
         "baseline": {
-          "brier_binary": 0.21984,
-          "logloss_binary": 0.63151
+          "brier_binary": 0.22023,
+          "logloss_binary": 0.63231
         },
-        "brier_delta_candidate_minus_baseline": 0.00084,
+        "brier_delta_candidate_minus_baseline": 0.0009,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -810,6 +834,21 @@
           "training_games": {
             "home": 3,
             "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401925879",
+          "league": "NCAAB",
+          "home": "Gonzaga",
+          "away": "Montana St",
+          "start_utc": "2026-11-18T04:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 3,
+            "away": 1
           },
           "probabilities": null,
           "odds": null
