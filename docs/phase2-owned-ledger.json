@@ -33079,13 +33079,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-15T03:01:47.130176+00:00",
+      "home_score": 108,
+      "away_score": 116,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.49660578,
+          "log_loss": 0.68975295
+        },
+        "own_elo": {
+          "brier": 0.34881308,
+          "log_loss": 0.54063228
+        },
+        "advanced_team": {
+          "brier": 0.45317104,
+          "log_loss": 0.64628268
+        },
+        "montecarlo_bayes": {
+          "brier": 0.46039689,
+          "log_loss": 0.6535227
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -45801,6 +45818,23 @@
       "home_after": 1510.78,
       "away_after": 1512.81,
       "observed_home_outcome": 0
+    },
+    "NBA:401909980": {
+      "key": "NBA:401909980",
+      "league": "NBA",
+      "event_id": "401909980",
+      "home": "Pelicans",
+      "away": "Nuggets",
+      "start_utc": "2026-11-15T00:00:00+00:00",
+      "observed_at_utc": "2026-11-15T03:01:47.130176+00:00",
+      "home_score": 108,
+      "away_score": 116,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1463.56,
+      "away_before": 1531.42,
+      "home_after": 1453.87,
+      "away_after": 1541.11,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -45825,7 +45859,7 @@
       "Magic": 1488.25,
       "Hornets": 1450.03,
       "Bucks": 1388.24,
-      "Nuggets": 1531.42,
+      "Nuggets": 1541.11,
       "Bulls": 1444.48,
       "Trail Blazers": 1568.46,
       "Lions": 1488.0,
@@ -45834,7 +45868,7 @@
       "Knicks": 1489.45,
       "Jazz": 1408.02,
       "Lakers": 1578.82,
-      "Pelicans": 1463.56,
+      "Pelicans": 1453.87,
       "Grizzlies": 1539.51
     },
     "MLB": {
@@ -46130,5 +46164,5 @@
       "LSU": 1512.81
     }
   },
-  "updated_at_utc": "2026-11-15T02:58:05.513623+00:00"
+  "updated_at_utc": "2026-11-15T03:02:09.455414+00:00"
 }
