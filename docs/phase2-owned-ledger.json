@@ -32309,13 +32309,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-15T17:59:30.248491+00:00",
+      "home_score": 35,
+      "away_score": 10,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.3160125,
+          "log_loss": 0.50666761
+        },
+        "own_elo": {
+          "brier": 0.40231275,
+          "log_loss": 0.59512177
+        },
+        "advanced_team": {
+          "brier": 0.37212565,
+          "log_loss": 0.56449015
+        },
+        "montecarlo_bayes": {
+          "brier": 0.40216099,
+          "log_loss": 0.59496839
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -45971,6 +45988,23 @@
       "home_after": 1545.76,
       "away_after": 1460.38,
       "observed_home_outcome": 0
+    },
+    "NFL:401873053": {
+      "key": "NFL:401873053",
+      "league": "NFL",
+      "event_id": "401873053",
+      "home": "Lions",
+      "away": "Patriots",
+      "start_utc": "2026-11-15T14:30:00+00:00",
+      "observed_at_utc": "2026-11-15T17:59:30.248491+00:00",
+      "home_score": 35,
+      "away_score": 10,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1546.71,
+      "away_before": 1510.8,
+      "home_after": 1557.47,
+      "away_after": 1500.04,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -46132,7 +46166,7 @@
       "Texans": 1521.17,
       "Steelers": 1546.03,
       "Colts": 1443.58,
-      "Patriots": 1510.8,
+      "Patriots": 1500.04,
       "Raiders": 1466.7,
       "Saints": 1501.64,
       "Vikings": 1499.62,
@@ -46141,7 +46175,7 @@
       "Chargers": 1454.39,
       "Broncos": 1555.15,
       "Cardinals": 1488.42,
-      "Lions": 1546.71,
+      "Lions": 1557.47,
       "Seahawks": 1491.59,
       "49ers": 1520.85,
       "Falcons": 1467.96,
@@ -46300,5 +46334,5 @@
       "LSU": 1512.81
     }
   },
-  "updated_at_utc": "2026-11-15T15:37:03.011889+00:00"
+  "updated_at_utc": "2026-11-15T17:59:45.263722+00:00"
 }
