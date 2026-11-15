@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-14T23:52:00.977994+00:00",
+  "generated_at_utc": "2026-11-15T06:18:48.724157+00:00",
   "status": "prospective_research_only",
   "data_source": "docs/nhl-shadow-ledger.json (locked forecasts + official settled results)",
   "outcomes_are_real": true,
@@ -20,12 +20,12 @@
   "models": {
     "clairvoyance_formula": {
       "model": "clairvoyance_formula",
-      "settled_samples": 244,
+      "settled_samples": 256,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.230245,
-      "raw_logloss": 0.650991,
+      "raw_brier": 0.233033,
+      "raw_logloss": 0.657103,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -37,23 +37,23 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 44,
-          "predicted_mean": 0.3257,
-          "observed_rate": 0.4091
+          "count": 45,
+          "predicted_mean": 0.3254,
+          "observed_rate": 0.4
         },
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 116,
-          "predicted_mean": 0.4957,
-          "observed_rate": 0.4914
+          "count": 122,
+          "predicted_mean": 0.4955,
+          "observed_rate": 0.4672
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 66,
-          "predicted_mean": 0.6779,
-          "observed_rate": 0.697
+          "count": 71,
+          "predicted_mean": 0.6763,
+          "observed_rate": 0.662
         },
         {
           "from": 0.8,
@@ -72,27 +72,27 @@
       },
       "training_cutoff_utc": "2026-10-24T22:26:52.254583+00:00",
       "training_samples": 100,
-      "holdout_samples": 144,
+      "holdout_samples": 156,
       "holdout_metrics": {
-        "raw_brier": 0.221913,
-        "calibrated_brier": 0.237612,
-        "raw_logloss": 0.633539,
-        "calibrated_logloss": 0.66643,
+        "raw_brier": 0.22713,
+        "calibrated_brier": 0.245522,
+        "raw_logloss": 0.64491,
+        "calibrated_logloss": 0.68289,
         "train_only_base_rate": 0.6,
-        "train_only_baseline_brier": 0.26,
-        "brier_improvement": -0.015699,
-        "logloss_improvement": -0.032891
+        "train_only_baseline_brier": 0.26641,
+        "brier_improvement": -0.018392,
+        "logloss_improvement": -0.03798
       },
       "approved_for_betting": false
     },
     "revue_prudent": {
       "model": "revue_nhl_low_sample_shrink_v1",
-      "settled_samples": 226,
+      "settled_samples": 238,
       "training_required": 100,
       "holdout_required": 40,
       "training_remaining": 0,
-      "raw_brier": 0.229069,
-      "raw_logloss": 0.648693,
+      "raw_brier": 0.231995,
+      "raw_logloss": 0.655014,
       "reliability_bins": [
         {
           "from": 0.0,
@@ -104,23 +104,23 @@
         {
           "from": 0.2,
           "to": 0.4,
-          "count": 33,
-          "predicted_mean": 0.3414,
-          "observed_rate": 0.4242
+          "count": 34,
+          "predicted_mean": 0.3409,
+          "observed_rate": 0.4118
         },
         {
           "from": 0.4,
           "to": 0.6,
-          "count": 126,
-          "predicted_mean": 0.5011,
-          "observed_rate": 0.4841
+          "count": 134,
+          "predicted_mean": 0.5024,
+          "observed_rate": 0.4552
         },
         {
           "from": 0.6,
           "to": 0.8,
-          "count": 59,
-          "predicted_mean": 0.6719,
-          "observed_rate": 0.7119
+          "count": 62,
+          "predicted_mean": 0.6717,
+          "observed_rate": 0.6935
         },
         {
           "from": 0.8,
@@ -139,16 +139,16 @@
       },
       "training_cutoff_utc": "2026-10-27T04:56:45.312217+00:00",
       "training_samples": 100,
-      "holdout_samples": 126,
+      "holdout_samples": 138,
       "holdout_metrics": {
-        "raw_brier": 0.220714,
-        "calibrated_brier": 0.240467,
-        "raw_logloss": 0.631579,
-        "calibrated_logloss": 0.671412,
+        "raw_brier": 0.226485,
+        "calibrated_brier": 0.25108,
+        "raw_logloss": 0.643968,
+        "calibrated_logloss": 0.693891,
         "train_only_base_rate": 0.61,
-        "train_only_baseline_brier": 0.263846,
-        "brier_improvement": -0.019753,
-        "logloss_improvement": -0.039833
+        "train_only_baseline_brier": 0.271665,
+        "brier_improvement": -0.024595,
+        "logloss_improvement": -0.049923
       },
       "approved_for_betting": false
     }
