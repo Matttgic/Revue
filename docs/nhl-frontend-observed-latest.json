@@ -1,13 +1,13 @@
 {
   "version": "revue_nhl_frontend_observed_v1",
-  "generated_at_utc": "2026-11-15T21:51:13.842Z",
+  "generated_at_utc": "2026-11-16T17:04:28.744Z",
   "source_snapshot_utc": {
-    "shadow": "2026-11-15T21:51:00.731Z",
-    "moneypuck": "2026-11-15T14:15:47.279Z",
-    "moneyPuckGoalies": "2026-11-15T14:15:47.641Z",
-    "official": "2026-11-15T15:43:25.094Z",
-    "moneypuckProvider": "2026-11-15T11:39:26.000Z",
-    "goalieProvider": "2026-11-15T11:39:59.000Z"
+    "shadow": "2026-11-16T17:04:14.166Z",
+    "moneypuck": "2026-11-16T16:20:21.799Z",
+    "moneyPuckGoalies": "2026-11-16T16:20:23.234Z",
+    "official": "2026-11-16T00:01:31.663Z",
+    "moneypuckProvider": "2026-11-16T11:39:58.000Z",
+    "goalieProvider": "2026-11-16T11:40:25.000Z"
   },
   "status": "prospective_research_partial_input_frontend_not_parity",
   "data_season": "2026-2027",
@@ -40,252 +40,12 @@
   "real_bets_enabled": false,
   "paper_bets_auto_created": false,
   "updated_frozen_ledgers": false,
-  "games_evaluated": 7,
-  "games_emitted": 6,
+  "games_evaluated": 13,
+  "games_emitted": 11,
   "skipped": {
-    "missing_observed_team_or_unique_goalie": 1
+    "missing_observed_team_or_unique_goalie": 2
   },
   "games": [
-    {
-      "event_id": "2026020327",
-      "home": "DAL",
-      "away": "FLA",
-      "start_utc": "2026-11-16T01:00:00+00:00",
-      "original_shadow_home_win": 0.579,
-      "research": {
-        "ensemble_home": 0.48785,
-        "ensemble_raw_home": 0.48785,
-        "monte_carlo_home": 0.48386,
-        "monte_carlo_total_expected": 3.164,
-        "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.1018,
-        "p_home_puck_line_minus_1_5": 0.20319,
-        "simulation_draws": 25000,
-        "market_blended": false,
-        "calibrated": false,
-        "actionable": false
-      },
-      "observed": {
-        "home": {
-          "games": 19,
-          "official_games": 19,
-          "goalie_name": "Jake Oettinger",
-          "goalie_games": 15,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.51,
-          "xg_for_60": 2.3792,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        },
-        "away": {
-          "games": 21,
-          "official_games": 21,
-          "goalie_name": "Jacob Markstrom",
-          "goalie_games": 11,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.51,
-          "xg_for_60": 2.3609,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        }
-      },
-      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
-      "pending_inputs": [
-        "NHL Edge zone/speed",
-        "high-danger chances",
-        "Clairvoyance situational HV",
-        "verified player injuries",
-        "goalie availability/confirmed starter",
-        "recent-game form",
-        "original calibration coefficients",
-        "NHL markets and confirmed bookmaker quotes",
-        "original frontend goals-per-60 calculation",
-        "original frontend xGF5 base rate (xGF/60 proxy used)"
-      ],
-      "injuries_verified": false,
-      "starting_goalies_verified": false,
-      "bookmaker_quotes_available": false,
-      "source_equivalent_predictions": false,
-      "retroactive_prediction": false
-    },
-    {
-      "event_id": "2026020328",
-      "home": "ANA",
-      "away": "CGY",
-      "start_utc": "2026-11-16T01:00:00+00:00",
-      "original_shadow_home_win": 0.518,
-      "research": {
-        "ensemble_home": 0.59071,
-        "ensemble_raw_home": 0.59071,
-        "monte_carlo_home": 0.66718,
-        "monte_carlo_total_expected": 3.781,
-        "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.17972,
-        "p_home_puck_line_minus_1_5": 0.40092,
-        "simulation_draws": 25000,
-        "market_blended": false,
-        "calibrated": false,
-        "actionable": false
-      },
-      "observed": {
-        "home": {
-          "games": 20,
-          "official_games": 20,
-          "goalie_name": "Lukas Dostal",
-          "goalie_games": 11,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.45,
-          "xg_for_60": 2.3817,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        },
-        "away": {
-          "games": 20,
-          "official_games": 20,
-          "goalie_name": "Dustin Wolf",
-          "goalie_games": 11,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.47,
-          "xg_for_60": 2.3635,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        }
-      },
-      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
-      "pending_inputs": [
-        "NHL Edge zone/speed",
-        "high-danger chances",
-        "Clairvoyance situational HV",
-        "verified player injuries",
-        "goalie availability/confirmed starter",
-        "recent-game form",
-        "original calibration coefficients",
-        "NHL markets and confirmed bookmaker quotes",
-        "original frontend goals-per-60 calculation",
-        "original frontend xGF5 base rate (xGF/60 proxy used)"
-      ],
-      "injuries_verified": false,
-      "starting_goalies_verified": false,
-      "bookmaker_quotes_available": false,
-      "source_equivalent_predictions": false,
-      "retroactive_prediction": false
-    },
-    {
-      "event_id": "2026020329",
-      "home": "VGK",
-      "away": "VAN",
-      "start_utc": "2026-11-16T02:00:00+00:00",
-      "original_shadow_home_win": 0.843,
-      "research": {
-        "ensemble_home": 0.65904,
-        "ensemble_raw_home": 0.65904,
-        "monte_carlo_home": 0.64468,
-        "monte_carlo_total_expected": 3.5359,
-        "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.14704,
-        "p_home_puck_line_minus_1_5": 0.36765,
-        "simulation_draws": 25000,
-        "market_blended": false,
-        "calibrated": false,
-        "actionable": false
-      },
-      "observed": {
-        "home": {
-          "games": 21,
-          "official_games": 21,
-          "goalie_name": "Carter Hart",
-          "goalie_games": 11,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.53,
-          "xg_for_60": 2.6066,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        },
-        "away": {
-          "games": 21,
-          "official_games": 21,
-          "goalie_name": "Leevi Merilinen",
-          "goalie_games": 15,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.4,
-          "xg_for_60": 1.9902,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        }
-      },
-      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
-      "pending_inputs": [
-        "NHL Edge zone/speed",
-        "high-danger chances",
-        "Clairvoyance situational HV",
-        "verified player injuries",
-        "goalie availability/confirmed starter",
-        "recent-game form",
-        "original calibration coefficients",
-        "NHL markets and confirmed bookmaker quotes",
-        "original frontend goals-per-60 calculation",
-        "original frontend xGF5 base rate (xGF/60 proxy used)"
-      ],
-      "injuries_verified": false,
-      "starting_goalies_verified": false,
-      "bookmaker_quotes_available": false,
-      "source_equivalent_predictions": false,
-      "retroactive_prediction": false
-    },
-    {
-      "event_id": "2026020330",
-      "home": "SJS",
-      "away": "NSH",
-      "start_utc": "2026-11-16T02:00:00+00:00",
-      "original_shadow_home_win": 0.362,
-      "research": {
-        "ensemble_home": 0.3947,
-        "ensemble_raw_home": 0.3947,
-        "monte_carlo_home": 0.4165,
-        "monte_carlo_total_expected": 2.8886,
-        "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.07124,
-        "p_home_puck_line_minus_1_5": 0.14002,
-        "simulation_draws": 25000,
-        "market_blended": false,
-        "calibrated": false,
-        "actionable": false
-      },
-      "observed": {
-        "home": {
-          "games": 22,
-          "official_games": 22,
-          "goalie_name": "Yaroslav Askarov",
-          "goalie_games": 15,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.43,
-          "xg_for_60": 2.2353,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        },
-        "away": {
-          "games": 20,
-          "official_games": 20,
-          "goalie_name": "Juuse Saros",
-          "goalie_games": 14,
-          "goalie_is_confirmed_starter": false,
-          "xg5_share": 0.48,
-          "xg_for_60": 2.5206,
-          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
-        }
-      },
-      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
-      "pending_inputs": [
-        "NHL Edge zone/speed",
-        "high-danger chances",
-        "Clairvoyance situational HV",
-        "verified player injuries",
-        "goalie availability/confirmed starter",
-        "recent-game form",
-        "original calibration coefficients",
-        "NHL markets and confirmed bookmaker quotes",
-        "original frontend goals-per-60 calculation",
-        "original frontend xGF5 base rate (xGF/60 proxy used)"
-      ],
-      "injuries_verified": false,
-      "starting_goalies_verified": false,
-      "bookmaker_quotes_available": false,
-      "source_equivalent_predictions": false,
-      "retroactive_prediction": false
-    },
     {
       "event_id": "2026020331",
       "home": "NYR",
@@ -293,13 +53,13 @@
       "start_utc": "2026-11-17T00:30:00+00:00",
       "original_shadow_home_win": 0.409,
       "research": {
-        "ensemble_home": 0.4739,
-        "ensemble_raw_home": 0.4739,
-        "monte_carlo_home": 0.49292,
-        "monte_carlo_total_expected": 3.1818,
+        "ensemble_home": 0.47427,
+        "ensemble_raw_home": 0.47427,
+        "monte_carlo_home": 0.4935,
+        "monte_carlo_total_expected": 3.175,
         "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.10204,
-        "p_home_puck_line_minus_1_5": 0.21124,
+        "probability_over_reference_line": 0.10388,
+        "p_home_puck_line_minus_1_5": 0.20994,
         "simulation_draws": 25000,
         "market_blended": false,
         "calibrated": false,
@@ -351,15 +111,15 @@
       "home": "UTA",
       "away": "VAN",
       "start_utc": "2026-11-17T02:30:00+00:00",
-      "original_shadow_home_win": 0.77,
+      "original_shadow_home_win": 0.748,
       "research": {
-        "ensemble_home": 0.65699,
-        "ensemble_raw_home": 0.65699,
-        "monte_carlo_home": 0.63136,
-        "monte_carlo_total_expected": 3.6712,
+        "ensemble_home": 0.65292,
+        "ensemble_raw_home": 0.65292,
+        "monte_carlo_home": 0.62974,
+        "monte_carlo_total_expected": 3.6678,
         "total_over_reference_line": 5.5,
-        "probability_over_reference_line": 0.16668,
-        "p_home_puck_line_minus_1_5": 0.3585,
+        "probability_over_reference_line": 0.16768,
+        "p_home_puck_line_minus_1_5": 0.35536,
         "simulation_draws": 25000,
         "market_blended": false,
         "calibrated": false,
@@ -377,13 +137,553 @@
           "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
         },
         "away": {
-          "games": 21,
+          "games": 22,
           "official_games": 21,
           "goalie_name": "Leevi Merilinen",
-          "goalie_games": 15,
+          "goalie_games": 16,
           "goalie_is_confirmed_starter": false,
           "xg5_share": 0.4,
-          "xg_for_60": 1.9902,
+          "xg_for_60": 2.015,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020333",
+      "home": "BOS",
+      "away": "LAK",
+      "start_utc": "2026-11-18T00:00:00+00:00",
+      "original_shadow_home_win": 0.79,
+      "research": {
+        "ensemble_home": 0.64996,
+        "ensemble_raw_home": 0.64996,
+        "monte_carlo_home": 0.6773,
+        "monte_carlo_total_expected": 3.6683,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.162,
+        "p_home_puck_line_minus_1_5": 0.40735,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 20,
+          "official_games": 20,
+          "goalie_name": "Jeremy Swayman",
+          "goalie_games": 15,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.54,
+          "xg_for_60": 2.8266,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 18,
+          "official_games": 18,
+          "goalie_name": "Darcy Kuemper",
+          "goalie_games": 11,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.51,
+          "xg_for_60": 2.4263,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020336",
+      "home": "NYI",
+      "away": "CBJ",
+      "start_utc": "2026-11-18T00:00:00+00:00",
+      "original_shadow_home_win": 0.652,
+      "research": {
+        "ensemble_home": 0.62419,
+        "ensemble_raw_home": 0.62419,
+        "monte_carlo_home": 0.6643,
+        "monte_carlo_total_expected": 2.9956,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.08212,
+        "p_home_puck_line_minus_1_5": 0.35837,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 19,
+          "official_games": 19,
+          "goalie_name": "Ilya Sorokin",
+          "goalie_games": 13,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.49,
+          "xg_for_60": 2.5626,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 18,
+          "official_games": 18,
+          "goalie_name": "Jet Greaves",
+          "goalie_games": 11,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.48,
+          "xg_for_60": 2.4694,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020337",
+      "home": "PHI",
+      "away": "BUF",
+      "start_utc": "2026-11-18T00:00:00+00:00",
+      "original_shadow_home_win": 0.456,
+      "research": {
+        "ensemble_home": 0.43987,
+        "ensemble_raw_home": 0.43987,
+        "monte_carlo_home": 0.47692,
+        "monte_carlo_total_expected": 2.9025,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.07288,
+        "p_home_puck_line_minus_1_5": 0.18925,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 23,
+          "official_games": 22,
+          "goalie_name": "Dan Vladar",
+          "goalie_games": 12,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.44,
+          "xg_for_60": 2.1591,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 20,
+          "official_games": 20,
+          "goalie_name": "Ukko-Pekka Luukkonen",
+          "goalie_games": 12,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.5,
+          "xg_for_60": 2.5784,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020334",
+      "home": "TBL",
+      "away": "WSH",
+      "start_utc": "2026-11-18T00:30:00+00:00",
+      "original_shadow_home_win": 0.592,
+      "research": {
+        "ensemble_home": 0.52486,
+        "ensemble_raw_home": 0.52486,
+        "monte_carlo_home": 0.54882,
+        "monte_carlo_total_expected": 4.0731,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.22732,
+        "p_home_puck_line_minus_1_5": 0.29484,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 20,
+          "official_games": 20,
+          "goalie_name": "Andrei Vasilevskiy",
+          "goalie_games": 15,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.56,
+          "xg_for_60": 2.9272,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 18,
+          "official_games": 18,
+          "goalie_name": "Logan Thompson",
+          "goalie_games": 13,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.54,
+          "xg_for_60": 3.1035,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020338",
+      "home": "CHI",
+      "away": "TOR",
+      "start_utc": "2026-11-18T00:30:00+00:00",
+      "original_shadow_home_win": 0.481,
+      "research": {
+        "ensemble_home": 0.39358,
+        "ensemble_raw_home": 0.39358,
+        "monte_carlo_home": 0.38844,
+        "monte_carlo_total_expected": 3.0203,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.08512,
+        "p_home_puck_line_minus_1_5": 0.1322,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 20,
+          "official_games": 20,
+          "goalie_name": "Spencer Knight",
+          "goalie_games": 16,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.41,
+          "xg_for_60": 2.0106,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 22,
+          "official_games": 22,
+          "goalie_name": "Sergei Bobrovsky",
+          "goalie_games": 13,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.46,
+          "xg_for_60": 2.1678,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020339",
+      "home": "STL",
+      "away": "ANA",
+      "start_utc": "2026-11-18T01:00:00+00:00",
+      "original_shadow_home_win": 0.683,
+      "research": {
+        "ensemble_home": 0.5114,
+        "ensemble_raw_home": 0.5114,
+        "monte_carlo_home": 0.46578,
+        "monte_carlo_total_expected": 3.5317,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.14432,
+        "p_home_puck_line_minus_1_5": 0.20346,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 20,
+          "official_games": 20,
+          "goalie_name": "Joel Hofer",
+          "goalie_games": 15,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.5,
+          "xg_for_60": 2.5686,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 21,
+          "official_games": 20,
+          "goalie_name": "Lukas Dostal",
+          "goalie_games": 11,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.46,
+          "xg_for_60": 2.4918,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020340",
+      "home": "MIN",
+      "away": "NSH",
+      "start_utc": "2026-11-18T01:00:00+00:00",
+      "original_shadow_home_win": 0.66,
+      "research": {
+        "ensemble_home": 0.57747,
+        "ensemble_raw_home": 0.57747,
+        "monte_carlo_home": 0.5835,
+        "monte_carlo_total_expected": 3.2871,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.11268,
+        "p_home_puck_line_minus_1_5": 0.29367,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 22,
+          "official_games": 22,
+          "goalie_name": "Jesper Wallstedt",
+          "goalie_games": 19,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.52,
+          "xg_for_60": 2.6186,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 21,
+          "official_games": 20,
+          "goalie_name": "Juuse Saros",
+          "goalie_games": 15,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.48,
+          "xg_for_60": 2.5476,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020342",
+      "home": "VGK",
+      "away": "DAL",
+      "start_utc": "2026-11-18T03:00:00+00:00",
+      "original_shadow_home_win": 0.439,
+      "research": {
+        "ensemble_home": 0.51548,
+        "ensemble_raw_home": 0.51548,
+        "monte_carlo_home": 0.54846,
+        "monte_carlo_total_expected": 3.3679,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.12704,
+        "p_home_puck_line_minus_1_5": 0.26389,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 22,
+          "official_games": 21,
+          "goalie_name": "Carter Hart",
+          "goalie_games": 12,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.53,
+          "xg_for_60": 2.6303,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 20,
+          "official_games": 19,
+          "goalie_name": "Jake Oettinger",
+          "goalie_games": 15,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.52,
+          "xg_for_60": 2.3554,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        }
+      },
+      "feature_status": "partial_neutral_inputs_not_original_frontend_parity",
+      "pending_inputs": [
+        "NHL Edge zone/speed",
+        "high-danger chances",
+        "Clairvoyance situational HV",
+        "verified player injuries",
+        "goalie availability/confirmed starter",
+        "recent-game form",
+        "original calibration coefficients",
+        "NHL markets and confirmed bookmaker quotes",
+        "original frontend goals-per-60 calculation",
+        "original frontend xGF5 base rate (xGF/60 proxy used)"
+      ],
+      "injuries_verified": false,
+      "starting_goalies_verified": false,
+      "bookmaker_quotes_available": false,
+      "source_equivalent_predictions": false,
+      "retroactive_prediction": false
+    },
+    {
+      "event_id": "2026020343",
+      "home": "SJS",
+      "away": "CGY",
+      "start_utc": "2026-11-18T03:00:00+00:00",
+      "original_shadow_home_win": 0.569,
+      "research": {
+        "ensemble_home": 0.51462,
+        "ensemble_raw_home": 0.51462,
+        "monte_carlo_home": 0.53558,
+        "monte_carlo_total_expected": 2.884,
+        "total_over_reference_line": 5.5,
+        "probability_over_reference_line": 0.07348,
+        "p_home_puck_line_minus_1_5": 0.23164,
+        "simulation_draws": 25000,
+        "market_blended": false,
+        "calibrated": false,
+        "actionable": false
+      },
+      "observed": {
+        "home": {
+          "games": 23,
+          "official_games": 22,
+          "goalie_name": "Yaroslav Askarov",
+          "goalie_games": 15,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.43,
+          "xg_for_60": 2.2378,
+          "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
+        },
+        "away": {
+          "games": 21,
+          "official_games": 20,
+          "goalie_name": "Dustin Wolf",
+          "goalie_games": 11,
+          "goalie_is_confirmed_starter": false,
+          "xg5_share": 0.46,
+          "xg_for_60": 2.3783,
           "goal_rate_is_per_game_proxy_not_exact_source_gf60": true
         }
       },
