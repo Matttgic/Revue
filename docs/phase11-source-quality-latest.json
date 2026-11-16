@@ -1,6 +1,6 @@
 {
   "version": "revue_phase11_source_quality_v1",
-  "generated_at_utc": "2026-11-16T08:12:19.486450+00:00",
+  "generated_at_utc": "2026-11-16T22:57:21.861941+00:00",
   "status": "input_gates_verified_missing_original_model_sources",
   "sports": {
     "NBA": {
@@ -12,8 +12,8 @@
       "original_sql_parity_proven": false
     },
     "NHL": {
-      "goalie_observations": 2,
-      "both_sides_confirmed_by_ESPN": 0,
+      "goalie_observations": 11,
+      "both_sides_confirmed_by_ESPN": 1,
       "actual_starters_verified": false,
       "missing": [
         "actual_starting_goalies_independently_confirmed",
@@ -47,15 +47,15 @@
   "NHL_espn_observations": {
     "source_report_valid": true,
     "source_age": {
-      "age_hours": 0.27,
+      "age_hours": 0.1,
       "status": "recent",
       "max_age_hours": 12
     },
     "future_nhl_fixtures": 13,
-    "matched_upcoming_fixtures": 2,
-    "goalie_sides_confirmed_by_espn": 0,
-    "goalie_sides_projected_by_espn": 4,
-    "fixtures_with_both_espn_confirmed": 0,
+    "matched_upcoming_fixtures": 11,
+    "goalie_sides_confirmed_by_espn": 4,
+    "goalie_sides_projected_by_espn": 18,
+    "fixtures_with_both_espn_confirmed": 1,
     "actual_game_starts_independently_verified": 0,
     "used_in_prediction": false,
     "fixtures": [
@@ -64,16 +64,16 @@
         "event_id": "2026020331",
         "home": "NYR",
         "away": "MTL",
-        "source_observed_utc": "2026-11-16T07:56:03.113906+00:00",
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
         "home_goalie": {
           "name": "Joonas Korpisalo",
-          "status": "projected"
+          "status": "confirmed"
         },
         "away_goalie": {
           "name": "Jacob Fowler",
-          "status": "projected"
+          "status": "confirmed"
         },
-        "both_reported_confirmed": false,
+        "both_reported_confirmed": true,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
         "note": "ESPN status is observed provider wording, not a guarantee of actual starting lineup."
@@ -83,13 +83,13 @@
         "event_id": "2026020332",
         "home": "UTA",
         "away": "VAN",
-        "source_observed_utc": "2026-11-16T07:56:03.113906+00:00",
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
         "home_goalie": {
           "name": "Karel Vejmelka",
-          "status": "projected"
+          "status": "confirmed"
         },
         "away_goalie": {
-          "name": "Kevin Lankinen",
+          "name": "Nikita Tolopilo",
           "status": "projected"
         },
         "both_reported_confirmed": false,
@@ -102,9 +102,15 @@
         "event_id": "2026020333",
         "home": "BOS",
         "away": "LAK",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Jeremy Swayman",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Darcy Kuemper",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -128,9 +134,15 @@
         "event_id": "2026020336",
         "home": "NYI",
         "away": "CBJ",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Ilya Sorokin",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Jet Greaves",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -141,9 +153,15 @@
         "event_id": "2026020337",
         "home": "PHI",
         "away": "BUF",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Dan Vladar",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Alex Lyon",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -167,9 +185,15 @@
         "event_id": "2026020334",
         "home": "TBL",
         "away": "WSH",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Andrei Vasilevskiy",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Logan Thompson",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -180,9 +204,15 @@
         "event_id": "2026020338",
         "home": "CHI",
         "away": "TOR",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Spencer Knight",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Sergei Bobrovsky",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -193,9 +223,15 @@
         "event_id": "2026020339",
         "home": "STL",
         "away": "ANA",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Joel Hofer",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Lukas Dostal",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -206,9 +242,15 @@
         "event_id": "2026020340",
         "home": "MIN",
         "away": "NSH",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Jesper Wallstedt",
+          "status": "confirmed"
+        },
+        "away_goalie": {
+          "name": "Juuse Saros",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -219,9 +261,15 @@
         "event_id": "2026020342",
         "home": "VGK",
         "away": "DAL",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Adin Hill",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Jake Oettinger",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -232,9 +280,15 @@
         "event_id": "2026020343",
         "home": "SJS",
         "away": "CGY",
-        "source_observed_utc": null,
-        "home_goalie": null,
-        "away_goalie": null,
+        "source_observed_utc": "2026-11-16T22:51:32.426225+00:00",
+        "home_goalie": {
+          "name": "Yaroslav Askarov",
+          "status": "projected"
+        },
+        "away_goalie": {
+          "name": "Dustin Wolf",
+          "status": "projected"
+        },
         "both_reported_confirmed": false,
         "source_ready_for_lineup_dependent_models": false,
         "probabilities_modified": false,
@@ -370,32 +424,32 @@
   },
   "freshness": {
     "goalies": {
-      "age_hours": 0.27,
+      "age_hours": 0.1,
       "status": "recent",
       "max_age_hours": 12
     },
     "nba": {
-      "age_hours": 17.28,
+      "age_hours": 5.63,
       "status": "recent",
       "max_age_hours": 48
     },
     "mlb": {
-      "age_hours": 132.17,
+      "age_hours": 146.93,
       "status": "stale",
       "max_age_hours": 48
     },
     "football": {
-      "age_hours": 0.75,
+      "age_hours": 1.76,
       "status": "recent",
       "max_age_hours": 48
     },
     "center": {
-      "age_hours": 1.86,
+      "age_hours": 0.38,
       "status": "recent",
       "max_age_hours": 12
     },
     "picks": {
-      "age_hours": 1.78,
+      "age_hours": 0.38,
       "status": "recent",
       "max_age_hours": 24
     }
