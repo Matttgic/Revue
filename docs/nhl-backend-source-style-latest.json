@@ -1,6 +1,6 @@
 {
   "version": "revue_nhl_backend_source_style_v1",
-  "generated_at_utc": "2026-11-09T23:25:04.766165+00:00",
+  "generated_at_utc": "2026-11-16T23:22:10.940153+00:00",
   "status": "backend_style_input_scenario_not_original_model_parity",
   "source_code_predictor_formula_reused_in_revue": true,
   "source_public_config_defaults": {
@@ -18,48 +18,169 @@
   "odds_collected": false,
   "frozen_ledger_unchanged": true,
   "input_observed_utc": {
-    "money_puck_observed": "2026-11-09T16:48:41.998958+00:00",
-    "money_puck_source_updated": "2026-11-09T11:37:33+00:00",
-    "nhl_goalies_observed": "2026-11-09T18:55:33.439864+00:00",
-    "shadow_generated": "2026-11-09T17:33:39.844830+00:00"
+    "money_puck_observed": "2026-11-16T16:20:21.799056+00:00",
+    "money_puck_source_updated": "2026-11-16T11:39:58+00:00",
+    "nhl_goalies_observed": "2026-11-16T18:40:51.411969+00:00",
+    "shadow_generated": "2026-11-16T17:04:14.166824+00:00"
   },
-  "shadow_games": 10,
-  "future_matched_games": 10,
-  "complete_goalie_comparisons": 8,
-  "mean_abs_raw_fraction_vs_frozen_pp": 1.09,
+  "shadow_games": 13,
+  "future_matched_games": 13,
+  "complete_goalie_comparisons": 11,
+  "mean_abs_raw_fraction_vs_frozen_pp": 1.3,
   "skipped": {
     "ambiguous_or_missing_official_goalie": 2
   },
   "games": [
     {
-      "event_id": "2026020283",
-      "home": "EDM",
-      "away": "NYR",
-      "kickoff_utc": "2026-11-10T01:00:00+00:00",
+      "event_id": "2026020331",
+      "home": "NYR",
+      "away": "MTL",
+      "kickoff_utc": "2026-11-17T00:30:00+00:00",
       "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1533.27,
-      "away_elo_revue_proxy": 1486.44,
-      "frozen_revue_home_probability": 0.576,
+      "home_elo_revue_proxy": 1495.08,
+      "away_elo_revue_proxy": 1565.44,
+      "frozen_revue_home_probability": 0.409,
       "moneypuck_situation_5on5_share": {
-        "home": 0.49,
-        "away": 0.52
+        "home": 0.53,
+        "away": 0.51
       },
       "moneypuck_situation_all_raw_share": {
-        "home": 0.53,
-        "away": 0.52
+        "home": 0.54,
+        "away": 0.48
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 15,
+          "save_pct": 0.91011,
+          "name": "Dylan Garand",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "unique_most_games",
+          "games": 12,
+          "save_pct": 0.92592,
+          "name": "Jacob Fowler",
+          "confirmed_tonight": false
+        }
+      },
+      "raw_fraction_home_probability": 0.404,
+      "percentage_point_home_probability": 0.421,
+      "raw_fraction_vs_frozen_pp": -0.5,
+      "percentage_point_vs_frozen_pp": 1.2,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020332",
+      "home": "UTA",
+      "away": "VAN",
+      "kickoff_utc": "2026-11-17T02:30:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1491.61,
+      "away_elo_revue_proxy": 1340.7,
+      "frozen_revue_home_probability": 0.748,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.57,
+        "away": 0.4
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.54,
+        "away": 0.4
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 15,
+          "save_pct": 0.87209,
+          "name": "Karel Vejmelka",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "unique_most_games",
+          "games": 16,
+          "save_pct": 0.88741,
+          "name": "Leevi Merilainen",
+          "confirmed_tonight": false
+        }
+      },
+      "raw_fraction_home_probability": 0.703,
+      "percentage_point_home_probability": 0.745,
+      "raw_fraction_vs_frozen_pp": -4.5,
+      "percentage_point_vs_frozen_pp": -0.3,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020333",
+      "home": "BOS",
+      "away": "LAK",
+      "kickoff_utc": "2026-11-18T00:00:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1553.02,
+      "away_elo_revue_proxy": 1417.47,
+      "frozen_revue_home_probability": 0.79,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.54,
+        "away": 0.51
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.51,
+        "away": 0.51
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 15,
+          "save_pct": 0.9057,
+          "name": "Jeremy Swayman",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "unique_most_games",
+          "games": 11,
+          "save_pct": 0.87285,
+          "name": "Darcy Kuemper",
+          "confirmed_tonight": false
+        }
+      },
+      "raw_fraction_home_probability": 0.782,
+      "percentage_point_home_probability": 0.782,
+      "raw_fraction_vs_frozen_pp": -0.8,
+      "percentage_point_vs_frozen_pp": -0.8,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020335",
+      "home": "FLA",
+      "away": "EDM",
+      "kickoff_utc": "2026-11-18T00:00:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1510.35,
+      "away_elo_revue_proxy": 1560.6,
+      "frozen_revue_home_probability": 0.426,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.5,
+        "away": 0.47
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.52,
+        "away": 0.5
       },
       "official_goalies": {
         "home": {
           "status": "tie_or_zero",
-          "games": 8,
+          "games": 11,
           "save_pct": null
         },
         "away": {
-          "status": "unique_most_games",
-          "games": 13,
-          "save_pct": 0.90614,
-          "name": "Dylan Garand",
-          "confirmed_tonight": false
+          "status": "tie_or_zero",
+          "games": 10,
+          "save_pct": null
         }
       },
       "raw_fraction_home_probability": null,
@@ -71,58 +192,179 @@
       "actual_original_best_bet_reproduced": false
     },
     {
-      "event_id": "2026020284",
-      "home": "VAN",
-      "away": "PHI",
-      "kickoff_utc": "2026-11-10T02:30:00+00:00",
+      "event_id": "2026020336",
+      "home": "NYI",
+      "away": "CBJ",
+      "kickoff_utc": "2026-11-18T00:00:00+00:00",
       "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1339.44,
-      "away_elo_revue_proxy": 1451.47,
-      "frozen_revue_home_probability": 0.394,
+      "home_elo_revue_proxy": 1489.37,
+      "away_elo_revue_proxy": 1466.14,
+      "frozen_revue_home_probability": 0.652,
       "moneypuck_situation_5on5_share": {
-        "home": 0.4,
-        "away": 0.41
+        "home": 0.49,
+        "away": 0.48
       },
       "moneypuck_situation_all_raw_share": {
-        "home": 0.39,
-        "away": 0.43
+        "home": 0.46,
+        "away": 0.46
       },
       "official_goalies": {
         "home": {
           "status": "unique_most_games",
           "games": 13,
-          "save_pct": 0.88918,
-          "name": "Leevi Merilainen",
+          "save_pct": 0.91538,
+          "name": "Ilya Sorokin",
           "confirmed_tonight": false
         },
         "away": {
           "status": "unique_most_games",
-          "games": 10,
-          "save_pct": 0.87956,
-          "name": "Dan Vladar",
+          "games": 11,
+          "save_pct": 0.87547,
+          "name": "Jet Greaves",
           "confirmed_tonight": false
         }
       },
-      "raw_fraction_home_probability": 0.396,
-      "percentage_point_home_probability": 0.385,
-      "raw_fraction_vs_frozen_pp": 0.2,
-      "percentage_point_vs_frozen_pp": -0.9,
+      "raw_fraction_home_probability": 0.649,
+      "percentage_point_home_probability": 0.649,
+      "raw_fraction_vs_frozen_pp": -0.3,
+      "percentage_point_vs_frozen_pp": -0.3,
       "frozen_prediction_overwritten": false,
       "original_sql_elo_and_raw_xg_verified": false,
       "actual_original_best_bet_reproduced": false
     },
     {
-      "event_id": "2026020285",
-      "home": "SJS",
-      "away": "NYI",
-      "kickoff_utc": "2026-11-10T03:00:00+00:00",
+      "event_id": "2026020337",
+      "home": "PHI",
+      "away": "BUF",
+      "kickoff_utc": "2026-11-18T00:00:00+00:00",
       "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1447.61,
-      "away_elo_revue_proxy": 1478.93,
-      "frozen_revue_home_probability": 0.425,
+      "home_elo_revue_proxy": 1455.36,
+      "away_elo_revue_proxy": 1508.6,
+      "frozen_revue_home_probability": 0.456,
       "moneypuck_situation_5on5_share": {
-        "home": 0.43,
+        "home": 0.44,
+        "away": 0.5
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.46,
         "away": 0.49
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 12,
+          "save_pct": 0.87697,
+          "name": "Dan Vladar",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "unique_most_games",
+          "games": 12,
+          "save_pct": 0.8671,
+          "name": "Ukko-Pekka Luukkonen",
+          "confirmed_tonight": false
+        }
+      },
+      "raw_fraction_home_probability": 0.479,
+      "percentage_point_home_probability": 0.47,
+      "raw_fraction_vs_frozen_pp": 2.3,
+      "percentage_point_vs_frozen_pp": 1.4,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020341",
+      "home": "WPG",
+      "away": "OTT",
+      "kickoff_utc": "2026-11-18T00:00:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1488.8,
+      "away_elo_revue_proxy": 1554.17,
+      "frozen_revue_home_probability": 0.31,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.48,
+        "away": 0.53
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.5,
+        "away": 0.52
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 15,
+          "save_pct": 0.8802,
+          "name": "Stuart Skinner",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "tie_or_zero",
+          "games": 10,
+          "save_pct": null
+        }
+      },
+      "raw_fraction_home_probability": null,
+      "percentage_point_home_probability": null,
+      "raw_fraction_vs_frozen_pp": null,
+      "percentage_point_vs_frozen_pp": null,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020334",
+      "home": "TBL",
+      "away": "WSH",
+      "kickoff_utc": "2026-11-18T00:30:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1565.88,
+      "away_elo_revue_proxy": 1531.98,
+      "frozen_revue_home_probability": 0.592,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.56,
+        "away": 0.54
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.55,
+        "away": 0.49
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 15,
+          "save_pct": 0.88858,
+          "name": "Andrei Vasilevskiy",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "unique_most_games",
+          "games": 13,
+          "save_pct": 0.88825,
+          "name": "Logan Thompson",
+          "confirmed_tonight": false
+        }
+      },
+      "raw_fraction_home_probability": 0.585,
+      "percentage_point_home_probability": 0.603,
+      "raw_fraction_vs_frozen_pp": -0.7,
+      "percentage_point_vs_frozen_pp": 1.1,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020338",
+      "home": "CHI",
+      "away": "TOR",
+      "kickoff_utc": "2026-11-18T00:30:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1386.26,
+      "away_elo_revue_proxy": 1415.17,
+      "frozen_revue_home_probability": 0.481,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.41,
+        "away": 0.46
       },
       "moneypuck_situation_all_raw_share": {
         "home": 0.42,
@@ -131,308 +373,187 @@
       "official_goalies": {
         "home": {
           "status": "unique_most_games",
-          "games": 12,
-          "save_pct": 0.88472,
-          "name": "Yaroslav Askarov",
+          "games": 16,
+          "save_pct": 0.88222,
+          "name": "Spencer Knight",
           "confirmed_tonight": false
         },
         "away": {
           "status": "unique_most_games",
-          "games": 11,
-          "save_pct": 0.90965,
-          "name": "Ilya Sorokin",
-          "confirmed_tonight": false
-        }
-      },
-      "raw_fraction_home_probability": 0.441,
-      "percentage_point_home_probability": 0.429,
-      "raw_fraction_vs_frozen_pp": 1.6,
-      "percentage_point_vs_frozen_pp": 0.4,
-      "frozen_prediction_overwritten": false,
-      "original_sql_elo_and_raw_xg_verified": false,
-      "actual_original_best_bet_reproduced": false
-    },
-    {
-      "event_id": "2026020286",
-      "home": "TOR",
-      "away": "COL",
-      "kickoff_utc": "2026-11-11T00:00:00+00:00",
-      "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1435.38,
-      "away_elo_revue_proxy": 1546.12,
-      "frozen_revue_home_probability": 0.329,
-      "moneypuck_situation_5on5_share": {
-        "home": 0.46,
-        "away": 0.53
-      },
-      "moneypuck_situation_all_raw_share": {
-        "home": 0.47,
-        "away": 0.55
-      },
-      "official_goalies": {
-        "home": {
-          "status": "unique_most_games",
-          "games": 12,
-          "save_pct": 0.88636,
+          "games": 13,
+          "save_pct": 0.88126,
           "name": "Sergei Bobrovsky",
           "confirmed_tonight": false
-        },
-        "away": {
-          "status": "unique_most_games",
-          "games": 14,
-          "save_pct": 0.90084,
-          "name": "Mackenzie Blackwood",
-          "confirmed_tonight": false
         }
       },
-      "raw_fraction_home_probability": 0.35,
-      "percentage_point_home_probability": 0.326,
-      "raw_fraction_vs_frozen_pp": 2.1,
-      "percentage_point_vs_frozen_pp": -0.3,
+      "raw_fraction_home_probability": 0.496,
+      "percentage_point_home_probability": 0.484,
+      "raw_fraction_vs_frozen_pp": 1.5,
+      "percentage_point_vs_frozen_pp": 0.3,
       "frozen_prediction_overwritten": false,
       "original_sql_elo_and_raw_xg_verified": false,
       "actual_original_best_bet_reproduced": false
     },
     {
-      "event_id": "2026020287",
-      "home": "MTL",
-      "away": "MIN",
-      "kickoff_utc": "2026-11-11T00:00:00+00:00",
+      "event_id": "2026020339",
+      "home": "STL",
+      "away": "ANA",
+      "kickoff_utc": "2026-11-18T01:00:00+00:00",
       "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1576.49,
-      "away_elo_revue_proxy": 1555.97,
-      "frozen_revue_home_probability": 0.569,
+      "home_elo_revue_proxy": 1496.47,
+      "away_elo_revue_proxy": 1493.14,
+      "frozen_revue_home_probability": 0.683,
       "moneypuck_situation_5on5_share": {
-        "home": 0.52,
-        "away": 0.53
+        "home": 0.5,
+        "away": 0.46
       },
       "moneypuck_situation_all_raw_share": {
         "home": 0.49,
-        "away": 0.57
+        "away": 0.49
       },
       "official_goalies": {
         "home": {
           "status": "unique_most_games",
-          "games": 10,
-          "save_pct": 0.92542,
-          "name": "Jacob Fowler",
-          "confirmed_tonight": false
-        },
-        "away": {
-          "status": "unique_most_games",
-          "games": 16,
-          "save_pct": 0.92214,
-          "name": "Jesper Wallstedt",
-          "confirmed_tonight": false
-        }
-      },
-      "raw_fraction_home_probability": 0.571,
-      "percentage_point_home_probability": 0.548,
-      "raw_fraction_vs_frozen_pp": 0.2,
-      "percentage_point_vs_frozen_pp": -2.1,
-      "frozen_prediction_overwritten": false,
-      "original_sql_elo_and_raw_xg_verified": false,
-      "actual_original_best_bet_reproduced": false
-    },
-    {
-      "event_id": "2026020288",
-      "home": "OTT",
-      "away": "WSH",
-      "kickoff_utc": "2026-11-11T00:00:00+00:00",
-      "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1547.82,
-      "away_elo_revue_proxy": 1539.17,
-      "frozen_revue_home_probability": 0.546,
-      "moneypuck_situation_5on5_share": {
-        "home": 0.53,
-        "away": 0.54
-      },
-      "moneypuck_situation_all_raw_share": {
-        "home": 0.52,
-        "away": 0.5
-      },
-      "official_goalies": {
-        "home": {
-          "status": "unique_most_games",
-          "games": 9,
-          "save_pct": 0.89,
-          "name": "Samuel Ersson",
-          "confirmed_tonight": false
-        },
-        "away": {
-          "status": "unique_most_games",
-          "games": 11,
-          "save_pct": 0.88775,
-          "name": "Logan Thompson",
-          "confirmed_tonight": false
-        }
-      },
-      "raw_fraction_home_probability": 0.553,
-      "percentage_point_home_probability": 0.559,
-      "raw_fraction_vs_frozen_pp": 0.7,
-      "percentage_point_vs_frozen_pp": 1.3,
-      "frozen_prediction_overwritten": false,
-      "original_sql_elo_and_raw_xg_verified": false,
-      "actual_original_best_bet_reproduced": false
-    },
-    {
-      "event_id": "2026020291",
-      "home": "WPG",
-      "away": "NJD",
-      "kickoff_utc": "2026-11-11T00:00:00+00:00",
-      "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1458.22,
-      "away_elo_revue_proxy": 1565.41,
-      "frozen_revue_home_probability": 0.362,
-      "moneypuck_situation_5on5_share": {
-        "home": 0.48,
-        "away": 0.57
-      },
-      "moneypuck_situation_all_raw_share": {
-        "home": 0.48,
-        "away": 0.59
-      },
-      "official_goalies": {
-        "home": {
-          "status": "unique_most_games",
-          "games": 13,
-          "save_pct": 0.88338,
-          "name": "Stuart Skinner",
-          "confirmed_tonight": false
-        },
-        "away": {
-          "status": "unique_most_games",
-          "games": 9,
-          "save_pct": 0.88114,
-          "name": "Jake Allen",
-          "confirmed_tonight": false
-        }
-      },
-      "raw_fraction_home_probability": 0.388,
-      "percentage_point_home_probability": 0.355,
-      "raw_fraction_vs_frozen_pp": 2.6,
-      "percentage_point_vs_frozen_pp": -0.7,
-      "frozen_prediction_overwritten": false,
-      "original_sql_elo_and_raw_xg_verified": false,
-      "actual_original_best_bet_reproduced": false
-    },
-    {
-      "event_id": "2026020289",
-      "home": "CBJ",
-      "away": "FLA",
-      "kickoff_utc": "2026-11-11T00:30:00+00:00",
-      "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1494.31,
-      "away_elo_revue_proxy": 1491.03,
-      "frozen_revue_home_probability": 0.519,
-      "moneypuck_situation_5on5_share": {
-        "home": 0.48,
-        "away": 0.51
-      },
-      "moneypuck_situation_all_raw_share": {
-        "home": 0.46,
-        "away": 0.53
-      },
-      "official_goalies": {
-        "home": {
-          "status": "unique_most_games",
-          "games": 9,
-          "save_pct": 0.87962,
-          "name": "Jet Greaves",
-          "confirmed_tonight": false
-        },
-        "away": {
-          "status": "tie_or_zero",
-          "games": 9,
-          "save_pct": null
-        }
-      },
-      "raw_fraction_home_probability": null,
-      "percentage_point_home_probability": null,
-      "raw_fraction_vs_frozen_pp": null,
-      "percentage_point_vs_frozen_pp": null,
-      "frozen_prediction_overwritten": false,
-      "original_sql_elo_and_raw_xg_verified": false,
-      "actual_original_best_bet_reproduced": false
-    },
-    {
-      "event_id": "2026020290",
-      "home": "STL",
-      "away": "DET",
-      "kickoff_utc": "2026-11-11T01:00:00+00:00",
-      "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1488.87,
-      "away_elo_revue_proxy": 1450.47,
-      "frozen_revue_home_probability": 0.7,
-      "moneypuck_situation_5on5_share": {
-        "home": 0.5,
-        "away": 0.53
-      },
-      "moneypuck_situation_all_raw_share": {
-        "home": 0.48,
-        "away": 0.51
-      },
-      "official_goalies": {
-        "home": {
-          "status": "unique_most_games",
-          "games": 12,
-          "save_pct": 0.9186,
+          "games": 15,
+          "save_pct": 0.92129,
           "name": "Joel Hofer",
           "confirmed_tonight": false
         },
         "away": {
           "status": "unique_most_games",
           "games": 11,
-          "save_pct": 0.85957,
-          "name": "John Gibson",
+          "save_pct": 0.85611,
+          "name": "Lukas Dostal",
           "confirmed_tonight": false
         }
       },
-      "raw_fraction_home_probability": 0.708,
-      "percentage_point_home_probability": 0.699,
-      "raw_fraction_vs_frozen_pp": 0.8,
-      "percentage_point_vs_frozen_pp": -0.1,
+      "raw_fraction_home_probability": 0.671,
+      "percentage_point_home_probability": 0.671,
+      "raw_fraction_vs_frozen_pp": -1.2,
+      "percentage_point_vs_frozen_pp": -1.2,
       "frozen_prediction_overwritten": false,
       "original_sql_elo_and_raw_xg_verified": false,
       "actual_original_best_bet_reproduced": false
     },
     {
-      "event_id": "2026020292",
-      "home": "LAK",
+      "event_id": "2026020340",
+      "home": "MIN",
       "away": "NSH",
-      "kickoff_utc": "2026-11-11T03:00:00+00:00",
+      "kickoff_utc": "2026-11-18T01:00:00+00:00",
       "source_observed_by_frozen_model_time": false,
-      "home_elo_revue_proxy": 1444.15,
-      "away_elo_revue_proxy": 1496.09,
-      "frozen_revue_home_probability": 0.4,
+      "home_elo_revue_proxy": 1582.45,
+      "away_elo_revue_proxy": 1515.18,
+      "frozen_revue_home_probability": 0.66,
       "moneypuck_situation_5on5_share": {
-        "home": 0.5,
+        "home": 0.52,
         "away": 0.48
       },
       "moneypuck_situation_all_raw_share": {
-        "home": 0.51,
+        "home": 0.56,
         "away": 0.5
       },
       "official_goalies": {
         "home": {
           "status": "unique_most_games",
-          "games": 10,
-          "save_pct": 0.87822,
-          "name": "Darcy Kuemper",
+          "games": 19,
+          "save_pct": 0.926,
+          "name": "Jesper Wallstedt",
           "confirmed_tonight": false
         },
         "away": {
           "status": "unique_most_games",
-          "games": 12,
-          "save_pct": 0.91135,
+          "games": 15,
+          "save_pct": 0.91684,
           "name": "Juuse Saros",
           "confirmed_tonight": false
         }
       },
-      "raw_fraction_home_probability": 0.395,
-      "percentage_point_home_probability": 0.398,
-      "raw_fraction_vs_frozen_pp": -0.5,
-      "percentage_point_vs_frozen_pp": -0.2,
+      "raw_fraction_home_probability": 0.648,
+      "percentage_point_home_probability": 0.666,
+      "raw_fraction_vs_frozen_pp": -1.2,
+      "percentage_point_vs_frozen_pp": 0.6,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020342",
+      "home": "VGK",
+      "away": "DAL",
+      "kickoff_utc": "2026-11-18T03:00:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1510.18,
+      "away_elo_revue_proxy": 1560.37,
+      "frozen_revue_home_probability": 0.439,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.53,
+        "away": 0.52
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.55,
+        "away": 0.53
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 12,
+          "save_pct": 0.88775,
+          "name": "Carter Hart",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "unique_most_games",
+          "games": 15,
+          "save_pct": 0.90184,
+          "name": "Jake Oettinger",
+          "confirmed_tonight": false
+        }
+      },
+      "raw_fraction_home_probability": 0.436,
+      "percentage_point_home_probability": 0.442,
+      "raw_fraction_vs_frozen_pp": -0.3,
+      "percentage_point_vs_frozen_pp": 0.3,
+      "frozen_prediction_overwritten": false,
+      "original_sql_elo_and_raw_xg_verified": false,
+      "actual_original_best_bet_reproduced": false
+    },
+    {
+      "event_id": "2026020343",
+      "home": "SJS",
+      "away": "CGY",
+      "kickoff_utc": "2026-11-18T03:00:00+00:00",
+      "source_observed_by_frozen_model_time": false,
+      "home_elo_revue_proxy": 1467.88,
+      "away_elo_revue_proxy": 1458.89,
+      "frozen_revue_home_probability": 0.569,
+      "moneypuck_situation_5on5_share": {
+        "home": 0.43,
+        "away": 0.46
+      },
+      "moneypuck_situation_all_raw_share": {
+        "home": 0.44,
+        "away": 0.45
+      },
+      "official_goalies": {
+        "home": {
+          "status": "unique_most_games",
+          "games": 15,
+          "save_pct": 0.89038,
+          "name": "Yaroslav Askarov",
+          "confirmed_tonight": false
+        },
+        "away": {
+          "status": "unique_most_games",
+          "games": 11,
+          "save_pct": 0.8754,
+          "name": "Dustin Wolf",
+          "confirmed_tonight": false
+        }
+      },
+      "raw_fraction_home_probability": 0.579,
+      "percentage_point_home_probability": 0.576,
+      "raw_fraction_vs_frozen_pp": 1.0,
+      "percentage_point_vs_frozen_pp": 0.7,
       "frozen_prediction_overwritten": false,
       "original_sql_elo_and_raw_xg_verified": false,
       "actual_original_best_bet_reproduced": false
