@@ -1,45 +1,10 @@
 {
-  "generated_at_utc": "2026-11-16T18:27:25.755362+00:00",
+  "generated_at_utc": "2026-11-16T20:58:20.556668+00:00",
   "date_paris": "2026-11-16",
   "days": 3,
   "status": "prototype_non_calibre",
   "disclaimer": "Probabilités de recherche non calibrées. Sans cotes françaises ni EV. Aucun conseil de pari.",
   "competitions": {
-    "WNBA": {
-      "name": "WNBA",
-      "sport": "Basket",
-      "model": "points",
-      "status": "ok",
-      "games": []
-    },
-    "NFL": {
-      "name": "NFL",
-      "sport": "Football américain",
-      "model": "points",
-      "status": "ok",
-      "games": [
-        {
-          "event_id": "401873065",
-          "home": "Ravens",
-          "away": "Chargers",
-          "start_utc": "2026-11-17T01:15:00+00:00",
-          "status": "prototype_non_calibre",
-          "probabilities": {
-            "home_win": 0.6372,
-            "away_win": 0.3628
-          },
-          "expected_score": {
-            "home": 22.7,
-            "away": 20.9
-          },
-          "odds": null,
-          "training_games": {
-            "home": 8,
-            "away": 7
-          }
-        }
-      ]
-    },
     "NCAAB": {
       "name": "NCAA Basketball",
       "sport": "Basket",
@@ -223,34 +188,6 @@
           "odds": null
         }
       ]
-    },
-    "PL": {
-      "name": "Premier League",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
-    },
-    "MLB": {
-      "name": "MLB",
-      "sport": "Baseball",
-      "model": "runs",
-      "status": "ok",
-      "games": []
-    },
-    "BUNDESLIGA": {
-      "name": "Bundesliga",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
-    },
-    "LALIGA": {
-      "name": "La Liga",
-      "sport": "Football",
-      "model": "soccer",
-      "status": "ok",
-      "games": []
     },
     "NBA": {
       "name": "NBA",
@@ -520,8 +457,64 @@
         }
       ]
     },
-    "SERIEA": {
-      "name": "Serie A",
+    "WNBA": {
+      "name": "WNBA",
+      "sport": "Basket",
+      "model": "points",
+      "status": "ok",
+      "games": []
+    },
+    "NFL": {
+      "name": "NFL",
+      "sport": "Football américain",
+      "model": "points",
+      "status": "ok",
+      "games": [
+        {
+          "event_id": "401873065",
+          "home": "Ravens",
+          "away": "Chargers",
+          "start_utc": "2026-11-17T01:15:00+00:00",
+          "status": "prototype_non_calibre",
+          "probabilities": {
+            "home_win": 0.6372,
+            "away_win": 0.3628
+          },
+          "expected_score": {
+            "home": 22.7,
+            "away": 20.9
+          },
+          "odds": null,
+          "training_games": {
+            "home": 8,
+            "away": 7
+          }
+        }
+      ]
+    },
+    "LALIGA": {
+      "name": "La Liga",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
+    "PL": {
+      "name": "Premier League",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
+    "MLB": {
+      "name": "MLB",
+      "sport": "Baseball",
+      "model": "runs",
+      "status": "ok",
+      "games": []
+    },
+    "BUNDESLIGA": {
+      "name": "Bundesliga",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -534,8 +527,8 @@
       "status": "ok",
       "games": []
     },
-    "UCL": {
-      "name": "Ligue des champions",
+    "SERIEA": {
+      "name": "Serie A",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -543,6 +536,13 @@
     },
     "MLS": {
       "name": "MLS",
+      "sport": "Football",
+      "model": "soccer",
+      "status": "ok",
+      "games": []
+    },
+    "UCL": {
+      "name": "Ligue des champions",
       "sport": "Football",
       "model": "soccer",
       "status": "ok",
@@ -1064,6 +1064,28 @@
     "fixtures": 46,
     "predicted": 34,
     "league_feed_diagnostics": {
+      "NCAAB": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 40,
+        "cache_hits": 33,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 147,
+        "range_min": "2026-11-01",
+        "range_max": "2026-11-21"
+      },
+      "NBA": {
+        "status": "ok",
+        "requests_ok": 7,
+        "requests_total": 35,
+        "cache_hits": 28,
+        "requests_failed": 0,
+        "errors": [],
+        "events": 249,
+        "range_min": "2026-10-16",
+        "range_max": "2026-11-21"
+      },
       "WNBA": {
         "status": "ok",
         "requests_ok": 7,
@@ -1086,16 +1108,16 @@
         "range_min": "2026-09-18",
         "range_max": "2026-11-20"
       },
-      "NCAAB": {
+      "LALIGA": {
         "status": "ok",
         "requests_ok": 7,
-        "requests_total": 40,
-        "cache_hits": 33,
+        "requests_total": 60,
+        "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 146,
-        "range_min": "2026-11-01",
-        "range_max": "2026-11-21"
+        "events": 52,
+        "range_min": "2026-10-09",
+        "range_max": "2026-11-20"
       },
       "PL": {
         "status": "ok",
@@ -1130,27 +1152,16 @@
         "range_min": "2026-10-09",
         "range_max": "2026-11-20"
       },
-      "LALIGA": {
+      "LIGUE1": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
         "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 52,
+        "events": 46,
         "range_min": "2026-10-09",
         "range_max": "2026-11-20"
-      },
-      "NBA": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 35,
-        "cache_hits": 28,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 249,
-        "range_min": "2026-10-16",
-        "range_max": "2026-11-21"
       },
       "SERIEA": {
         "status": "ok",
@@ -1163,15 +1174,15 @@
         "range_min": "2026-10-10",
         "range_max": "2026-11-08"
       },
-      "LIGUE1": {
+      "MLS": {
         "status": "ok",
         "requests_ok": 7,
         "requests_total": 60,
         "cache_hits": 53,
         "requests_failed": 0,
         "errors": [],
-        "events": 46,
-        "range_min": "2026-10-09",
+        "events": 126,
+        "range_min": "2026-09-21",
         "range_max": "2026-11-20"
       },
       "UCL": {
@@ -1184,17 +1195,6 @@
         "events": 72,
         "range_min": "2026-09-08",
         "range_max": "2026-11-04"
-      },
-      "MLS": {
-        "status": "ok",
-        "requests_ok": 7,
-        "requests_total": 60,
-        "cache_hits": 53,
-        "requests_failed": 0,
-        "errors": [],
-        "events": 126,
-        "range_min": "2026-09-21",
-        "range_max": "2026-11-20"
       },
       "NHL": {
         "status": "ok",
