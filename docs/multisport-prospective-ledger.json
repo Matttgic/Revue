@@ -18201,7 +18201,7 @@
       "away": "76ers",
       "kickoff_utc": "2026-11-17T00:30:00+00:00",
       "locked_at_utc": "2026-11-15T01:45:55.989894+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_ensemble_mc_bayes_elo": {
           "p_home": 0.43905,
@@ -18212,11 +18212,20 @@
           "source_generated_utc": "2026-11-15T00:53:57.033217+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 0,
+      "score": {
+        "home": 123,
+        "away": 135
+      },
+      "resolved_at_utc": "2026-11-17T03:42:19.257282+00:00",
+      "brier_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.192765,
+        "revue_multisports_score_model": 0.180625
+      },
+      "logloss_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.578124,
+        "revue_multisports_score_model": 0.553385
+      },
       "real_bet": false,
       "staked_units": 0
     },
@@ -18264,18 +18273,25 @@
       "away": "MTL",
       "kickoff_utc": "2026-11-17T00:30:00+00:00",
       "locked_at_utc": "2026-11-15T01:45:55.989894+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_multisports_score_model": {
           "p_home": 0.4664,
           "source_generated_utc": "2026-11-15T00:53:57.033217+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 1,
+      "score": {
+        "home": 3,
+        "away": 1
+      },
+      "resolved_at_utc": "2026-11-17T03:42:19.257282+00:00",
+      "brier_by_model": {
+        "revue_multisports_score_model": 0.284729
+      },
+      "logloss_by_model": {
+        "revue_multisports_score_model": 0.762712
+      },
       "real_bet": false,
       "staked_units": 0
     },
