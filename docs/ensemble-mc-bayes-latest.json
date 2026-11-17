@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-17T02:28:17.180318+00:00",
+  "generated_at_utc": "2026-11-17T05:12:27.537365+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -732,23 +732,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 100,
+        "n": 108,
         "scores": {
           "baseline": {
-            "brier_binary": 0.21738,
-            "logloss_binary": 0.62648
+            "brier_binary": 0.22173,
+            "logloss_binary": 0.63568
           },
           "previous_shadow": {
-            "brier_binary": 0.2179,
-            "logloss_binary": 0.62788
+            "brier_binary": 0.2222,
+            "logloss_binary": 0.63683
           },
           "ensemble": {
-            "brier_binary": 0.21679,
-            "logloss_binary": 0.62563
+            "brier_binary": 0.2207,
+            "logloss_binary": 0.63364
           }
         },
-        "delta_brier_vs_baseline": -0.00059,
-        "delta_brier_vs_previous_shadow": -0.00111,
+        "delta_brier_vs_baseline": -0.00103,
+        "delta_brier_vs_previous_shadow": -0.0015,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -778,21 +778,6 @@
     },
     "NCAAB": {
       "games": [
-        {
-          "event_id": "401924265",
-          "league": "NCAAB",
-          "home": "UCLA",
-          "away": "Long Beach St",
-          "start_utc": "2026-11-17T03:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 3,
-            "away": 0
-          },
-          "probabilities": null,
-          "components": null
-        },
         {
           "event_id": "401920511",
           "league": "NCAAB",
@@ -1092,6 +1077,21 @@
           },
           "probabilities": null,
           "components": null
+        },
+        {
+          "event_id": "401926773",
+          "league": "NCAAB",
+          "home": "USC",
+          "away": "Tarleton St",
+          "start_utc": "2026-11-20T04:00:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 4,
+            "away": 0
+          },
+          "probabilities": null,
+          "components": null
         }
       ],
       "evaluation": {
@@ -1138,23 +1138,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 84,
+        "n": 85,
         "scores": {
           "baseline": {
-            "brier_binary": 0.25067,
-            "logloss_binary": 0.6943
+            "brier_binary": 0.2525,
+            "logloss_binary": 0.69806
           },
           "previous_shadow": {
-            "brier_binary": 0.24436,
-            "logloss_binary": 0.68176
+            "brier_binary": 0.2455,
+            "logloss_binary": 0.68406
           },
           "ensemble": {
-            "brier_binary": 0.24125,
-            "logloss_binary": 0.67551
+            "brier_binary": 0.24234,
+            "logloss_binary": 0.67772
           }
         },
-        "delta_brier_vs_baseline": -0.00942,
-        "delta_brier_vs_previous_shadow": -0.00311,
+        "delta_brier_vs_baseline": -0.01016,
+        "delta_brier_vs_previous_shadow": -0.00316,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
