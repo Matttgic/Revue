@@ -1,34 +1,10 @@
 {
-  "generated_at_utc": "2026-11-18T03:30:47.191148+00:00",
+  "generated_at_utc": "2026-11-18T06:01:54.096512+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401910005",
-          "league": "NBA",
-          "home": "Lakers",
-          "away": "Hornets",
-          "start_utc": "2026-11-18T04:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 14,
-            "away": 13
-          },
-          "probabilities": {
-            "home_win": 0.72117,
-            "away_win": 0.27883
-          },
-          "odds": null,
-          "expected_margin_home": 4.77,
-          "components": {
-            "elo_probability": 0.7603,
-            "margin_probability": 0.6545,
-            "last_games_form": 5
-          }
-        },
         {
           "event_id": "401910007",
           "league": "NBA",
@@ -631,17 +607,17 @@
         }
       ],
       "evaluation": {
-        "n": 97,
+        "n": 99,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22137,
-          "logloss_binary": 0.635
+          "brier_binary": 0.22289,
+          "logloss_binary": 0.63815
         },
         "baseline": {
-          "brier_binary": 0.22018,
-          "logloss_binary": 0.63218
+          "brier_binary": 0.2218,
+          "logloss_binary": 0.63556
         },
-        "brier_delta_candidate_minus_baseline": 0.00119,
+        "brier_delta_candidate_minus_baseline": 0.00109,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -665,30 +641,15 @@
     "NCAAB": {
       "games": [
         {
-          "event_id": "401925879",
-          "league": "NCAAB",
-          "home": "Gonzaga",
-          "away": "Montana St",
-          "start_utc": "2026-11-18T04:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 3,
-            "away": 1
-          },
-          "probabilities": null,
-          "odds": null
-        },
-        {
           "event_id": "401920514",
           "league": "NCAAB",
-          "home": "TBD",
+          "home": "Florida",
           "away": "Houston",
           "start_utc": "2026-11-18T21:30:00+00:00",
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 0,
+            "home": 5,
             "away": 4
           },
           "probabilities": null,
@@ -705,6 +666,21 @@
           "training_games": {
             "home": 4,
             "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401920515",
+          "league": "NCAAB",
+          "home": "TBD",
+          "away": "Kansas",
+          "start_utc": "2026-11-19T00:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 3
           },
           "probabilities": null,
           "odds": null

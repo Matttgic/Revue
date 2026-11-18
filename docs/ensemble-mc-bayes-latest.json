@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-18T03:30:47.536300+00:00",
+  "generated_at_utc": "2026-11-18T06:01:54.340426+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -15,40 +15,6 @@
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401910005",
-          "league": "NBA",
-          "home": "Lakers",
-          "away": "Hornets",
-          "start_utc": "2026-11-18T04:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 14,
-            "away": 13
-          },
-          "probabilities": {
-            "home_win": 0.70705,
-            "away_win": 0.29295
-          },
-          "components": {
-            "monte_carlo": 0.6888,
-            "bayes": 0.69037,
-            "elo": 0.76033,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 115.8,
-            "away": 110.02
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
         {
           "event_id": "401910007",
           "league": "NBA",
@@ -902,23 +868,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 97,
+        "n": 99,
         "scores": {
           "baseline": {
-            "brier_binary": 0.22018,
-            "logloss_binary": 0.63218
+            "brier_binary": 0.2218,
+            "logloss_binary": 0.63556
           },
           "previous_shadow": {
-            "brier_binary": 0.22137,
-            "logloss_binary": 0.635
+            "brier_binary": 0.22289,
+            "logloss_binary": 0.63815
           },
           "ensemble": {
-            "brier_binary": 0.21971,
-            "logloss_binary": 0.6316
+            "brier_binary": 0.22101,
+            "logloss_binary": 0.63426
           }
         },
-        "delta_brier_vs_baseline": -0.00047,
-        "delta_brier_vs_previous_shadow": -0.00166,
+        "delta_brier_vs_baseline": -0.00079,
+        "delta_brier_vs_previous_shadow": -0.00188,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -949,30 +915,15 @@
     "NCAAB": {
       "games": [
         {
-          "event_id": "401925879",
-          "league": "NCAAB",
-          "home": "Gonzaga",
-          "away": "Montana St",
-          "start_utc": "2026-11-18T04:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 3,
-            "away": 1
-          },
-          "probabilities": null,
-          "components": null
-        },
-        {
           "event_id": "401920514",
           "league": "NCAAB",
-          "home": "TBD",
+          "home": "Florida",
           "away": "Houston",
           "start_utc": "2026-11-18T21:30:00+00:00",
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 0,
+            "home": 5,
             "away": 4
           },
           "probabilities": null,
@@ -989,6 +940,21 @@
           "training_games": {
             "home": 4,
             "away": 0
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401920515",
+          "league": "NCAAB",
+          "home": "TBD",
+          "away": "Kansas",
+          "start_utc": "2026-11-19T00:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 0,
+            "away": 3
           },
           "probabilities": null,
           "components": null
