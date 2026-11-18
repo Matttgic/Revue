@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-11-18T16:28:49.289753+00:00",
-  "date_paris": "2026-11-18",
+  "generated_at_utc": "2026-11-18T23:24:43.158573+00:00",
+  "date_paris": "2026-11-19",
   "days": 3,
   "season": "20262027",
   "model": "Clairvoyance backend NHL formula / Revue observed data (SHADOW)",
@@ -938,12 +938,134 @@
       "market_odds": null,
       "betting_recommendation": null,
       "shadow_only": true
+    },
+    {
+      "event_id": "2026020359",
+      "home": "CAR",
+      "away": "EDM",
+      "start_utc": "2026-11-21T18:00:00+00:00",
+      "start_paris": "2026-11-21T19:00:00+01:00",
+      "home_win": 0.675,
+      "away_win": 0.325,
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "calibrated": false,
+      "source_reproduction_complete": false,
+      "home_elo_proxy": 1619.18,
+      "away_elo_proxy": 1569.2,
+      "xg_5v5_share_pct": {
+        "home": 61.0,
+        "away": 47.0
+      },
+      "xg_games_observed": {
+        "home": 21,
+        "away": 23
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Pyotr Kochetkov",
+          "games": 13,
+          "save_pct": 0.9202
+        },
+        "away": {
+          "name": "Devon Levi",
+          "games": 11,
+          "save_pct": 0.9066
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "research_low_sample_shrink": {
+        "model_id": "revue_nhl_low_sample_shrink_v1",
+        "home_win": 0.655,
+        "away_win": 0.345,
+        "calibrated": false,
+        "shadow_only": true,
+        "previous_season_xg_prior": {
+          "home": "previous_regular_season_5v5",
+          "away": "previous_regular_season_5v5"
+        },
+        "xg_prior_games": 12.0,
+        "goalie_prior_games": 8.0,
+        "goalie_neutral_prior": 0.905,
+        "xg_shrunk_pct": {
+          "home": 59.18,
+          "away": 48.71
+        },
+        "goalie_sv_shrunk": {
+          "home": 0.9144,
+          "away": 0.9059
+        },
+        "note": "Separate research model; former-season 5v5 xG or neutral prior; historical goalie proxy is not a confirmed starter."
+      },
+      "market_odds": null,
+      "betting_recommendation": null,
+      "shadow_only": true
+    },
+    {
+      "event_id": "2026020360",
+      "home": "CGY",
+      "away": "CHI",
+      "start_utc": "2026-11-21T20:30:00+00:00",
+      "start_paris": "2026-11-21T21:30:00+01:00",
+      "home_win": 0.644,
+      "away_win": 0.356,
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "calibrated": false,
+      "source_reproduction_complete": false,
+      "home_elo_proxy": 1469.02,
+      "away_elo_proxy": 1395.1,
+      "xg_5v5_share_pct": {
+        "home": 47.0,
+        "away": 41.0
+      },
+      "xg_games_observed": {
+        "home": 22,
+        "away": 21
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Dustin Wolf",
+          "games": 12,
+          "save_pct": 0.878
+        },
+        "away": {
+          "name": "Spencer Knight",
+          "games": 17,
+          "save_pct": 0.8842
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "research_low_sample_shrink": {
+        "model_id": "revue_nhl_low_sample_shrink_v1",
+        "home_win": 0.651,
+        "away_win": 0.349,
+        "calibrated": false,
+        "shadow_only": true,
+        "previous_season_xg_prior": {
+          "home": "previous_regular_season_5v5",
+          "away": "previous_regular_season_5v5"
+        },
+        "xg_prior_games": 12.0,
+        "goalie_prior_games": 8.0,
+        "goalie_neutral_prior": 0.905,
+        "xg_shrunk_pct": {
+          "home": 47.0,
+          "away": 41.36
+        },
+        "goalie_sv_shrunk": {
+          "home": 0.8888,
+          "away": 0.8909
+        },
+        "note": "Separate research model; former-season 5v5 xG or neutral prior; historical goalie proxy is not a confirmed starter."
+      },
+      "market_odds": null,
+      "betting_recommendation": null,
+      "shadow_only": true
     }
   ],
   "warning": "Real observed stats, but team/goalie source samples can be tiny. Research shrink model is NOT original Clairvoyance and neither model is calibrated. No confirmed starter, calibrated probabilities, or live betting edges.",
   "point_in_time_audit": {
     "status": "verified_temporal_bounds",
-    "as_of_utc": "2026-11-18T16:28:49.289753+00:00",
+    "as_of_utc": "2026-11-18T23:24:43.158573+00:00",
     "source_updated_utc": {
       "teams": "2026-11-18T11:40:54+00:00",
       "goalies": "2026-11-18T11:40:54+00:00"
