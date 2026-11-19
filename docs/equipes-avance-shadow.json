@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-19T20:34:54.861474+00:00",
+  "generated_at_utc": "2026-11-19T23:35:16.059348+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -484,6 +484,30 @@
             "margin_probability": 0.4952,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401910030",
+          "league": "NBA",
+          "home": "Heat",
+          "away": "Thunder",
+          "start_utc": "2026-11-22T23:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 15,
+            "away": 15
+          },
+          "probabilities": {
+            "home_win": 0.57405,
+            "away_win": 0.42595
+          },
+          "odds": null,
+          "expected_margin_home": 1.5,
+          "components": {
+            "elo_probability": 0.5883,
+            "margin_probability": 0.5497,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
@@ -504,17 +528,17 @@
     "WNBA": {
       "games": [],
       "evaluation": {
-        "n": 3,
+        "n": 2,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.21271,
-          "logloss_binary": 0.61837
+          "brier_binary": 0.21155,
+          "logloss_binary": 0.61603
         },
         "baseline": {
-          "brier_binary": 0.19239,
-          "logloss_binary": 0.57727
+          "brier_binary": 0.19711,
+          "logloss_binary": 0.58686
         },
-        "brier_delta_candidate_minus_baseline": 0.02032,
+        "brier_delta_candidate_minus_baseline": 0.01444,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -981,6 +1005,78 @@
           "components": {
             "elo_probability": 0.4256,
             "margin_probability": 0.4525,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401873074",
+          "league": "NFL",
+          "home": "Chargers",
+          "away": "Jets",
+          "start_utc": "2026-11-22T21:05:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 8,
+            "away": 9
+          },
+          "probabilities": {
+            "home_win": 0.55408,
+            "away_win": 0.44592
+          },
+          "odds": null,
+          "expected_margin_home": 0.93,
+          "components": {
+            "elo_probability": 0.5691,
+            "margin_probability": 0.5285,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401873069",
+          "league": "NFL",
+          "home": "Giants",
+          "away": "Jaguars",
+          "start_utc": "2026-11-22T21:25:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 8,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win": 0.48617,
+            "away_win": 0.51383
+          },
+          "odds": null,
+          "expected_margin_home": -1.371,
+          "components": {
+            "elo_probability": 0.5027,
+            "margin_probability": 0.458,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401873075",
+          "league": "NFL",
+          "home": "Broncos",
+          "away": "Raiders",
+          "start_utc": "2026-11-22T21:25:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 8,
+            "away": 9
+          },
+          "probabilities": {
+            "home_win": 0.64534,
+            "away_win": 0.35466
+          },
+          "odds": null,
+          "expected_margin_home": 3.211,
+          "components": {
+            "elo_probability": 0.6734,
+            "margin_probability": 0.5975,
             "last_games_form": 5
           }
         }
