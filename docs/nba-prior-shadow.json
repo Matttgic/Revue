@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-19T19:35:37.000031+00:00",
+  "generated_at_utc": "2026-11-19T20:34:54.145225+00:00",
   "status": "shadow_nba_prior_only",
   "source": "ESPN public previous-season NBA standings",
   "previous_season_end_year": 2026,
@@ -555,8 +555,37 @@
       "previous_season": 2026,
       "data_observed_at": "2026-11-08T23:12:00.023824+00:00",
       "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
+    },
+    {
+      "event_id": "401910029",
+      "league": "NBA",
+      "home": "Hawks",
+      "away": "Pistons",
+      "start_utc": "2026-11-22T20:30:00+00:00",
+      "model": "independent_nba_prior_strength_v1",
+      "status": "shadow_prior_not_calibrated",
+      "probabilities": {
+        "home_win": 0.45056,
+        "away_win": 0.54944
+      },
+      "components": {
+        "elo": 0.42244,
+        "margin": 0.47906,
+        "prior_wins": 0.45896
+      },
+      "strength": {
+        "home": 1.735,
+        "away": 5.795
+      },
+      "current_games": {
+        "home": 15,
+        "away": 14
+      },
+      "previous_season": 2026,
+      "data_observed_at": "2026-11-08T23:12:00.023824+00:00",
+      "warning": "Prior is pre-2026-27 regular season stats. Preseason lineup effects not modeled."
     }
   ],
-  "ready": 19,
+  "ready": 20,
   "disclaimer": "Prior-season standings are NOT the current lineups. No historical look-ahead backtest from a newly collected snapshot."
 }
