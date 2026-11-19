@@ -1,6 +1,6 @@
 {
   "version": "revue_phase13_model_evaluation_v1",
-  "generated_at_utc": "2026-11-19T01:57:42.473348+00:00",
+  "generated_at_utc": "2026-11-19T03:12:20.205349+00:00",
   "status": "research_only_awaiting_prospective_evidence",
   "protocol": {
     "prospective_only": true,
@@ -22,9 +22,9 @@
     "no_auto_model_selection": true
   },
   "metrics": {
-    "locked": 755,
-    "settled": 618,
-    "distinct_settled_fixtures": 484,
+    "locked": 792,
+    "settled": 624,
+    "distinct_settled_fixtures": 490,
     "paired_comparisons": 3,
     "paired_observation_overlap_not_independent": 201
   },
@@ -33,7 +33,7 @@
       "league": "BUNDESLIGA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "settled": 36,
-      "frozen_locked": 37,
+      "frozen_locked": 43,
       "raw": {
         "n": 36,
         "brier": 0.612904,
@@ -194,7 +194,7 @@
       "league": "LALIGA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "settled": 46,
-      "frozen_locked": 47,
+      "frozen_locked": 50,
       "raw": {
         "n": 46,
         "brier": 0.611835,
@@ -355,7 +355,7 @@
       "league": "LIGUE1",
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "settled": 38,
-      "frozen_locked": 40,
+      "frozen_locked": 45,
       "raw": {
         "n": 38,
         "brier": 0.579439,
@@ -637,7 +637,7 @@
       "league": "MLS",
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "settled": 0,
-      "frozen_locked": 105,
+      "frozen_locked": 107,
       "raw": {
         "n": 0,
         "brier": null,
@@ -676,15 +676,15 @@
     "NBA::revue_nba_espn_previous_standings_prior_v1": {
       "league": "NBA",
       "model_id": "revue_nba_espn_previous_standings_prior_v1",
-      "settled": 249,
-      "frozen_locked": 266,
+      "settled": 255,
+      "frozen_locked": 276,
       "raw": {
-        "n": 249,
-        "brier": 0.427588,
-        "logloss": 0.617207
+        "n": 255,
+        "brier": 0.429929,
+        "logloss": 0.619709
       },
       "uniform_reference_same_matches": {
-        "n": 249,
+        "n": 255,
         "brier": 0.5,
         "logloss": 0.693147
       },
@@ -702,23 +702,23 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 45,
-              "mean_predicted": 0.34043,
-              "observed_rate": 0.22222
+              "n": 46,
+              "mean_predicted": 0.33999,
+              "observed_rate": 0.21739
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 119,
-              "mean_predicted": 0.50515,
-              "observed_rate": 0.51261
+              "n": 122,
+              "mean_predicted": 0.50588,
+              "observed_rate": 0.5
             },
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 84,
-              "mean_predicted": 0.66973,
-              "observed_rate": 0.72619
+              "n": 86,
+              "mean_predicted": 0.67065,
+              "observed_rate": 0.72093
             },
             {
               "lower": 0.8,
@@ -742,23 +742,23 @@
             {
               "lower": 0.2,
               "upper": 0.4,
-              "n": 84,
-              "mean_predicted": 0.33027,
-              "observed_rate": 0.27381
+              "n": 86,
+              "mean_predicted": 0.32935,
+              "observed_rate": 0.27907
             },
             {
               "lower": 0.4,
               "upper": 0.6,
-              "n": 119,
-              "mean_predicted": 0.49485,
-              "observed_rate": 0.48739
+              "n": 122,
+              "mean_predicted": 0.49412,
+              "observed_rate": 0.5
             },
             {
               "lower": 0.6,
               "upper": 0.8,
-              "n": 45,
-              "mean_predicted": 0.65957,
-              "observed_rate": 0.77778
+              "n": 46,
+              "mean_predicted": 0.66001,
+              "observed_rate": 0.78261
             },
             {
               "lower": 0.8,
@@ -774,7 +774,7 @@
         "training_required": 100,
         "holdout_required": 40,
         "training_n": 100,
-        "holdout_n": 142,
+        "holdout_n": 148,
         "training_cutoff_utc": "2026-10-29T06:57:01.290920+00:00",
         "frozen_temperature": 0.65,
         "temperature_candidates": [
@@ -788,22 +788,22 @@
         ],
         "holdout": {
           "raw": {
-            "n": 142,
-            "brier": 0.414301,
-            "logloss": 0.603321
+            "n": 148,
+            "brier": 0.418873,
+            "logloss": 0.608195
           },
           "temperature_scaled": {
-            "n": 142,
-            "brier": 0.401629,
-            "logloss": 0.586542
+            "n": 148,
+            "brier": 0.408237,
+            "logloss": 0.594133
           },
           "uniform_reference": {
-            "n": 142,
+            "n": 148,
             "brier": 0.5,
             "logloss": 0.693147
           },
-          "brier_delta_scaled_minus_raw": -0.012672,
-          "logloss_delta_scaled_minus_raw": -0.016779
+          "brier_delta_scaled_minus_raw": -0.010636,
+          "logloss_delta_scaled_minus_raw": -0.014062
         },
         "status": "holdout_exploratory_improved"
       },
@@ -1058,7 +1058,7 @@
       "league": "PL",
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "settled": 44,
-      "frozen_locked": 44,
+      "frozen_locked": 51,
       "raw": {
         "n": 44,
         "brier": 0.636759,
@@ -1219,7 +1219,7 @@
       "league": "SERIEA",
       "model_id": "revue_football_espn_shots_log_pool_v1",
       "settled": 57,
-      "frozen_locked": 57,
+      "frozen_locked": 61,
       "raw": {
         "n": 57,
         "brier": 0.55681,
