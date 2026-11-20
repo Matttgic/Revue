@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-20T05:05:58.636353+00:00",
+  "generated_at_utc": "2026-11-20T07:35:40.897355+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -795,8 +795,18 @@
         }
       ],
       "evaluation": {
-        "n": 0,
-        "status": "insufficient_history"
+        "n": 1,
+        "status": "small_walk_forward_scores_only",
+        "candidate": {
+          "brier_binary": 0.30415,
+          "logloss_binary": 0.80185
+        },
+        "baseline": {
+          "brier_binary": 0.32741,
+          "logloss_binary": 0.8491
+        },
+        "brier_delta_candidate_minus_baseline": -0.02326,
+        "note": "No historical sportsbook odds; not a profit claim."
       }
     },
     "NFL": {

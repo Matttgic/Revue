@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-20T05:05:59.106005+00:00",
+  "generated_at_utc": "2026-11-20T07:35:41.185463+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -1039,8 +1039,25 @@
         }
       ],
       "evaluation": {
-        "status": "history_insufficient",
-        "n": 0
+        "status": "chronological_score_backtest_no_odds",
+        "n": 1,
+        "scores": {
+          "baseline": {
+            "brier_binary": 0.32741,
+            "logloss_binary": 0.8491
+          },
+          "previous_shadow": {
+            "brier_binary": 0.30415,
+            "logloss_binary": 0.80185
+          },
+          "ensemble": {
+            "brier_binary": 0.29621,
+            "logloss_binary": 0.78581
+          }
+        },
+        "delta_brier_vs_baseline": -0.0312,
+        "delta_brier_vs_previous_shadow": -0.00794,
+        "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
     "NFL": {
