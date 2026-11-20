@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-20T02:05:34.462315+00:00",
+  "generated_at_utc": "2026-11-20T05:05:59.106005+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -766,23 +766,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 113,
+        "n": 117,
         "scores": {
           "baseline": {
-            "brier_binary": 0.22763,
-            "logloss_binary": 0.64829
+            "brier_binary": 0.22607,
+            "logloss_binary": 0.64492
           },
           "previous_shadow": {
-            "brier_binary": 0.22786,
-            "logloss_binary": 0.64845
+            "brier_binary": 0.22621,
+            "logloss_binary": 0.64494
           },
           "ensemble": {
-            "brier_binary": 0.22493,
-            "logloss_binary": 0.64239
+            "brier_binary": 0.22358,
+            "logloss_binary": 0.63954
           }
         },
-        "delta_brier_vs_baseline": -0.0027,
-        "delta_brier_vs_previous_shadow": -0.00293,
+        "delta_brier_vs_baseline": -0.00249,
+        "delta_brier_vs_previous_shadow": -0.00263,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -812,55 +812,6 @@
     },
     "NCAAB": {
       "games": [
-        {
-          "event_id": "401920518",
-          "league": "NCAAB",
-          "home": "Kansas",
-          "away": "Houston",
-          "start_utc": "2026-11-20T04:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "shadow_non_calibre",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win": 0.54425,
-            "away_win": 0.45575
-          },
-          "components": {
-            "monte_carlo": 0.54167,
-            "bayes": 0.526,
-            "elo": 0.56642,
-            "weights": {
-              "monte_carlo": 0.52,
-              "bayes": 0.23,
-              "elo": 0.25
-            },
-            "iterations": 768,
-            "method": "deterministic_independent_gaussian_points"
-          },
-          "expected_score": {
-            "home": 78.0,
-            "away": 77.29
-          },
-          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
-        },
-        {
-          "event_id": "401926773",
-          "league": "NCAAB",
-          "home": "USC",
-          "away": "Tarleton St",
-          "start_utc": "2026-11-20T04:00:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 4,
-            "away": 0
-          },
-          "probabilities": null,
-          "components": null
-        },
         {
           "event_id": "401921723",
           "league": "NCAAB",
@@ -1471,23 +1422,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 83,
+        "n": 84,
         "scores": {
           "baseline": {
-            "brier_binary": 0.25105,
-            "logloss_binary": 0.69515
+            "brier_binary": 0.25006,
+            "logloss_binary": 0.69316
           },
           "previous_shadow": {
-            "brier_binary": 0.24465,
-            "logloss_binary": 0.68236
+            "brier_binary": 0.24381,
+            "logloss_binary": 0.68067
           },
           "ensemble": {
-            "brier_binary": 0.24177,
-            "logloss_binary": 0.67658
+            "brier_binary": 0.24128,
+            "logloss_binary": 0.67559
           }
         },
-        "delta_brier_vs_baseline": -0.00928,
-        "delta_brier_vs_previous_shadow": -0.00288,
+        "delta_brier_vs_baseline": -0.00878,
+        "delta_brier_vs_previous_shadow": -0.00253,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
