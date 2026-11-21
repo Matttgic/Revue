@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-21T14:08:30.556609+00:00",
+  "generated_at_utc": "2026-11-21T16:37:53.968917+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -14,136 +14,6 @@
     "PL": {
       "name": "Premier League",
       "games": [
-        {
-          "event_id": "401878754",
-          "home": "Spurs",
-          "away": "Ipswich",
-          "start_utc": "2026-11-21T15:00:00+00:00",
-          "league": "PL",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.5157,
-            "draw_90": 0.2479,
-            "away_win_90": 0.2364,
-            "over_2_5": 0.53957
-          },
-          "expected_score": {
-            "home": 1.763,
-            "away": 1.075
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401878756",
-          "home": "Aston Villa",
-          "away": "Sunderland",
-          "start_utc": "2026-11-21T15:00:00+00:00",
-          "league": "PL",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.5413,
-            "draw_90": 0.2461,
-            "away_win_90": 0.2126,
-            "over_2_5": 0.5159
-          },
-          "expected_score": {
-            "home": 1.773,
-            "away": 0.966
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401879235",
-          "home": "Coventry",
-          "away": "C Palace",
-          "start_utc": "2026-11-21T15:00:00+00:00",
-          "league": "PL",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.5835,
-            "draw_90": 0.20706,
-            "away_win_90": 0.20943,
-            "over_2_5": 0.66421
-          },
-          "expected_score": {
-            "home": 2.236,
-            "away": 1.185
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401879236",
-          "home": "Chelsea",
-          "away": "Leeds",
-          "start_utc": "2026-11-21T15:00:00+00:00",
-          "league": "PL",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.50585,
-            "draw_90": 0.27701,
-            "away_win_90": 0.21714,
-            "over_2_5": 0.40968
-          },
-          "expected_score": {
-            "home": 1.494,
-            "away": 0.827
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401879238",
-          "home": "Bournemouth",
-          "away": "Nottm Forest",
-          "start_utc": "2026-11-21T15:00:00+00:00",
-          "league": "PL",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.53942,
-            "draw_90": 0.23768,
-            "away_win_90": 0.22291,
-            "over_2_5": 0.5659
-          },
-          "expected_score": {
-            "home": 1.871,
-            "away": 1.081
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
         {
           "event_id": "401879232",
           "home": "Newcastle",
@@ -250,31 +120,24 @@
         }
       ],
       "evaluation": {
-        "status": "insufficient_history",
-        "n": 0
+        "status": "small_historical_score_backtest",
+        "n": 1,
+        "licensed_features_used_in_backtest": 0,
+        "shadow": {
+          "brier": 0.77308,
+          "logloss": 1.2633
+        },
+        "baseline": {
+          "brier": 0.80504,
+          "logloss": 1.31826
+        },
+        "shadow_brier_delta_vs_baseline": -0.03196,
+        "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "LALIGA": {
       "name": "La Liga",
       "games": [
-        {
-          "event_id": "401882799",
-          "home": "Rayo",
-          "away": "Valencia",
-          "start_utc": "2026-11-21T15:15:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 4,
-            "away": 5
-          },
-          "probabilities": null,
-          "expected_score": null,
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "historique_insuffisant",
-          "odds": null
-        },
         {
           "event_id": "401882797",
           "home": "Sevilla",
@@ -460,17 +323,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 1,
+        "n": 2,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.85633,
-          "logloss": 1.38673
+          "brier": 0.78353,
+          "logloss": 1.27017
         },
         "baseline": {
-          "brier": 0.80779,
-          "logloss": 1.30122
+          "brier": 0.75027,
+          "logloss": 1.21104
         },
-        "shadow_brier_delta_vs_baseline": 0.04854,
+        "shadow_brier_delta_vs_baseline": 0.03326,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -688,153 +551,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 10,
+        "n": 12,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.65986,
-          "logloss": 1.0868
+          "brier": 0.58325,
+          "logloss": 0.98106
         },
         "baseline": {
-          "brier": 0.65928,
-          "logloss": 1.08864
+          "brier": 0.58724,
+          "logloss": 0.98918
         },
-        "shadow_brier_delta_vs_baseline": 0.00058,
+        "shadow_brier_delta_vs_baseline": -0.00399,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "BUNDESLIGA": {
       "name": "Bundesliga",
       "games": [
-        {
-          "event_id": "401884728",
-          "home": "Elversberg",
-          "away": "Freiburg",
-          "start_utc": "2026-11-21T14:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.38494,
-            "draw_90": 0.23821,
-            "away_win_90": 0.37685,
-            "over_2_5": 0.65929
-          },
-          "expected_score": {
-            "home": 1.701,
-            "away": 1.694
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401884731",
-          "home": "Gladbach",
-          "away": "Dortmund",
-          "start_utc": "2026-11-21T14:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.33085,
-            "draw_90": 0.26887,
-            "away_win_90": 0.40028,
-            "over_2_5": 0.51804
-          },
-          "expected_score": {
-            "home": 1.286,
-            "away": 1.462
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401884732",
-          "home": "Union Berlin",
-          "away": "RB Leipzig",
-          "start_utc": "2026-11-21T14:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.26811,
-            "draw_90": 0.23865,
-            "away_win_90": 0.49324,
-            "over_2_5": 0.59997
-          },
-          "expected_score": {
-            "home": 1.24,
-            "away": 1.866
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401884734",
-          "home": "Frankfurt",
-          "away": "Hoffenheim",
-          "start_utc": "2026-11-21T14:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.33095,
-            "draw_90": 0.24688,
-            "away_win_90": 0.42217,
-            "over_2_5": 0.60873
-          },
-          "expected_score": {
-            "home": 1.436,
-            "away": 1.71
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
-        {
-          "event_id": "401884735",
-          "home": "Leverkusen",
-          "away": "Paderborn",
-          "start_utc": "2026-11-21T14:30:00+00:00",
-          "league": "BUNDESLIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.42388,
-            "draw_90": 0.24635,
-            "away_win_90": 0.32976,
-            "over_2_5": 0.61519
-          },
-          "expected_score": {
-            "home": 1.698,
-            "away": 1.479
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
         {
           "event_id": "401884729",
           "home": "Schalke",
@@ -916,49 +649,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 1,
+        "n": 6,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.96577,
-          "logloss": 1.49647
+          "brier": 0.61237,
+          "logloss": 1.0098
         },
         "baseline": {
-          "brier": 0.95351,
-          "logloss": 1.51005
+          "brier": 0.60914,
+          "logloss": 1.00714
         },
-        "shadow_brier_delta_vs_baseline": 0.01226,
+        "shadow_brier_delta_vs_baseline": 0.00323,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "LIGUE1": {
       "name": "Ligue 1",
       "games": [
-        {
-          "event_id": "401876398",
-          "home": "Nice",
-          "away": "PSG",
-          "start_utc": "2026-11-21T16:15:00+00:00",
-          "league": "LIGUE1",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.34382,
-            "draw_90": 0.23939,
-            "away_win_90": 0.4168,
-            "over_2_5": 0.64719
-          },
-          "expected_score": {
-            "home": 1.555,
-            "away": 1.778
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
         {
           "event_id": "401876396",
           "home": "Strasbourg",
