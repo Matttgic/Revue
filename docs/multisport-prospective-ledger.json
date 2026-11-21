@@ -20708,7 +20708,7 @@
       "away": "EDM",
       "kickoff_utc": "2026-11-21T18:00:00+00:00",
       "locked_at_utc": "2026-11-19T01:57:41.574131+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "clairvoyance_nhl_formula_revue_inputs": {
           "p_home": 0.675,
@@ -20723,11 +20723,22 @@
           "source_generated_utc": "2026-11-18T23:24:43.158573+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 1,
+      "score": {
+        "home": 7,
+        "away": 4
+      },
+      "resolved_at_utc": "2026-11-21T22:12:04.233192+00:00",
+      "brier_by_model": {
+        "clairvoyance_nhl_formula_revue_inputs": 0.105625,
+        "revue_multisports_score_model": 0.132423,
+        "revue_nhl_low_sample_shrink_v1": 0.119025
+      },
+      "logloss_by_model": {
+        "clairvoyance_nhl_formula_revue_inputs": 0.393043,
+        "revue_multisports_score_model": 0.452399,
+        "revue_nhl_low_sample_shrink_v1": 0.42312
+      },
       "real_bet": false,
       "staked_units": 0
     },
