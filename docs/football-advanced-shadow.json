@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-21T18:09:10.518800+00:00",
+  "generated_at_utc": "2026-11-21T19:38:08.138979+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -95,17 +95,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 6,
+        "n": 7,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.59259,
-          "logloss": 1.00179
+          "brier": 0.61572,
+          "logloss": 1.02989
         },
         "baseline": {
-          "brier": 0.5984,
-          "logloss": 1.01085
+          "brier": 0.62554,
+          "logloss": 1.04591
         },
-        "shadow_brier_delta_vs_baseline": -0.00581,
+        "shadow_brier_delta_vs_baseline": -0.00982,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -271,17 +271,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 2,
+        "n": 3,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.78353,
-          "logloss": 1.27017
+          "brier": 0.81886,
+          "logloss": 1.33321
         },
         "baseline": {
-          "brier": 0.75027,
-          "logloss": 1.21104
+          "brier": 0.80383,
+          "logloss": 1.308
         },
-        "shadow_brier_delta_vs_baseline": 0.03326,
+        "shadow_brier_delta_vs_baseline": 0.01503,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -473,17 +473,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 12,
+        "n": 13,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.58325,
-          "logloss": 0.98106
+          "brier": 0.56038,
+          "logloss": 0.94973
         },
         "baseline": {
-          "brier": 0.58724,
-          "logloss": 0.98918
+          "brier": 0.56671,
+          "logloss": 0.96072
         },
-        "shadow_brier_delta_vs_baseline": -0.00399,
+        "shadow_brier_delta_vs_baseline": -0.00633,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -545,17 +545,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 6,
+        "n": 7,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.61237,
-          "logloss": 1.0098
+          "brier": 0.63955,
+          "logloss": 1.04944
         },
         "baseline": {
-          "brier": 0.60914,
-          "logloss": 1.00714
+          "brier": 0.6413,
+          "logloss": 1.05571
         },
-        "shadow_brier_delta_vs_baseline": 0.00323,
+        "shadow_brier_delta_vs_baseline": -0.00175,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -747,49 +747,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 1,
+        "n": 2,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.39215,
-          "logloss": 0.71601
+          "brier": 0.45389,
+          "logloss": 0.79558
         },
         "baseline": {
-          "brier": 0.39087,
-          "logloss": 0.71376
+          "brier": 0.45344,
+          "logloss": 0.79349
         },
-        "shadow_brier_delta_vs_baseline": 0.00128,
+        "shadow_brier_delta_vs_baseline": 0.00045,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "MLS": {
       "name": "MLS",
       "games": [
-        {
-          "event_id": "401933733",
-          "home": "New England",
-          "away": "Philadelphia",
-          "start_utc": "2026-11-21T19:00:00+00:00",
-          "league": "MLS",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 8,
-            "away": 8
-          },
-          "probabilities": {
-            "home_win_90": 0.31067,
-            "draw_90": 0.24788,
-            "away_win_90": 0.44145,
-            "over_2_5": 0.59453
-          },
-          "expected_score": {
-            "home": 1.353,
-            "away": 1.727
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
         {
           "event_id": "401933732",
           "home": "Dallas",
