@@ -20672,7 +20672,7 @@
       "away": "Bucks",
       "kickoff_utc": "2026-11-21T18:00:00+00:00",
       "locked_at_utc": "2026-11-19T01:57:41.574131+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_ensemble_mc_bayes_elo": {
           "p_home": 0.72406,
@@ -20683,11 +20683,20 @@
           "source_generated_utc": "2026-11-19T01:57:20.689986+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 1,
+      "score": {
+        "home": 132,
+        "away": 129
+      },
+      "resolved_at_utc": "2026-11-21T20:37:36.791300+00:00",
+      "brier_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.076143,
+        "revue_multisports_score_model": 0.043347
+      },
+      "logloss_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.322881,
+        "revue_multisports_score_model": 0.233446
+      },
       "real_bet": false,
       "staked_units": 0
     },
