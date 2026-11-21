@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-20T21:37:29.048353+00:00",
+  "generated_at_utc": "2026-11-21T00:07:02.266138+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -257,6 +257,32 @@
             "home": "2026-11-09T02:54:00.389332+00:00",
             "away": "2026-11-09T04:41:47.859714+00:00"
           }
+        },
+        {
+          "event_id": "401879237",
+          "home": "Brentford",
+          "away": "Everton",
+          "start_utc": "2026-11-23T20:00:00+00:00",
+          "league": "PL",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 5,
+            "away": 5
+          },
+          "probabilities": {
+            "home_win_90": 0.40216,
+            "draw_90": 0.27586,
+            "away_win_90": 0.32198,
+            "over_2_5": 0.48855
+          },
+          "expected_score": {
+            "home": 1.406,
+            "away": 1.222
+          },
+          "xg_used": false,
+          "espn_stats_used": false,
+          "status": "shadow_non_calibre",
+          "odds": null
         }
       ],
       "evaluation": {
@@ -476,11 +502,53 @@
             "home": "2026-11-09T07:12:37.759022+00:00",
             "away": "2026-11-09T10:12:45.762755+00:00"
           }
+        },
+        {
+          "event_id": "401882802",
+          "home": "Levante",
+          "away": "Elche",
+          "start_utc": "2026-11-23T20:00:00+00:00",
+          "league": "LALIGA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 6,
+            "away": 5
+          },
+          "probabilities": {
+            "home_win_90": 0.37257,
+            "draw_90": 0.31239,
+            "away_win_90": 0.31505,
+            "over_2_5": 0.35908
+          },
+          "expected_score": {
+            "home": 1.12,
+            "away": 1.013
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-11-09T07:12:37.759022+00:00",
+            "away": "2026-11-09T01:42:04.570515+00:00"
+          }
         }
       ],
       "evaluation": {
-        "status": "insufficient_history",
-        "n": 0
+        "status": "small_historical_score_backtest",
+        "n": 1,
+        "licensed_features_used_in_backtest": 0,
+        "shadow": {
+          "brier": 0.85633,
+          "logloss": 1.38673
+        },
+        "baseline": {
+          "brier": 0.80779,
+          "logloss": 1.30122
+        },
+        "shadow_brier_delta_vs_baseline": 0.04854,
+        "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "SERIEA": {
@@ -723,6 +791,37 @@
           "espn_features_published_at": {
             "home": "2026-11-09T02:54:00.389332+00:00",
             "away": "2026-11-09T07:12:37.759022+00:00"
+          }
+        },
+        {
+          "event_id": "401875009",
+          "home": "Monza",
+          "away": "Fiorentina",
+          "start_utc": "2026-11-23T19:45:00+00:00",
+          "league": "SERIEA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 6,
+            "away": 6
+          },
+          "probabilities": {
+            "home_win_90": 0.40942,
+            "draw_90": 0.21988,
+            "away_win_90": 0.37071,
+            "over_2_5": 0.74234
+          },
+          "expected_score": {
+            "home": 1.986,
+            "away": 1.885
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-11-09T02:54:00.389332+00:00",
+            "away": "2026-11-09T10:12:45.762755+00:00"
           }
         }
       ],
@@ -1198,8 +1297,19 @@
         }
       ],
       "evaluation": {
-        "status": "insufficient_history",
-        "n": 0
+        "status": "small_historical_score_backtest",
+        "n": 1,
+        "licensed_features_used_in_backtest": 0,
+        "shadow": {
+          "brier": 0.39215,
+          "logloss": 0.71601
+        },
+        "baseline": {
+          "brier": 0.39087,
+          "logloss": 0.71376
+        },
+        "shadow_brier_delta_vs_baseline": 0.00128,
+        "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "MLS": {
@@ -1303,6 +1413,58 @@
           "expected_score": {
             "home": 1.968,
             "away": 0.972
+          },
+          "xg_used": false,
+          "espn_stats_used": false,
+          "status": "shadow_non_calibre",
+          "odds": null
+        },
+        {
+          "event_id": "401933730",
+          "home": "Chicago",
+          "away": "Charlotte",
+          "start_utc": "2026-11-22T23:30:00+00:00",
+          "league": "MLS",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 9,
+            "away": 8
+          },
+          "probabilities": {
+            "home_win_90": 0.41946,
+            "draw_90": 0.20894,
+            "away_win_90": 0.3716,
+            "over_2_5": 0.79137
+          },
+          "expected_score": {
+            "home": 2.155,
+            "away": 2.057
+          },
+          "xg_used": false,
+          "espn_stats_used": false,
+          "status": "shadow_non_calibre",
+          "odds": null
+        },
+        {
+          "event_id": "401933729",
+          "home": "Vancouver",
+          "away": "Salt Lake",
+          "start_utc": "2026-11-23T01:30:00+00:00",
+          "league": "MLS",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 9,
+            "away": 9
+          },
+          "probabilities": {
+            "home_win_90": 0.41103,
+            "draw_90": 0.25323,
+            "away_win_90": 0.33574,
+            "over_2_5": 0.58634
+          },
+          "expected_score": {
+            "home": 1.61,
+            "away": 1.432
           },
           "xg_used": false,
           "espn_stats_used": false,
