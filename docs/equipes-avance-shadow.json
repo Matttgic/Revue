@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-21T19:38:08.490780+00:00",
+  "generated_at_utc": "2026-11-21T22:09:14.755388+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -535,17 +535,17 @@
         }
       ],
       "evaluation": {
-        "n": 124,
+        "n": 125,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22548,
-          "logloss_binary": 0.64335
+          "brier_binary": 0.22419,
+          "logloss_binary": 0.64055
         },
         "baseline": {
-          "brier_binary": 0.22517,
-          "logloss_binary": 0.64292
+          "brier_binary": 0.22365,
+          "logloss_binary": 0.63944
         },
-        "brier_delta_candidate_minus_baseline": 0.00031,
+        "brier_delta_candidate_minus_baseline": 0.00054,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -714,6 +714,36 @@
           "training_games": {
             "home": 5,
             "away": 0
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401906853",
+          "league": "NCAAB",
+          "home": "Maryland",
+          "away": "Tennessee",
+          "start_utc": "2026-11-24T20:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 1,
+            "away": 5
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401915941",
+          "league": "NCAAB",
+          "home": "TCU",
+          "away": "Miami",
+          "start_utc": "2026-11-24T20:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 6
           },
           "probabilities": null,
           "odds": null
