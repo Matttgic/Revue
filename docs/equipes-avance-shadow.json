@@ -1,34 +1,10 @@
 {
-  "generated_at_utc": "2026-11-22T01:09:00.913924+00:00",
+  "generated_at_utc": "2026-11-22T03:39:11.593439+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401910028",
-          "league": "NBA",
-          "home": "Kings",
-          "away": "Celtics",
-          "start_utc": "2026-11-22T03:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 15,
-            "away": 14
-          },
-          "probabilities": {
-            "home_win": 0.33467,
-            "away_win": 0.66533
-          },
-          "odds": null,
-          "expected_margin_home": -4.46,
-          "components": {
-            "elo_probability": 0.3227,
-            "margin_probability": 0.3551,
-            "last_games_form": 5
-          }
-        },
         {
           "event_id": "401910029",
           "league": "NBA",
@@ -230,18 +206,18 @@
           "status": "shadow_non_calibre",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 15,
+            "home": 16,
             "away": 15
           },
           "probabilities": {
-            "home_win": 0.5747,
-            "away_win": 0.4253
+            "home_win": 0.5862,
+            "away_win": 0.4138
           },
           "odds": null,
-          "expected_margin_home": 0.212,
+          "expected_margin_home": 0.854,
           "components": {
-            "elo_probability": 0.6144,
-            "margin_probability": 0.507,
+            "elo_probability": 0.6202,
+            "margin_probability": 0.5284,
             "last_games_form": 5
           }
         },
@@ -279,17 +255,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 16,
-            "away": 16
+            "away": 17
           },
           "probabilities": {
-            "home_win": 0.64738,
-            "away_win": 0.35262
+            "home_win": 0.64832,
+            "away_win": 0.35168
           },
           "odds": null,
-          "expected_margin_home": 2.678,
+          "expected_margin_home": 2.482,
           "components": {
-            "elo_probability": 0.6821,
-            "margin_probability": 0.5883,
+            "elo_probability": 0.6873,
+            "margin_probability": 0.5819,
             "last_games_form": 5
           }
         },
@@ -484,20 +460,44 @@
             "margin_probability": 0.3936,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401909316",
+          "league": "NBA",
+          "home": "Nuggets",
+          "away": "Mavericks",
+          "start_utc": "2026-11-25T03:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 14,
+            "away": 15
+          },
+          "probabilities": {
+            "home_win": 0.60456,
+            "away_win": 0.39544
+          },
+          "odds": null,
+          "expected_margin_home": 2.276,
+          "components": {
+            "elo_probability": 0.6218,
+            "margin_probability": 0.5752,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 122,
+        "n": 124,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22529,
-          "logloss_binary": 0.6428
+          "brier_binary": 0.22516,
+          "logloss_binary": 0.64254
         },
         "baseline": {
-          "brier_binary": 0.22477,
-          "logloss_binary": 0.64173
+          "brier_binary": 0.22435,
+          "logloss_binary": 0.6409
         },
-        "brier_delta_candidate_minus_baseline": 0.00052,
+        "brier_delta_candidate_minus_baseline": 0.00081,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -741,6 +741,36 @@
           "training_games": {
             "home": 4,
             "away": 5
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401906762",
+          "league": "NCAAB",
+          "home": "Alabama",
+          "away": "Baylor",
+          "start_utc": "2026-11-25T03:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 5,
+            "away": 1
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401915943",
+          "league": "NCAAB",
+          "home": "St John's",
+          "away": "Oregon",
+          "start_utc": "2026-11-25T03:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 5,
+            "away": 0
           },
           "probabilities": null,
           "odds": null
