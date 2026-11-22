@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-22T18:37:19.181446+00:00",
+  "generated_at_utc": "2026-11-22T20:10:06.022232+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -43,49 +43,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 8,
+        "n": 9,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.64837,
-          "logloss": 1.07678
+          "brier": 0.61586,
+          "logloss": 1.0313
         },
         "baseline": {
-          "brier": 0.65222,
-          "logloss": 1.08203
+          "brier": 0.62062,
+          "logloss": 1.03767
         },
-        "shadow_brier_delta_vs_baseline": -0.00385,
+        "shadow_brier_delta_vs_baseline": -0.00476,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "LALIGA": {
       "name": "La Liga",
       "games": [
-        {
-          "event_id": "401882803",
-          "home": "Getafe",
-          "away": "Atlético",
-          "start_utc": "2026-11-22T20:00:00+00:00",
-          "league": "LALIGA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.24065,
-            "draw_90": 0.26585,
-            "away_win_90": 0.4935,
-            "over_2_5": 0.46745
-          },
-          "expected_score": {
-            "home": 0.957,
-            "away": 1.587
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
         {
           "event_id": "401882802",
           "home": "Levante",
@@ -115,49 +89,23 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 6,
+        "n": 7,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.62692,
-          "logloss": 1.05118
+          "brier": 0.60553,
+          "logloss": 1.01914
         },
         "baseline": {
-          "brier": 0.6264,
-          "logloss": 1.04727
+          "brier": 0.60552,
+          "logloss": 1.01599
         },
-        "shadow_brier_delta_vs_baseline": 0.00052,
+        "shadow_brier_delta_vs_baseline": 1e-05,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "SERIEA": {
       "name": "Serie A",
       "games": [
-        {
-          "event_id": "401875001",
-          "home": "Atalanta",
-          "away": "Inter Milan",
-          "start_utc": "2026-11-22T19:45:00+00:00",
-          "league": "SERIEA",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 6
-          },
-          "probabilities": {
-            "home_win_90": 0.29948,
-            "draw_90": 0.22755,
-            "away_win_90": 0.47298,
-            "over_2_5": 0.67713
-          },
-          "expected_score": {
-            "home": 1.496,
-            "away": 1.993
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        },
         {
           "event_id": "401875009",
           "home": "Monza",
@@ -170,9 +118,9 @@
             "away": 6
           },
           "probabilities": {
-            "home_win_90": 0.40301,
+            "home_win_90": 0.40303,
             "draw_90": 0.22364,
-            "away_win_90": 0.37336,
+            "away_win_90": 0.37333,
             "over_2_5": 0.72572
           },
           "expected_score": {
@@ -187,17 +135,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 17,
+        "n": 18,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.56885,
-          "logloss": 0.95836
+          "brier": 0.56319,
+          "logloss": 0.94986
         },
         "baseline": {
-          "brier": 0.57318,
-          "logloss": 0.96807
+          "brier": 0.56715,
+          "logloss": 0.95879
         },
-        "shadow_brier_delta_vs_baseline": -0.00433,
+        "shadow_brier_delta_vs_baseline": -0.00396,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -206,50 +154,23 @@
       "games": [],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 8,
+        "n": 9,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.6167,
-          "logloss": 1.01719
+          "brier": 0.60135,
+          "logloss": 0.99628
         },
         "baseline": {
-          "brier": 0.62018,
-          "logloss": 1.02478
+          "brier": 0.60554,
+          "logloss": 1.0042
         },
-        "shadow_brier_delta_vs_baseline": -0.00348,
+        "shadow_brier_delta_vs_baseline": -0.00419,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
     "LIGUE1": {
       "name": "Ligue 1",
-      "games": [
-        {
-          "event_id": "401876400",
-          "home": "Marseille",
-          "away": "Le Mans",
-          "start_utc": "2026-11-22T19:45:00+00:00",
-          "league": "LIGUE1",
-          "model": "advanced_shadow_v1",
-          "training_games": {
-            "home": 5,
-            "away": 5
-          },
-          "probabilities": {
-            "home_win_90": 0.69714,
-            "draw_90": 0.16537,
-            "away_win_90": 0.13749,
-            "over_2_5": 0.69232
-          },
-          "expected_score": {
-            "home": 2.614,
-            "away": 0.958
-          },
-          "xg_used": false,
-          "espn_stats_used": false,
-          "status": "shadow_non_calibre",
-          "odds": null
-        }
-      ],
+      "games": [],
       "evaluation": {
         "status": "small_historical_score_backtest",
         "n": 8,
