@@ -40659,13 +40659,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-22T03:03:25.388185+00:00",
+      "home_score": 97,
+      "away_score": 96,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.4232,
+          "log_loss": 0.61618614
+        },
+        "own_elo": {
+          "brier": 0.5964978,
+          "log_loss": 0.78992616
+        },
+        "advanced_team": {
+          "brier": 0.43023943,
+          "log_loss": 0.6232667
+        },
+        "montecarlo_bayes": {
+          "brier": 0.46887991,
+          "log_loss": 0.6620168
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -56567,6 +56584,40 @@
       "home_after": 1556.36,
       "away_after": 1488.05,
       "observed_home_outcome": 1
+    },
+    "NCAAB:401921776": {
+      "key": "NCAAB:401921776",
+      "league": "NCAAB",
+      "event_id": "401921776",
+      "home": "Villanova",
+      "away": "Michigan",
+      "start_utc": "2026-11-22T00:00:00+00:00",
+      "observed_at_utc": "2026-11-22T03:03:25.388185+00:00",
+      "home_score": 79,
+      "away_score": 73,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.0,
+      "away_before": 1523.59,
+      "home_after": 1501.22,
+      "away_after": 1510.37,
+      "observed_home_outcome": 1
+    },
+    "NBA:401910024": {
+      "key": "NBA:401910024",
+      "league": "NBA",
+      "event_id": "401910024",
+      "home": "Knicks",
+      "away": "Trail Blazers",
+      "start_utc": "2026-11-22T00:30:00+00:00",
+      "observed_at_utc": "2026-11-22T03:03:25.388185+00:00",
+      "home_score": 97,
+      "away_score": 96,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1525.65,
+      "away_before": 1550.33,
+      "home_after": 1538.5,
+      "away_after": 1537.48,
+      "observed_home_outcome": 1
     }
   },
   "elo_ratings": {
@@ -56593,11 +56644,11 @@
       "Bucks": 1361.43,
       "Nuggets": 1554.44,
       "Bulls": 1448.34,
-      "Trail Blazers": 1550.33,
+      "Trail Blazers": 1537.48,
       "Lions": 1488.0,
       "Thunder": 1522.73,
       "Nets": 1414.04,
-      "Knicks": 1525.65,
+      "Knicks": 1538.5,
       "Jazz": 1424.08,
       "Lakers": 1582.77,
       "Pelicans": 1450.0,
@@ -56756,11 +56807,11 @@
       "Dream": 1488.68
     },
     "NCAAB": {
-      "Villanova": 1488.0,
+      "Villanova": 1501.22,
       "Notre Dame": 1501.16,
       "High Point": 1523.59,
       "Liberty": 1488.0,
-      "Michigan": 1523.59,
+      "Michigan": 1510.37,
       "Oakland": 1477.22,
       "Duke": 1511.57,
       "Army": 1488.0,
@@ -56918,5 +56969,5 @@
       "Detroit Mercy": 1489.17
     }
   },
-  "updated_at_utc": "2026-11-22T02:37:52.835806+00:00"
+  "updated_at_utc": "2026-11-22T06:36:17.653304+00:00"
 }
