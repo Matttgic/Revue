@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-23T01:40:56.128527+00:00",
+  "generated_at_utc": "2026-11-23T04:40:47.610248+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -255,17 +255,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 14,
-            "away": 14
+            "away": 15
           },
           "probabilities": {
-            "home_win": 0.52426,
-            "away_win": 0.47574
+            "home_win": 0.53781,
+            "away_win": 0.46219
           },
           "odds": null,
-          "expected_margin_home": 0.302,
+          "expected_margin_home": 0.696,
           "components": {
-            "elo_probability": 0.5326,
-            "margin_probability": 0.51,
+            "elo_probability": 0.5464,
+            "margin_probability": 0.5231,
             "last_games_form": 5
           }
         },
@@ -484,20 +484,68 @@
             "margin_probability": 0.5321,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401909324",
+          "league": "NBA",
+          "home": "Warriors",
+          "away": "Kings",
+          "start_utc": "2026-11-26T03:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 15,
+            "away": 15
+          },
+          "probabilities": {
+            "home_win": 0.66392,
+            "away_win": 0.33608
+          },
+          "odds": null,
+          "expected_margin_home": 2.767,
+          "components": {
+            "elo_probability": 0.7066,
+            "margin_probability": 0.5912,
+            "last_games_form": 5
+          }
+        },
+        {
+          "event_id": "401909325",
+          "league": "NBA",
+          "home": "Trail Blazers",
+          "away": "Spurs",
+          "start_utc": "2026-11-26T03:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 15,
+            "away": 16
+          },
+          "probabilities": {
+            "home_win": 0.46939,
+            "away_win": 0.53061
+          },
+          "odds": null,
+          "expected_margin_home": -1.635,
+          "components": {
+            "elo_probability": 0.4832,
+            "margin_probability": 0.4458,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 120,
+        "n": 125,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22206,
-          "logloss_binary": 0.63602
+          "brier_binary": 0.22174,
+          "logloss_binary": 0.63534
         },
         "baseline": {
-          "brier_binary": 0.22076,
-          "logloss_binary": 0.63314
+          "brier_binary": 0.21961,
+          "logloss_binary": 0.63073
         },
-        "brier_delta_candidate_minus_baseline": 0.0013,
+        "brier_delta_candidate_minus_baseline": 0.00213,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -867,17 +915,17 @@
         }
       ],
       "evaluation": {
-        "n": 80,
+        "n": 81,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23869,
-          "logloss_binary": 0.67016
+          "brier_binary": 0.23812,
+          "logloss_binary": 0.66902
         },
         "baseline": {
-          "brier_binary": 0.24254,
-          "logloss_binary": 0.67755
+          "brier_binary": 0.24156,
+          "logloss_binary": 0.67558
         },
-        "brier_delta_candidate_minus_baseline": -0.00385,
+        "brier_delta_candidate_minus_baseline": -0.00344,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
