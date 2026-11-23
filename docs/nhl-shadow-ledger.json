@@ -1,6 +1,6 @@
 {
   "version": "nhl_clairvoyance_moneypuck_shadow_v1",
-  "updated_at_utc": "2026-11-23T07:26:36.688460+00:00",
+  "updated_at_utc": "2026-11-23T19:15:49.508229+00:00",
   "rule": "Immutable predictions only if created >=20 minutes before kickoff",
   "evaluation": "2-way NHL final including OT/SO; Brier mean; no wagers/ROI",
   "events": [
@@ -14131,6 +14131,51 @@
           "name": "Jesper Wallstedt",
           "games": 22,
           "save_pct": 0.9235
+        },
+        "selection_rule": "Most games played, not projected/confirmed starters"
+      },
+      "model_id": "clairvoyance_nhl_backend_formula_with_revue_elo_proxy",
+      "status": "pending",
+      "resolved_at_utc": null,
+      "result": null,
+      "home_goals": null,
+      "away_goals": null,
+      "brier": null,
+      "research_brier": null
+    },
+    {
+      "event_id": "2026020385",
+      "home": "EDM",
+      "away": "VGK",
+      "kickoff_utc": "2026-11-25T01:00:00+00:00",
+      "locked_at_utc": "2026-11-23T19:15:49.508229+00:00",
+      "source_prediction_at_utc": "2026-11-23T19:15:49.508229+00:00",
+      "home_win_probability": 0.588,
+      "away_win_probability": 0.412,
+      "research_home_win_probability": 0.588,
+      "research_model_id": "revue_nhl_low_sample_shrink_v1",
+      "source_updated_utc": {
+        "teams": "2026-11-23T11:41:04+00:00",
+        "goalies": "2026-11-23T11:40:45+00:00"
+      },
+      "source_snapshot_utc": {
+        "teams": "2026-11-23T18:41:21.332116+00:00",
+        "goalies": "2026-11-23T18:41:22.973723+00:00"
+      },
+      "xg_games_observed": {
+        "home": 26,
+        "away": 25
+      },
+      "historical_goalie_proxy": {
+        "home": {
+          "name": "Devon Levi",
+          "games": 13,
+          "save_pct": 0.8928
+        },
+        "away": {
+          "name": "Carter Hart",
+          "games": 13,
+          "save_pct": 0.8858
         },
         "selection_rule": "Most games played, not projected/confirmed starters"
       },
