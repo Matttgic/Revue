@@ -21806,7 +21806,7 @@
       "away": "Jets",
       "kickoff_utc": "2026-11-22T21:05:00+00:00",
       "locked_at_utc": "2026-11-19T23:36:30.229763+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "revue_ensemble_mc_bayes_elo": {
           "p_home": 0.53498,
@@ -21817,11 +21817,20 @@
           "source_generated_utc": "2026-11-19T23:35:12.428104+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 0,
+      "score": {
+        "home": 24,
+        "away": 27
+      },
+      "resolved_at_utc": "2026-11-23T00:45:40.034825+00:00",
+      "brier_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.286204,
+        "revue_multisports_score_model": 0.34751
+      },
+      "logloss_by_model": {
+        "revue_ensemble_mc_bayes_elo": 0.765675,
+        "revue_multisports_score_model": 0.890379
+      },
       "real_bet": false,
       "staked_units": 0
     },
@@ -21887,7 +21896,7 @@
       "away": "BUF",
       "kickoff_utc": "2026-11-22T22:00:00+00:00",
       "locked_at_utc": "2026-11-19T23:36:30.229763+00:00",
-      "status": "pending",
+      "status": "settled",
       "models": {
         "clairvoyance_nhl_formula_revue_inputs": {
           "p_home": 0.705,
@@ -21902,11 +21911,22 @@
           "source_generated_utc": "2026-11-19T23:35:54.461803+00:00"
         }
       },
-      "result": null,
-      "score": null,
-      "resolved_at_utc": null,
-      "brier_by_model": null,
-      "logloss_by_model": null,
+      "result": 0,
+      "score": {
+        "home": 2,
+        "away": 6
+      },
+      "resolved_at_utc": "2026-11-23T00:45:40.034825+00:00",
+      "brier_by_model": {
+        "clairvoyance_nhl_formula_revue_inputs": 0.497025,
+        "revue_multisports_score_model": 0.474997,
+        "revue_nhl_low_sample_shrink_v1": 0.463761
+      },
+      "logloss_by_model": {
+        "clairvoyance_nhl_formula_revue_inputs": 1.22078,
+        "revue_multisports_score_model": 1.168606,
+        "revue_nhl_low_sample_shrink_v1": 1.142564
+      },
       "real_bet": false,
       "staked_units": 0
     },
