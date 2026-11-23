@@ -40568,13 +40568,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-23T00:45:40.034825+00:00",
+      "home_score": 24,
+      "away_score": 27,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.6950205,
+          "log_loss": 0.89037935
+        },
+        "own_elo": {
+          "brier": 0.53741333,
+          "log_loss": 0.73057751
+        },
+        "advanced_team": {
+          "brier": 0.61400929,
+          "log_loss": 0.80761572
+        },
+        "montecarlo_bayes": {
+          "brier": 0.5724072,
+          "log_loss": 0.76567486
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -57819,6 +57836,23 @@
       "home_after": 1566.26,
       "away_after": 1537.11,
       "observed_home_outcome": 1
+    },
+    "NFL:401873074": {
+      "key": "NFL:401873074",
+      "league": "NFL",
+      "event_id": "401873074",
+      "home": "Chargers",
+      "away": "Jets",
+      "start_utc": "2026-11-22T21:05:00+00:00",
+      "observed_at_utc": "2026-11-23T00:45:40.034825+00:00",
+      "home_score": 24,
+      "away_score": 27,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1466.79,
+      "away_before": 1454.02,
+      "home_after": 1454.35,
+      "away_after": 1466.46,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -57974,7 +58008,7 @@
       "Eagles": 1458.31,
       "Dolphins": 1456.22,
       "Bengals": 1556.47,
-      "Jets": 1454.02,
+      "Jets": 1466.46,
       "Browns": 1502.23,
       "Titans": 1455.48,
       "Texans": 1518.31,
@@ -57986,7 +58020,7 @@
       "Vikings": 1512.83,
       "Packers": 1521.55,
       "Bears": 1546.04,
-      "Chargers": 1466.79,
+      "Chargers": 1454.35,
       "Broncos": 1555.15,
       "Cardinals": 1466.35,
       "Lions": 1567.54,
@@ -58171,5 +58205,5 @@
       "Washington St": 1488.4
     }
   },
-  "updated_at_utc": "2026-11-22T23:51:47.633833+00:00"
+  "updated_at_utc": "2026-11-23T00:47:28.101413+00:00"
 }
