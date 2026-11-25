@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-25T03:39:55.087394+00:00",
+  "generated_at_utc": "2026-11-25T06:15:27.699041+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -487,17 +487,17 @@
         }
       ],
       "evaluation": {
-        "n": 120,
+        "n": 122,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.21993,
-          "logloss_binary": 0.63157
+          "brier_binary": 0.22106,
+          "logloss_binary": 0.63388
         },
         "baseline": {
-          "brier_binary": 0.21758,
-          "logloss_binary": 0.62641
+          "brier_binary": 0.21905,
+          "logloss_binary": 0.62942
         },
-        "brier_delta_candidate_minus_baseline": 0.00235,
+        "brier_delta_candidate_minus_baseline": 0.00201,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -520,21 +520,6 @@
     },
     "NCAAB": {
       "games": [
-        {
-          "event_id": "401909800",
-          "league": "NCAAB",
-          "home": "Kansas St",
-          "away": "Gonzaga",
-          "start_utc": "2026-11-25T05:30:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 0,
-            "away": 4
-          },
-          "probabilities": null,
-          "odds": null
-        },
         {
           "event_id": "401920428",
           "league": "NCAAB",
@@ -574,7 +559,7 @@
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 6,
+            "home": 7,
             "away": 1
           },
           "probabilities": null,
@@ -634,7 +619,7 @@
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 0,
+            "home": 1,
             "away": 7
           },
           "probabilities": null,
@@ -678,6 +663,45 @@
           },
           "probabilities": null,
           "odds": null
+        },
+        {
+          "event_id": "401920529",
+          "league": "NCAAB",
+          "home": "Iowa State",
+          "away": "Tennessee",
+          "start_utc": "2026-11-26T20:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 2,
+            "away": 6
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401920537",
+          "league": "NCAAB",
+          "home": "Michigan",
+          "away": "Miami",
+          "start_utc": "2026-11-26T20:30:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 5,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win": 0.49038,
+            "away_win": 0.50962
+          },
+          "odds": null,
+          "expected_margin_home": -2.432,
+          "components": {
+            "elo_probability": 0.5361,
+            "margin_probability": 0.4125,
+            "last_games_form": 5
+          }
         },
         {
           "event_id": "401921673",

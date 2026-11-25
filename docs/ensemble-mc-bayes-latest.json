@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-25T03:39:55.557931+00:00",
+  "generated_at_utc": "2026-11-25T06:15:28.207697+00:00",
   "status": "experimental_no_bets",
   "source": "ESPN cached results; generated Revue model coefficients",
   "parameters": {
@@ -698,23 +698,23 @@
       ],
       "evaluation": {
         "status": "chronological_score_backtest_no_odds",
-        "n": 120,
+        "n": 122,
         "scores": {
           "baseline": {
-            "brier_binary": 0.21758,
-            "logloss_binary": 0.62641
+            "brier_binary": 0.21905,
+            "logloss_binary": 0.62942
           },
           "previous_shadow": {
-            "brier_binary": 0.21993,
-            "logloss_binary": 0.63157
+            "brier_binary": 0.22106,
+            "logloss_binary": 0.63388
           },
           "ensemble": {
-            "brier_binary": 0.2174,
-            "logloss_binary": 0.62645
+            "brier_binary": 0.21788,
+            "logloss_binary": 0.62742
           }
         },
-        "delta_brier_vs_baseline": -0.00018,
-        "delta_brier_vs_previous_shadow": -0.00253,
+        "delta_brier_vs_baseline": -0.00117,
+        "delta_brier_vs_previous_shadow": -0.00318,
         "warning": "Small sample, same hyperparameters across sports. No ROI/CLV, no automatic promotion."
       }
     },
@@ -744,21 +744,6 @@
     },
     "NCAAB": {
       "games": [
-        {
-          "event_id": "401909800",
-          "league": "NCAAB",
-          "home": "Kansas St",
-          "away": "Gonzaga",
-          "start_utc": "2026-11-25T05:30:00+00:00",
-          "model": "mc_bayes_elo_shadow_v1",
-          "status": "insufficient_history",
-          "training_games": {
-            "home": 0,
-            "away": 4
-          },
-          "probabilities": null,
-          "components": null
-        },
         {
           "event_id": "401920428",
           "league": "NCAAB",
@@ -798,7 +783,7 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 6,
+            "home": 7,
             "away": 1
           },
           "probabilities": null,
@@ -858,7 +843,7 @@
           "model": "mc_bayes_elo_shadow_v1",
           "status": "insufficient_history",
           "training_games": {
-            "home": 0,
+            "home": 1,
             "away": 7
           },
           "probabilities": null,
@@ -893,8 +878,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 77.39,
-            "away": 76.36
+            "home": 77.34,
+            "away": 76.32
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
@@ -912,6 +897,55 @@
           },
           "probabilities": null,
           "components": null
+        },
+        {
+          "event_id": "401920529",
+          "league": "NCAAB",
+          "home": "Iowa State",
+          "away": "Tennessee",
+          "start_utc": "2026-11-26T20:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "insufficient_history",
+          "training_games": {
+            "home": 2,
+            "away": 6
+          },
+          "probabilities": null,
+          "components": null
+        },
+        {
+          "event_id": "401920537",
+          "league": "NCAAB",
+          "home": "Michigan",
+          "away": "Miami",
+          "start_utc": "2026-11-26T20:30:00+00:00",
+          "model": "mc_bayes_elo_shadow_v1",
+          "status": "shadow_non_calibre",
+          "training_games": {
+            "home": 5,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win": 0.47971,
+            "away_win": 0.52029
+          },
+          "components": {
+            "monte_carlo": 0.44401,
+            "bayes": 0.49908,
+            "elo": 0.53612,
+            "weights": {
+              "monte_carlo": 0.52,
+              "bayes": 0.23,
+              "elo": 0.25
+            },
+            "iterations": 768,
+            "method": "deterministic_independent_gaussian_points"
+          },
+          "expected_score": {
+            "home": 76.44,
+            "away": 78.69
+          },
+          "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
         {
           "event_id": "401921673",
@@ -957,8 +991,8 @@
             "method": "deterministic_independent_gaussian_points"
           },
           "expected_score": {
-            "home": 77.47,
-            "away": 76.36
+            "home": 77.43,
+            "away": 76.32
           },
           "notes": "Independent research: score-only Monte Carlo, Beta(8,8), Elo. No confirmed injury/pitcher/quarterback data."
         },
