@@ -43962,13 +43962,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 86,
+      "away_score": 104,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.56137608,
+          "log_loss": 0.75459714
+        },
+        "own_elo": {
+          "brier": 0.37978985,
+          "log_loss": 0.57229215
+        },
+        "advanced_team": {
+          "brier": 0.5496971,
+          "log_loss": 0.74288379
+        },
+        "montecarlo_bayes": {
+          "brier": 0.46430102,
+          "log_loss": 0.65743261
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -44032,13 +44049,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 116,
+      "away_score": 131,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.3741125,
+          "log_loss": 0.56651453
+        },
+        "own_elo": {
+          "brier": 0.2370264,
+          "log_loss": 0.42198704
+        },
+        "advanced_team": {
+          "brier": 0.36404338,
+          "log_loss": 0.55624149
+        },
+        "montecarlo_bayes": {
+          "brier": 0.28678194,
+          "log_loss": 0.47589294
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -44102,13 +44136,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 101,
+      "away_score": 120,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.71784162,
+          "log_loss": 0.91404326
+        },
+        "own_elo": {
+          "brier": 0.63221404,
+          "log_loss": 0.82607066
+        },
+        "advanced_team": {
+          "brier": 0.69193495,
+          "log_loss": 0.8871932
+        },
+        "montecarlo_bayes": {
+          "brier": 0.60407635,
+          "log_loss": 0.7975748
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -45495,6 +45546,76 @@
           "training_games": {
             "home": 6,
             "away": 6
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NCAAB:401920537": {
+      "event_id": "401920537",
+      "league": "NCAAB",
+      "home": "Michigan",
+      "away": "Miami",
+      "start_utc": "2026-11-26T20:30:00+00:00",
+      "locked_at_utc": "2026-11-25T10:25:24.935050+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.5434,
+            0.4566
+          ],
+          "published_at_utc": "2026-11-25T08:46:07.261872+00:00",
+          "training_games": {
+            "home": 5,
+            "away": 7
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.469456868,
+            0.530543132
+          ],
+          "published_at_utc": "2026-11-25T10:25:24.935050+00:00",
+          "training_games": {
+            "home": 5,
+            "away": 7
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.49038,
+            0.50962
+          ],
+          "published_at_utc": "2026-11-25T08:46:12.528926+00:00",
+          "training_games": {
+            "home": 5,
+            "away": 7
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.47971,
+            0.52029
+          ],
+          "published_at_utc": "2026-11-25T08:46:12.884161+00:00",
+          "training_games": {
+            "home": 5,
+            "away": 7
           }
         }
       },
@@ -60112,6 +60233,125 @@
       "home_after": 1468.61,
       "away_after": 1575.47,
       "observed_home_outcome": 0
+    },
+    "NBA:401909314": {
+      "key": "NBA:401909314",
+      "league": "NBA",
+      "event_id": "401909314",
+      "home": "Magic",
+      "away": "Pistons",
+      "start_utc": "2026-11-25T00:00:00+00:00",
+      "observed_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 86,
+      "away_score": 104,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1490.17,
+      "away_before": 1537.11,
+      "home_after": 1479.78,
+      "away_after": 1547.5,
+      "observed_home_outcome": 0
+    },
+    "NBA:401909315": {
+      "key": "NBA:401909315",
+      "league": "NBA",
+      "event_id": "401909315",
+      "home": "Wizards",
+      "away": "Celtics",
+      "start_utc": "2026-11-25T01:00:00+00:00",
+      "observed_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 116,
+      "away_score": 131,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1463.39,
+      "away_before": 1547.88,
+      "home_after": 1454.25,
+      "away_after": 1557.02,
+      "observed_home_outcome": 0
+    },
+    "NCAAB:401915942": {
+      "key": "NCAAB:401915942",
+      "league": "NCAAB",
+      "event_id": "401915942",
+      "home": "Louisville",
+      "away": "Texas Tech",
+      "start_utc": "2026-11-25T01:37:00+00:00",
+      "observed_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 72,
+      "away_score": 64,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1522.42,
+      "away_before": 1556.78,
+      "home_after": 1535.6,
+      "away_after": 1543.6,
+      "observed_home_outcome": 1
+    },
+    "NBA:401909316": {
+      "key": "NBA:401909316",
+      "league": "NBA",
+      "event_id": "401909316",
+      "home": "Nuggets",
+      "away": "Mavericks",
+      "start_utc": "2026-11-25T03:00:00+00:00",
+      "observed_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 101,
+      "away_score": 120,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1562.89,
+      "away_before": 1520.03,
+      "home_after": 1549.42,
+      "away_after": 1533.5,
+      "observed_home_outcome": 0
+    },
+    "NCAAB:401906762": {
+      "key": "NCAAB:401906762",
+      "league": "NCAAB",
+      "event_id": "401906762",
+      "home": "Alabama",
+      "away": "Baylor",
+      "start_utc": "2026-11-25T03:05:00+00:00",
+      "observed_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 63,
+      "away_score": 68,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1555.64,
+      "away_before": 1489.18,
+      "home_after": 1541.37,
+      "away_after": 1503.45,
+      "observed_home_outcome": 0
+    },
+    "NCAAB:401915943": {
+      "key": "NCAAB:401915943",
+      "league": "NCAAB",
+      "event_id": "401915943",
+      "home": "St John's",
+      "away": "Oregon",
+      "start_utc": "2026-11-25T04:18:00+00:00",
+      "observed_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 90,
+      "away_score": 79,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1556.01,
+      "away_before": 1500.0,
+      "home_after": 1566.09,
+      "away_after": 1489.92,
+      "observed_home_outcome": 1
+    },
+    "NCAAB:401909800": {
+      "key": "NCAAB:401909800",
+      "league": "NCAAB",
+      "event_id": "401909800",
+      "home": "Kansas St",
+      "away": "Gonzaga",
+      "start_utc": "2026-11-25T05:49:00+00:00",
+      "observed_at_utc": "2026-11-25T10:25:08.057274+00:00",
+      "home_score": 61,
+      "away_score": 101,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1500.0,
+      "away_before": 1522.04,
+      "home_after": 1488.76,
+      "away_after": 1533.28,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -60120,23 +60360,23 @@
       "Clippers": 1424.38,
       "Pacers": 1428.78,
       "Hawks": 1566.26,
-      "Wizards": 1463.39,
-      "Pistons": 1537.11,
+      "Wizards": 1454.25,
+      "Pistons": 1547.5,
       "Heat": 1543.56,
       "Timberwolves": 1576.13,
-      "Celtics": 1547.88,
+      "Celtics": 1557.02,
       "76ers": 1568.9,
       "Warriors": 1529.17,
       "Kings": 1373.71,
       "Suns": 1523.17,
       "Spurs": 1605.33,
       "Rockets": 1566.72,
-      "Mavericks": 1520.03,
+      "Mavericks": 1533.5,
       "Cavaliers": 1494.08,
-      "Magic": 1490.17,
+      "Magic": 1479.78,
       "Hornets": 1415.45,
       "Bucks": 1376.61,
-      "Nuggets": 1562.89,
+      "Nuggets": 1549.42,
       "Bulls": 1454.23,
       "Trail Blazers": 1551.02,
       "Lions": 1488.0,
@@ -60309,19 +60549,19 @@
       "Oakland": 1477.22,
       "Duke": 1523.17,
       "Army": 1488.0,
-      "St John's": 1556.01,
+      "St John's": 1566.09,
       "Monmouth": 1488.0,
       "Florida": 1563.55,
       "Miami": 1531.62,
       "Iowa State": 1500.41,
       "Memphis": 1513.2,
-      "Texas Tech": 1556.78,
+      "Texas Tech": 1543.6,
       "Jackson St": 1488.0,
       "Vanderbilt": 1575.47,
       "Bellarmine": 1488.0,
       "Michigan St": 1544.79,
       "Quinnipiac": 1488.0,
-      "Gonzaga": 1522.04,
+      "Gonzaga": 1533.28,
       "Purdue": 1488.0,
       "Kansas": 1555.29,
       "Fordham": 1488.0,
@@ -60333,7 +60573,7 @@
       "Gardner-Webb": 1476.83,
       "BYU": 1552.2,
       "Ohio State": 1468.61,
-      "Louisville": 1522.42,
+      "Louisville": 1535.6,
       "Chattanooga": 1488.0,
       "Houston": 1570.27,
       "La Salle": 1488.0,
@@ -60345,7 +60585,7 @@
       "Wofford": 1488.0,
       "Kentucky": 1522.78,
       "Manhattan": 1477.61,
-      "Alabama": 1555.64,
+      "Alabama": 1541.37,
       "Sam Houston": 1476.81,
       "Virginia": 1576.59,
       "Drexel": 1488.0,
@@ -60440,7 +60680,7 @@
       "Stonehill": 1489.22,
       "LSU": 1535.94,
       "William & Mary": 1488.41,
-      "Baylor": 1489.18,
+      "Baylor": 1503.45,
       "Syracuse": 1489.2,
       "Long Beach St": 1489.18,
       "Rutgers": 1489.21,
@@ -60470,8 +60710,10 @@
       "Colorado St": 1489.28,
       "Ole Miss": 1514.27,
       "TCU": 1513.55,
-      "Providence": 1489.64
+      "Providence": 1489.64,
+      "Oregon": 1489.92,
+      "Kansas St": 1488.76
     }
   },
-  "updated_at_utc": "2026-11-25T03:40:14.051409+00:00"
+  "updated_at_utc": "2026-11-25T10:25:24.935050+00:00"
 }
