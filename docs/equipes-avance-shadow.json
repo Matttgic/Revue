@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-26T04:17:33.706779+00:00",
+  "generated_at_utc": "2026-11-26T06:48:47.995192+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -15,17 +15,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 15,
-            "away": 13
+            "away": 14
           },
           "probabilities": {
-            "home_win": 0.5472,
-            "away_win": 0.4528
+            "home_win": 0.55865,
+            "away_win": 0.44135
           },
           "odds": null,
-          "expected_margin_home": 0.311,
+          "expected_margin_home": 0.552,
           "components": {
-            "elo_probability": 0.5688,
-            "margin_probability": 0.5103,
+            "elo_probability": 0.5823,
+            "margin_probability": 0.5183,
             "last_games_form": 5
           }
         },
@@ -63,17 +63,17 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 15,
-            "away": 15
+            "away": 16
           },
           "probabilities": {
-            "home_win": 0.43546,
-            "away_win": 0.56454
+            "home_win": 0.42652,
+            "away_win": 0.57348
           },
           "odds": null,
-          "expected_margin_home": -0.782,
+          "expected_margin_home": -0.827,
           "components": {
-            "elo_probability": 0.4128,
-            "margin_probability": 0.474,
+            "elo_probability": 0.3995,
+            "margin_probability": 0.4725,
             "last_games_form": 5
           }
         },
@@ -375,33 +375,33 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 15,
-            "away": 15
+            "away": 16
           },
           "probabilities": {
-            "home_win": 0.55704,
-            "away_win": 0.44296
+            "home_win": 0.54786,
+            "away_win": 0.45214
           },
           "odds": null,
-          "expected_margin_home": 1.99,
+          "expected_margin_home": 1.944,
           "components": {
-            "elo_probability": 0.5519,
-            "margin_probability": 0.5659,
+            "elo_probability": 0.5382,
+            "margin_probability": 0.5644,
             "last_games_form": 5
           }
         }
       ],
       "evaluation": {
-        "n": 118,
+        "n": 121,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22521,
-          "logloss_binary": 0.64226
+          "brier_binary": 0.2242,
+          "logloss_binary": 0.64015
         },
         "baseline": {
-          "brier_binary": 0.22348,
-          "logloss_binary": 0.6383
+          "brier_binary": 0.22222,
+          "logloss_binary": 0.63562
         },
-        "brier_delta_candidate_minus_baseline": 0.00173,
+        "brier_delta_candidate_minus_baseline": 0.00198,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -477,7 +477,7 @@
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 6,
+            "home": 7,
             "away": 0
           },
           "probabilities": null,
@@ -622,6 +622,21 @@
           "odds": null
         },
         {
+          "event_id": "401929288",
+          "league": "NCAAB",
+          "home": "Memphis",
+          "away": "Wake Forest",
+          "start_utc": "2026-11-27T18:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 3,
+            "away": 1
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
           "event_id": "401921827",
           "league": "NCAAB",
           "home": "Vanderbilt",
@@ -631,7 +646,7 @@
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
             "home": 7,
-            "away": 0
+            "away": 1
           },
           "probabilities": null,
           "odds": null
@@ -1838,17 +1853,17 @@
         }
       ],
       "evaluation": {
-        "n": 1,
+        "n": 2,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.30415,
-          "logloss_binary": 0.80185
+          "brier_binary": 0.31286,
+          "logloss_binary": 0.81951
         },
         "baseline": {
-          "brier_binary": 0.32741,
-          "logloss_binary": 0.8491
+          "brier_binary": 0.33782,
+          "logloss_binary": 0.87047
         },
-        "brier_delta_candidate_minus_baseline": -0.02326,
+        "brier_delta_candidate_minus_baseline": -0.02496,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -1952,17 +1967,17 @@
         }
       ],
       "evaluation": {
-        "n": 80,
+        "n": 81,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.23797,
-          "logloss_binary": 0.66871
+          "brier_binary": 0.23752,
+          "logloss_binary": 0.66782
         },
         "baseline": {
-          "brier_binary": 0.241,
-          "logloss_binary": 0.67445
+          "brier_binary": 0.2404,
+          "logloss_binary": 0.67326
         },
-        "brier_delta_candidate_minus_baseline": -0.00303,
+        "brier_delta_candidate_minus_baseline": -0.00288,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
