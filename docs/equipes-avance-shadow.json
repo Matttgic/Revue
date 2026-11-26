@@ -1,82 +1,10 @@
 {
-  "generated_at_utc": "2026-11-26T01:17:23.727294+00:00",
+  "generated_at_utc": "2026-11-26T04:17:33.706779+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
     "NBA": {
       "games": [
-        {
-          "event_id": "401909323",
-          "league": "NBA",
-          "home": "Rockets",
-          "away": "Suns",
-          "start_utc": "2026-11-26T01:30:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 15,
-            "away": 14
-          },
-          "probabilities": {
-            "home_win": 0.57675,
-            "away_win": 0.42325
-          },
-          "odds": null,
-          "expected_margin_home": 1.184,
-          "components": {
-            "elo_probability": 0.5987,
-            "margin_probability": 0.5393,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401909324",
-          "league": "NBA",
-          "home": "Warriors",
-          "away": "Kings",
-          "start_utc": "2026-11-26T03:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 14,
-            "away": 15
-          },
-          "probabilities": {
-            "home_win": 0.68565,
-            "away_win": 0.31435
-          },
-          "odds": null,
-          "expected_margin_home": 3.103,
-          "components": {
-            "elo_probability": 0.7348,
-            "margin_probability": 0.602,
-            "last_games_form": 5
-          }
-        },
-        {
-          "event_id": "401909325",
-          "league": "NBA",
-          "home": "Trail Blazers",
-          "away": "Spurs",
-          "start_utc": "2026-11-26T03:00:00+00:00",
-          "status": "shadow_non_calibre",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 15,
-            "away": 15
-          },
-          "probabilities": {
-            "home_win": 0.47546,
-            "away_win": 0.52454
-          },
-          "odds": null,
-          "expected_margin_home": -0.963,
-          "components": {
-            "elo_probability": 0.4798,
-            "margin_probability": 0.468,
-            "last_games_form": 5
-          }
-        },
         {
           "event_id": "401909326",
           "league": "NBA",
@@ -436,20 +364,44 @@
             "margin_probability": 0.4518,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401910050",
+          "league": "NBA",
+          "home": "Rockets",
+          "away": "76ers",
+          "start_utc": "2026-11-29T01:30:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 15,
+            "away": 15
+          },
+          "probabilities": {
+            "home_win": 0.55704,
+            "away_win": 0.44296
+          },
+          "odds": null,
+          "expected_margin_home": 1.99,
+          "components": {
+            "elo_probability": 0.5519,
+            "margin_probability": 0.5659,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 113,
+        "n": 118,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.2262,
-          "logloss_binary": 0.64437
+          "brier_binary": 0.22521,
+          "logloss_binary": 0.64226
         },
         "baseline": {
-          "brier_binary": 0.22474,
-          "logloss_binary": 0.64103
+          "brier_binary": 0.22348,
+          "logloss_binary": 0.6383
         },
-        "brier_delta_candidate_minus_baseline": 0.00146,
+        "brier_delta_candidate_minus_baseline": 0.00173,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -579,7 +531,7 @@
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 3,
+            "home": 4,
             "away": 0
           },
           "probabilities": null,
@@ -1850,6 +1802,36 @@
           "training_games": {
             "home": 2,
             "away": 1
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401917551",
+          "league": "NCAAB",
+          "home": "UC San Diego",
+          "away": "LMU",
+          "start_utc": "2026-11-29T03:00:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 1
+          },
+          "probabilities": null,
+          "odds": null
+        },
+        {
+          "event_id": "401920536",
+          "league": "NCAAB",
+          "home": "TBD",
+          "away": "TBD",
+          "start_utc": "2026-11-29T03:30:00+00:00",
+          "status": "insufficient_history",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 0,
+            "away": 0
           },
           "probabilities": null,
           "odds": null
