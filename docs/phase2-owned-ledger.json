@@ -45470,13 +45470,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-27T08:08:34.129409+00:00",
+      "home_score": 13,
+      "away_score": 10,
+      "result": "home",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.32016002,
+          "log_loss": 0.5109923
+        },
+        "own_elo": {
+          "brier": 0.38598827,
+          "log_loss": 0.57858885
+        },
+        "advanced_team": {
+          "brier": 0.37153924,
+          "log_loss": 0.56389242
+        },
+        "montecarlo_bayes": {
+          "brier": 0.39023312,
+          "log_loss": 0.58289465
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -49794,6 +49811,146 @@
           "training_games": {
             "home": 6,
             "away": 6
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NCAAB:401920543": {
+      "event_id": "401920543",
+      "league": "NCAAB",
+      "home": "Alabama",
+      "away": "Miami",
+      "start_utc": "2026-11-28T01:30:00+00:00",
+      "locked_at_utc": "2026-11-27T13:46:15.069268+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.5794,
+            0.4206
+          ],
+          "published_at_utc": "2026-11-27T13:00:09.575562+00:00",
+          "training_games": {
+            "home": 7,
+            "away": 8
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.497812558,
+            0.502187442
+          ],
+          "published_at_utc": "2026-11-27T13:46:15.069268+00:00",
+          "training_games": {
+            "home": 6,
+            "away": 8
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.51907,
+            0.48093
+          ],
+          "published_at_utc": "2026-11-27T13:00:14.220853+00:00",
+          "training_games": {
+            "home": 7,
+            "away": 8
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.49426,
+            0.50574
+          ],
+          "published_at_utc": "2026-11-27T13:00:14.602801+00:00",
+          "training_games": {
+            "home": 7,
+            "away": 8
+          }
+        }
+      },
+      "status": "pending",
+      "resolved_at_utc": null,
+      "home_score": null,
+      "away_score": null,
+      "result": null,
+      "score_source": null,
+      "model_scores": null,
+      "real_bet": false,
+      "stake_units": 0
+    },
+    "NCAAB:401920534": {
+      "event_id": "401920534",
+      "league": "NCAAB",
+      "home": "Louisville",
+      "away": "Tennessee",
+      "start_utc": "2026-11-28T02:00:00+00:00",
+      "locked_at_utc": "2026-11-27T13:46:15.069268+00:00",
+      "market": "full_game_two_way",
+      "probabilities": {
+        "baseline": {
+          "model_id": "revue_independent_score_elo_v1",
+          "probabilities": [
+            0.5354,
+            0.4646
+          ],
+          "published_at_utc": "2026-11-27T13:00:09.575562+00:00",
+          "training_games": {
+            "home": 6,
+            "away": 7
+          }
+        },
+        "own_elo": {
+          "model_id": "revue_own_future_only_elo_k24_v1",
+          "probabilities": [
+            0.441793822,
+            0.558206178
+          ],
+          "published_at_utc": "2026-11-27T13:46:15.069268+00:00",
+          "training_games": {
+            "home": 5,
+            "away": 7
+          },
+          "source": "only observed Revue-owned ESPN finals from prior runs",
+          "home_advantage_added": false
+        },
+        "advanced_team": {
+          "model_id": "elo_recent_margin_shadow_v1",
+          "probabilities": [
+            0.52025,
+            0.47975
+          ],
+          "published_at_utc": "2026-11-27T13:00:14.220853+00:00",
+          "training_games": {
+            "home": 6,
+            "away": 7
+          }
+        },
+        "montecarlo_bayes": {
+          "model_id": "mc_bayes_elo_shadow_v1",
+          "probabilities": [
+            0.49379,
+            0.50621
+          ],
+          "published_at_utc": "2026-11-27T13:00:14.602801+00:00",
+          "training_games": {
+            "home": 6,
+            "away": 7
           }
         }
       },
@@ -64989,6 +65146,91 @@
       "home_after": 1489.6,
       "away_after": 1557.1,
       "observed_home_outcome": 0
+    },
+    "NFL:401873082": {
+      "key": "NFL:401873082",
+      "league": "NFL",
+      "event_id": "401873082",
+      "home": "Bills",
+      "away": "Chiefs",
+      "start_utc": "2026-11-27T01:20:00+00:00",
+      "observed_at_utc": "2026-11-27T08:08:34.129409+00:00",
+      "home_score": 13,
+      "away_score": 10,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1563.36,
+      "away_before": 1520.98,
+      "home_after": 1573.9,
+      "away_after": 1510.44,
+      "observed_home_outcome": 1
+    },
+    "NCAAB:401920530": {
+      "key": "NCAAB:401920530",
+      "league": "NCAAB",
+      "event_id": "401920530",
+      "home": "St John's",
+      "away": "Louisville",
+      "start_utc": "2026-11-27T02:00:00+00:00",
+      "observed_at_utc": "2026-11-27T08:08:34.129409+00:00",
+      "home_score": 90,
+      "away_score": 93,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1566.09,
+      "away_before": 1535.6,
+      "home_after": 1553.04,
+      "away_after": 1548.65,
+      "observed_home_outcome": 0
+    },
+    "NCAAB:401920539": {
+      "key": "NCAAB:401920539",
+      "league": "NCAAB",
+      "event_id": "401920539",
+      "home": "Kansas St",
+      "away": "Alabama",
+      "start_utc": "2026-11-27T02:00:00+00:00",
+      "observed_at_utc": "2026-11-27T08:08:34.129409+00:00",
+      "home_score": 91,
+      "away_score": 104,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1488.76,
+      "away_before": 1541.37,
+      "home_after": 1478.56,
+      "away_after": 1551.57,
+      "observed_home_outcome": 0
+    },
+    "NCAAB:401920540": {
+      "key": "NCAAB:401920540",
+      "league": "NCAAB",
+      "event_id": "401920540",
+      "home": "Gonzaga",
+      "away": "Baylor",
+      "start_utc": "2026-11-27T04:53:00+00:00",
+      "observed_at_utc": "2026-11-27T08:08:34.129409+00:00",
+      "home_score": 72,
+      "away_score": 64,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1533.28,
+      "away_before": 1503.45,
+      "home_after": 1544.25,
+      "away_after": 1492.48,
+      "observed_home_outcome": 1
+    },
+    "NCAAB:401920531": {
+      "key": "NCAAB:401920531",
+      "league": "NCAAB",
+      "event_id": "401920531",
+      "home": "Oregon",
+      "away": "Texas Tech",
+      "start_utc": "2026-11-27T04:57:00+00:00",
+      "observed_at_utc": "2026-11-27T08:08:34.129409+00:00",
+      "home_score": 59,
+      "away_score": 62,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1489.92,
+      "away_before": 1543.6,
+      "home_after": 1479.76,
+      "away_after": 1553.76,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -65165,11 +65407,11 @@
       "Falcons": 1457.04,
       "Ravens": 1442.85,
       "Rams": 1534.79,
-      "Bills": 1563.36,
+      "Bills": 1573.9,
       "Panthers": 1500.79,
       "Giants": 1511.57,
       "Buccaneers": 1491.13,
-      "Chiefs": 1520.98,
+      "Chiefs": 1510.44,
       "Cowboys": 1485.15,
       "Commanders": 1514.33
     },
@@ -65186,19 +65428,19 @@
       "Oakland": 1477.22,
       "Duke": 1535.49,
       "Army": 1488.0,
-      "St John's": 1566.09,
+      "St John's": 1553.04,
       "Monmouth": 1488.0,
       "Florida": 1563.55,
       "Miami": 1542.89,
       "Iowa State": 1490.67,
       "Memphis": 1524.74,
-      "Texas Tech": 1543.6,
+      "Texas Tech": 1553.76,
       "Jackson St": 1488.0,
       "Vanderbilt": 1575.47,
       "Bellarmine": 1488.0,
       "Michigan St": 1556.03,
       "Quinnipiac": 1488.0,
-      "Gonzaga": 1533.28,
+      "Gonzaga": 1544.25,
       "Purdue": 1488.0,
       "Kansas": 1555.29,
       "Fordham": 1488.0,
@@ -65210,7 +65452,7 @@
       "Gardner-Webb": 1476.83,
       "BYU": 1562.06,
       "Ohio State": 1468.61,
-      "Louisville": 1535.6,
+      "Louisville": 1548.65,
       "Chattanooga": 1488.0,
       "Houston": 1570.27,
       "La Salle": 1488.0,
@@ -65222,7 +65464,7 @@
       "Wofford": 1488.0,
       "Kentucky": 1522.78,
       "Manhattan": 1477.61,
-      "Alabama": 1541.37,
+      "Alabama": 1551.57,
       "Sam Houston": 1476.81,
       "Virginia": 1585.59,
       "Drexel": 1488.0,
@@ -65317,7 +65559,7 @@
       "Stonehill": 1489.22,
       "LSU": 1557.1,
       "William & Mary": 1488.41,
-      "Baylor": 1503.45,
+      "Baylor": 1492.48,
       "Syracuse": 1489.2,
       "Long Beach St": 1489.18,
       "Rutgers": 1489.21,
@@ -65348,8 +65590,8 @@
       "Ole Miss": 1503.78,
       "TCU": 1513.55,
       "Providence": 1479.78,
-      "Oregon": 1489.92,
-      "Kansas St": 1488.76,
+      "Oregon": 1479.76,
+      "Kansas St": 1478.56,
       "Arizona St": 1489.24,
       "Southern": 1489.58,
       "South Carolina": 1490.24,
@@ -65359,5 +65601,5 @@
       "SMU": 1489.6
     }
   },
-  "updated_at_utc": "2026-11-27T04:30:03.329154+00:00"
+  "updated_at_utc": "2026-11-27T13:46:15.069268+00:00"
 }
