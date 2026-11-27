@@ -45806,13 +45806,30 @@
           }
         }
       },
-      "status": "pending",
-      "resolved_at_utc": null,
-      "home_score": null,
-      "away_score": null,
-      "result": null,
-      "score_source": null,
-      "model_scores": null,
+      "status": "settled",
+      "resolved_at_utc": "2026-11-26T23:43:52.166698+00:00",
+      "home_score": 70,
+      "away_score": 97,
+      "result": "away",
+      "score_source": "ESPN scoreboard",
+      "model_scores": {
+        "baseline": {
+          "brier": 0.59056712,
+          "log_loss": 0.78394754
+        },
+        "own_elo": {
+          "brier": 0.4407795,
+          "log_loss": 0.63385402
+        },
+        "advanced_team": {
+          "brier": 0.48094509,
+          "log_loss": 0.67408993
+        },
+        "montecarlo_bayes": {
+          "brier": 0.46024337,
+          "log_loss": 0.65336893
+        }
+      },
       "real_bet": false,
       "stake_units": 0
     },
@@ -62709,6 +62726,23 @@
       "home_after": 1575.88,
       "away_after": 1490.26,
       "observed_home_outcome": 1
+    },
+    "NCAAB:401920537": {
+      "key": "NCAAB:401920537",
+      "league": "NCAAB",
+      "event_id": "401920537",
+      "home": "Michigan",
+      "away": "Miami",
+      "start_utc": "2026-11-26T20:30:00+00:00",
+      "observed_at_utc": "2026-11-26T23:43:52.166698+00:00",
+      "home_score": 70,
+      "away_score": 97,
+      "score_source": "ESPN scoreboard",
+      "home_before": 1510.37,
+      "away_before": 1531.62,
+      "home_after": 1499.1,
+      "away_after": 1542.89,
+      "observed_home_outcome": 0
     }
   },
   "elo_ratings": {
@@ -62902,14 +62936,14 @@
       "Notre Dame": 1501.16,
       "High Point": 1523.59,
       "Liberty": 1488.0,
-      "Michigan": 1510.37,
+      "Michigan": 1499.1,
       "Oakland": 1477.22,
       "Duke": 1535.49,
       "Army": 1488.0,
       "St John's": 1566.09,
       "Monmouth": 1488.0,
       "Florida": 1563.55,
-      "Miami": 1531.62,
+      "Miami": 1542.89,
       "Iowa State": 1500.41,
       "Memphis": 1524.74,
       "Texas Tech": 1543.6,
@@ -63077,5 +63111,5 @@
       "Georgetown": 1490.26
     }
   },
-  "updated_at_utc": "2026-11-26T22:41:25.955506+00:00"
+  "updated_at_utc": "2026-11-27T00:31:56.709875+00:00"
 }
