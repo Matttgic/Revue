@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-27T21:00:13.182784+00:00",
+  "generated_at_utc": "2026-11-28T00:00:58.230192+00:00",
   "status": "shadow_experimental_never_auto_bet",
   "licensed_advanced_features": {
     "status": "no_authorized_source",
@@ -296,17 +296,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 10,
+        "n": 11,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.60797,
-          "logloss": 1.01923
+          "brier": 0.61957,
+          "logloss": 1.03437
         },
         "baseline": {
-          "brier": 0.6125,
-          "logloss": 1.02503
+          "brier": 0.62157,
+          "logloss": 1.03583
         },
-        "shadow_brier_delta_vs_baseline": -0.00453,
+        "shadow_brier_delta_vs_baseline": -0.002,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -560,21 +560,52 @@
             "home": "2026-11-23T04:40:45.215276+00:00",
             "away": "2026-11-22T06:39:01.110924+00:00"
           }
+        },
+        {
+          "event_id": "401882792",
+          "home": "Espanyol",
+          "away": "Getafe",
+          "start_utc": "2026-11-30T20:00:00+00:00",
+          "league": "LALIGA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 6,
+            "away": 6
+          },
+          "probabilities": {
+            "home_win_90": 0.51001,
+            "draw_90": 0.2842,
+            "away_win_90": 0.20579,
+            "over_2_5": 0.37737
+          },
+          "expected_score": {
+            "home": 1.439,
+            "away": 0.761
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-11-21T08:37:19.015039+00:00",
+            "away": "2026-11-23T10:11:37.244748+00:00"
+          }
         }
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 9,
+        "n": 10,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.59308,
-          "logloss": 1.00096
+          "brier": 0.60233,
+          "logloss": 1.01166
         },
         "baseline": {
-          "brier": 0.59769,
-          "logloss": 1.00589
+          "brier": 0.60571,
+          "logloss": 1.01439
         },
-        "shadow_brier_delta_vs_baseline": -0.00461,
+        "shadow_brier_delta_vs_baseline": -0.00338,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -797,21 +828,83 @@
             "home": "2026-11-22T03:39:07.474382+00:00",
             "away": "2026-11-23T01:04:29.770947+00:00"
           }
+        },
+        {
+          "event_id": "401875095",
+          "home": "Lecce",
+          "away": "Atalanta",
+          "start_utc": "2026-11-30T17:30:00+00:00",
+          "league": "SERIEA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 7,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win_90": 0.31857,
+            "draw_90": 0.21434,
+            "away_win_90": 0.46709,
+            "over_2_5": 0.74667
+          },
+          "expected_score": {
+            "home": 1.723,
+            "away": 2.176
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-11-22T03:39:07.474382+00:00",
+            "away": "2026-11-23T10:11:37.244748+00:00"
+          }
+        },
+        {
+          "event_id": "401875019",
+          "home": "Cagliari",
+          "away": "Milan",
+          "start_utc": "2026-11-30T19:45:00+00:00",
+          "league": "SERIEA",
+          "model": "advanced_shadow_v1",
+          "training_games": {
+            "home": 7,
+            "away": 7
+          },
+          "probabilities": {
+            "home_win_90": 0.19729,
+            "draw_90": 0.19665,
+            "away_win_90": 0.60607,
+            "over_2_5": 0.67992
+          },
+          "expected_score": {
+            "home": 1.155,
+            "away": 2.349
+          },
+          "xg_used": false,
+          "espn_stats_used": true,
+          "status": "shadow_non_calibre",
+          "odds": null,
+          "espn_stats_source": "ESPN observed boxscore stats; not xG/Opta",
+          "espn_features_published_at": {
+            "home": "2026-11-22T03:39:07.474382+00:00",
+            "away": "2026-11-23T07:11:32.018940+00:00"
+          }
         }
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 20,
+        "n": 21,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.57964,
-          "logloss": 0.97431
+          "brier": 0.59473,
+          "logloss": 0.99477
         },
         "baseline": {
-          "brier": 0.58454,
-          "logloss": 0.9848
+          "brier": 0.59969,
+          "logloss": 1.00646
         },
-        "shadow_brier_delta_vs_baseline": -0.0049,
+        "shadow_brier_delta_vs_baseline": -0.00496,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -1069,17 +1162,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 9,
+        "n": 10,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.60135,
-          "logloss": 0.99628
+          "brier": 0.64282,
+          "logloss": 1.05256
         },
         "baseline": {
-          "brier": 0.60554,
-          "logloss": 1.0042
+          "brier": 0.64267,
+          "logloss": 1.05736
         },
-        "shadow_brier_delta_vs_baseline": -0.00419,
+        "shadow_brier_delta_vs_baseline": 0.00015,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -1337,17 +1430,17 @@
       ],
       "evaluation": {
         "status": "small_historical_score_backtest",
-        "n": 9,
+        "n": 10,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.67608,
-          "logloss": 1.12834
+          "brier": 0.65664,
+          "logloss": 1.09893
         },
         "baseline": {
-          "brier": 0.67495,
-          "logloss": 1.12079
+          "brier": 0.65296,
+          "logloss": 1.08845
         },
-        "shadow_brier_delta_vs_baseline": 0.00113,
+        "shadow_brier_delta_vs_baseline": 0.00368,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
@@ -1366,10 +1459,10 @@
             "away": 8
           },
           "probabilities": {
-            "home_win_90": 0.59064,
-            "draw_90": 0.1917,
-            "away_win_90": 0.21766,
-            "over_2_5": 0.75096
+            "home_win_90": 0.59061,
+            "draw_90": 0.19172,
+            "away_win_90": 0.21767,
+            "over_2_5": 0.75093
           },
           "expected_score": {
             "home": 2.507,
@@ -1397,9 +1490,9 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.32913,
+            "home_win_90": 0.32918,
             "draw_90": 0.26539,
-            "away_win_90": 0.40548,
+            "away_win_90": 0.40543,
             "over_2_5": 0.5308
           },
           "expected_score": {
@@ -1428,13 +1521,13 @@
             "away": 9
           },
           "probabilities": {
-            "home_win_90": 0.52868,
-            "draw_90": 0.18671,
-            "away_win_90": 0.2846,
-            "over_2_5": 0.84402
+            "home_win_90": 0.52866,
+            "draw_90": 0.18672,
+            "away_win_90": 0.28461,
+            "over_2_5": 0.84398
           },
           "expected_score": {
-            "home": 2.704,
+            "home": 2.703,
             "away": 1.96
           },
           "xg_used": false,
@@ -1459,9 +1552,9 @@
             "away": 8
           },
           "probabilities": {
-            "home_win_90": 0.39212,
+            "home_win_90": 0.39209,
             "draw_90": 0.26607,
-            "away_win_90": 0.34181,
+            "away_win_90": 0.34185,
             "over_2_5": 0.5327
           },
           "expected_score": {
@@ -1490,9 +1583,9 @@
             "away": 8
           },
           "probabilities": {
-            "home_win_90": 0.42657,
+            "home_win_90": 0.4266,
             "draw_90": 0.26127,
-            "away_win_90": 0.31216,
+            "away_win_90": 0.31213,
             "over_2_5": 0.54268
           },
           "expected_score": {
@@ -1521,9 +1614,9 @@
             "away": 8
           },
           "probabilities": {
-            "home_win_90": 0.31075,
+            "home_win_90": 0.31074,
             "draw_90": 0.2727,
-            "away_win_90": 0.41654,
+            "away_win_90": 0.41655,
             "over_2_5": 0.49283
           },
           "expected_score": {
@@ -1552,10 +1645,10 @@
             "away": 8
           },
           "probabilities": {
-            "home_win_90": 0.41051,
-            "draw_90": 0.23475,
-            "away_win_90": 0.35473,
-            "over_2_5": 0.67279
+            "home_win_90": 0.41048,
+            "draw_90": 0.23476,
+            "away_win_90": 0.35476,
+            "over_2_5": 0.67277
           },
           "expected_score": {
             "home": 1.802,
@@ -1583,10 +1676,10 @@
             "away": 8
           },
           "probabilities": {
-            "home_win_90": 0.36582,
-            "draw_90": 0.24361,
-            "away_win_90": 0.39057,
-            "over_2_5": 0.63314
+            "home_win_90": 0.36586,
+            "draw_90": 0.24362,
+            "away_win_90": 0.39052,
+            "over_2_5": 0.63313
           },
           "expected_score": {
             "home": 1.581,
@@ -1608,14 +1701,14 @@
         "n": 37,
         "licensed_features_used_in_backtest": 0,
         "shadow": {
-          "brier": 0.57828,
-          "logloss": 0.96633
+          "brier": 0.57826,
+          "logloss": 0.96627
         },
         "baseline": {
-          "brier": 0.57765,
-          "logloss": 0.96363
+          "brier": 0.57748,
+          "logloss": 0.96341
         },
-        "shadow_brier_delta_vs_baseline": 0.00063,
+        "shadow_brier_delta_vs_baseline": 0.00078,
         "interpretation": "Negative delta favors shadow, but this is NOT proof of value against bookmakers."
       }
     },
