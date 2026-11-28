@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-28T02:31:00.865787+00:00",
+  "generated_at_utc": "2026-11-28T05:31:39.700860+00:00",
   "mode": "SHADOW_NO_BET",
   "source": "ESPN archived scores",
   "leagues": {
@@ -508,20 +508,44 @@
             "margin_probability": 0.3822,
             "last_games_form": 5
           }
+        },
+        {
+          "event_id": "401910067",
+          "league": "NBA",
+          "home": "Kings",
+          "away": "Pelicans",
+          "start_utc": "2026-12-01T03:00:00+00:00",
+          "status": "shadow_non_calibre",
+          "model": "elo_recent_margin_shadow_v1",
+          "training_games": {
+            "home": 15,
+            "away": 16
+          },
+          "probabilities": {
+            "home_win": 0.51713,
+            "away_win": 0.48287
+          },
+          "odds": null,
+          "expected_margin_home": -0.275,
+          "components": {
+            "elo_probability": 0.5326,
+            "margin_probability": 0.4909,
+            "last_games_form": 5
+          }
         }
       ],
       "evaluation": {
-        "n": 109,
+        "n": 120,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.22447,
-          "logloss_binary": 0.64077
+          "brier_binary": 0.2249,
+          "logloss_binary": 0.64158
         },
         "baseline": {
-          "brier_binary": 0.22278,
-          "logloss_binary": 0.6368
+          "brier_binary": 0.22339,
+          "logloss_binary": 0.63793
         },
-        "brier_delta_candidate_minus_baseline": 0.00169,
+        "brier_delta_candidate_minus_baseline": 0.00151,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
@@ -534,36 +558,6 @@
     },
     "NCAAB": {
       "games": [
-        {
-          "event_id": "401920544",
-          "league": "NCAAB",
-          "home": "Gonzaga",
-          "away": "Creighton",
-          "start_utc": "2026-11-28T04:00:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 6,
-            "away": 0
-          },
-          "probabilities": null,
-          "odds": null
-        },
-        {
-          "event_id": "401920535",
-          "league": "NCAAB",
-          "home": "Texas Tech",
-          "away": "San Diego St",
-          "start_utc": "2026-11-28T04:30:00+00:00",
-          "status": "insufficient_history",
-          "model": "elo_recent_margin_shadow_v1",
-          "training_games": {
-            "home": 7,
-            "away": 0
-          },
-          "probabilities": null,
-          "odds": null
-        },
         {
           "event_id": "401918961",
           "league": "NCAAB",
@@ -1692,13 +1686,13 @@
         {
           "event_id": "401920536",
           "league": "NCAAB",
-          "home": "TBD",
+          "home": "Louisville",
           "away": "TBD",
           "start_utc": "2026-11-29T03:30:00+00:00",
           "status": "insufficient_history",
           "model": "elo_recent_margin_shadow_v1",
           "training_games": {
-            "home": 0,
+            "home": 6,
             "away": 0
           },
           "probabilities": null,
@@ -1751,17 +1745,17 @@
         }
       ],
       "evaluation": {
-        "n": 5,
+        "n": 7,
         "status": "small_walk_forward_scores_only",
         "candidate": {
-          "brier_binary": 0.28226,
-          "logloss_binary": 0.75842
+          "brier_binary": 0.27298,
+          "logloss_binary": 0.73966
         },
         "baseline": {
-          "brier_binary": 0.30001,
-          "logloss_binary": 0.79422
+          "brier_binary": 0.29309,
+          "logloss_binary": 0.78027
         },
-        "brier_delta_candidate_minus_baseline": -0.01775,
+        "brier_delta_candidate_minus_baseline": -0.02011,
         "note": "No historical sportsbook odds; not a profit claim."
       }
     },
